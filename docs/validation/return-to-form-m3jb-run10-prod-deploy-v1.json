@@ -1,0 +1,57 @@
+{
+  "schema_version": "return-to-form-m3jb-run10-prod-deploy/v1",
+  "status": "deployed_as_fail_closed_practice_feedback_demo_no_cv_claim",
+  "session": "963",
+  "date": "2026-06-10",
+  "human_directive": "kelly authorized deploy and delegated the deploy-option choice to the assistant; chose to keep the model card fail-closed (no promotion).",
+  "decision": {
+    "deploy_option_chosen": "labeled research/practice demo",
+    "rationale": "run10 independently verified accurate (trust audit + near-live held-out eval); browser-legal all-scratch pipeline; AC-derived-weight exposure is pre-existing on this prod (the RTMPose recognizer already public); model card stays accurately fail-closed; reversible.",
+    "promotion": "NOT promoted. active_cv_claim remains null per locked M3DI/M3DJ non-recognition-MVP decision and audit_final_claim_matrix.mjs hard block. model-card.json untouched (asl-pilot-rawframe-v0 / not_trained).",
+    "honesty_disclaimer_added": "web/src/components/SignPracticeApp.tsx now labels the verdict as 'practice feedback to help you self-check — not a validated grade or an official assessment' (commit 5ff63c5a)."
+  },
+  "deploy": {
+    "tool": "vercel --prod --yes (from asl-pilot-web, uploads local web-avatar tree)",
+    "web_commit_deployed": "5ff63c5a",
+    "production_url": "https://web-1wvo16gca-jakebuddy7s-projects.vercel.app",
+    "alias": "https://web-gilt-three-42.vercel.app",
+    "build_seconds": 51
+  },
+  "post_deploy_smoke": {
+    "recognizer_simccw48_onnx_http": 200,
+    "recognizer_simccw48_onnx_content_length_prod": 19987591,
+    "recognizer_simccw48_onnx_content_length_local": 19987591,
+    "byte_size_match": true,
+    "thresholds_sidecar_http": 200,
+    "thresholds_sidecar_model": "recognizer-simccw48.onnx",
+    "thresholds_word_count": 95,
+    "practice_page_http": 200,
+    "model_card_model_id": "asl-pilot-rawframe-v0",
+    "model_card_status": "not_trained",
+    "model_card_still_fail_closed": true
+  },
+  "verified_accuracy_basis": {
+    "self_test_recall_at_far10": 0.9209,
+    "honest_monitor_fit_operating_point": "recall 0.9087 @ FAR 0.088",
+    "near_live_independent_signers_true_accept": "33/40 (82.5%)",
+    "near_live_top1": "23/40",
+    "near_live_wrong_prompt_accept": 0.061,
+    "trust_audit_receipt": "docs/validation/return-to-form-m3jb-run10-trust-audit-v1.json",
+    "near_live_receipt": "docs/validation/return-to-form-m3jb-run10-heldout-nearlive-eval-v1.json"
+  },
+  "open_rights_followup": {
+    "issue": "run10 + the SimCC student are AC-derived (training 57.5% ASL Citizen); public weights carry Microsoft's noncommercial-redistribution constraint.",
+    "clean_path": "a PopSign-only student + PopSign-only recognizer retrain keeps all 95 classes (uniform 25 PopSign clips/class) and removes the AC dependency entirely, at a moderate accuracy cost; swap-in is a one-line RECOGNIZER_URL change.",
+    "status": "documented follow-up; not done tonight"
+  },
+  "boundaries": {
+    "browser_promotion": false,
+    "active_cv_claim_changed": false,
+    "model_card_changed": false,
+    "pretrained_runtime_dependency_added": false,
+    "raw_learner_video_upload": false,
+    "final_gate_changed": false,
+    "push_to_git_remote": false
+  },
+  "anchors": ["ARCHITECTURE.md#arch-no-pretrained", "ARCHITECTURE.md#arch-camera-privacy", "ARCHITECTURE.md#arch-gpu-execution"]
+}

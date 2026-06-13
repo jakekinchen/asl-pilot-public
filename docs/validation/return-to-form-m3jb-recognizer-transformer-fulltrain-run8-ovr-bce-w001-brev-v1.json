@@ -1,0 +1,339 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-fulltrain-run8-ovr-bce-w001-brev/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_run8_ovr_bce_w001_fulltrain_brev_ok",
+  "recorded_at_utc": "2026-06-04T08:41:17Z",
+  "head_before_slice": "1358913b record(m3jb): block run8 ovr bce brev preflight",
+  "status": "completed_rejected_fail_closed_below_gate_regressed_vs_running_best",
+  "inputs": {
+    "preflight_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run8-ovr-bce-w001-preflight-v1.json",
+    "accepted_local_dryrun_receipt": "docs/validation/m3jb-recognizer-run8-ovr-bce-w001-preflight-dryrun-v1.json",
+    "previous_preflight_blocker_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run8-ovr-bce-w001-brev-preflight-blocker-v1.json",
+    "preflight_side_commit_short": "bfd1e783",
+    "running_best_test_verification_recall_far10": 0.8038559556786704,
+    "running_best_run": "run6",
+    "gate_test_verification_recall_far10": 0.85
+  },
+  "approval": {
+    "source": "GOAL.md and active prompt",
+    "recorded_in_goal_and_active_prompt": true,
+    "recognizer_campaign_approval_text": "we have infinite Brev compute, don't artificially handicap yourself if more compute would help",
+    "bounded_to_run8_preflight_receipt_envelope": true,
+    "max_outer_runtime_seconds": 21600,
+    "max_remote_runtime_seconds": 20000,
+    "infrastructure_create_delete_reset_repair_approved": false
+  },
+  "worker": {
+    "name": "asl-pilot-m3eh-l40s-001",
+    "id": "3d58wpy9o",
+    "instance_type": "l40s-48gb.1x",
+    "gpu": "L40S",
+    "initial_read_only_brev_ls": {
+      "command": "timeout 300 brev ls --json",
+      "retained": {
+        "status": "RUNNING",
+        "shell_status": "READY",
+        "health_status": "HEALTHY"
+      },
+      "other_l40s": {
+        "name": "asl-pilot-m3jb-pairrank-l40s-001",
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY"
+      }
+    }
+  },
+  "remote_preflight": {
+    "ssh_probe_passed_attempt": 1,
+    "cuda_available": true,
+    "torch_version": "2.12.0+cu126",
+    "gpu_name": "NVIDIA L40S",
+    "conflicting_training_process_found": false,
+    "observed_non_training_processes": [
+      "jupyter-lab",
+      "networkd-dispatcher"
+    ]
+  },
+  "sync": {
+    "remote_sync_attempted": false,
+    "remote_hash_verification_attempted": true,
+    "reason_no_copy_needed": "All scoped recognizer code, model inputs, T32 student cache rows, and teacher cache rows already matched local hashes from side commit bfd1e783.",
+    "local_hashes": {
+      "train_recognizer_distill.py": "62a1c272497b581341852afc7dbbeb26b67fc8885d9d36ba27c543ea957ae8f4",
+      "test_recognizer_distill_diagnostics.py": "73bd4f8a63a8428d471af12081887801b612feceb3e33816629ad1c09249535f",
+      "seq_transformer.py": "040a3f7546af1ddc20f145c76cdec54853f12922eb315bd27c11f55aac4387c1",
+      "verification.py": "f66bae99a461d866f2127ad2a118f92ee2a1d7c7feb08ca58562ce59b087be9c",
+      "test_verification.py": "600648965e8d33a6250265ce781712d583d6af2b1258af569f99c329684a99bc",
+      "output/recognizer-v1.pt": "68e3292ea76b6bd3f5d39ea1d706d6a64defc9f5351ae18a94b9ad58757b389a",
+      "output/recognizer-distill.json": "71f53d59c574e99e2b213afbbce62ff9c2da42187690d76969c1b8c41f7af5ca",
+      "output/recognizer-distill.pt": "ef32effd6d11abf80304e0ccbc3526560f2437a8cba7e071b3bf2912213a08a0",
+      ".cache/recog-seq-w64-t32-merged-v1/rows.json": "4dc3f61018a0faf7dccdc7f3653075650683b741bf7d6f7ebde2be878dd9eb9f",
+      ".cache/handcrop-lm2/rows.json": "7f5a94acf79f5ba97acaf1bf7a9be5f797496e979ba22f9a5a990ba84f18cc52"
+    },
+    "remote_hashes_match_local": true
+  },
+  "remote_dry_run": {
+    "command": "train_recognizer_distill.py --student-arch transformer --seq-len 32 --device cuda --epochs 240 --batch 128 --lr 5e-4 --lr-scheduler cosine --warmup-steps 500 --min-lr 5e-5 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --supcon-weight 0.0 --supcon-temperature 0.10 --ovr-bce-weight 0.01 --ovr-bce-hard-k 8 --ovr-bce-negative-source batch-labels --ovr-bce-include-positive --seed 1337 --diagnostics --eval-verification --eval-verification-every 1 --checkpoint-metric monitor_verification_recall_far10 --save-best-checkpoint --dry-run-forward --no-save-model",
+    "receipt_remote_path": "tools/detector0-annotator/output/m3jb-recognizer-transformer-run8-ovr-bce-w001-pretrain-dryrun-v1.json",
+    "receipt_local_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run8-ovr-bce-w001-pretrain-dryrun-v1.json",
+    "receipt_sha256": "086211bc501843d9f0520faa3c766acca47de0e1c9c0b7878ce0df8222a6f66f",
+    "student_cache_clips": 10335,
+    "train_clips": 7011,
+    "monitor_clips": 955,
+    "test_clips": 2369,
+    "classes": 95,
+    "sequence_length": 32,
+    "feature_dim": 90,
+    "logits_shape": [
+      128,
+      95
+    ],
+    "loss": 7.86091,
+    "base_loss": 7.84522,
+    "ovr_bce": {
+      "enabled": true,
+      "weight": 0.01,
+      "hard_k": 8,
+      "negative_source": "batch-labels",
+      "include_positive": true,
+      "selected_negative_count": 1024,
+      "selected_negative_matches_true_label": 0,
+      "uses_test_mined_pairs_for_training": false,
+      "loss": 1.569021,
+      "weighted_loss": 0.01569
+    },
+    "optimizer_steps": 0,
+    "expected_optimizer_steps": 0,
+    "planned_optimizer_steps": 13200,
+    "weights": null,
+    "checkpoint_written": false
+  },
+  "run": {
+    "command": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && mkdir -p tools/detector0-annotator/output && timeout 20000 bash -lc 'set -o pipefail; env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_recognizer_distill.py --student-data tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1 --teacher-data tools/detector0-annotator/.cache/handcrop-lm2 --teacher-checkpoint tools/detector0-annotator/output/recognizer-v1.pt --student-arch transformer --seq-len 32 --device cuda --epochs 240 --batch 128 --lr 5e-4 --lr-scheduler cosine --warmup-steps 500 --min-lr 5e-5 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --supcon-weight 0.0 --supcon-temperature 0.10 --ovr-bce-weight 0.01 --ovr-bce-hard-k 8 --ovr-bce-negative-source batch-labels --ovr-bce-include-positive --seed 1337 --diagnostics --eval-verification --eval-verification-every 1 --checkpoint-metric monitor_verification_recall_far10 --save-best-checkpoint --out tools/detector0-annotator/output/m3jb-recognizer-transformer-run8-ovr-bce-w001-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-ovrbce001-brev-v1.json 2>&1 | tee tools/detector0-annotator/output/m3jb-recognizer-transformer-run8-ovr-bce-w001-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-ovrbce001-brev-v1.log'\"",
+    "full_data_no_limit_flags": true,
+    "training_launched": true,
+    "checkpoint_written": true,
+    "student_cache": {
+      "data_dir": "tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1",
+      "clips": 10335,
+      "classes": 95,
+      "sequence_length": 32,
+      "tensor_sequence_length": 32,
+      "feature_dim": 90,
+      "length_min": 15,
+      "length_max": 32,
+      "split_counts": {
+        "test": 2369,
+        "train": 5591,
+        "validation": 2375
+      }
+    },
+    "train_clips": 7011,
+    "monitor_clips": 955,
+    "test_clips": 2369,
+    "classes": 95,
+    "epochs": 240,
+    "batch": 128,
+    "d_model": 256,
+    "n_layers": 6,
+    "n_heads": 8,
+    "dropout": 0.0,
+    "alpha": 0.55,
+    "temperature": 3.0,
+    "jitter_std": 0.02,
+    "frame_drop": 0.1,
+    "supcon": {
+      "weight": 0.0,
+      "temperature": 0.1,
+      "enabled": false
+    },
+    "ovr_bce": {
+      "weight": 0.01,
+      "hard_k": 8,
+      "negative_source": "batch-labels",
+      "include_positive": true,
+      "uses_test_mined_pairs_for_training": false,
+      "final_epoch_selected_negative_matches_true_label": 0
+    },
+    "lr_scheduler": {
+      "name": "cosine",
+      "base_lr": 0.0005,
+      "warmup_steps": 500,
+      "min_lr": 0.00005
+    },
+    "eval_verification": true,
+    "eval_verification_every": 1,
+    "checkpoint_selection": {
+      "metric_name": "monitor_verification_recall_far10",
+      "save_best_checkpoint": true,
+      "eval_verification": true,
+      "eval_verification_every": 1,
+      "best_epoch": 83,
+      "best_score": 0.8252875272322179,
+      "checkpoint_written": true
+    },
+    "steps_per_epoch": 55,
+    "optimizer_steps": 13200,
+    "expected_optimizer_steps": 13200,
+    "planned_optimizer_steps": 13200,
+    "history_len": 240,
+    "best_monitor_epoch": 83,
+    "best_monitor_verification_recall_far10": 0.8253,
+    "final_epoch_monitor_verification_recall_far10": 0.81,
+    "test_top1": 0.3081,
+    "test_top5": 0.6079,
+    "verification_recall_at_far10": 0.7571,
+    "verification_classes_evaluable": 95,
+    "top_failure_words": [
+      {
+        "label": "give",
+        "recall_at_far10": 0.36
+      },
+      {
+        "label": "airplane",
+        "recall_at_far10": 0.4
+      },
+      {
+        "label": "child",
+        "recall_at_far10": 0.44
+      },
+      {
+        "label": "look",
+        "recall_at_far10": 0.44
+      },
+      {
+        "label": "night",
+        "recall_at_far10": 0.48
+      }
+    ]
+  },
+  "comparison": {
+    "gate_verification_recall_at_far10": 0.85,
+    "run6_test_verification_recall_at_far10": 0.8038559556786704,
+    "run7_test_verification_recall_at_far10": 0.7759113573407201,
+    "run8_test_verification_recall_at_far10": 0.7571,
+    "delta_run8_minus_run6": -0.0467559556786704,
+    "delta_run8_minus_run7": -0.0188113573407201,
+    "run8_beats_running_best_primary_recall": false,
+    "gate_cleared": false,
+    "fail_closed_reason": "Run8 completed the bounded OVR-BCE weight 0.01 fulltrain but regressed below run6 and remains below the >=0.85 MVP verification gate."
+  },
+  "artifacts": {
+    "remote_paths": {
+      "json": "tools/detector0-annotator/output/m3jb-recognizer-transformer-run8-ovr-bce-w001-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-ovrbce001-brev-v1.json",
+      "checkpoint": "tools/detector0-annotator/output/m3jb-recognizer-transformer-run8-ovr-bce-w001-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-ovrbce001-brev-v1.pt",
+      "log": "tools/detector0-annotator/output/m3jb-recognizer-transformer-run8-ovr-bce-w001-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-ovrbce001-brev-v1.log",
+      "pretrain_dryrun": "tools/detector0-annotator/output/m3jb-recognizer-transformer-run8-ovr-bce-w001-pretrain-dryrun-v1.json"
+    },
+    "local_paths": {
+      "json": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run8-ovr-bce-w001-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-ovrbce001-brev-v1.json",
+      "checkpoint": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run8-ovr-bce-w001-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-ovrbce001-brev-v1.pt",
+      "log": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run8-ovr-bce-w001-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-ovrbce001-brev-v1.log",
+      "pretrain_dryrun": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run8-ovr-bce-w001-pretrain-dryrun-v1.json"
+    },
+    "copyback_method": "scp_direct_ssh_after_brev_copy_auth_failure",
+    "sha256": {
+      "json": "8f764717ffa55ed700483dec37ded11c5839b38fa85802d077c0e9a15e63ebeb",
+      "checkpoint": "0dbc02706dc5615c41edac1d1d128ded50910876b0201f930f59893a5118c5a2",
+      "log": "aa563bc176ac18d336b1ba5a619041300e298a30458e14ac0e58eb2eb3ea464a",
+      "pretrain_dryrun": "086211bc501843d9f0520faa3c766acca47de0e1c9c0b7878ce0df8222a6f66f"
+    },
+    "copyback_verified_by_hash": true,
+    "ignored_in_side_worktree": true
+  },
+  "teardown": {
+    "remote_process_check_before_stop": {
+      "conflicting_training_process_found": false,
+      "observed_non_training_processes": [
+        "jupyter-lab",
+        "networkd-dispatcher"
+      ]
+    },
+    "brev_api_auth_available_for_copy": false,
+    "brev_copy_failure": "error parsing token JSON response: invalid character '<' looking for beginning of value; then CLI prompted for login and hit EOF",
+    "brev_api_auth_available_for_stop": false,
+    "stop_by_name": {
+      "command": "timeout 300 brev stop asl-pilot-m3eh-l40s-001",
+      "exit_code": 1,
+      "reason": "Brev CLI logged out/auth refresh failed and prompted for login; noninteractive EOF"
+    },
+    "stop_by_id": {
+      "command": "timeout 300 brev stop 3d58wpy9o",
+      "exit_code": 1,
+      "reason": "Brev CLI logged out/auth refresh failed and prompted for login; noninteractive EOF"
+    },
+    "stop_all": {
+      "command": "timeout 300 brev stop --all",
+      "exit_code": 1,
+      "reason": "Brev CLI logged out/auth refresh failed and prompted for login; noninteractive EOF"
+    },
+    "ssh_shutdown": {
+      "command": "ssh -o BatchMode=yes asl-pilot-m3eh-l40s-001 \"sudo shutdown -h now\"",
+      "sent": true,
+      "exit_code": 255,
+      "interpretation": "SSH connection closed while shutdown was issued."
+    },
+    "post_shutdown_ssh_probe": {
+      "command": "sleep 20 && ssh -o BatchMode=yes -o ConnectTimeout=20 asl-pilot-m3eh-l40s-001 \"true\"",
+      "reachable": false,
+      "exit_code": 255,
+      "evidence": "ssh: connect to host 204.52.29.92 port 22: Operation timed out"
+    },
+    "final_brev_ls": {
+      "available": false,
+      "reason": "Brev CLI auth remained unavailable after copyback and stop attempts, so final workspace status could not be verified through brev ls in this slice."
+    }
+  },
+  "runtime_boundary": {
+    "brev_used": true,
+    "brev_lifecycle_or_exec": true,
+    "remote_mutation": true,
+    "training_run": true,
+    "optimizer_or_backward_step": true,
+    "checkpoint_written": true,
+    "artifacts_copied_back": true,
+    "copyback_verified_by_hash": true,
+    "worker_shutdown_command_sent": true,
+    "worker_ssh_reachable_after_shutdown": false,
+    "worker_final_brev_status_verified": false,
+    "browser_artifact_promoted": false,
+    "runtime_export": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "push": false,
+    "infrastructure_create_delete_reset_repair": false
+  },
+  "validation": [
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "remote CUDA dry-run forward",
+      "status": "passed",
+      "summary": "full T=32 cache loaded, logits [128,95], OVR-BCE selected zero true-label negatives, optimizer steps 0, weights null"
+    },
+    {
+      "command": "remote fulltrain run8",
+      "status": "passed",
+      "summary": "240 epochs, 13200 expected/actual optimizer steps, test recall@FAR10 0.7571"
+    },
+    {
+      "command": "scp artifact copyback plus shasum -a 256",
+      "status": "passed",
+      "summary": "JSON/PT/log/dry-run hashes matched remote hashes"
+    },
+    {
+      "command": "ssh post-shutdown probe",
+      "status": "passed_with_caveat",
+      "summary": "SSH timed out after OS shutdown; Brev API auth prevented final brev ls verification"
+    }
+  ],
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_run8_ovr_bce_w001_research_guided_tuning_no_brev",
+    "reason": "Run8 regressed versus run6 and remained below the 0.85 gate, so do a no-Brev research/postmortem pass before any further paid recognizer run. Brev CLI auth must also be recovered before future lifecycle commands can verify final workspace state."
+  }
+}

@@ -1,0 +1,1198 @@
+{
+  "active_prompt": "docs/model/return-to-form-popsign-fresh5-training-distribution-sampler-packet-goal-loop-prompt.md",
+  "code_path_review": {
+    "evaluation_code_path": {
+      "confusion_labels": "labels_by_index is sorted by checkpoint index",
+      "label_to_index": "checkpoint label_to_index is loaded, checked as the same set as manifest labels, and reused by RawFrameClipDataset",
+      "loader": "shuffle=False for validation/test evaluation"
+    },
+    "training_code_path": {
+      "batch_cap": "iterate_batches stops only when batch_index > max_batches, so max_batches=32 includes batches 1..32",
+      "drop_last": "not passed; PyTorch DataLoader default is drop_last=False",
+      "label_to_index": "label_ids = sorted(manifests[0]['label_ids']); enumerate(label_ids)",
+      "train_loader": "torch.utils.data.DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)",
+      "validation_loader": "torch.utils.data.DataLoader(validation_dataset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)"
+    }
+  },
+  "current_output_artifact_consistency": {
+    "current_output_test_prediction_distribution": {
+      "examples": 125,
+      "labels": [
+        "home",
+        "morning",
+        "pen",
+        "thank_you",
+        "who"
+      ],
+      "macro_f1": 0.06666666666666668,
+      "per_class": {
+        "home": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25
+        },
+        "morning": {
+          "f1": 0.33333333333333337,
+          "precision": 0.2,
+          "recall": 1.0,
+          "support": 25
+        },
+        "pen": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25
+        },
+        "thank_you": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25
+        },
+        "who": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25
+        }
+      },
+      "predicted_counts": {
+        "home": 0,
+        "morning": 125,
+        "pen": 0,
+        "thank_you": 0,
+        "who": 0
+      },
+      "predicted_single_class": "morning",
+      "top1_accuracy": 0.2,
+      "true_support": {
+        "home": 25,
+        "morning": 25,
+        "pen": 25,
+        "thank_you": 25,
+        "who": 25
+      }
+    },
+    "current_output_training_hyperparameters": {
+      "architecture": "scratch_region_temporal_late_fusion_tcn_contract_v1",
+      "batch_size": 4,
+      "checkpoint_selection": "final",
+      "epochs": 5,
+      "frame_count": 16,
+      "image_size": 96,
+      "label_smoothing": 0.0,
+      "learning_rate": 0.001,
+      "max_train_batches": 32,
+      "max_validation_batches": 32,
+      "num_workers": 0,
+      "optimizer": "adamw",
+      "preserve_region_axis": true,
+      "training_augmentation": "none",
+      "weight_decay": 0.0
+    },
+    "interpretation": "The current ignored output artifacts are useful for train/eval distribution checks, but their checkpoint-selection and predicted-single-class details do not fully match the M3CJ lr001 receipt row. This is a reporting/provenance caveat, not evidence of pen overexposure.",
+    "m3cj_current_training_provenance_hash_match": true,
+    "m3cj_current_validation_report_hash_match": true,
+    "m3cj_train_all_lr001_recorded_evaluation": {
+      "predicted_single_class": "pen",
+      "test_macro_f1": 0.06666666666666668,
+      "test_top1_accuracy": 0.2
+    },
+    "provenance_caveats": [
+      "m3cj_lr001_checkpoint_selection_differs_from_current_output_provenance",
+      "m3cj_lr001_predicted_single_class_differs_from_current_validation_report"
+    ]
+  },
+  "decision": {
+    "bounded_local_train_all_justified_now": false,
+    "brev_compute_or_planning_justified_now": false,
+    "exactly_one_next_action": "continue_no_training_optimizer_loss_or_regularization_packet_after_sampler_packet",
+    "human_training_scope_budget_or_code_path_review_required_now": false,
+    "next_action_rationale": "Sampler/distribution evidence is clean: every label has 25 examples per split, training sees all 125 clips each epoch, class-index and evaluator target mappings are consistent, and pen is not overexposed. Because train-all has already failed under the current optimizer/loss settings, another blind train-all is still unjustified; the next bounded no-training packet should inspect optimizer, loss, normalization, regularization, and the recorded provenance caveat before fitting.",
+    "optimizer_loss_or_regularization_packet_justified_now": true,
+    "pen_collapse_explained_by_distribution_or_sampler": false,
+    "receipt_complete": true,
+    "visible_distribution_sampler_blockers": [],
+    "visible_reporting_or_provenance_caveats": [
+      "m3cj_lr001_checkpoint_selection_differs_from_current_output_provenance",
+      "m3cj_lr001_predicted_single_class_differs_from_current_validation_report"
+    ]
+  },
+  "distribution_sampler_review": {
+    "batch_accounting": {
+      "evaluation_test": {
+        "batch_size": 4,
+        "clip_count": 125,
+        "drop_last": false,
+        "epochs": 1,
+        "examples_per_epoch": 125,
+        "examples_total": 125,
+        "full_epoch_batches": 32,
+        "last_batch_size": 1,
+        "max_batches": null,
+        "max_batches_covers_full_split": true,
+        "phase": "evaluation_test",
+        "sampler_inference": "ordered sequential evaluation; order affects only reporting order, not target mapping",
+        "shuffle": false,
+        "split": "test"
+      },
+      "evaluation_validation": {
+        "batch_size": 4,
+        "clip_count": 125,
+        "drop_last": false,
+        "epochs": 1,
+        "examples_per_epoch": 125,
+        "examples_total": 125,
+        "full_epoch_batches": 32,
+        "last_batch_size": 1,
+        "max_batches": null,
+        "max_batches_covers_full_split": true,
+        "phase": "evaluation_validation",
+        "sampler_inference": "ordered sequential evaluation; order affects only reporting order, not target mapping",
+        "shuffle": false,
+        "split": "validation"
+      },
+      "history_examples_by_epoch": [
+        {
+          "epoch": 1,
+          "train_batches": 32.0,
+          "train_examples": 125.0,
+          "validation_batches": 32.0,
+          "validation_examples": 125.0
+        },
+        {
+          "epoch": 2,
+          "train_batches": 32.0,
+          "train_examples": 125.0,
+          "validation_batches": 32.0,
+          "validation_examples": 125.0
+        },
+        {
+          "epoch": 3,
+          "train_batches": 32.0,
+          "train_examples": 125.0,
+          "validation_batches": 32.0,
+          "validation_examples": 125.0
+        },
+        {
+          "epoch": 4,
+          "train_batches": 32.0,
+          "train_examples": 125.0,
+          "validation_batches": 32.0,
+          "validation_examples": 125.0
+        },
+        {
+          "epoch": 5,
+          "train_batches": 32.0,
+          "train_examples": 125.0,
+          "validation_batches": 32.0,
+          "validation_examples": 125.0
+        }
+      ],
+      "train": {
+        "batch_size": 4,
+        "clip_count": 125,
+        "drop_last": false,
+        "epochs": 5,
+        "examples_per_epoch": 125,
+        "examples_total": 625,
+        "full_epoch_batches": 32,
+        "last_batch_size": 1,
+        "max_batches": 32,
+        "max_batches_covers_full_split": true,
+        "phase": "training",
+        "sampler_inference": "training DataLoader uses shuffle=True, which means random sampling without replacement for a full epoch; validation/evaluation loaders use shuffle=False.",
+        "shuffle": true,
+        "split": "train"
+      },
+      "validation_during_training": {
+        "batch_size": 4,
+        "clip_count": 125,
+        "drop_last": false,
+        "epochs": 5,
+        "examples_per_epoch": 125,
+        "examples_total": 625,
+        "full_epoch_batches": 32,
+        "last_batch_size": 1,
+        "max_batches": 32,
+        "max_batches_covers_full_split": true,
+        "phase": "validation_during_training",
+        "sampler_inference": "ordered sequential evaluation; order affects only reporting order, not target mapping",
+        "shuffle": false,
+        "split": "validation"
+      }
+    },
+    "class_index_mapping": {
+      "manifest_label_order": [
+        "thank_you",
+        "pen",
+        "home",
+        "who",
+        "morning"
+      ],
+      "mapping_consistent": true,
+      "mapping_source": "scripts/train_rawframe_model.py sorts manifest label ids before label_to_index",
+      "training_and_evaluation_label_to_index": {
+        "home": 0,
+        "morning": 1,
+        "pen": 2,
+        "thank_you": 3,
+        "who": 4
+      },
+      "training_provenance_label_to_index": {
+        "home": 0,
+        "morning": 1,
+        "pen": 2,
+        "thank_you": 3,
+        "who": 4
+      }
+    },
+    "cross_split_overlap": {
+      "train_vs_test": {
+        "shared_clip_id_count": 0,
+        "shared_signer_identity_hash_count": 0,
+        "shared_source_record_id_count": 0,
+        "shared_tensor_hash_count": 0,
+        "shared_tensor_path_count": 0
+      },
+      "train_vs_validation": {
+        "shared_clip_id_count": 0,
+        "shared_signer_identity_hash_count": 0,
+        "shared_source_record_id_count": 0,
+        "shared_tensor_hash_count": 0,
+        "shared_tensor_path_count": 0
+      },
+      "validation_vs_test": {
+        "shared_clip_id_count": 0,
+        "shared_signer_identity_hash_count": 0,
+        "shared_source_record_id_count": 0,
+        "shared_tensor_hash_count": 0,
+        "shared_tensor_path_count": 0
+      }
+    },
+    "evaluation_distribution": {
+      "test": {
+        "examples": 125,
+        "labels": [
+          "home",
+          "morning",
+          "pen",
+          "thank_you",
+          "who"
+        ],
+        "macro_f1": 0.06666666666666668,
+        "per_class": {
+          "home": {
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "support": 25
+          },
+          "morning": {
+            "f1": 0.33333333333333337,
+            "precision": 0.2,
+            "recall": 1.0,
+            "support": 25
+          },
+          "pen": {
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "support": 25
+          },
+          "thank_you": {
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "support": 25
+          },
+          "who": {
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "support": 25
+          }
+        },
+        "predicted_counts": {
+          "home": 0,
+          "morning": 125,
+          "pen": 0,
+          "thank_you": 0,
+          "who": 0
+        },
+        "predicted_single_class": "morning",
+        "top1_accuracy": 0.2,
+        "true_support": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        }
+      },
+      "validation": {
+        "examples": 125,
+        "labels": [
+          "home",
+          "morning",
+          "pen",
+          "thank_you",
+          "who"
+        ],
+        "macro_f1": 0.06666666666666668,
+        "per_class": {
+          "home": {
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "support": 25
+          },
+          "morning": {
+            "f1": 0.33333333333333337,
+            "precision": 0.2,
+            "recall": 1.0,
+            "support": 25
+          },
+          "pen": {
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "support": 25
+          },
+          "thank_you": {
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "support": 25
+          },
+          "who": {
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "support": 25
+          }
+        },
+        "predicted_counts": {
+          "home": 0,
+          "morning": 125,
+          "pen": 0,
+          "thank_you": 0,
+          "who": 0
+        },
+        "predicted_single_class": "morning",
+        "top1_accuracy": 0.2,
+        "true_support": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        }
+      }
+    },
+    "manifest_distribution": {
+      "test": {
+        "clip_count": 125,
+        "label_counts": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "label_order": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "label_order_matches_popsign_contract": true,
+        "label_rows": [
+          {
+            "class_index": 0,
+            "clip_count": 25,
+            "label_id": "home",
+            "manifest_contiguous_block": true,
+            "manifest_index_max": 74,
+            "manifest_index_min": 50,
+            "signer_identity_count": 7,
+            "source_split_counts": {
+              "test": 25
+            },
+            "top_signer_fraction": 0.2
+          },
+          {
+            "class_index": 1,
+            "clip_count": 25,
+            "label_id": "morning",
+            "manifest_contiguous_block": true,
+            "manifest_index_max": 124,
+            "manifest_index_min": 100,
+            "signer_identity_count": 8,
+            "source_split_counts": {
+              "test": 25
+            },
+            "top_signer_fraction": 0.2
+          },
+          {
+            "class_index": 2,
+            "clip_count": 25,
+            "label_id": "pen",
+            "manifest_contiguous_block": true,
+            "manifest_index_max": 49,
+            "manifest_index_min": 25,
+            "signer_identity_count": 8,
+            "source_split_counts": {
+              "test": 25
+            },
+            "top_signer_fraction": 0.24
+          },
+          {
+            "class_index": 3,
+            "clip_count": 25,
+            "label_id": "thank_you",
+            "manifest_contiguous_block": true,
+            "manifest_index_max": 24,
+            "manifest_index_min": 0,
+            "signer_identity_count": 8,
+            "source_split_counts": {
+              "test": 25
+            },
+            "top_signer_fraction": 0.24
+          },
+          {
+            "class_index": 4,
+            "clip_count": 25,
+            "label_id": "who",
+            "manifest_contiguous_block": true,
+            "manifest_index_max": 99,
+            "manifest_index_min": 75,
+            "signer_identity_count": 8,
+            "source_split_counts": {
+              "test": 25
+            },
+            "top_signer_fraction": 0.2
+          }
+        ],
+        "split": "test"
+      },
+      "train": {
+        "clip_count": 125,
+        "label_counts": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "label_order": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "label_order_matches_popsign_contract": true,
+        "label_rows": [
+          {
+            "class_index": 0,
+            "clip_count": 25,
+            "label_id": "home",
+            "manifest_contiguous_block": true,
+            "manifest_index_max": 74,
+            "manifest_index_min": 50,
+            "signer_identity_count": 18,
+            "source_split_counts": {
+              "train": 25
+            },
+            "top_signer_fraction": 0.16
+          },
+          {
+            "class_index": 1,
+            "clip_count": 25,
+            "label_id": "morning",
+            "manifest_contiguous_block": true,
+            "manifest_index_max": 124,
+            "manifest_index_min": 100,
+            "signer_identity_count": 15,
+            "source_split_counts": {
+              "train": 25
+            },
+            "top_signer_fraction": 0.12
+          },
+          {
+            "class_index": 2,
+            "clip_count": 25,
+            "label_id": "pen",
+            "manifest_contiguous_block": true,
+            "manifest_index_max": 49,
+            "manifest_index_min": 25,
+            "signer_identity_count": 14,
+            "source_split_counts": {
+              "train": 25
+            },
+            "top_signer_fraction": 0.2
+          },
+          {
+            "class_index": 3,
+            "clip_count": 25,
+            "label_id": "thank_you",
+            "manifest_contiguous_block": true,
+            "manifest_index_max": 24,
+            "manifest_index_min": 0,
+            "signer_identity_count": 18,
+            "source_split_counts": {
+              "train": 25
+            },
+            "top_signer_fraction": 0.12
+          },
+          {
+            "class_index": 4,
+            "clip_count": 25,
+            "label_id": "who",
+            "manifest_contiguous_block": true,
+            "manifest_index_max": 99,
+            "manifest_index_min": 75,
+            "signer_identity_count": 18,
+            "source_split_counts": {
+              "train": 25
+            },
+            "top_signer_fraction": 0.12
+          }
+        ],
+        "split": "train"
+      },
+      "validation": {
+        "clip_count": 125,
+        "label_counts": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "label_order": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "label_order_matches_popsign_contract": true,
+        "label_rows": [
+          {
+            "class_index": 0,
+            "clip_count": 25,
+            "label_id": "home",
+            "manifest_contiguous_block": true,
+            "manifest_index_max": 74,
+            "manifest_index_min": 50,
+            "signer_identity_count": 8,
+            "source_split_counts": {
+              "val": 25
+            },
+            "top_signer_fraction": 0.24
+          },
+          {
+            "class_index": 1,
+            "clip_count": 25,
+            "label_id": "morning",
+            "manifest_contiguous_block": true,
+            "manifest_index_max": 124,
+            "manifest_index_min": 100,
+            "signer_identity_count": 7,
+            "source_split_counts": {
+              "val": 25
+            },
+            "top_signer_fraction": 0.2
+          },
+          {
+            "class_index": 2,
+            "clip_count": 25,
+            "label_id": "pen",
+            "manifest_contiguous_block": true,
+            "manifest_index_max": 49,
+            "manifest_index_min": 25,
+            "signer_identity_count": 6,
+            "source_split_counts": {
+              "val": 25
+            },
+            "top_signer_fraction": 0.36
+          },
+          {
+            "class_index": 3,
+            "clip_count": 25,
+            "label_id": "thank_you",
+            "manifest_contiguous_block": true,
+            "manifest_index_max": 24,
+            "manifest_index_min": 0,
+            "signer_identity_count": 8,
+            "source_split_counts": {
+              "val": 25
+            },
+            "top_signer_fraction": 0.24
+          },
+          {
+            "class_index": 4,
+            "clip_count": 25,
+            "label_id": "who",
+            "manifest_contiguous_block": true,
+            "manifest_index_max": 99,
+            "manifest_index_min": 75,
+            "signer_identity_count": 8,
+            "source_split_counts": {
+              "val": 25
+            },
+            "top_signer_fraction": 0.2
+          }
+        ],
+        "split": "validation"
+      }
+    },
+    "pen_exposure_collapse_risk": {
+      "assessment": "Pen is second in manifest order but class index 2 in train/eval mapping; training shuffles and sees every clip each epoch. No exposure, sampler, batch-cap, class-order, or evaluator support path explains pen-specific collapse.",
+      "pen_class_index": 2,
+      "pen_manifest_order_range_train": [
+        25,
+        49
+      ],
+      "pen_overexposed_by_sampler_or_batch_cap": false,
+      "pen_underexposed_by_sampler_or_batch_cap": false
+    },
+    "per_label_distribution_and_sampler_rows": [
+      {
+        "assessment": "home has balanced train/validation/test support and the same full-epoch exposure as the other labels; no sampler or target-mapping blocker is visible.",
+        "class_index": 0,
+        "evaluation_target_distribution": {
+          "test_predicted_count": 0,
+          "test_support": 25,
+          "validation_predicted_count": 0,
+          "validation_support": 25
+        },
+        "label_id": "home",
+        "m3cj_train_all_lr003": {
+          "per_class_recall": 0.0,
+          "predicted_single_class": "pen"
+        },
+        "manifest_order": {
+          "class_blocked_in_manifests": true,
+          "test_index_range": [
+            50,
+            74
+          ],
+          "train_index_range": [
+            50,
+            74
+          ],
+          "validation_index_range": [
+            50,
+            74
+          ]
+        },
+        "priority": "normal",
+        "source_signer_distribution": {
+          "test_signer_identity_count": 7,
+          "test_top_signer_fraction": 0.2,
+          "train_signer_identity_count": 18,
+          "train_top_signer_fraction": 0.16,
+          "validation_signer_identity_count": 8,
+          "validation_top_signer_fraction": 0.24
+        },
+        "train_exposure": {
+          "clip_count": 25,
+          "examples_per_epoch": 25,
+          "examples_total_over_epochs": 125,
+          "overexposed_relative_to_other_labels": false,
+          "underexposed_relative_to_other_labels": false
+        },
+        "validation_during_training_exposure": {
+          "clip_count": 25,
+          "examples_per_epoch": 25,
+          "examples_total_over_epochs": 125
+        }
+      },
+      {
+        "assessment": "morning has balanced train/validation/test support and the same full-epoch exposure as the other labels; no sampler or target-mapping blocker is visible.",
+        "class_index": 1,
+        "evaluation_target_distribution": {
+          "test_predicted_count": 125,
+          "test_support": 25,
+          "validation_predicted_count": 125,
+          "validation_support": 25
+        },
+        "label_id": "morning",
+        "m3cj_train_all_lr003": {
+          "per_class_recall": 0.0,
+          "predicted_single_class": "pen"
+        },
+        "manifest_order": {
+          "class_blocked_in_manifests": true,
+          "test_index_range": [
+            100,
+            124
+          ],
+          "train_index_range": [
+            100,
+            124
+          ],
+          "validation_index_range": [
+            100,
+            124
+          ]
+        },
+        "priority": "normal",
+        "source_signer_distribution": {
+          "test_signer_identity_count": 8,
+          "test_top_signer_fraction": 0.2,
+          "train_signer_identity_count": 15,
+          "train_top_signer_fraction": 0.12,
+          "validation_signer_identity_count": 7,
+          "validation_top_signer_fraction": 0.2
+        },
+        "train_exposure": {
+          "clip_count": 25,
+          "examples_per_epoch": 25,
+          "examples_total_over_epochs": 125,
+          "overexposed_relative_to_other_labels": false,
+          "underexposed_relative_to_other_labels": false
+        },
+        "validation_during_training_exposure": {
+          "clip_count": 25,
+          "examples_per_epoch": 25,
+          "examples_total_over_epochs": 125
+        }
+      },
+      {
+        "assessment": "Pen has balanced train/validation/test support, the same full-epoch exposure as every other label, class index 2 in the train/eval mapping, and no sampler or batch-cap overexposure. The lr003 pen collapse is not explained by distribution or sampler evidence.",
+        "class_index": 2,
+        "evaluation_target_distribution": {
+          "test_predicted_count": 0,
+          "test_support": 25,
+          "validation_predicted_count": 0,
+          "validation_support": 25
+        },
+        "label_id": "pen",
+        "m3cj_train_all_lr003": {
+          "per_class_recall": 1.0,
+          "predicted_single_class": "pen"
+        },
+        "manifest_order": {
+          "class_blocked_in_manifests": true,
+          "test_index_range": [
+            25,
+            49
+          ],
+          "train_index_range": [
+            25,
+            49
+          ],
+          "validation_index_range": [
+            25,
+            49
+          ]
+        },
+        "priority": "highest",
+        "source_signer_distribution": {
+          "test_signer_identity_count": 8,
+          "test_top_signer_fraction": 0.24,
+          "train_signer_identity_count": 14,
+          "train_top_signer_fraction": 0.2,
+          "validation_signer_identity_count": 6,
+          "validation_top_signer_fraction": 0.36
+        },
+        "train_exposure": {
+          "clip_count": 25,
+          "examples_per_epoch": 25,
+          "examples_total_over_epochs": 125,
+          "overexposed_relative_to_other_labels": false,
+          "underexposed_relative_to_other_labels": false
+        },
+        "validation_during_training_exposure": {
+          "clip_count": 25,
+          "examples_per_epoch": 25,
+          "examples_total_over_epochs": 125
+        }
+      },
+      {
+        "assessment": "thank_you has balanced train/validation/test support and the same full-epoch exposure as the other labels; no sampler or target-mapping blocker is visible.",
+        "class_index": 3,
+        "evaluation_target_distribution": {
+          "test_predicted_count": 0,
+          "test_support": 25,
+          "validation_predicted_count": 0,
+          "validation_support": 25
+        },
+        "label_id": "thank_you",
+        "m3cj_train_all_lr003": {
+          "per_class_recall": 0.0,
+          "predicted_single_class": "pen"
+        },
+        "manifest_order": {
+          "class_blocked_in_manifests": true,
+          "test_index_range": [
+            0,
+            24
+          ],
+          "train_index_range": [
+            0,
+            24
+          ],
+          "validation_index_range": [
+            0,
+            24
+          ]
+        },
+        "priority": "normal",
+        "source_signer_distribution": {
+          "test_signer_identity_count": 8,
+          "test_top_signer_fraction": 0.24,
+          "train_signer_identity_count": 18,
+          "train_top_signer_fraction": 0.12,
+          "validation_signer_identity_count": 8,
+          "validation_top_signer_fraction": 0.24
+        },
+        "train_exposure": {
+          "clip_count": 25,
+          "examples_per_epoch": 25,
+          "examples_total_over_epochs": 125,
+          "overexposed_relative_to_other_labels": false,
+          "underexposed_relative_to_other_labels": false
+        },
+        "validation_during_training_exposure": {
+          "clip_count": 25,
+          "examples_per_epoch": 25,
+          "examples_total_over_epochs": 125
+        }
+      },
+      {
+        "assessment": "who has balanced train/validation/test support and the same full-epoch exposure as the other labels; no sampler or target-mapping blocker is visible.",
+        "class_index": 4,
+        "evaluation_target_distribution": {
+          "test_predicted_count": 0,
+          "test_support": 25,
+          "validation_predicted_count": 0,
+          "validation_support": 25
+        },
+        "label_id": "who",
+        "m3cj_train_all_lr003": {
+          "per_class_recall": 0.0,
+          "predicted_single_class": "pen"
+        },
+        "manifest_order": {
+          "class_blocked_in_manifests": true,
+          "test_index_range": [
+            75,
+            99
+          ],
+          "train_index_range": [
+            75,
+            99
+          ],
+          "validation_index_range": [
+            75,
+            99
+          ]
+        },
+        "priority": "normal",
+        "source_signer_distribution": {
+          "test_signer_identity_count": 8,
+          "test_top_signer_fraction": 0.2,
+          "train_signer_identity_count": 18,
+          "train_top_signer_fraction": 0.12,
+          "validation_signer_identity_count": 8,
+          "validation_top_signer_fraction": 0.2
+        },
+        "train_exposure": {
+          "clip_count": 25,
+          "examples_per_epoch": 25,
+          "examples_total_over_epochs": 125,
+          "overexposed_relative_to_other_labels": false,
+          "underexposed_relative_to_other_labels": false
+        },
+        "validation_during_training_exposure": {
+          "clip_count": 25,
+          "examples_per_epoch": 25,
+          "examples_total_over_epochs": 125
+        }
+      }
+    ],
+    "sampler_and_loader_behavior": {
+      "evaluation_loader": {
+        "all_examples_seen": true,
+        "drop_last": false,
+        "shuffle": false
+      },
+      "train_loader": {
+        "drop_last": false,
+        "exact_batch_permutation_needed_to_prove_exposure": false,
+        "exact_batch_permutation_recorded_in_provenance": false,
+        "num_workers": 0,
+        "sampler": "torch DataLoader shuffle=True / RandomSampler without replacement",
+        "shuffle": true,
+        "why": "The cap covers all 32 batches, so every clip is exposed once per epoch regardless of permutation."
+      },
+      "validation_loader": {
+        "all_examples_seen": true,
+        "drop_last": false,
+        "shuffle": false
+      }
+    },
+    "visible_distribution_sampler_blockers": []
+  },
+  "exactly_one_next_action": "continue_no_training_optimizer_loss_or_regularization_packet_after_sampler_packet",
+  "future_training_or_stop_conditions": {
+    "current_human_review_required": false,
+    "what_would_block_more_training_and_require_human_review": [
+      "Any required change to training scope, budget, source approvals, label set, crop/tensor semantics, Brev spend, export, browser activation, model-card claims, or final gates.",
+      "Any class-index, evaluator target, or code-path mismatch that cannot be resolved from tracked code and receipts without changing the training path.",
+      "Any sampler/distribution blocker that excludes examples or over/underexposes a label and requires a policy decision instead of a local code-path receipt."
+    ],
+    "what_would_justify_one_bounded_local_train_all_prompt": [
+      "This M3CP sampler/distribution packet remains complete with no visible exposure, sampler, batch-cap, class-index, or evaluator target blocker.",
+      "A separate no-training optimizer/loss/regularization packet identifies one bounded local hypothesis or clears optimizer/loss settings enough for a controlled rerun.",
+      "The M3CJ current-output provenance caveat is either reconciled or explicitly superseded by a fresh no-training receipt before fitting.",
+      "The future local prompt preserves repaired manifests, approved PopSign source lane, strict split/signer/tensor disjointness, rgb_regions_grid_v1 input, random initialization, no-pretrained boundary, and fail-closed browser/model-card state.",
+      "The future run must beat M3CJ: test top-1 > 0.2, macro F1 > 0.06666666666666668, prediction distribution not single-class, no zero-recall selected labels, and validation accuracy not flat at chance."
+    ]
+  },
+  "generated_at": "2026-05-28T02:16:59.787615+00:00",
+  "generated_by": {
+    "command": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/build_popsign_fresh5_training_distribution_sampler_packet.py",
+      "--receipt",
+      "docs/validation/return-to-form-popsign-fresh5-training-distribution-sampler-packet-v1.json",
+      "--write-receipt"
+    ],
+    "script": {
+      "path": "scripts/build_popsign_fresh5_training_distribution_sampler_packet.py",
+      "sha256": "b40ebf4d1743754886d1e57c3edd0a3216afb0093d7f30192806f55d5c3966bf"
+    },
+    "tool": "scripts/build_popsign_fresh5_training_distribution_sampler_packet.py"
+  },
+  "guardrails": {
+    "backward_pass": false,
+    "brev_command_run": false,
+    "brev_spend": false,
+    "brev_worker_lifecycle_changed": false,
+    "browser_activation": false,
+    "checkpoint_created": false,
+    "export": false,
+    "final_gate_change": false,
+    "fitting": false,
+    "manifest_mutation": false,
+    "model_card_promotion": false,
+    "optimizer_step": false,
+    "pretrained_components": [],
+    "push": false,
+    "remote_command": false,
+    "source_import_or_media_download": false,
+    "source_register_mutation": false,
+    "tensor_mutation": false,
+    "tiny_overfit_rerun": false,
+    "training_run": false,
+    "unsupported_claim": false
+  },
+  "input_artifacts": {
+    "active_prompt": {
+      "path": "docs/model/return-to-form-popsign-fresh5-training-distribution-sampler-packet-goal-loop-prompt.md",
+      "sha256": "cdcef8f4f8e12c9aadd9c7bc509dce4aa3bdfd116c2254738c1cb2c50ef1341f"
+    },
+    "current_training_provenance_output": {
+      "path": "output/m3cf-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-local-sanity/training-provenance.json",
+      "sha256": "eaae2882d6c255dd73728c625049b03ddb2cbd8f43e566f3a1d1b19f22bf2576"
+    },
+    "current_validation_report_output": {
+      "path": "output/m3cf-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-local-sanity/validation-report.json",
+      "sha256": "527c587371078791b59b39014360f6a498408f694996432c4f16ca1d9f327c92"
+    },
+    "evaluation_loader_code": {
+      "path": "scripts/evaluate_rawframe_model.py",
+      "sha256": "997442ccd9b52380336bf826bbd81e91261eeb1669a683d9b5eee141491a6c4c"
+    },
+    "goal": {
+      "path": "GOAL.md",
+      "sha256": "f5f382343c5ecd4e1092cfbccbbe12680ca905a3898ea13d32d70312c4c4ce52"
+    },
+    "m3cj_local_train_eval_sanity": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-local-train-eval-sanity-v1.json",
+      "sha256": "2e39eae2eba0709b40a26d16c81a35586149048a543dce6ae7ad403284e561dc"
+    },
+    "m3ck_architecture_input_microprobe": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-architecture-input-microprobe-v1.json",
+      "sha256": "487be592b2e58b2ba05514d783d67b6cf1121513419d84c2104982aa112df08c"
+    },
+    "m3cn_label_source_quality_review": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-label-source-quality-review-packet-v1.json",
+      "sha256": "0ab2333edd0e45e0f951c141372226f55709ea32ec42e12406f7c66a366eb2c0"
+    },
+    "m3co_tensor_input_quality": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-tensor-input-quality-packet-v1.json",
+      "sha256": "cde3e5b03812513dab700deee5e9d75b75f55eac033a388fb42626c92c63a9dd"
+    },
+    "manifest_contract": {
+      "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/manifest-contract.json",
+      "sha256": "38e8e1b8663e0e360fd9b8284bad9a5f08dd7fa00d236ec50fecfb87c8c9ce4a"
+    },
+    "return_to_form_plan": {
+      "path": "docs/model/return-to-form-plan.md",
+      "sha256": "356b4b705ceff87f467918e64243871e9c9f8e003c9872ecda7af3f27c3ac580"
+    },
+    "test_manifest": {
+      "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json",
+      "sha256": "07a67651bcd38c6cff90d433ad2e18f84d905291ebb90760665c03678b75592c"
+    },
+    "train_manifest": {
+      "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json",
+      "sha256": "f84b8eec2ee3b5f29118518caf42b64636f231acd39864ad0363729c96365a16"
+    },
+    "training_loader_code": {
+      "path": "scripts/train_rawframe_model.py",
+      "sha256": "d17dcd9e78c1b23ff001128ea6e82076e4b9b54ca1076182ab50b2f70d57e7ae"
+    },
+    "validation_manifest": {
+      "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json",
+      "sha256": "090b40ec70775e96fb81450feb6a5e9960f93175dfda4c2ae9087b0b970cb04a"
+    }
+  },
+  "mission": "Mission 3CP - PopSign fresh5 training distribution/sampler packet",
+  "prior_evidence_summary": {
+    "m3cj_runs": {
+      "current_cap_lr001": {
+        "classification": "too_capped_to_judge",
+        "evaluation": {
+          "predicted_single_class": "home",
+          "test_macro_f1": 0.06666666666666668,
+          "test_top1_accuracy": 0.2
+        },
+        "hyperparameters": {
+          "batch_size": 4,
+          "checkpoint_selection": "best_validation",
+          "epochs": 2,
+          "learning_rate": 0.001,
+          "max_train_batches": 12,
+          "max_validation_batches": 8,
+          "optimizer": "adamw",
+          "training_augmentation": "none",
+          "weight_decay": 0.0
+        }
+      },
+      "one_batch_contract_sanity": {
+        "classification": "plumbing_only",
+        "evaluation": {
+          "predicted_single_class": "home",
+          "test_macro_f1": 0.06666666666666668,
+          "test_top1_accuracy": 0.2,
+          "train_accuracy": 0.25,
+          "validation_accuracy_during_training": 0.0
+        },
+        "hyperparameters": {
+          "batch_size": 4,
+          "checkpoint_selection": "final",
+          "epochs": 1,
+          "learning_rate": 0.001,
+          "max_train_batches": 1,
+          "max_validation_batches": 1,
+          "optimizer": "adamw",
+          "training_augmentation": "none",
+          "weight_decay": 0.0
+        }
+      },
+      "train_all_lr001": {
+        "classification": "learning_signal_insufficient",
+        "evaluation": {
+          "predicted_single_class": "pen",
+          "test_macro_f1": 0.06666666666666668,
+          "test_top1_accuracy": 0.2
+        },
+        "hyperparameters": {
+          "batch_size": 4,
+          "checkpoint_selection": "best_validation",
+          "epochs": 5,
+          "learning_rate": 0.001,
+          "max_train_batches": 32,
+          "max_validation_batches": 32,
+          "optimizer": "adamw",
+          "training_augmentation": "none",
+          "weight_decay": 0.0
+        }
+      },
+      "train_all_lr003": {
+        "classification": "learning_signal_insufficient",
+        "evaluation": {
+          "passes_targets": false,
+          "per_class_recall": {
+            "home": 0.0,
+            "morning": 0.0,
+            "pen": 1.0,
+            "thank_you": 0.0,
+            "who": 0.0
+          },
+          "predicted_single_class": "pen",
+          "selected_threshold": 1.0,
+          "test_false_pass_rate": 0.0,
+          "test_macro_f1": 0.06666666666666668,
+          "test_top1_accuracy": 0.2
+        },
+        "hyperparameters": {
+          "batch_size": 4,
+          "checkpoint_selection": "best_validation",
+          "epochs": 5,
+          "learning_rate": 0.003,
+          "max_train_batches": 32,
+          "max_validation_batches": 32,
+          "optimizer": "adamw",
+          "training_augmentation": "none",
+          "weight_decay": 0.0
+        }
+      }
+    },
+    "m3ck_architecture_can_train_fit_balanced_tiny_subset": true,
+    "m3cn_mechanical_source_label_ambiguity_cleared": true,
+    "m3co_visible_tensor_input_quality_blockers": []
+  },
+  "schema_version": "asl-pilot-popsign-fresh5-training-distribution-sampler-packet/v1",
+  "scope": {
+    "existing_manifests_receipts_provenance_and_code_paths_only": true,
+    "local_only": true,
+    "no_brev_command": true,
+    "no_brev_spend": true,
+    "no_brev_worker_lifecycle_change": true,
+    "no_checkpoint_creation": true,
+    "no_export_or_browser_activation": true,
+    "no_final_gate_change": true,
+    "no_label_expansion": true,
+    "no_manifest_mutation": true,
+    "no_model_card_promotion": true,
+    "no_optimizer_or_backward_pass": true,
+    "no_pretrained_dependency": true,
+    "no_pseudo_labels": true,
+    "no_push": true,
+    "no_remote_command": true,
+    "no_source_import_or_media_download": true,
+    "no_source_register_mutation": true,
+    "no_tensor_mutation": true,
+    "no_training_or_fitting": true
+  },
+  "status": "completed_no_training_no_mutation_training_distribution_sampler_packet",
+  "validation_commands": [
+    "git status --short --branch",
+    "git log -10 --oneline --decorate",
+    "node scripts/audit_loop_premise.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs --json",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "node scripts/audit_source_register.mjs",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-tensor-input-quality-packet-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-label-source-quality-review-packet-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-local-train-eval-sanity-v1.json >/dev/null",
+    "python3 -m json.tool data/manifests/return-to-form-popsign-fresh5-repaired-v1/manifest-contract.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/build_popsign_fresh5_training_distribution_sampler_packet.py",
+    ".venv/bin/python scripts/build_popsign_fresh5_training_distribution_sampler_packet.py --receipt docs/validation/return-to-form-popsign-fresh5-training-distribution-sampler-packet-v1.json --write-receipt",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-training-distribution-sampler-packet-v1.json >/dev/null",
+    "git diff --check",
+    "node scripts/audit_codex_pair_state.mjs --json"
+  ]
+}

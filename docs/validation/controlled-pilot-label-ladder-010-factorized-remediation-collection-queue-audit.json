@@ -1,0 +1,101 @@
+{
+  "schema_version": "asl-pilot-rawframe-remediation-collection-queue-audit/v1",
+  "status": "passed_nonfinal_queue_audit",
+  "checked_at": "2026-05-21T19:09:14.249Z",
+  "generated_by": {
+    "tool": "node",
+    "command": [
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/Users/kelly/Developer/asl-pilot/scripts/audit_rawframe_remediation_collection_queue.mjs",
+      "--queue",
+      "data/dataset/controlled-pilot-label-ladder-010-factorized-remediation-collection-queue.json",
+      "--remediation-plan",
+      "docs/validation/controlled-pilot-label-ladder-010-factorized-remediation-plan.json",
+      "--collection-plan",
+      "data/dataset/collection-plan.json",
+      "--output",
+      "docs/validation/controlled-pilot-label-ladder-010-factorized-remediation-collection-queue-audit.json",
+      "--write"
+    ],
+    "script": {
+      "path": "scripts/audit_rawframe_remediation_collection_queue.mjs",
+      "sha256": "69f34a5c29e277c69ce5d933c89a91ad8d04ad829ca38825f0b344d59c908d47"
+    }
+  },
+  "inputs": {
+    "queue": {
+      "path": "data/dataset/controlled-pilot-label-ladder-010-factorized-remediation-collection-queue.json",
+      "sha256": "d06e2dd4d97ffcb90b3cabac95ed54d03bf4c8532db737f13f624f1b5d7df970"
+    },
+    "remediation_plan": {
+      "path": "docs/validation/controlled-pilot-label-ladder-010-factorized-remediation-plan.json",
+      "sha256": "efc44c207ead6e4c74b886ac408e8fa8b38fc7db8a27795d24c3786e96419faa"
+    },
+    "collection_plan": {
+      "path": "data/dataset/collection-plan.json",
+      "sha256": "e5f7089277a36200ec1791414c527e1e949a02f80881683f3484b25506bbc8ec"
+    }
+  },
+  "decision_boundary": {
+    "changes_store": false,
+    "changes_manifests": false,
+    "approves_source": false,
+    "final_evidence": false
+  },
+  "queue_summary": {
+    "assignment_count": 1500,
+    "vocabulary_assignment_count": 1425,
+    "negative_challenge_assignment_count": 75,
+    "label_count": 95,
+    "priority_label_count": 9,
+    "assignment_counts_by_split": {
+      "train": 475,
+      "validation": 475,
+      "test": 475,
+      "negative_challenge": 75
+    },
+    "assignment_counts_by_bucket": {
+      "zero_recall_test": 15,
+      "top_confusion_true_label": 120,
+      "standard": 1290,
+      "negative_challenge_required": 75
+    }
+  },
+  "expected_summary": {
+    "assignment_count": 1500,
+    "vocabulary_assignment_count": 1425,
+    "negative_challenge_assignment_count": 75,
+    "label_count": 95,
+    "priority_label_count": 9,
+    "assignment_counts_by_split": {
+      "train": 475,
+      "validation": 475,
+      "test": 475,
+      "negative_challenge": 75
+    },
+    "assignment_counts_by_bucket": {
+      "standard": 1290,
+      "top_confusion_true_label": 120,
+      "zero_recall_test": 15,
+      "negative_challenge_required": 75
+    }
+  },
+  "coverage": {
+    "all_collection_assignments_present": true,
+    "no_extra_queue_assignments": true,
+    "queue_index_continuous": true,
+    "assignment_keys_valid": true,
+    "queue_order_valid": true
+  },
+  "collection_store": {
+    "path": "data/asl-pilot-store.json",
+    "exists": false,
+    "counted_clips": 0,
+    "counted_negative_challenge_clips": 0
+  },
+  "blockers": [
+    "First-party collection store is absent: data/asl-pilot-store.json",
+    "NVIDIA is not ready for source-register review; metadata audit is not metadata_review_ready_not_approved"
+  ],
+  "findings": []
+}

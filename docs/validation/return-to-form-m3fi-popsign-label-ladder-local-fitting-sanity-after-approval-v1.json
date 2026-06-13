@@ -1,0 +1,249 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3fi-popsign-label-ladder-local-fitting-sanity-after-approval/v1",
+  "mission": "M3FI - PopSign label-ladder local fitting sanity after approval",
+  "status": "completed_local_fitting_evaluation_blocked_by_manifest_vocabulary_review",
+  "generated_at": "2026-05-29T00:00:23Z",
+  "generated_by": {
+    "role": "Codex executor",
+    "active_prompt": "docs/model/return-to-form-m3fi-popsign-label-ladder-local-fitting-sanity-after-approval-goal-loop-prompt.md",
+    "start_head": "bb22e00 supervisor: record m3fi activation log"
+  },
+  "approval_envelope": {
+    "source": "GOAL.md current Mission 3FI block and active M3FI prompt",
+    "route": "local Mac only",
+    "max_spend_usd": 0,
+    "max_runtime_minutes_for_fitting_command": 20,
+    "output_directory": "output/m3ff-popsign-label-ladder-local-sanity",
+    "fitting_scope": "one command, one epoch, max 16 train batches and 16 validation batches",
+    "evaluation_scope": "one local evaluation command only if checkpoint and training provenance are produced",
+    "brev_approved": false,
+    "brev_scope": "no Brev lifecycle, exec, sync, copy, stop/delete/reset, remote command, or spend"
+  },
+  "prior_evidence": {
+    "m3fh_receipt": {
+      "path": "docs/validation/return-to-form-m3fh-popsign-label-ladder-compute-receipt-refresh-after-evaluation-contract-fix-no-training-v1.json",
+      "sha256": "b9ad4c7dca9feb790d42353ec6a1e543df11ee2aa3ffe78c708a3646ff8af039",
+      "selected_stop_action": "stop_for_human_training_budget_approval"
+    }
+  },
+  "preflight": {
+    "git_status": "## compound-plan-m0...origin/compound-plan-m0 [ahead 231]",
+    "head": "bb22e00 (HEAD -> compound-plan-m0) supervisor: record m3fi activation log",
+    "output_directory_absent_before_fitting": true,
+    "source_register_finality_check": {
+      "status": "passed",
+      "output_sha256": "d58acb7908b2263fbdaba2c8c7602f6c00c46142382803f47461c7c8ee8837eb",
+      "manifest_count": 15,
+      "label_counts": [
+        5,
+        10,
+        25,
+        50,
+        95
+      ],
+      "source_register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+      "all_source_register_hashes_match_current": true,
+      "all_diagnostic_finality_rejects_final_model_evidence": true
+    },
+    "brev_default_off_read_only": {
+      "command": "brev ls --json",
+      "output_sha256": "de64f869924b2ec3625d7ee432680183dad4133ef0e4d62c0c4213ab21b928a5",
+      "workspace": {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "gpu": "L40S"
+      },
+      "lifecycle_action_run": false
+    }
+  },
+  "commands_run": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed"
+    },
+    {
+      "command": "git log -12 --oneline --decorate",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed",
+      "checked_at": "2026-05-28T23:41:43.485Z",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed",
+      "checked_at": "2026-05-28T23:41:43.487Z",
+      "active_prompt": "docs/model/return-to-form-m3fi-popsign-label-ladder-local-fitting-sanity-after-approval-goal-loop-prompt.md",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed",
+      "register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed",
+      "findings": []
+    },
+    {
+      "command": ".venv/bin/python -m json.tool docs/validation/return-to-form-m3fh-popsign-label-ladder-compute-receipt-refresh-after-evaluation-contract-fix-no-training-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": ".venv/bin/python -m json.tool web/public/model/model-card.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": ".venv/bin/python -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "status": "passed"
+    },
+    {
+      "command": "test ! -e output/m3ff-popsign-label-ladder-local-sanity",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "brev ls --json",
+      "status": "passed_read_only"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=scripts .venv/bin/python - <<'PY' > /tmp/asl-pilot-m3fi-label-ladder-source-finality.json",
+      "status": "passed"
+    }
+  ],
+  "fitting_attempt": {
+    "ran": true,
+    "attempt_count": 1,
+    "command": "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/gtimeout 1200s .venv/bin/python scripts/train_rawframe_model.py --popsign-label-ladder-training-smoke --train-manifest data/manifests/diagnostics/popsign-label-ladder/095-labels/train.json --validation-manifest data/manifests/diagnostics/popsign-label-ladder/095-labels/validation.json --test-manifest data/manifests/diagnostics/popsign-label-ladder/095-labels/test.json --output-dir output/m3ff-popsign-label-ladder-local-sanity --check-files --architecture compact_3d_cnn_spatiotemporal --epochs 1 --batch-size 4 --max-train-batches 16 --max-validation-batches 16 --checkpoint-selection best_validation --num-workers 0 --training-augmentation none",
+    "approved_command_without_timeout_wrapper": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --popsign-label-ladder-training-smoke --train-manifest data/manifests/diagnostics/popsign-label-ladder/095-labels/train.json --validation-manifest data/manifests/diagnostics/popsign-label-ladder/095-labels/validation.json --test-manifest data/manifests/diagnostics/popsign-label-ladder/095-labels/test.json --output-dir output/m3ff-popsign-label-ladder-local-sanity --check-files --architecture compact_3d_cnn_spatiotemporal --epochs 1 --batch-size 4 --max-train-batches 16 --max-validation-batches 16 --checkpoint-selection best_validation --num-workers 0 --training-augmentation none",
+    "start": "2026-05-28T23:43:32Z",
+    "end": "2026-05-28T23:58:24Z",
+    "duration_seconds": 892,
+    "exit_status": 0,
+    "stdout_sha256": "d2579a24a4b404811ada42cade2f609b0a92e76e9c417bcc2f19265a4e8d6cd0",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "meta_sha256": "8a621ded7c8a0dd2bed2ed3281815cd6a959e0eedc0269465883916a5f68fba1",
+    "completed_within_max_runtime": true,
+    "created_expected_checkpoint": true,
+    "created_expected_training_provenance": true,
+    "checkpoint": {
+      "path": "output/m3ff-popsign-label-ladder-local-sanity/model_state.pt",
+      "sha256": "7fd2946ff527dfb47f50eba39e0601cec28ab5bae617fb88e1b7e1452a1c6b5f"
+    },
+    "training_provenance": {
+      "path": "output/m3ff-popsign-label-ladder-local-sanity/training-provenance.json",
+      "sha256": "999aa26ed56799156eca03042be94d1ecbac39a5e103f1044daa419c3659cd95",
+      "json_valid": true
+    },
+    "artifact_tracking": "output/ is ignored by .gitignore; artifacts are intentionally untracked under the scoped output directory"
+  },
+  "fitting_result_inspection": {
+    "device": "mps",
+    "evidence_mode": "popsign_label_ladder_training_smoke",
+    "training_status": "completed",
+    "initialization": "random",
+    "pretrained_components": [],
+    "epoch_count": 1,
+    "history": [
+      {
+        "epoch": 1,
+        "train_loss": 4.688845694065094,
+        "train_accuracy": 0.015625,
+        "train_batches": 16,
+        "train_examples": 64,
+        "validation_loss": 4.71799424290657,
+        "validation_accuracy": 0.0,
+        "validation_batches": 16,
+        "validation_examples": 64
+      }
+    ],
+    "loss_movement": "not_available_single_epoch_only",
+    "validation_test_top1_macro_f1": "not_available_because_evaluator_failed_before_report",
+    "zero_recall_labels": "not_available_because_evaluator_failed_before_report",
+    "never_predicted_labels": "not_available_because_evaluator_failed_before_report",
+    "prediction_concentration_or_collapse": "not_available_because_evaluator_failed_before_report",
+    "interpretation": "The bounded fitting path completed and wrote artifacts, but the available one-epoch training metrics are weak and are not promotion or trainability evidence."
+  },
+  "evaluation_attempt": {
+    "ran": true,
+    "attempt_count": 1,
+    "command": "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/gtimeout 1200s .venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint output/m3ff-popsign-label-ladder-local-sanity/model_state.pt --training-provenance output/m3ff-popsign-label-ladder-local-sanity/training-provenance.json --train-manifest data/manifests/diagnostics/popsign-label-ladder/095-labels/train.json --validation-manifest data/manifests/diagnostics/popsign-label-ladder/095-labels/validation.json --test-manifest data/manifests/diagnostics/popsign-label-ladder/095-labels/test.json --output-report output/m3ff-popsign-label-ladder-local-sanity/validation-report.json --calibrated-provenance output/m3ff-popsign-label-ladder-local-sanity/calibrated-provenance.json --batch-size 4 --num-workers 0 --popsign-label-ladder-training-smoke",
+    "approved_command_without_timeout_wrapper": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint output/m3ff-popsign-label-ladder-local-sanity/model_state.pt --training-provenance output/m3ff-popsign-label-ladder-local-sanity/training-provenance.json --train-manifest data/manifests/diagnostics/popsign-label-ladder/095-labels/train.json --validation-manifest data/manifests/diagnostics/popsign-label-ladder/095-labels/validation.json --test-manifest data/manifests/diagnostics/popsign-label-ladder/095-labels/test.json --output-report output/m3ff-popsign-label-ladder-local-sanity/validation-report.json --calibrated-provenance output/m3ff-popsign-label-ladder-local-sanity/calibrated-provenance.json --batch-size 4 --num-workers 0 --popsign-label-ladder-training-smoke",
+    "start": "2026-05-28T23:58:57Z",
+    "end": "2026-05-28T23:59:21Z",
+    "duration_seconds": 24,
+    "exit_status": 2,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "3608ad7e40579c1bd2e0618dcb276a5c92773c7f7d16f78e1e0be8a329a9de55",
+    "meta_sha256": "cbc7eca1ed509dcd8f28fad648d6b4b41d52150647a9d11e06505fc606ba0e6c",
+    "failure": "Evaluation failed: current manifest train is missing vocabulary_review evidence",
+    "created_validation_report": false,
+    "created_calibrated_provenance": false,
+    "reports_written": []
+  },
+  "artifact_scope_after_run": {
+    "scoped_output_files": [
+      "output/m3ff-popsign-label-ladder-local-sanity/model_state.pt",
+      "output/m3ff-popsign-label-ladder-local-sanity/training-provenance.json"
+    ],
+    "validation_report_exists": false,
+    "calibrated_provenance_exists": false,
+    "wrote_only_under_scoped_output_directory": true,
+    "tracked_output_artifacts_added": false
+  },
+  "fail_closed_claim_surfaces": {
+    "before_after": "unchanged",
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "status": "not_trained"
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "activeLabels": []
+    }
+  },
+  "forbidden_actions_proof": {
+    "brev_lifecycle_or_spend": false,
+    "remote_command": false,
+    "second_fitting_attempt": false,
+    "second_evaluation_attempt": false,
+    "hyperparameter_sweep": false,
+    "label_expansion": false,
+    "source_or_manifest_or_tensor_or_vocabulary_mutation": false,
+    "export_or_onnx_or_quantization": false,
+    "model_card_or_active_vocabulary_promotion": false,
+    "browser_recognition_activation": false,
+    "pretrained_or_generated_label_path": false,
+    "raw_learner_upload": false,
+    "push": false
+  },
+  "blockers": [
+    {
+      "type": "evaluation_contract_or_manifest_evidence_blocker",
+      "detail": "The single allowed evaluator command failed before producing validation metrics because the current 095-label train manifest is missing vocabulary_review evidence."
+    }
+  ],
+  "next_action": "continue_popsign_label_ladder_result_diagnosis_no_training"
+}

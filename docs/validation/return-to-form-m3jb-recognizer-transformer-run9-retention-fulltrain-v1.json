@@ -1,0 +1,104 @@
+{
+  "schema_version": "return-to-form-m3jb-recognizer-run9-retention-fulltrain/v1",
+  "status": "completed_rejected_fail_closed_below_verification_gate_plateau_stop_condition_met",
+  "session": "961",
+  "date": "2026-06-09",
+  "action_token": "m3jb_recognizer_transformer_run9_retention_enabled_run6_fulltrain_brev_ok_after_auth",
+  "campaign": "m3jb_recognizer_transformer_distill_campaign_brev",
+  "brev_auth_recovery": {
+    "human_directed": true,
+    "method": "brev login --skip-browser device flow completed in the human's browser session (2026-06-09)",
+    "verified_by": "brev ls --json success; org NCA-09be-32030; both retained workers visible"
+  },
+  "worker": {
+    "name": "asl-pilot-m3eh-l40s-001",
+    "id": "3d58wpy9o",
+    "gpu": "NVIDIA L40S",
+    "billable_window_approx_minutes": 14,
+    "final_state": "STOPPED / NOT READY (verified via brev ls after stop)"
+  },
+  "recipe": {
+    "matches_dryrun_receipt": "docs/validation/m3jb-recognizer-run9-retention-enabled-run6-recipe-preflight-dryrun-v1.json",
+    "student_arch": "transformer",
+    "d_model": 256,
+    "n_layers": 6,
+    "n_heads": 8,
+    "dropout": 0.0,
+    "epochs": 240,
+    "batch": 128,
+    "lr": 0.0005,
+    "lr_scheduler": "cosine",
+    "warmup_steps": 500,
+    "min_lr": 5e-05,
+    "alpha": 0.55,
+    "temperature": 3.0,
+    "jitter_std": 0.02,
+    "frame_drop": 0.1,
+    "seq_len": 32,
+    "seed": 0,
+    "limit_flags_used": false,
+    "counts": { "train": 7011, "monitor": 955, "test": 2369, "classes": 95 },
+    "optimizer_steps": 13200,
+    "checkpoint_metric": "monitor_verification_recall_far10",
+    "candidate_checkpoint_retention": { "enabled": true, "epsilon": 0.005, "window": 5 }
+  },
+  "result": {
+    "test_top1": 0.287,
+    "test_top5": 0.6399,
+    "test_verification_recall_at_far10": 0.8038559556786704,
+    "best_monitor_epoch": 14,
+    "best_monitor_verification_recall_far10": 0.8169265323599687,
+    "retained_candidate_count": 20,
+    "retained_candidate_epochs": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,22,29,30,31],
+    "note": "run9 is a deterministic reproduction of run6 (same recipe, seed 0); selected-checkpoint metrics match run6 to reproduction tolerance. The new artifact is the retained candidate set."
+  },
+  "candidate_test_transfer_report_only": {
+    "protocol": "selection stays monitor-based; held-out test scores are report-only and were computed locally on CPU after copyback (script /tmp mirror of diagnose_verification_margins.load_model + predict_probabilities + verification.recall_at_far_details, seed-0 split_student)",
+    "scores": {
+      "epoch14_selected_argmax_monitor": { "test_recall_at_far10": 0.8038559556786704, "test_top1": 0.28704094554664417, "test_top5": 0.639932460953989 },
+      "epoch16_candidate": { "test_recall_at_far10": 0.7769085872576176, "test_top1": 0.28239763613338964, "test_top5": 0.6260025327142255 },
+      "epoch22_candidate": { "test_recall_at_far10": 0.7659612188365652, "test_top1": 0.29506120726044743, "test_top5": 0.6255804136766568 },
+      "epoch29_candidate": { "test_recall_at_far10": 0.7690637119113574, "test_top1": 0.3149008020261714, "test_top5": 0.6302237230899114 },
+      "epoch30_candidate": { "test_recall_at_far10": 0.7666925207756233, "test_top1": 0.28830730265934995, "test_top5": 0.6124947235120304 },
+      "epoch31_trailing_mean_and_median_selector": { "test_recall_at_far10": 0.7735401662049861, "test_top1": 0.3060363022372309, "test_top5": 0.6293794850147741 }
+    },
+    "conclusion": "No retained candidate transfers better than the already-selected epoch-14 argmax-monitor checkpoint (0.8039). Trailing-stability selectors (epoch 31) transfer WORSE (0.7735). Checkpoint selection is exhausted as a lever for the 0.85 gate."
+  },
+  "selected_checkpoint_reproduction": {
+    "tool": "diagnose_verification_margins.py --device cpu",
+    "computed_test_verification_recall_at_far10": 0.8038559556786704,
+    "abs_diff_vs_reported": 4.404432132953939e-05,
+    "within_tolerance_0_002": true,
+    "monitor_reproduction_abs_diff": 2.6532359968745034e-05
+  },
+  "plateau_stop_condition": {
+    "rule": "stop and report to the human when verification recall@FAR10 plateaus across 3 consecutive research-guided runs with no running-best improvement",
+    "runs": { "run7": 0.7759113573407201, "run8": 0.7571191135734074, "run9": 0.8038559556786704 },
+    "running_best": { "run": "run6", "test_verification_recall_at_far10": 0.8038559556786704 },
+    "met": true,
+    "gate": 0.85
+  },
+  "eval_cache_restore": {
+    "context": "local .cache/recog-seq-w64-t32-merged-v1 and .cache/handcrop-lm2 were deleted locally after 2026-06-04, which broke scripts/audit_m3jb_hand_state_tracker.mjs (ENOENT on rows.json)",
+    "restored_from": "retained worker asl-pilot-m3eh-l40s-001 via rsync during the same billable window",
+    "validation": "330309 per-frame rows / 10335 distinct clips (matches receipts); node scripts/audit_m3jb_hand_state_tracker.mjs --json exits 0 with status passed_fail_closed_not_gate_passing"
+  },
+  "artifacts": {
+    "dir": "asl-pilot-annotator worktree tools/detector0-annotator/output/ (gitignored)",
+    "receipt_json_sha256": "d4adf9e317293d14d44189b52db4413ce84073d49ce64d1794becf8daac08298",
+    "selected_checkpoint_sha256": "2ee64dae765917231983e378ef237601c30f3a9c0fbfb9d26df9754b554ad949",
+    "log_sha256": "f22846c8d8a8f571139ceef6f1e75ac9c0974464a39c7b6c4da0ac8e49ba1805",
+    "candidate_epoch031_sha256": "e12614dbc2b060396a2135ba5f0980cbaa6ae64145e51a18dd953ed029332c7a"
+  },
+  "boundaries": {
+    "brev_used": true,
+    "brev_infrastructure_created_deleted_reset": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "raw_test_mined_supervision": false,
+    "final_gate_changed": false,
+    "push": false
+  },
+  "anchors": ["ARCHITECTURE.md#arch-no-pretrained", "ARCHITECTURE.md#arch-gpu-execution"]
+}

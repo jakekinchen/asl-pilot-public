@@ -1,0 +1,178 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3fa-product-browser-validation-no-recognition/v1",
+  "mission": "M3FA - Product browser validation no recognition",
+  "status": "completed_local_browser_validation_no_recognition",
+  "generated_at": "2026-05-28T21:19:55Z",
+  "generated_by": "Codex executor",
+  "active_prompt": "docs/model/return-to-form-m3fa-product-browser-validation-no-recognition-goal-loop-prompt.md",
+  "goal": "GOAL.md",
+  "start_head": "099b404 supervisor: steer m3fa back to dataset repair",
+  "validated_behavior": {
+    "source_mission": "M3EZ - Fail-closed interactive product hardening",
+    "source_commit": "153ef3f mission-3ez: clarify fail-closed practice action",
+    "summary": "The real practice UI was exercised in Playwright against an isolated Next start server. With the current not_trained model card and empty active-vocabulary claim, the camera-ready action is Save practice, Submit attempt is absent, Check attempt is absent, the fail-closed hint appears, and the attempt is saved as practice history.",
+    "not_recognition_evidence": true,
+    "not_training_evidence": true
+  },
+  "fail_closed_claim_surfaces": {
+    "before": {
+      "model_card_path": "web/public/model/model-card.json",
+      "model_card_status": "not_trained",
+      "active_vocabulary_claim_path": "docs/model/active-vocabulary-claim.json",
+      "active_labels": []
+    },
+    "after": {
+      "model_card_path": "web/public/model/model-card.json",
+      "model_card_status": "not_trained",
+      "active_vocabulary_claim_path": "docs/model/active-vocabulary-claim.json",
+      "active_labels": []
+    }
+  },
+  "browser_ui_validation": {
+    "runner": "scripts/run_practice_camera_behavior_smoke.mjs",
+    "audit": "scripts/audit_practice_camera_behavior_smoke.mjs",
+    "report": "docs/validation/practice-camera-behavior-smoke.json",
+    "app_url": "http://127.0.0.1:64933",
+    "server_mode": "next_start",
+    "automation": "playwright chromium",
+    "fake_media_device": true,
+    "isolated_store_removed_after_run": true,
+    "status": "passed",
+    "blockers": [],
+    "key_evidence": {
+      "save_practice_action_visible": true,
+      "submit_attempt_action_visible": false,
+      "check_attempt_action_visible": false,
+      "result_visible": true,
+      "fail_closed_hint_visible": true,
+      "history_updated_visible": true
+    }
+  },
+  "changed_files": [
+    {
+      "path": "scripts/run_practice_camera_behavior_smoke.mjs",
+      "why": "Updated the existing Playwright camera-flow smoke to click and record the current no-model Save practice action instead of the stale Submit attempt action."
+    },
+    {
+      "path": "scripts/audit_practice_camera_behavior_smoke.mjs",
+      "why": "Requires retained evidence that Save practice is visible while Submit attempt and Check attempt are absent in the not_trained/no-active-label runtime path."
+    },
+    {
+      "path": "docs/validation/practice-camera-behavior-smoke.json",
+      "why": "Refreshed browser runtime evidence from the updated isolated Playwright smoke."
+    },
+    {
+      "path": "docs/validation/return-to-form-m3fa-product-browser-validation-no-recognition-v1.json",
+      "why": "Records the M3FA receipt, claim-surface boundary, browser validation result, validations, forbidden actions, and next action."
+    },
+    {
+      "path": "docs/session-logs/558-mission-3fa-product-browser-validation-no-recognition.md",
+      "why": "Numbered executor session log for this reviewable slice."
+    }
+  ],
+  "validations": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "## compound-plan-m0...origin/compound-plan-m0 [ahead 212]"
+    },
+    {
+      "command": "git log -10 --oneline --decorate",
+      "status": "passed",
+      "head": "099b404 supervisor: steer m3fa back to dataset repair"
+    },
+    {
+      "command": "node --check scripts/run_practice_camera_behavior_smoke.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node --check scripts/audit_practice_camera_behavior_smoke.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "npm --prefix web run build",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/run_practice_camera_behavior_smoke.mjs --write",
+      "status": "passed",
+      "app_url": "http://127.0.0.1:64933",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_practice_camera_behavior_smoke.mjs",
+      "status": "passed",
+      "blockers": []
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/practice-camera-behavior-smoke.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed",
+      "active_prompt": "docs/model/return-to-form-m3fa-product-browser-validation-no-recognition-goal-loop-prompt.md",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed",
+      "findings": []
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3ez-fail-closed-interactive-product-hardening-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "npm --prefix web run typecheck",
+      "status": "passed"
+    },
+    {
+      "command": "npm --prefix web run lint",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3fa-product-browser-validation-no-recognition-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "forbidden_actions_not_run": {
+    "brev_start_exec_sync_copy_or_spend": true,
+    "remote_work": true,
+    "training_or_evaluation_rerun": true,
+    "threshold_tuning": true,
+    "export_or_promotion": true,
+    "browser_recognition_activation": true,
+    "model_card_promotion": true,
+    "active_vocabulary_promotion": true,
+    "source_media_manifest_tensor_vocabulary_or_packet_mutation": true,
+    "package_install_or_dependency_mutation": true,
+    "generated_pseudo_pretrained_paths": true,
+    "raw_learner_video_or_frame_upload": true,
+    "duplicate_worker_delete_or_reset": true,
+    "push_amend_or_no_verify": true,
+    "model_state_pt_committed": true
+  },
+  "next_action": "continue_popsign_source_register_manifest_repair"
+}

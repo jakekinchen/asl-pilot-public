@@ -1,0 +1,280 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-run4-research-tuning/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_run4_research_guided_tuning_no_brev",
+  "recorded_at_utc": "2026-06-04T02:14:03Z",
+  "head_before_slice": "1cc5d07 record(m3jb): complete recognizer run4 t32 fulltrain",
+  "status": "completed_research_tuning_no_brev_no_training",
+  "inputs": {
+    "run4_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run4-t32-brev-v1.json",
+    "prior_run3_research_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run3-research-tuning-v1.json",
+    "prior_run3_research_response": "artifacts/research/m3jb-recognizer-transformer-run3-tuning-923/response.md",
+    "trainer_source": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_recognizer_distill.py",
+    "transformer_source": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/seq_transformer.py"
+  },
+  "run4_summary": {
+    "student_arch": "transformer",
+    "full_data_no_limit_flags": true,
+    "epochs": 240,
+    "batch": 128,
+    "lr": 0.0005,
+    "lr_scheduler": "cosine",
+    "warmup_steps": 500,
+    "min_lr": 0.00005,
+    "d_model": 256,
+    "n_layers": 6,
+    "n_heads": 8,
+    "dropout": 0.0,
+    "alpha": 0.55,
+    "temperature": 3.0,
+    "jitter_std": 0.02,
+    "frame_drop": 0.1,
+    "train_clips": 7011,
+    "monitor_clips": 955,
+    "test_clips": 2369,
+    "clips": 10335,
+    "classes": 95,
+    "sequence_length": 32,
+    "feature_dim": 90,
+    "teacher_covered_train": 2671,
+    "teacher_covered_total": 4560,
+    "optimizer_steps": 13200,
+    "expected_optimizer_steps": 13200,
+    "steps_per_epoch": 55,
+    "test_top1": 0.3132,
+    "test_top5": 0.6214,
+    "verification_recall_at_far10": 0.7626,
+    "monitor_best_top1": 0.3927,
+    "monitor_best_top1_epoch": 226,
+    "final_monitor_top1": 0.3707,
+    "final_monitor_top5": 0.6482,
+    "final_loss": 0.0644,
+    "decision": "improved_vs_run3_and_gru_baseline_but_rejected_fail_closed_below_primary_gate"
+  },
+  "baseline_and_deltas": {
+    "gru_receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/recognizer-distill.json",
+    "gru_test_top1": 0.232,
+    "gru_test_top5": 0.567,
+    "gru_verification_recall_at_far10_approx": 0.7,
+    "run3_test_top1": 0.2984,
+    "run3_test_top5": 0.6036,
+    "run3_verification_recall_at_far10": 0.7316,
+    "run4_test_top1": 0.3132,
+    "run4_test_top5": 0.6214,
+    "run4_verification_recall_at_far10": 0.7626,
+    "gate_verification_recall_at_far10": 0.85,
+    "delta_vs_run3_verification_recall_at_far10": 0.031,
+    "delta_vs_gru_verification_recall_at_far10_approx": 0.0626,
+    "gap_to_gate_verification_recall_at_far10": 0.0874
+  },
+  "trainer_surface": {
+    "source_inspected": true,
+    "existing_flags": [
+      "--student-arch",
+      "--student-data",
+      "--teacher-data",
+      "--teacher-checkpoint",
+      "--seq-len",
+      "--dry-run-forward",
+      "--epochs",
+      "--batch",
+      "--lr",
+      "--lr-scheduler",
+      "--warmup-steps",
+      "--min-lr",
+      "--student-hidden",
+      "--d-model",
+      "--n-layers",
+      "--n-heads",
+      "--dropout",
+      "--alpha",
+      "--temperature",
+      "--jitter-std",
+      "--frame-drop",
+      "--device",
+      "--seed",
+      "--limit-train",
+      "--limit-monitor",
+      "--limit-test",
+      "--limit-teacher-train",
+      "--limit-teacher-monitor",
+      "--eval-train",
+      "--diagnostics",
+      "--no-save",
+      "--no-save-model",
+      "--receipt",
+      "--out"
+    ],
+    "known_model_surface": [
+      "SeqTransformer uses a learned CLS token, sinusoidal position encoding, src_key_padding_mask from lengths, and a normalized CLS head.",
+      "Covered examples use alpha * CE + (1-alpha) * KD; uncovered examples use CE only.",
+      "Browser/runtime inference remains the normal scratch-trained logits path."
+    ],
+    "missing_for_selected_next_slice": [
+      "--supcon-weight",
+      "--supcon-temperature",
+      "training embedding exposure or return path for supervised contrastive diagnostics",
+      "finite supervised-contrastive loss and positive-anchor diagnostics in dry-run receipts"
+    ]
+  },
+  "research_escalation": {
+    "gpt_pro_web_attempt": {
+      "attempted": true,
+      "status": "blocked_no_browser_control_tool_exposed",
+      "details": "tool_search exposed node_repl and OpenAI developer docs tools but no Browser/iab control tool for ChatGPT.com Pro in this session."
+    },
+    "fallback": {
+      "used": true,
+      "route": "openai-api-research",
+      "model_requested": "gpt-5.5",
+      "calls": [
+        {
+          "response_id": "resp_05ffe9eb9de0fb1a006a20de969a748195b66183a7e41a80ab",
+          "status": "completed",
+          "model_returned": "gpt-5.5-2026-04-23",
+          "total_tokens": 9167,
+          "reasoning_tokens": 3624
+        }
+      ],
+      "artifacts": {
+        "directory": "artifacts/research/m3jb-recognizer-transformer-run4-tuning-930",
+        "prompt_md": "artifacts/research/m3jb-recognizer-transformer-run4-tuning-930/prompt.md",
+        "request_json": "artifacts/research/m3jb-recognizer-transformer-run4-tuning-930/request.json",
+        "raw_json": "artifacts/research/m3jb-recognizer-transformer-run4-tuning-930/raw.json",
+        "response_md": "artifacts/research/m3jb-recognizer-transformer-run4-tuning-930/response.md"
+      },
+      "artifacts_sha256": {
+        "prompt_md": "966395017b48a07409564a9512ef2cdbe06a2f51a9027a21de42f8ebd08126b9",
+        "request_json": "033f23066a3658a3887d73bd244742184d3ffd39f4430df095d0978e44422eab",
+        "raw_json": "1cf5d2b91f08300526e7606d4ed70afd5fb308550b9f5cf1ac5713b9d88af6c4",
+        "response_md": "3061d1c01ce85a7e6521e1430d1f0f3af5fab7b856afb838e2c11e105bff1f3e"
+      }
+    },
+    "advisory_not_authority": true
+  },
+  "research_conclusion": {
+    "diagnosis": [
+      "Run4 is the best scratch Transformer so far, but it remains fail-closed at verification recall@FAR10 0.7626 versus the 0.85 gate.",
+      "T=32 improved recall by 0.0310 over run3, but the remaining 0.0874 gap is too large to assume a T=40 representation-only run is the next smallest useful lever.",
+      "The next bottleneck is likely embedding separation/calibration for verification, not basic sequence capacity.",
+      "Teacher coverage is partial, so alpha/temperature tuning affects only the covered subset and is less direct than a verification-oriented auxiliary objective."
+    ],
+    "selected_next_action": "m3jb_recognizer_transformer_run5_supcon_aux_loss_preflight_no_brev",
+    "selected_preflight": "Implement and locally dry-run a training-only supervised contrastive auxiliary loss on the existing T=32 Transformer path with zero optimizer steps and no checkpoint writes.",
+    "recommendation": "Add disabled-by-default --supcon-weight and --supcon-temperature flags, expose a normalized training embedding from the Transformer, prove CE/KD behavior is unchanged at weight 0.0, and run one T=32 dry-run-forward receipt with finite supcon diagnostics before any paid run5.",
+    "why_t40_waits": "T=32 was useful, but its 0.0310 recall@FAR10 gain leaves nearly three times that gain still needed; T=40 requires new cache audit and more quadratic Transformer compute without evidence that temporal truncation is still the dominant error.",
+    "next_preflight_requirements": [
+      "Add --supcon-weight float default 0.0 and --supcon-temperature float default 0.10.",
+      "Expose or return a normalized Transformer clip embedding for training diagnostics without changing runtime inference.",
+      "Compute supervised contrastive loss from same-label positives inside the batch, skip anchors with no positives, and report zero only when no positive anchors exist.",
+      "Preserve existing CE/KD semantics exactly when --supcon-weight 0.0.",
+      "Run a no-Brev dry-run-forward on .cache/recog-seq-w64-t32-merged-v1 with batch 128, logits [128,95], finite CE/KD and supcon components, positive-anchor count, optimizer steps 0, expected dry-run steps 0, planned paid-run steps 13200, and no checkpoint."
+    ],
+    "run5_recipe_if_preflight_passes": {
+      "student_arch": "transformer",
+      "device": "cuda",
+      "sequence_length": 32,
+      "student_data": "tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1",
+      "teacher_data": "tools/detector0-annotator/.cache/handcrop-lm2",
+      "teacher_checkpoint": "tools/detector0-annotator/output/recognizer-v1.pt",
+      "full_data_no_limit_flags": true,
+      "epochs": 240,
+      "batch": 128,
+      "lr": 0.0005,
+      "lr_scheduler": "cosine",
+      "warmup_steps": 500,
+      "min_lr": 0.00005,
+      "d_model": 256,
+      "n_layers": 6,
+      "n_heads": 8,
+      "dropout": 0.0,
+      "alpha": 0.55,
+      "temperature": 3.0,
+      "jitter_std": 0.02,
+      "frame_drop": 0.1,
+      "supcon_weight": 0.05,
+      "supcon_temperature": 0.1,
+      "seed": 1337,
+      "expected_optimizer_steps": 13200,
+      "expected_change_vs_run4": "Only add the training-only supervised contrastive auxiliary loss; keep T=32 cache and run4 optimizer/model/data recipe otherwise fixed."
+    },
+    "paid_run5_kill_conditions": [
+      "Abort before optimizer steps if the CUDA dry-run has wrong counts, wrong sequence length, wrong feature dimension, logits not [128,95], NaN/Inf loss components, optimizer steps in dry-run, or a checkpoint write during dry-run.",
+      "Kill if any loss becomes NaN/Inf, actual optimizer steps diverge from expected 13200, or class/split/sequence counts change after training begins.",
+      "Kill if monitor top-1 remains below 0.10 through epoch 20, below 0.25 through epoch 80, or below 0.33 through epoch 160.",
+      "Kill if supervised contrastive loss is always exactly 0.0 after multiple logged batches, indicating the auxiliary objective is inactive or no positive anchors are being used.",
+      "At completion, treat the run as fail-closed unless verification recall@FAR10 reaches 0.85; also treat it as not useful for promotion if it does not beat run4 recall 0.7626."
+    ],
+    "do_not_do_next": [
+      "Do not run T=40 next.",
+      "Do not combine multiple new levers in run5.",
+      "Do not change final gates.",
+      "Do not add pretrained runtime dependencies.",
+      "Do not upload raw learner practice video.",
+      "Do not tune on the test set.",
+      "Do not promote browser/runtime artifacts unless recall@FAR10 reaches >= 0.85.",
+      "Do not spend Brev money until the supervised contrastive dry-run preflight is clean and reviewable."
+    ]
+  },
+  "brev_visibility": {
+    "checked_before_receipt": true,
+    "command": "brev ls --json",
+    "workspaces": {
+      "asl-pilot-m3jb-pairrank-l40s-001": {
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "gpu": "L40S"
+      },
+      "asl-pilot-m3eh-l40s-001": {
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "gpu": "L40S"
+      }
+    }
+  },
+  "boundaries": {
+    "brev_used": false,
+    "brev_lifecycle_or_exec": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "pushed_to_remote": false
+  },
+  "validation": [
+    "git log -1 --oneline",
+    "git status --short --branch",
+    "node scripts/audit_loop_premise.mjs --json",
+    "tool_search browser in-app browser node_repl ChatGPT Pro iab",
+    "test -f /Users/kelly/.codex/secrets/openai-api.env && grep -q '^OPENAI_API_KEY=sk-' /Users/kelly/.codex/secrets/openai-api.env",
+    "curl https://api.openai.com/v1/responses -d @artifacts/research/m3jb-recognizer-transformer-run4-tuning-930/request.json",
+    "python3 -m json.tool artifacts/research/m3jb-recognizer-transformer-run4-tuning-930/request.json",
+    "python3 -m json.tool artifacts/research/m3jb-recognizer-transformer-run4-tuning-930/raw.json",
+    "python3 -m json.tool docs/validation/return-to-form-m3jb-recognizer-transformer-run4-research-tuning-v1.json",
+    "brev ls --json",
+    "node --check scripts/audit_m3jb_hand_state_tracker.mjs",
+    "node scripts/audit_m3jb_hand_state_tracker.mjs --json",
+    "node scripts/audit_m3jb_hand_state_tracker.mjs --write-receipt",
+    "node scripts/audit_return_to_form_plan.mjs",
+    "node scripts/audit_source_register.mjs",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "node scripts/audit_no_raw_video_upload.mjs",
+    "git diff --check"
+  ],
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_run5_supcon_aux_loss_preflight_no_brev",
+    "description": "Implement and locally validate disabled-by-default supervised contrastive auxiliary loss support on the existing T=32 Transformer path with zero optimizer steps and no checkpoint output before any paid run5."
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "schema_version": "asl-pilot-return-to-form-fixed-crop-config/v1",
+  "created_at": "2026-05-25T19:16:00Z",
+  "mission": "M3AC",
+  "status": "pre_training_crop_protocol",
+  "applies_to": {
+    "source_coverage": "docs/research/return-to-form-tier0-source-coverage.json",
+    "source_id": "popsign-v1-original-videos",
+    "tier0_labels": [
+      "please",
+      "table",
+      "dad",
+      "grandpa",
+      "hat"
+    ]
+  },
+  "forbidden_dependencies": [
+    "pretrained detectors",
+    "pretrained landmarks",
+    "pretrained feature extractors",
+    "pretrained backbones",
+    "pose/keypoint artifacts",
+    "source-provided bounding boxes as model inputs"
+  ],
+  "frame_sampling_assumption": {
+    "frame_source": "raw_rgb_video",
+    "temporal_sample_count": 16,
+    "decode_fps": 12,
+    "pre_crop_square_frame_px": 192,
+    "region_output_px": 96,
+    "pixel_layout": "T,H,W,C",
+    "normalization": "uint8 RGB decoded from raw video; model/training code may normalize after tensor load but must record that transform in provenance",
+    "note": "M3AD should bind the resolved crop_config_hash into generated manifests/tensors before any M3AE training."
+  },
+  "coordinate_system": {
+    "units": "normalized_xyxy",
+    "origin": "top_left_after_deterministic_aspect_preserving_square_center_crop",
+    "x_axis": "viewer_left_to_viewer_right",
+    "y_axis": "top_to_bottom",
+    "handedness_note": "left/right regions are viewer-side fixed regions, not anatomical handedness labels."
+  },
+  "regions": [
+    {
+      "region_id": "viewer_left_hand_context",
+      "semantic_role": "left-hand region",
+      "xyxy": [
+        0.02,
+        0.22,
+        0.54,
+        0.94
+      ],
+      "output_size_px": [
+        96,
+        96
+      ],
+      "reason": "Covers viewer-left signing hand plus lower signing-space context under controlled centered framing."
+    },
+    {
+      "region_id": "viewer_right_hand_context",
+      "semantic_role": "right-hand region",
+      "xyxy": [
+        0.46,
+        0.22,
+        0.98,
+        0.94
+      ],
+      "output_size_px": [
+        96,
+        96
+      ],
+      "reason": "Covers viewer-right signing hand plus lower signing-space context under controlled centered framing."
+    },
+    {
+      "region_id": "upper_body_signing_space",
+      "semantic_role": "signing-space or upper-body region",
+      "xyxy": [
+        0.10,
+        0.10,
+        0.90,
+        0.96
+      ],
+      "output_size_px": [
+        96,
+        96
+      ],
+      "reason": "Preserves gross two-hand and chest/torso motion for table and please while keeping shoulder/head context."
+    },
+    {
+      "region_id": "head_context",
+      "semantic_role": "optional head region",
+      "xyxy": [
+        0.20,
+        0.00,
+        0.80,
+        0.44
+      ],
+      "output_size_px": [
+        96,
+        96
+      ],
+      "reason": "Keeps face/head location needed for dad, grandpa, and hat without using landmarks or a detector."
+    },
+    {
+      "region_id": "full_frame_reference",
+      "semantic_role": "full-frame audit reference",
+      "xyxy": [
+        0.00,
+        0.00,
+        1.00,
+        1.00
+      ],
+      "output_size_px": [
+        96,
+        96
+      ],
+      "reason": "Retained for visual contact-sheet review and crop-quality debugging; not a substitute for the four fixed proof regions."
+    }
+  ],
+  "expected_tensor_contract": {
+    "per_clip_regions": [
+      "viewer_left_hand_context",
+      "viewer_right_hand_context",
+      "upper_body_signing_space",
+      "head_context"
+    ],
+    "audit_reference_regions": [
+      "full_frame_reference"
+    ],
+    "minimum_manifest_fields": [
+      "crop_config.path",
+      "crop_config.sha256",
+      "crop_regions",
+      "source_register.path",
+      "source_register.sha256",
+      "frame_tensor_provenance",
+      "relative_frame_tensor_path",
+      "frame_tensor_sha256"
+    ]
+  },
+  "controlled_framing_limitations": [
+    "This protocol assumes a centered signer with visible upper body and hands in PopSign game videos.",
+    "It is not robust to off-center webcam capture, seated/standing framing changes, or camera crops that remove the head/upper torso.",
+    "It does not solve final-promotion negative-challenge coverage.",
+    "If M3AD contact sheets show systematic hand/head truncation, adjust this config and re-run M3AD before any training.",
+    "If M3AE fails mainly on dad/grandpa/hat confusion, treat it as a crop/label-set remediation signal rather than permission to expand labels."
+  ],
+  "next_milestone": "M3AD must generate or refresh Tier 0 manifests/tensors and prove dataloader correctness before training."
+}

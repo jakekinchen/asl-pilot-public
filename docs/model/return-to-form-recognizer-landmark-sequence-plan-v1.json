@@ -1,0 +1,288 @@
+{
+  "schema_version": "asl-pilot-recognizer-landmark-sequence-plan/v1",
+  "plan_id": "return-to-form-recognizer-landmark-sequence-plan-v1",
+  "created_at": "2026-05-30T17:00:29Z",
+  "mission": "M3IT - Recognizer landmark sequence plan",
+  "active_prompt": "docs/model/return-to-form-m3it-recognizer-landmark-sequence-plan-goal-loop-prompt.md",
+  "status": "static_plan_only_no_runtime_or_training_artifact",
+  "purpose": "Define the future logical input sequence contract for a scratch-trained isolated-sign recognizer that may consume promoted Detector 0 outputs matching the M3IR region + hand-landmark contract after separate evidence, training, validation, export, and promotion gates.",
+  "source_evidence": {
+    "m3is_detector0_card": {
+      "path": "web/public/model/detector0-card.json",
+      "sha256": "71cd26006db1f419b03f723c6ae82872486f356211425964df569539a8efc618"
+    },
+    "m3is_receipt": {
+      "path": "docs/validation/return-to-form-m3is-detector0-landmark-contract-card-followup-v1.json",
+      "sha256": "c2a3b92e70293a72455fa1b1c3fe249ff9f3c1209968a09392d488afbac253ae"
+    },
+    "m3is_session_log": {
+      "path": "docs/session-logs/813-mission-3is-detector0-card-contract-policy-followup.md",
+      "sha256": "b1c713736391ae12bad91ac94457a2aa4f90503a65725c5d9a97cd22bca0a518"
+    },
+    "m3ir_target_contract": {
+      "path": "docs/model/return-to-form-detector0-region-hand-landmark-target-contract-v1.json",
+      "sha256": "19f592e5faa49f419470ef83582182e663a8ccc1fb9d66a22a193aa82b17759c"
+    },
+    "m3ir_receipt": {
+      "path": "docs/validation/return-to-form-m3ir-detector0-landmark-contract-or-card-integration-v1.json",
+      "sha256": "1ce55b7d984ff3ef9468fb87a7866ed0da72e347fcf489d799747df6dfe226fd"
+    },
+    "m3ir_session_log": {
+      "path": "docs/session-logs/811-mission-3ir-detector0-region-hand-landmark-target-contract.md",
+      "sha256": "b6e7ced50993bcba8e4fbffc5794e7ef9f86367d8c2f8dd48cf104f6f7fbc948"
+    },
+    "m3iq_policy_decision": {
+      "path": "DECISIONS.md",
+      "sha256": "82f9e70f4f84c4523d0a92d41f9cfeb93e9bcf505673eb7191aa302cc91ac72d"
+    },
+    "m3iq_receipt": {
+      "path": "docs/validation/return-to-form-m3iq-detector0-landmark-integration-v1.json",
+      "sha256": "61fbb09aa4ac2092ce254faeded8e8f72a1db6786caaa9081e51f4d638bd214e"
+    },
+    "m3iq_session_log": {
+      "path": "docs/session-logs/809-mission-3iq-detector0-offline-label-policy-decision-record.md",
+      "sha256": "39578a550d5fb96347731d0f7f18899ffa6581bc913bbaaad8da02c2d2a933f0"
+    },
+    "observer_model_input_strategy_memo": {
+      "path": "artifacts/research/observer-508-m3ef-model-input-strategy/response.md",
+      "sha256": "1ba3d2a7ada07ec38a1180caec334e4e8a53a1aedf86dc049a1358ae80eba173",
+      "role": "advisory only; records prior fixed-region input train-sanity failure and fail-closed boundary"
+    },
+    "observer_detector0_strict_gate_strategy_memo": {
+      "path": "artifacts/research/observer-597-m3fs-detector0-strict-gate-strategy/response.md",
+      "sha256": "95df8e9a8fb4258780710977dcc933919a21ec6a93350782d68e178bf7c90924",
+      "role": "advisory only; records prior Detector 0 strict-gate strategy limits and fail-closed boundary"
+    }
+  },
+  "scope": {
+    "includes": [
+      "future recognizer input sequence shape",
+      "coordinate and mapping rules inherited from M3IR",
+      "temporal window and padding assumptions",
+      "missingness and mask semantics",
+      "provenance requirements",
+      "validation prerequisites",
+      "claim and runtime boundaries"
+    ],
+    "excludes": [
+      "runtime TypeScript interface mutation",
+      "recognizer implementation",
+      "training script or tensor builder",
+      "model code or checkpoint",
+      "evaluation or ablation execution",
+      "ONNX export",
+      "browser bundle creation",
+      "browser activation",
+      "model-card promotion",
+      "source or media authority changes",
+      "side-worktree mutation"
+    ]
+  },
+  "logical_sequence_contract": {
+    "contract_kind": "logical_static_plan_not_tensor_materialization",
+    "future_consumer": "scratch_trained_isolated_sign_recognizer",
+    "source_signal": "promoted Detector 0 region + hand-landmark output sequence only after separate promotion evidence exists",
+    "canonical_shape": {
+      "notation": "[batch, temporal_window_timesteps, feature_count_without_masks]",
+      "batch_axis": "future training/evaluation batch",
+      "time_axis": "ordered sampled timesteps from one isolated-sign attempt",
+      "feature_axis": "canonical numeric feature vector defined below",
+      "temporal_window_timesteps_planning_default": 32,
+      "feature_count_without_masks": 220,
+      "mask_tensors_are_separate": true,
+      "implementation_status": "not_implemented"
+    },
+    "feature_vector_components": [
+      {
+        "component_id": "coarse_region_targets",
+        "applies_to_targets": [
+          "left_or_first_hand",
+          "right_or_second_hand",
+          "head_or_face",
+          "upper_body_or_signing_space"
+        ],
+        "features_per_target": [
+          "presence",
+          "center_x_norm",
+          "center_y_norm",
+          "box_x1_norm",
+          "box_y1_norm",
+          "box_x2_norm",
+          "box_y2_norm",
+          "visibility_confidence",
+          "occlusion_flag",
+          "truncation_flag"
+        ],
+        "features_per_target_count": 10,
+        "component_feature_count": 40,
+        "coordinate_space": "normalized_full_frame_top_left_xyxy"
+      },
+      {
+        "component_id": "hand_landmark_targets",
+        "applies_to_targets": [
+          "left_or_first_hand",
+          "right_or_second_hand"
+        ],
+        "features_per_hand": [
+          "presence",
+          "crop_box_x1_norm",
+          "crop_box_y1_norm",
+          "crop_box_x2_norm",
+          "crop_box_y2_norm",
+          "21_landmark_xy_norm_in_crop",
+          "21_landmark_xy_norm_full_frame",
+          "visibility_confidence"
+        ],
+        "features_per_hand_count": 90,
+        "component_feature_count": 180,
+        "landmark_count_per_hand": 21,
+        "landmark_order": [
+          "wrist",
+          "thumb_cmc",
+          "thumb_mcp",
+          "thumb_ip",
+          "thumb_tip",
+          "index_finger_mcp",
+          "index_finger_pip",
+          "index_finger_dip",
+          "index_finger_tip",
+          "middle_finger_mcp",
+          "middle_finger_pip",
+          "middle_finger_dip",
+          "middle_finger_tip",
+          "ring_finger_mcp",
+          "ring_finger_pip",
+          "ring_finger_dip",
+          "ring_finger_tip",
+          "pinky_mcp",
+          "pinky_pip",
+          "pinky_dip",
+          "pinky_tip"
+        ],
+        "crop_coordinate_space": "normalized_expanded_signing_space_crop_top_left_xy",
+        "full_frame_coordinate_space": "normalized_full_frame_top_left_xy"
+      }
+    ]
+  },
+  "coordinate_rules": {
+    "full_frame_boxes": {
+      "coordinate_space": "normalized_full_frame_top_left_xyxy",
+      "origin": "top_left",
+      "display_mirroring_applied_to_training_values": false,
+      "range": "[0, 1] after source-frame normalization",
+      "mapping_notes": "Box and center values are source-frame coordinates, not UI display coordinates."
+    },
+    "hand_landmarks": {
+      "crop_coordinate_space": "normalized_expanded_signing_space_crop_top_left_xy",
+      "full_frame_mapping": {
+        "x": "crop_box_xyxy_norm[0] + landmark_xy_norm_in_crop[0] * (crop_box_xyxy_norm[2] - crop_box_xyxy_norm[0])",
+        "y": "crop_box_xyxy_norm[1] + landmark_xy_norm_in_crop[1] * (crop_box_xyxy_norm[3] - crop_box_xyxy_norm[1])"
+      },
+      "requires_crop_box_xyxy_norm": true,
+      "left_right_semantics": "Use target ids left_or_first_hand and right_or_second_hand from the Detector 0 contract; do not infer biometric identity."
+    },
+    "normalization": {
+      "per_clip_centering": "not selected in this static plan",
+      "per_signer_scaling": "not selected in this static plan",
+      "future_ablation_required_before_changing_canonical_coordinates": true
+    }
+  },
+  "temporal_window_rules": {
+    "planning_default_timesteps": 32,
+    "clip_scope": "one isolated-sign attempt with source approval and retained split identity",
+    "sampling_policy": "future tensor builder may uniformly sample or pad to 32 ordered timesteps; exact sampler requires a later reviewable implementation contract",
+    "padding_policy": {
+      "numeric_features_for_padded_timesteps": 0,
+      "temporal_valid_mask": false,
+      "preserve_original_frame_count": true
+    },
+    "ordering": {
+      "monotonic_source_frame_order_required": true,
+      "shuffle_within_sequence_allowed": false,
+      "source_frame_ids_retained_in_sidecar": true
+    },
+    "latency_or_realtime_claim": false
+  },
+  "missingness_and_masking": {
+    "mask_channels": [
+      "temporal_valid",
+      "region_presence_by_target",
+      "region_visibility_valid_by_target",
+      "hand_presence_by_target",
+      "landmark_presence_by_hand_and_index",
+      "occlusion_by_region_target",
+      "truncation_by_region_target"
+    ],
+    "absent_region_rule": "When a region target is absent, its numeric region features are zero-filled and its presence mask is false.",
+    "absent_hand_landmark_rule": "When a hand landmark target is absent, crop and landmark numeric features are zero-filled and hand/landmark masks are false.",
+    "low_visibility_rule": "Low visibility remains an input feature and mask condition; do not drop the frame silently.",
+    "empty_or_no_hand_frames": "Retain explicitly masked no-hand or empty-camera frames for future negative accounting when source rights allow them.",
+    "imputation_policy": "No interpolation or learned imputation is selected by this static plan."
+  },
+  "provenance_requirements": {
+    "offline_label_policy": "targets offline-derived via MediaPipe Holistic; runtime uses only our scratch-trained model and is not a runtime dependency.",
+    "required_before_any_training_packet": [
+      "source-rights receipt for each raw source",
+      "explicit derived-label allowance for each source when labels are not human-authored",
+      "labeler method/version/config sidecar with hashes",
+      "human-review sample or manual annotation receipt where available",
+      "split manifest retaining signer/source/clip identity",
+      "per-file checksum manifest for every input sidecar consumed",
+      "negative and no-hand source accounting when used"
+    ],
+    "runtime_dependency_boundary": {
+      "offline_labelers_are_runtime_dependencies": false,
+      "future_browser_runtime_must_use_project_scratch_model_only": true,
+      "raw_learner_video_upload_allowed_during_normal_practice": false
+    }
+  },
+  "validation_prerequisites": [
+    "Detector 0 region + hand-landmark artifact is separately scratch-trained, evaluated, exported, and promoted with retained evidence",
+    "source-rights and derived-label provenance receipts are complete for every training/evaluation source",
+    "sequence tensor-builder contract is reviewed in a later slice before any tensors are created",
+    "train/validation/test split accounting prevents signer, source, and clip leakage",
+    "input sidecar audit verifies feature count, coordinate spaces, masks, temporal ordering, padding, and checksum coverage",
+    "recognizer train-sanity run demonstrates learning above chance on training data before validation claims are interpreted",
+    "per-label validation and test metrics include top-1, macro recall, macro F1, confusion matrix, and zero-recall labels",
+    "missingness, occlusion, low-light, off-center, no-hand, and non-target signing subsets are reported separately",
+    "browser parity and latency receipts are created only after a promoted scratch recognizer artifact exists",
+    "claim-surface proof keeps active labels empty until explicit promotion"
+  ],
+  "claim_boundaries": {
+    "recognizer_runtime_authority": false,
+    "detector0_runtime_authority": false,
+    "browser_recognition_authority": false,
+    "asl_correctness_authority": false,
+    "model_readiness_claim": false,
+    "active_vocabulary_claim": false,
+    "browser_artifact_created": false,
+    "training_or_evaluation_completed": false,
+    "promotion_state_changed": false,
+    "final_gate_changed": false,
+    "allowed_claim_after_this_plan": "A static future recognizer input-sequence plan exists; no recognizer is implemented, trained, exported, promoted, or active."
+  },
+  "current_claim_surfaces": {
+    "web/public/model/model-card.json": {
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "status": "not_trained",
+      "changed_by_this_plan": false
+    },
+    "web/public/model/detector0-card.json": {
+      "sha256": "71cd26006db1f419b03f723c6ae82872486f356211425964df569539a8efc618",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null,
+      "changed_by_this_plan": false
+    },
+    "web/public/model/browser-model-bundle.json": {
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9",
+      "changed_by_this_plan": false
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "active_labels": [],
+      "changed_by_this_plan": false
+    }
+  },
+  "next_action": "continue_m3iu_detector0_landmark_training_packet_readiness_plan"
+}

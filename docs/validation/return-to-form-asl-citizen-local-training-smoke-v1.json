@@ -1,0 +1,149 @@
+{
+  "schema_version": "asl-pilot-asl-citizen-local-training-smoke/v1",
+  "status": "completed",
+  "mission": "Mission 3AK ASL Citizen local lesson smoke",
+  "checked_at": "2026-05-27T05:42:47Z",
+  "purpose": "Run the bounded one-epoch local no-spend ASL Citizen lesson-milestone training smoke after local tensor materialization.",
+  "source_scope": {
+    "source_id": "asl-citizen-school-assignment-raw-videos",
+    "dataset_source_mode": "approved_external_raw_video_source",
+    "label_count": 25,
+    "train_clips": 300,
+    "validation_clips": 94,
+    "test_manifest_clips": 100,
+    "test_manifest_note": "The test manifest was validated and bound into provenance, but this one-epoch training smoke records train and validation metrics only."
+  },
+  "command": {
+    "command": "./.venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/rawframe-milestone/train.json --validation-manifest data/manifests/lesson/rawframe-milestone/validation.json --test-manifest data/manifests/lesson/rawframe-milestone/test.json --output-dir artifacts/rawframe-lesson-milestone --model-id asl-pilot-asl-citizen-lesson-local-smoke-v1 --architecture motion_2d_temporal_cnn --lesson-milestone --check-files --epochs 1 --batch-size 4 --frame-count 12 --image-size 96 --learning-rate 0.001",
+    "exit_code": 0,
+    "log_path": "/tmp/asl-pilot-m3ak-local-training-smoke.log",
+    "log_sha256": "61fef4ce8e04c81b1a8b31f4be9f956778d375da6e8851af78fb8504cb01b999"
+  },
+  "environment": {
+    "local_ml_environment": {
+      "path": "docs/validation/local-ml-environment.json",
+      "sha256": "1760c0cc50f652102094e98fe3b4e6aa2a41774118f5626b29b866afc6e05b90"
+    },
+    "framework": {
+      "name": "pytorch",
+      "version": "2.12.0",
+      "python": "3.14.5",
+      "device": "mps"
+    },
+    "brev_command_run": false,
+    "brev_compute_used": false
+  },
+  "inputs": {
+    "train_manifest": {
+      "path": "data/manifests/lesson/rawframe-milestone/train.json",
+      "sha256": "27b2a7c8dc00bd972c41e12dc3b3aa4ccac673c44e000ab5368e1679973ed395"
+    },
+    "validation_manifest": {
+      "path": "data/manifests/lesson/rawframe-milestone/validation.json",
+      "sha256": "396a5671edd74eed3e36d108663a8a7aae351e0e1c5617a3d307b810aad290c1"
+    },
+    "test_manifest": {
+      "path": "data/manifests/lesson/rawframe-milestone/test.json",
+      "sha256": "08c1111f5f699f8b2c42b283850f4f421ae5f277fc6921ed00cc80a4df86fa64"
+    },
+    "tensor_materialization_receipt": {
+      "path": "docs/validation/return-to-form-asl-citizen-local-tensor-materialization-v1.json"
+    }
+  },
+  "training": {
+    "training_status": "completed",
+    "evidence_mode": "lesson_milestone",
+    "model_id": "asl-pilot-asl-citizen-lesson-local-smoke-v1",
+    "architecture": "motion_2d_temporal_cnn",
+    "seed": 20260519,
+    "initialization": "random",
+    "pretrained_components": [],
+    "hyperparameters": {
+      "epochs": 1,
+      "batch_size": 4,
+      "learning_rate": 0.001,
+      "optimizer": "adamw",
+      "weight_decay": 0.01,
+      "label_smoothing": 0.0,
+      "frame_count": 12,
+      "image_size": 96,
+      "training_augmentation": "none",
+      "checkpoint_selection": "final",
+      "max_train_batches": null,
+      "max_validation_batches": null
+    },
+    "history": [
+      {
+        "epoch": 1,
+        "train": {
+          "loss": 3.365101165771484,
+          "accuracy": 0.03,
+          "examples": 300.0,
+          "batches": 75.0
+        },
+        "validation": {
+          "loss": 3.1850887156547385,
+          "accuracy": 0.09574468085106383,
+          "examples": 94.0,
+          "batches": 24.0
+        }
+      }
+    ],
+    "selected_checkpoint": {
+      "policy": "final",
+      "selected_epoch": 1,
+      "selected_validation_accuracy": 0.09574468085106383,
+      "selected_validation_loss": 3.1850887156547385
+    },
+    "random_initialization_evidence": {
+      "initial_model_state_digest": "1e30a5b093e1eca66138a666b37113c99a842da7185222f51e9c8a63423003b5",
+      "final_model_state_digest": "ded524895584e782103a69d2ec76b3773f0084fe790daefae130965026f24bcf",
+      "parameter_count": 1137188
+    },
+    "decode_provenance_verification": {
+      "required": true,
+      "status": "passed",
+      "schema_version": "asl-pilot-rawframe-decode-provenance/v1"
+    },
+    "threshold_policy": "not_calibrated"
+  },
+  "outputs": {
+    "training_provenance": {
+      "path": "artifacts/rawframe-lesson-milestone/training-provenance.json",
+      "sha256": "567ca5df324668d65d306ca8b4a4844e6aec16cb0955efd4fd71d0eaa0db4e42",
+      "committed": true
+    },
+    "model_state": {
+      "path": "artifacts/rawframe-lesson-milestone/model_state.pt",
+      "sha256": "ab20c0de40b3a768a483413394c83a6e7a1b9ff076ea434b4643636504af1b63",
+      "size": "4.4M",
+      "committed": false,
+      "gitignored": true
+    },
+    "onnx_model": {
+      "exists": false
+    }
+  },
+  "boundaries": {
+    "brev_command_run": false,
+    "brev_compute_used": false,
+    "source_imported": false,
+    "source_approval_changed": false,
+    "generated_pseudo_labels": false,
+    "pretrained_detector_landmark_backbone_used": false,
+    "onnx_exported": false,
+    "model_card_promoted": false,
+    "threshold_promoted": false,
+    "browser_promotion": false,
+    "final_readiness_claim_made": false,
+    "broad_75_95_label_run": false,
+    "pushed": false
+  },
+  "interpretation": {
+    "local_smoke_completed": true,
+    "compute_sanity_check_passed": true,
+    "promotion_justified": false,
+    "metric_note": "A single local one-epoch smoke proves the training path can load tensors and optimize, but the low train and validation accuracy are not a recognizer-quality claim.",
+    "next_action": "Observer STOP for a human-approved bounded Brev/full-training proposal decision."
+  }
+}

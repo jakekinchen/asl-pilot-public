@@ -1,0 +1,107 @@
+{
+  "schema_version": "asl-pilot-dataset-collection-ui-queue-smoke/v1",
+  "status": "passed",
+  "evidence_mode": "operator_ui_smoke",
+  "finality": "queue_ready_not_training_data",
+  "tested_at": "2026-05-25T16:54:49.649Z",
+  "runner": {
+    "tool": "playwright",
+    "app_url": "http://127.0.0.1:52630",
+    "command": [
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/Users/kelly/Developer/asl-pilot/scripts/run_dataset_collection_ui_queue_smoke.mjs",
+      "--write"
+    ],
+    "script": {
+      "path": "scripts/run_dataset_collection_ui_queue_smoke.mjs",
+      "exists": true,
+      "sha256": "c657b68fa88e52e688b8846946cc129bc60cce927df587d2f001bdcc5470573e"
+    }
+  },
+  "inputs": {
+    "collection_plan": {
+      "path": "data/dataset/collection-plan.json",
+      "exists": true,
+      "sha256": "4ce4ad70954ade1d5f7f49a003696ee37e3a3013dcb9f09fd1f9a37af870feb5"
+    },
+    "active_collection_queue": {
+      "path": "data/dataset/canonical-verifier-010-collection-queue.json",
+      "exists": true,
+      "sha256": "f522c8638301aafe5da1b8d1fe153fca9da1813eacd016fa6944c143959501bb"
+    },
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "exists": true,
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a"
+    }
+  },
+  "runtime_env": {
+    "ENABLE_DATASET_COLLECTION": "true",
+    "NEXT_PUBLIC_ENABLE_DATASET_COLLECTION": "true",
+    "ASL_PILOT_AUTH_PROVIDER": "local",
+    "ASL_PILOT_STORE_PATH": "output/dataset-collection-ui-queue-smoke/store.json",
+    "ASL_PILOT_DATASET_CLIP_ROOT": "output/dataset-collection-ui-queue-smoke/clips",
+    "ASL_PILOT_COLLECTION_PLAN_PATH": "unset: default real collection plan",
+    "ASL_PILOT_REMEDIATION_QUEUE_PATH": "unset: default active canonical queue candidate"
+  },
+  "collection_ui": {
+    "authenticated_operator_session": true,
+    "auto_loaded_first_canonical_assignment": true,
+    "selected_option_text": "#1 · vocabulary:1056 · Test · signer-001 · Book",
+    "select_option_count": 235,
+    "select_has_non_queued_option": false,
+    "shows_canonical_queue_assignment_count": true,
+    "shows_queue_number": true,
+    "shows_canonical_bucket": true,
+    "shows_priority_label_count": true,
+    "record_button_text": "Record Book",
+    "record_button_disabled_without_camera_and_consent": true,
+    "screenshot": {
+      "path": "output/dataset-collection-ui-queue-smoke/canonical-queue-ui.png",
+      "exists": true,
+      "sha256": "2a014cd485e05c8b32e1debddb221b71f7d5a91ee16c258fea949bb57c47207e"
+    }
+  },
+  "final_evidence_exclusion": {
+    "excluded_from_model_completion": true,
+    "reason": "This smoke verifies operator UI routing only. It does not start a camera, collect clips, approve evidence, export manifests, train weights, or promote a model."
+  },
+  "evidence": {
+    "source_files": [
+      {
+        "path": "scripts/run_dataset_collection_ui_queue_smoke.mjs",
+        "exists": true,
+        "sha256": "c657b68fa88e52e688b8846946cc129bc60cce927df587d2f001bdcc5470573e"
+      },
+      {
+        "path": "web/src/components/DatasetCollectionPanel.tsx",
+        "exists": true,
+        "sha256": "83d89a6b1c4054e47d1b937ac81ff36ed51bbc62a7117628e0db93f95210125a"
+      },
+      {
+        "path": "web/src/app/api/dataset/plan/route.ts",
+        "exists": true,
+        "sha256": "f3c0e42ae595228e09b7d722a7e4e1d9416c2d174a7137c3e1ec2a90d61405c2"
+      }
+    ]
+  },
+  "server": {
+    "mode": "next_start",
+    "build_id_sha256": "072fcd943d54ffd4b72f38351fc802aeb88d72d7e8cf553c2f1492f119eb2630",
+    "stdout_tail": [
+      "> web@0.1.0 start",
+      "> next start --hostname 127.0.0.1 --port 52630",
+      "",
+      "▲ Next.js 16.2.6",
+      "- Local:         http://127.0.0.1:52630",
+      "- Network:       http://127.0.0.1:52630",
+      "✓ Ready in 129ms"
+    ],
+    "stderr_tail": [
+      ""
+    ]
+  },
+  "output": "docs/validation/dataset-collection-ui-queue-smoke.json",
+  "blockers": []
+}

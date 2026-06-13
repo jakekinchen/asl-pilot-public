@@ -1,0 +1,187 @@
+{
+  "schema_version": "asl-pilot-asl-citizen-local-tensor-materialization/v1",
+  "status": "materialized_and_verified",
+  "mission": "Mission 3AK ASL Citizen local lesson smoke",
+  "checked_at": "2026-05-27T05:33:58Z",
+  "purpose": "Prepare strictly local no-spend decoded raw RGB frame tensors for the approved ASL Citizen lesson-milestone manifests before retrying the one-epoch training smoke.",
+  "source_scope": {
+    "source_id": "asl-citizen-school-assignment-raw-videos",
+    "dataset_source_mode": "approved_external_raw_video_source",
+    "raw_video_root": "data/external/asl-citizen/raw/selected",
+    "raw_video_count": 494,
+    "raw_video_size_mib": 217.4,
+    "raw_media_redistribution": "not_performed"
+  },
+  "tools": {
+    "decode_script": {
+      "path": "scripts/decode_raw_videos.py",
+      "sha256": "94cb6a12c4ff9d8eada234b4eefb1fc54a652d90bc902fbc1671a2b15d8ab45a"
+    },
+    "decode_provenance_script": {
+      "path": "scripts/rawframe_decode_provenance.py",
+      "sha256": "3274b040d519cf7793701e83c17d8dc3f7662ce60996964c7d1d5b2516b54bc6"
+    },
+    "training_script": {
+      "path": "scripts/train_rawframe_model.py",
+      "sha256": "64a4b88998b408cac9e78ce168acedf0d1ddcec742a06040339c6d2f83d77949"
+    },
+    "local_ml_environment": {
+      "path": "docs/validation/local-ml-environment.json",
+      "sha256": "1760c0cc50f652102094e98fe3b4e6aa2a41774118f5626b29b866afc6e05b90",
+      "python": "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "torch_version": "2.12.0",
+      "mps_available": true
+    }
+  },
+  "decode_parameters": {
+    "tensor_root": "data/tensors/asl-citizen-lesson-milestone",
+    "frame_count": 12,
+    "image_size": 96,
+    "decode_fps": 12.0,
+    "pixel_format": "rgb24",
+    "pretrained_components": []
+  },
+  "commands": [
+    {
+      "purpose": "Materialize local decoded tensors and write manifest tensor paths, hashes, and decode provenance.",
+      "command": "./.venv/bin/python scripts/decode_raw_videos.py --manifest data/manifests/lesson/rawframe-milestone/train.json --manifest data/manifests/lesson/rawframe-milestone/validation.json --manifest data/manifests/lesson/rawframe-milestone/test.json --tensor-root data/tensors/asl-citizen-lesson-milestone --frame-count 12 --image-size 96 --decode-fps 12 --lesson-milestone",
+      "exit_code": 0,
+      "log_path": "/tmp/asl-pilot-m3ak-tensor-materialization.log",
+      "log_sha256": "d4e7646662d3723298900c750735354f4b16ba35898cf91e039e0c17b1b36f0a",
+      "status": "decoded"
+    },
+    {
+      "purpose": "Replay-verify manifest decode provenance and tensor hashes.",
+      "command": "./.venv/bin/python scripts/decode_raw_videos.py --manifest data/manifests/lesson/rawframe-milestone/train.json --manifest data/manifests/lesson/rawframe-milestone/validation.json --manifest data/manifests/lesson/rawframe-milestone/test.json --lesson-milestone --verify-only",
+      "exit_code": 0,
+      "log_path": "/tmp/asl-pilot-m3ak-tensor-verify.log",
+      "log_sha256": "8b6dc6f87cbf87c6403d08f0394b12a4e148b6fa267023c0acb1e81203426444",
+      "status": "verified"
+    }
+  ],
+  "manifest_outputs": {
+    "train": {
+      "path": "data/manifests/lesson/rawframe-milestone/train.json",
+      "previous_sha256": "aa9f41ecc0dbc0c2e28cebe55551086f1b09d0690afb369dc2887cb6e4d0060a",
+      "sha256": "27b2a7c8dc00bd972c41e12dc3b3aa4ccac673c44e000ab5368e1679973ed395",
+      "clips": 300,
+      "clips_with_relative_frame_tensor_path": 300,
+      "clips_with_frame_tensor_sha256": 300,
+      "clips_with_frame_tensor_provenance": 300,
+      "tensor_files_verified": 300,
+      "tensor_bytes": 100126260
+    },
+    "validation": {
+      "path": "data/manifests/lesson/rawframe-milestone/validation.json",
+      "previous_sha256": "9b95b23e3e6007bccff4fd15537445054844450abdf98489f661a424c867438f",
+      "sha256": "396a5671edd74eed3e36d108663a8a7aae351e0e1c5617a3d307b810aad290c1",
+      "clips": 94,
+      "clips_with_relative_frame_tensor_path": 94,
+      "clips_with_frame_tensor_sha256": 94,
+      "clips_with_frame_tensor_provenance": 94,
+      "tensor_files_verified": 94,
+      "tensor_bytes": 31376875
+    },
+    "test": {
+      "path": "data/manifests/lesson/rawframe-milestone/test.json",
+      "previous_sha256": "eb22b2d6787a1c8c0b75b7b99e75e52510d188f161c54d45620b8f865047567b",
+      "sha256": "08c1111f5f699f8b2c42b283850f4f421ae5f277fc6921ed00cc80a4df86fa64",
+      "clips": 100,
+      "clips_with_relative_frame_tensor_path": 100,
+      "clips_with_frame_tensor_sha256": 100,
+      "clips_with_frame_tensor_provenance": 100,
+      "tensor_files_verified": 100,
+      "tensor_bytes": 33374633
+    }
+  },
+  "tensor_outputs": {
+    "root": "data/tensors/asl-citizen-lesson-milestone",
+    "git_ignored": true,
+    "committed": false,
+    "file_count": 494,
+    "du_size": "158M",
+    "total_tensor_bytes_from_manifests": 164877768,
+    "sample_tensors": [
+      {
+        "split": "train",
+        "clip_id": "asl-citizen-train-brother-22666524686508982-brother",
+        "label_id": "brother",
+        "relative_frame_tensor_path": "../../../tensors/asl-citizen-lesson-milestone/train/asl-citizen-train-brother-22666524686508982-brother.pt",
+        "frame_tensor_sha256": "bfd16ccf61a37684e76a23e6c61aafdf0871d4c52673ae09a10b6404348f11ca",
+        "tensor_digest_sha256": "8e7ded3b7a9082455acf9886b880bf2954a6ca2da642e9697387d0c9d97f965d",
+        "tensor_shape": [
+          12,
+          96,
+          96,
+          3
+        ],
+        "tensor_dtype": "uint8"
+      },
+      {
+        "split": "validation",
+        "clip_id": "asl-citizen-validation-brother-43876125183584724-brother",
+        "label_id": "brother",
+        "relative_frame_tensor_path": "../../../tensors/asl-citizen-lesson-milestone/validation/asl-citizen-validation-brother-43876125183584724-brother.pt",
+        "frame_tensor_sha256": "5d06f4427c7649baf9784406b7da9e475e83fc98ef6170e8a81b681bb1601d6f",
+        "tensor_digest_sha256": "7049d2de4a526f0b476ac87edd199f9eac029594ee5f870c75cabe0751b33223",
+        "tensor_shape": [
+          12,
+          96,
+          96,
+          3
+        ],
+        "tensor_dtype": "uint8"
+      },
+      {
+        "split": "test",
+        "clip_id": "asl-citizen-test-brother-9635118109017773-brother",
+        "label_id": "brother",
+        "relative_frame_tensor_path": "../../../tensors/asl-citizen-lesson-milestone/test/asl-citizen-test-brother-9635118109017773-brother.pt",
+        "frame_tensor_sha256": "bf05774b9fb882627926f61c186916c1835915498d6fa300eec81feb905cd264",
+        "tensor_digest_sha256": "eb041cd5afc4beb99148aa84bb794fe362cd38714ab62e487563999b09a49142",
+        "tensor_shape": [
+          12,
+          96,
+          96,
+          3
+        ],
+        "tensor_dtype": "uint8"
+      }
+    ]
+  },
+  "verification": {
+    "decode_summary": {
+      "train_clips_decoded": 300,
+      "validation_clips_decoded": 94,
+      "test_clips_decoded": 100,
+      "status": "decoded"
+    },
+    "provenance_replay": {
+      "train_clips_verified": 300,
+      "validation_clips_verified": 94,
+      "test_clips_verified": 100,
+      "status": "verified"
+    }
+  },
+  "boundaries": {
+    "brev_command_run": false,
+    "brev_compute_used": false,
+    "source_imported": false,
+    "source_approval_changed": false,
+    "generated_pseudo_labels": false,
+    "pretrained_detector_landmark_backbone_used": false,
+    "training_run": false,
+    "onnx_exported": false,
+    "model_card_promoted": false,
+    "threshold_promoted": false,
+    "final_readiness_claim_made": false,
+    "broad_75_95_label_run": false,
+    "pushed": false
+  },
+  "interpretation": {
+    "tensor_materialization_completed": true,
+    "one_epoch_smoke_completed": false,
+    "promotion_justified": false,
+    "next_action": "Retry the active prompt's one-epoch local training smoke against the now tensor-backed ASL Citizen lesson manifests."
+  }
+}

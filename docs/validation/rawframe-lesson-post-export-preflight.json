@@ -1,0 +1,81 @@
+{
+  "schema_version": "asl-pilot-rawframe-lesson-post-export-preflight/v1",
+  "status": "blocked_lesson_post_export_preflight",
+  "generated_at": "2026-05-21T16:39:53.468Z",
+  "generated_by": {
+    "tool": "node",
+    "command": [
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/Users/kelly/Developer/asl-pilot/scripts/run_rawframe_lesson_post_export_preflight.mjs",
+      "--write"
+    ],
+    "script": {
+      "path": "scripts/run_rawframe_lesson_post_export_preflight.mjs",
+      "exists": true,
+      "sha256": "b3674e09763e9fbfd8257ca9aead7743fc639cd39402c792052a57322472c855"
+    }
+  },
+  "final_model_evidence": false,
+  "lesson_milestone_evidence_gate": true,
+  "decision_boundary": {
+    "changes_store": false,
+    "changes_manifests": false,
+    "writes_tensors": false,
+    "trains_model": false,
+    "final_75_100_label_evidence": false,
+    "lesson_25_sign_preflight_only": true
+  },
+  "inputs": {
+    "export_summary": {
+      "path": "docs/validation/rawframe-lesson-first-party-manifest-export.json",
+      "exists": true,
+      "sha256": "b261985a4a53123dcf6eeac8afbc13adb16789229a65e59b6109902762e55b3c"
+    },
+    "manifest_dir": "data/manifests/lesson/rawframe-milestone",
+    "manifests": {
+      "train": {
+        "path": "data/manifests/lesson/rawframe-milestone/train.json",
+        "exists": false,
+        "sha256": null
+      },
+      "validation": {
+        "path": "data/manifests/lesson/rawframe-milestone/validation.json",
+        "exists": false,
+        "sha256": null
+      },
+      "test": {
+        "path": "data/manifests/lesson/rawframe-milestone/test.json",
+        "exists": false,
+        "sha256": null
+      },
+      "negative_challenge": {
+        "path": "data/manifests/lesson/rawframe-milestone/negative-challenge.json",
+        "exists": false,
+        "sha256": null
+      }
+    }
+  },
+  "blockers": [
+    "lesson manifest export summary is not ready: blocked_lesson_collection_not_export_ready",
+    "lesson collection readiness is not export-ready: blocked_missing_first_party_store",
+    "data/asl-pilot-store.json is absent; no first-party browser-domain lesson clips have been collected",
+    "600 lesson packet assignment(s) still need approved first-party clips before lesson manifest export",
+    "data/asl-pilot-store.json is absent; no first-party lesson manifests can be exported",
+    "train lesson manifest is missing: data/manifests/lesson/rawframe-milestone/train.json",
+    "validation lesson manifest is missing: data/manifests/lesson/rawframe-milestone/validation.json",
+    "test lesson manifest is missing: data/manifests/lesson/rawframe-milestone/test.json",
+    "negativeChallenge lesson manifest is missing: data/manifests/lesson/rawframe-milestone/negative-challenge.json"
+  ],
+  "export_summary_status": "blocked_lesson_collection_not_export_ready",
+  "expected_manifest_counts": null,
+  "commands": {
+    "downstream_manifest_validation": null,
+    "decode_dry_run": null
+  },
+  "required_next_commands": [
+    "node scripts/audit_rawframe_lesson_collection_readiness.mjs --write",
+    "node scripts/export_rawframe_lesson_first_party_manifests.mjs --write",
+    "node scripts/run_rawframe_lesson_post_export_preflight.mjs --write",
+    "PYTHONPATH=scripts ./.venv/bin/python scripts/decode_raw_videos.py --manifest data/manifests/lesson/rawframe-milestone/train.json --manifest data/manifests/lesson/rawframe-milestone/validation.json --manifest data/manifests/lesson/rawframe-milestone/test.json --manifest data/manifests/lesson/rawframe-milestone/negative-challenge.json --lesson-milestone"
+  ]
+}

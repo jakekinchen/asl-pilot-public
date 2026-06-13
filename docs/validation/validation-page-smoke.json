@@ -1,0 +1,151 @@
+{
+  "schema_version": "asl-pilot-validation-page-smoke/v1",
+  "status": "passed",
+  "generated_at": "2026-05-28T08:43:01.114Z",
+  "app_url": "http://127.0.0.1:49311",
+  "browser": {
+    "automation": "playwright",
+    "browser_name": "chromium",
+    "fake_media": false
+  },
+  "server": {
+    "mode": "next_start",
+    "output_tail": [
+      "",
+      "> web@0.1.0 start",
+      "> next start --hostname 127.0.0.1 --port 49311",
+      "",
+      "▲ Next.js 16.2.6",
+      "- Local:         http://127.0.0.1:49311",
+      "- Network:       http://127.0.0.1:49311",
+      "✓ Ready in 69ms",
+      ""
+    ]
+  },
+  "checks": [
+    {
+      "id": "validation_route_renders",
+      "label": "/validation renders the fail-closed matrix summary",
+      "status": "passed",
+      "evidence": {
+        "title_visible": true,
+        "matrix_status_visible": true,
+        "browser_model_not_trained_visible": true,
+        "cv_supported_labels_visible": true,
+        "learn_only_prompts_visible": true
+      },
+      "blockers": []
+    },
+    {
+      "id": "evidence_links_visible",
+      "label": "M3BE/M3BF/M3BG/M3BH and runtime claim references are visible",
+      "status": "passed",
+      "evidence": {
+        "evidence_panel_visible": true,
+        "expected_paths": [
+          "docs/validation/return-to-form-product-fallback-scope-design-v1.json",
+          "docs/validation/return-to-form-product-interactive-integration-no-promotion-v1.json",
+          "docs/validation/return-to-form-lesson-interactive-integration-no-promotion-v1.json",
+          "docs/validation/return-to-form-validation-interactive-integration-no-promotion-v1.json",
+          "web/public/model/claim-matrix.json",
+          "web/public/model/model-card.json",
+          "web/public/model/browser-model-bundle.json"
+        ],
+        "visible_paths": [
+          "docs/validation/return-to-form-product-fallback-scope-design-v1.json",
+          "docs/validation/return-to-form-product-interactive-integration-no-promotion-v1.json",
+          "docs/validation/return-to-form-lesson-interactive-integration-no-promotion-v1.json",
+          "docs/validation/return-to-form-validation-interactive-integration-no-promotion-v1.json",
+          "web/public/model/claim-matrix.json",
+          "web/public/model/model-card.json",
+          "web/public/model/browser-model-bundle.json"
+        ]
+      },
+      "blockers": []
+    },
+    {
+      "id": "public_runtime_links_fetchable",
+      "label": "Public runtime JSON links return successfully",
+      "status": "passed",
+      "evidence": {
+        "public_link_results": [
+          {
+            "href": "/model/claim-matrix.json",
+            "status": 200,
+            "ok": true
+          },
+          {
+            "href": "/model/model-card.json",
+            "status": 200,
+            "ok": true
+          },
+          {
+            "href": "/model/browser-model-bundle.json",
+            "status": 200,
+            "ok": true
+          }
+        ]
+      },
+      "blockers": []
+    },
+    {
+      "id": "fail_closed_claims_visible",
+      "label": "Validation copy states fail-closed and no-promotion boundaries",
+      "status": "passed",
+      "evidence": {
+        "no_promotion_copy_visible": true,
+        "no_active_cv_claim_visible": true
+      },
+      "blockers": []
+    },
+    {
+      "id": "no_camera_or_sample_controls",
+      "label": "Validation route does not expose camera, canvas, file, or sample controls",
+      "status": "passed",
+      "evidence": {
+        "video": 0,
+        "canvas": 0,
+        "file_inputs": 0,
+        "start_camera_buttons": 0,
+        "save_sample_buttons": 0
+      },
+      "blockers": []
+    },
+    {
+      "id": "no_promotion_claims_absent",
+      "label": "Validation route does not render positive recognition or final-readiness claims",
+      "status": "passed",
+      "evidence": {
+        "banned_claim_patterns_seen": []
+      },
+      "blockers": []
+    }
+  ],
+  "blockers": [],
+  "source_files": [
+    {
+      "path": "web/src/app/validation/page.tsx",
+      "sha256": "10d28220ff56b9a9626cf98ab53d7a74b4f744ff5109b8de787f81f3df05d7c5"
+    },
+    {
+      "path": "web/src/app/globals.css",
+      "sha256": "dedfa232c93fe797e33a068995dabfa3a129919eda52fc888d28460af8faee26"
+    },
+    {
+      "path": "web/public/model/claim-matrix.json",
+      "sha256": "5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf"
+    },
+    {
+      "path": "web/public/model/model-card.json",
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a"
+    },
+    {
+      "path": "web/public/model/browser-model-bundle.json",
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9"
+    },
+    {
+      "path": "web/public/model/detector0-card.json",
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929"
+    }
+  ]
+}

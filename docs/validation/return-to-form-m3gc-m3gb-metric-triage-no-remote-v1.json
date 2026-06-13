@@ -1,0 +1,490 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3gc-m3gb-metric-triage-no-remote/v1",
+  "mission": "Mission 3GC - M3GB metric triage no remote",
+  "status": "completed_local_no_remote_no_training_metric_triage",
+  "generated_at": "2026-05-29T05:35:59Z",
+  "current_commit": "07f4f86 supervisor: start executor turns fresh by default",
+  "active_prompt": "docs/model/return-to-form-m3gc-m3gb-metric-triage-no-remote-goal-loop-prompt.md",
+  "commands_run": [
+    {
+      "command": "git log -1 --oneline",
+      "status": "passed"
+    },
+    {
+      "command": "git status --short",
+      "status": "passed_clean"
+    },
+    {
+      "command": "sed -n '1,220p' GOAL.md",
+      "status": "passed"
+    },
+    {
+      "command": "sed -n '1,260p' docs/model/return-to-form-m3gc-m3gb-metric-triage-no-remote-goal-loop-prompt.md",
+      "status": "passed"
+    },
+    {
+      "command": "sed -n '1,260p' docs/runbooks/codex-goal-loop.md",
+      "status": "passed"
+    },
+    {
+      "command": "sed -n '1,260p' docs/runbooks/observer-runbook-codex.md",
+      "status": "passed"
+    },
+    {
+      "command": "git status --short --branch",
+      "status": "passed_clean"
+    },
+    {
+      "command": "git log -12 --oneline --decorate",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3gb-human-approved-bounded-brev-composable-training-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3fz-fixed-region-grid-error-pattern-contract-no-spend-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3fy-fixed-region-grid-error-analysis-no-spend-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "brev ls --json",
+      "status": "passed_read_only_stopped"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "find output/m3gb-high-signal-region-grid-tcn-brev -maxdepth 1 -type f -print",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool output/m3gb-high-signal-region-grid-tcn-brev/training-provenance.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool output/m3gb-high-signal-region-grid-tcn-brev/validation-report.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool output/m3gb-high-signal-region-grid-tcn-brev/prediction-sidecar.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "shasum -a 256 output/m3gb-high-signal-region-grid-tcn-brev/training-provenance.json output/m3gb-high-signal-region-grid-tcn-brev/validation-report.json output/m3gb-high-signal-region-grid-tcn-brev/prediction-sidecar.json output/m3gb-high-signal-region-grid-tcn-brev/model_state.pt",
+      "status": "passed"
+    },
+    {
+      "command": "jq evidence extraction over M3GB receipt, M3GB copied-back output JSON, M3FW/M3FY/M3FZ receipts, and fail-closed claim surfaces",
+      "status": "passed"
+    }
+  ],
+  "read_only_brev_default_off_state": {
+    "command": "brev ls --json",
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ],
+    "brev_lifecycle_commands_run_this_mission": [],
+    "remote_commands_run_this_mission": [],
+    "default_off_preserved": true
+  },
+  "m3gb_evidence": {
+    "receipt": {
+      "path": "docs/validation/return-to-form-m3gb-human-approved-bounded-brev-composable-training-v1.json",
+      "status": "valid_json",
+      "summary": "M3GB ran one human-approved retained-worker L40S training/evaluation/copyback attempt, stopped the worker, kept claim surfaces fail-closed, and selected continue_m3gb_metric_triage_no_remote."
+    },
+    "session_log": {
+      "path": "docs/session-logs/613-mission-3gb-human-approved-bounded-brev-composable-training.md",
+      "summary": "The executor recorded one timed non-dry-run training command, one evaluator command, copied-back output hashes, weak metrics, failed gates, final Brev STOPPED state, and diagnostic-only boundaries."
+    },
+    "copied_back_output_files": [
+      {
+        "path": "output/m3gb-high-signal-region-grid-tcn-brev/training-provenance.json",
+        "exists": true,
+        "status": "valid_json_ignored_accounting_evidence",
+        "sha256": "16a76df276831437e3e6020ec0c05c399b0ffaca1dbcd70f749090143fab4f99"
+      },
+      {
+        "path": "output/m3gb-high-signal-region-grid-tcn-brev/validation-report.json",
+        "exists": true,
+        "status": "valid_json_ignored_accounting_evidence",
+        "sha256": "d9a08ae412b071e1a009501f3e996841ed558366030dddd5b412f5d0f5a53202"
+      },
+      {
+        "path": "output/m3gb-high-signal-region-grid-tcn-brev/prediction-sidecar.json",
+        "exists": true,
+        "status": "valid_json_ignored_accounting_evidence",
+        "sha256": "cabfdeb0c28f5ba8bcc95fbf0d310817a046512de13383515cf8a485b812494a"
+      },
+      {
+        "path": "output/m3gb-high-signal-region-grid-tcn-brev/model_state.pt",
+        "exists": true,
+        "status": "ignored_binary_checkpoint_hash_recorded_only",
+        "sha256": "63b8ad3621e1117b7248455af220a8ec1ad552d491d8d1b7ebe3b969d31ac600"
+      }
+    ]
+  },
+  "metric_triage_table": {
+    "training_movement": [
+      {
+        "checkpoint": "first_epoch",
+        "epoch": 1,
+        "train_loss": 2.0462715114865984,
+        "train_accuracy": 0.11904761904761904,
+        "validation_loss": 1.9453316750349823,
+        "validation_accuracy": 0.25925925925925924
+      },
+      {
+        "checkpoint": "best_validation",
+        "epoch": 5,
+        "train_loss": 1.674145675840832,
+        "train_accuracy": 0.34523809523809523,
+        "validation_loss": 1.7931034300062392,
+        "validation_accuracy": 0.37037037037037035
+      },
+      {
+        "checkpoint": "last_epoch",
+        "epoch": 12,
+        "train_loss": 1.2691416910716466,
+        "train_accuracy": 0.4642857142857143,
+        "validation_loss": 3.324918340753626,
+        "validation_accuracy": 0.25925925925925924
+      }
+    ],
+    "checkpoint_selection": {
+      "policy": "best_validation",
+      "selected_epoch": 5,
+      "selected_validation_accuracy": 0.37037037037037035,
+      "selected_validation_loss": 1.7931034300062392
+    },
+    "validation": {
+      "examples": 27,
+      "top1_accuracy": 0.37037037037037035,
+      "macro_f1": 0.33209647495361777,
+      "zero_recall_labels": [
+        "black",
+        "table"
+      ],
+      "per_label_recall": {
+        "black": 0.0,
+        "hello": 0.25,
+        "please": 0.5,
+        "sad": 0.75,
+        "table": 0.0,
+        "uncle": 0.6666666666666666,
+        "white": 0.5
+      },
+      "confusion_matrix_labels": [
+        "black",
+        "hello",
+        "please",
+        "sad",
+        "table",
+        "uncle",
+        "white"
+      ],
+      "table_row_true_columns_predicted": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "black_row_true_columns_predicted": [
+        0,
+        3,
+        0,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    "test": {
+      "examples": 28,
+      "top1_accuracy": 0.25,
+      "macro_f1": 0.15634920634920638,
+      "zero_recall_labels": [
+        "black",
+        "please",
+        "table",
+        "white"
+      ],
+      "per_label_recall": {
+        "black": 0.0,
+        "hello": 0.25,
+        "please": 0.0,
+        "sad": 1.0,
+        "table": 0.0,
+        "uncle": 0.5,
+        "white": 0.0
+      },
+      "threshold_metrics_at_selected_threshold": {
+        "threshold": 0.49,
+        "accepted_accuracy": 1.0,
+        "correct_pass_rate": 0.03571428571428571,
+        "coverage": 0.03571428571428571,
+        "false_accept_rate": 0.0,
+        "false_pass_rate": 0.0
+      }
+    },
+    "threshold_calibration_validation": {
+      "selected_threshold": 0.49,
+      "accepted_accuracy": 0.6666666666666666,
+      "correct_pass_rate": 0.07407407407407407,
+      "coverage": 0.1111111111111111,
+      "false_accept_rate": 0.3333333333333333,
+      "false_pass_rate": 0.037037037037037035
+    },
+    "failed_gates": {
+      "confidence_threshold": true,
+      "false_pass_rate": true,
+      "macro_f1": false,
+      "negative_challenge_false_pass_rate": false,
+      "top1_accuracy": false
+    },
+    "negative_challenge": {
+      "present_in_output_report": false,
+      "value": null,
+      "gate_status": "failed_or_not_available"
+    }
+  },
+  "comparison_to_recent_fixed_grid_evidence": {
+    "m3fw": {
+      "path": "docs/validation/return-to-form-m3fw-tiny2-tiny3-architecture-objective-sanity-v1.json",
+      "input_contract": "rgb_regions_grid_v1",
+      "labels": [
+        "table",
+        "hello"
+      ],
+      "train_accuracy": 1.0,
+      "heldout_top1": 0.75,
+      "heldout_macro_f1": 0.7333333333333334,
+      "heldout_zero_recall_labels": [],
+      "dominant_predicted_class_fraction": 0.75,
+      "dominant_predicted_class_limit": 0.7,
+      "tiny2_gate_passed": false,
+      "failed_gate": "validation_dominant_predicted_class_fraction"
+    },
+    "m3fy": {
+      "path": "docs/validation/return-to-form-m3fy-fixed-region-grid-error-analysis-no-spend-v1.json",
+      "finding": "The Tiny2 residual error was asymmetric: table recall 0.5, hello recall 1.0, and two table rows were high-confidence hello predictions.",
+      "table_false_negative_signers": [
+        "asl-citizen-participant-P26",
+        "asl-citizen-participant-P39"
+      ],
+      "false_table_average_predicted_label_confidence": 0.9998153150081635,
+      "false_table_average_true_label_confidence": 0.00018468642156221904,
+      "uncertainties": [
+        "No raw video or crop thumbnail inspection was performed.",
+        "Existing receipts lacked region-content quality scores, hand/contact coverage, optical flow, motion descriptors, and enough rows per signer to separate signer/source/crop/temporal/model causes."
+      ]
+    },
+    "m3fz": {
+      "path": "docs/validation/return-to-form-m3fz-fixed-region-grid-error-pattern-contract-no-spend-v1.json",
+      "finding": "The no-training contract kept signer, row-order, fixed-region coverage, temporal/motion, model/objective, and source/protocol hypotheses open, with raw/crop/tensor/source changes behind approval gates."
+    },
+    "m3gb_delta": {
+      "finding": "The 7-label M3GB run did not clear the table concern; table stayed zero-recall on validation and test, black also stayed zero-recall on both splits, and please/white dropped to zero recall on test.",
+      "interpretation": "M3GB converts the prior two-label table weakness into broader weak held-out transfer under the same rgb_regions_grid_v1 family. It does not isolate a single repair."
+    }
+  },
+  "failure_classification": {
+    "overall": "failed_generalization_and_gate_triage_not_ready_for_repair_or_compute",
+    "another_remote_run_justified_now": false,
+    "data_source_split": {
+      "status": "plausible_unproven",
+      "reason": "Held-out signer metrics vary and test includes two zero-correct signers, but the current evidence does not isolate signer/source/split as the root cause without further local per-example accounting."
+    },
+    "input_crop_coverage": {
+      "status": "plausible_unproven",
+      "reason": "Recurring table weakness and fixed-grid metadata gaps keep crop/coverage in play, but M3GC did not inspect raw video, thumbnails, crops, or generate tensors, and M3FZ gates those actions behind approval."
+    },
+    "architecture_objective": {
+      "status": "plausible_strong",
+      "reason": "M3FW showed train memorization with held-out class dominance, and M3GB shows weak training accuracy plus validation degradation after best epoch. The current architecture/objective may not transfer under this input contract, but no alternate architecture/objective is authorized here."
+    },
+    "training_budget_compute": {
+      "status": "not_currently_justified",
+      "reason": "Training loss moved down, but validation peaked early and declined while test top-1 remained 0.25. More remote training is not justified without a sharper non-compute blocker or a human-approved compute receipt."
+    },
+    "threshold_calibration": {
+      "status": "cannot_rescue",
+      "reason": "The selected validation threshold reaches only 0.1111111111111111 coverage and 0.07407407407407407 correct pass rate with 0.3333333333333333 false accept rate among accepted examples; test threshold coverage is 0.03571428571428571. Threshold tuning is not promotion evidence."
+    },
+    "evaluation_contract": {
+      "status": "working_as_gate",
+      "reason": "The evaluator completed and exited as failed because top-1, macro-F1, and negative-challenge gates were not satisfied. The failure is metric evidence, not an evaluator rerun authorization."
+    }
+  },
+  "claim_surface_status": {
+    "fail_closed": true,
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "status": "not_trained",
+      "model_id": "asl-pilot-rawframe-v0",
+      "pretrained_components": []
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": [],
+      "evidenceArtifacts": []
+    },
+    "detector0_card": {
+      "path": "web/public/model/detector0-card.json",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null
+    },
+    "claim_matrix": {
+      "public_path": "web/public/model/claim-matrix.json",
+      "docs_path": "docs/validation/final-claim-matrix.json",
+      "status": "no_active_claim_rawframe_not_trained"
+    },
+    "m3gb_checkpoint_authority": "diagnostic_only_not_model_card_not_browser_not_threshold_promotion_not_final_readiness_not_asl_correctness"
+  },
+  "rejected_actions": [
+    {
+      "action": "run_another_brev_training_or_evaluation",
+      "rejected": true,
+      "reason": "M3GC is no-remote/no-training and the completed metrics do not prove a precise non-compute blocker that would justify another remote run."
+    },
+    {
+      "action": "prepare_followup_compute_receipt_for_human_approval",
+      "rejected": true,
+      "reason": "A compute proposal would be premature before local M3GB per-example error-pattern accounting ranks table/black/please/white failures and signer/source/confidence patterns."
+    },
+    {
+      "action": "continue_m3gb_local_contract_repair_no_remote",
+      "rejected": true,
+      "reason": "The triage does not identify one local contract repair yet; multiple hypotheses remain plausible."
+    },
+    {
+      "action": "continue_detector0_or_crop_proxy_contract_after_m3gb",
+      "rejected": true,
+      "reason": "Crop/proxy suspicions remain approval-gated and unproven by this evidence-only slice."
+    },
+    {
+      "action": "continue_openai_or_gpt_pro_research_with_m3gb_evidence",
+      "rejected": true,
+      "reason": "A safe local M3GB error-pattern analysis remains available before external strategy escalation."
+    },
+    {
+      "action": "continue_fail_closed_interactive_product_hardening",
+      "rejected": true,
+      "reason": "The active mission is ML metric triage, and fail-closed claim surfaces already stayed unchanged."
+    },
+    {
+      "action": "stop_for_human_ml_strategy_choice",
+      "rejected": true,
+      "reason": "The next selected action is local/no-remote/no-training analysis and does not require human approval by itself."
+    }
+  ],
+  "approval_escalation_gates": {
+    "future_brev_or_training": {
+      "requires_fresh_human_approval": true,
+      "requires_receipt_proposal_first": true,
+      "required_fields": [
+        "exact command",
+        "workspace name and id",
+        "instance type and price",
+        "max runtime",
+        "max spend",
+        "kill condition",
+        "expected metric signal",
+        "copyback plan",
+        "teardown and stopped-state verification"
+      ]
+    },
+    "future_raw_video_or_visual_crop_inspection": {
+      "requires_human_approval": true,
+      "reason": "M3GC did not inspect raw videos or visual crop thumbnails; source/privacy and media boundaries remain binding."
+    },
+    "future_source_manifest_tensor_vocabulary_or_input_mutation": {
+      "requires_human_approval_or_new_active_prompt": true,
+      "reason": "M3GC is read-only metric triage and cannot mutate artifacts, inputs, claim surfaces, or final gates."
+    },
+    "strategy_research": {
+      "allowed_after_local_accounting_if_still_inconclusive": true,
+      "allowed_actions": [
+        "continue_openai_or_gpt_pro_research_with_m3gb_evidence"
+      ]
+    }
+  },
+  "explicit_forbidden_action_proof": {
+    "brev_start_exec_sync_copy_stop": false,
+    "remote_command": false,
+    "training_or_fitting": false,
+    "evaluator_rerun": false,
+    "raw_video_inspection_or_upload": false,
+    "tensor_or_crop_generation": false,
+    "source_or_media_import": false,
+    "source_register_mutation": false,
+    "manifest_tensor_vocabulary_packet_mutation": false,
+    "dependency_file_mutation": false,
+    "generated_labels_or_pseudo_labels": false,
+    "pretrained_detector_landmark_backbone_embedding_feature_extractor_teacher_logits": false,
+    "model_card_promotion": false,
+    "onnx_export": false,
+    "browser_recognition_activation": false,
+    "threshold_promotion": false,
+    "final_readiness_claim": false,
+    "positive_asl_correctness_claim": false,
+    "product_runtime_mutation": false,
+    "push": false,
+    "amend_or_no_verify": false
+  },
+  "pretrained_components": [],
+  "changed_files": [
+    "docs/validation/return-to-form-m3gc-m3gb-metric-triage-no-remote-v1.json",
+    "docs/session-logs/615-mission-3gc-m3gb-metric-triage-no-remote.md"
+  ],
+  "next_action": "continue_m3gb_error_pattern_analysis_no_remote",
+  "exactly_one_next_action": "continue_m3gb_error_pattern_analysis_no_remote"
+}

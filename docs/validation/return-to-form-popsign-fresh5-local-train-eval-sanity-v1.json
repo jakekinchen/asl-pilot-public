@@ -1,0 +1,264 @@
+{
+  "schema_version": "asl-pilot-return-to-form-popsign-fresh5-local-train-eval-sanity/v1",
+  "status": "plumbing_passed_train_all_learning_signal_insufficient",
+  "created_at": "2026-05-27T23:35:53Z",
+  "base_commit": {
+    "short": "3307465",
+    "full": "3307465ce93cd079754dd4d3141d6ebd4c234e92"
+  },
+  "active_prompt_at_start": "docs/model/return-to-form-popsign-fresh5-evaluation-invocation-contract-fix-goal-loop-prompt.md",
+  "reason": "After M3CI fixed the evaluation contract, bounded local PopSign fresh5 train/eval sanity runs were used to test whether the repaired manifests, scratch model input, training loop, checkpoint provenance, and evaluation path work together before spending Brev.",
+  "codex_pair_status": {
+    "external_pair_reactivation": "blocked",
+    "blocker": "Codex CLI usage limit reported: try again at May 30th, 2026 3:13 PM.",
+    "manual_supervisor_action": "continued local no-spend ML sanity checks from the committed M3CI state"
+  },
+  "code_changes": [
+    {
+      "path": "scripts/train_rawframe_model.py",
+      "change": "Raised the PopSign fresh5 bounded smoke cap from 2 epochs / 12 train batches / 8 validation batches to 5 epochs / 32 train batches / 32 validation batches so the repaired 125-clip train and validation splits can be exercised end to end without Brev.",
+      "sha256_after": "d17dcd9e78c1b23ff001128ea6e82076e4b9b54ca1076182ab50b2f70d57e7ae"
+    }
+  ],
+  "contract_probe": {
+    "training_contract": "popsign_fresh5_training_smoke",
+    "accepted_architecture": "scratch_region_temporal_late_fusion_tcn_contract_v1",
+    "accepted_manifests": [
+      "data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json",
+      "data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json",
+      "data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json"
+    ],
+    "runtime_device": "mps",
+    "region_axis_preserved": true,
+    "no_brev_spend": true,
+    "dry_run_train_all_caps": {
+      "exit_code": 0,
+      "epochs": 5,
+      "batch_size": 4,
+      "max_train_batches": 32,
+      "max_validation_batches": 32,
+      "result": "accepted"
+    }
+  },
+  "current_ignored_artifacts": {
+    "output_dir": "output/m3cf-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-local-sanity",
+    "tracked_in_git": false,
+    "files": [
+      {
+        "path": "output/m3cf-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-local-sanity/model_state.pt",
+                "sha256": "35735c18fce1e74e39f0367a23cfd778218c8cfee12effa50a2327312d4a7d30"
+      },
+      {
+        "path": "output/m3cf-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-local-sanity/training-provenance.json",
+                "sha256": "eaae2882d6c255dd73728c625049b03ddb2cbd8f43e566f3a1d1b19f22bf2576"
+      },
+      {
+        "path": "output/m3cf-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-local-sanity/validation-report.json",
+                "sha256": "527c587371078791b59b39014360f6a498408f694996432c4f16ca1d9f327c92"
+      }
+    ]
+  },
+  "runs": [
+    {
+      "name": "one_batch_contract_sanity",
+      "classification": "plumbing_only",
+      "hyperparameters": {
+        "epochs": 1,
+        "batch_size": 4,
+        "max_train_batches": 1,
+        "max_validation_batches": 1,
+        "learning_rate": 0.001,
+        "optimizer": "adamw",
+        "weight_decay": 0.0,
+        "training_augmentation": "none",
+        "checkpoint_selection": "final"
+      },
+      "result": {
+        "train_accuracy": 0.25,
+        "validation_accuracy_during_training": 0.0,
+        "test_top1_accuracy": 0.2,
+        "test_macro_f1": 0.06666666666666668,
+        "predicted_single_class": "home"
+      }
+    },
+    {
+      "name": "current_cap_lr001",
+      "classification": "too_capped_to_judge",
+      "hyperparameters": {
+        "epochs": 2,
+        "batch_size": 4,
+        "max_train_batches": 12,
+        "max_validation_batches": 8,
+        "learning_rate": 0.001,
+        "optimizer": "adamw",
+        "weight_decay": 0.0,
+        "training_augmentation": "none",
+        "checkpoint_selection": "best_validation"
+      },
+      "history": [
+        {
+          "epoch": 1,
+          "train_accuracy": 0.14583333333333334,
+          "train_loss": 2.17796728014946,
+          "validation_accuracy": 0.0,
+          "validation_loss": 2.325999081134796
+        },
+        {
+          "epoch": 2,
+          "train_accuracy": 0.14583333333333334,
+          "train_loss": 1.7515895267327626,
+          "validation_accuracy": 0.0,
+          "validation_loss": 1.8802406340837479
+        }
+      ],
+      "evaluation": {
+        "test_top1_accuracy": 0.2,
+        "test_macro_f1": 0.06666666666666668,
+        "predicted_single_class": "home"
+      }
+    },
+    {
+      "name": "train_all_lr001",
+      "classification": "learning_signal_insufficient",
+      "hyperparameters": {
+        "epochs": 5,
+        "batch_size": 4,
+        "max_train_batches": 32,
+        "max_validation_batches": 32,
+        "learning_rate": 0.001,
+        "optimizer": "adamw",
+        "weight_decay": 0.0,
+        "training_augmentation": "none",
+        "checkpoint_selection": "best_validation"
+      },
+      "history": [
+        {
+          "epoch": 1,
+          "train_accuracy": 0.168,
+          "train_loss": 1.939034885406494,
+          "validation_accuracy": 0.2,
+          "validation_loss": 1.6899922466278077
+        },
+        {
+          "epoch": 2,
+          "train_accuracy": 0.216,
+          "train_loss": 1.6785958099365235,
+          "validation_accuracy": 0.2,
+          "validation_loss": 1.7026370735168457
+        },
+        {
+          "epoch": 3,
+          "train_accuracy": 0.184,
+          "train_loss": 1.688863959312439,
+          "validation_accuracy": 0.2,
+          "validation_loss": 1.6540758609771729
+        },
+        {
+          "epoch": 4,
+          "train_accuracy": 0.168,
+          "train_loss": 1.6561056652069093,
+          "validation_accuracy": 0.2,
+          "validation_loss": 1.6263430728912354
+        },
+        {
+          "epoch": 5,
+          "train_accuracy": 0.208,
+          "train_loss": 1.66088627910614,
+          "validation_accuracy": 0.2,
+          "validation_loss": 1.6662795267105102
+        }
+      ],
+      "evaluation": {
+        "test_top1_accuracy": 0.2,
+        "test_macro_f1": 0.06666666666666668,
+        "predicted_single_class": "pen"
+      }
+    },
+    {
+      "name": "train_all_lr003",
+      "classification": "learning_signal_insufficient",
+      "hyperparameters": {
+        "epochs": 5,
+        "batch_size": 4,
+        "max_train_batches": 32,
+        "max_validation_batches": 32,
+        "learning_rate": 0.003,
+        "optimizer": "adamw",
+        "weight_decay": 0.0,
+        "training_augmentation": "none",
+        "checkpoint_selection": "best_validation"
+      },
+      "history": [
+        {
+          "epoch": 1,
+          "train_accuracy": 0.184,
+          "train_loss": 2.0535044298172,
+          "validation_accuracy": 0.2,
+          "validation_loss": 1.8911798267364501
+        },
+        {
+          "epoch": 2,
+          "train_accuracy": 0.264,
+          "train_loss": 1.7150802440643311,
+          "validation_accuracy": 0.2,
+          "validation_loss": 1.73070023727417
+        },
+        {
+          "epoch": 3,
+          "train_accuracy": 0.192,
+          "train_loss": 1.7214449996948242,
+          "validation_accuracy": 0.2,
+          "validation_loss": 1.697809238433838
+        },
+        {
+          "epoch": 4,
+          "train_accuracy": 0.176,
+          "train_loss": 1.6777543668746948,
+          "validation_accuracy": 0.2,
+          "validation_loss": 1.621299626350403
+        },
+        {
+          "epoch": 5,
+          "train_accuracy": 0.232,
+          "train_loss": 1.6619018030166626,
+          "validation_accuracy": 0.2,
+          "validation_loss": 1.7644664211273193
+        }
+      ],
+      "evaluation": {
+        "test_top1_accuracy": 0.2,
+        "test_macro_f1": 0.06666666666666668,
+        "selected_threshold": 1.0,
+        "test_false_pass_rate": 0.0,
+        "predicted_single_class": "pen",
+        "per_class_recall": {
+          "home": 0.0,
+          "morning": 0.0,
+          "pen": 1.0,
+          "thank_you": 0.0,
+          "who": 0.0
+        },
+        "passes_targets": false
+      }
+    }
+  ],
+  "interpretation": {
+    "what_is_resolved": [
+      "repaired PopSign fresh5 manifests validate",
+      "region-grid tensors load through the scratch region-temporal model",
+      "training creates a random-init checkpoint and provenance",
+      "evaluation accepts the same PopSign fresh5 evidence mode",
+      "evaluation preserves region-axis input and writes a non-final report",
+      "the local guard can now exercise the full 125-example train and validation splits"
+    ],
+    "what_is_not_resolved": [
+      "the scratch region-temporal late-fusion TCN does not train-fit the five-label PopSign fresh5 split under lr 0.001 or 0.003",
+      "held-out validation/test remain at chance-like 0.2 top-1 and 0.0667 macro F1",
+      "predictions collapse to one class",
+      "no final, lesson, browser, or calibrated-provenance claim is supported",
+      "Brev is not justified until a small local train-fit or architecture/input microprobe shows a path to improvement"
+    ],
+    "current_blocker": "The dataset now reaches training and evaluation correctly; the blocker has moved to train-fit/architecture/input optimization, not SemLex/PopSign manifest compatibility."
+  },
+  "selected_next_action": "continue_architecture_or_input_contract_microprobe_no_brev"
+}

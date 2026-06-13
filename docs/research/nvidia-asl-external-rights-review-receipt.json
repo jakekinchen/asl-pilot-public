@@ -1,0 +1,109 @@
+{
+  "schema_version": "asl-pilot-external-rights-review-receipt/v1",
+  "source_id": "nvidia-asl-dataset",
+  "decision_id": "candidate_nvidia_asl_access_required_2026_05_21",
+  "status": "candidate_not_approved_for_training",
+  "reviewed_at": "2026-05-21T06:55:59.000Z",
+  "reviewer": {
+    "name": "ASL Pilot automated source-rights gate",
+    "role": "candidate source access, license, and import-boundary review",
+    "is_project_operator": false
+  },
+  "decision_scope": {
+    "allowed_for_model_training": false,
+    "allowed_for_validation": false,
+    "allowed_for_pilot_submission": false
+  },
+  "decision_summary": "NVIDIA ASL is a promising gated raw-video candidate, but it is not approved for ASL Pilot manifests or training until access is granted, accepted terms are retained, metadata/labels/signers/splits are audited, and the source register approves an exact raw-video-only import scope.",
+  "source_urls": [
+    {
+      "label": "NVIDIA ASL dataset access page",
+      "url": "https://www.nvidia.com/en-us/gated-resources/trustworthy-ai-american-sign-language/dataset/",
+      "local_copy": {
+        "path": "artifacts/dataset-research/nvidia-asl/access-page.html",
+        "sha256": "bd69fee6e0e87fcfab199ce911549fe800c97d5924b3e858b06d81605a1814cc"
+      }
+    },
+    {
+      "label": "NVIDIA Data License Agreement for ASL Project",
+      "url": "https://www.nvidia.com/content/dam/en-zz/Solutions/events/NVIDIA-Data-License-for-ASL-Project-%284Feb2025%29.pdf",
+      "local_copy": {
+        "path": "artifacts/dataset-research/nvidia-asl/NVIDIA-Data-License-for-ASL-Project-2025-02-04.pdf",
+        "sha256": "c9c5f349ae47e02405da092a7e841be585754214d3e4d737ffaebc3ea3aa62e1"
+      }
+    },
+    {
+      "label": "NVIDIA Trustworthy AI terms",
+      "url": "https://www.nvidia.com/en-us/agreements/trustworthy-ai/terms/",
+      "local_copy": {
+        "path": "artifacts/dataset-research/nvidia-asl/trustworthy-ai-terms.html",
+        "sha256": "e8a37e48495b2fb76f07cfb03c695a19873b47622f9bd3060e1412ff0242fdef"
+      }
+    },
+    {
+      "label": "ASL 1000 AWS Open Data Registry entry",
+      "url": "https://registry.opendata.aws/asl_1000/",
+      "local_copy": {
+        "path": "artifacts/dataset-research/nvidia-asl/aws-open-data-registry-asl-1000.html",
+        "sha256": "ee9fd4bb28fc5dd5732569665ecf76212918d815b3805ba23b203c7383467b4a"
+      }
+    },
+    {
+      "label": "NVIDIA Trustworthy-AI ASL developer community README",
+      "url": "https://github.com/NVIDIA/Trustworthy-AI/tree/main/ASL%20Developer%20Community",
+      "local_copy": {
+        "path": "artifacts/dataset-research/nvidia-asl/trustworthy-ai-asl-developer-community-readme.md",
+        "sha256": "ebf00757493d00693aeebdbb4092bfb06747d2ffa99355a5c0d594964e54f4dd"
+      }
+    }
+  ],
+  "evidence_files": [
+    {
+      "path": "docs/research/nvidia-asl-source-rights-review.md",
+      "sha256": "0393d9b9e539910e7566a49d7de0b03f869f3d011affd695e5a636b9af9bbb66",
+      "purpose": "Human-readable candidate-only source-rights review and import boundary."
+    },
+    {
+      "path": "docs/research/nvidia-asl-access-request-packet.md",
+      "sha256": "b686a8eb2dedf64f8dc028704e4c12ad7b939bd4cbc33225427e4492ade35351",
+      "purpose": "Operator packet for requesting access without importing data."
+    },
+    {
+      "path": "docs/research/nvidia-asl-access-receipt.template.json",
+      "sha256": "df653542c6281c664edcb0e527e92c343460385400f2584e689f26fb2cbd02d4",
+      "purpose": "Human-fillable access receipt shape for the metadata audit gate."
+    },
+    {
+      "path": "scripts/audit_nvidia_asl_access_metadata.mjs",
+      "sha256": "40af347e8009916b47127c96d3d1773920012b0f6ffa99285053c046b75a7667",
+      "purpose": "Fail-closed post-access metadata audit, now including retained public-source evidence inventory and accepted-access receipt attachment checks."
+    }
+  ],
+  "positive_signals": [
+    "official access page says accepted users get raw video data",
+    "AWS Open Data Registry lists ASL 1000 as a controlled-access S3 dataset",
+    "license purpose is tied to advancing access technology for the Deaf community",
+    "access form supports describing the exact ASL Pilot use case before access"
+  ],
+  "blockers": [
+    "access has not been granted",
+    "accepted license/access receipt is not retained",
+    "no local NVIDIA metadata package exists",
+    "labels, signer identifiers, split policy, and clip counts are unknown",
+    "no source-register entry approves this source",
+    "derived images, landmarks, pose, and face meshes are disallowed for the current recognition path"
+  ],
+  "required_before_approval": [
+    "obtain dataset access under the exact ASL Pilot use case",
+    "retain accepted license/access evidence",
+    "download and hash-pin metadata before media",
+    "audit label overlap, signer metadata, split policy, and raw-video inventory",
+    "confirm derived model/browser/pilot artifacts are allowed outputs",
+    "approve an exact raw-video-only source-register entry before import"
+  ],
+  "limitations": [
+    "This is an engineering source-rights/provenance review, not legal advice.",
+    "No NVIDIA data was downloaded or imported.",
+    "NVIDIA must remain out of training, validation, test, negative-challenge, and browser-final evidence until approval."
+  ]
+}

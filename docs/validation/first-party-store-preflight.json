@@ -1,0 +1,85 @@
+{
+  "schema_version": "asl-pilot-first-party-store-preflight/v1",
+  "status": "store_absent_runtime_can_initialize_empty_schema",
+  "generated_at": "2026-05-25T16:52:54.585Z",
+  "decision_boundary": {
+    "creates_collection_store": false,
+    "creates_users_or_sessions": false,
+    "creates_or_modifies_clips": false,
+    "approves_clips": false,
+    "exports_manifests": false,
+    "trains_or_promotes_model": false
+  },
+  "runner": {
+    "command": [
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/Users/kelly/Developer/asl-pilot/scripts/audit_first_party_store_preflight.mjs",
+      "--write"
+    ],
+    "script": {
+      "path": "scripts/audit_first_party_store_preflight.mjs",
+      "exists": true,
+      "sha256": "e0695c3b0d84ca6bc2fdd92e2dacc900f48bf93cddaafea8b1e8b136a4110cc2"
+    }
+  },
+  "inputs": {
+    "store": {
+      "path": "data/asl-pilot-store.json",
+      "exists": false,
+      "sha256": null
+    },
+    "gitignore": {
+      "path": ".gitignore",
+      "exists": true,
+      "sha256": "7b83c444da33c31c452ef5b333d1dd3b36990b16a730ed2a88dce46b81695ef7"
+    },
+    "server_store": {
+      "path": "web/src/lib/server-store.ts",
+      "exists": true,
+      "sha256": "5d5fea7e35f673cdbe55e85fe7808e526047f0c4f2d7c0132a96a8deb8aaac6a"
+    }
+  },
+  "runtime_contract": {
+    "canonical_store_path": "data/asl-pilot-store.json",
+    "canonical_store_path_checked": "data/asl-pilot-store.json",
+    "canonical_store_is_gitignored": true,
+    "server_runtime_initializes_empty_store_on_missing_file": true,
+    "empty_store_top_level_arrays": [
+      "users",
+      "sessions",
+      "attempts",
+      "datasetSigners",
+      "consentRecords",
+      "datasetClips",
+      "datasetChallengeClips"
+    ]
+  },
+  "collection_store_summary": {
+    "exists": false,
+    "parse_error": null,
+    "counts": {
+      "users": 0,
+      "sessions": 0,
+      "attempts": 0,
+      "datasetSigners": 0,
+      "consentRecords": 0,
+      "datasetClips": 0,
+      "datasetChallengeClips": 0
+    },
+    "approved_clip_counts": {
+      "vocabulary": 0,
+      "negative_challenge": 0,
+      "total": 0
+    },
+    "has_any_clip_records": false,
+    "has_approved_clip_evidence": false
+  },
+  "next_actions": [
+    "Run the browser collection session against the focused remediation queue with explicit consent.",
+    "Do not treat an absent or empty data/asl-pilot-store.json as training evidence.",
+    "After real clips exist, rerun dataset, lesson, source-remediation, and post-collection readiness audits."
+  ],
+  "blockers": [
+    "data/asl-pilot-store.json is absent; no first-party collection records exist yet"
+  ]
+}

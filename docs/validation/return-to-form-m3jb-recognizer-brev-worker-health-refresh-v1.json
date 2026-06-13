@@ -1,0 +1,91 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-brev-worker-health-refresh/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_low_lr_fulltrain_brev_retry_after_worker_health_ok",
+  "recorded_at_utc": "2026-06-03T19:41:47Z",
+  "head_before_slice": "fde0e1a record(m3jb): capture recognizer brev worker blocker",
+  "status": "blocked_no_healthy_existing_brev_worker",
+  "approval": {
+    "source": "GOAL.md and active prompt",
+    "summary": "Recognizer campaign records current 2026-06-03 user approval for unconstrained Brev/NVIDIA training compute on the retained worker or any healthy NVIDIA worker, while session-917 guardrails require human approval before creating, deleting, resetting, or repairing infrastructure.",
+    "used_for": [
+      "read-only brev ls --json health refresh"
+    ],
+    "not_used_for": [
+      "brev start",
+      "brev exec",
+      "worker creation",
+      "worker deletion",
+      "worker reset",
+      "worker repair"
+    ]
+  },
+  "brev_inventory": {
+    "command": "brev ls --json",
+    "read_only": true,
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3jb-pairrank-l40s-001",
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S",
+        "usable_for_training_now": false,
+        "reason": "not ready and unhealthy"
+      },
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "UNHEALTHY",
+        "shell_status": "READY",
+        "health_status": "UNHEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S",
+        "usable_for_training_now": false,
+        "reason": "worker health is unhealthy"
+      }
+    ],
+    "healthy_existing_nvidia_worker_found": false
+  },
+  "target_run": {
+    "token": "m3jb_recognizer_transformer_low_lr_fulltrain_brev_ok",
+    "planned_command": "timeout 21600s brev exec <healthy-worker> \"cd /home/ubuntu/asl-pilot && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_recognizer_distill.py --student-arch transformer --device cuda --epochs 200 --batch 256 --lr 5e-4 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --out tools/detector0-annotator/output/m3jb-recognizer-transformer-run2-lowlr-fulltrain-e200-lr5e4-brev-v1.json\"",
+    "executed": false,
+    "reason_not_executed": "No existing NVIDIA worker was healthy; infrastructure create/delete/reset/repair requires explicit human approval."
+  },
+  "runtime_boundary": {
+    "brev_lifecycle_used": false,
+    "brev_exec_or_copy_completed": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward": false,
+    "checkpoint_written": false,
+    "browser_artifact_promoted": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "push": false
+  },
+  "decision": "Do not launch low-LR full-scope training until an already existing NVIDIA worker is healthy and SSH/CUDA/process preflight succeeds, or until the human explicitly approves the required Brev infrastructure action.",
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_low_lr_fulltrain_wait_for_healthy_brev_worker_or_infra_approval",
+    "summary": "Retry the same low-LR full-scope CUDA run when an existing NVIDIA worker is healthy; otherwise ask the human before creating, deleting, resetting, or repairing Brev infrastructure."
+  },
+  "validation": [
+    "python3 -m json.tool docs/validation/return-to-form-m3jb-recognizer-brev-worker-health-refresh-v1.json",
+    "node scripts/audit_loop_premise.mjs --json",
+    "node scripts/audit_m3jb_hand_state_tracker.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs",
+    "node scripts/audit_source_register.mjs",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "node scripts/audit_no_raw_video_upload.mjs",
+    "git diff --check",
+    "brev ls --json"
+  ]
+}

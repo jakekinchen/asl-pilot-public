@@ -1,0 +1,527 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3fy-fixed-region-grid-error-analysis-no-spend/v1",
+  "mission": "M3FY - Fixed region-grid error analysis no spend",
+  "status": "completed_no_training_fixed_region_grid_error_analysis",
+  "generated_at": "2026-05-29T04:30:24Z",
+  "current_commit": "d5f225f observer: CONTINUE - m3fx fixed region grid handoff",
+  "active_prompt": "docs/model/return-to-form-m3fy-fixed-region-grid-error-analysis-no-spend-goal-loop-prompt.md",
+  "commands_run": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "Worktree was clean on compound-plan-m0, ahead of origin by 272 commits before M3FY edits."
+    },
+    {
+      "command": "git log -14 --oneline --decorate",
+      "status": "passed",
+      "summary": "HEAD was d5f225f observer: CONTINUE - m3fx fixed region grid handoff."
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed",
+      "summary": "No loop premise blockers."
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed",
+      "summary": "GOAL.md points at the M3FY prompt and the return-to-form plan checks passed."
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed",
+      "summary": "Source register exists with source_count 12 and sha256 b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8."
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed",
+      "summary": "No banned pretrained-CV dependencies or source imports found."
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed",
+      "summary": "No banned pretrained artifact JSON findings."
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3fx-crop-input-schema-review-no-spend-v1.json >/dev/null",
+      "status": "passed",
+      "summary": "M3FX receipt JSON parsed."
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3fw-tiny2-tiny3-architecture-objective-sanity-v1.json >/dev/null",
+      "status": "passed",
+      "summary": "M3FW receipt JSON parsed."
+    },
+    {
+      "command": "python3 -m json.tool docs/model/return-to-form-m3fv-tiny2-tiny3-architecture-objective-sanity-contract-v1.json >/dev/null",
+      "status": "passed",
+      "summary": "M3FV contract JSON parsed."
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "status": "passed",
+      "summary": "Model-card JSON parsed."
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/detector0-card.json >/dev/null",
+      "status": "passed",
+      "summary": "Detector0-card JSON parsed."
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "status": "passed",
+      "summary": "Active-vocabulary claim JSON parsed."
+    },
+    {
+      "command": "brev ls --json",
+      "status": "passed",
+      "summary": "Read-only Brev check showed retained worker STOPPED / COMPLETED / NOT READY / HEALTHY."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "summary": "No whitespace errors before M3FY edits."
+    }
+  ],
+  "read_only_brev_default_off_state": {
+    "command": "brev ls --json",
+    "lifecycle_command_run": false,
+    "remote_command_run": false,
+    "spent_money_this_slice": false,
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ]
+  },
+  "source_receipts": {
+    "m3fx_review": {
+      "path": "docs/validation/return-to-form-m3fx-crop-input-schema-review-no-spend-v1.json",
+      "status": "completed_no_training_crop_input_schema_review",
+      "next_action": "continue_fixed_region_grid_error_analysis_no_spend"
+    },
+    "m3fw_proof": {
+      "path": "docs/validation/return-to-form-m3fw-tiny2-tiny3-architecture-objective-sanity-v1.json",
+      "status": "completed_local_tiny2_proof",
+      "next_action": "continue_crop_or_input_schema_review_no_spend"
+    },
+    "m3fv_contract": {
+      "path": "docs/model/return-to-form-m3fv-tiny2-tiny3-architecture-objective-sanity-contract-v1.json",
+      "scope": "ASL Citizen high-signal region-grid Tiny2 table/hello, Tiny3 black only after Tiny2 passes"
+    },
+    "m3em_comparison": {
+      "path": "docs/validation/return-to-form-m3em-tiny2-heldout-noncollapse-probe-v1.json",
+      "heldout_accuracy": 0.5,
+      "heldout_dominant_predicted_class_fraction": 1.0,
+      "heldout_zero_recall_labels": [
+        "table"
+      ]
+    }
+  },
+  "m3fw_summary": {
+    "input_contract": "rgb_regions_grid_v1",
+    "batch_axis": "B,T,R,C,H,W",
+    "prepared_model_input_axis": "T,R,C,H,W",
+    "frame_count": 16,
+    "region_count": 5,
+    "image_size": 96,
+    "labels": [
+      "table",
+      "hello"
+    ],
+    "train_accuracy": 1.0,
+    "heldout_top1": 0.75,
+    "heldout_macro_f1": 0.7333333333333334,
+    "heldout_prediction_counts": {
+      "table": 2,
+      "hello": 6
+    },
+    "heldout_zero_recall_labels": [],
+    "dominant_predicted_class_fraction": 0.75,
+    "dominant_predicted_class_limit": 0.7,
+    "tiny2_gate_passed": false,
+    "failed_gate": "validation_dominant_predicted_class_fraction",
+    "claim_boundary": "diagnostic only; not model readiness, ASL correctness, browser activation, export, or promotion authority"
+  },
+  "per_label_confusion": {
+    "labels": [
+      "table",
+      "hello"
+    ],
+    "matrix_true_by_predicted": {
+      "table": {
+        "table": 2,
+        "hello": 2
+      },
+      "hello": {
+        "table": 0,
+        "hello": 4
+      }
+    },
+    "per_label_recall": {
+      "table": 0.5,
+      "hello": 1.0
+    },
+    "per_label_precision": {
+      "table": 1.0,
+      "hello": 0.6666666666666666
+    },
+    "interpretation": "The residual error is asymmetric: only table rows are misclassified, and every held-out hello row is predicted as hello."
+  },
+  "validation_rows_joined_from_existing_receipt": [
+    {
+      "row_index": 0,
+      "true_label": "table",
+      "predicted_label": "table",
+      "correct": true,
+      "confidence": 0.9995847344398499,
+      "true_label_confidence": 0.9995847344398499,
+      "clip_id": "asl-citizen-validation-table-1991144257109958-table",
+      "signer_id": "asl-citizen-participant-P21",
+      "source_record_id": "ASL_Citizen/videos/1991144257109958-TABLE.mp4",
+      "manifest_index": 24,
+      "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/validation/asl-citizen-validation-table-1991144257109958-table-regions.pt",
+      "tensor_sha256": "56841a53e167832d7247dc17fa07cea5363958dfc43331bd04e181de18681396"
+    },
+    {
+      "row_index": 1,
+      "true_label": "table",
+      "predicted_label": "hello",
+      "correct": false,
+      "confidence": 0.9999068975448608,
+      "true_label_confidence": 0.0000930753376451321,
+      "clip_id": "asl-citizen-validation-table-4107831847068073-table",
+      "signer_id": "asl-citizen-participant-P26",
+      "source_record_id": "ASL_Citizen/videos/4107831847068073-TABLE.mp4",
+      "manifest_index": 25,
+      "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/validation/asl-citizen-validation-table-4107831847068073-table-regions.pt",
+      "tensor_sha256": "30691b3593c89692e103e329f41ba3dbd1b3a716478bda17d706bd2353683f60"
+    },
+    {
+      "row_index": 2,
+      "true_label": "table",
+      "predicted_label": "hello",
+      "correct": false,
+      "confidence": 0.9997237324714661,
+      "true_label_confidence": 0.000276297505479306,
+      "clip_id": "asl-citizen-validation-table-49077260423452396-table",
+      "signer_id": "asl-citizen-participant-P39",
+      "source_record_id": "ASL_Citizen/videos/49077260423452396-TABLE.mp4",
+      "manifest_index": 26,
+      "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/validation/asl-citizen-validation-table-49077260423452396-table-regions.pt",
+      "tensor_sha256": "27a555930f32e9c060aed1a2a0f86d4eb44a237d22d5d0c1e7201e3f6336582f"
+    },
+    {
+      "row_index": 3,
+      "true_label": "table",
+      "predicted_label": "table",
+      "correct": true,
+      "confidence": 0.7418079972267151,
+      "true_label_confidence": 0.7418079972267151,
+      "clip_id": "asl-citizen-validation-table-8440244434939912-table",
+      "signer_id": "asl-citizen-participant-P12",
+      "source_record_id": "ASL_Citizen/videos/8440244434939912-TABLE.mp4",
+      "manifest_index": 23,
+      "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/validation/asl-citizen-validation-table-8440244434939912-table-regions.pt",
+      "tensor_sha256": "f6f6b56038277bfc7ba4f2aa251beaf25dad6df9467c7ecbef685d731a43d812"
+    },
+    {
+      "row_index": 4,
+      "true_label": "hello",
+      "predicted_label": "hello",
+      "correct": true,
+      "confidence": 0.9809057712554932,
+      "true_label_confidence": 0.9809057712554932,
+      "clip_id": "asl-citizen-validation-hello-020030442376253177-hello",
+      "signer_id": "asl-citizen-participant-P26",
+      "source_record_id": "ASL_Citizen/videos/020030442376253177-HELLO.mp4",
+      "manifest_index": 15,
+      "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/validation/asl-citizen-validation-hello-020030442376253177-hello-regions.pt",
+      "tensor_sha256": "55ab1db48e064f2f9f4421d961df7e947cc481446d301e5f7315f03e6a30f7ce"
+    },
+    {
+      "row_index": 5,
+      "true_label": "hello",
+      "predicted_label": "hello",
+      "correct": true,
+      "confidence": 0.9999499320983887,
+      "true_label_confidence": 0.9999499320983887,
+      "clip_id": "asl-citizen-validation-hello-05614933522741539-hello",
+      "signer_id": "asl-citizen-participant-P12",
+      "source_record_id": "ASL_Citizen/videos/05614933522741539-HELLO.mp4",
+      "manifest_index": 17,
+      "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/validation/asl-citizen-validation-hello-05614933522741539-hello-regions.pt",
+      "tensor_sha256": "f86f02f7c90ad9099165e96645d94fd1f89b0e5999c42c99f0b81ddf77a1bd32"
+    },
+    {
+      "row_index": 6,
+      "true_label": "hello",
+      "predicted_label": "hello",
+      "correct": true,
+      "confidence": 0.9999924898147583,
+      "true_label_confidence": 0.9999924898147583,
+      "clip_id": "asl-citizen-validation-hello-16493550450776628-hello",
+      "signer_id": "asl-citizen-participant-P39",
+      "source_record_id": "ASL_Citizen/videos/16493550450776628-HELLO.mp4",
+      "manifest_index": 18,
+      "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/validation/asl-citizen-validation-hello-16493550450776628-hello-regions.pt",
+      "tensor_sha256": "982ed4b40e9e1ecd1894f6876912fa3c8d9513665b5580242d03576f782f129a"
+    },
+    {
+      "row_index": 7,
+      "true_label": "hello",
+      "predicted_label": "hello",
+      "correct": true,
+      "confidence": 0.9984329342842102,
+      "true_label_confidence": 0.9984329342842102,
+      "clip_id": "asl-citizen-validation-hello-20675411351630046-hello",
+      "signer_id": "asl-citizen-participant-P21",
+      "source_record_id": "ASL_Citizen/videos/20675411351630046-HELLO.mp4",
+      "manifest_index": 16,
+      "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/validation/asl-citizen-validation-hello-20675411351630046-hello-regions.pt",
+      "tensor_sha256": "5363cebf95c80c711ab3c7a9cc1547cf7f13ea325c6aa06218c95022cbe37fa4"
+    }
+  ],
+  "table_false_negatives": [
+    {
+      "row_index": 1,
+      "signer_id": "asl-citizen-participant-P26",
+      "source_record_id": "ASL_Citizen/videos/4107831847068073-TABLE.mp4",
+      "manifest_index": 25,
+      "predicted_label": "hello",
+      "confidence": 0.9999068975448608,
+      "true_label_confidence": 0.0000930753376451321,
+      "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/validation/asl-citizen-validation-table-4107831847068073-table-regions.pt"
+    },
+    {
+      "row_index": 2,
+      "signer_id": "asl-citizen-participant-P39",
+      "source_record_id": "ASL_Citizen/videos/49077260423452396-TABLE.mp4",
+      "manifest_index": 26,
+      "predicted_label": "hello",
+      "confidence": 0.9997237324714661,
+      "true_label_confidence": 0.000276297505479306,
+      "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/validation/asl-citizen-validation-table-49077260423452396-table-regions.pt"
+    }
+  ],
+  "correct_table_examples": [
+    {
+      "row_index": 0,
+      "signer_id": "asl-citizen-participant-P21",
+      "source_record_id": "ASL_Citizen/videos/1991144257109958-TABLE.mp4",
+      "manifest_index": 24,
+      "predicted_label": "table",
+      "confidence": 0.9995847344398499,
+      "true_label_confidence": 0.9995847344398499,
+      "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/validation/asl-citizen-validation-table-1991144257109958-table-regions.pt"
+    },
+    {
+      "row_index": 3,
+      "signer_id": "asl-citizen-participant-P12",
+      "source_record_id": "ASL_Citizen/videos/8440244434939912-TABLE.mp4",
+      "manifest_index": 23,
+      "predicted_label": "table",
+      "confidence": 0.7418079972267151,
+      "true_label_confidence": 0.7418079972267151,
+      "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/validation/asl-citizen-validation-table-8440244434939912-table-regions.pt"
+    }
+  ],
+  "hello_examples_summary": {
+    "row_count": 4,
+    "all_predicted_hello": true,
+    "signers": [
+      "asl-citizen-participant-P26",
+      "asl-citizen-participant-P12",
+      "asl-citizen-participant-P39",
+      "asl-citizen-participant-P21"
+    ],
+    "confidence_values": [
+      0.9809057712554932,
+      0.9999499320983887,
+      0.9999924898147583,
+      0.9984329342842102
+    ],
+    "average_confidence": 0.9948202818632126,
+    "confidence_range": {
+      "min": 0.9809057712554932,
+      "max": 0.9999924898147583
+    },
+    "interpretation": "Every held-out signer has a correct hello row, including the two signers whose table rows were misclassified as hello."
+  },
+  "confidence_pattern_summary": {
+    "false_table_predicted_hello": {
+      "count": 2,
+      "average_predicted_label_confidence": 0.9998153150081635,
+      "average_true_label_confidence": 0.00018468642156221904,
+      "interpretation": "The two table false negatives are not low-confidence boundary cases; they are high-confidence hello predictions."
+    },
+    "correct_table": {
+      "count": 2,
+      "average_predicted_label_confidence": 0.8706963658332825,
+      "confidence_values": [
+        0.9995847344398499,
+        0.7418079972267151
+      ],
+      "interpretation": "One correct table row is high confidence and one is much lower confidence than the false negatives."
+    },
+    "correct_hello": {
+      "count": 4,
+      "average_predicted_label_confidence": 0.9948202818632126,
+      "confidence_values": [
+        0.9809057712554932,
+        0.9999499320983887,
+        0.9999924898147583,
+        0.9984329342842102
+      ]
+    }
+  },
+  "metadata_pattern_findings": {
+    "signer": {
+      "finding": "Each held-out signer contributes one table and one hello row. Table rows for P26 and P39 are false negatives; table rows for P21 and P12 are correct. Hello rows are correct for all four signers.",
+      "classification": "possible signer-conditioned table weakness but underpowered",
+      "uncertainty": "There is only one table row per held-out signer, so this cannot establish a signer effect."
+    },
+    "source_record": {
+      "finding": "All eight validation rows have unique source_record_id values. The two table false negatives do not share a source record.",
+      "classification": "no repeated source-record cluster visible"
+    },
+    "tensor_path": {
+      "finding": "All eight validation rows have unique tensor_path and tensor_sha256 values. The two false negatives do not share a tensor artifact.",
+      "classification": "no repeated tensor-path cluster visible"
+    },
+    "manifest_index": {
+      "finding": "Table false negatives are validation manifest_index 25 and 26; correct table rows are 23 and 24. Hello rows are 15 through 18.",
+      "classification": "row-order pattern visible but not causal",
+      "uncertainty": "The receipt does not include visual or crop-quality metadata that would explain whether manifest order correlates with appearance, signer, or source conditions."
+    },
+    "confidence": {
+      "finding": "False table rows are high-confidence hello predictions, with average predicted-label confidence 0.9998153150081635 and average true-label confidence 0.00018468642156221904.",
+      "classification": "confident asymmetric confusion"
+    },
+    "shape_and_loader": {
+      "finding": "All validation rows use raw rgb_regions shape [16,5,96,96,3] and prepared input shape [16,5,3,96,96] with region axis preserved.",
+      "classification": "no shape or loader-schema variation visible"
+    }
+  },
+  "m3em_comparison": {
+    "m3em_heldout_accuracy": 0.5,
+    "m3em_heldout_macro_f1": 0.3333333333333333,
+    "m3em_heldout_dominant_predicted_class_fraction": 1.0,
+    "m3em_heldout_zero_recall_labels": [
+      "table"
+    ],
+    "m3fy_comparison_to_m3em": "M3FW/M3FY shows a partial improvement from M3EM's all-hello collapse: table recall rises from 0.0 to 0.5 and overall held-out accuracy from 0.5 to 0.75. The residual pattern is still hello-dominant enough to fail the predeclared noncollapse gate."
+  },
+  "metadata_absences_and_uncertainties": [
+    "The existing M3FW receipt does not include raw video frames or visual crop thumbnails, and this slice did not open raw videos.",
+    "The receipt does not include region-content quality scores, hand/contact coverage, per-region activation, optical flow, or motion descriptors.",
+    "The receipt does not include enough rows per held-out signer to separate signer effect from clip-specific or appearance-specific effects.",
+    "The receipt cannot distinguish whether the table false negatives come from crop coverage, temporal motion, signer style, source capture, or model bias without a future approved analysis contract."
+  ],
+  "rejected_actions": [
+    {
+      "action": "continue_union_contact_region_schema_contract_no_spend",
+      "reason": "The current analysis identifies a confident asymmetric fixed-grid table-to-hello error pattern but does not yet justify switching to target-specific union/contact schema work."
+    },
+    {
+      "action": "continue_full_frame_or_motion_context_contract_no_spend",
+      "reason": "A motion/full-frame contract would change input-representation direction; the existing metadata first needs a no-mutation error-pattern contract to define what evidence would discriminate crop coverage from temporal/model bias."
+    },
+    {
+      "action": "continue_first_party_or_human_label_protocol_no_spend",
+      "reason": "No current metadata finding proves source or human-label protocol is the immediate blocker; human protocol work can wait until the fixed-grid error pattern contract states what evidence is missing."
+    },
+    {
+      "action": "prepare_bounded_composable_brev_microexperiment_receipt_for_human_approval",
+      "reason": "No compute is justified by this metadata-only analysis. The next useful move is still no-spend contract work."
+    },
+    {
+      "action": "escalate_crop_input_strategy_research_with_local_evidence",
+      "reason": "The analysis can continue locally as a no-mutation error-pattern contract before asking API/GPT research to choose among schema directions."
+    },
+    {
+      "action": "stop_for_human_ml_strategy_choice",
+      "reason": "The selected next action is no-spend, no-training, and no-mutation; it does not require human approval yet."
+    }
+  ],
+  "claim_surface_status": {
+    "fail_closed": true,
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "status": "not_trained",
+      "model_id": "asl-pilot-rawframe-v0"
+    },
+    "detector0_card": {
+      "path": "web/public/model/detector0-card.json",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null,
+      "runtime_gates": {
+        "detector0_tracking": false,
+        "box_driven_avatar": false,
+        "recognition_pass_fail": false
+      }
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": []
+    },
+    "claim_matrix": {
+      "path": "web/public/model/claim-matrix.json",
+      "status": "no_active_claim_rawframe_not_trained"
+    },
+    "final_claim_matrix": {
+      "path": "docs/validation/final-claim-matrix.json",
+      "status": "no_active_claim_rawframe_not_trained"
+    }
+  },
+  "forbidden_action_proof": {
+    "training_or_fitting": false,
+    "m3fw_proof_rerun": false,
+    "tiny3_run": false,
+    "fresh5_25_75_95_or_broad_recognizer_run": false,
+    "architecture_sweep": false,
+    "objective_sweep": false,
+    "detector0_smoke_or_evaluation_rerun": false,
+    "evaluator_rerun": false,
+    "threshold_tuning_for_promotion": false,
+    "raw_video_inspection_or_upload": false,
+    "crop_or_input_implementation_change": false,
+    "tensor_generation": false,
+    "source_register_edit": false,
+    "source_or_media_import": false,
+    "manifest_tensor_packet_vocabulary_mutation": false,
+    "brev_start_exec_sync_copy_stop_or_remote_command": false,
+    "remote_training_or_package_install": false,
+    "duplicate_worker_creation": false,
+    "export_or_promotion": false,
+    "model_card_promotion": false,
+    "active_vocabulary_promotion": false,
+    "browser_recognition_activation": false,
+    "product_runtime_recognition_mutation": false,
+    "runtime_detector0_authority_claim": false,
+    "final_gate_change": false,
+    "final_readiness_claim": false,
+    "trainability_claim": false,
+    "asl_correctness_claim": false,
+    "pretrained_detector_landmark_backbone_embedding_or_generated_label_path": false,
+    "push": false,
+    "amend_or_no_verify": false,
+    "destructive_reset": false
+  },
+  "pretrained_components": [],
+  "changed_files": [
+    "docs/validation/return-to-form-m3fy-fixed-region-grid-error-analysis-no-spend-v1.json",
+    "docs/session-logs/608-mission-3fy-fixed-region-grid-error-analysis-no-spend.md"
+  ],
+  "exactly_one_next_action": "continue_fixed_region_grid_error_pattern_contract_no_spend",
+  "next_action": "continue_fixed_region_grid_error_pattern_contract_no_spend"
+}

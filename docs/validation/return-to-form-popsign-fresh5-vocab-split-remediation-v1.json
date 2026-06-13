@@ -1,0 +1,763 @@
+{
+  "active_prompt": "docs/model/return-to-form-popsign-fresh5-vocab-split-remediation-goal-loop-prompt.md",
+  "baseline_comparison": {
+    "m3bs_full_frame": {
+      "exactly_one_next_action": "continue_region_grid_or_detector0_tensor_materialization",
+      "status": "completed_local_smoke_weak",
+      "test_false_pass_rate": 0.104,
+      "test_macro_f1": 0.20170903619228636,
+      "test_top1_accuracy": 0.272
+    },
+    "m3bt_region_grid_materialization": {
+      "exactly_one_next_action": "continue_capped_local_fresh5_region_grid_smoke",
+      "input_contract": "rgb_regions_grid_v1",
+      "missing_file_count": 0,
+      "status": "passed",
+      "tensor_count": 375
+    },
+    "m3bu_region_grid_smoke": {
+      "exactly_one_next_action": "continue_local_model_data_design_ablation",
+      "pen_test_recall": 0.04,
+      "status": "completed_local_smoke_weak",
+      "test_false_pass_rate": 0.064,
+      "test_macro_f1": 0.2593486590038314,
+      "test_top1_accuracy": 0.288
+    },
+    "m3bv_preserved_region_tiny_overfit": {
+      "exactly_one_next_action": "continue_data_vocabulary_separability_packet",
+      "final_accuracy": 1.0,
+      "preserve_region_axis": true,
+      "status": "tiny_overfit_succeeded",
+      "zero_recall_labels": []
+    },
+    "m3bw_separability": {
+      "blocker_classification": "data_vocabulary_split_source_distribution",
+      "exactly_one_next_action": "continue_fresh5_vocab_split_remediation_packet",
+      "pen_test_recall": 0.04,
+      "status": "completed_no_training_diagnosis",
+      "thank_you_prediction_fraction": 0.568
+    }
+  },
+  "commands": {
+    "design_packet": [
+      ".venv/bin/python",
+      "scripts/design_popsign_fresh5_vocab_split_remediation.py",
+      "--receipt",
+      "docs/validation/return-to-form-popsign-fresh5-vocab-split-remediation-v1.json",
+      "--write-receipt"
+    ],
+    "required_audits": [
+      "git status --short --branch",
+      "git log -10 --oneline --decorate",
+      "node scripts/audit_loop_premise.mjs --json",
+      "node scripts/audit_return_to_form_plan.mjs --json",
+      "node scripts/audit_no_pretrained_deps.mjs",
+      "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "node scripts/audit_source_register.mjs",
+      "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-data-vocabulary-separability-v1.json >/dev/null",
+      "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-model-data-design-ablation-v1.json >/dev/null",
+      "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-region-grid-local-smoke-v1.json >/dev/null",
+      "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/diagnose_popsign_fresh5_data_vocabulary_separability.py scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py scripts/decode_raw_videos.py scripts/materialize_popsign_fresh5_region_grid.py scripts/run_popsign_fresh5_region_grid_tcn_tiny_overfit.py scripts/design_popsign_fresh5_vocab_split_remediation.py",
+      "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-vocab-split-remediation-v1.json >/dev/null",
+      "git diff --check"
+    ]
+  },
+  "conclusions": {
+    "blocker_classification": "fresh5_manifest_split_source_quality_contract_needed",
+    "brev_or_browser_assessment": {
+      "brev_compute_receipt_justified_now": false,
+      "browser_promotion_justified_now": false,
+      "evidence_required_before_brev": [
+        "tracked fresh5 repaired manifest/source-quality contract passes without source or tensor mutation in the same mission that records it",
+        "a later local region-axis-preserving smoke beats M3BU test top1 0.288 and macro F1 0.2593486590038314",
+        "pen recall rises materially above M3BU 0.04, no label has zero recall, thank_you prediction concentration is bounded, and false-pass rate remains at or below the M3BU 0.064 smoke result",
+        "a separate compute receipt records command, max runtime, max spend, kill condition, expected metric signal, artifact copyback, cleanup/default-off verification, duplicate-worker avoidance, and current human approval"
+      ],
+      "evidence_required_before_browser_promotion": [
+        "validated trained browser artifact with no pretrained components",
+        "model-card and active-label claim updates backed by final validation gates",
+        "negative challenge, browser parity, calibration, and final readiness evidence pass without weakening gates"
+      ]
+    },
+    "crop_or_region_target_assessment": {
+      "rationale": "No decisive crop/region-target defect is visible in M3BW, and the preserved-region input path is already proven for train-fit.",
+      "selected_now": false
+    },
+    "current_fresh5_repairability": {
+      "rationale": [
+        "The same labels have complete approved source/tensor coverage, and M3BV proves the preserved-region path can fit a tiny train subset.",
+        "The held-out failure is concentrated around pen recall and thank_you overprediction, so another blind training run or Brev receipt is unsupported.",
+        "The current source-split signer-disjointness is real and should remain an evaluation property, but a future contract can verify source quality and label risk before training."
+      ],
+      "repairable_by_no_training_contract": true,
+      "too_fragile_to_continue_as_is": true
+    },
+    "fresh10_assessment": {
+      "rationale": "Fresh10 can be considered after the current fresh5 split/source-quality contract is verified or blocked; widening now would not explain the observed fresh5 failure.",
+      "same_approved_lane_supports_design_or_materialization_later": true,
+      "selected_now": false
+    }
+  },
+  "current_label_risk_table": [
+    {
+      "contract_status": "repair_gate_required",
+      "dominant_wrong_prediction": {
+        "count": 15,
+        "predicted_label": "thank_you"
+      },
+      "label_id": "home",
+      "m3bu_predicted_label_fraction": 0.12,
+      "m3bu_test_recall": 0.16,
+      "risk_flags": [
+        "low_test_recall",
+        "thank_you_absorption"
+      ],
+      "split_clip_counts": {
+        "test": 25,
+        "train": 25,
+        "validation": 25
+      },
+      "split_signer_identity_hash_counts": {
+        "test": 7,
+        "train": 18,
+        "validation": 8
+      },
+      "tensor_low_hand_motion_fraction": {
+        "test": 0.0,
+        "train": 0.0,
+        "validation": 0.0
+      }
+    },
+    {
+      "contract_status": "repair_gate_required",
+      "dominant_wrong_prediction": {
+        "count": 12,
+        "predicted_label": "thank_you"
+      },
+      "label_id": "morning",
+      "m3bu_predicted_label_fraction": 0.12,
+      "m3bu_test_recall": 0.2,
+      "risk_flags": [
+        "thank_you_absorption"
+      ],
+      "split_clip_counts": {
+        "test": 25,
+        "train": 25,
+        "validation": 25
+      },
+      "split_signer_identity_hash_counts": {
+        "test": 8,
+        "train": 15,
+        "validation": 7
+      },
+      "tensor_low_hand_motion_fraction": {
+        "test": 0.0,
+        "train": 0.0,
+        "validation": 0.0
+      }
+    },
+    {
+      "contract_status": "repair_gate_required",
+      "dominant_wrong_prediction": {
+        "count": 18,
+        "predicted_label": "thank_you"
+      },
+      "label_id": "pen",
+      "m3bu_predicted_label_fraction": 0.032,
+      "m3bu_test_recall": 0.04,
+      "risk_flags": [
+        "low_test_recall",
+        "thank_you_absorption"
+      ],
+      "split_clip_counts": {
+        "test": 25,
+        "train": 25,
+        "validation": 25
+      },
+      "split_signer_identity_hash_counts": {
+        "test": 8,
+        "train": 14,
+        "validation": 6
+      },
+      "tensor_low_hand_motion_fraction": {
+        "test": 0.0,
+        "train": 0.0,
+        "validation": 0.0
+      }
+    },
+    {
+      "contract_status": "repair_gate_required",
+      "dominant_wrong_prediction": {
+        "count": 3,
+        "predicted_label": "home"
+      },
+      "label_id": "thank_you",
+      "m3bu_predicted_label_fraction": 0.568,
+      "m3bu_test_recall": 0.64,
+      "risk_flags": [
+        "overpredicted_confuser"
+      ],
+      "split_clip_counts": {
+        "test": 25,
+        "train": 25,
+        "validation": 25
+      },
+      "split_signer_identity_hash_counts": {
+        "test": 8,
+        "train": 18,
+        "validation": 8
+      },
+      "tensor_low_hand_motion_fraction": {
+        "test": 0.0,
+        "train": 0.0,
+        "validation": 0.0
+      }
+    },
+    {
+      "contract_status": "repair_gate_required",
+      "dominant_wrong_prediction": {
+        "count": 10,
+        "predicted_label": "thank_you"
+      },
+      "label_id": "who",
+      "m3bu_predicted_label_fraction": 0.16,
+      "m3bu_test_recall": 0.4,
+      "risk_flags": [
+        "thank_you_absorption"
+      ],
+      "split_clip_counts": {
+        "test": 25,
+        "train": 25,
+        "validation": 25
+      },
+      "split_signer_identity_hash_counts": {
+        "test": 8,
+        "train": 18,
+        "validation": 8
+      },
+      "tensor_low_hand_motion_fraction": {
+        "test": 0.0,
+        "train": 0.0,
+        "validation": 0.0
+      }
+    }
+  ],
+  "decision": {
+    "blocker_classification": "fresh5_manifest_split_source_quality_contract_needed",
+    "brev_training_receipt_justified_now": false,
+    "detector0_or_crop_contract_justified_now": false,
+    "exactly_one_next_action": "continue_fresh5_repaired_manifest_contract",
+    "fresh10_region_grid_materialization_justified_now": false,
+    "fresh5_repaired_manifest_contract_justified_now": true,
+    "human_source_annotation_or_strategy_decision_required_now": false,
+    "next_action_rationale": "Complete one local/no-spend no-training fresh5 repaired manifest/split/source-quality contract before any new training, fresh10 widening, Detector 0/crop work, Brev compute receipt, export, or promotion.",
+    "stop_justified_now": false
+  },
+  "exactly_one_next_action": "continue_fresh5_repaired_manifest_contract",
+  "generated_at": "2026-05-27T20:08:46.109171Z",
+  "generated_by": {
+    "command": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/design_popsign_fresh5_vocab_split_remediation.py",
+      "--receipt",
+      "docs/validation/return-to-form-popsign-fresh5-vocab-split-remediation-v1.json",
+      "--write-receipt"
+    ],
+    "python_executable": "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+    "script": {
+      "path": "scripts/design_popsign_fresh5_vocab_split_remediation.py",
+      "sha256": "c565d514dcb2260691f5cd0395d483562785b84f81954e87ba43dfd4980d70f0"
+    },
+    "tool": "scripts/design_popsign_fresh5_vocab_split_remediation.py"
+  },
+  "git": {
+    "head": "5c431c3db0a87eda3f7fe64ecb12dc3b4acc2fef",
+    "head_short": "5c431c3",
+    "status_short_branch": "## compound-plan-m0...origin/compound-plan-m0 [ahead 11]\n?? docs/validation/return-to-form-popsign-fresh5-vocab-split-remediation-v1.json\n?? scripts/design_popsign_fresh5_vocab_split_remediation.py"
+  },
+  "input_artifacts": {
+    "m3bu_outputs": {
+      "prediction_sidecar": {
+        "path": "output/return-to-form-popsign-fresh5-region-grid-local-smoke/prediction-sidecar.json",
+        "sha256": "7846eaf0fc3d901224a0cb32ba5cba7ff489ac46eb4e59494692100c12058130"
+      },
+      "validation_report": {
+        "path": "output/return-to-form-popsign-fresh5-region-grid-local-smoke/validation-report.json",
+        "sha256": "aaa6687d573c007bf9326337b9070994556275a48ca03f362b6bc2a988160e1a"
+      }
+    },
+    "m3bw": {
+      "receipt": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-data-vocabulary-separability-v1.json",
+        "sha256": "746d8bb0b17d8e749bd80c8054741cda680a044080010cc1b51a02645f490227"
+      },
+      "session_log": {
+        "path": "docs/session-logs/379-mission-3bw-popsign-fresh5-data-vocabulary-separability.md",
+        "sha256": "11c1400bc53bee2c22a013adf0836448876f326b1afe0453fc893c00eef274c1"
+      }
+    },
+    "manifests": {
+      "test": {
+        "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/test.json",
+        "sha256": "fd1242c965ccf671384b38af8abf84333d107562a3700d30dfa6cd84720e4046"
+      },
+      "train": {
+        "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/train.json",
+        "sha256": "6cc8ca08bc127d8b42e55e03b604702a66c94d618821c07c23b6a9bd2b0f31ef"
+      },
+      "validation": {
+        "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/validation.json",
+        "sha256": "9e83e674ee9ee65508eb322b43fa0453ef7f5a76740735ebfa73a881ab3e0b40"
+      }
+    },
+    "receipts": {
+      "m3bs": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-materialization-local-smoke-v1.json",
+        "sha256": "510bce9946bf7afb145c5afb43e7b6492bb66e239511dfa91ade8ed3aca5f430"
+      },
+      "m3bt": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-region-grid-materialization-v1.json",
+        "sha256": "ff2de8d6047a6dfc735245fbe73989c90f370a32b9f35fbd3209186be10dba68"
+      },
+      "m3bu": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-region-grid-local-smoke-v1.json",
+        "sha256": "417664f34e8785d16979a3741d87a92222d20aaea6e9f789da223afaab1fcba2"
+      },
+      "m3bv": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-model-data-design-ablation-v1.json",
+        "sha256": "74590b35b59e7696bc2e4f46e5fd2ae0281935aa8d7360f6efeb563453b4effe"
+      }
+    },
+    "source_metadata": {
+      "active_module_vocabulary_review": {
+        "path": "data/active-module/active-module-vocabulary-review.json",
+        "sha256": "7bc269d45a26b9b36cd111587e66663d57f5683626500b889c2b029725968481"
+      },
+      "popsign_import_plan": {
+        "path": "docs/research/popsign-v1-import-plan.json",
+        "sha256": "0438c3e39e8c7f8b21f9968baebdd18870311c8f4103adc13012d5e230c06234"
+      },
+      "source_register": {
+        "path": "docs/model/dataset-source-register.json",
+        "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+      },
+      "supported_raw_source_candidates": {
+        "path": "docs/validation/return-to-form-supported-raw-source-candidates-v1.json",
+        "sha256": "51d7bf658c89c4bdfe356dab7af27de3980c11fd23878b7f25124b9b48b25c5f"
+      }
+    },
+    "steering": {
+      "active_prompt": {
+        "path": "docs/model/return-to-form-popsign-fresh5-vocab-split-remediation-goal-loop-prompt.md",
+        "sha256": "66f88fc98f38f259f839b134ec7b4cb66665e638ccfe24cb1baf86d34b01df30"
+      },
+      "goal": {
+        "path": "GOAL.md",
+        "sha256": "f332666ed660aaf9d86597b91a63768a88286c758a7b6eefdd0f9a73bafb534d"
+      },
+      "return_to_form_plan": {
+        "path": "docs/model/return-to-form-plan.md",
+        "sha256": "62a063c4409f7f53a0f89f93efafb7f8bcbd9ab2e7506788f3c2a9bb8355b4ae"
+      }
+    }
+  },
+  "manifest_split_source_analysis": {
+    "all_clips_have_tensor_reference_and_sha256": true,
+    "min_signer_identity_hashes_per_label_across_splits": {
+      "home": 7,
+      "morning": 7,
+      "pen": 6,
+      "thank_you": 8,
+      "who": 8
+    },
+    "selected_labels": [
+      "home",
+      "morning",
+      "pen",
+      "thank_you",
+      "who"
+    ],
+    "source_split_boundaries_preserved": true,
+    "split_overlaps": {
+      "train_vs_test": {
+        "label_shared_signer_identity_hash_count": {
+          "home": 0,
+          "morning": 0,
+          "pen": 0,
+          "thank_you": 0,
+          "who": 0
+        },
+        "shared_signer_identity_hash_count": 0,
+        "shared_source_record_id_count": 0
+      },
+      "train_vs_validation": {
+        "label_shared_signer_identity_hash_count": {
+          "home": 0,
+          "morning": 0,
+          "pen": 0,
+          "thank_you": 0,
+          "who": 0
+        },
+        "shared_signer_identity_hash_count": 0,
+        "shared_source_record_id_count": 0
+      },
+      "validation_vs_test": {
+        "label_shared_signer_identity_hash_count": {
+          "home": 0,
+          "morning": 0,
+          "pen": 0,
+          "thank_you": 0,
+          "who": 0
+        },
+        "shared_signer_identity_hash_count": 0,
+        "shared_source_record_id_count": 0
+      }
+    },
+    "splits": {
+      "test": {
+        "clip_count": 125,
+        "dataset_source_mode": "approved_external_raw_video_source",
+        "duplicate_source_record_ids": {},
+        "label_counts": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "labels": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "signer_identity_hash_count": 8,
+        "signer_identity_hash_count_by_label": {
+          "home": 7,
+          "morning": 8,
+          "pen": 8,
+          "thank_you": 8,
+          "who": 8
+        },
+        "source_id": "popsign-v1-original-videos",
+        "source_record_id_count": 125,
+        "source_record_id_count_by_label": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "source_split_counts": {
+          "test": 125
+        },
+        "tensor_reference_count": 125,
+        "tensor_sha256_count": 125
+      },
+      "train": {
+        "clip_count": 125,
+        "dataset_source_mode": "approved_external_raw_video_source",
+        "duplicate_source_record_ids": {},
+        "label_counts": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "labels": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "signer_identity_hash_count": 31,
+        "signer_identity_hash_count_by_label": {
+          "home": 18,
+          "morning": 15,
+          "pen": 14,
+          "thank_you": 18,
+          "who": 18
+        },
+        "source_id": "popsign-v1-original-videos",
+        "source_record_id_count": 125,
+        "source_record_id_count_by_label": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "source_split_counts": {
+          "train": 125
+        },
+        "tensor_reference_count": 125,
+        "tensor_sha256_count": 125
+      },
+      "validation": {
+        "clip_count": 125,
+        "dataset_source_mode": "approved_external_raw_video_source",
+        "duplicate_source_record_ids": {},
+        "label_counts": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "labels": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "signer_identity_hash_count": 8,
+        "signer_identity_hash_count_by_label": {
+          "home": 8,
+          "morning": 7,
+          "pen": 6,
+          "thank_you": 8,
+          "who": 8
+        },
+        "source_id": "popsign-v1-original-videos",
+        "source_record_id_count": 125,
+        "source_record_id_count_by_label": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "source_split_counts": {
+          "val": 125
+        },
+        "tensor_reference_count": 125,
+        "tensor_sha256_count": 125
+      }
+    }
+  },
+  "mission": "Mission 3BX - PopSign fresh5 vocabulary/split remediation design",
+  "remediation_contract": {
+    "contract_id": "popsign_fresh5_source_quality_split_contract_v1",
+    "labels": [
+      "home",
+      "morning",
+      "pen",
+      "thank_you",
+      "who"
+    ],
+    "manifest_gates_before_training": [
+      {
+        "gate": "same_labels_only",
+        "requirement": "Keep thank_you, pen, home, who, and morning unchanged; do not widen or drop labels in the repaired fresh5 contract."
+      },
+      {
+        "gate": "source_split_boundaries",
+        "requirement": "Preserve PopSign train/val/test source splits; signer-disjoint validation remains a hard evaluation property, not something to erase by overlap."
+      },
+      {
+        "current_status": {
+          "test": {
+            "home": 25,
+            "morning": 25,
+            "pen": 25,
+            "thank_you": 25,
+            "who": 25
+          },
+          "train": {
+            "home": 25,
+            "morning": 25,
+            "pen": 25,
+            "thank_you": 25,
+            "who": 25
+          },
+          "validation": {
+            "home": 25,
+            "morning": 25,
+            "pen": 25,
+            "thank_you": 25,
+            "who": 25
+          }
+        },
+        "gate": "per_label_counts",
+        "requirement": "At least 25 hash-pinned clips per label in each source split, matching the current local evidence."
+      },
+      {
+        "current_min_by_label": {
+          "home": 7,
+          "morning": 7,
+          "pen": 6,
+          "thank_you": 8,
+          "who": 8
+        },
+        "gate": "signer_coverage",
+        "requirement": "At least 6 pseudonymous signer hashes per label per split before any training command is considered."
+      },
+      {
+        "current_overlap": {
+          "train_vs_test": {
+            "label_shared_signer_identity_hash_count": {
+              "home": 0,
+              "morning": 0,
+              "pen": 0,
+              "thank_you": 0,
+              "who": 0
+            },
+            "shared_signer_identity_hash_count": 0,
+            "shared_source_record_id_count": 0
+          },
+          "train_vs_validation": {
+            "label_shared_signer_identity_hash_count": {
+              "home": 0,
+              "morning": 0,
+              "pen": 0,
+              "thank_you": 0,
+              "who": 0
+            },
+            "shared_signer_identity_hash_count": 0,
+            "shared_source_record_id_count": 0
+          },
+          "validation_vs_test": {
+            "label_shared_signer_identity_hash_count": {
+              "home": 0,
+              "morning": 0,
+              "pen": 0,
+              "thank_you": 0,
+              "who": 0
+            },
+            "shared_signer_identity_hash_count": 0,
+            "shared_source_record_id_count": 0
+          }
+        },
+        "gate": "dedupe",
+        "requirement": "No source_record_id duplication within or across train/validation/test."
+      },
+      {
+        "current_all_clips_have_tensor_reference_and_sha256": true,
+        "gate": "tensor_contract",
+        "requirement": "Every retained clip must have rgb_regions_grid_v1 tensor evidence with frame tensor SHA-256 and no missing files; no fallback to rgb_frames."
+      },
+      {
+        "gate": "quality_and_confusion_risk",
+        "requirement": "The next no-training contract must explicitly flag pen low recall and thank_you absorption as training stop conditions, not hide them."
+      }
+    ],
+    "purpose": "Verify a same-label PopSign fresh5 manifest/split/source-quality contract before any further training or compute planning.",
+    "source_policy": {
+      "decision_id": "approved_popsign_v1_original_videos_2026_05_20",
+      "do_not_repair_by_cross_split_leakage": true,
+      "license_review_status": "approved_cc_by_4_raw_video_with_attribution",
+      "no_new_source_import_or_source_register_change": true,
+      "preserve_popsign_train_val_test_boundaries": true,
+      "source_id": "popsign-v1-original-videos"
+    },
+    "training_stop_conditions_for_later_prompt": [
+      "Do not train if any manifest gate above fails.",
+      "Do not train if a future no-training contract cannot explain whether pen has adequate split/source quality.",
+      "Do not plan Brev unless a later local region-axis-preserving smoke beats M3BU on top1, macro F1, pen recall, and prediction concentration."
+    ]
+  },
+  "route_evaluation": {
+    "continue_bounded_brev_training_receipt_for_fresh5_region_grid": {
+      "reason": "M3BU held-out metrics remain weak and M3BW classified the blocker as data/vocabulary/split/source distribution, so compute planning would be premature.",
+      "selected": false,
+      "supported": false
+    },
+    "continue_detector0_or_crop_contract_for_fresh5": {
+      "reason": "M3BT/M3BV prove the region-grid tensor/input path exists, and M3BW tensor-motion summaries did not show a decisive empty hand-region failure.",
+      "selected": false,
+      "supported": false
+    },
+    "continue_fresh10_region_grid_materialization": {
+      "candidate_packet": {
+        "label_ids": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning",
+          "mom",
+          "boy",
+          "happy",
+          "food",
+          "red"
+        ],
+        "packet_id": "popsign_fresh_10_v1",
+        "purpose": "larger fresh PopSign candidate if the 5-label packet clears local gates",
+        "rationale": "A 10-label packet is useful only after the 5-label packet proves train sanity and nonzero held-out signal.",
+        "required_next_gates": [
+          "same manifest/tensor/local-smoke gates as popsign_fresh_5_v1",
+          "do not spend Brev unless the 5-label result justifies expansion"
+        ],
+        "source_id": "popsign-v1-original-videos"
+      },
+      "reason": "The approved PopSign lane contains a fresh10 candidate, but M3BW did not show that widening labels is the immediate fix; scaling before repairing the fresh5 split/source-quality blocker would expand an unresolved failure mode.",
+      "selected": false,
+      "supported_by_source_lane": true
+    },
+    "continue_fresh5_repaired_manifest_contract": {
+      "reason": "Current fresh5 is not cleared for training, but source approval, per-split coverage, tensor inventory, and M3BV train-fit evidence support one no-training manifest/split/source-quality repair contract before any more classifier work.",
+      "selected": true,
+      "supported": true
+    },
+    "m3bw_reference": {
+      "blocker_classification": "data_vocabulary_split_source_distribution",
+      "m3bw_selected_next_action": "continue_fresh5_vocab_split_remediation_packet"
+    },
+    "stop_for_human_source_annotation_or_strategy_decision": {
+      "reason": "The next selected step uses the same approved PopSign raw-source lane and does not require new source approval, annotation approval, budget, label expansion, crop target, or product scope approval.",
+      "selected": false,
+      "supported": false
+    },
+    "stop_until_supported_training_signal_exists": {
+      "reason": "A bounded local no-training repair-contract slice remains available from existing approved artifacts.",
+      "selected": false,
+      "supported": false
+    }
+  },
+  "schema_version": "asl-pilot-popsign-fresh5-vocab-split-remediation/v1",
+  "scope": {
+    "existing_artifacts_only": true,
+    "local_only": true,
+    "no_brev_command_or_spend": true,
+    "no_checkpoint_created": true,
+    "no_detector0_training": true,
+    "no_export_or_browser_activation": true,
+    "no_final_gate_change": true,
+    "no_manifest_mutation": true,
+    "no_model_card_promotion": true,
+    "no_model_fitting": true,
+    "no_optimizer_or_backward_pass": true,
+    "no_pretrained_dependency": true,
+    "no_pseudo_labels": true,
+    "no_push": true,
+    "no_source_import_or_media_download": true,
+    "no_source_register_mutation": true,
+    "no_tensor_mutation": true,
+    "no_training_run": true
+  },
+  "source_register_popsign_status": {
+    "allowed_for_model_training": true,
+    "allowed_for_pilot_submission": true,
+    "allowed_for_validation": true,
+    "decision_id": "approved_popsign_v1_original_videos_2026_05_20",
+    "license_review_status": "approved_cc_by_4_raw_video_with_attribution",
+    "restrictions": [
+      "must cite and attribute PopSign ASL v1.0 under CC BY 4.0",
+      "only original game-category raw video archives may be imported",
+      "preview videos and derived pose, landmark, embedding, detector, feature, or pretrained artifacts are disallowed",
+      "source train, validation, and test split boundaries must be preserved",
+      "source signer identifiers must remain pseudonymous in ASL Pilot manifests"
+    ],
+    "source_id": "popsign-v1-original-videos"
+  },
+  "status": "completed_no_training_design_packet",
+  "tracked_files_changed": [
+    "scripts/design_popsign_fresh5_vocab_split_remediation.py",
+    "docs/validation/return-to-form-popsign-fresh5-vocab-split-remediation-v1.json",
+    "docs/session-logs/381-mission-3bx-popsign-fresh5-vocab-split-remediation.md"
+  ]
+}

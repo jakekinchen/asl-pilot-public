@@ -1,0 +1,503 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3fx-crop-input-schema-review-no-spend/v1",
+  "mission": "M3FX - Crop/input schema review no spend",
+  "status": "completed_no_training_crop_input_schema_review",
+  "generated_at": "2026-05-29T04:17:48Z",
+  "current_commit": "c041120 observer: CONTINUE - m3fw crop input schema handoff",
+  "active_prompt": "docs/model/return-to-form-m3fx-crop-input-schema-review-no-spend-goal-loop-prompt.md",
+  "commands_run": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "Worktree was clean on compound-plan-m0, ahead of origin by 270 commits before M3FX edits."
+    },
+    {
+      "command": "git log -16 --oneline --decorate",
+      "status": "passed",
+      "summary": "HEAD was c041120 observer: CONTINUE - m3fw crop input schema handoff."
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed",
+      "summary": "No loop premise blockers."
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed",
+      "summary": "GOAL.md points at the M3FX prompt and the return-to-form plan checks passed."
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed",
+      "summary": "Source register exists with source_count 12 and sha256 b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8."
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed",
+      "summary": "No banned pretrained-CV dependencies or source imports found."
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed",
+      "summary": "No banned pretrained artifact JSON findings."
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3fw-tiny2-tiny3-architecture-objective-sanity-v1.json >/dev/null",
+      "status": "passed",
+      "summary": "M3FW receipt JSON parsed."
+    },
+    {
+      "command": "python3 -m json.tool docs/model/return-to-form-m3fv-tiny2-tiny3-architecture-objective-sanity-contract-v1.json >/dev/null",
+      "status": "passed",
+      "summary": "M3FV contract JSON parsed."
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "status": "passed",
+      "summary": "Model-card JSON parsed."
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/detector0-card.json >/dev/null",
+      "status": "passed",
+      "summary": "Detector0-card JSON parsed."
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "status": "passed",
+      "summary": "Active-vocabulary claim JSON parsed."
+    },
+    {
+      "command": "brev ls --json",
+      "status": "passed",
+      "summary": "Read-only Brev check showed retained worker STOPPED / COMPLETED / NOT READY / HEALTHY."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "summary": "No whitespace errors before M3FX edits."
+    }
+  ],
+  "read_only_brev_default_off_state": {
+    "command": "brev ls --json",
+    "lifecycle_command_run": false,
+    "remote_command_run": false,
+    "spent_money_this_slice": false,
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ]
+  },
+  "m3fw_result_summary": {
+    "receipt_path": "docs/validation/return-to-form-m3fw-tiny2-tiny3-architecture-objective-sanity-v1.json",
+    "session_log_path": "docs/session-logs/604-mission-3fw-tiny2-tiny3-architecture-objective-sanity.md",
+    "runner_path": "scripts/run_m3fw_tiny2_tiny3_architecture_objective_sanity.py",
+    "status": "completed_local_tiny2_proof",
+    "source_id": "asl-citizen-school-assignment-raw-videos",
+    "input_contract": "rgb_regions_grid_v1",
+    "labels": [
+      "table",
+      "hello"
+    ],
+    "tiny3_executed": false,
+    "train_accuracy": 1.0,
+    "heldout_top1": 0.75,
+    "heldout_macro_f1": 0.7333333333333334,
+    "heldout_zero_recall_labels": [],
+    "heldout_prediction_counts": {
+      "table": 2,
+      "hello": 6
+    },
+    "heldout_per_label_recall": {
+      "table": 0.5,
+      "hello": 1.0
+    },
+    "heldout_dominant_predicted_class_fraction": 0.75,
+    "dominant_class_limit": 0.7,
+    "tiny2_gate_passed": false,
+    "failed_gate": "validation_dominant_predicted_class_fraction",
+    "label_shuffle_false_progress_control_suspicious_success": false,
+    "interpretation": "M3FW improved over M3EM's all-hello held-out collapse but still failed the predeclared noncollapse gate; it is diagnostic only and does not authorize Tiny3, broad training, export, promotion, browser activation, or ASL correctness claims."
+  },
+  "evidence_inspected": [
+    {
+      "path": "GOAL.md",
+      "finding": "GOAL.md names Mission 3FX and points at the M3FX crop/input schema review prompt."
+    },
+    {
+      "path": "docs/model/return-to-form-m3fx-crop-input-schema-review-no-spend-goal-loop-prompt.md",
+      "finding": "M3FX requires a no-training review packet from existing evidence only."
+    },
+    {
+      "path": "docs/model/return-to-form-plan.md",
+      "finding": "The tactical overlay records M3FW's failed noncollapse gate and keeps Brev/training/input mutation off."
+    },
+    {
+      "path": "docs/validation/return-to-form-m3fw-tiny2-tiny3-architecture-objective-sanity-v1.json",
+      "finding": "M3FW fit train but failed held-out noncollapse at dominant predicted class share 0.75."
+    },
+    {
+      "path": "docs/model/return-to-form-m3fv-tiny2-tiny3-architecture-objective-sanity-contract-v1.json",
+      "finding": "M3FV contract scoped the proof to ASL Citizen high-signal region-grid Tiny2 with no Brev/source/export/promotion authority."
+    },
+    {
+      "path": "docs/validation/return-to-form-m3em-tiny2-heldout-noncollapse-probe-v1.json",
+      "finding": "M3EM fit train but held-out accuracy was chance, dominant predicted class fraction was 1.0, and table recall was zero."
+    },
+    {
+      "path": "docs/validation/return-to-form-m3en-detector0-source-region-receipts-v1.json",
+      "finding": "M3EN found general objectness target support table-confounded; fixed regions remain diagnostic accounting only."
+    },
+    {
+      "path": "docs/validation/return-to-form-m3eo-overnight-detector0-brev-unblock-v1.json",
+      "finding": "M3EO reconciled Detector 0 toward target-specific two-hand union/contact diagnostic work only; not browser/product authority."
+    },
+    {
+      "path": "docs/model/return-to-form-detector0-strict-gate-crop-normalization-contract.json",
+      "finding": "M3FQ strict contact-gate contract is static diagnostic policy with validation top-1 0.256 and test top-1 0.3263157894736842 in side evidence."
+    },
+    {
+      "path": "docs/validation/return-to-form-m3fr-detector0-strict-gate-local-smoke-no-brev-v1.json",
+      "finding": "M3FR local packet-frame smoke fit train but recalled only 1/7 validation positives at the contract threshold."
+    },
+    {
+      "path": "docs/validation/return-to-form-m3fs-detector0-strict-gate-metric-triage-no-brev-v1.json",
+      "finding": "M3FS found no no-training Detector 0 contract repair; target-schema and crop/input-representation limits remain."
+    },
+    {
+      "path": "artifacts/research/observer-508-m3ef-model-input-strategy/response.md",
+      "finding": "Prior strategy memo covered M3EF materialized-region vs full-frame failure, not the exact M3FW Tiny2 post-proof error analysis."
+    },
+    {
+      "path": "artifacts/research/observer-547-m3ew-post-tcn-strategy/response.md",
+      "finding": "Prior strategy memo covered post-TCN weak learnability and no autonomous training retries, not the exact M3FW crop/input error analysis."
+    },
+    {
+      "path": "artifacts/research/observer-584-m3fm-popsign-label-ladder-strategy/response.md",
+      "finding": "Prior strategy memo covered PopSign label-ladder strategy and human model review, not ASL Citizen Tiny2 crop/input errors."
+    },
+    {
+      "path": "artifacts/research/observer-597-m3fs-detector0-strict-gate-strategy/response.md",
+      "finding": "Prior strategy memo covered Detector 0 strict-gate limits and product polish, not M3FW fixed region-grid error analysis."
+    }
+  ],
+  "crop_input_schema_review_matrix": [
+    {
+      "candidate_id": "fixed_region_grid_error_analysis",
+      "candidate_direction": "Keep fixed rgb_regions_grid_v1 region-grid input and do only error analysis next.",
+      "local_evidence_for": [
+        "M3FW fit the Tiny2 train subset at accuracy 1.0 and improved from M3EM's all-hello held-out collapse to held-out top-1 0.75.",
+        "M3FW receipt already contains per-example held-out predictions, confidence, true label, predicted label, signer metadata, tensor paths, and source records needed for no-training error analysis.",
+        "The selected next slice can inspect existing prediction/error metadata without source, manifest, tensor, crop/input code, model, runtime, or claim-surface mutation."
+      ],
+      "local_evidence_against": [
+        "M3FW still failed the noncollapse gate with dominant predicted class share 0.75.",
+        "M3EM and M3FW both show fixed region-grid held-out weakness, so error analysis cannot by itself prove a better input schema or promote a model."
+      ],
+      "implications": {
+        "source": "No source change; keep ASL Citizen school-assignment raw-video receipts as inspected evidence only.",
+        "label": "No label change; analyze Tiny2 table/hello errors only.",
+        "input": "No input mutation; keep rgb_regions_grid_v1 and inspect existing per-example failures.",
+        "model": "No model fitting, checkpoint, architecture change, or objective change.",
+        "evaluation": "No evaluator rerun; use existing M3FW held-out predictions and M3EM comparison."
+      },
+      "mutation_requirements": {
+        "source": false,
+        "manifest": false,
+        "tensor": false,
+        "vocabulary": false,
+        "code": false,
+        "architecture": false,
+        "training_budget": false,
+        "brev": false,
+        "runtime": false,
+        "claim_surface": false
+      },
+      "strategy_memo_coverage": {
+        "exact_decision_already_covered": false,
+        "related_memos": [
+          "artifacts/research/observer-508-m3ef-model-input-strategy/response.md",
+          "artifacts/research/observer-547-m3ew-post-tcn-strategy/response.md",
+          "artifacts/research/observer-584-m3fm-popsign-label-ladder-strategy/response.md",
+          "artifacts/research/observer-597-m3fs-detector0-strict-gate-strategy/response.md"
+        ],
+        "coverage_note": "Existing memos warn against more autonomous training-style retries, but none covers the exact M3FW per-example fixed region-grid error-analysis decision."
+      },
+      "autonomous_next_slice_assessment": "Safe as the next autonomous slice because it is no-training, no-rerun, no-mutation, and can reduce uncertainty before any schema, target, or compute decision.",
+      "selected": true
+    },
+    {
+      "candidate_id": "union_contact_region_schema_contract",
+      "candidate_direction": "Target-specific table_two_hand_union_or_contact_region contract review.",
+      "local_evidence_for": [
+        "M3EO records a target-specific two-hand union/contact path with present counts by split: train 7, validation 7, test 6.",
+        "M3FQ pins a strict contact-gate diagnostic contract and side evidence showed validation top-1 0.256, test top-1 0.3263157894736842, and no zero-recall labels.",
+        "M3FR/M3FS provide concrete packet-frame metrics and boundaries for target-specific diagnostic work."
+      ],
+      "local_evidence_against": [
+        "M3EN found general objectness table-confounded and not supportable as class-invariant objectness.",
+        "M3FR recalled only 1/7 validation positives and 1/6 test positives at the contract threshold.",
+        "M3FS classifies target-schema and crop/input-representation limitations as present and found no no-training repair."
+      ],
+      "implications": {
+        "source": "Would continue using existing PopSign/Detector 0 packet evidence only in a review slice.",
+        "label": "Would stay target-specific to table/contact evidence and cannot become a broad class-invariant Detector 0 label claim.",
+        "input": "A future implementation would change crop-normalization/input behavior; this review slice does not.",
+        "model": "No model change in a contract review; any later detector/recognizer run would need a new active prompt.",
+        "evaluation": "Existing packet-frame metrics are weak and diagnostic; no smoke/evaluator rerun is authorized here."
+      },
+      "mutation_requirements": {
+        "source": false,
+        "manifest": false,
+        "tensor": false,
+        "vocabulary": false,
+        "code": true,
+        "architecture": false,
+        "training_budget": false,
+        "brev": false,
+        "runtime": true,
+        "claim_surface": false
+      },
+      "strategy_memo_coverage": {
+        "exact_decision_already_covered": "partially",
+        "related_memos": [
+          "artifacts/research/observer-597-m3fs-detector0-strict-gate-strategy/response.md"
+        ],
+        "coverage_note": "Observer 597 covers the M3FS strict-gate strategy and recommends product polish, not an M3FW-driven union/contact schema contract as the immediate next executor slice."
+      },
+      "autonomous_next_slice_assessment": "Unsafe as the immediate next slice because the available Detector 0 evidence is weak and target-specific; use fixed-grid error analysis first before steering into a schema contract.",
+      "selected": false
+    },
+    {
+      "candidate_id": "full_frame_or_motion_context_contract",
+      "candidate_direction": "Full-frame or motion-context contract review.",
+      "local_evidence_for": [
+        "Full-frame keeps global visual context that region grids may discard.",
+        "A motion-context contract could directly target temporal signal instead of changing labels or source media."
+      ],
+      "local_evidence_against": [
+        "Observer 508 records that M3EF materialized and full-frame arms both failed train sanity under a five-label local diagnostic.",
+        "M3FW's selected architecture already introduced a true temporal region-grid model and still failed noncollapse.",
+        "A useful motion-context path would need a concrete input contract and likely code/tensor generation in a later slice."
+      ],
+      "implications": {
+        "source": "Could stay on existing approved sources, but any new tensor/input contract must be separately authorized.",
+        "label": "No immediate label change, but broader motion context may require revalidating label/split assumptions.",
+        "input": "Would likely require new input-contract design and potentially tensor/materialization changes later.",
+        "model": "May imply architecture/input design changes beyond the current runner.",
+        "evaluation": "Would need predeclared train/held-out gates before any proof."
+      },
+      "mutation_requirements": {
+        "source": false,
+        "manifest": false,
+        "tensor": true,
+        "vocabulary": false,
+        "code": true,
+        "architecture": true,
+        "training_budget": false,
+        "brev": false,
+        "runtime": false,
+        "claim_surface": false
+      },
+      "strategy_memo_coverage": {
+        "exact_decision_already_covered": "partially",
+        "related_memos": [
+          "artifacts/research/observer-508-m3ef-model-input-strategy/response.md",
+          "artifacts/research/observer-547-m3ew-post-tcn-strategy/response.md"
+        ],
+        "coverage_note": "Prior memos cover failed full-frame/materialized diagnostics and weak TCN transfer, but not an exact post-M3FW motion-context contract."
+      },
+      "autonomous_next_slice_assessment": "Not safe as the immediate next slice because it would move toward input and architecture design before simpler existing-error accounting is exhausted.",
+      "selected": false
+    },
+    {
+      "candidate_id": "first_party_or_human_label_protocol",
+      "candidate_direction": "First-party or human-label protocol review.",
+      "local_evidence_for": [
+        "Repeated held-out transfer failures could reflect source/label/crop evidence limits rather than only architecture.",
+        "Human-reviewed labels or first-party protocol work may be necessary before another model-quality claim."
+      ],
+      "local_evidence_against": [
+        "M3FW used an approved ASL Citizen source and signer-disjoint held-out split; the immediate M3FW false negatives can be analyzed without asking for new data or human labeling first.",
+        "A real protocol change would require human privacy/source/collection approval and likely source or label artifacts later."
+      ],
+      "implications": {
+        "source": "Would require human source/privacy/protocol review before any new collection or source approval.",
+        "label": "May require new annotation instructions or human-reviewed label evidence.",
+        "input": "No immediate input change in a review, but future protocol work could affect crop/target labels.",
+        "model": "No model change in review; later use would need a new approved prompt.",
+        "evaluation": "Would need new gates for human-label sufficiency before training."
+      },
+      "mutation_requirements": {
+        "source": true,
+        "manifest": true,
+        "tensor": false,
+        "vocabulary": false,
+        "code": false,
+        "architecture": false,
+        "training_budget": false,
+        "brev": false,
+        "runtime": false,
+        "claim_surface": false
+      },
+      "strategy_memo_coverage": {
+        "exact_decision_already_covered": false,
+        "related_memos": [
+          "artifacts/research/observer-584-m3fm-popsign-label-ladder-strategy/response.md"
+        ],
+        "coverage_note": "Existing strategy memos mention human model/source decisions generally, but not a concrete first-party protocol selected from M3FW Tiny2 errors."
+      },
+      "autonomous_next_slice_assessment": "Not selected because it may be needed later but asks for human/source protocol decisions before the existing M3FW error evidence is fully summarized.",
+      "selected": false
+    },
+    {
+      "candidate_id": "bounded_compute_proposal",
+      "candidate_direction": "Future bounded compute proposal requiring human approval.",
+      "local_evidence_for": [
+        "M3FW demonstrates train fit and a partially non-collapsed held-out signal, so a future compute proposal might be meaningful after a sharper hypothesis exists.",
+        "The retained Brev worker exists and is currently stopped."
+      ],
+      "local_evidence_against": [
+        "The current slice has max spend $0 and no Brev lifecycle authority.",
+        "M3FW failed its noncollapse gate, while M3FS/M3FM/M3EW strategy evidence warns against speculative training-style retries.",
+        "No exact next compute hypothesis is established until fixed-grid error analysis or a contract review narrows the issue."
+      ],
+      "implications": {
+        "source": "No source change in a proposal, but any later compute must pin source scope.",
+        "label": "No immediate label change; future compute must predeclare label scope.",
+        "input": "Future compute must choose one input contract before running.",
+        "model": "Would require a model/training budget decision and kill condition.",
+        "evaluation": "Would require predeclared train/held-out gates and teardown/copyback/default-off rules."
+      },
+      "mutation_requirements": {
+        "source": false,
+        "manifest": false,
+        "tensor": false,
+        "vocabulary": false,
+        "code": false,
+        "architecture": true,
+        "training_budget": true,
+        "brev": true,
+        "runtime": false,
+        "claim_surface": false
+      },
+      "strategy_memo_coverage": {
+        "exact_decision_already_covered": false,
+        "related_memos": [
+          "artifacts/research/observer-547-m3ew-post-tcn-strategy/response.md",
+          "artifacts/research/observer-584-m3fm-popsign-label-ladder-strategy/response.md",
+          "artifacts/research/observer-597-m3fs-detector0-strict-gate-strategy/response.md"
+        ],
+        "coverage_note": "Existing memos argue against speculative compute; no memo covers a concrete M3FW-derived compute hypothesis."
+      },
+      "autonomous_next_slice_assessment": "Unsafe now because it would require human compute approval and a sharper falsifiable hypothesis.",
+      "selected": false
+    }
+  ],
+  "rejected_actions": [
+    {
+      "action": "continue_union_contact_region_schema_contract_no_spend",
+      "reason": "Existing union/contact evidence is target-specific and weak on held-out packet-frame recall; it should not be the immediate autonomous route before M3FW fixed-grid errors are analyzed."
+    },
+    {
+      "action": "continue_full_frame_or_motion_context_contract_no_spend",
+      "reason": "Prior full-frame/materialized evidence failed train sanity, and motion-context contract work would move toward input/architecture design before existing M3FW error metadata is exhausted."
+    },
+    {
+      "action": "continue_first_party_or_human_label_protocol_no_spend",
+      "reason": "Human/source protocol work may be needed later, but it is premature before recording what the existing M3FW false negatives and prediction concentration show."
+    },
+    {
+      "action": "prepare_bounded_composable_brev_microexperiment_receipt_for_human_approval",
+      "reason": "No compute is needed for the next review slice; M3FX max spend is $0 and no exact M3FW-derived compute hypothesis is ready."
+    },
+    {
+      "action": "escalate_crop_input_strategy_research_with_local_evidence",
+      "reason": "Existing strategy memos already warn against speculative ML retries; the next fixed-grid error analysis is local/no-mutation and does not need new API/GPT research."
+    },
+    {
+      "action": "stop_for_human_ml_strategy_choice",
+      "reason": "The selected next action is a no-training/no-mutation error-analysis packet, so it does not require human approval yet."
+    }
+  ],
+  "claim_surface_status": {
+    "fail_closed": true,
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "status": "not_trained",
+      "model_id": "asl-pilot-rawframe-v0"
+    },
+    "detector0_card": {
+      "path": "web/public/model/detector0-card.json",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null,
+      "runtime_gates": {
+        "detector0_tracking": false,
+        "box_driven_avatar": false,
+        "recognition_pass_fail": false
+      }
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": []
+    },
+    "claim_matrix": {
+      "path": "web/public/model/claim-matrix.json",
+      "status": "no_active_claim_rawframe_not_trained"
+    },
+    "final_claim_matrix": {
+      "path": "docs/validation/final-claim-matrix.json",
+      "status": "no_active_claim_rawframe_not_trained"
+    }
+  },
+  "forbidden_action_proof": {
+    "training_or_fitting": false,
+    "m3fw_proof_rerun": false,
+    "tiny3_run": false,
+    "fresh5_25_75_95_or_broad_recognizer_run": false,
+    "architecture_sweep": false,
+    "objective_sweep": false,
+    "detector0_smoke_or_evaluation_rerun": false,
+    "evaluator_rerun": false,
+    "threshold_tuning_for_promotion": false,
+    "crop_or_input_implementation_change": false,
+    "source_register_edit": false,
+    "source_or_media_import": false,
+    "manifest_tensor_packet_vocabulary_mutation": false,
+    "raw_learner_video_or_frame_upload": false,
+    "brev_start_exec_sync_copy_stop_or_remote_command": false,
+    "remote_training_or_package_install": false,
+    "duplicate_worker_creation": false,
+    "export_or_promotion": false,
+    "model_card_promotion": false,
+    "active_vocabulary_promotion": false,
+    "browser_recognition_activation": false,
+    "product_runtime_recognition_mutation": false,
+    "runtime_detector0_authority_claim": false,
+    "final_gate_change": false,
+    "final_readiness_claim": false,
+    "trainability_claim": false,
+    "asl_correctness_claim": false,
+    "pretrained_detector_landmark_backbone_embedding_or_generated_label_path": false,
+    "push": false,
+    "amend_or_no_verify": false,
+    "destructive_reset": false
+  },
+  "pretrained_components": [],
+  "changed_files": [
+    "docs/validation/return-to-form-m3fx-crop-input-schema-review-no-spend-v1.json",
+    "docs/session-logs/606-mission-3fx-crop-input-schema-review-no-spend.md"
+  ],
+  "exactly_one_next_action": "continue_fixed_region_grid_error_analysis_no_spend",
+  "next_action": "continue_fixed_region_grid_error_analysis_no_spend"
+}

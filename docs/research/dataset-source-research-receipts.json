@@ -1,0 +1,528 @@
+{
+  "schema_version": "asl-pilot-dataset-source-research-receipts/v1",
+  "status": "passed",
+  "evidence_mode": "research",
+  "finality": "not_training_data",
+  "generated_at": "2026-05-21T11:50:51.221Z",
+  "runner": {
+    "tool": "node-fetch",
+    "command": [
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/Users/kelly/Developer/asl-pilot/scripts/refresh_dataset_source_research.mjs",
+      "--write"
+    ],
+    "script": {
+      "path": "scripts/refresh_dataset_source_research.mjs",
+      "sha256": "179a2635bd3877a685ea253dc43656782300a5e67e644821f06bc5dc761336cd"
+    }
+  },
+  "output": "docs/research/dataset-source-research-receipts.json",
+  "source_count": 12,
+  "sources": [
+    {
+      "source_id": "nvidia-asl-1000-access",
+      "display_name": "NVIDIA ASL / ASL 1000 access page",
+      "url": "https://www.nvidia.com/en-us/gated-resources/trustworthy-ai-american-sign-language/dataset/",
+      "checked_at": "2026-05-21T11:50:46.435Z",
+      "http_status": 200,
+      "final_url": "https://www.nvidia.com/en-us/gated-resources/trustworthy-ai-american-sign-language/dataset/",
+      "content_sha256": "b6f4e544bd42f57b79c8db67113d7cc13e3c172a3fb53de7737d982ebeb62a79",
+      "normalized_text_sha256": "87663b7e5380372cb1373ec17555dcb05795b62617cad10ae721bf90e865aaf3",
+      "content_length_bytes": 554037,
+      "decision": {
+        "license_review_status": "candidate_controlled_access_not_approved",
+        "allowed_for_model_training": false,
+        "allowed_for_validation": false,
+        "allowed_for_pilot_submission": false,
+        "finality": "research_reference_only"
+      },
+      "matched_constraints": [
+        {
+          "id": "raw_video_access_claim",
+          "status": "matched",
+          "summary": "Accepted users are told they receive raw video data.",
+          "matched_text_excerpt": "Users will get access to raw video data",
+          "matched_text_excerpt_sha256": "2b924048e1cca39200d9fbd6900600060d97afb08710df50e18b40c500007389"
+        },
+        {
+          "id": "license_and_use_case_gate",
+          "status": "matched",
+          "summary": "Access is gated by license acceptance and use case.",
+          "matched_text_excerpt": "Access will be granted based on acceptance of",
+          "matched_text_excerpt_sha256": "ddb33f6934f96f1ded0440cbde9ee3e6a9239af38e30a2489d35dd825555e9f3"
+        },
+        {
+          "id": "derived_artifacts_documented",
+          "status": "matched",
+          "summary": "The source also offers derived artifacts disallowed for recognition.",
+          "matched_text_excerpt": "hand landmarks, body poses, and facial meshes",
+          "matched_text_excerpt_sha256": "c7bb70ffe733abb2e51435add4245ceb5b646a20101ed8a68d2913a426e7c937"
+        }
+      ],
+      "blockers": []
+    },
+    {
+      "source_id": "nvidia-asl-1000-aws",
+      "display_name": "ASL 1000 AWS Open Data Registry",
+      "url": "https://registry.opendata.aws/asl_1000/",
+      "checked_at": "2026-05-21T11:50:46.498Z",
+      "http_status": 200,
+      "final_url": "https://registry.opendata.aws/asl_1000/",
+      "content_sha256": "ee9fd4bb28fc5dd5732569665ecf76212918d815b3805ba23b203c7383467b4a",
+      "normalized_text_sha256": "e7df36de338de12c821e1b8ffce379451809100cda915ca38ecf99514adcd74e",
+      "content_length_bytes": 8269,
+      "decision": {
+        "license_review_status": "candidate_controlled_access_not_approved",
+        "allowed_for_model_training": false,
+        "allowed_for_validation": false,
+        "allowed_for_pilot_submission": false,
+        "finality": "research_reference_only"
+      },
+      "matched_constraints": [
+        {
+          "id": "controlled_access_s3",
+          "status": "matched",
+          "summary": "AWS lists the dataset resource as controlled access.",
+          "matched_text_excerpt": "S3 Bucket Controlled Access",
+          "matched_text_excerpt_sha256": "aa144fdfee0e00238bdfed99ebbbf8f3f2e734fcf144fd7d48734f12ad4c132a"
+        },
+        {
+          "id": "license_reference",
+          "status": "matched",
+          "summary": "AWS defers license review to NVIDIA terms.",
+          "matched_text_excerpt": "NVIDIA Dataset License",
+          "matched_text_excerpt_sha256": "641f7d92e6a729cc53f67b8d6dc9058b5efdf0f064cc2f5e0c2fb5fd74274262"
+        },
+        {
+          "id": "video_dataset_claim",
+          "status": "matched",
+          "summary": "AWS describes the resource as ASL videos.",
+          "matched_text_excerpt": "American Sign Language (ASL) videos",
+          "matched_text_excerpt_sha256": "e075d93628acb7efb73fbf18ca74a64f40f75f1f55b61b8bca961fdd92cad780"
+        }
+      ],
+      "blockers": []
+    },
+    {
+      "source_id": "popsign-v2",
+      "display_name": "PopSign ASL v2",
+      "url": "https://signdata.cc.gatech.edu/view/datasets/popsign_v2/index.html",
+      "checked_at": "2026-05-21T11:50:46.634Z",
+      "http_status": 200,
+      "final_url": "https://signdata.cc.gatech.edu/view/datasets/popsign_v2/index.html",
+      "content_sha256": "506697db99a5b7bdb313be1b2d881e5a3c6947f98c5068a03b7f5e81119d690f",
+      "normalized_text_sha256": "3b5ac4b183c3400d72b028bcf140e590af5a014d5c424c5186ffc666d2bd89ee",
+      "content_length_bytes": 208650,
+      "decision": {
+        "license_review_status": "blocked_unreleased_underlying_videos_unavailable",
+        "allowed_for_model_training": false,
+        "allowed_for_validation": false,
+        "allowed_for_pilot_submission": false,
+        "finality": "research_reference_only"
+      },
+      "matched_constraints": [
+        {
+          "id": "dataset_not_released",
+          "status": "matched",
+          "summary": "The official page says the dataset is unreleased.",
+          "matched_text_excerpt": "This dataset has not been released",
+          "matched_text_excerpt_sha256": "31bb62910812ce49d71b684f4935476e976352531457b28e459d91a2840249c8"
+        },
+        {
+          "id": "underlying_videos_unavailable",
+          "status": "matched",
+          "summary": "The official page says underlying videos are unavailable.",
+          "matched_text_excerpt": "underlying videos for this dataset are currently unavailable",
+          "matched_text_excerpt_sha256": "c56a9454983fe8d4afa31fa128b78e2f5ec1e8ca0dbdc62cdc83591869e99b31"
+        }
+      ],
+      "blockers": []
+    },
+    {
+      "source_id": "asl-citizen",
+      "display_name": "ASL Citizen",
+      "url": "https://www.microsoft.com/en-us/research/project/asl-citizen/dataset-license/",
+      "checked_at": "2026-05-21T11:50:50.460Z",
+      "http_status": 200,
+      "final_url": "https://www.microsoft.com/en-us/research/project/asl-citizen/dataset-license/",
+      "content_sha256": "df15382f08bae5d65ec37f08b5873d0a2c7dee337af3db09de21fe04a9b68dcf",
+      "normalized_text_sha256": "351bd6d900bc96c024172405f4068cf36fdb4c57a8336b53e55e886a759371b7",
+      "content_length_bytes": 196237,
+      "decision": {
+        "license_review_status": "blocked_noncommercial_research_only",
+        "allowed_for_model_training": false,
+        "allowed_for_validation": false,
+        "allowed_for_pilot_submission": false,
+        "finality": "research_reference_only"
+      },
+      "matched_constraints": [
+        {
+          "id": "noncommercial_research_only",
+          "status": "matched",
+          "summary": "License scope is limited to non-commercial, non-revenue-generating research.",
+          "matched_text_excerpt": "non-commercial, non-revenue generating, research purposes",
+          "matched_text_excerpt_sha256": "31f94b3d7abf1a6c118ad2b5a240c77deb8aa839559a8eceaa31b6a3679c7ef9"
+        },
+        {
+          "id": "data_distribution_barred",
+          "status": "matched",
+          "summary": "Data and modified data may not be distributed.",
+          "matched_text_excerpt": "may not distribute the data or your modifications",
+          "matched_text_excerpt_sha256": "45add95f261077b6c1deb6ec85764d54b89531144b8ee24ff353d2010d5eb418"
+        },
+        {
+          "id": "personal_data_restricted",
+          "status": "matched",
+          "summary": "Personal data must remain limited to the original authorized purpose.",
+          "matched_text_excerpt": "PERSONAL DATA. If the data (set forth in",
+          "matched_text_excerpt_sha256": "945f55c74b46e7e83e88391cd842f76b9bf6677f308fa6588e7ad06cc454582c"
+        }
+      ],
+      "blockers": []
+    },
+    {
+      "source_id": "asllvd",
+      "display_name": "ASLLVD / ASLLRP DAI",
+      "url": "https://www.bu.edu/asllrp/av/dai-asllvd.html",
+      "checked_at": "2026-05-21T11:50:50.539Z",
+      "http_status": 200,
+      "final_url": "https://www.bu.edu/asllrp/av/dai-asllvd.html",
+      "content_sha256": "96c1f97282e59162a41720a007d80aff3b4008bb34eb37c4b517cfef9de6fedd",
+      "normalized_text_sha256": "65a651884b55352b59f8049c9a898d164107a051a3c55ef127839545fa962761",
+      "content_length_bytes": 32290,
+      "decision": {
+        "license_review_status": "blocked_permission_required_commercial_redistribution",
+        "allowed_for_model_training": false,
+        "allowed_for_validation": false,
+        "allowed_for_pilot_submission": false,
+        "finality": "research_reference_only"
+      },
+      "matched_constraints": [
+        {
+          "id": "research_education_only",
+          "status": "matched",
+          "summary": "Terms limit use to research and education purposes.",
+          "matched_text_excerpt": "can be used for research and education purposes",
+          "matched_text_excerpt_sha256": "40bc02c868641260ec40e0fad34a633ff674a2bd9b27dd8e9ee8b80a23baebae"
+        },
+        {
+          "id": "redistribution_permission_required",
+          "status": "matched",
+          "summary": "Redistribution requires permission.",
+          "matched_text_excerpt": "cannot be redistributed without permission",
+          "matched_text_excerpt_sha256": "03542e1c8df9bcc476c55f69fc0651108240eeb895461b86995e83f13de0fbf9"
+        },
+        {
+          "id": "commercial_permission_required",
+          "status": "matched",
+          "summary": "Commercial use requires explicit permission.",
+          "matched_text_excerpt": "Commercial use, without explicit permission, is not allowed",
+          "matched_text_excerpt_sha256": "6c443fdc50e36bf6740b649095fdad3e8b99e507e82b516605153eeb9d6804f8"
+        }
+      ],
+      "blockers": []
+    },
+    {
+      "source_id": "how2sign",
+      "display_name": "How2Sign",
+      "url": "https://how2sign.github.io/",
+      "checked_at": "2026-05-21T11:50:50.599Z",
+      "http_status": 200,
+      "final_url": "https://how2sign.github.io/",
+      "content_sha256": "625c9af6ad997cf7eb6b20dc9b43d16f3cfd0efcf4d04dc469afe04033fa2d19",
+      "normalized_text_sha256": "cfd7548a9a22a59d0cbc2be12d7f20050a9fdb1313a1702770c2aabeae1bc336",
+      "content_length_bytes": 34655,
+      "decision": {
+        "license_review_status": "blocked_noncommercial_continuous_sentence_data",
+        "allowed_for_model_training": false,
+        "allowed_for_validation": false,
+        "allowed_for_pilot_submission": false,
+        "finality": "research_reference_only"
+      },
+      "matched_constraints": [
+        {
+          "id": "continuous_asl_dataset",
+          "status": "matched",
+          "summary": "Dataset is continuous ASL rather than isolated vocabulary clips.",
+          "matched_text_excerpt": "continuous American Sign Language (ASL) dataset",
+          "matched_text_excerpt_sha256": "17e9f5c1cb072a35cd1dc436081017c59f7c54256ee74080bf8797b7f97bf313"
+        },
+        {
+          "id": "research_only",
+          "status": "matched",
+          "summary": "Project page says the dataset is research-only.",
+          "matched_text_excerpt": "publicly available for research purposes only",
+          "matched_text_excerpt_sha256": "110adb714a857ea2013e23aa5a0f7db3e0bde7108f009117bc080846cfe918b9"
+        },
+        {
+          "id": "noncommercial_license",
+          "status": "matched",
+          "summary": "Project page applies a non-commercial Creative Commons license.",
+          "matched_text_excerpt": "Creative Commons Attribution-NonCommercial 4.0 International License",
+          "matched_text_excerpt_sha256": "519cd4df87f785cf707eb7e52a18a5ff08ee5e2651c60fd63da3dccc5e3e65b6"
+        }
+      ],
+      "blockers": []
+    },
+    {
+      "source_id": "openasl",
+      "display_name": "OpenASL",
+      "url": "https://raw.githubusercontent.com/chevalierNoir/OpenASL/main/README.md",
+      "checked_at": "2026-05-21T11:50:50.653Z",
+      "http_status": 200,
+      "final_url": "https://raw.githubusercontent.com/chevalierNoir/OpenASL/main/README.md",
+      "content_sha256": "ffd526864159065acc2c79160c29a3b7178125e7e2d340f677cc52f3f8f8e15d",
+      "normalized_text_sha256": "93dd1bd8e0fff7903a7a47034608c8a72d2e989fdfb04deeb2fc998cf577e7d1",
+      "content_length_bytes": 2552,
+      "decision": {
+        "license_review_status": "blocked_noncommercial_noderivatives_web_video",
+        "allowed_for_model_training": false,
+        "allowed_for_validation": false,
+        "allowed_for_pilot_submission": false,
+        "finality": "research_reference_only"
+      },
+      "matched_constraints": [
+        {
+          "id": "open_domain_translation",
+          "status": "matched",
+          "summary": "Dataset is an open-domain translation corpus.",
+          "matched_text_excerpt": "Open-Domain Sign Language Translation",
+          "matched_text_excerpt_sha256": "232a267ca90bd6de1b1351a6882ea9f86fed530b32bfe4dca40304d9dbc2f0b8"
+        },
+        {
+          "id": "web_video_availability_risk",
+          "status": "matched",
+          "summary": "Upstream web videos can become unavailable.",
+          "matched_text_excerpt": "Some videos may no longer be publicly available",
+          "matched_text_excerpt_sha256": "3491683ccb2746d4cd268684e1362ddbe1895fddb6f7bdd6bc6651360cf49272"
+        },
+        {
+          "id": "cc_by_nc_nd_license",
+          "status": "matched",
+          "summary": "Dataset is licensed under CC BY-NC-ND 4.0.",
+          "matched_text_excerpt": "Creative Commons BY-NC-ND 4.0 License",
+          "matched_text_excerpt_sha256": "fd30cb746c17db249e18975404aabba666baabe179068001408df653c603b419"
+        }
+      ],
+      "blockers": []
+    },
+    {
+      "source_id": "purdue-rvl-slll-asl",
+      "display_name": "Purdue RVL-SLLL ASL",
+      "url": "https://engineering.purdue.edu/RVL/Database/ASL/asl-database-front.htm.bk.htm",
+      "checked_at": "2026-05-21T11:50:50.784Z",
+      "http_status": 200,
+      "final_url": "https://engineering.purdue.edu/RVL/Database/ASL/asl-database-front.htm.bk.htm",
+      "content_sha256": "b7ec986079d626a211f82d9d8e7dfefe1cf9005d48c5348d964ab8d218b98623",
+      "normalized_text_sha256": "5cd39b5acc0999842e9169dc05059cea34e42554e4e6fe5ba9d8f248ab41e30c",
+      "content_length_bytes": 1906,
+      "decision": {
+        "license_review_status": "candidate_signed_license_required",
+        "allowed_for_model_training": false,
+        "allowed_for_validation": false,
+        "allowed_for_pilot_submission": false,
+        "finality": "research_reference_only"
+      },
+      "matched_constraints": [
+        {
+          "id": "image_video_database",
+          "status": "matched",
+          "summary": "The official page describes images and videos.",
+          "matched_text_excerpt": "database of images and videos",
+          "matched_text_excerpt_sha256": "b301b27cf4a4e0564295442b1d26396753dcd8b03d8f1e1874b5420b65f2284e"
+        },
+        {
+          "id": "username_password_required",
+          "status": "matched",
+          "summary": "Access requires credentials.",
+          "matched_text_excerpt": "asked to enter a user name and a",
+          "matched_text_excerpt_sha256": "39894810c4c05c51090995e9454f6dc06e242577e1d4e60a68b7cbc46e90618b"
+        },
+        {
+          "id": "signed_license_required",
+          "status": "matched",
+          "summary": "Access requires a signed license agreement.",
+          "matched_text_excerpt": "download the license agreement and send a signed",
+          "matched_text_excerpt_sha256": "c099b6d77e0a7055640118cbb6dc7697818876a190313c04effad0f8fddd0eea"
+        }
+      ],
+      "blockers": []
+    },
+    {
+      "source_id": "huggingface-zahid-asl",
+      "display_name": "Hugging Face ZahidYasinMittha ASL Dataset",
+      "url": "https://huggingface.co/datasets/ZahidYasinMittha/American-Sign-Language-Dataset/raw/main/README.md",
+      "checked_at": "2026-05-21T11:50:50.903Z",
+      "http_status": 200,
+      "final_url": "https://huggingface.co/datasets/ZahidYasinMittha/American-Sign-Language-Dataset/raw/main/README.md",
+      "content_sha256": "865ce119014e85ed43e67bd4160eb9ad1e44f4360157f0c92fe9737fb1a72b26",
+      "normalized_text_sha256": "65a508a9ed420d28c1ec87379940ac78985d0d631b71d948b05315e8e1d1ad46",
+      "content_length_bytes": 3164,
+      "decision": {
+        "license_review_status": "blocked_scraped_multi_source_provenance_missing",
+        "allowed_for_model_training": false,
+        "allowed_for_validation": false,
+        "allowed_for_pilot_submission": false,
+        "finality": "research_reference_only"
+      },
+      "matched_constraints": [
+        {
+          "id": "large_raw_video_claim",
+          "status": "matched",
+          "summary": "Dataset card claims a large video corpus.",
+          "matched_text_excerpt": "108,618 videos",
+          "matched_text_excerpt_sha256": "9e93ace0b561d5d2ea23888934ff2331281fe022d09defc0d19be00512cb3ed8"
+        },
+        {
+          "id": "scraped_multi_source",
+          "status": "matched",
+          "summary": "Dataset card says videos were scraped from multiple sources.",
+          "matched_text_excerpt": "scraped, collected from multiple sources",
+          "matched_text_excerpt_sha256": "c346ae0f9519b6eecbdf36ad96c69fbb6ce729c02fd5efb84f05bc4f5203d44b"
+        },
+        {
+          "id": "research_education_scope",
+          "status": "matched",
+          "summary": "Dataset card presents a research and education use scope.",
+          "matched_text_excerpt": "research and educational purposes",
+          "matched_text_excerpt_sha256": "6b7626ad3e1ec58d380b224388725707a792569553f35f3e4627391f2b073c0d"
+        }
+      ],
+      "blockers": []
+    },
+    {
+      "source_id": "wlasl",
+      "display_name": "WLASL",
+      "url": "https://github.com/dxli94/WLASL",
+      "checked_at": "2026-05-21T11:50:51.153Z",
+      "http_status": 200,
+      "final_url": "https://github.com/dxli94/WLASL",
+      "content_sha256": "668f3bdbefd420839462bb33156140fecffbfeed3442386360d46ab7aa1824b7",
+      "normalized_text_sha256": "071c71949746f13318d41fca6125dbb40af843f033e8219f2b3a9c68faafbe45",
+      "content_length_bytes": 298622,
+      "decision": {
+        "license_review_status": "blocked_academic_computational_only",
+        "allowed_for_model_training": false,
+        "allowed_for_validation": false,
+        "allowed_for_pilot_submission": false,
+        "finality": "research_reference_only"
+      },
+      "matched_constraints": [
+        {
+          "id": "c_uda_license",
+          "status": "matched",
+          "summary": "Dataset is governed by the C-UDA terms.",
+          "matched_text_excerpt": "Computational Use of Data Agreement",
+          "matched_text_excerpt_sha256": "a561b39467c0f3ef53ee9afbe847f72b547d8bd0ceea50208d9e7218b12cd8cd"
+        },
+        {
+          "id": "academic_computational_only",
+          "status": "matched",
+          "summary": "Dataset is presented as academic and computational use only.",
+          "matched_text_excerpt": "academic and computational use only",
+          "matched_text_excerpt_sha256": "8227af3470f3fa03a88806cbd744e320473578a7996bec26ff62a7bc494dd629"
+        },
+        {
+          "id": "commercial_usage_not_allowed",
+          "status": "matched",
+          "summary": "Commercial usage is not allowed by the project documentation.",
+          "matched_text_excerpt": "No commercial usage is allowed",
+          "matched_text_excerpt_sha256": "91b9a2a24d7a1ad5775da703f5977918736a8f7c9b72e382b6434bb18634c7f9"
+        }
+      ],
+      "blockers": []
+    },
+    {
+      "source_id": "wlasl",
+      "display_name": "WLASL pipeline boundary",
+      "url": "https://raw.githubusercontent.com/dxli94/WLASL/master/README.md",
+      "checked_at": "2026-05-21T11:50:51.174Z",
+      "http_status": 200,
+      "final_url": "https://raw.githubusercontent.com/dxli94/WLASL/master/README.md",
+      "content_sha256": "1339c5032649e4f7ccc53eedb3e84e753be9f0b77ed29c98ef14eff7b73c5a1d",
+      "normalized_text_sha256": "e199196c05a27730f85191ab43f4713d3ff7cf7933fd46f76c41674362e0019c",
+      "content_length_bytes": 8041,
+      "decision": {
+        "license_review_status": "blocked_external_cv_artifact_boundary",
+        "allowed_for_model_training": false,
+        "allowed_for_validation": false,
+        "allowed_for_pilot_submission": false,
+        "finality": "research_reference_only"
+      },
+      "matched_constraints": [
+        {
+          "id": "pretrained_weights_documented",
+          "status": "matched",
+          "summary": "Reference training instructions include external pre-trained weights.",
+          "matched_text_excerpt": "pre-trained Kinetics",
+          "matched_text_excerpt_sha256": "52c7b3adac14af65d4201dd233d6cbd4971651da49f4ac50d8ec6795cbcbf9c5"
+        },
+        {
+          "id": "derived_pose_artifacts_documented",
+          "status": "matched",
+          "summary": "Reference pipeline documents derived pose artifacts.",
+          "matched_text_excerpt": "body keypoints",
+          "matched_text_excerpt_sha256": "637a3f71cb63acccdb68c6f35d76eb2163491c6b847f0323d92553953e4071ba"
+        },
+        {
+          "id": "bounding_box_metadata_documented",
+          "status": "matched",
+          "summary": "Reference metadata includes bounding-box fields.",
+          "matched_text_excerpt": "bbox",
+          "matched_text_excerpt_sha256": "08e45e15ed6ceea5907c5cdefcf772aecaaf5629244b7ddff1b8becf5ff770eb"
+        }
+      ],
+      "blockers": []
+    },
+    {
+      "source_id": "asl-lex",
+      "display_name": "ASL-LEX",
+      "url": "https://asl-lex.org/download.html",
+      "checked_at": "2026-05-21T11:50:51.221Z",
+      "http_status": 200,
+      "final_url": "https://asl-lex.org/download.html",
+      "content_sha256": "8bc528f3b9c4169c77e1c5d9274d9ccd0f471f74315cb3beb03c4a493045571e",
+      "normalized_text_sha256": "b863fbe86e316ae16876d614fbc534d6df12cb518f0ed94eadf27c13638f9fb4",
+      "content_length_bytes": 6122,
+      "decision": {
+        "license_review_status": "blocked_video_permission_required",
+        "allowed_for_model_training": false,
+        "allowed_for_validation": false,
+        "allowed_for_pilot_submission": false,
+        "finality": "research_reference_only"
+      },
+      "matched_constraints": [
+        {
+          "id": "noncommercial_database_license",
+          "status": "matched",
+          "summary": "Database and visualization are non-commercial.",
+          "matched_text_excerpt": "Creative Commons Attribution-NonCommercial 4.0 International License",
+          "matched_text_excerpt_sha256": "519cd4df87f785cf707eb7e52a18a5ff08ee5e2651c60fd63da3dccc5e3e65b6"
+        },
+        {
+          "id": "reference_videos_excluded",
+          "status": "matched",
+          "summary": "Sign reference videos are excluded from the database license.",
+          "matched_text_excerpt": "excluding sign reference videos",
+          "matched_text_excerpt_sha256": "a3a5c79ad8e1fcc457540be5f09b93aafc497ed48fc2b59c4f2936211c489931"
+        },
+        {
+          "id": "reference_videos_permission_required",
+          "status": "matched",
+          "summary": "Reference videos require explicit permission for other uses.",
+          "matched_text_excerpt": "may not be saved, displayed, or otherwise used",
+          "matched_text_excerpt_sha256": "aad60ceddb3830164c623230ebb3d82ba30bfff376f091426de61e9cb2c632f8"
+        },
+        {
+          "id": "commercial_use_prohibited",
+          "status": "matched",
+          "summary": "Commercial use is expressly prohibited.",
+          "matched_text_excerpt": "commercial purposes is expressly prohibited",
+          "matched_text_excerpt_sha256": "e6dfdce456f0335de4aa44b31a3522d9d607de874276be7ea843c7e170504b0d"
+        }
+      ],
+      "blockers": []
+    }
+  ],
+  "blockers": []
+}

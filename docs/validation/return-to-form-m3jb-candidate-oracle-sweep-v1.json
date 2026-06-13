@@ -1,0 +1,225 @@
+{
+  "schema_version": "asl-pilot-m3jb-candidate-oracle-sweep/v1",
+  "receipt_id": "return-to-form-m3jb-candidate-oracle-sweep-v1",
+  "mission": "M3JB - Candidate generation oracle sweep",
+  "status": "failed_open_current_head_candidate_ceiling_below_gate",
+  "checked_at": "2026-06-02T03:05:41.453Z",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "side_worktree": "/Users/kelly/Developer/asl-pilot-annotator",
+  "runtime_boundary": {
+    "oracle_only": true,
+    "training_run": false,
+    "checkpoint_written": false,
+    "browser_exported": false,
+    "detector0_promoted": false,
+    "mediapipe_runtime_dependency_allowed": false,
+    "raw_learner_video_uploaded": false,
+    "brev_used": false,
+    "sign_model_run": false
+  },
+  "artifacts": {
+    "ranker_code": {
+      "path": "tools/detector0-annotator/train_hand_pair_ranker.py",
+      "side_worktree_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hand_pair_ranker.py",
+      "sha256": "99e6d4bad59b831c0131ae98fc34527344cac16d0ad166810ff213f298df28f2",
+      "purpose": "Side-worktree pair ranker with strict oracle-only candidate sweep support."
+    },
+    "side_oracle_receipt": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-candidate-oracle-sweep-top80-nms040506-v1.json",
+      "side_worktree_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-hand-candidate-oracle-sweep-top80-nms040506-v1.json",
+      "sha256": "a5cf3fee2e94a91dcf59bb4696a3ebf2c4a70cc141abc339db7e619eac7d90c5"
+    },
+    "canonical_m3jb_audit": {
+      "path": "docs/validation/return-to-form-m3jb-hierarchical-hand-state-tracker-v1.json",
+      "status": "passed_fail_closed_not_gate_passing"
+    }
+  },
+  "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --oracle-only --real-data tools/detector0-annotator/.cache/autolabel-big --coarse-weights tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.pt --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-candidate-oracle-sweep --oracle-nms-ious 0.4,0.5,0.6 --oracle-topks 20,30,40,60,80 --coverage-iou 0.3 --device mps --out tools/detector0-annotator/output/m3jb-hand-candidate-oracle-sweep-top80-nms040506-v1.json",
+  "params": {
+    "coverage_iou": 0.3,
+    "topks": [
+      20,
+      30,
+      40,
+      60,
+      80
+    ],
+    "nms_ious": [
+      0.4,
+      0.5,
+      0.6
+    ],
+    "n_real_twohand": 84
+  },
+  "summary": [
+    {
+      "nms_iou": 0.4,
+      "topk": 20,
+      "coverage": 0.9642857142857143,
+      "distinct_assigned_coverage": 0.7738095238095238,
+      "collapse_rate": 0,
+      "coverage_failure_count": 3,
+      "distinct_assignment_failure_count": 19
+    },
+    {
+      "nms_iou": 0.4,
+      "topk": 30,
+      "coverage": 0.9642857142857143,
+      "distinct_assigned_coverage": 0.8571428571428571,
+      "collapse_rate": 0,
+      "coverage_failure_count": 3,
+      "distinct_assignment_failure_count": 12
+    },
+    {
+      "nms_iou": 0.4,
+      "topk": 40,
+      "coverage": 0.9642857142857143,
+      "distinct_assigned_coverage": 0.9047619047619048,
+      "collapse_rate": 0,
+      "coverage_failure_count": 3,
+      "distinct_assignment_failure_count": 8
+    },
+    {
+      "nms_iou": 0.4,
+      "topk": 60,
+      "coverage": 0.9642857142857143,
+      "distinct_assigned_coverage": 0.9047619047619048,
+      "collapse_rate": 0,
+      "coverage_failure_count": 3,
+      "distinct_assignment_failure_count": 8
+    },
+    {
+      "nms_iou": 0.4,
+      "topk": 80,
+      "coverage": 0.9642857142857143,
+      "distinct_assigned_coverage": 0.9047619047619048,
+      "collapse_rate": 0,
+      "coverage_failure_count": 3,
+      "distinct_assignment_failure_count": 8
+    },
+    {
+      "nms_iou": 0.5,
+      "topk": 20,
+      "coverage": 0.9642857142857143,
+      "distinct_assigned_coverage": 0.9285714285714286,
+      "collapse_rate": 0,
+      "coverage_failure_count": 3,
+      "distinct_assignment_failure_count": 6
+    },
+    {
+      "nms_iou": 0.5,
+      "topk": 30,
+      "coverage": 0.9642857142857143,
+      "distinct_assigned_coverage": 0.9523809523809523,
+      "collapse_rate": 0,
+      "coverage_failure_count": 3,
+      "distinct_assignment_failure_count": 4
+    },
+    {
+      "nms_iou": 0.5,
+      "topk": 40,
+      "coverage": 0.9642857142857143,
+      "distinct_assigned_coverage": 0.9642857142857143,
+      "collapse_rate": 0,
+      "coverage_failure_count": 3,
+      "distinct_assignment_failure_count": 3
+    },
+    {
+      "nms_iou": 0.5,
+      "topk": 60,
+      "coverage": 0.9642857142857143,
+      "distinct_assigned_coverage": 0.9642857142857143,
+      "collapse_rate": 0,
+      "coverage_failure_count": 3,
+      "distinct_assignment_failure_count": 3
+    },
+    {
+      "nms_iou": 0.5,
+      "topk": 80,
+      "coverage": 0.9642857142857143,
+      "distinct_assigned_coverage": 0.9642857142857143,
+      "collapse_rate": 0,
+      "coverage_failure_count": 3,
+      "distinct_assignment_failure_count": 3
+    },
+    {
+      "nms_iou": 0.6,
+      "topk": 20,
+      "coverage": 0.9642857142857143,
+      "distinct_assigned_coverage": 0.9166666666666666,
+      "collapse_rate": 0,
+      "coverage_failure_count": 3,
+      "distinct_assignment_failure_count": 7
+    },
+    {
+      "nms_iou": 0.6,
+      "topk": 30,
+      "coverage": 0.9642857142857143,
+      "distinct_assigned_coverage": 0.9404761904761905,
+      "collapse_rate": 0,
+      "coverage_failure_count": 3,
+      "distinct_assignment_failure_count": 5
+    },
+    {
+      "nms_iou": 0.6,
+      "topk": 40,
+      "coverage": 0.9642857142857143,
+      "distinct_assigned_coverage": 0.9404761904761905,
+      "collapse_rate": 0,
+      "coverage_failure_count": 3,
+      "distinct_assignment_failure_count": 5
+    },
+    {
+      "nms_iou": 0.6,
+      "topk": 60,
+      "coverage": 0.9642857142857143,
+      "distinct_assigned_coverage": 0.9642857142857143,
+      "collapse_rate": 0,
+      "coverage_failure_count": 3,
+      "distinct_assignment_failure_count": 3
+    },
+    {
+      "nms_iou": 0.6,
+      "topk": 80,
+      "coverage": 0.9642857142857143,
+      "distinct_assigned_coverage": 0.9642857142857143,
+      "collapse_rate": 0,
+      "coverage_failure_count": 3,
+      "distinct_assignment_failure_count": 3
+    }
+  ],
+  "best": {
+    "nms_iou": 0.5,
+    "topk": 40,
+    "coverage": 0.9642857142857143,
+    "distinct_assigned_coverage": 0.9642857142857143,
+    "collapse_rate": 0,
+    "coverage_failure_count": 3,
+    "distinct_assignment_failure_count": 3
+  },
+  "selection": {
+    "selected_for_promotion": false,
+    "selected_as_current_candidate_ceiling": true,
+    "gate_status": "failed_open",
+    "gate_gap": {
+      "required_distinct_assigned_coverage": 0.98,
+      "best_distinct_assigned_coverage": 0.9642857142857143,
+      "remaining_assignment_failures": 3
+    },
+    "reason": "Wider current-head candidates improve strict oracle recoverability, but the best candidate ceiling remains below the M3JB 0.98 distinct-assignment gate."
+  },
+  "commands_run": [
+    "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_hand_pair_ranker.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --self-test",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --oracle-only --real-data tools/detector0-annotator/.cache/autolabel-big --coarse-weights tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.pt --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-candidate-oracle-sweep --oracle-nms-ious 0.4,0.5,0.6 --oracle-topks 20,30,40,60,80 --coverage-iou 0.3 --device mps --out tools/detector0-annotator/output/m3jb-hand-candidate-oracle-sweep-top80-nms040506-v1.json",
+    "node scripts/audit_m3jb_hand_state_tracker.mjs --write-receipt --json"
+  ],
+  "commands_intentionally_not_run": [
+    "No training run.",
+    "No checkpoint export or browser artifact promotion.",
+    "No Brev lifecycle, remote sync, or paid compute.",
+    "No raw learner video upload.",
+    "No sign/language model continuation."
+  ],
+  "next_action": "continue_m3jb_stronger_proposal_head_or_real_hard_label_candidate_repair_no_brev"
+}

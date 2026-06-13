@@ -1,0 +1,438 @@
+{
+  "schema_version": "asl-pilot-hand-landmark-source-feasibility/v1",
+  "created_at": "2026-05-28T12:13:10Z",
+  "mission": "M3DX - Hand landmark detector source feasibility",
+  "active_prompt": "docs/model/return-to-form-hand-landmark-source-feasibility-goal-loop-prompt.md",
+  "mode": "local_no_spend_no_training_source_feasibility",
+  "summary": {
+    "result": "feasible_but_blocked_on_explicit_source_license_and_import_approval",
+    "finding": "Public hand keypoint datasets with manual or human-in-loop labels exist, but none are approved in the repo source register and actual label use would require explicit human source/license/data-import approval. MediaPipe/generated-label routes remain disallowed for the promoted lane.",
+    "relation_to_detector0_route": "complement_current_detector0_objectness_repair",
+    "detector0_relation_reason": "Hand landmarks could become a future scratch localization and crop-normalization signal after source approval, but the current Detector 0 blocker is still presence/objectness formulation and crop-inclusion evidence. This source feasibility result does not supersede the local Detector 0 objectness repair route."
+  },
+  "repo_state": {
+    "branch_status": "## compound-plan-m0...origin/compound-plan-m0 [ahead 138]",
+    "head_before_slice": "dc587df supervisor: align plan for m3dx feasibility",
+    "goal_active_mission": "Mission 3DX - Hand landmark detector source feasibility",
+    "active_prompt_matches_goal": true,
+    "brev_approval_recorded_in_goal_and_prompt": false,
+    "brev_commands_run": [],
+    "media_imports_run": [],
+    "source_register_mutated": false,
+    "manifest_mutated": false,
+    "tensor_mutated": false,
+    "vocabulary_mutated": false,
+    "training_or_export_run": false,
+    "browser_recognition_activated": false
+  },
+  "local_checks": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "## compound-plan-m0...origin/compound-plan-m0 [ahead 138]"
+    },
+    {
+      "command": "git log -10 --oneline --decorate",
+      "status": "passed",
+      "head": "dc587df supervisor: align plan for m3dx feasibility"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed",
+      "active_prompt": "docs/model/return-to-form-hand-landmark-source-feasibility-goal-loop-prompt.md"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed",
+      "source_register_path": "docs/model/dataset-source-register.json",
+      "source_register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+      "source_count": 12
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-region-grid-tcn-m3dq-metric-triage-no-remote-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-tier0-detector0-parallel-heldout-recall-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-dataset-training-root-cause-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "status": "passed"
+    }
+  ],
+  "local_evidence": {
+    "m3dv_metric_triage": {
+      "path": "docs/validation/return-to-form-region-grid-tcn-m3dq-metric-triage-no-remote-v1.json",
+      "json_valid": true,
+      "mission": "M3DV - Region-grid TCN M3DQ metric triage no remote",
+      "retained_truth": "M3DU was an operational CUDA path with weak held-out generalization and no product-promotable artifact."
+    },
+    "detector0_parallel_heldout_recall": {
+      "path": "docs/validation/return-to-form-tier0-detector0-parallel-heldout-recall-v1.json",
+      "json_valid": true,
+      "status": "action_selected",
+      "selected_next_action": "fix_detector0_presence_objectness_formulation_no_brev"
+    },
+    "root_cause": {
+      "path": "docs/validation/return-to-form-dataset-training-root-cause-v1.json",
+      "json_valid": true,
+      "status": "completed",
+      "retained_truth": "Coarse ROI/crop localization and crop-inclusion evidence remain the current blocker; full landmarks are not already approved as a promoted-lane dependency."
+    },
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "json_valid": true,
+      "model_id": "asl-pilot-rawframe-v0",
+      "status": "not_trained"
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "json_valid": true,
+      "activeLabels": []
+    }
+  },
+  "read_only_source_checks": [
+    {
+      "command": "python3 urllib request for http://domedb.perception.cs.cmu.edu/handdb.html",
+      "status": "passed",
+      "note": "Fetched official CMU HandDB HTML metadata only; no download link followed."
+    },
+    {
+      "command": "python3 urllib request for http://domedb.perception.cs.cmu.edu/",
+      "status": "passed",
+      "note": "Fetched official CMU Panoptic license summary only; no download link followed."
+    },
+    {
+      "command": "python3 urllib request for https://datasets-server.huggingface.co/is-valid?dataset=Voxel51/hand-keypoints",
+      "status": "passed",
+      "summary": "preview=true, viewer=true, filter=true, statistics=true, search=false"
+    },
+    {
+      "command": "python3 urllib request for https://datasets-server.huggingface.co/splits?dataset=Voxel51/hand-keypoints",
+      "status": "passed",
+      "summary": "default/train only"
+    },
+    {
+      "command": "python3 urllib request for https://datasets-server.huggingface.co/size?dataset=Voxel51/hand-keypoints",
+      "status": "passed",
+      "summary": "847 rows, 1 column, 217864076 original bytes, 131672772 parquet bytes"
+    },
+    {
+      "command": "python3 urllib request for https://datasets-server.huggingface.co/first-rows?dataset=Voxel51/hand-keypoints&config=default&split=train",
+      "status": "passed",
+      "summary": "Dataset Viewer feature list contains only image; first row keys are image only."
+    },
+    {
+      "command": "web/open https://huggingface.co/datasets/Voxel51/hand-keypoints",
+      "status": "passed",
+      "note": "Read dataset card only; no dataset files imported."
+    },
+    {
+      "command": "web/open https://lmb.informatik.uni-freiburg.de/projects/freihand/ and python urllib request for https://lmb.informatik.uni-freiburg.de/resources/datasets/FreihandDataset.en.html",
+      "status": "passed",
+      "note": "Read official project and dataset-page metadata only; no dataset downloads."
+    },
+    {
+      "command": "web/open https://mks0601.github.io/InterHand2.6M/",
+      "status": "passed",
+      "note": "Read official project metadata only; no image or annotation downloads."
+    },
+    {
+      "command": "web/open https://docs.ultralytics.com/datasets/pose/hand-keypoints/",
+      "status": "passed",
+      "note": "Read documentation page only; no dataset download."
+    },
+    {
+      "command": "rg -n \"hand|frei|InterHand|Voxel|Panoptic|CMU|MediaPipe|Ultralytics\" docs/model/dataset-source-register.json",
+      "status": "passed",
+      "summary": "No reviewed hand-landmark source entry exists; matches were unrelated hand-clap/hands-cropped-out challenge candidates."
+    }
+  ],
+  "source_candidates": [
+    {
+      "id": "cmu-panoptic-handdb-manual",
+      "name": "CMU Panoptic HandDB / Simon et al. 2017 manual hand keypoint annotations",
+      "urls": [
+        "http://domedb.perception.cs.cmu.edu/handdb.html",
+        "http://domedb.perception.cs.cmu.edu/",
+        "https://arxiv.org/abs/1704.07809"
+      ],
+      "source_type": "official_project_dataset",
+      "annotation_type": "manual",
+      "approximate_size": "1912 training annotations and 846 testing annotations on the official HandDB manual partition",
+      "split_shape": "official page separates manual train/test from synthetic and Panoptic multiview-bootstrapped partitions",
+      "label_schema": "2D hand keypoints, 21 landmarks per hand according to the Simon et al. hand keypoint dataset documentation and Voxel51 mirror card",
+      "license_rights_notes": [
+        "Official HandDB page did not expose a separate license block in the fetched section.",
+        "Official CMU Panoptic root states Panoptic data is for research purposes only, cannot be used commercially, and cannot be redistributed without organizer permission.",
+        "Manual partition includes source images from MPII and NZSL according to the Voxel51 card, so underlying source licenses also require review."
+      ],
+      "labels_accessible_without_media_import": false,
+      "labels_accessibility_notes": "The official page describes partitions and download sizes but actual label files would require a dataset download/import that this mission did not perform.",
+      "promoted_lane_viability": "plausible_candidate_pending_human_source_license_and_data_import_approval",
+      "allowed_subsets": [
+        "manual_train",
+        "manual_test"
+      ],
+      "disallowed_or_research_only_subsets": [
+        "synthetic partition until explicitly approved",
+        "Panoptic multiview-bootstrapped partition until explicitly approved"
+      ],
+      "rationale": "This is the strongest lead for a strict scratch route because a manual 2D keypoint partition exists and is separated from generated or bootstrapped annotations."
+    },
+    {
+      "id": "voxel51-hand-keypoints",
+      "name": "Voxel51/hand-keypoints",
+      "urls": [
+        "https://huggingface.co/datasets/Voxel51/hand-keypoints",
+        "https://datasets-server.huggingface.co/first-rows?dataset=Voxel51/hand-keypoints&config=default&split=train"
+      ],
+      "source_type": "huggingface_dataset_card_and_fiftyone_repackaging_of_cmu_manual_subset",
+      "annotation_type": "manual",
+      "approximate_size": "847 Dataset Viewer rows; card describes 846 samples and original Simon et al. manual dataset of 2800 hands",
+      "split_shape": "Hugging Face Dataset Viewer exposes one default/train split; card describes original 2000-hand train and 800-hand test split from the paper/source dataset",
+      "label_schema": "Card claims FiftyOne sample fields left_hand, right_hand, and body keypoints; Dataset Viewer first rows expose only image.",
+      "license_rights_notes": [
+        "Card says source images include MPII Human Pose under BSD and New Zealand Sign Language Dictionary under CC BY-NC-SA 3.0.",
+        "Card is a mirror/repackaging, not the primary rights authority for this repo."
+      ],
+      "labels_accessible_without_media_import": false,
+      "labels_accessibility_notes": "Dataset Viewer metadata showed only one image feature and no keypoint columns, so this source cannot be treated as label-accessible through read-only viewer metadata.",
+      "promoted_lane_viability": "research_lead_or_secondary_mirror_only_pending_primary_source_review",
+      "allowed_subsets": [
+        "none_without_primary_source_review"
+      ],
+      "disallowed_or_research_only_subsets": [
+        "HF viewer image-only parquet path for training labels"
+      ],
+      "rationale": "Useful to confirm a manual-label lead and source licenses, but not enough to approve or consume labels in the promoted lane."
+    },
+    {
+      "id": "freihand",
+      "name": "FreiHAND",
+      "urls": [
+        "https://lmb.informatik.uni-freiburg.de/projects/freihand/",
+        "https://lmb.informatik.uni-freiburg.de/resources/datasets/FreihandDataset.en.html"
+      ],
+      "source_type": "official_project_dataset",
+      "annotation_type": "human_in_loop",
+      "approximate_size": "4 * 32560 = 130240 training samples and 3960 evaluation samples",
+      "split_shape": "training set with 32560 unique samples post-processed in 4 ways; evaluation split separately released, with evaluation annotations now publicly available on the dataset page",
+      "label_schema": "3D keypoint annotation for 21 hand keypoints, hand segmentation mask, camera intrinsics, hand scale, and 3D shape annotation",
+      "license_rights_notes": [
+        "Official project describes an iterative semi-automated human-in-the-loop annotation process with hand fitting optimization.",
+        "Official dataset page says research purposes only, no warranty, and commercial use prohibited.",
+        "3D shape/MANO-style outputs and optimization-derived labels require policy review before any promoted-lane use."
+      ],
+      "labels_accessible_without_media_import": false,
+      "labels_accessibility_notes": "The page describes what each sample provides, but actual labels require dataset download/import.",
+      "promoted_lane_viability": "plausible_candidate_pending_policy_license_and_import_approval",
+      "allowed_subsets": [
+        "none_until_human_in_loop_policy_and_license_review"
+      ],
+      "disallowed_or_research_only_subsets": [
+        "shape/MANO-derived targets until explicitly approved",
+        "any optimization-derived labels if treated as generated labels by policy review"
+      ],
+      "rationale": "Technically useful and large, but the human-in-loop plus optimization provenance must be reviewed against the no-generated-label rule."
+    },
+    {
+      "id": "interhand2.6m",
+      "name": "InterHand2.6M",
+      "urls": [
+        "https://mks0601.github.io/InterHand2.6M/"
+      ],
+      "source_type": "official_project_dataset",
+      "annotation_type": "human_in_loop",
+      "approximate_size": "5 fps release totals 2590347 frames; Train(H) has 528482 frames and Test(H) has 121573 frames",
+      "split_shape": "official page separates Train(H), Train(M), Train(H+M), Val(M), Test(H), Test(M), and Test(H+M); H is the only clearly human-annotated candidate class for this repo",
+      "label_schema": "COCO-style image and annotation JSON includes bbox, joint_valid, hand_type, hand_type_valid; joint_3d JSON includes world_coord and joint_valid; skeleton and subject files describe keypoint hierarchy and subjects",
+      "license_rights_notes": [
+        "Official page describes download structure and annotation IDs but does not itself grant repo source approval.",
+        "M partitions and NeuralAnnot/MANO fits are not acceptable for promoted-lane labels without explicit provenance and policy approval.",
+        "Large images are 80 GB for the 5 fps release, so any future import requires explicit data-import approval and a bounded storage plan."
+      ],
+      "labels_accessible_without_media_import": false,
+      "labels_accessibility_notes": "The official page describes annotation files and schemas, but actual labels require annotation downloads/import.",
+      "promoted_lane_viability": "plausible_candidate_for_H_subsets_pending_license_source_register_and_import_approval",
+      "allowed_subsets": [
+        "Train(H) candidate only after approval",
+        "Test(H) candidate only after approval"
+      ],
+      "disallowed_or_research_only_subsets": [
+        "Train(M)",
+        "Val(M)",
+        "Test(M)",
+        "H+M combined partitions until M provenance is cleared",
+        "NeuralAnnot/MANO fit targets until explicitly approved"
+      ],
+      "rationale": "Large real captured source with explicit H/M split; use would need a narrow human-annotated partition plan before import."
+    },
+    {
+      "id": "ultralytics-hand-keypoints",
+      "name": "Ultralytics hand-keypoints",
+      "urls": [
+        "https://docs.ultralytics.com/datasets/pose/hand-keypoints/"
+      ],
+      "source_type": "documentation_for_yolo_format_pose_dataset",
+      "annotation_type": "generated",
+      "approximate_size": "26768 images; 18776 train and 7992 val",
+      "split_shape": "train/val only according to documentation",
+      "label_schema": "YOLO keypoint format with 21 hand keypoints",
+      "license_rights_notes": [
+        "Documentation states annotations were generated using Google MediaPipe.",
+        "YOLO format compatibility and generated MediaPipe provenance are both incompatible with the promoted no-pretrained/no-generated-label lane."
+      ],
+      "labels_accessible_without_media_import": false,
+      "labels_accessibility_notes": "Documentation describes labels; no labels were downloaded or imported.",
+      "promoted_lane_viability": "disallowed_negative_example",
+      "allowed_subsets": [],
+      "disallowed_or_research_only_subsets": [
+        "all generated MediaPipe label partitions"
+      ],
+      "rationale": "Generated MediaPipe labels are not human/manual labels and cannot train a promoted scratch landmark detector under the current project constraints."
+    }
+  ],
+  "manual_human_label_candidates": [
+    "cmu-panoptic-handdb-manual:manual_train",
+    "cmu-panoptic-handdb-manual:manual_test",
+    "freihand:human_in_loop_training_candidate_after_policy_review",
+    "interhand2.6m:Train(H)_candidate_after_source_review",
+    "interhand2.6m:Test(H)_candidate_after_source_review"
+  ],
+  "bootstrapped_synthetic_generated_or_unknown_sources": [
+    "cmu-panoptic-handdb-manual:synthetic_partition",
+    "cmu-panoptic-handdb-manual:panoptic_multiview_bootstrapped_partition",
+    "interhand2.6m:Train(M)",
+    "interhand2.6m:Val(M)",
+    "interhand2.6m:Test(M)",
+    "interhand2.6m:H+M_combined_partitions",
+    "interhand2.6m:NeuralAnnot_MANO_fit_targets",
+    "ultralytics-hand-keypoints:all_generated_mediapipe_labels"
+  ],
+  "no_pretrained_no_generated_label_boundary": {
+    "pretrained_components": [],
+    "disallowed_training_labels": [
+      "MediaPipe-generated labels",
+      "OpenPose-generated labels",
+      "YOLO-generated labels",
+      "teacher logits or pseudo-labels",
+      "DINO/CLIP/SAM/pretrained backbone features",
+      "multiview-bootstrapped labels unless explicitly reviewed and approved as allowed source data",
+      "synthetic labels unless explicitly reviewed and approved"
+    ],
+    "why_mediapipe_generated_labels_are_not_allowed": "MediaPipe-generated labels encode outputs of a pretrained external landmark system. Training on those labels would make the promoted lane depend on a pretrained/generated-label teacher even if the student model weights start from random initialization.",
+    "allowed_model_start": "random_initialization_only",
+    "allowed_inputs": "repo-approved raw frames or approved imported public images after explicit source review; no pretrained feature extraction"
+  },
+  "minimal_model_target_if_approved": {
+    "target": "2D 21-keypoint hand landmark detector for crop normalization",
+    "model_family": "tiny random-init CNN heatmap head or coordinate-regression head",
+    "inputs": "single RGB crop or frame downsample from approved source only",
+    "outputs": [
+      "21 per-hand keypoint heatmaps or normalized xy coordinates",
+      "visibility/validity mask where source labels provide it",
+      "optional hand box/center derived only from approved manual keypoints"
+    ],
+    "excluded_outputs": [
+      "MANO shape as promoted target",
+      "3D pose as first promoted target",
+      "classification correctness claim",
+      "browser recognition activation"
+    ],
+    "expected_validation_gates": [
+      "source-register approval recorded before import",
+      "annotation provenance field separates manual, human_in_loop, bootstrapped, synthetic, generated, and unknown labels",
+      "no pretrained dependency audit passes",
+      "train/validation/test split has source and subject or sequence separation where available",
+      "PCK@0.05 and PCK@0.10 normalized by hand box or crop diagonal",
+      "mean endpoint error in normalized crop coordinates",
+      "per-keypoint valid-mask coverage and zero-valid-keypoint rejection",
+      "hand-box/crop-inclusion coverage on held-out approved examples",
+      "fail-closed browser claim remains not_trained until separate promotion gates pass"
+    ]
+  },
+  "source_register_plan": {
+    "recommended_first_source_to_review": "cmu-panoptic-handdb-manual manual partition",
+    "why": "It is the narrowest manual 2D keypoint source and the official page separates it from synthetic and multiview-bootstrapped partitions.",
+    "approval_needed_before_any_import": [
+      "Human confirmation that the exact source may be added to docs/model/dataset-source-register.json.",
+      "Human confirmation that the license posture permits this noncommercial academic project to store and train from the exact manual partition.",
+      "Human confirmation of whether MPII and NZSL underlying image licenses are acceptable for this use.",
+      "Human confirmation of the exact partitions approved: manual_train/manual_test only, excluding synthetic and bootstrapped partitions unless separately approved.",
+      "Human confirmation of a bounded storage/import envelope and cleanup plan before any media or annotation download."
+    ],
+    "next_review_slice_if_approved": [
+      "Add a source-register candidate entry with source URLs, license notes, approval status, partition allowlist, and annotation provenance fields.",
+      "Design a no-import schema for 21-keypoint labels and valid masks.",
+      "Only after separate data-import approval, fetch annotations/media into the existing source/import pipeline."
+    ],
+    "not_allowed_in_this_slice": [
+      "source-register mutation",
+      "dataset download",
+      "manifest mutation",
+      "tensor materialization",
+      "training"
+    ]
+  },
+  "claim_boundary": {
+    "product_claim": "unchanged_fail_closed",
+    "model_card_status": "not_trained",
+    "active_labels": [],
+    "landmark_detector_status": "not_started",
+    "detector0_status": "not_promoted",
+    "what_this_receipt_does_not_claim": [
+      "No source is approved.",
+      "No labels were imported.",
+      "No training happened.",
+      "No browser recognition or ASL correctness claim is active.",
+      "No final readiness gate changed."
+    ]
+  },
+  "blockers": [
+    {
+      "id": "source_license_approval_required",
+      "severity": "blocking",
+      "description": "Plausible manual/human-in-loop sources exist, but none can be imported or used for promoted-lane training without explicit human source/license/data-import approval."
+    },
+    {
+      "id": "label_access_not_verified_without_import",
+      "severity": "blocking",
+      "description": "Read-only metadata confirms schemas and partitions, but actual labels were not imported and mostly are not exposed through metadata-only viewer paths."
+    },
+    {
+      "id": "detector0_objectness_still_current_blocker",
+      "severity": "nonblocking_for_source_feasibility",
+      "description": "Hand landmarks can complement the crop route, but current Detector 0 objectness repair remains the immediate no-spend implementation route unless humans approve source/license work."
+    }
+  ],
+  "files_changed": [
+    "docs/validation/return-to-form-hand-landmark-source-feasibility-v1.json",
+    "docs/session-logs/488-mission-3dx-hand-landmark-source-feasibility.md"
+  ],
+  "next_action": {
+    "id": "stop_for_human_source_license_approval",
+    "reason": "The feasibility question is answered: a scratch landmark route is technically plausible from manual/human-in-loop public sources, but the next material step is a human source/license/import approval decision before any source-register or data mutation."
+  }
+}

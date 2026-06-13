@@ -1,0 +1,258 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-t32-full-cache-validate/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_t32_full_cache_materialize_validate_no_brev",
+  "recorded_at_utc": "2026-06-04T00:56:50Z",
+  "head_before_slice": "2307b4800291d3666f713875cad39c9df7a3a748",
+  "status": "passed_t32_full_cache_materialized_and_loader_validated_no_brev",
+  "source_of_truth": {
+    "smoke_cache_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-t32-cache-smoke-validate-v1.json",
+    "selected_step": "Materialize and validate the full T=32 student cache locally before any paid run4.",
+    "scope_note": "This slice materialized the full run4 prerequisite cache directly into one ignored side-worktree directory to avoid duplicate shard output on a nearly full disk."
+  },
+  "side_worktree": {
+    "path": "/Users/kelly/Developer/asl-pilot-annotator",
+    "branch": "annotator-tool",
+    "code_commit": "46cd3ddf69fd8bf2e1cf17523f4217f335c8cd6d",
+    "extractor_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/extract_recognizer_sequences.py",
+    "trainer_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_recognizer_distill.py"
+  },
+  "cache": {
+    "kind": "local_full_t32_run4_prerequisite_cache",
+    "rows_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1/rows.json",
+    "rows_sha256": "4dc3f61018a0faf7dccdc7f3653075650683b741bf7d6f7ebde2be878dd9eb9f",
+    "rows_size_bytes": 327034499,
+    "source": "PopSign + ASL Citizen scratch region+landmark models (our-models-only, no mediapipe)",
+    "region_model": "detector0-grid-big2.pt",
+    "landmark_model": "detector0-hand-landmarks-merged-w64.pt",
+    "frames_per_clip": 32,
+    "rows": 330309,
+    "clips": 10335,
+    "missing": 0,
+    "frames": 330309,
+    "hand_present": 171167,
+    "label_count": 95,
+    "split_counts": {
+      "train": 5591,
+      "validation": 2375,
+      "test": 2369
+    },
+    "frame_counts": {
+      "15": 1,
+      "17": 3,
+      "18": 1,
+      "19": 1,
+      "20": 3,
+      "21": 7,
+      "22": 4,
+      "23": 4,
+      "24": 5,
+      "25": 3,
+      "26": 1,
+      "27": 2,
+      "28": 3,
+      "29": 7,
+      "30": 7,
+      "31": 9,
+      "32": 10274
+    },
+    "source_counts_requested": {
+      "popsign": 7119,
+      "asl_citizen": 3216,
+      "total": 10335
+    },
+    "source_clips": {
+      "popsign": 7119,
+      "asl_citizen": 3216
+    },
+    "source_frames": {
+      "popsign": 227808,
+      "asl_citizen": 102501
+    },
+    "materialize_command_summary": "cd /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator && PYTHONDONTWRITEBYTECODE=1 PYTORCH_ENABLE_MPS_FALLBACK=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python - <<PY (direct combined PopSign scan_raw_clips(60) + ASL Citizen manifest materializer; imports extraction helpers; frames_per_clip=32; region=output/detector0-grid-big2.pt; landmark=output/detector0-hand-landmarks-merged-w64.pt; out=.cache/recog-seq-w64-t32-merged-v1)",
+    "elapsed_minutes": 174.3
+  },
+  "dryrun": {
+    "receipt_path": "docs/validation/m3jb-recognizer-t32-full-cache-dryrun-v1.json",
+    "receipt_sha256": "8c8f93a81eb210233557825f2f684af017d8857e9689f1902c73a2f955fbd34a",
+    "command": "cd /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator && PYTHONDONTWRITEBYTECODE=1 PYTORCH_ENABLE_MPS_FALLBACK=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python train_recognizer_distill.py --student-data .cache/recog-seq-w64-t32-merged-v1 --teacher-data .cache/handcrop-lm2 --teacher-checkpoint output/recognizer-v1.pt --student-arch transformer --seq-len 32 --dry-run-forward --device mps --epochs 240 --batch 128 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --lr 5e-4 --lr-scheduler cosine --warmup-steps 500 --min-lr 5e-5 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --receipt /Users/kelly/Developer/asl-pilot/docs/validation/m3jb-recognizer-t32-full-cache-dryrun-v1.json",
+    "status": "passed_no_grad_no_optimizer_no_checkpoint",
+    "student_cache_sequence_length": 32,
+    "student_cache_tensor_sequence_length": 32,
+    "student_cache_length_min": 15,
+    "student_cache_length_max": 32,
+    "student_cache_clips": 10335,
+    "student_cache_classes": 95,
+    "student_cache_feature_dim": 90,
+    "student_cache_split_counts": {
+      "test": 2369,
+      "train": 5591,
+      "validation": 2375
+    },
+    "train_clips": 7011,
+    "monitor_clips": 955,
+    "test_clips": 2369,
+    "teacher_covered_train": 2671,
+    "teacher_covered_total": 4560,
+    "batch_size": 128,
+    "logits_shape": [
+      128,
+      95
+    ],
+    "loss": 8.20553,
+    "optimizer_constructed": false,
+    "backward_called": false,
+    "optimizer_steps": 0,
+    "expected_optimizer_steps": 0,
+    "planned_optimizer_steps": 13200,
+    "steps_per_epoch": 55,
+    "weights": null,
+    "checkpoint_written": false
+  },
+  "run4_envelope": {
+    "next_action": "m3jb_recognizer_transformer_run4_t32_fulltrain_brev_ok",
+    "approval_basis": "GOAL.md and the active prompt record current user approval for the recognizer campaign as unconstrained Brev/NVIDIA compute; no Brev command was run in this slice.",
+    "worker": "asl-pilot-m3eh-l40s-001 / 3d58wpy9o or any healthy equivalent NVIDIA worker",
+    "preflight": [
+      "read-only brev ls --json",
+      "start or use a healthy approved NVIDIA worker only if needed for the active run",
+      "verify SSH, CUDA, and no conflicting python/torch training process",
+      "sync/hash-verify train_recognizer_distill.py, seq_transformer.py, verification.py, test_verification.py, .cache/handcrop-lm2, output/recognizer-v1.pt, output/recognizer-distill.{json,pt}, and .cache/recog-seq-w64-t32-merged-v1/rows.json"
+    ],
+    "train_command_template": "timeout 21600s brev exec <worker> \"cd /home/ubuntu/asl-pilot && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_recognizer_distill.py --student-data tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1 --teacher-data tools/detector0-annotator/.cache/handcrop-lm2 --teacher-checkpoint tools/detector0-annotator/output/recognizer-v1.pt --student-arch transformer --seq-len 32 --device cuda --epochs 240 --batch 128 --lr 5e-4 --lr-scheduler cosine --warmup-steps 500 --min-lr 5e-5 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --out tools/detector0-annotator/output/m3jb-recognizer-transformer-run4-t32-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.json\"",
+    "expected_counts": {
+      "student_cache_rows": 330309,
+      "student_cache_clips": 10335,
+      "classes": 95,
+      "sequence_length": 32,
+      "train_clips": 7011,
+      "monitor_clips": 955,
+      "test_clips": 2369,
+      "steps_per_epoch": 55,
+      "expected_optimizer_steps": 13200
+    },
+    "kill_conditions": [
+      "wrong cache hash, wrong clip counts, wrong T, wrong class count, or any --limit-* flag",
+      "CUDA unavailable or another training process active on the worker",
+      "scheduler trace does not use lr 5e-4, warmup 500, cosine min lr 5e-5, expected 13200 steps",
+      "NaNs, broken eval, near-chance monitor around epoch 40, or clearly behind run3 at comparable update density"
+    ],
+    "success_signal": "verification_recall_at_far10 improves over run3 0.7316 and ideally reaches >= 0.85; top-1/top-5 are secondary.",
+    "teardown": "copy back .json/.pt/log artifacts, then stop the worker and verify STOPPED / NOT READY in brev ls --json."
+  },
+  "runtime_boundary": {
+    "brev_used": false,
+    "brev_lifecycle_or_exec": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "browser_artifact_promoted": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "push": false
+  },
+  "validation": [
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "direct cache materializer",
+      "status": "passed"
+    },
+    {
+      "command": "shasum -a 256 .cache/recog-seq-w64-t32-merged-v1/rows.json",
+      "status": "passed"
+    },
+    {
+      "command": "train_recognizer_distill.py --student-data .cache/recog-seq-w64-t32-merged-v1 --seq-len 32 --dry-run-forward",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/m3jb-recognizer-t32-full-cache-dryrun-v1.json",
+      "status": "passed"
+    }
+  ],
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_run4_t32_fulltrain_brev_ok",
+    "reason": "The full T=32 student cache is materialized and loader-validated; the next useful slice is the approved run4 CUDA training run using the same run3 recipe with only sequence length/cache changed to T=32."
+  },
+  "final_validation": {
+    "json_receipts": [
+      {
+        "command": "python3 -m json.tool docs/validation/return-to-form-m3jb-recognizer-transformer-t32-full-cache-validate-v1.json",
+        "status": "passed"
+      },
+      {
+        "command": "python3 -m json.tool docs/validation/m3jb-recognizer-t32-full-cache-dryrun-v1.json",
+        "status": "passed"
+      },
+      {
+        "command": "python3 -m json.tool docs/validation/return-to-form-m3jb-hierarchical-hand-state-tracker-v1.json",
+        "status": "passed"
+      }
+    ],
+    "repo_audits": [
+      {
+        "command": "node --check scripts/audit_m3jb_hand_state_tracker.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_m3jb_hand_state_tracker.mjs --json",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_loop_premise.mjs --json",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_return_to_form_plan.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_source_register.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_deps.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_raw_video_upload.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "git diff --check",
+        "status": "passed"
+      }
+    ],
+    "final_brev_visibility": {
+      "command": "brev ls --json",
+      "status": "passed_read_only",
+      "workspaces": [
+        {
+          "name": "asl-pilot-m3jb-pairrank-l40s-001",
+          "id": "h15cj91es",
+          "status": "STOPPED",
+          "shell_status": "NOT READY",
+          "health_status": "UNHEALTHY",
+          "gpu": "L40S"
+        },
+        {
+          "name": "asl-pilot-m3eh-l40s-001",
+          "id": "3d58wpy9o",
+          "status": "STOPPED",
+          "shell_status": "NOT READY",
+          "health_status": "HEALTHY",
+          "gpu": "L40S"
+        }
+      ]
+    }
+  }
+}

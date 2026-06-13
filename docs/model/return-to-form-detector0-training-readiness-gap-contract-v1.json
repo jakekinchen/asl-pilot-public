@@ -1,0 +1,359 @@
+{
+  "schema_version": "asl-pilot-detector0-training-readiness-gap-contract/v1",
+  "contract_id": "return-to-form-detector0-training-readiness-gap-contract-v1",
+  "mission": "M3IN - Detector 0 training readiness gap contract no Brev",
+  "created_at": "2026-05-30T05:40:33Z",
+  "current_commit": "c03f907 observer: CONTINUE - m3im to m3in training readiness gap",
+  "active_prompt": "docs/model/return-to-form-m3in-detector0-training-readiness-gap-contract-no-brev-goal-loop-prompt.md",
+  "status": "contract_only_not_training_ready_no_capture_no_brev_no_training",
+  "purpose": "Reconcile current Detector 0 training blockers after M3IM without capture, media import, row creation, label authoring, tensor generation, training, real evaluation, Brev lifecycle, export, promotion, browser activation, final-gate changes, or claim expansion.",
+  "source_artifacts": {
+    "m3im_packet_plan_review": {
+      "path": "docs/model/return-to-form-detector0-first-party-negative-capture-packet-plan-review-v1.json",
+      "sha256": "72fb77e9b5b49f1526bc6ab8ae98d4952141d65de93a5d0ab74ae76610835772",
+      "status": "accepted_future_only_packet_plan_with_capture_and_training_blockers",
+      "review_decision": "pass_as_future_only_plan_not_capture_authorization_not_training_ready"
+    },
+    "m3im_receipt": {
+      "path": "docs/validation/return-to-form-m3im-detector0-first-party-negative-capture-packet-review-no-brev-v1.json",
+      "sha256": "57db0becfaf922e6735834698f02d6a7e06b49467b75235670171b98dd8286d2"
+    },
+    "m3im_session_log": {
+      "path": "docs/session-logs/800-mission-3im-detector0-first-party-negative-capture-packet-review-no-brev.md",
+      "sha256": "a9b20a504c9e7a38fdf98e39a094b0bf1d33d9a49445b36714716f501f5257e6"
+    },
+    "m3il_future_first_party_negative_packet_plan": {
+      "path": "docs/model/return-to-form-detector0-first-party-negative-capture-packet-plan-v1.json",
+      "sha256": "f2200dedd97ed6e845453c16d54eb080c05904ab229b16b63659810a7f787347",
+      "planned_slots": 20,
+      "planned_status": "planned_not_captured",
+      "authoritative_rows_created": 0,
+      "split_counts": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "category_counts": {
+        "empty_camera_no_person_no_hands": 5,
+        "normal_environment_no_hands_visible": 5,
+        "low_light_no_hands_visible": 5,
+        "off_center_no_hands_visible": 5
+      }
+    },
+    "m3ik_first_party_negative_capture_contract": {
+      "path": "docs/model/return-to-form-detector0-first-party-negative-capture-contract-v1.json",
+      "sha256": "b3286ebfa70ced0131b825d177c22e986438e23e7abb4602aa65874b9eb37306",
+      "status": "contract_only_no_capture_no_rows_not_training_ready"
+    },
+    "m3ii_negative_evaluation_metric_contract": {
+      "path": "docs/model/return-to-form-detector0-negative-evaluation-metric-contract-v1.json",
+      "sha256": "efb3d10620b150bca65d1aa09180a5d4b8dc7b6f7e38fa120702d3e73945e9dc",
+      "scope": "49 M3ID positive rows plus 25 M3IH validation-only negative rows; no materialized first-party negative rows exist in the metric inputs."
+    },
+    "m3ij_negative_evaluation_harness": {
+      "path": "scripts/evaluate_detector0_negative_metrics.mjs",
+      "sha256": "a38267ea6df05a4f42d62ec8ab3a132562abb8ddf5a25f825e0db50f6c24a506",
+      "receipt_path": "docs/validation/return-to-form-m3ij-detector0-negative-evaluation-harness-no-brev-v1.json",
+      "receipt_sha256": "11bfc02e2bfbc4958d03d5785a80bf02e714f0d6e83a370ec611a2d68dd00594",
+      "scope": "Local harness and synthetic smoke only; no trained Detector 0 prediction artifact or real evaluation run exists."
+    },
+    "m3id_combined_positive_packet": {
+      "path": "data/annotations/detector0/return-to-form-detector0-combined-training-packet-v1.json",
+      "sha256": "59214b75e0f416ce8527e560a947c2201442d86ded2a80bcd0f4b62e418254e2",
+      "included_rows": 49,
+      "excluded_rows": 1,
+      "split_counts": {
+        "train": 17,
+        "validation": 16,
+        "test": 16
+      },
+      "label_counts": {
+        "please": 3,
+        "table": 37,
+        "dad": 3,
+        "grandpa": 3,
+        "hat": 3
+      },
+      "target_payload_counts": {
+        "left_or_first_hand_present": 49,
+        "right_or_second_hand_present": 37,
+        "right_or_second_hand_absent": 12
+      }
+    },
+    "m3ih_hard_negative_validation_manifest": {
+      "path": "data/annotations/detector0/return-to-form-detector0-hard-negative-validation-manifest-v1.json",
+      "sha256": "55483e2494dd807fb648e20d4fb713002614a372527e56bfc7a50d74fea3b89d",
+      "rows": 25,
+      "strict_no_hand_rows": 20,
+      "non_target_asl_sign_context_rows": 5,
+      "all_rows_allowed_for_training": false,
+      "allowed_for_validation": true,
+      "challenge_type_counts": {
+        "empty_camera": 5,
+        "no_hands_visible": 5,
+        "low_light": 5,
+        "off_center": 5,
+        "non_target_asl_sign": 5
+      }
+    },
+    "fixed_baseline_gate_contract": {
+      "path": "docs/model/return-to-form-detector0-fixed-baseline-gate-contract-v1.json",
+      "sha256": "92f4650a50b562b3055bb455fe9b5ae30ad639fe843b5efd834cd24925142423",
+      "left_or_first_hand_iou_must_exceed": 0.4073,
+      "right_or_second_hand_iou_must_exceed": 0.6476
+    },
+    "fixed_baseline_bakeoff_receipt": {
+      "path": "docs/validation/return-to-form-detector0-fullvshortcut-bakeoff-v1.json",
+      "sha256": "9d7ed27628d844665ebf05b698efe95d5c8c21d2eba0074561ef59bfec102dd2",
+      "learned_beats_fixed_baseline_seed_fraction_test": "0 of 12",
+      "claim_boundary": "diagnostic_only_no_promotion"
+    },
+    "source_and_privacy": {
+      "source_register_path": "docs/model/dataset-source-register.json",
+      "source_register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+      "consent_form_path": "docs/privacy/dataset-consent-form.md",
+      "consent_form_sha256": "c1832291070b351fd3bbedf3ee1e099ce55f027b659823b8eefff23cc51e1995"
+    },
+    "claim_surfaces": {
+      "detector0_card_path": "web/public/model/detector0-card.json",
+      "detector0_card_sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "browser_model_bundle_path": "web/public/model/browser-model-bundle.json",
+      "browser_model_bundle_sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9",
+      "model_card_path": "web/public/model/model-card.json",
+      "model_card_sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "active_vocabulary_claim_path": "docs/model/active-vocabulary-claim.json",
+      "active_vocabulary_claim_sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546"
+    }
+  },
+  "contract_scope": {
+    "creates_contract_only": true,
+    "captures_raw_learner_video": false,
+    "uploads_raw_learner_video": false,
+    "imports_source_or_media": false,
+    "adds_source_authority": false,
+    "creates_authoritative_rows": false,
+    "authors_labels": false,
+    "generates_labels_or_pseudo_labels": false,
+    "uses_pretrained_outputs": false,
+    "generates_or_mutates_tensors": false,
+    "extends_or_mutates_harness": false,
+    "runs_training": false,
+    "runs_real_evaluation": false,
+    "starts_brev_or_remote_compute": false,
+    "exports_or_promotes_model": false,
+    "activates_browser_recognition": false,
+    "changes_final_gates": false,
+    "expands_claims": false
+  },
+  "current_readiness_matrix": {
+    "positive_rows": {
+      "classification": "available_positive_target_authority_not_sufficient_for_training",
+      "source_artifact": "m3id_combined_positive_packet",
+      "included_rows": 49,
+      "positive_target_authority_available": true,
+      "ready_for_detector0_training_alone": false,
+      "reason": "Positive hand target rows exist, but Detector 0 training remains blocked because training-capable first-party negative rows, integrated evaluation coverage, and fixed-baseline beat-it evidence are absent."
+    },
+    "validation_only_negatives": {
+      "classification": "available_for_validation_only_not_training",
+      "source_artifact": "m3ih_hard_negative_validation_manifest",
+      "rows": 25,
+      "strict_no_hand_rows": 20,
+      "allowed_for_training": false,
+      "allowed_for_validation": true,
+      "may_be_reclassified_by_this_contract": false,
+      "reason": "M3IH rows are external or exact-fixture challenge rows with validation-only split semantics."
+    },
+    "future_first_party_negative_slots": {
+      "classification": "planned_not_captured_not_authoritative",
+      "source_artifact": "m3il_future_first_party_negative_packet_plan",
+      "planned_slots": 20,
+      "planned_not_captured_slots": 20,
+      "authoritative_rows": 0,
+      "raw_clips": 0,
+      "labels_authored": 0,
+      "tensors": 0,
+      "training_capable_rows_now": 0,
+      "reason": "M3IM accepted the M3IL packet only as future-only planning evidence with capture and training blockers still open."
+    },
+    "metric_and_harness_integration": {
+      "classification": "contract_and_harness_exist_but_do_not_cover_materialized_first_party_negatives",
+      "m3ii_scope": "M3ID positives plus M3IH validation-only negatives",
+      "m3ij_scope": "Local harness plus synthetic smoke validation of prediction schema and scoring behavior",
+      "materialized_first_party_negative_rows_in_real_evaluation": false,
+      "trained_detector_prediction_artifact_available": false,
+      "real_detector_evaluation_run_available": false,
+      "required_before_real_evaluation": "A later contract or harness-compatible packet update must bind any materialized first-party negative rows, preserve M3IH validation-only separation, and score a scratch-trained prediction artifact."
+    },
+    "fixed_baseline_beat_it_gate": {
+      "classification": "binding_not_satisfied",
+      "left_or_first_hand_iou_must_exceed": 0.4073,
+      "right_or_second_hand_iou_must_exceed": 0.6476,
+      "learned_beats_fixed_baseline_seed_fraction_test": "0 of 12",
+      "detector0_may_be_called_improvement": false,
+      "export_or_promotion_allowed": false,
+      "reason": "No later learned Detector 0 artifact has strictly beaten both fixed-box held-out hand IoU baselines."
+    },
+    "claim_surfaces": {
+      "classification": "fail_closed_unchanged",
+      "detector0_card_status": "not_trained",
+      "detector0_promotion_state": "research_only",
+      "detector0_browser_artifact": null,
+      "recognition_enabled": false,
+      "detector0_tracking_enabled": false,
+      "box_driven_avatar_enabled": false,
+      "active_vocabulary_labels": [],
+      "claim_expansion_allowed": false
+    },
+    "brev_and_compute": {
+      "classification": "not_needed_not_authorized_for_this_slice",
+      "brev_inventory_command": "brev ls --json",
+      "workspace_name": "asl-pilot-m3eh-l40s-001",
+      "workspace_status": "STOPPED",
+      "paid_compute_started": false,
+      "remote_commands_run": false
+    }
+  },
+  "blockers_before_any_training_or_downstream_claim": [
+    {
+      "blocker": "first_party_training_capable_negative_rows_absent",
+      "blocks": [
+        "training",
+        "Brev training",
+        "real evaluation",
+        "export",
+        "promotion",
+        "browser activation",
+        "claim expansion"
+      ],
+      "details": "The project has 20 future first-party negative slots but zero consented raw clips, zero raw clip hashes, zero signed consent receipts, zero reviewed absence labels, zero tensors, and zero authoritative rows."
+    },
+    {
+      "blocker": "explicit_human_capture_approval_absent",
+      "blocks": [
+        "capture",
+        "media materialization",
+        "row authority"
+      ],
+      "details": "M3IK and M3IM require explicit future human approval before any durable first-party no-hand capture session."
+    },
+    {
+      "blocker": "validation_only_negatives_not_training_capable",
+      "blocks": [
+        "using M3IH rows as training negatives"
+      ],
+      "details": "All 25 M3IH negative rows remain allowed_for_training false and cannot be reclassified by this contract."
+    },
+    {
+      "blocker": "metric_harness_not_integrated_with_materialized_first_party_negatives",
+      "blocks": [
+        "real Detector 0 evaluation claim"
+      ],
+      "details": "M3II/M3IJ define and smoke-test the current evaluation surface, but no materialized first-party negatives exist and no real trained-detector prediction artifact has been scored."
+    },
+    {
+      "blocker": "fixed_baseline_beat_it_gate_not_met",
+      "blocks": [
+        "improvement claim",
+        "export",
+        "promotion",
+        "browser activation",
+        "final gate update",
+        "claim expansion"
+      ],
+      "details": "A later learned Detector 0 must strictly beat 0.4073 left-hand IoU and 0.6476 right-hand IoU on held-out fixed-box comparison before promotion or claim language."
+    },
+    {
+      "blocker": "detector0_artifact_absent",
+      "blocks": [
+        "evaluation run",
+        "export",
+        "browser activation"
+      ],
+      "details": "No scratch-trained Detector 0 model, browser artifact, or prediction sidecar is available."
+    },
+    {
+      "blocker": "claim_surfaces_fail_closed",
+      "blocks": [
+        "learner-facing recognition claim",
+        "active vocabulary claim"
+      ],
+      "details": "Detector 0 and rawframe model cards remain not_trained/research_only, recognition and tracking gates are disabled, and activeLabels is empty."
+    }
+  ],
+  "training_ready_evidence_required_for_first_party_negative_rows": [
+    "Explicit human approval for the bounded first-party negative capture session.",
+    "Consent record id per clip, current consent form version, consent form SHA-256, and signed consent evidence path plus SHA-256.",
+    "Stable signer alias and signer identity hash for every non-empty-camera row, with withdrawal handling documented.",
+    "Local raw clip path and raw clip SHA-256 for every captured clip, with no raw learner video upload during normal practice.",
+    "Operator capture-condition evidence for the assigned category: empty camera, normal no hands visible, low-light no hands visible, or off-center no hands visible.",
+    "Human or project-reviewed absence labels confirming both learned hand targets are absent and expected Detector 0 outcome is reject_no_hand.",
+    "Per-row attestation that no pretrained detector, landmark, feature, backbone, teacher output, generated label, or pseudo-label was used.",
+    "Signer-disjoint train/validation/test split proof meeting at least 12 train, 4 validation, and 4 test rows with at least 3/1/1 rows per category by split.",
+    "Authoritative row review receipt with approved_first_party_no_hand_negative_for_detector0 status before any row can become training-capable.",
+    "Withdrawal acknowledgement path that can remove or block rows if consent is withdrawn before downstream use."
+  ],
+  "metric_and_evaluation_ready_evidence_required": [
+    "Prediction artifact schema compatibility with the M3II contract and M3IJ harness, including row ids, target ids, predicted presence, confidence, boxes, thresholds, and artifact hashes.",
+    "Row-source coverage that explicitly enumerates M3ID positives, M3IH validation-only negatives, and any later first-party negative rows without mixing their split semantics.",
+    "Proof that M3IH rows remain validation-only and are never used as training rows.",
+    "Strict no-hand scoring that counts empty_camera, no_hands_visible, low_light, and off_center rows as absence rows while keeping non_target_asl_sign rows as context rows.",
+    "False trigger, false no-hand, positive recall, category-level counts, and threshold-profile reporting.",
+    "Fixed-baseline comparison that reports whether learned Detector 0 strictly beats 0.4073 left-hand IoU and 0.6476 right-hand IoU on held-out fixed-box comparison.",
+    "Claim-surface proof that detector and recognition cards remain fail-closed until a future promotion receipt explicitly changes them."
+  ],
+  "allowed_next_local_paths": [
+    {
+      "next_action": "continue_m3io_detector0_training_packet_gap_closure_plan_no_brev",
+      "allowed": true,
+      "dependency": "May write a local gap-closure plan that inventories missing first-party negative evidence and packet merge requirements without authorizing capture, training, or Brev spend."
+    },
+    {
+      "next_action": "continue_m3io_detector0_metric_harness_extension_contract_no_brev",
+      "allowed": true,
+      "dependency": "May write a contract for future harness compatibility with first-party negatives, but only after preserving validation-only separation and without changing the harness in this slice."
+    },
+    {
+      "next_action": "continue_m3io_detector0_first_party_capture_authorization_request_no_brev",
+      "allowed": true,
+      "dependency": "May prepare an authorization request for human review, but capture itself remains blocked until explicit approval."
+    },
+    {
+      "next_action": "stop_for_human_first_party_negative_capture_approval",
+      "allowed": true,
+      "dependency": "Appropriate only if no further local contract or planning slice is useful before human capture approval."
+    }
+  ],
+  "forbidden_action_proof": {
+    "raw_learner_video_capture_or_upload": false,
+    "source_or_media_import": false,
+    "source_authority_addition": false,
+    "authoritative_row_creation": false,
+    "label_authoring": false,
+    "generated_labels_or_pseudo_labels": false,
+    "pretrained_outputs_used": false,
+    "tensor_generation_or_mutation": false,
+    "harness_mutation": false,
+    "training_or_real_evaluation": false,
+    "brev_lifecycle_or_remote_compute": false,
+    "export_or_promotion": false,
+    "browser_activation": false,
+    "final_gate_change": false,
+    "claim_expansion": false
+  },
+  "readiness_after_contract": {
+    "training_readiness_gap_contract_written": true,
+    "positive_packet_authority_available": true,
+    "first_party_negative_rows_available": false,
+    "training_capable_negative_rows_available": false,
+    "ready_for_capture": false,
+    "ready_for_detector0_training": false,
+    "ready_for_brev_training": false,
+    "ready_for_real_evaluation": false,
+    "ready_for_export_or_promotion": false,
+    "ready_for_browser_activation": false,
+    "ready_for_final_gate_change": false,
+    "ready_for_claim_expansion": false
+  },
+  "exactly_one_next_action": "continue_m3io_detector0_training_packet_gap_closure_plan_no_brev"
+}

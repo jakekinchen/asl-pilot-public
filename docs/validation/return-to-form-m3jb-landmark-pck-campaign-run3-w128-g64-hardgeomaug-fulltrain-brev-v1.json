@@ -1,0 +1,218 @@
+{
+  "schema_version": "asl-pilot-m3jb-landmark-pck-campaign-run/v1",
+  "receipt_id": "return-to-form-m3jb-landmark-pck-campaign-run3-w128-g64-hardgeomaug-fulltrain-brev-v1",
+  "mission": "M3JB - Hierarchical hand-state tracker",
+  "status": "completed_no_clear_win_fail_closed_not_gate_passing_worker_stopped",
+  "checked_at": "2026-06-03T15:49:27Z",
+  "source_of_truth": {
+    "goal": "GOAL.md",
+    "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+    "research_plan_receipt": "docs/validation/return-to-form-m3jb-landmark-pck-campaign-research-plan-v1.json",
+    "previous_running_best_receipt": "docs/validation/return-to-form-m3jb-landmark-pck-campaign-run2-w128-g64-fulltrain-brev-v1.json"
+  },
+  "approval_state": {
+    "campaign_directive_token": "m3jb_research_guided_landmark_pck_exploration_campaign_brev_ok",
+    "run_token": "m3jb_landmark_pck_run3_w128_g64_hardgeom_aug_fulltrain_brev_ok",
+    "next_run_token": "m3jb_landmark_pck_research_refresh_after_run3_no_brev",
+    "current_human_campaign_approval_recorded_in_goal_and_prompt": true,
+    "campaign_cap_usd": 50,
+    "worker_stopped_between_experiments_required": true,
+    "approval_consumed_by_this_experiment": false,
+    "reason_not_consumed": "This is a bounded multi-experiment campaign approval; run3 completed and the worker was stopped, but the next selected action is a no-Brev research refresh because this lever failed to beat the running-best PCK.",
+    "consecutive_research_guided_failures_since_last_running_best": 1,
+    "stop_conditions_hit": false
+  },
+  "worker": {
+    "name": "asl-pilot-m3eh-l40s-001",
+    "id": "3d58wpy9o",
+    "instance_type": "l40s-48gb.1x",
+    "gpu": "L40S",
+    "preflight": {
+      "brev_ls_before_start": "/tmp/m3jb-pck-run3-brev-ls-before-start-908.json",
+      "brev_ls_after_start": "/tmp/m3jb-pck-run3-brev-ls-after-start-908.json",
+      "process_check": "executor stdout final prelaunch process check; only jupyter/networkd/grep were present",
+      "cuda_check": "executor stdout remote CUDA preflight: torch 2.12.0+cu126, CUDA true, NVIDIA L40S",
+      "artifact_absence_check": "executor stdout remote planned-output absence check",
+      "remote_shape_smoke": "executor stdout corrected remote shape smoke",
+      "cuda_available": true,
+      "active_training_process_found": false,
+      "planned_outputs_absent_before_launch": true,
+      "trainer_sha256": "d3fb5ef6ec6b024f05965a149d250374c92601e82b6dfe4052f7e8e36cd4f128",
+      "rows_json_sha256": "693f2dfb2b740d5a0ec763ccc9b65a8521ef40607587f26e41421ebb4551a173",
+      "splits_json_sha256": "f8afb677179cdbf3fc11392c95ee0aede6c09d27cd86a336720d7eabb17f1d0f",
+      "shape_smoke_output": "(2, 21, 64, 64)"
+    },
+    "teardown": {
+      "post_run_process_check": "/tmp/m3jb-pck-run3-remote-process-after-run-908.log",
+      "brev_ls_before_stop": "/tmp/m3jb-pck-run3-brev-ls-before-stop-908.json",
+      "stop_command": "brev stop asl-pilot-m3eh-l40s-001",
+      "stop_command_status": "passed",
+      "stop_log": "/tmp/m3jb-pck-run3-brev-stop-908.log",
+      "final_brev_ls": "/tmp/m3jb-pck-run3-brev-ls-after-stop-908.json",
+      "final_status": "STOPPED",
+      "final_shell_status": "NOT READY",
+      "final_health_status": "HEALTHY"
+    }
+  },
+  "experiment": {
+    "id": "m3jb-perhand-pckcampaign-w128-g64-hardgeomaug-fulltrain-e100-lr5e4-brev-v1",
+    "model_family": "scratch PerHandHeatmapNet",
+    "cache": "tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1",
+    "cache_rows": 30120,
+    "splits": {
+      "train": 22202,
+      "validation": 3545,
+      "test": 4373
+    },
+    "hyperparameters": {
+      "width": 128,
+      "heatmap_grid": 64,
+      "sigma": 2,
+      "epochs": 100,
+      "batch": 128,
+      "eval_batch": 512,
+      "lr": 0.0005,
+      "seed": 0,
+      "pck_train_selection_threshold": 0.1,
+      "heatmap_ce_weight": 0.05,
+      "train_quality_filter": false,
+      "oversample_hard_geometry": 2,
+      "hard_include_oob": true,
+      "hard_geometry_train_samples": 3667,
+      "affine_aug_prob": 0.35,
+      "affine_scale_min": 0.9,
+      "affine_scale_max": 1.1,
+      "affine_shift": 0.06,
+      "blur_prob": 0.1,
+      "noise_std": 0.01,
+      "max_train_batches": null,
+      "device": "cuda"
+    },
+    "training_command": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1 --epochs 100 --batch 128 --eval-batch 512 --lr 5e-4 --device cuda --seed 0 --pck 0.10 --sigma 2.0 --heatmap-g 64 --width 128 --heatmap-ce-weight 0.05 --oversample-hard-geometry 2 --hard-include-oob --affine-aug-prob 0.35 --affine-scale-min 0.90 --affine-scale-max 1.10 --affine-shift 0.06 --blur-prob 0.10 --noise-std 0.01 --eval-every 5 --out tools/detector0-annotator/output/m3jb-perhand-pckcampaign-w128-g64-hardgeomaug-fulltrain-e100-lr5e4-brev-v1.json\"",
+    "training_log": "/tmp/m3jb-pck-run3-training-908.log",
+    "best_epoch": 80,
+    "best_validation": {
+      "samples": 3545,
+      "points": 74445,
+      "visible_points": 70438,
+      "PCK": 0.6951,
+      "visible_PCK": 0.7245,
+      "mean_kp_err": 0.0892,
+      "visible_mean_kp_err": 0.0827
+    },
+    "final_validation": {
+      "samples": 3545,
+      "points": 74445,
+      "visible_points": 70438,
+      "PCK": 0.6951,
+      "visible_PCK": 0.7245,
+      "mean_kp_err": 0.0892,
+      "visible_mean_kp_err": 0.0827
+    },
+    "quality_filter": {
+      "enabled": false,
+      "before": 22202,
+      "after": 22202,
+      "removed": 0
+    },
+    "training_receipt_test": {
+      "samples": 4373,
+      "points": 91833,
+      "visible_points": 87231,
+      "PCK": 0.734,
+      "visible_PCK": 0.7628,
+      "mean_kp_err": 0.0816,
+      "visible_mean_kp_err": 0.0755
+    }
+  },
+  "evaluation": {
+    "status": "passed",
+    "pck_010": {
+      "command": "timeout 3600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --eval-only --data tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1 --weights tools/detector0-annotator/output/m3jb-perhand-pckcampaign-w128-g64-hardgeomaug-fulltrain-e100-lr5e4-brev-v1.pt --out tools/detector0-annotator/output/m3jb-perhand-pckcampaign-w128-g64-hardgeomaug-fulltrain-e100-lr5e4-brev-v1-eval-pck010.json --pck 0.10 --device cuda --eval-batch 512\"",
+      "log": "/tmp/m3jb-pck-run3-eval-pck010-908.log",
+      "test": {
+        "samples": 4373,
+        "points": 91833,
+        "visible_points": 87231,
+        "PCK": 0.734,
+        "visible_PCK": 0.7628,
+        "mean_kp_err": 0.0816,
+        "visible_mean_kp_err": 0.0755
+      }
+    },
+    "pck_005": {
+      "command": "timeout 3600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --eval-only --data tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1 --weights tools/detector0-annotator/output/m3jb-perhand-pckcampaign-w128-g64-hardgeomaug-fulltrain-e100-lr5e4-brev-v1.pt --out tools/detector0-annotator/output/m3jb-perhand-pckcampaign-w128-g64-hardgeomaug-fulltrain-e100-lr5e4-brev-v1-eval-pck005.json --pck 0.05 --device cuda --eval-batch 512\"",
+      "log": "/tmp/m3jb-pck-run3-eval-pck005-908.log",
+      "test": {
+        "samples": 4373,
+        "points": 91833,
+        "visible_points": 87231,
+        "PCK": 0.4506,
+        "visible_PCK": 0.4733,
+        "mean_kp_err": 0.0816,
+        "visible_mean_kp_err": 0.0755
+      }
+    }
+  },
+  "metrics": {
+    "running_best_pck_010": 0.7496,
+    "running_best_pck_005": 0.4867,
+    "run3_eval_pck_010": 0.734,
+    "run3_eval_pck_005": 0.4506,
+    "validation_pck_010": 0.6951,
+    "validation_pck_005": 0.3988,
+    "delta_vs_running_best_pck_010": -0.0156,
+    "delta_vs_running_best_pck_005": -0.0361,
+    "gate_pck_010": 0.9,
+    "gate_pck_005": 0.75,
+    "gap_to_gate_pck_010": 0.166,
+    "gap_to_gate_pck_005": 0.2994,
+    "decision": "no_clear_win_vs_running_best_fail_closed_below_landmark_gates"
+  },
+  "copied_artifacts": {
+    "training_receipt": {
+      "path": "tools/detector0-annotator/output/m3jb-perhand-pckcampaign-w128-g64-hardgeomaug-fulltrain-e100-lr5e4-brev-v1.json",
+      "copied_back": true,
+      "sha256": "01ff640edaff50626e2161ae81fb91b96b275663fa4c181e2f6f4c03db0d9134"
+    },
+    "weights": {
+      "path": "tools/detector0-annotator/output/m3jb-perhand-pckcampaign-w128-g64-hardgeomaug-fulltrain-e100-lr5e4-brev-v1.pt",
+      "copied_back": true,
+      "sha256": "197cdbb48cf7c66710cce3318d8e612f8dbc032cfd84d0e44169c21748302955"
+    },
+    "eval_pck010": {
+      "path": "tools/detector0-annotator/output/m3jb-perhand-pckcampaign-w128-g64-hardgeomaug-fulltrain-e100-lr5e4-brev-v1-eval-pck010.json",
+      "copied_back": true,
+      "sha256": "8e42eb351344c8f2aaa7a3414947f525e571bc056493218af6321b90c2b3500c"
+    },
+    "eval_pck005": {
+      "path": "tools/detector0-annotator/output/m3jb-perhand-pckcampaign-w128-g64-hardgeomaug-fulltrain-e100-lr5e4-brev-v1-eval-pck005.json",
+      "copied_back": true,
+      "sha256": "dd03d767acdfd0c560eedfab5f565821c58322068fa808bf387e055e8fc5e4fa"
+    }
+  },
+  "next_experiment_candidate": {
+    "next_action": "m3jb_landmark_pck_research_refresh_after_run3_no_brev",
+    "rationale": "Run3 changed the training distribution with hard-geometry oversampling plus mild augmentation, but it regressed both held-out PCK thresholds versus the run2 running best. The saved research plan's no-code resolution/capacity and augmentation levers have now been tried, while remaining deferred levers require code/design choices. Refresh research guidance before spending on another Brev experiment.",
+    "consecutive_research_guided_failures_since_last_running_best": 1,
+    "worker_rule": "Keep Brev stopped until the no-Brev research refresh selects the next concrete experiment and the active prompt records it.",
+    "stop_before_launch_if": "campaign cap reached, 3 consecutive research-guided experiments fail to beat running-best PCK, or durable prompt/GOAL changes revoke approval"
+  },
+  "runtime_boundary": {
+    "brev_used": true,
+    "brev_exec_or_copy": true,
+    "remote_mutation": true,
+    "training_run": true,
+    "optimizer_or_backward": true,
+    "eval_only_pck_run": true,
+    "checkpoint_written": true,
+    "artifacts_copied_back": true,
+    "worker_stopped_after_run": true,
+    "browser_artifact_promoted": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false
+  },
+  "claim_boundary": "This receipt records a scratch per-hand landmark experiment on the rebuilt ledger-excluded-c35 cache. It is a no-clear-win campaign run because both eval-only PCK thresholds regressed versus run2; it remains fail-closed below the landmark gates and does not promote browser/runtime artifacts.",
+  "next_action": "m3jb_landmark_pck_research_refresh_after_run3_no_brev"
+}

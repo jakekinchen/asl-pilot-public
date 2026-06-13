@@ -1,0 +1,335 @@
+{
+  "schema_version": 1,
+  "mission": "Mission 3FS - Detector 0 strict-gate metric triage",
+  "status": "completed_metric_triage_no_brev",
+  "created_at": "2026-05-29T02:53:27Z",
+  "head_at_start": "7915360 supervisor: repair Codex Desktop session markers",
+  "active_prompt": "docs/model/return-to-form-m3fs-detector0-strict-gate-metric-triage-no-brev-goal-loop-prompt.md",
+  "source_evidence": {
+    "m3fr_receipt": {
+      "path": "docs/validation/return-to-form-m3fr-detector0-strict-gate-local-smoke-no-brev-v1.json",
+      "status": "completed_local_strict_gate_smoke",
+      "session_log": "docs/session-logs/594-mission-3fr-detector0-strict-gate-local-smoke-no-brev.md",
+      "handoff": "M3FR selected the M3FS metric triage handoff.",
+      "script": "scripts/run_return_to_form_tier0_detector0_strict_gate_crop_normalization_smoke.py",
+      "smoke_rerun_in_m3fs": false
+    },
+    "m3fq_contract": {
+      "path": "docs/model/return-to-form-detector0-strict-gate-crop-normalization-contract.json",
+      "sha256": "3f188371aa1e445309ef8f518d22012ee628b34a79b2f87d0f28e5a5b3c99c3e",
+      "variant_id": "manifest_validation_fp05_contact_gate",
+      "contact_gate_target": "table_two_hand_union_or_contact_region",
+      "contact_threshold": 0.20632459223270416,
+      "validation_frame_false_positive_rate_limit": 0.05
+    },
+    "m3fq_side_contract_summary": {
+      "side_contract_transform_used_learned_right_crop_rate": 0.06068840579710145,
+      "side_contract_transform_fallback_right_crop_rate": 0.9393115942028986,
+      "validation_top1": 0.256,
+      "test_top1": 0.3263157894736842,
+      "validation_zero_recall_labels": [],
+      "test_zero_recall_labels": [],
+      "classification": "static side-contract evidence only; not product/runtime authority"
+    }
+  },
+  "local_checks": [
+    {
+      "command": "git status --short --branch",
+      "result": "pass_clean_before_artifact_creation"
+    },
+    {
+      "command": "git log -12 --oneline --decorate",
+      "result": "pass_context_captured"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "result": "pass"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "result": "pass"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "result": "pass"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "result": "pass"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "result": "pass"
+    },
+    {
+      "command": "node scripts/audit_detector0_strict_gate_crop_contract.mjs",
+      "result": "pass"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3fr-detector0-strict-gate-local-smoke-no-brev-v1.json",
+      "result": "pass"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/return-to-form-detector0-strict-gate-crop-normalization-contract.json",
+      "result": "pass"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3fq-detector0-crop-normalized-recognizer-integration-v1.json",
+      "result": "pass"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json",
+      "result": "pass"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/detector0-card.json",
+      "result": "pass"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json",
+      "result": "pass"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m py_compile scripts/run_return_to_form_tier0_detector0_strict_gate_crop_normalization_smoke.py",
+      "result": "pass"
+    },
+    {
+      "command": "brev ls --json",
+      "result": "pass_read_only_default_off"
+    },
+    {
+      "command": "git diff --check",
+      "result": "pass"
+    }
+  ],
+  "brev_read_only_default_off_state": {
+    "checked": true,
+    "command": "brev ls --json",
+    "lifecycle_command_run": false,
+    "remote_command_run": false,
+    "spent_money_this_slice": false,
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_kind": "gpu",
+        "instance_type": "l40s-48gb.1x",
+        "gpu": "L40S"
+      }
+    ]
+  },
+  "m3fr_metric_triage": {
+    "classification": {
+      "diagnostic_only": true,
+      "not_final_gate_authority": true,
+      "not_product_authority": true,
+      "not_browser_runtime_authority": true,
+      "not_asl_correctness_authority": true,
+      "metric_scope": "packet_frame_rows_only_not_full_clip_recognizer_smoke"
+    },
+    "packet_frame_support": {
+      "train_rows": 11,
+      "validation_rows": 11,
+      "test_rows": 10,
+      "total_rows": 32,
+      "train_positive_rows": 7,
+      "validation_positive_rows": 7,
+      "test_positive_rows": 6
+    },
+    "microprobe_fixed_threshold_metrics": {
+      "train": {
+        "sample_count": 11,
+        "presence_accuracy": 1.0,
+        "true_positive_count": 7,
+        "true_negative_count": 4,
+        "false_positive_count": 0,
+        "false_negative_count": 0,
+        "predicted_present_rate": 0.6363636255264282,
+        "present_box_mae": 0.0023208686616271734,
+        "present_box_mean_iou": 0.9726054072380066
+      },
+      "validation": {
+        "sample_count": 11,
+        "presence_accuracy": 0.3636363744735718,
+        "true_positive_count": 0,
+        "true_negative_count": 4,
+        "false_positive_count": 0,
+        "false_negative_count": 7,
+        "predicted_present_rate": 0.0,
+        "present_box_mae": 0.04473027586936951,
+        "present_box_mean_iou": 0.5782297849655151
+      },
+      "test": {
+        "sample_count": 10,
+        "presence_accuracy": 0.4000000059604645,
+        "true_positive_count": 0,
+        "true_negative_count": 4,
+        "false_positive_count": 0,
+        "false_negative_count": 6,
+        "predicted_present_rate": 0.0,
+        "present_box_mae": 0.03515984117984772,
+        "present_box_mean_iou": 0.6948559880256653
+      },
+      "triage": "The local microprobe fits the tiny training packet but transfers poorly to validation/test at the fixed threshold."
+    },
+    "strict_gate_contract_threshold_metrics": {
+      "threshold": 0.20632459223270416,
+      "train": {
+        "true_positive_count": 7,
+        "true_negative_count": 4,
+        "false_positive_count": 0,
+        "false_negative_count": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "presence_accuracy": 1.0,
+        "false_positive_rate": 0.0,
+        "learned_right_crop_row_rate": 0.6363636363636364
+      },
+      "validation": {
+        "true_positive_count": 1,
+        "true_negative_count": 4,
+        "false_positive_count": 0,
+        "false_negative_count": 6,
+        "precision": 1.0,
+        "recall": 0.14285714285714285,
+        "f1": 0.25,
+        "presence_accuracy": 0.45454545454545453,
+        "false_positive_rate": 0.0,
+        "learned_right_crop_row_rate": 0.09090909090909091
+      },
+      "test": {
+        "true_positive_count": 1,
+        "true_negative_count": 4,
+        "false_positive_count": 0,
+        "false_negative_count": 5,
+        "precision": 1.0,
+        "recall": 0.16666666666666666,
+        "f1": 0.2857142857142857,
+        "presence_accuracy": 0.5,
+        "false_positive_rate": 0.0,
+        "learned_right_crop_row_rate": 0.1
+      },
+      "triage": "The contract threshold preserves zero false positives on the local packet-frame validation negatives, but only recalls one of seven validation positives and one of six test positives."
+    },
+    "local_diagnostic_fp05_threshold": {
+      "threshold": 0.12074794620275497,
+      "false_positive_rate_limit": 0.05,
+      "validation_true_positive_count": 2,
+      "validation_true_negative_count": 4,
+      "validation_false_positive_count": 0,
+      "validation_false_negative_count": 5,
+      "validation_precision": 1.0,
+      "validation_recall": 0.2857142857142857,
+      "validation_f1": 0.4444444444444445,
+      "validation_presence_accuracy": 0.5454545454545454,
+      "threshold_selected_or_promoted": false,
+      "triage": "Lowering the diagnostic threshold under the local FP05 rule improves recall only to two of seven validation positives and remains non-promoted."
+    },
+    "recognizer_smoke": {
+      "run": false,
+      "reason": "M3FR stopped at packet-frame strict-gate crop decisions; no recognizer fitting or completed-checkpoint evaluation authority exists in M3FS."
+    },
+    "no_training_local_contract_repair_evident": false,
+    "local_contract_repair_triage": "No concrete local contract, threshold-accounting, receipt, or artifact-availability bug was found. The evidence points to weak diagnostic transfer and scope limits rather than a no-training code repair."
+  },
+  "blocker_classification": {
+    "artifact_accounting_or_report_availability_issue": {
+      "status": "not_found",
+      "evidence": "M3FR receipt/session log, M3FQ contract/receipt, claim surfaces, and required JSON receipts were present and parseable."
+    },
+    "strict_gate_contract_or_threshold_accounting_issue": {
+      "status": "not_found",
+      "evidence": "Contract audit passed, contract threshold accounting is explicit, and local diagnostic FP05 threshold is marked non-promoted."
+    },
+    "packet_frame_sample_size_limitation": {
+      "status": "present",
+      "evidence": "The diagnostic covers only 32 packet-frame rows: 11 train, 11 validation, and 10 test."
+    },
+    "target_schema_limitation": {
+      "status": "present",
+      "evidence": "The target is table_two_hand_union_or_contact_region, not a general independent-hand or runtime Detector 0 schema."
+    },
+    "crop_input_representation_limitation": {
+      "status": "present",
+      "evidence": "The slice records packet-frame crop decisions only; it creates no detector-normalized tensors and runs no full-clip crop-normalized recognizer smoke."
+    },
+    "model_architecture_training_budget_limitation": {
+      "status": "present",
+      "evidence": "The tiny local fit reaches train recall 1.0 but only validation recall 0.14285714285714285 and test recall 0.16666666666666666 at the contract threshold."
+    },
+    "weak_diagnostic_evidence_without_browser_runtime_authority": {
+      "status": "present",
+      "evidence": "Claim surfaces stay fail-closed; no export, promotion, browser activation, or runtime Detector 0 authority exists."
+    }
+  },
+  "claim_surface_proof": {
+    "fail_closed": true,
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "status": "not_trained",
+      "pretrained_components": []
+    },
+    "detector0_card": {
+      "path": "web/public/model/detector0-card.json",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null,
+      "runtime_gates": {
+        "box_driven_avatar": false,
+        "detector0_tracking": false,
+        "recognition_pass_fail": false
+      }
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "modelVersion": "rawframe-not-trained",
+      "active_label_count": 0
+    },
+    "export_or_promotion_justified": false,
+    "browser_activation_justified": false,
+    "runtime_detector0_authority_justified": false,
+    "product_model_final_or_readiness_claim_justified": false,
+    "trainability_claim_justified": false,
+    "asl_correctness_claim_justified": false
+  },
+  "forbidden_actions_not_run": [
+    "m3fr_smoke_rerun",
+    "recognizer_smoke",
+    "evaluator_rerun",
+    "training_or_fitting",
+    "backward_pass_or_optimizer_step",
+    "checkpoint_creation",
+    "threshold_tuning_for_promotion",
+    "brev_start_exec_sync_copy_stop_or_remote_command",
+    "remote_command",
+    "package_install",
+    "source_register_edit",
+    "source_or_media_import",
+    "manifest_tensor_packet_or_vocabulary_mutation",
+    "export_or_promotion",
+    "model_card_promotion",
+    "active_vocabulary_promotion",
+    "browser_recognition_activation",
+    "runtime_detector_authority_claim",
+    "final_gate_change",
+    "pretrained_detector_landmark_backbone_embedding_or_generated_label_path",
+    "raw_learner_video_or_frame_upload",
+    "fake_detector_or_recognizer_output",
+    "unsupported_correctness_or_readiness_claim",
+    "push",
+    "amend",
+    "destructive_reset",
+    "no_verify_commit"
+  ],
+  "pretrained_components": [],
+  "changed_files": [
+    "docs/validation/return-to-form-m3fs-detector0-strict-gate-metric-triage-no-brev-v1.json",
+    "docs/session-logs/596-mission-3fs-detector0-strict-gate-metric-triage-no-brev.md"
+  ],
+  "next_action": "continue_openai_or_gpt_pro_research"
+}

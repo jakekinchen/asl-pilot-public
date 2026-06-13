@@ -1,0 +1,90 @@
+{
+  "schema_version": "asl-pilot-rawframe-lesson-evidence-audit/v1",
+  "status": "blocked_lesson_milestone_evidence",
+  "checked_at": "2026-05-21T16:47:08.161Z",
+  "generated_by": {
+    "script": {
+      "path": "scripts/audit_rawframe_lesson_evidence.mjs",
+      "sha256": "663a2f6ec111f1908b1757ed5c2bdd2afc43192513644bc161652f292c00f261"
+    },
+    "command": [
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/Users/kelly/Developer/asl-pilot/scripts/audit_rawframe_lesson_evidence.mjs",
+      "--write"
+    ]
+  },
+  "final_model_evidence": false,
+  "lesson_milestone_evidence_gate": true,
+  "inputs": {
+    "milestone": {
+      "path": "docs/validation/rawframe-lesson-milestone.json",
+      "exists": true,
+      "sha256": "1a9d9567752014e885b288dac093a00efd43cd21d7c61757c4bfd5041d51f1fb"
+    },
+    "post_export_preflight": {
+      "path": "docs/validation/rawframe-lesson-post-export-preflight.json",
+      "exists": true,
+      "sha256": "941df0cec5df3abce72f7c5d984c459337ba5601401c00a5fad725529bb9d20f"
+    },
+    "training_provenance": {
+      "path": "artifacts/rawframe-lesson-milestone/training-provenance.json",
+      "exists": false,
+      "sha256": null
+    },
+    "validation_report": {
+      "path": "artifacts/rawframe-lesson-milestone/validation-report.json",
+      "exists": false,
+      "sha256": null
+    },
+    "calibrated_provenance": {
+      "path": "artifacts/rawframe-lesson-milestone/calibrated-provenance.json",
+      "exists": false,
+      "sha256": null
+    }
+  },
+  "lesson_label_counts": {
+    "target_count": 25,
+    "near_confusable_count": 10,
+    "total_vocabulary_label_count": 35
+  },
+  "observed_statuses": {
+    "post_export_preflight": "blocked_lesson_post_export_preflight",
+    "training_evidence_mode": null,
+    "validation_report_status": null,
+    "validation_evidence_mode": null,
+    "calibrated_evidence_mode": null
+  },
+  "pass_status": null,
+  "metrics": {
+    "validation_top1": null,
+    "validation_macro_f1": null,
+    "test_top1": null,
+    "test_macro_f1": null,
+    "test_false_pass_rate": null,
+    "negative_challenge_false_pass_rate": null
+  },
+  "blockers": [
+    "artifacts/rawframe-lesson-milestone/training-provenance.json is missing",
+    "artifacts/rawframe-lesson-milestone/validation-report.json is missing",
+    "artifacts/rawframe-lesson-milestone/calibrated-provenance.json is missing",
+    "post-export preflight is not passed: blocked_lesson_post_export_preflight",
+    "lesson manifest export summary is not ready: blocked_lesson_collection_not_export_ready",
+    "lesson collection readiness is not export-ready: blocked_missing_first_party_store",
+    "data/asl-pilot-store.json is absent; no first-party browser-domain lesson clips have been collected",
+    "600 lesson packet assignment(s) still need approved first-party clips before lesson manifest export",
+    "data/asl-pilot-store.json is absent; no first-party lesson manifests can be exported",
+    "train lesson manifest is missing: data/manifests/lesson/rawframe-milestone/train.json",
+    "validation lesson manifest is missing: data/manifests/lesson/rawframe-milestone/validation.json",
+    "test lesson manifest is missing: data/manifests/lesson/rawframe-milestone/test.json",
+    "negativeChallenge lesson manifest is missing: data/manifests/lesson/rawframe-milestone/negative-challenge.json"
+  ],
+  "required_next_commands": [
+    "node scripts/audit_rawframe_lesson_collection_readiness.mjs --write",
+    "node scripts/export_rawframe_lesson_first_party_manifests.mjs --write",
+    "node scripts/run_rawframe_lesson_post_export_preflight.mjs --write",
+    "PYTHONPATH=scripts ./.venv/bin/python scripts/decode_raw_videos.py --manifest data/manifests/lesson/rawframe-milestone/train.json --manifest data/manifests/lesson/rawframe-milestone/validation.json --manifest data/manifests/lesson/rawframe-milestone/test.json --manifest data/manifests/lesson/rawframe-milestone/negative-challenge.json --lesson-milestone",
+    "PYTHONPATH=scripts ./.venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/rawframe-milestone/train.json --validation-manifest data/manifests/lesson/rawframe-milestone/validation.json --test-manifest data/manifests/lesson/rawframe-milestone/test.json --output-dir artifacts/rawframe-lesson-milestone --lesson-milestone --check-files",
+    "PYTHONPATH=scripts ./.venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint artifacts/rawframe-lesson-milestone/model_state.pt --training-provenance artifacts/rawframe-lesson-milestone/training-provenance.json --train-manifest data/manifests/lesson/rawframe-milestone/train.json --validation-manifest data/manifests/lesson/rawframe-milestone/validation.json --test-manifest data/manifests/lesson/rawframe-milestone/test.json --challenge-manifest data/manifests/lesson/rawframe-milestone/negative-challenge.json --output-report artifacts/rawframe-lesson-milestone/validation-report.json --calibrated-provenance artifacts/rawframe-lesson-milestone/calibrated-provenance.json --lesson-milestone",
+    "node scripts/audit_rawframe_lesson_evidence.mjs --write"
+  ]
+}

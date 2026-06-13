@@ -1,0 +1,166 @@
+{
+  "schema_version": "asl-pilot-m3jb-landmark-retrain-local-preflight/v1",
+  "receipt_id": "return-to-form-m3jb-landmark-retrain-local-preflight-v1",
+  "mission": "M3JB - Hierarchical hand-state tracker",
+  "active_tracker_next_action": "await_explicit_brev_spend_approval_then_launch_landmark_retrain_brev_plan",
+  "status": "passed_local_preflight_actual_launch_blocked_pending_brev_approval",
+  "checked_at": "2026-06-03T00:16:38Z",
+  "source_of_truth": {
+    "goal": "GOAL.md",
+    "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+    "tracker_receipt": "docs/validation/return-to-form-m3jb-hierarchical-hand-state-tracker-v1.json",
+    "approval_gated_retrain_plan": "docs/validation/return-to-form-m3jb-landmark-retrain-brev-plan-v1.json"
+  },
+  "approval_state": {
+    "current_thread_explicit_brev_spend_approval": false,
+    "effective_launch_allowed_now": false,
+    "blocked_commands_not_run": [
+      "brev exec",
+      "brev copy",
+      "ssh",
+      "rsync",
+      "remote training",
+      "remote eval-only PCK measurement"
+    ]
+  },
+  "local_preflight": {
+    "command": ".venv/bin/python - <<'PY' >/tmp/m3jb-landmark-preflight-898.json ... PY",
+    "status": "passed",
+    "python": {
+      "path": "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "version": "3.14.5",
+      "numpy_version": "2.4.6"
+    },
+    "side_worktree": "/Users/kelly/Developer/asl-pilot-annotator",
+    "trainer": {
+      "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_perhand_landmarks_heatmap.py",
+      "exists": true,
+      "syntax_parse": "passed",
+      "sha256": "75be98e185faf79215664ee811291a92ea0b8fcc87b7d9b4a2e83e6f116f9f77",
+      "required_flags": [
+        "--data",
+        "--epochs",
+        "--batch",
+        "--eval-batch",
+        "--lr",
+        "--device",
+        "--seed",
+        "--pck",
+        "--sigma",
+        "--heatmap-g",
+        "--width",
+        "--heatmap-ce-weight",
+        "--filter-train-quality",
+        "--quality-exclude-oob",
+        "--quality-min-gradient",
+        "--quality-min-contrast",
+        "--eval-every",
+        "--out",
+        "--weights",
+        "--eval-only"
+      ],
+      "missing_required_flags": []
+    },
+    "helper_import": {
+      "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_detector.py",
+      "exists": true,
+      "sha256": "e7aa5ea71d68ea8ccc3d27125908cdd2637961e051a628f7c31a808df7f8c4a9"
+    },
+    "cache": {
+      "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1",
+      "exists": true,
+      "file_count_top_level": 4,
+      "rows_json": {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1/rows.json",
+        "exists": true,
+        "sha256": "693f2dfb2b740d5a0ec763ccc9b65a8521ef40607587f26e41421ebb4551a173",
+        "schema_version": "asl-pilot-m3ja-perhand-hires-cache/v1",
+        "stats": {
+          "hands_seen": 30184,
+          "hands_kept": 30120,
+          "hands_skipped": 0,
+          "hands_excluded_by_relabel": 64,
+          "source_rows_scanned": 65806
+        },
+        "excluded_source_hands": 64
+      },
+      "splits_json": {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1/splits.json",
+        "exists": true,
+        "rows": 30120,
+        "sha256": "f8afb677179cdbf3fc11392c95ee0aede6c09d27cd86a336720d7eabb17f1d0f"
+      },
+      "arrays": {
+        "frames": {
+          "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1/frames.npy",
+          "exists": true,
+          "shape": [
+            30120,
+            128,
+            128,
+            3
+          ],
+          "dtype": "uint8"
+        },
+        "kpts": {
+          "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1/kpts.npy",
+          "exists": true,
+          "shape": [
+            30120,
+            21,
+            2
+          ],
+          "dtype": "float32"
+        },
+        "shape_match_rows": true
+      }
+    },
+    "planned_outputs": [
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1.json",
+        "exists": false
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1.pt",
+        "exists": false
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1-eval-pck010.json",
+        "exists": false
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1-eval-pck005.json",
+        "exists": false
+      }
+    ]
+  },
+  "commands_run_this_slice": [
+    {
+      "command": ".venv/bin/python - <<'PY' >/tmp/m3jb-landmark-preflight-898.json ... PY",
+      "workdir": "/Users/kelly/Developer/asl-pilot",
+      "status": "passed",
+      "purpose": "AST-checked trainer syntax and CLI flags, mmap-read cache array shapes, hashed trainer/helper/cache JSON, and confirmed planned outputs are absent without importing trainer or starting training"
+    },
+    {
+      "command": "python3 -m json.tool /tmp/m3jb-landmark-preflight-898.json",
+      "workdir": "/Users/kelly/Developer/asl-pilot",
+      "status": "passed",
+      "purpose": "validated the local preflight evidence JSON before transcribing the receipt"
+    }
+  ],
+  "runtime_boundary": {
+    "local_only_this_slice": true,
+    "read_only_brev_visibility_only": false,
+    "brev_exec_or_copy": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward": false,
+    "checkpoint_written": false,
+    "browser_runtime_dependency_added": false,
+    "browser_artifact_promoted": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false
+  },
+  "claim_boundary": "This receipt proves only that the recorded landmark retrain plan still has local trainer/cache/output preconditions satisfied before approval. It does not approve or launch Brev, sync remote files, train a model, run eval-only PCK, produce checkpoints, prove PCK movement, prove landmark gate passage, or change browser/runtime behavior.",
+  "next_action": "await_explicit_brev_spend_approval_then_launch_landmark_retrain_brev_plan"
+}

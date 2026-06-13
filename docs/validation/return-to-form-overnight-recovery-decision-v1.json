@@ -1,0 +1,272 @@
+{
+  "schema_version": "asl-pilot-validation-receipt/v1",
+  "receipt_id": "return-to-form-overnight-recovery-decision-v1",
+  "created_at": "2026-05-27T08:08:06Z",
+  "mission": "M3AR - Overnight recovery and Brev unblock",
+  "status": "completed_with_brev_auth_blocker_and_product_fix",
+  "active_prompt": "docs/model/return-to-form-overnight-recovery-and-brev-unblock-goal-loop-prompt.md",
+  "commands": [
+    {
+      "name": "git status",
+      "command": "git status --short --branch",
+      "exit_code": 0,
+      "result": "branch compound-plan-m0...origin/compound-plan-m0 [ahead 154], worktree clean before this slice"
+    },
+    {
+      "name": "git log",
+      "command": "git log -8 --oneline --decorate",
+      "exit_code": 0,
+      "result": "HEAD was 710e211 goal: activate overnight recovery and brev unblock"
+    },
+    {
+      "name": "loop premise audit",
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_code": 0,
+      "result": "passed"
+    },
+    {
+      "name": "return-to-form plan audit",
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_code": 0,
+      "result": "passed"
+    },
+    {
+      "name": "no-pretrained dependency audit",
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_code": 0,
+      "result": "No banned pretrained-CV dependencies or source imports found."
+    },
+    {
+      "name": "no-pretrained artifact audit",
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_code": 0,
+      "result": "passed"
+    },
+    {
+      "name": "compile training/evaluation scripts",
+      "command": "python3 -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "exit_code": 0,
+      "result": "passed"
+    },
+    {
+      "name": "Brev auth check",
+      "command": "brev ls --json",
+      "exit_code": 1,
+      "result": "logged_out_prompt_then_EOF",
+      "stderr_excerpt": "You are currently logged out, would you like to log in? [Y/n]: ... Auth.PromptForLogin ... EOF"
+    },
+    {
+      "name": "web typecheck",
+      "command": "npm --prefix web run typecheck",
+      "exit_code": 0,
+      "result": "tsc --noEmit passed"
+    },
+    {
+      "name": "web production build",
+      "command": "npm --prefix web run build",
+      "exit_code": 0,
+      "result": "Next.js build passed; /, /lesson, and /validation generated"
+    },
+    {
+      "name": "claim matrix audit/write",
+      "command": "node scripts/audit_final_claim_matrix.mjs --write && node scripts/audit_final_claim_matrix.mjs",
+      "exit_code": 0,
+      "result": "passed; docs and public claim matrices regenerated for Mission 3AR"
+    },
+    {
+      "name": "route headers",
+      "command": "curl -I --max-time 5 http://localhost:3001/ && curl -I --max-time 5 http://localhost:3001/lesson && curl -I --max-time 5 http://localhost:3001/validation",
+      "exit_code": 0,
+      "result": "all three routes returned HTTP 200"
+    },
+    {
+      "name": "Playwright browser smoke",
+      "command": "$PWCLI goto/snapshot/screenshot/console for http://localhost:3001, /lesson, and /validation",
+      "exit_code": 0,
+      "result": "all routes rendered; console warnings/errors were 0 at warning level; screenshots captured under output/playwright"
+    }
+  ],
+  "brev_state": {
+    "checked": true,
+    "classification": "auth_blocked_human_2fa_required",
+    "paid_compute_authorization_recorded": true,
+    "paid_compute_authorization_scope": "GOAL.md and the active prompt authorize paid compute only after Brev auth works, route/cost are logged, duplicate workers are avoided, and idle workers are stopped.",
+    "worker_state_inspected": false,
+    "worker_state_inspection_blocker": "brev ls --json is blocked by logged-out EOF before worker state can be inspected.",
+    "paid_compute_launched": false,
+    "duplicate_worker_created": false,
+    "teardown_performed": false,
+    "teardown_reason": "No remote command was launched and auth is blocked; stop/delete/reset is not authorized without visible worker state and explicit conditions."
+  },
+  "route_comparison": [
+    {
+      "route": "ASL Citizen reduced-module continuation",
+      "evidence": [
+        {
+          "path": "docs/validation/return-to-form-asl-citizen-reduced-module-local-training-smoke-v1.json",
+          "sha256": "d5e7ba6069c3165e3b49bc454495563425cad0a276c663bfef457873e17156f8"
+        }
+      ],
+      "metrics": {
+        "train_accuracy_epoch_3": 0.4642857142857143,
+        "validation_top1_accuracy": 0.25925925925925924,
+        "validation_macro_f1": 0.19480519480519481,
+        "test_top1_accuracy": 0.21428571428571427,
+        "test_macro_f1": 0.12558869701726846,
+        "negative_challenge_evaluated": false
+      },
+      "decision": "not_selected_for_immediate_gpu_retry",
+      "reason": "The seven-label run produced real but weak learnability evidence. A longer paid run is not justified without a new testable model/data hypothesis."
+    },
+    {
+      "route": "PopSign/Tier-0 continuation",
+      "evidence": [
+        {
+          "path": "docs/validation/return-to-form-overnight-tier0-cuda-recognizer-v1.json",
+          "sha256": "516bc7b293f9c0e07fcda17625d3bf11a0ed8a29955ec19bd1f46978d7124546"
+        },
+        {
+          "path": "docs/validation/return-to-form-overnight-tier0-data-vocabulary-decision-v1.json",
+          "sha256": "cb33d983c6ca28b34cb7c18b68d02d74810d6adc934891289271da1b73bdafaa"
+        }
+      ],
+      "metrics": {
+        "train_accuracy_epoch_8": 0.904,
+        "best_validation_accuracy": 0.376,
+        "test_top1_accuracy": 0.47368421052631576,
+        "test_macro_f1": 0.4625908858166922,
+        "test_false_pass_rate_at_threshold": 0.10526315789473684,
+        "negative_challenge_evaluated": false
+      },
+      "decision": "not_selected_for_immediate_recognizer_retry",
+      "reason": "This remains the strongest retained recognizer signal, but it is still a five-label smoke/reduced-demo route and prior decision selected human data/source scope review before another recognizer run."
+    },
+    {
+      "route": "Composable fixed-crop CNN+TCN contract",
+      "evidence": [
+        {
+          "path": "docs/validation/return-to-form-tier0-crop-normalization-ablation-smoke-v1.json",
+          "sha256": "b3c86cc08a82bdbe8ca212c26f8bc0287514ca559ad7beac0f9f41c8e21b20a7"
+        }
+      ],
+      "metrics": {
+        "fixed_crop_validation_top1": 0.216,
+        "fixed_crop_test_top1": 0.2736842105263158,
+        "detector_normalized_validation_top1": 0.224,
+        "detector_normalized_test_top1": 0.2736842105263158
+      },
+      "decision": "promising_contract_not_selected_for_this_slice",
+      "reason": "A composable crop-plus-temporal contract is plausible, but the retained evidence shows tiny validation gains and still needs a bounded design/proof slice before paid training."
+    },
+    {
+      "route": "Detector 0 decomposition",
+      "evidence": [
+        {
+          "path": "docs/validation/return-to-form-tier0-detector0-crop-normalization-bootstrap.json",
+          "sha256": "bd17e32bc7d4adbd195d1a26173740163e314a54577a9d9245a38dce752331e5"
+        },
+        {
+          "path": "docs/validation/return-to-form-tier0-detector0-union-target-architecture-microprobe-v2.json",
+          "sha256": "a6de1a2e8537802927878e5a5810e9e83bbc19263b5d48d72c7b72a7d51ee039"
+        }
+      ],
+      "decision": "not_selected_without_new_annotation_or_target_decision",
+      "reason": "Detector 0 remains architecturally useful, but the latest no-new-source union-target path selected stop_reduced_claim and does not justify another detector training run by itself."
+    },
+    {
+      "route": "SemLex / phonology support",
+      "evidence": [],
+      "decision": "research_only_until_source_register_review",
+      "reason": "SemLex/ASL-LEX style evidence may help vocabulary, phonology grouping, or reranking research, but it is not approved here as training data or a shortcut around source review."
+    },
+    {
+      "route": "Product-first interactive finish",
+      "evidence": [
+        {
+          "path": "web/public/model/model-card.json",
+          "status": "not_trained"
+        },
+        {
+          "path": "docs/validation/final-claim-matrix.json",
+          "sha256": "67f05d3a7fd1c785984aded71aedb16c0afc5db0d3b752b4b8cbee879e1b4a56"
+        },
+        {
+          "path": "web/public/model/claim-matrix.json",
+          "sha256": "67f05d3a7fd1c785984aded71aedb16c0afc5db0d3b752b4b8cbee879e1b4a56"
+        }
+      ],
+      "decision": "selected",
+      "reason": "This is the only route that produced immediate user-visible value while Brev auth is blocked and model evidence remains weak. The slice fixed stale /validation current-state copy to show Mission 3AR and M3AQ evidence while preserving fail-closed claims."
+    }
+  ],
+  "selected_route": "Product-first interactive finish",
+  "product_qa": {
+    "typecheck": "passed",
+    "build": "passed",
+    "dev_server": {
+      "attempted_port": 3030,
+      "result": "Next reported an existing dev server for this checkout",
+      "used_url": "http://localhost:3001"
+    },
+    "http_routes": [
+      {
+        "route": "/",
+        "status": 200
+      },
+      {
+        "route": "/lesson",
+        "status": 200
+      },
+      {
+        "route": "/validation",
+        "status": 200
+      }
+    ],
+    "browser_smoke": {
+      "tool": "Playwright CLI wrapper",
+      "console_warning_or_error_count": 0,
+      "screenshots": [
+        {
+          "route": "/",
+          "path": "output/playwright/m3ar-home.png",
+          "sha256": "39b04afa9b937bd70cd37aafe50c7f0dcc17c847e33d750926793bf4587da4e5"
+        },
+        {
+          "route": "/lesson",
+          "path": "output/playwright/m3ar-lesson.png",
+          "sha256": "3d2d34f40f41e94db298776296aade0f327c902e1717f03f5ce3a36665d1f731"
+        },
+        {
+          "route": "/validation",
+          "path": "output/playwright/m3ar-validation.png",
+          "sha256": "3b30724229c7ee976faddd6c89b8c45004c77a57a8abf95b10a0f5a6ccd95e0e"
+        }
+      ]
+    },
+    "scoped_fix": {
+      "bug": "/validation showed stale Mission 3AI current-state copy after Mission 3AR activation.",
+      "fix": "Updated scripts/audit_final_claim_matrix.mjs and regenerated docs/public claim matrices so /validation shows M3AR, M3AQ weak metrics, and Brev auth blocker while keeping active_cv_claim null.",
+      "final_claim_changed": false,
+      "promotion_gate_changed": false
+    }
+  },
+  "new_milestone_prompt": {
+    "created": false,
+    "needed_for_selected_next_action": false,
+    "reason": "The current M3AR prompt already authorizes bounded local product-first QA/polish while Brev auth remains blocked. A future paid GPU prompt or receipt is needed only after human 2FA restores Brev auth and a bounded route is selected."
+  },
+  "boundaries_observed": {
+    "brev_paid_compute": false,
+    "duplicate_brev_worker": false,
+    "worker_delete_or_reset": false,
+    "source_import": false,
+    "pseudo_label_generation": false,
+    "pretrained_promoted_lane_dependency": false,
+    "final_readiness_claim": false,
+    "model_card_promotion": false,
+    "browser_trained_activation": false,
+    "final_gate_weakening": false,
+    "push": false
+  },
+  "next_action": "continue_product_first_fail_closed_demo_polish_no_spend"
+}

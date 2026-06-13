@@ -1,0 +1,259 @@
+{
+  "schema_version": "asl-pilot-return-to-form-detector0-annotation-workbench-review/v1",
+  "mission": "M3HY - Detector 0 annotation workbench review no Brev",
+  "created_at": "2026-05-29T21:14:43Z",
+  "current_commit": "ebba502",
+  "active_prompt": "docs/model/return-to-form-m3hy-detector0-annotation-workbench-review-no-brev-goal-loop-prompt.md",
+  "status": "completed",
+  "purpose": "Review the M3HX local Detector 0 annotation workbench for internal consistency, provenance boundaries, ignored-output behavior, static-local draft export behavior, and fail-closed claim-surface preservation before any label ingestion or training work.",
+  "source_files_inspected": [
+    "GOAL.md",
+    "docs/model/return-to-form-m3hy-detector0-annotation-workbench-review-no-brev-goal-loop-prompt.md",
+    "docs/model/return-to-form-plan.md",
+    "docs/runbooks/codex-goal-loop.md",
+    "docs/runbooks/observer-runbook-codex.md",
+    "tools/detector0-annotator/prepare.py",
+    "tools/detector0-annotator/app.html",
+    "tools/detector0-annotator/README.md",
+    "tools/detector0-annotator/.gitignore",
+    "docs/validation/return-to-form-m3hx-detector0-annotation-workbench-no-brev-v1.json",
+    "docs/session-logs/713-mission-3hx-detector0-annotation-workbench-no-brev.md",
+    "docs/session-logs/714-observer-continue-m3hx-m3hy-detector0-annotation-workbench-review-handoff.md",
+    "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlay-gap-repair-v1.json",
+    "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlays-v1.json",
+    "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+    "data/manifests/return-to-form-tier0/train.json",
+    "data/manifests/return-to-form-tier0/validation.json",
+    "data/manifests/return-to-form-tier0/test.json",
+    "docs/model/dataset-source-register.json",
+    "web/public/model/detector0-card.json",
+    "web/public/model/browser-model-bundle.json",
+    "web/public/model/model-card.json",
+    "docs/model/active-vocabulary-claim.json"
+  ],
+  "changed_files_for_this_slice": [
+    "docs/model/return-to-form-detector0-annotation-workbench-review-v1.json",
+    "docs/validation/return-to-form-m3hy-detector0-annotation-workbench-review-no-brev-v1.json",
+    "docs/session-logs/715-mission-3hy-detector0-annotation-workbench-review-no-brev.md"
+  ],
+  "m3hx_workbench_file_references": {
+    "tools/detector0-annotator/prepare.py": {
+      "sha256": "d22434b32a195f4b795f43ad61a68420695415ce061b7746dfaccc85358f41f9",
+      "review": "Uses tracked Tier 0 tensor payload paths from the V0 localization packet, requires full_frame_reference in rgb_regions, writes PNGs and an index under the local cache, records tensor hashes and metadata, and does not decode source media, upload learner video, run inference, auto-label, or write authoritative label artifacts."
+    },
+    "tools/detector0-annotator/app.html": {
+      "sha256": "6be96d3124dc75c38a977c51776a53cb7add6b234fd3e34c2a61b6beb4769002",
+      "review": "Static browser page that accepts a local JSON index file, loads cache-relative images, draws normalized top-left xyxy boxes over the rendered full-frame image, shows existing V0 anchors separately from draft boxes, and exports local draft JSON via Blob download."
+    },
+    "tools/detector0-annotator/README.md": {
+      "sha256": "14b6f9a0b363a4de0a6df0511c66fc22584f2bd929d1001055c8fd022d6ee1e0",
+      "review": "Documents repo-root prepare usage, ignored cache/export paths, static page usage, normalized coordinate space, draft-only exports, and the no-upload, no-inference, no-source-video-decode, no-training, no-claim-surface boundary."
+    },
+    "tools/detector0-annotator/.gitignore": {
+      "sha256": "cfd0bf33bf0bd0eb93f1b0901d5dc77d8d761e38198a89c7c4df202c3f6f55a2",
+      "review": "Ignores .cache, exports, and draft JSON/JSONL/NDJSON outputs by default."
+    }
+  },
+  "m3hx_receipt_and_log_references": {
+    "docs/validation/return-to-form-m3hx-detector0-annotation-workbench-no-brev-v1.json": {
+      "sha256": "2edb9fc9726ddefc198cc8d21e9bacd63b81f248dcecb5fd270e4bc9fb0b0724",
+      "status": "completed",
+      "readiness_classification": "local_workbench_smoke_ready_only",
+      "next_action": "continue_m3hy_detector0_annotation_workbench_review_no_brev"
+    },
+    "docs/session-logs/713-mission-3hx-detector0-annotation-workbench-no-brev.md": {
+      "sha256": "a27c0bd47853a0a768e3053edde636cf3a380c0f937a0ed5bf4d491fb09f4a77",
+      "summary": "M3HX built the local draft workbench and recorded that it is not authoritative label evidence, training readiness, evaluation readiness, browser promotion readiness, final-gate evidence, or claim expansion evidence."
+    }
+  },
+  "prepare_cache_smoke_result": {
+    "command": ".venv/bin/python tools/detector0-annotator/prepare.py --include-existing-only --max-frames 4",
+    "status": "passed",
+    "rendered_frame_count": 4,
+    "index_path": "tools/detector0-annotator/.cache/index.json",
+    "index_sha256": "82efcbd2292729135f5c1f1dffc7f53150edddfa457ae6915017fe203af2d1b0",
+    "index_parse_status": "passed",
+    "index_schema_version": "asl-pilot-detector0-annotation-workbench-index/v1",
+    "index_status": "draft_cache_only_not_authoritative_labels",
+    "selection": {
+      "include_existing_only": true,
+      "max_frames": 4
+    },
+    "first_frame": {
+      "row_id": "det0-v0-test-dad-000628-f005",
+      "split": "test",
+      "label_id": "dad",
+      "clip_id": "popsign-v1-test-dad-000628",
+      "frame_index": 5,
+      "tensor_path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-dad-000628-regions.pt",
+      "tensor_file_sha256": "17491b3e34bc79e10f3625184c3db96df4141b96f8ef8ab085d508504fb5d72c",
+      "image_path": ".cache/images/det0-v0-test-dad-000628-f005.png",
+      "image_sha256": "e05e7266a86c814e189f2ef8bc02b6eeae378e432bce23f6e456fbbd3c96c219",
+      "image_width_px": 96,
+      "image_height_px": 96,
+      "coordinate_space": "normalized_full_frame_top_left_xyxy",
+      "existing_v0_target_ids": [
+        "head_or_face",
+        "left_or_first_hand",
+        "right_or_second_hand",
+        "table_two_hand_union_or_contact_region",
+        "upper_body_or_signing_space"
+      ],
+      "manifest_clip": {
+        "allowed_for_model_training": true,
+        "source_license_decision": "approved_popsign_v1_original_videos_2026_05_20",
+        "source_license_review_status": "approved_cc_by_4_raw_video_with_attribution"
+      }
+    }
+  },
+  "ignored_output_proof": {
+    "command": "git status --short --ignored tools/detector0-annotator .playwright-cli",
+    "status": "passed",
+    "ignored_paths_seen": [
+      ".playwright-cli/",
+      "tools/detector0-annotator/.cache/",
+      "tools/detector0-annotator/__pycache__/"
+    ],
+    "committed_cache_or_export_outputs": false,
+    "committed_rendered_frame_pngs": false,
+    "committed_draft_label_exports": false
+  },
+  "static_app_local_export_proof": {
+    "app_path": "tools/detector0-annotator/app.html",
+    "static_local_file_input": true,
+    "loads_index_from_local_file": true,
+    "loads_images_from_cache_relative_image_path": true,
+    "draws_normalized_top_left_xyxy_boxes": true,
+    "separates_existing_v0_anchors_from_draft_targets": true,
+    "exports_local_draft_json_download": true,
+    "draft_export_schema_version": "asl-pilot-detector0-annotator-draft/v1",
+    "draft_export_status": "draft_unreviewed_not_authoritative_labels",
+    "network_call_scan": {
+      "command": "rg -n \"fetch\\(|XMLHttpRequest|sendBeacon|WebSocket|importScripts|navigator\\.sendBeacon|new Worker|SharedWorker|EventSource\" tools/detector0-annotator/app.html tools/detector0-annotator/prepare.py",
+      "exit_code": 1,
+      "matches": []
+    },
+    "pretrained_loader_scan": {
+      "finding": "No executable pretrained loader, model import, or generated-label mechanism was found in app.html or prepare.py. The only generated/pretrained text hit in prepare.py is a false boundary flag set to false."
+    },
+    "authoritative_label_language": "The app export status and row target status are draft-only; README states exports are not authoritative until a later committed ingestion slice reviews and promotes them."
+  },
+  "source_provenance_no_pretrained_proof": {
+    "source_artifacts": {
+      "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlay-gap-repair-v1.json": {
+        "sha256": "d1903481cf3992889240d986f4c04b3f791941014e9128fef6db634831f3bf18",
+        "status": "completed_blocker_preserved_not_training_ready"
+      },
+      "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlays-v1.json": {
+        "sha256": "9336f9b4047ce20499d560da6a8d2967a229aa87497eca28bc6f77fa4600e8fb",
+        "status": "manual_overlay_packet_reviewed_not_training_ready",
+        "row_count": 18
+      },
+      "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json": {
+        "sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d",
+        "status": "expanded_packet_ready_for_detector0_smoke",
+        "frame_row_count": 32
+      },
+      "docs/model/dataset-source-register.json": {
+        "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+        "audit_status": "passed"
+      }
+    },
+    "prepare_index_boundaries": {
+      "uses_tracked_tensors_only": true,
+      "imports_source_media": false,
+      "uploads_raw_learner_video": false,
+      "runs_inference_or_auto_labels": false,
+      "uses_pretrained_or_generated_labels": false,
+      "writes_authoritative_label_artifacts": false,
+      "coordinate_space": "normalized_full_frame_top_left_xyxy"
+    },
+    "audit_no_pretrained_deps_status": "passed",
+    "audit_no_pretrained_artifact_json_status": "passed"
+  },
+  "readme_boundary_review": {
+    "documents_exact_prepare_command": true,
+    "documents_ignored_cache_and_exports": true,
+    "documents_static_page_usage": true,
+    "documents_coordinate_space": true,
+    "documents_draft_only_status": true,
+    "documents_no_upload_no_network_no_inference_no_training_no_claim_change_boundaries": true,
+    "sufficient_for_later_ingestion_contract_slice": true
+  },
+  "claim_surface_proof": {
+    "audit_detector0_manifest_contract_status": "passed",
+    "claim_surfaces_mutated": false,
+    "web/public/model/detector0-card.json": {
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null
+    },
+    "web/public/model/browser-model-bundle.json": {
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9",
+      "recognition_enabled": false,
+      "detector0_tracking_enabled": false,
+      "box_driven_avatar_enabled": false
+    },
+    "web/public/model/model-card.json": {
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "status": "not_trained"
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "activeLabels": []
+    }
+  },
+  "forbidden_action_proof": {
+    "brev_lifecycle_or_remote_command": false,
+    "paid_compute_started": false,
+    "training_or_evaluation_run": false,
+    "source_or_media_import": false,
+    "raw_learner_media_inspection": false,
+    "raw_learner_video_upload": false,
+    "pretrained_or_generated_label_dependency": false,
+    "workbench_implementation_mutation": false,
+    "exported_draft_label_mutation": false,
+    "label_packet_mutation": false,
+    "source_register_or_manifest_mutation": false,
+    "tensor_mutation": false,
+    "vocabulary_mutation": false,
+    "model_card_or_claim_surface_mutation": false,
+    "runtime_code_mutation": false,
+    "final_gate_change": false,
+    "export_promotion_or_browser_activation": false,
+    "push": false,
+    "amend_or_no_verify": false
+  },
+  "remaining_gaps_before_next_stages": [
+    {
+      "classification": "manual-label ingestion contract",
+      "gap": "Draft browser exports have no tracked ingestion contract yet. A future slice should define how local draft exports are validated, rights/provenance checked, converted, reviewed, and promoted into authoritative label artifacts without weakening draft-only status."
+    },
+    {
+      "classification": "human labeling decision",
+      "gap": "No new human-authored boxes were created in this review slice; a future labeling batch still needs explicit human review work."
+    },
+    {
+      "classification": "source/hard-negative review",
+      "gap": "Hard-negative/no-hand/source-review additions remain separate; the current workbench review did not import media or expand sources."
+    },
+    {
+      "classification": "training/evaluation",
+      "gap": "Detector 0 remains not trained and not spec-fit; no training, evaluator run, export, promotion, browser activation, final gate change, or claim expansion occurred."
+    }
+  ],
+  "readiness_classification": {
+    "workbench_internally_consistent": true,
+    "workbench_safe_for_future_local_draft_annotation_review": true,
+    "ready_for_manual_label_ingestion_contract_slice": true,
+    "authoritative_labels_created": false,
+    "detector0_training_ready": false,
+    "detector0_evaluation_ready": false,
+    "browser_promotion_ready": false,
+    "final_gate_ready": false,
+    "claim_expansion_ready": false,
+    "classification": "workbench_review_passed_draft_only_ingestion_contract_next"
+  },
+  "exactly_one_recommended_next_action": "continue_m3hz_detector0_manual_label_ingestion_contract_no_brev"
+}

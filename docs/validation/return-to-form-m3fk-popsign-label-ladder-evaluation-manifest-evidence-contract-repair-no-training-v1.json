@@ -1,0 +1,200 @@
+{
+  "schema_version": "asl-pilot-m3fk-evaluation-manifest-evidence-contract-repair-no-training/v1",
+  "mission": "M3FK - PopSign label-ladder evaluation manifest evidence contract repair no training",
+  "status": "completed",
+  "generated_at": "2026-05-29T00:38:19Z",
+  "generated_by": {
+    "role": "Codex executor",
+    "start_commit": "f1cd0c2",
+    "active_prompt": "docs/model/return-to-form-m3fk-popsign-label-ladder-evaluation-manifest-evidence-contract-repair-no-training-goal-loop-prompt.md"
+  },
+  "m3fj_diagnosis": {
+    "receipt": "docs/validation/return-to-form-m3fj-popsign-label-ladder-result-diagnosis-no-training-v1.json",
+    "classification": "evaluation_manifest_evidence_contract_mismatch",
+    "structured_manifest_check_sha256": "4d2ceb054cd27b87acd4826c4f61f54c286e6c742420e86761d9726c49e4dc7e",
+    "selected_next_action": "continue_popsign_label_ladder_evaluation_manifest_evidence_contract_repair_no_training",
+    "failure_message": "Evaluation failed: current manifest train is missing vocabulary_review evidence"
+  },
+  "source_symbols": {
+    "inspected": [
+      "scripts/evaluate_rawframe_model.py::validate_finality",
+      "scripts/evaluate_rawframe_model.py::validate_evaluation_manifest",
+      "scripts/train_rawframe_model.py::validate_manifest",
+      "scripts/train_rawframe_model.py::validate_vocabulary_review"
+    ],
+    "changed": [
+      {
+        "path": "scripts/evaluate_rawframe_model.py",
+        "symbol": "validate_finality",
+        "change": "When current manifest vocabulary_review is missing, keep the existing hard error for allow_smoke_eval=false modes except PopSign label-ladder training-smoke. For popsign_label_ladder_training_smoke, record a diagnostic/non-final limitation reason instead of raising EvaluationError."
+      }
+    ],
+    "unchanged_shared_contracts": [
+      "validate_evaluation_manifest still calls validate_manifest(... allow_popsign_label_ladder_set=True) only for --popsign-label-ladder-training-smoke.",
+      "validate_manifest and validate_vocabulary_review were not changed.",
+      "final, lesson, reduced-real-data, region-grid, PopSign fresh5, and controlled-clip-heldout missing-vocabulary-review gates remain hard errors."
+    ]
+  },
+  "contract_classification": {
+    "pre_repair": {
+      "popsign_label_ladder_missing_vocabulary_review": "hard_evaluation_error_after_checkpoint_provenance_load",
+      "observed_error": "current manifest train is missing vocabulary_review evidence"
+    },
+    "post_repair": {
+      "popsign_label_ladder_missing_vocabulary_review": "nonblocking_diagnostic_limitation_reason_for_popsign_label_ladder_training_smoke_only",
+      "other_modes_missing_vocabulary_review": "hard_evaluation_error_preserved"
+    }
+  },
+  "no_report_proof": {
+    "command": "PYTHONPATH=scripts PYTHONDONTWRITEBYTECODE=1 .venv/bin/python - <<'PY' ... validate_finality guard probe ... PY",
+    "exit_status": 0,
+    "output_path": "/tmp/asl-pilot-m3fk-no-report-finality-proof.json",
+    "output_sha256": "637c676ce07a8d62923750ec5ce85fd8670c0c29dd3f716873e77e9f8ef5d408",
+    "exercised_post_checkpoint_vocabulary_review_gate": true,
+    "loaded_model_weights": false,
+    "constructed_dataloaders": false,
+    "wrote_validation_report": false,
+    "wrote_calibrated_provenance": false,
+    "label_ladder_missing_vocabulary_review_recorded_as_reason": true,
+    "all_other_modes_preserve_missing_vocabulary_review_hard_gate": true,
+    "preserved_modes_checked": [
+      "final",
+      "lesson_milestone",
+      "reduced_real_data_training_smoke",
+      "region_grid_tcn_training_smoke",
+      "popsign_fresh5_training_smoke",
+      "controlled_clip_heldout"
+    ],
+    "label_ladder_reasons": [
+      "current manifest train lacks vocabulary_review evidence; PopSign label-ladder training smoke remains diagnostic and not final, product, browser, promotion, or ASL correctness evidence",
+      "current manifest validation lacks vocabulary_review evidence; PopSign label-ladder training smoke remains diagnostic and not final, product, browser, promotion, or ASL correctness evidence",
+      "current manifest test lacks vocabulary_review evidence; PopSign label-ladder training smoke remains diagnostic and not final, product, browser, promotion, or ASL correctness evidence",
+      "PopSign label-ladder training smoke is capped and not final 75-100-label, 25-sign lesson, product, browser, promotion, or ASL correctness evidence"
+    ]
+  },
+  "manifest_check": {
+    "command": "PYTHONPATH=scripts PYTHONDONTWRITEBYTECODE=1 .venv/bin/python - <<'PY' ... validate_manifest over data/manifests/diagnostics/popsign-label-ladder ... PY",
+    "exit_status": 0,
+    "output_path": "/tmp/asl-pilot-m3fk-manifest-vocabulary-review-status.json",
+    "output_sha256": "c0f9c529f2e191cd452386e268c13b6902f0b4331aa1c78414b6a6069610c5ae",
+    "canonical_summary_sha256": "19bcc3692607e6b264b2a91e708502912b144fc821337edc76df71b9e8e9d62c",
+    "manifest_count": 15,
+    "label_counts": [
+      5,
+      10,
+      25,
+      50,
+      95
+    ],
+    "all_source_register_hashes_match_current": true,
+    "source_register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+    "all_diagnostic_finality_ok": true,
+    "vocabulary_review_present_count": 0,
+    "vocabulary_review_missing_count": 15
+  },
+  "fail_closed_claim_surfaces": {
+    "before": {
+      "web_public_model_model_card_status": "not_trained",
+      "docs_model_active_vocabulary_claim_active_labels": []
+    },
+    "after": {
+      "web_public_model_model_card_status": "not_trained",
+      "docs_model_active_vocabulary_claim_active_labels": []
+    },
+    "unchanged": true
+  },
+  "forbidden_actions_proof": {
+    "training_or_fitting": false,
+    "optimizer_or_backward_pass": false,
+    "checkpoint_creation": false,
+    "evaluator_rerun_or_completed_checkpoint_evaluation": false,
+    "validation_report_output": false,
+    "calibrated_provenance_output": false,
+    "brev_lifecycle_spend_remote_sync_copy": false,
+    "source_register_edit": false,
+    "source_media_import": false,
+    "manifest_tensor_vocabulary_packet_mutation": false,
+    "package_or_dependency_mutation": false,
+    "generated_labels_or_pretrained_path": false,
+    "raw_learner_upload": false,
+    "export_promotion_browser_activation": false,
+    "model_card_or_active_vocabulary_promotion": false,
+    "final_gate_weakening": false,
+    "product_readiness_or_asl_correctness_claim": false,
+    "push": false,
+    "amend_or_no_verify": false,
+    "brev_ls_json": "not_run"
+  },
+  "validation_commands": [
+    {
+      "command": "git status --short --branch",
+      "exit_status": 0
+    },
+    {
+      "command": "git log -12 --oneline --decorate",
+      "exit_status": 0
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_status": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_status": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "exit_status": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_status": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_status": 0,
+      "status": "passed"
+    },
+    {
+      "command": ".venv/bin/python -m json.tool docs/validation/return-to-form-m3fj-popsign-label-ladder-result-diagnosis-no-training-v1.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": ".venv/bin/python -m json.tool docs/validation/return-to-form-m3fi-popsign-label-ladder-local-fitting-sanity-after-approval-v1.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": ".venv/bin/python -m json.tool docs/validation/return-to-form-m3fg-popsign-label-ladder-evaluation-contract-fix-no-training-v1.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": ".venv/bin/python -m json.tool docs/validation/return-to-form-m3ff-popsign-label-ladder-command-contract-fix-no-training-v1.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": ".venv/bin/python -m json.tool docs/validation/popsign-label-ladder-manifests.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": ".venv/bin/python -m json.tool web/public/model/model-card.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": ".venv/bin/python -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "exit_status": 0
+    },
+    {
+      "command": "git diff --check",
+      "exit_status": 0
+    }
+  ],
+  "next_action": "continue_popsign_label_ladder_post_repair_evaluation_probe_no_training"
+}

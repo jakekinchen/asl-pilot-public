@@ -1,0 +1,741 @@
+{
+  "active_prompt": "docs/model/return-to-form-region-grid-tcn-tiny-overfit-goal-loop-prompt.md",
+  "caps": {
+    "batch_size": 7,
+    "epochs": 120,
+    "frame_count": 16,
+    "image_size": 96,
+    "learning_rate": 0.003,
+    "local_only": true,
+    "num_workers": 0,
+    "weight_decay": 0.0
+  },
+  "changed_files": [
+    {
+      "path": "scripts/run_region_grid_tcn_tiny_overfit.py",
+      "sha256": "6c02e594c4b2d312da7884f95221cf265a4c6745fdc5fd43974e7f58bc373946"
+    }
+  ],
+  "commands": {
+    "dry_run_input_contract_proof": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/run_region_grid_tcn_tiny_overfit.py",
+      "--train-manifest",
+      "data/manifests/lesson/high-signal-region-grid/train.json",
+      "--output-dir",
+      "output/m3ax-region-grid-tcn-tiny-overfit",
+      "--receipt",
+      "docs/validation/return-to-form-region-grid-tcn-tiny-overfit-v1.json",
+      "--clips-per-label",
+      "1",
+      "--epochs",
+      "120",
+      "--batch-size",
+      "7",
+      "--learning-rate",
+      "0.003",
+      "--weight-decay",
+      "0.0",
+      "--frame-count",
+      "16",
+      "--image-size",
+      "96",
+      "--num-workers",
+      "0",
+      "--check-files",
+      "--dry-run"
+    ],
+    "json_validation": [
+      [
+        "python3",
+        "-m",
+        "json.tool",
+        "docs/validation/return-to-form-region-grid-tcn-tiny-overfit-v1.json"
+      ],
+      [
+        "python3",
+        "-m",
+        "json.tool",
+        "output/m3ax-region-grid-tcn-tiny-overfit/selected-subset.json"
+      ],
+      [
+        "python3",
+        "-m",
+        "json.tool",
+        "output/m3ax-region-grid-tcn-tiny-overfit/tiny-overfit-provenance.json"
+      ]
+    ],
+    "probe_evaluation": "After each epoch and at the end, the script evaluates accuracy, loss, predictions, and per-label recall on the same deterministic tiny subset.",
+    "receipt_recovery": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/run_region_grid_tcn_tiny_overfit.py",
+      "--train-manifest",
+      "data/manifests/lesson/high-signal-region-grid/train.json",
+      "--output-dir",
+      "output/m3ax-region-grid-tcn-tiny-overfit",
+      "--receipt",
+      "docs/validation/return-to-form-region-grid-tcn-tiny-overfit-v1.json",
+      "--clips-per-label",
+      "1",
+      "--epochs",
+      "120",
+      "--batch-size",
+      "7",
+      "--learning-rate",
+      "0.003",
+      "--weight-decay",
+      "0.0",
+      "--frame-count",
+      "16",
+      "--image-size",
+      "96",
+      "--num-workers",
+      "0",
+      "--check-files",
+      "--write-receipt",
+      "--recover-from-existing-output"
+    ],
+    "single_local_overfit_probe": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/run_region_grid_tcn_tiny_overfit.py",
+      "--train-manifest",
+      "data/manifests/lesson/high-signal-region-grid/train.json",
+      "--output-dir",
+      "output/m3ax-region-grid-tcn-tiny-overfit",
+      "--receipt",
+      "docs/validation/return-to-form-region-grid-tcn-tiny-overfit-v1.json",
+      "--clips-per-label",
+      "1",
+      "--epochs",
+      "120",
+      "--batch-size",
+      "7",
+      "--learning-rate",
+      "0.003",
+      "--weight-decay",
+      "0.0",
+      "--frame-count",
+      "16",
+      "--image-size",
+      "96",
+      "--num-workers",
+      "0",
+      "--check-files",
+      "--write-receipt"
+    ]
+  },
+  "conclusion": "The current region-grid true TCN memorized the deterministic tiny subset within the predeclared threshold. This is diagnostic only and does not authorize broad training, export, promotion, or browser activation.",
+  "exactly_one_next_action": "continue_vocab_crop_separability_diagnosis_no_training",
+  "generated_at": "2026-05-27T11:17:12.093507+00:00",
+  "generated_by": {
+    "command": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/run_region_grid_tcn_tiny_overfit.py",
+      "--train-manifest",
+      "data/manifests/lesson/high-signal-region-grid/train.json",
+      "--output-dir",
+      "output/m3ax-region-grid-tcn-tiny-overfit",
+      "--receipt",
+      "docs/validation/return-to-form-region-grid-tcn-tiny-overfit-v1.json",
+      "--clips-per-label",
+      "1",
+      "--epochs",
+      "120",
+      "--batch-size",
+      "7",
+      "--learning-rate",
+      "0.003",
+      "--weight-decay",
+      "0.0",
+      "--frame-count",
+      "16",
+      "--image-size",
+      "96",
+      "--num-workers",
+      "0",
+      "--check-files",
+      "--write-receipt",
+      "--recover-from-existing-output"
+    ],
+    "environment_files": [
+      {
+        "path": "requirements.txt",
+        "sha256": "f01e6fc468f195ddd8f5c1d7331cc5ca1dd6861b5aa892aef2360bb001d4cb4a"
+      },
+      {
+        "path": "web/package.json",
+        "sha256": "df262a9bf68ad9aaae221d99c4c8c7a2471ab80dbb9b58ac73b95d2fec2d724a"
+      },
+      {
+        "path": "web/package-lock.json",
+        "sha256": "caf0326b0a63065b1edb5fa1d627c32fa2a9ab5d3e025dd85752f255d98d6d2d"
+      },
+      {
+        "path": "docs/validation/local-ml-environment.json",
+        "sha256": "1760c0cc50f652102094e98fe3b4e6aa2a41774118f5626b29b866afc6e05b90"
+      }
+    ],
+    "local_ml_environment": {
+      "path": "docs/validation/local-ml-environment.json",
+      "sha256": "1760c0cc50f652102094e98fe3b4e6aa2a41774118f5626b29b866afc6e05b90"
+    },
+    "script": {
+      "path": "scripts/run_region_grid_tcn_tiny_overfit.py",
+      "sha256": "6c02e594c4b2d312da7884f95221cf265a4c6745fdc5fd43974e7f58bc373946"
+    },
+    "tool": "scripts/run_region_grid_tcn_tiny_overfit.py"
+  },
+  "guardrails": {
+    "brev_used": false,
+    "browser_or_final_claims_changed": false,
+    "external_media_imported": false,
+    "final_gates_changed": false,
+    "initialization": "random",
+    "model_exported": false,
+    "model_promoted": false,
+    "normal_training_retry": false,
+    "pretrained_components": []
+  },
+  "input_contract": {
+    "batched_model_input_axis": "B,T,R,C,H,W",
+    "batched_model_input_shape": [
+      7,
+      16,
+      5,
+      3,
+      96,
+      96
+    ],
+    "logits_shape": [
+      7,
+      7
+    ],
+    "no_mosaic_training_path": true,
+    "prepared_model_input_axis": "T,R,C,H,W",
+    "prepared_model_input_shape": [
+      16,
+      5,
+      3,
+      96,
+      96
+    ],
+    "raw_rgb_regions_shape": [
+      16,
+      5,
+      96,
+      96,
+      3
+    ],
+    "region_axis_preserved_until": "TrueTemporalConvNetRawFrameClassifier.region_attention",
+    "required_contract": "rgb_regions_grid_v1",
+    "status": "passed"
+  },
+  "mission": "M3AX",
+  "output_artifacts": [
+    {
+      "path": "output/m3ax-region-grid-tcn-tiny-overfit/model_state.pt",
+      "sha256": "e81d9496a9dc5084b3a441b80553f0d48b7a7f716e5bbb3eaabfb73ceac33cdd"
+    },
+    {
+      "path": "output/m3ax-region-grid-tcn-tiny-overfit/selected-subset.json",
+      "sha256": "12a2fb093b65993e7768a9c5706368672d4414bc61f7c10d41548a73d5ecca7f"
+    },
+    {
+      "path": "output/m3ax-region-grid-tcn-tiny-overfit/tiny-overfit-provenance.json",
+      "sha256": "36dd0d00981974c4762908c7a5cddbdf21df87bdd667fc7aaf2541fe082aa467"
+    }
+  ],
+  "schema_version": "asl-pilot-region-grid-tcn-tiny-overfit/v1",
+  "source_manifest": {
+    "clip_count": 84,
+    "dataset_id": "asl-pilot-asl-citizen-high-signal-module-v0",
+    "label_count": 7,
+    "path": "/Users/kelly/Developer/asl-pilot/data/manifests/lesson/high-signal-region-grid/train.json",
+    "sha256": "101455329ae04ad06a2c3fd4ca26a29c04ae945bb7925bee373cf3229594fc3d",
+    "split": "train"
+  },
+  "status": "tiny_overfit_succeeded",
+  "subset": {
+    "clip_count": 7,
+    "clips": [
+      {
+        "clip_id": "asl-citizen-train-black-05171855154691851-black",
+        "label_id": "black",
+        "label_index": 0,
+        "label_name": "Black",
+        "manifest_index": 26,
+        "prepared_model_input_axis": "T,R,C,H,W",
+        "prepared_model_input_shape": [
+          16,
+          5,
+          3,
+          96,
+          96
+        ],
+        "raw_rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "region_ids": [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ],
+        "source_gloss": "BLACK",
+        "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/train/asl-citizen-train-black-05171855154691851-black-regions.pt",
+        "tensor_sha256": "0ac87a928191d0f6ffe06a47e76f8254d214bbb9cd57a2bfbb3dfd50dbdf1ee2",
+        "training_loader": {
+          "consumed_key": "rgb_regions",
+          "consumed_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "derived_input_name": "rgb_regions_grid_v1",
+          "model_input_axis_before_prepare": "T,R,H,W,C",
+          "region_axis_preserved": true
+        }
+      },
+      {
+        "clip_id": "asl-citizen-train-hello-0022932153577568393-hello",
+        "label_id": "hello",
+        "label_index": 1,
+        "label_name": "Hello",
+        "manifest_index": 57,
+        "prepared_model_input_axis": "T,R,C,H,W",
+        "prepared_model_input_shape": [
+          16,
+          5,
+          3,
+          96,
+          96
+        ],
+        "raw_rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "region_ids": [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ],
+        "source_gloss": "HELLO",
+        "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/train/asl-citizen-train-hello-0022932153577568393-hello-regions.pt",
+        "tensor_sha256": "5b59151c0a6a61869499793b76fd3b460d66864382bf279fcc87d242ea9f0310",
+        "training_loader": {
+          "consumed_key": "rgb_regions",
+          "consumed_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "derived_input_name": "rgb_regions_grid_v1",
+          "model_input_axis_before_prepare": "T,R,H,W,C",
+          "region_axis_preserved": true
+        }
+      },
+      {
+        "clip_id": "asl-citizen-train-please-04515307711600891-please",
+        "label_id": "please",
+        "label_index": 2,
+        "label_name": "Please",
+        "manifest_index": 61,
+        "prepared_model_input_axis": "T,R,C,H,W",
+        "prepared_model_input_shape": [
+          16,
+          5,
+          3,
+          96,
+          96
+        ],
+        "raw_rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "region_ids": [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ],
+        "source_gloss": "PLEASE",
+        "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/train/asl-citizen-train-please-04515307711600891-please-regions.pt",
+        "tensor_sha256": "e7b79d831d892befc4e3683ac408f8b07f85381c2e8f49a4355d2ae707ccb77c",
+        "training_loader": {
+          "consumed_key": "rgb_regions",
+          "consumed_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "derived_input_name": "rgb_regions_grid_v1",
+          "model_input_axis_before_prepare": "T,R,H,W,C",
+          "region_axis_preserved": true
+        }
+      },
+      {
+        "clip_id": "asl-citizen-train-sad-0100581049977424-sad",
+        "label_id": "sad",
+        "label_index": 3,
+        "label_name": "Sad",
+        "manifest_index": 12,
+        "prepared_model_input_axis": "T,R,C,H,W",
+        "prepared_model_input_shape": [
+          16,
+          5,
+          3,
+          96,
+          96
+        ],
+        "raw_rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "region_ids": [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ],
+        "source_gloss": "SAD",
+        "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/train/asl-citizen-train-sad-0100581049977424-sad-regions.pt",
+        "tensor_sha256": "a04ed23478b73437f66cf120e353e29babf7b5aaa5d96eba29951177b179a998",
+        "training_loader": {
+          "consumed_key": "rgb_regions",
+          "consumed_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "derived_input_name": "rgb_regions_grid_v1",
+          "model_input_axis_before_prepare": "T,R,H,W,C",
+          "region_axis_preserved": true
+        }
+      },
+      {
+        "clip_id": "asl-citizen-train-table-008903198787238775-table",
+        "label_id": "table",
+        "label_index": 4,
+        "label_name": "Table",
+        "manifest_index": 77,
+        "prepared_model_input_axis": "T,R,C,H,W",
+        "prepared_model_input_shape": [
+          16,
+          5,
+          3,
+          96,
+          96
+        ],
+        "raw_rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "region_ids": [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ],
+        "source_gloss": "TABLE",
+        "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/train/asl-citizen-train-table-008903198787238775-table-regions.pt",
+        "tensor_sha256": "8dd554f00dffaf21e8b40cadb1a5cc4dcc6fdc77dc48b3b9615352ea14721339",
+        "training_loader": {
+          "consumed_key": "rgb_regions",
+          "consumed_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "derived_input_name": "rgb_regions_grid_v1",
+          "model_input_axis_before_prepare": "T,R,H,W,C",
+          "region_axis_preserved": true
+        }
+      },
+      {
+        "clip_id": "asl-citizen-train-uncle-17149431081883848-uncle",
+        "label_id": "uncle",
+        "label_index": 5,
+        "label_name": "Uncle",
+        "manifest_index": 40,
+        "prepared_model_input_axis": "T,R,C,H,W",
+        "prepared_model_input_shape": [
+          16,
+          5,
+          3,
+          96,
+          96
+        ],
+        "raw_rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "region_ids": [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ],
+        "source_gloss": "UNCLE",
+        "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/train/asl-citizen-train-uncle-17149431081883848-uncle-regions.pt",
+        "tensor_sha256": "be56a2ec594d430c5488f3a9bd69f5c46e072f80f7d32bb50e9a3306fd4ac85d",
+        "training_loader": {
+          "consumed_key": "rgb_regions",
+          "consumed_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "derived_input_name": "rgb_regions_grid_v1",
+          "model_input_axis_before_prepare": "T,R,H,W,C",
+          "region_axis_preserved": true
+        }
+      },
+      {
+        "clip_id": "asl-citizen-train-white-10848457531453715-white",
+        "label_id": "white",
+        "label_index": 6,
+        "label_name": "White",
+        "manifest_index": 0,
+        "prepared_model_input_axis": "T,R,C,H,W",
+        "prepared_model_input_shape": [
+          16,
+          5,
+          3,
+          96,
+          96
+        ],
+        "raw_rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "region_ids": [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ],
+        "source_gloss": "WHITE",
+        "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/train/asl-citizen-train-white-10848457531453715-white-regions.pt",
+        "tensor_sha256": "c9ebbad3541142bf7a2ff8566e61610806cfe7f47417ba230b16a0754272cf4f",
+        "training_loader": {
+          "consumed_key": "rgb_regions",
+          "consumed_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "derived_input_name": "rgb_regions_grid_v1",
+          "model_input_axis_before_prepare": "T,R,H,W,C",
+          "region_axis_preserved": true
+        }
+      }
+    ],
+    "clips_per_label": 1,
+    "labels": [
+      {
+        "label_id": "black",
+        "label_name": "Black"
+      },
+      {
+        "label_id": "hello",
+        "label_name": "Hello"
+      },
+      {
+        "label_id": "please",
+        "label_name": "Please"
+      },
+      {
+        "label_id": "sad",
+        "label_name": "Sad"
+      },
+      {
+        "label_id": "table",
+        "label_name": "Table"
+      },
+      {
+        "label_id": "uncle",
+        "label_name": "Uncle"
+      },
+      {
+        "label_id": "white",
+        "label_name": "White"
+      }
+    ],
+    "selection_rule": "sort labels lexicographically, sort clips within each label by clip_id, select first clips_per_label"
+  },
+  "training_result": {
+    "best_eval_metrics": null,
+    "checkpoint_recorded_final_model_state_digest": {
+      "algorithm": "canonical_state_dict_sha256_v1",
+      "parameter_count": 1294514,
+      "sha256": "256d0f48c36d340010a5201ab4de1daba542dd5a1fb508aa57e1a624dd2b258b"
+    },
+    "final_eval_metrics": {
+      "accuracy": 1.0,
+      "correct": 7,
+      "examples": 7,
+      "loss": 1.7881354779092362e-06,
+      "per_label": {
+        "black": {
+          "correct": 1,
+          "recall": 1.0,
+          "support": 1
+        },
+        "hello": {
+          "correct": 1,
+          "recall": 1.0,
+          "support": 1
+        },
+        "please": {
+          "correct": 1,
+          "recall": 1.0,
+          "support": 1
+        },
+        "sad": {
+          "correct": 1,
+          "recall": 1.0,
+          "support": 1
+        },
+        "table": {
+          "correct": 1,
+          "recall": 1.0,
+          "support": 1
+        },
+        "uncle": {
+          "correct": 1,
+          "recall": 1.0,
+          "support": 1
+        },
+        "white": {
+          "correct": 1,
+          "recall": 1.0,
+          "support": 1
+        }
+      },
+      "predictions": [
+        {
+          "confidence": 1.0,
+          "correct": true,
+          "predicted_label": "black",
+          "row_index": 0,
+          "true_label": "black"
+        },
+        {
+          "confidence": 0.9999978542327881,
+          "correct": true,
+          "predicted_label": "hello",
+          "row_index": 1,
+          "true_label": "hello"
+        },
+        {
+          "confidence": 0.9999997615814209,
+          "correct": true,
+          "predicted_label": "please",
+          "row_index": 2,
+          "true_label": "please"
+        },
+        {
+          "confidence": 0.9999985694885254,
+          "correct": true,
+          "predicted_label": "sad",
+          "row_index": 3,
+          "true_label": "sad"
+        },
+        {
+          "confidence": 0.9999978542327881,
+          "correct": true,
+          "predicted_label": "table",
+          "row_index": 4,
+          "true_label": "table"
+        },
+        {
+          "confidence": 1.0,
+          "correct": true,
+          "predicted_label": "uncle",
+          "row_index": 5,
+          "true_label": "uncle"
+        },
+        {
+          "confidence": 0.9999934434890747,
+          "correct": true,
+          "predicted_label": "white",
+          "row_index": 6,
+          "true_label": "white"
+        }
+      ],
+      "zero_recall_labels": []
+    },
+    "final_model_state_digest": {
+      "algorithm": "canonical_state_dict_sha256_v1",
+      "parameter_count": 1294514,
+      "sha256": "256d0f48c36d340010a5201ab4de1daba542dd5a1fb508aa57e1a624dd2b258b"
+    },
+    "history": null,
+    "history_tail": null,
+    "history_unavailable_reason": "Original training history was not persisted before the receipt-write failure.",
+    "initial_model_state_digest": {
+      "algorithm": "canonical_state_dict_sha256_v1",
+      "parameter_count": 1294514,
+      "sha256": "16d49f626c92d9496f6b831389dcdf42130a987a09dd5b60af2615804668f21c"
+    },
+    "runtime": {
+      "device": "mps",
+      "elapsed_seconds": null,
+      "python": "3.14.5",
+      "recovered_from_existing_output": true,
+      "recovery_reason": "The single authorized training command saved model_state.pt and selected-subset.json, then failed while serializing JSON provenance because manifest summary label ids were a set. This recovery path loads that saved checkpoint and evaluates it without another training run.",
+      "torch": "2.12.0"
+    },
+    "status": "succeeded",
+    "success": true,
+    "success_threshold": {
+      "accuracy_gte": 0.95,
+      "no_zero_recall_selected_labels": true,
+      "predeclared_before_run": true
+    }
+  }
+}

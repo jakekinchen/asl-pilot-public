@@ -1,0 +1,110 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3ha-human-reviewed-fail-closed-demo-finish/v1",
+  "status": "completed_with_supervisor_repair",
+  "generated_at": "2026-05-29T08:59:45-05:00",
+  "mission": "M3HA - human-reviewed fail-closed demo finish",
+  "active_prompt": "docs/model/return-to-form-m3ha-human-reviewed-fail-closed-demo-finish-goal-loop-prompt.md",
+  "head_before_slice": "03451e4 supervisor: unpark m3ha fail-closed demo finish",
+  "supervisor_note": "The restarted executor refreshed the three runtime smoke receipts but exited before writing this receipt/session log or committing. The supervisor completed validation and committed the scoped evidence so the pair can restart from a clean tree.",
+  "commands_run": [
+    "git status --short --branch",
+    "git log -12 --oneline --decorate",
+    "node scripts/audit_loop_premise.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs --json",
+    "node scripts/audit_source_register.mjs",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "node scripts/audit_no_raw_video_upload.mjs",
+    "node scripts/audit_practice_screen_contract.mjs",
+    "node scripts/audit_practice_scope_copy_smoke.mjs",
+    "node scripts/run_practice_progress_smoke.mjs --write",
+    "node scripts/audit_practice_progress_smoke.mjs",
+    "node scripts/run_practice_camera_behavior_smoke.mjs --write",
+    "node scripts/audit_practice_camera_behavior_smoke.mjs",
+    "node scripts/run_lesson_page_smoke.mjs --write",
+    "node scripts/audit_lesson_page_smoke.mjs",
+    "node scripts/audit_lesson_fail_closed.mjs",
+    "node scripts/audit_avatar_no_recognition_claims.mjs",
+    "node scripts/audit_validation_page_smoke.mjs",
+    "node scripts/audit_final_claim_matrix.mjs",
+    "npm --prefix web run typecheck",
+    "npm --prefix web run lint",
+    "git diff --check"
+  ],
+  "command_results": {
+    "baseline_audits": "passed",
+    "practice_screen_contract": "passed",
+    "practice_scope_copy_smoke": "passed",
+    "practice_progress_smoke": "passed",
+    "practice_camera_behavior_smoke": "passed",
+    "lesson_page_smoke": "passed",
+    "lesson_fail_closed": "passed",
+    "avatar_no_recognition_claims": "passed",
+    "validation_page_smoke": "passed",
+    "final_claim_matrix": "passed",
+    "no_raw_video_upload": "passed",
+    "typecheck": "passed",
+    "lint": "passed",
+    "diff_check": "passed"
+  },
+  "refreshed_smoke_artifacts": [
+    {
+      "path": "docs/validation/practice-progress-smoke.json",
+      "status": "passed",
+      "tested_at": "2026-05-29T13:57:01.942Z",
+      "sha256": "e92cdb762b741da7622857c076431982da9fbe697b9a36596ab50f909ec5475b"
+    },
+    {
+      "path": "docs/validation/practice-camera-behavior-smoke.json",
+      "status": "passed",
+      "tested_at": "2026-05-29T13:57:12.805Z",
+      "sha256": "10f63c493b954f706c41d7b41184bceb92e73413adaed3f0a16387ea4cab9591"
+    },
+    {
+      "path": "docs/validation/lesson-page-smoke.json",
+      "status": "passed",
+      "tested_at": "2026-05-29T13:57:07.403Z",
+      "sha256": "9266fc7208a988fd650f03fa03aa194ea4c5d58b4158fc4968aac03881749b5c"
+    }
+  ],
+  "claim_surface_state": {
+    "web_public_model_model_card_status": "not_trained",
+    "web_public_model_model_card_sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+    "web_public_model_detector0_card_status": "not_trained",
+    "web_public_model_detector0_card_sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+    "active_vocabulary_claim_sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+    "active_labels": [],
+    "browser_recognition_enabled": false,
+    "detector0_tracking_enabled": false,
+    "box_driven_avatar_enabled": false
+  },
+  "files_changed": [
+    "docs/validation/practice-progress-smoke.json",
+    "docs/validation/practice-camera-behavior-smoke.json",
+    "docs/validation/lesson-page-smoke.json",
+    "docs/validation/return-to-form-m3ha-human-reviewed-fail-closed-demo-finish-v1.json",
+    "docs/session-logs/670-supervisor-redirect-m3hb-human-reopened-model-completion-route.md"
+  ],
+  "forbidden_actions_intentionally_not_run": [
+    "recognizer training or fitting",
+    "micro-overfit",
+    "evaluator rerun or ignored ML output regeneration",
+    "Brev lifecycle, remote, sync, copy, exec, or spend",
+    "raw media inspection",
+    "source or media import",
+    "source-register rights mutation",
+    "manifest, tensor, vocabulary, or packet mutation",
+    "export or model-card promotion",
+    "browser recognition activation",
+    "final-gate weakening",
+    "recognition, ASL-correctness, product-readiness, or final-readiness claim expansion",
+    "pretrained detector, landmark, backbone, embedding, teacher, or feature shortcut"
+  ],
+  "product_claim_boundary": "The app remains a fail-closed, learn-only browser-first ASL practice and lesson demo. It does not claim active ASL recognition, automatic grading, Detector 0 tracking, trained labels, or model readiness.",
+  "brev_state": {
+    "commands_run": [],
+    "default_off": true,
+    "latest_read_only_state": "asl-pilot-m3eh-l40s-001 / 3d58wpy9o was observed STOPPED / COMPLETED / NOT READY / HEALTHY before this repair"
+  },
+  "next_action": "stop_for_human_demo_acceptance_review"
+}

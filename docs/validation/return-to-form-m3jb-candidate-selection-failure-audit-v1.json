@@ -1,0 +1,108 @@
+{
+  "schema_version": "asl-pilot-m3jb-candidate-selection-failure-audit-receipt/v1",
+  "receipt_id": "return-to-form-m3jb-candidate-selection-failure-audit-v1",
+  "status": "selector_failure_audited_not_gate_passing",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "summary": "The rejected candidate-level crop/pose subproposal head was reloaded in eval-only mode and audited over all 84 real two-hand rows. Selected distinct assignment remains 0.380952 while oracle distinct assignment remains 0.988095. The failure taxonomy shows a selector calibration/objective problem: 50 failures select low-target candidates, 43 are quality false positives, 29 select too-small sub-boxes, 27 select the same GT slot, and 15 select hard-negative candidates.",
+  "runtime_boundary": {
+    "training_run": false,
+    "checkpoint_written": false,
+    "browser_exported": false,
+    "mediapipe_runtime_dependency": false,
+    "raw_learner_video_uploaded": false,
+    "brev_used": false
+  },
+  "artifacts": {
+    "side_script": {
+      "path": "tools/detector0-annotator/train_hand_pair_ranker.py",
+      "sha256": "7193972dfc5febee4573a9396bd517c8b6c9fa9b86d463a92a7038bcbc574e3f"
+    },
+    "source_candidate_head_receipt": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-candidate-head-croppose-top40-src8-aug24-train2500-e12-v1.json"
+    },
+    "failure_audit_receipt": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-candidate-selection-failure-audit-croppose-top40-src8-aug24-v1.json",
+      "sha256": "c7128d2e180d99c817df4c9343623e41ca8a5365c6e12f537a7620520f1ab222"
+    },
+    "failure_contact_sheet": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-candidate-selection-failure-audit-croppose-top40-src8-aug24-v1.png",
+      "sha256": "9c95abf91198799d487425e64e44a8b525e16938368117a63cfa44d145cb9347"
+    }
+  },
+  "commands_run": [
+    {
+      "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_hand_pair_ranker.py",
+      "result": "passed"
+    },
+    {
+      "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --self-test",
+      "result": "passed: self-test ok: candidate head, cached candidate pack, and listwise pair ranker forward"
+    },
+    {
+      "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --candidate-selection-audit-only --candidate-head-receipt tools/detector0-annotator/output/m3jb-hand-candidate-head-croppose-top40-src8-aug24-train2500-e12-v1.json --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --candidate-feature-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features --ranker-device cpu --out tools/detector0-annotator/output/m3jb-hand-candidate-selection-failure-audit-croppose-top40-src8-aug24-v1.json --candidate-selection-audit-render tools/detector0-annotator/output/m3jb-hand-candidate-selection-failure-audit-croppose-top40-src8-aug24-v1.png",
+      "result": "passed: eval-only failure receipt and contact sheet written"
+    }
+  ],
+  "metrics": {
+    "selected": {
+      "coverage": 0.845238,
+      "distinct_assigned_coverage": 0.380952,
+      "collapse_rate": 0.0,
+      "same_prediction_coverage_count": 39,
+      "coverage_failure_count": 13,
+      "distinct_assignment_failure_count": 52,
+      "n": 84
+    },
+    "oracle": {
+      "coverage": 0.988095,
+      "distinct_assigned_coverage": 0.988095,
+      "collapse_rate": 0.0,
+      "same_prediction_coverage_count": 0,
+      "coverage_failure_count": 1,
+      "distinct_assignment_failure_count": 1,
+      "n": 84
+    }
+  },
+  "failure_summary": {
+    "failure_count": 52,
+    "oracle_pass_selected_fail_count": 51,
+    "oracle_fail_count": 1,
+    "selected_pass_count": 32,
+    "mean_oracle_gap_on_failures": 0.348793,
+    "tag_counts": {
+      "selected_low_target_candidate": 50,
+      "quality_false_positive": 43,
+      "selected_subbox_too_small": 29,
+      "same_gt_slot_selected": 27,
+      "selected_hard_negative_candidate": 15,
+      "misses_at_least_one_gt": 13,
+      "misses_both_gt": 6,
+      "selected_pair_overlap_high": 5,
+      "positive_candidates_bad_pairing": 2,
+      "oracle_candidate_miss": 1
+    },
+    "top_failure_source_indices": [
+      1231,
+      14316,
+      8769,
+      17220,
+      12673,
+      17791,
+      12329,
+      13853,
+      4054,
+      12328,
+      16355,
+      7748
+    ]
+  },
+  "decision": {
+    "promoted": false,
+    "browser_tracking_exported": false,
+    "reason": "The candidate set has enough recoverability for 83/84 real two-hand rows, but the trained selector's quality/slot scores choose too-small, low-target, hard-negative, or same-slot subproposals. This is not a browser-ready model."
+  },
+  "next_action": "continue_m3jb_selector_calibration_or_objective_repair_on_brev"
+}

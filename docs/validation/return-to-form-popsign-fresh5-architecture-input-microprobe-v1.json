@@ -1,0 +1,1221 @@
+{
+  "active_prompt": "docs/model/return-to-form-popsign-fresh5-architecture-input-microprobe-goal-loop-prompt.md",
+  "comparison_to_previous_evidence": {
+    "m3bv_prior_true_temporal_convnet_tiny_overfit": {
+      "architecture": "true_temporal_convnet_region_grid",
+      "final_accuracy": 1.0,
+      "receipt": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-model-data-design-ablation-v1.json",
+        "sha256": "74590b35b59e7696bc2e4f46e5fd2ae0281935aa8d7360f6efeb563453b4effe"
+      },
+      "status": "tiny_overfit_succeeded",
+      "success": true,
+      "zero_recall_labels": []
+    },
+    "m3ca_learnability_probe_decision": {
+      "exactly_one_next_action": "continue_model_input_or_training_loop_remediation",
+      "receipt": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-learnability-isolation-probe-v1.json",
+        "sha256": "eb9e70f5b70d0ebd8808e10ee0ad961901ad2dfb8b89e9580fbd0fd84a015831"
+      },
+      "status": "completed_local_learnability_isolation_probe"
+    },
+    "m3cj_scratch_architecture_train_all_context": {
+      "receipt": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-local-train-eval-sanity-v1.json",
+        "sha256": "2e39eae2eba0709b40a26d16c81a35586149048a543dce6ae7ad403284e561dc"
+      },
+      "runs": [
+        {
+          "best_train_accuracy": 0.25,
+          "classification": "plumbing_only",
+          "name": "one_batch_contract_sanity",
+          "predicted_single_class": "home",
+          "test_macro_f1": 0.06666666666666668,
+          "test_top1_accuracy": 0.2
+        },
+        {
+          "best_train_accuracy": 0.14583333333333334,
+          "classification": "too_capped_to_judge",
+          "name": "current_cap_lr001",
+          "predicted_single_class": "home",
+          "test_macro_f1": 0.06666666666666668,
+          "test_top1_accuracy": 0.2
+        },
+        {
+          "best_train_accuracy": 0.216,
+          "classification": "learning_signal_insufficient",
+          "name": "train_all_lr001",
+          "predicted_single_class": "pen",
+          "test_macro_f1": 0.06666666666666668,
+          "test_top1_accuracy": 0.2
+        },
+        {
+          "best_train_accuracy": 0.264,
+          "classification": "learning_signal_insufficient",
+          "name": "train_all_lr003",
+          "predicted_single_class": "pen",
+          "test_macro_f1": 0.06666666666666668,
+          "test_top1_accuracy": 0.2
+        }
+      ],
+      "selected_next_action": "continue_architecture_or_input_contract_microprobe_no_brev",
+      "status": "plumbing_passed_train_all_learning_signal_insufficient"
+    }
+  },
+  "decision": {
+    "browser_activation_or_promotion_justified_now": false,
+    "exactly_one_next_action": "continue_data_split_label_distribution_audit_no_mutation",
+    "local_microprobe_supports_brev_training_now": false,
+    "m3ce_architecture_can_train_fit_balanced_tiny_subset": true,
+    "next_action_rationale": "Tiny train-fit passed, but M3CJ train-all still collapsed to chance; inspect split and label distribution before any remote or longer train-all run."
+  },
+  "diagnostic": {
+    "architecture": "scratch_region_temporal_late_fusion_tcn_contract_v1",
+    "artifacts": [
+      {
+        "path": "output/m3ck-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-tiny-trainfit/model_state.pt",
+        "sha256": "61517cb218aaf0193b3873b4e4de79a15a28f10e9fc2612e3210b93f5f0a62f4"
+      },
+      {
+        "path": "output/m3ck-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-tiny-trainfit/selected-subset.json",
+        "sha256": "eb3d8583cbf761b828802b8d6348d1a8e50b50fb38acf0bb49b6083bb13090a4"
+      },
+      {
+        "path": "output/m3ck-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-tiny-trainfit/tiny-trainfit-provenance.json",
+        "sha256": "cf637447a4b48e9064015040302aaaf8facf5b3dfbf8bcd21ed5f9d50347e0e8"
+      }
+    ],
+    "framework": {
+      "device": "mps",
+      "name": "pytorch",
+      "python": "3.14.5",
+      "version": "2.12.0"
+    },
+    "gradient_logit_parameter_sanity": {
+      "final_logit_summary": {
+        "mean_top1_minus_top2_margin": 0.8656207802705467,
+        "predicted_label_distribution": {
+          "home": 1,
+          "morning": 1,
+          "pen": 1,
+          "thank_you": 1,
+          "who": 1
+        },
+        "rows": [
+          {
+            "correct": true,
+            "predicted_label": "home",
+            "row_index": 0,
+            "top1_minus_top2_margin": 0.9337436184287071,
+            "top1_probability": 0.9557676315307617,
+            "true_label": "home"
+          },
+          {
+            "correct": true,
+            "predicted_label": "morning",
+            "row_index": 1,
+            "top1_minus_top2_margin": 0.9518030509352684,
+            "top1_probability": 0.9734896421432495,
+            "true_label": "morning"
+          },
+          {
+            "correct": true,
+            "predicted_label": "pen",
+            "row_index": 2,
+            "top1_minus_top2_margin": 0.5837979465723038,
+            "top1_probability": 0.7901654243469238,
+            "true_label": "pen"
+          },
+          {
+            "correct": true,
+            "predicted_label": "thank_you",
+            "row_index": 3,
+            "top1_minus_top2_margin": 0.9842559224925935,
+            "top1_probability": 0.9917547702789307,
+            "true_label": "thank_you"
+          },
+          {
+            "correct": true,
+            "predicted_label": "who",
+            "row_index": 4,
+            "top1_minus_top2_margin": 0.8745033629238605,
+            "top1_probability": 0.9362545609474182,
+            "true_label": "who"
+          }
+        ]
+      },
+      "final_model_state_digest": {
+        "algorithm": "canonical_state_dict_sha256_v1",
+        "parameter_count": 781918,
+        "sha256": "cc7084bf8d5aa4df9a0fd29b979e317fb1843a53dd82f192a33b9a8446a52687"
+      },
+      "first_update": {
+        "batch_start_index": 0,
+        "epoch": 1,
+        "gradient_l2_norm": 5.675334829822763,
+        "loss": 1.6258423328399658,
+        "parameter_delta_l2_from_initial": 2.462002909471669
+      },
+      "initial_logit_summary": {
+        "mean_top1_minus_top2_margin": 0.03424687385559082,
+        "predicted_label_distribution": {
+          "pen": 5
+        },
+        "rows": [
+          {
+            "correct": false,
+            "predicted_label": "pen",
+            "row_index": 0,
+            "top1_minus_top2_margin": 0.036079034209251404,
+            "top1_probability": 0.24884793162345886,
+            "true_label": "home"
+          },
+          {
+            "correct": false,
+            "predicted_label": "pen",
+            "row_index": 1,
+            "top1_minus_top2_margin": 0.04693037271499634,
+            "top1_probability": 0.25578656792640686,
+            "true_label": "morning"
+          },
+          {
+            "correct": true,
+            "predicted_label": "pen",
+            "row_index": 2,
+            "top1_minus_top2_margin": 0.03646458685398102,
+            "top1_probability": 0.2491389513015747,
+            "true_label": "pen"
+          },
+          {
+            "correct": false,
+            "predicted_label": "pen",
+            "row_index": 3,
+            "top1_minus_top2_margin": 0.01803380250930786,
+            "top1_probability": 0.23328937590122223,
+            "true_label": "thank_you"
+          },
+          {
+            "correct": false,
+            "predicted_label": "pen",
+            "row_index": 4,
+            "top1_minus_top2_margin": 0.03372657299041748,
+            "top1_probability": 0.25321677327156067,
+            "true_label": "who"
+          }
+        ]
+      },
+      "initial_model_state_digest": {
+        "algorithm": "canonical_state_dict_sha256_v1",
+        "parameter_count": 781918,
+        "sha256": "bc4ce266a3d76b10cb118e20055dec48e5e8f7f248b6c7ac26607be7d1b63683"
+      },
+      "model_parameters_changed": true,
+      "parameter_delta_l2_from_initial": 24.867546509882366
+    },
+    "initialization": "random",
+    "input_contract": {
+      "batched_model_input_axis": "B,T,R,C,H,W",
+      "batched_model_input_shape": [
+        5,
+        16,
+        5,
+        3,
+        96,
+        96
+      ],
+      "consumed_tensor_key": "rgb_regions",
+      "derived_input_name": "rgb_regions_grid_v1",
+      "logits_shape": [
+        5,
+        5
+      ],
+      "prepared_model_input_axis": "T,R,C,H,W",
+      "prepared_model_input_shape": [
+        16,
+        5,
+        3,
+        96,
+        96
+      ],
+      "preserve_region_axis": true,
+      "raw_rgb_regions_shape": [
+        16,
+        5,
+        96,
+        96,
+        3
+      ],
+      "region_axis_preserved_until": "ScratchRegionTemporalLateFusionTCNClassifier.region_attention",
+      "required_contract": "rgb_regions_grid_v1",
+      "status": "passed"
+    },
+    "m3ce_scaffold_parameter_count": 781918,
+    "model_id": "asl-pilot-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-tiny-trainfit-v1",
+    "output_dir": "output/m3ck-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-tiny-trainfit",
+    "pretrained_components": [],
+    "ran": true,
+    "subset": {
+      "clip_count": 5,
+      "clips": [
+        {
+          "clip_id": "popsign-v1-train-home-000051",
+          "label_id": "home",
+          "label_index": 0,
+          "label_name": "Home",
+          "manifest_index": 50,
+          "prepared_model_input_axis": "T,R,C,H,W",
+          "prepared_model_input_shape": [
+            16,
+            5,
+            3,
+            96,
+            96
+          ],
+          "raw_rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "source_gloss": "home",
+          "tensor_path": "data/tensors/return-to-form-popsign-fresh5-region-grid/train/popsign-v1-train-home-000051-regions.pt",
+          "tensor_sha256": "b1f61270664e165b84c79df8a82b30f23c18fbec4dcdddb096988e2177aa5e54",
+          "training_loader": {
+            "consumed_key": "rgb_regions",
+            "consumed_shape": [
+              16,
+              5,
+              96,
+              96,
+              3
+            ],
+            "derived_input_name": "rgb_regions_grid_v1",
+            "model_input_axis_before_prepare": "T,R,H,W,C",
+            "region_axis_preserved": true
+          }
+        },
+        {
+          "clip_id": "popsign-v1-train-morning-000101",
+          "label_id": "morning",
+          "label_index": 1,
+          "label_name": "Morning",
+          "manifest_index": 100,
+          "prepared_model_input_axis": "T,R,C,H,W",
+          "prepared_model_input_shape": [
+            16,
+            5,
+            3,
+            96,
+            96
+          ],
+          "raw_rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "source_gloss": "morning",
+          "tensor_path": "data/tensors/return-to-form-popsign-fresh5-region-grid/train/popsign-v1-train-morning-000101-regions.pt",
+          "tensor_sha256": "85da65b97f69f13d3210318a1605a9ca02acffc4b047ef1f32c3b751892a0aee",
+          "training_loader": {
+            "consumed_key": "rgb_regions",
+            "consumed_shape": [
+              16,
+              5,
+              96,
+              96,
+              3
+            ],
+            "derived_input_name": "rgb_regions_grid_v1",
+            "model_input_axis_before_prepare": "T,R,H,W,C",
+            "region_axis_preserved": true
+          }
+        },
+        {
+          "clip_id": "popsign-v1-train-pen-000026",
+          "label_id": "pen",
+          "label_index": 2,
+          "label_name": "Pen",
+          "manifest_index": 25,
+          "prepared_model_input_axis": "T,R,C,H,W",
+          "prepared_model_input_shape": [
+            16,
+            5,
+            3,
+            96,
+            96
+          ],
+          "raw_rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "source_gloss": "pen",
+          "tensor_path": "data/tensors/return-to-form-popsign-fresh5-region-grid/train/popsign-v1-train-pen-000026-regions.pt",
+          "tensor_sha256": "6228f2a8dccc799686b5079e65673cf6d109464c96256010dfab714b265abf53",
+          "training_loader": {
+            "consumed_key": "rgb_regions",
+            "consumed_shape": [
+              16,
+              5,
+              96,
+              96,
+              3
+            ],
+            "derived_input_name": "rgb_regions_grid_v1",
+            "model_input_axis_before_prepare": "T,R,H,W,C",
+            "region_axis_preserved": true
+          }
+        },
+        {
+          "clip_id": "popsign-v1-train-thank_you-000001",
+          "label_id": "thank_you",
+          "label_index": 3,
+          "label_name": "Thank you",
+          "manifest_index": 0,
+          "prepared_model_input_axis": "T,R,C,H,W",
+          "prepared_model_input_shape": [
+            16,
+            5,
+            3,
+            96,
+            96
+          ],
+          "raw_rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "source_gloss": "thank_you",
+          "tensor_path": "data/tensors/return-to-form-popsign-fresh5-region-grid/train/popsign-v1-train-thank_you-000001-regions.pt",
+          "tensor_sha256": "bac4801ae7a3fd3a207bdde5c110668cb114bedcff7b1c77590cf3a454b3000e",
+          "training_loader": {
+            "consumed_key": "rgb_regions",
+            "consumed_shape": [
+              16,
+              5,
+              96,
+              96,
+              3
+            ],
+            "derived_input_name": "rgb_regions_grid_v1",
+            "model_input_axis_before_prepare": "T,R,H,W,C",
+            "region_axis_preserved": true
+          }
+        },
+        {
+          "clip_id": "popsign-v1-train-who-000076",
+          "label_id": "who",
+          "label_index": 4,
+          "label_name": "Who",
+          "manifest_index": 75,
+          "prepared_model_input_axis": "T,R,C,H,W",
+          "prepared_model_input_shape": [
+            16,
+            5,
+            3,
+            96,
+            96
+          ],
+          "raw_rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "source_gloss": "who",
+          "tensor_path": "data/tensors/return-to-form-popsign-fresh5-region-grid/train/popsign-v1-train-who-000076-regions.pt",
+          "tensor_sha256": "085e38c6f66f0ea6c0cf23c10139ee793c5a818edca8348496767f99fa887977",
+          "training_loader": {
+            "consumed_key": "rgb_regions",
+            "consumed_shape": [
+              16,
+              5,
+              96,
+              96,
+              3
+            ],
+            "derived_input_name": "rgb_regions_grid_v1",
+            "model_input_axis_before_prepare": "T,R,H,W,C",
+            "region_axis_preserved": true
+          }
+        }
+      ],
+      "clips_per_label": 1,
+      "label_distribution": {
+        "home": 1,
+        "morning": 1,
+        "pen": 1,
+        "thank_you": 1,
+        "who": 1
+      },
+      "selection_rule": "sort labels lexicographically, sort clips within each label by clip_id, select first clips_per_label from the repaired training split"
+    },
+    "train_fit_metrics": {
+      "best_eval_metrics": {
+        "accuracy": 1.0,
+        "correct": 5,
+        "epoch": 118,
+        "examples": 5,
+        "loss": 0.023803919553756714,
+        "per_label": {
+          "home": {
+            "correct": 1,
+            "recall": 1.0,
+            "support": 1
+          },
+          "morning": {
+            "correct": 1,
+            "recall": 1.0,
+            "support": 1
+          },
+          "pen": {
+            "correct": 1,
+            "recall": 1.0,
+            "support": 1
+          },
+          "thank_you": {
+            "correct": 1,
+            "recall": 1.0,
+            "support": 1
+          },
+          "who": {
+            "correct": 1,
+            "recall": 1.0,
+            "support": 1
+          }
+        },
+        "predictions": [
+          {
+            "confidence": 0.9505774974822998,
+            "correct": true,
+            "predicted_label": "home",
+            "row_index": 0,
+            "true_label": "home"
+          },
+          {
+            "confidence": 0.9767650961875916,
+            "correct": true,
+            "predicted_label": "morning",
+            "row_index": 1,
+            "true_label": "morning"
+          },
+          {
+            "confidence": 0.9823383092880249,
+            "correct": true,
+            "predicted_label": "pen",
+            "row_index": 2,
+            "true_label": "pen"
+          },
+          {
+            "confidence": 0.9882153272628784,
+            "correct": true,
+            "predicted_label": "thank_you",
+            "row_index": 3,
+            "true_label": "thank_you"
+          },
+          {
+            "confidence": 0.9849634766578674,
+            "correct": true,
+            "predicted_label": "who",
+            "row_index": 4,
+            "true_label": "who"
+          }
+        ],
+        "zero_recall_labels": []
+      },
+      "final_accuracy": 1.0,
+      "final_correct": 5,
+      "final_examples": 5,
+      "final_loss": 0.07635374367237091,
+      "history_tail": [
+        {
+          "epoch": 111,
+          "eval_mode_accuracy": 0.800000011920929,
+          "eval_mode_loss": 0.35322070121765137,
+          "train_mode_accuracy": 1.0,
+          "train_mode_loss": 0.15691402554512024,
+          "zero_recall_labels": [
+            "who"
+          ]
+        },
+        {
+          "epoch": 112,
+          "eval_mode_accuracy": 1.0,
+          "eval_mode_loss": 0.15043458342552185,
+          "train_mode_accuracy": 0.8,
+          "train_mode_loss": 0.35322070121765137,
+          "zero_recall_labels": []
+        },
+        {
+          "epoch": 113,
+          "eval_mode_accuracy": 1.0,
+          "eval_mode_loss": 0.06743106991052628,
+          "train_mode_accuracy": 1.0,
+          "train_mode_loss": 0.15043458342552185,
+          "zero_recall_labels": []
+        },
+        {
+          "epoch": 114,
+          "eval_mode_accuracy": 1.0,
+          "eval_mode_loss": 0.08023680746555328,
+          "train_mode_accuracy": 1.0,
+          "train_mode_loss": 0.06743106991052628,
+          "zero_recall_labels": []
+        },
+        {
+          "epoch": 115,
+          "eval_mode_accuracy": 1.0,
+          "eval_mode_loss": 0.12780138850212097,
+          "train_mode_accuracy": 1.0,
+          "train_mode_loss": 0.08023680746555328,
+          "zero_recall_labels": []
+        },
+        {
+          "epoch": 116,
+          "eval_mode_accuracy": 1.0,
+          "eval_mode_loss": 0.10200570523738861,
+          "train_mode_accuracy": 1.0,
+          "train_mode_loss": 0.12780138850212097,
+          "zero_recall_labels": []
+        },
+        {
+          "epoch": 117,
+          "eval_mode_accuracy": 1.0,
+          "eval_mode_loss": 0.03665187582373619,
+          "train_mode_accuracy": 1.0,
+          "train_mode_loss": 0.10200569778680801,
+          "zero_recall_labels": []
+        },
+        {
+          "epoch": 118,
+          "eval_mode_accuracy": 1.0,
+          "eval_mode_loss": 0.023803919553756714,
+          "train_mode_accuracy": 1.0,
+          "train_mode_loss": 0.03665187209844589,
+          "zero_recall_labels": []
+        },
+        {
+          "epoch": 119,
+          "eval_mode_accuracy": 1.0,
+          "eval_mode_loss": 0.036751795560121536,
+          "train_mode_accuracy": 1.0,
+          "train_mode_loss": 0.023803919553756714,
+          "zero_recall_labels": []
+        },
+        {
+          "epoch": 120,
+          "eval_mode_accuracy": 1.0,
+          "eval_mode_loss": 0.07635374367237091,
+          "train_mode_accuracy": 1.0,
+          "train_mode_loss": 0.036751795560121536,
+          "zero_recall_labels": []
+        }
+      ],
+      "initial_accuracy": 0.20000000298023224,
+      "initial_loss": 1.6211636066436768,
+      "per_label": {
+        "home": {
+          "correct": 1,
+          "recall": 1.0,
+          "support": 1
+        },
+        "morning": {
+          "correct": 1,
+          "recall": 1.0,
+          "support": 1
+        },
+        "pen": {
+          "correct": 1,
+          "recall": 1.0,
+          "support": 1
+        },
+        "thank_you": {
+          "correct": 1,
+          "recall": 1.0,
+          "support": 1
+        },
+        "who": {
+          "correct": 1,
+          "recall": 1.0,
+          "support": 1
+        }
+      },
+      "prediction_distribution": {
+        "home": 1,
+        "morning": 1,
+        "pen": 1,
+        "thank_you": 1,
+        "who": 1
+      },
+      "predictions": [
+        {
+          "confidence": 0.9557676315307617,
+          "correct": true,
+          "predicted_label": "home",
+          "row_index": 0,
+          "true_label": "home"
+        },
+        {
+          "confidence": 0.9734896421432495,
+          "correct": true,
+          "predicted_label": "morning",
+          "row_index": 1,
+          "true_label": "morning"
+        },
+        {
+          "confidence": 0.7901654243469238,
+          "correct": true,
+          "predicted_label": "pen",
+          "row_index": 2,
+          "true_label": "pen"
+        },
+        {
+          "confidence": 0.9917547702789307,
+          "correct": true,
+          "predicted_label": "thank_you",
+          "row_index": 3,
+          "true_label": "thank_you"
+        },
+        {
+          "confidence": 0.9362545609474182,
+          "correct": true,
+          "predicted_label": "who",
+          "row_index": 4,
+          "true_label": "who"
+        }
+      ],
+      "status": "succeeded",
+      "success": true,
+      "success_threshold": {
+        "accuracy_gte": 0.95,
+        "no_zero_recall_selected_labels": true,
+        "predeclared_before_run": true
+      },
+      "zero_recall_labels": []
+    },
+    "type": "deterministic_balanced_tiny_trainfit_architecture_input_probe"
+  },
+  "exactly_one_next_action": "continue_data_split_label_distribution_audit_no_mutation",
+  "files_and_symbols_changed": [
+    {
+      "changes": [
+        "added M3CK-only train-fit diagnostic for scratch_region_temporal_late_fusion_tcn_contract_v1",
+        "records gradient, logit, parameter-change, label, and prediction evidence"
+      ],
+      "path": "scripts/run_popsign_fresh5_architecture_input_microprobe.py"
+    },
+    {
+      "changes": [
+        "added tracked M3CK receipt"
+      ],
+      "path": "docs/validation/return-to-form-popsign-fresh5-architecture-input-microprobe-v1.json"
+    }
+  ],
+  "files_and_symbols_inspected": [
+    {
+      "path": "GOAL.md",
+      "symbols": [
+        "current mission",
+        "Mission 3CK exit condition"
+      ]
+    },
+    {
+      "path": "docs/model/return-to-form-popsign-fresh5-architecture-input-microprobe-goal-loop-prompt.md",
+      "symbols": [
+        "Required Slice",
+        "Hard Boundaries",
+        "Acceptance Criteria"
+      ]
+    },
+    {
+      "path": "scripts/train_rawframe_model.py",
+      "symbols": [
+        "RawFrameClipDataset",
+        "prepare_region_frames",
+        "build_model",
+        "ScratchRegionTemporalLateFusionTCNClassifier"
+      ]
+    },
+    {
+      "path": "scripts/run_region_grid_tcn_tiny_overfit.py",
+      "symbols": [
+        "select_subset",
+        "subset_contract_evidence",
+        "evaluate_batch",
+        "SUCCESS_THRESHOLD"
+      ]
+    },
+    {
+      "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json",
+      "symbols": [
+        "labels",
+        "clips",
+        "rgb_regions tensor references"
+      ]
+    }
+  ],
+  "generated_at": "2026-05-28T00:46:10.630243+00:00",
+  "generated_by": {
+    "command": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/run_popsign_fresh5_architecture_input_microprobe.py",
+      "--train-manifest",
+      "data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json",
+      "--validation-manifest",
+      "data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json",
+      "--test-manifest",
+      "data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json",
+      "--output-dir",
+      "output/m3ck-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-tiny-trainfit",
+      "--receipt",
+      "docs/validation/return-to-form-popsign-fresh5-architecture-input-microprobe-v1.json",
+      "--clips-per-label",
+      "1",
+      "--epochs",
+      "120",
+      "--batch-size",
+      "5",
+      "--learning-rate",
+      "0.003",
+      "--weight-decay",
+      "0.0",
+      "--frame-count",
+      "16",
+      "--image-size",
+      "96",
+      "--num-workers",
+      "0",
+      "--seed",
+      "20260528",
+      "--check-files",
+      "--write-receipt"
+    ],
+    "environment_files": [
+      {
+        "path": "requirements.txt",
+        "sha256": "f01e6fc468f195ddd8f5c1d7331cc5ca1dd6861b5aa892aef2360bb001d4cb4a"
+      },
+      {
+        "path": "web/package.json",
+        "sha256": "df262a9bf68ad9aaae221d99c4c8c7a2471ab80dbb9b58ac73b95d2fec2d724a"
+      },
+      {
+        "path": "web/package-lock.json",
+        "sha256": "caf0326b0a63065b1edb5fa1d627c32fa2a9ab5d3e025dd85752f255d98d6d2d"
+      },
+      {
+        "path": "docs/validation/local-ml-environment.json",
+        "sha256": "1760c0cc50f652102094e98fe3b4e6aa2a41774118f5626b29b866afc6e05b90"
+      }
+    ],
+    "local_ml_environment": {
+      "path": "docs/validation/local-ml-environment.json",
+      "sha256": "1760c0cc50f652102094e98fe3b4e6aa2a41774118f5626b29b866afc6e05b90"
+    },
+    "script": {
+      "path": "scripts/run_popsign_fresh5_architecture_input_microprobe.py",
+      "sha256": "37d38e00f687da54d38d0eec350f92fb94200f7b4abab1d68bd905e8e1171e55"
+    },
+    "tool": "scripts/run_popsign_fresh5_architecture_input_microprobe.py"
+  },
+  "guardrails": {
+    "brev_command_run": false,
+    "brev_spend": false,
+    "brev_worker_lifecycle_changed": false,
+    "browser_model_activation": false,
+    "claim_state": "fail_closed_browser_model_remains_not_trained",
+    "final_gate_change": false,
+    "final_readiness_claim": false,
+    "manifest_mutation": false,
+    "model_card_promotion": false,
+    "pretrained_components": [],
+    "pseudo_labels_generated": false,
+    "pushed_to_remote": false,
+    "remote_training_run": false,
+    "source_import_or_media_download": false,
+    "source_register_mutation": false,
+    "tensor_write_or_rewrite": false
+  },
+  "interpretation": "The M3CE scratch region-temporal late-fusion TCN can train-fit one deterministic balanced PopSign fresh5 clip per label while preserving B,T,R,C,H,W. The remaining train-all failure is therefore not a total loader, label-index, gradient, or architecture connectivity break; the next local/no-mutation slice should audit split, label distribution, signer/source, and per-label data quality before spending Brev.",
+  "local_artifacts_written_or_updated": [
+    "output/m3ck-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-tiny-trainfit/model_state.pt",
+    "output/m3ck-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-tiny-trainfit/selected-subset.json",
+    "output/m3ck-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-tiny-trainfit/tiny-trainfit-provenance.json"
+  ],
+  "mission": "Mission 3CK - PopSign fresh5 architecture/input microprobe",
+  "schema_version": "asl-pilot-popsign-fresh5-architecture-input-microprobe/v1",
+  "scope": {
+    "local_only": true,
+    "no_brev_training_or_spend": true,
+    "no_brev_worker_lifecycle_change": true,
+    "no_export_or_browser_activation": true,
+    "no_final_gate_change": true,
+    "no_label_expansion": true,
+    "no_manifest_mutation": true,
+    "no_model_card_promotion": true,
+    "no_pretrained_dependency": true,
+    "no_pseudo_labels": true,
+    "no_push": true,
+    "no_remote_command": true,
+    "no_source_import_or_media_download": true,
+    "no_source_register_change": true,
+    "no_spend": true,
+    "no_tensor_write_or_rewrite": true
+  },
+  "selected_labels": {
+    "labels_to_index": {
+      "home": 0,
+      "morning": 1,
+      "pen": 2,
+      "thank_you": 3,
+      "who": 4
+    },
+    "manifest_order": [
+      "thank_you",
+      "pen",
+      "home",
+      "who",
+      "morning"
+    ],
+    "training_label_order": [
+      "home",
+      "morning",
+      "pen",
+      "thank_you",
+      "who"
+    ]
+  },
+  "source_manifests": {
+    "test": {
+      "clip_count": 125,
+      "collection_plan": null,
+      "consent_form": null,
+      "dataset_id": "return-to-form-popsign-fresh5-repaired-v1",
+      "dataset_source_mode": "approved_external_raw_video_source",
+      "external_dataset_import": {
+        "source_audit": {
+          "path": "docs/research/popsign-v1-source-audit.json",
+          "sha256": "b9fe6f6ed042bbff08b58a85cba50b445e606239489e7cbab6be81f326a02ab1"
+        },
+        "source_id": "popsign-v1-original-videos"
+      },
+      "label_clip_counts": {
+        "home": 25,
+        "morning": 25,
+        "pen": 25,
+        "thank_you": 25,
+        "who": 25
+      },
+      "label_count": 5,
+      "label_ids": [
+        "home",
+        "morning",
+        "pen",
+        "thank_you",
+        "who"
+      ],
+      "min_clips_per_label_per_split": 3,
+      "path": "/Users/kelly/Developer/asl-pilot/data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json",
+      "popsign_fresh5_repaired_evidence": {
+        "dataset_id": "return-to-form-popsign-fresh5-repaired-v1",
+        "label_ids": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "source_id": "popsign-v1-original-videos",
+        "split": "test"
+      },
+      "reduced_real_data_module_evidence": null,
+      "sha256": "07a67651bcd38c6cff90d433ad2e18f84d905291ebb90760665c03678b75592c",
+      "signer_ids": [
+        "0a4c034271536723f6b9253752108a6bba85a26dea7185e2c8c25eea2493b920",
+        "3660c753560b193daec1e61e3060fb0d2cab427ab3b6760f545fbc9f682c896b",
+        "4027e4c04fcfc2940fe00c6d89cf00633df9a37b921346a77c9c4c2bd29e69fb",
+        "87eb8dfc14c85f7d59124f3d06773de35d84c1b5be1fc0df5a8bfb1171e9fda9",
+        "abb19b30e7af50c6cc238bd1d5ca897512d0c3a063d48bba12e78189ecfecdd0",
+        "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25",
+        "e0940122312d361abda8019f5084ffd16eacdeaba32c7bb78ed08a50549015b2",
+        "f2225747b02727cce714b7ec7d7eae448e76bea7509769df747dca129fa14e77"
+      ],
+      "source_register": {
+        "decision_id": "approved_popsign_v1_original_videos_2026_05_20",
+        "license_review_status": "approved_cc_by_4_raw_video_with_attribution",
+        "path": "docs/model/dataset-source-register.json",
+        "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+      },
+      "split": "test",
+      "supplemental_external_dataset_imports": null,
+      "vocabulary_review": {
+        "evidence": {
+          "path": "data/active-module/active-module-vocabulary-review.json",
+          "sha256": "7bc269d45a26b9b36cd111587e66663d57f5683626500b889c2b029725968481"
+        },
+        "status": "source_curated",
+        "vocabulary_source": {
+          "item_count": 95,
+          "path": "data/active-module/vocabulary-active-module.snapshot.json",
+          "sha256": "25a0c937e3900037da8650b882e44c6281c347abf3e4b2b338ed6dcf21c72e8d"
+        }
+      }
+    },
+    "train": {
+      "clip_count": 125,
+      "collection_plan": null,
+      "consent_form": null,
+      "dataset_id": "return-to-form-popsign-fresh5-repaired-v1",
+      "dataset_source_mode": "approved_external_raw_video_source",
+      "external_dataset_import": {
+        "source_audit": {
+          "path": "docs/research/popsign-v1-source-audit.json",
+          "sha256": "b9fe6f6ed042bbff08b58a85cba50b445e606239489e7cbab6be81f326a02ab1"
+        },
+        "source_id": "popsign-v1-original-videos"
+      },
+      "label_clip_counts": {
+        "home": 25,
+        "morning": 25,
+        "pen": 25,
+        "thank_you": 25,
+        "who": 25
+      },
+      "label_count": 5,
+      "label_ids": [
+        "home",
+        "morning",
+        "pen",
+        "thank_you",
+        "who"
+      ],
+      "min_clips_per_label_per_split": 3,
+      "path": "/Users/kelly/Developer/asl-pilot/data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json",
+      "popsign_fresh5_repaired_evidence": {
+        "dataset_id": "return-to-form-popsign-fresh5-repaired-v1",
+        "label_ids": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "source_id": "popsign-v1-original-videos",
+        "split": "train"
+      },
+      "reduced_real_data_module_evidence": null,
+      "sha256": "f84b8eec2ee3b5f29118518caf42b64636f231acd39864ad0363729c96365a16",
+      "signer_ids": [
+        "011bf948349592747506599333e34ba11de2a969b51e99890dbf5f552ac4d209",
+        "028c32e46a320bf6aefbcc698ec2c68f32168c32b01e359db9225d3f9e50522d",
+        "23afa7fd27999c7f8d65e30542bf66098e7ed7351c3d6a92b6e856ea00fa490e",
+        "25e2a7cb4ea13002c98f7f91d8e3a6c6acf9669b59115ea3e2efd29c199af481",
+        "27276bcbef84091a71d51eefa64efd320cd1ee6ec759d6e3c5351b4c59781553",
+        "391ee50587a25f5d3240faa6a3f4f6ad3368b5ce0541b7a3f4242de1d3afa343",
+        "3a995a2cdfb711ce172cb951cf94fcfffc7647c81733570068d3352f8c4abf9b",
+        "44621e6a463f815358059025e7e5bc52a10856d5f4ec9c7ff63b47bf468a4a95",
+        "552dc868fb1e673330a310db3a896535a2de456d6cc3dee1c9bfe951bfc9265d",
+        "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+        "6cca91a774cd7bac9e807c7d5fff25cfa550594b28bcaef5ff11f46e9a960e02",
+        "7c01a9b7c2b20c7f1bb084d66ac6e7a2967d08a093077b9497d55131a1cd67bc",
+        "7ea7380ce54073d0087704038d98f82bd8b2bf2f11dd12af7c35ddeabccf86f7",
+        "823744cc59d2bdf26c6c3208fb2fc4ffd58fcbcfaf3bca2a5bec8ecbe6e4b074",
+        "9ff7b5607c4afe53a501057a5126bd0d0457fb7ed08d90675bf52f193211ae50",
+        "abc0cb7ba434779fb8887fd3ea3e91f33ab9618955dc3490ae87a330fd93a934",
+        "bfaab7a8ce456402330251edf09c1e4cea3f67f5a46950562a38bce8377b8b9e",
+        "c39e1d833c165de605e152426dbdddfed973a7746fee0e33cba23b24597b8be2",
+        "c418f30fdc2e0b16116711a7ad710740a881abd025b1057b3fb64beb0f3881a3",
+        "c846c57ab4d1d164af2e41b88dbfd1ad74bf56f39864c497e6209c97b98fe614",
+        "cbe87ba74a5981e0277c40e394d2e78c706483f46467932b7841a58668300e14",
+        "d2fe031922f8146aa2014806244311a9fbf8e1e21d30e6effe10670b8e5afa4e",
+        "d81b0a75a5a4985e52adb5101811f641c741ea4e4fa39c6d273c87a2514da275",
+        "dbd0515ceb113482759925c34bd2ed3658814d788b976f411eb2ca18bd81b9b3",
+        "dc756a18380400b07ba000f9efabbb1abad57ea8ca8ea62059f782cf689deccc",
+        "dfbc221302a2da2fa433035916d9b200bb7090083a544b69469a1aec7d836a87",
+        "e5b980381076ca9157472c4fb009fc4eb6d6eb6d1c677c47e8d942d82cfd307b",
+        "e6ced55179abe3739ea8764729250ec8b6c8a04092bd57952cf18fd537a69af8",
+        "e8bbaa928eea9108f1951bea43e7ee4ccaeddc447f289c3cb54452a3f768cfe2",
+        "f75970678431c39991e4f8315f04d4f8eea8255160efd9f1d2c5e7529d03c84f",
+        "ff160883020e450314d5a62ebf7fb0cb9e50d30cac7c74841a25350a912ad3e6"
+      ],
+      "source_register": {
+        "decision_id": "approved_popsign_v1_original_videos_2026_05_20",
+        "license_review_status": "approved_cc_by_4_raw_video_with_attribution",
+        "path": "docs/model/dataset-source-register.json",
+        "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+      },
+      "split": "train",
+      "supplemental_external_dataset_imports": null,
+      "vocabulary_review": {
+        "evidence": {
+          "path": "data/active-module/active-module-vocabulary-review.json",
+          "sha256": "7bc269d45a26b9b36cd111587e66663d57f5683626500b889c2b029725968481"
+        },
+        "status": "source_curated",
+        "vocabulary_source": {
+          "item_count": 95,
+          "path": "data/active-module/vocabulary-active-module.snapshot.json",
+          "sha256": "25a0c937e3900037da8650b882e44c6281c347abf3e4b2b338ed6dcf21c72e8d"
+        }
+      }
+    },
+    "validation": {
+      "clip_count": 125,
+      "collection_plan": null,
+      "consent_form": null,
+      "dataset_id": "return-to-form-popsign-fresh5-repaired-v1",
+      "dataset_source_mode": "approved_external_raw_video_source",
+      "external_dataset_import": {
+        "source_audit": {
+          "path": "docs/research/popsign-v1-source-audit.json",
+          "sha256": "b9fe6f6ed042bbff08b58a85cba50b445e606239489e7cbab6be81f326a02ab1"
+        },
+        "source_id": "popsign-v1-original-videos"
+      },
+      "label_clip_counts": {
+        "home": 25,
+        "morning": 25,
+        "pen": 25,
+        "thank_you": 25,
+        "who": 25
+      },
+      "label_count": 5,
+      "label_ids": [
+        "home",
+        "morning",
+        "pen",
+        "thank_you",
+        "who"
+      ],
+      "min_clips_per_label_per_split": 3,
+      "path": "/Users/kelly/Developer/asl-pilot/data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json",
+      "popsign_fresh5_repaired_evidence": {
+        "dataset_id": "return-to-form-popsign-fresh5-repaired-v1",
+        "label_ids": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "source_id": "popsign-v1-original-videos",
+        "split": "validation"
+      },
+      "reduced_real_data_module_evidence": null,
+      "sha256": "090b40ec70775e96fb81450feb6a5e9960f93175dfda4c2ae9087b0b970cb04a",
+      "signer_ids": [
+        "30132f3fd3bc05eda5a491afa1802072649326f4a39e6a24ba7f2351b841f4a5",
+        "54ed19eb670a7fc395dbc28c6820b933d1eede5e2fcb97d9ea70c49c654682d8",
+        "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+        "96a654d6be5c2506b495f010339ce766ebd64a54096a79fe00b9bbc3ce1c280b",
+        "cc50a89882a8ed4c0982ee9170fb302bc1bbbb5e94e893bce3b0632118cc0cf8",
+        "d634581037b96d18388590532350e015fadb5d4e0891aa20e59c1731d7bfb9ee",
+        "e4b4850de1ac3de8524371852c34bb8ae50635990cfb1a37fbcf4fdcad9f963e",
+        "fb6c9cc349eb6ba8c064cb7572615613c07e91211a75a97f3bc95bc91848d39a"
+      ],
+      "source_register": {
+        "decision_id": "approved_popsign_v1_original_videos_2026_05_20",
+        "license_review_status": "approved_cc_by_4_raw_video_with_attribution",
+        "path": "docs/model/dataset-source-register.json",
+        "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+      },
+      "split": "validation",
+      "supplemental_external_dataset_imports": null,
+      "vocabulary_review": {
+        "evidence": {
+          "path": "data/active-module/active-module-vocabulary-review.json",
+          "sha256": "7bc269d45a26b9b36cd111587e66663d57f5683626500b889c2b029725968481"
+        },
+        "status": "source_curated",
+        "vocabulary_source": {
+          "item_count": 95,
+          "path": "data/active-module/vocabulary-active-module.snapshot.json",
+          "sha256": "25a0c937e3900037da8650b882e44c6281c347abf3e4b2b338ed6dcf21c72e8d"
+        }
+      }
+    }
+  },
+  "source_receipts": {
+    "m3bv_prior_tiny_overfit": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-model-data-design-ablation-v1.json",
+      "sha256": "74590b35b59e7696bc2e4f46e5fd2ae0281935aa8d7360f6efeb563453b4effe"
+    },
+    "m3ca_learnability_isolation_probe": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-learnability-isolation-probe-v1.json",
+      "sha256": "eb9e70f5b70d0ebd8808e10ee0ad961901ad2dfb8b89e9580fbd0fd84a015831"
+    },
+    "m3ce_architecture_scaffold_contract": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-architecture-scaffold-contract-v1.json",
+      "sha256": "0ed5a1fa1e5ea178cf666723f7c2a645e567890b98be63001259149de7cba378"
+    },
+    "m3cj_local_train_eval_sanity": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-local-train-eval-sanity-v1.json",
+      "sha256": "2e39eae2eba0709b40a26d16c81a35586149048a543dce6ae7ad403284e561dc"
+    }
+  },
+  "status": "m3ce_tiny_trainfit_succeeded",
+  "tracked_files_changed": [
+    "scripts/run_popsign_fresh5_architecture_input_microprobe.py",
+    "docs/validation/return-to-form-popsign-fresh5-architecture-input-microprobe-v1.json",
+    "docs/session-logs/408-mission-3ck-popsign-fresh5-architecture-input-microprobe.md"
+  ],
+  "validation_commands": [
+    "git status --short --branch",
+    "git log -10 --oneline --decorate",
+    "node scripts/audit_loop_premise.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs --json",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "node scripts/audit_source_register.mjs",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-evaluation-invocation-contract-fix-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-local-train-eval-sanity-v1.json >/dev/null",
+    "python3 -m json.tool data/manifests/return-to-form-popsign-fresh5-repaired-v1/manifest-contract.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py scripts/run_popsign_fresh5_region_grid_tcn_tiny_overfit.py",
+    ".venv/bin/python scripts/run_popsign_fresh5_architecture_input_microprobe.py --train-manifest data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json --validation-manifest data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json --test-manifest data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json --output-dir output/m3ck-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-tiny-trainfit --receipt docs/validation/return-to-form-popsign-fresh5-architecture-input-microprobe-v1.json --clips-per-label 1 --epochs 120 --batch-size 5 --learning-rate 0.003 --weight-decay 0.0 --frame-count 16 --image-size 96 --num-workers 0 --seed 20260528 --check-files --write-receipt",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-architecture-input-microprobe-v1.json >/dev/null"
+  ]
+}

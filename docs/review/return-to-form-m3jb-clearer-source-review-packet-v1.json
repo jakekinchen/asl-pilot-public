@@ -1,0 +1,75 @@
+{
+  "schema_version": "asl-pilot-m3jb-clearer-source-review-packet/v1",
+  "packet_id": "return-to-form-m3jb-clearer-source-review-packet-v1",
+  "generated_by": "scripts/audit_m3jb_hand_state_tracker.mjs",
+  "purpose": "Bound the first local visual/source-review batch for clearer-source landmark replacement or explicit exclusion decisions without embedding frames or authorizing cache rebuild.",
+  "source_outcome_ledger": {
+    "path": "docs/validation/return-to-form-m3jb-clearer-source-review-outcomes-v1.json",
+    "sha256": "18c4d69351b59c146461032c9aa2cdc0de679e179d2a3a277f01355a8be6c9be"
+  },
+  "runtime_boundary": {
+    "offline_review_metadata_only": true,
+    "browser_runtime_dependency_added": false,
+    "raw_learner_video_upload": false,
+    "raw_frames_embedded": false,
+    "landmark_cache_rebuild_authorized": false
+  },
+  "reviewer_protocol": {
+    "inspect_local_source_video_only": true,
+    "inspect_frame_window": "center frame plus +/-2 neighboring frames",
+    "allowed_decisions": [
+      "cache_safe_replacement_label",
+      "explicit_exclude_frame_edge_oob",
+      "needs_additional_source_context"
+    ],
+    "cache_safe_replacement_requires": [
+      "replacement_source_frame_reference",
+      "replacement_box_full_frame_or_landmarks21",
+      "label_provenance",
+      "reviewer",
+      "reviewed_at"
+    ],
+    "explicit_exclusion_requires": [
+      "exclusion_reason",
+      "reviewer",
+      "reviewed_at"
+    ],
+    "default_if_unclear": "needs_additional_source_context"
+  },
+  "selection_policy": {
+    "source": "first pending rows from the fail-closed review outcome ledger",
+    "per_split_limit": 8,
+    "split_order": [
+      "train",
+      "test"
+    ]
+  },
+  "summary": {
+    "packet_rows": 0,
+    "train_rows": 0,
+    "test_rows": 0,
+    "pending_ledger_rows_represented": 0,
+    "source_videos_available_local": 0,
+    "source_videos_missing_local": 0,
+    "cache_rebuild_allowed": 0,
+    "raw_frames_embedded": 0
+  },
+  "splits": {
+    "train": {
+      "summary": {
+        "rows": 0,
+        "source_videos_available_local": 0
+      },
+      "rows": []
+    },
+    "test": {
+      "summary": {
+        "rows": 0,
+        "source_videos_available_local": 0
+      },
+      "rows": []
+    }
+  },
+  "decision": "The clearer-source reviewer work queue is empty because all selected rows now have fail-closed outcomes. This packet records no embedded frames and authorizes 0 cache rebuilds.",
+  "next_action": "rebuild_crop_cache_then_retrain_landmark_student_and_remeasure_pck_after_batch_review"
+}

@@ -1,0 +1,701 @@
+{
+  "schema_version": "asl-pilot-return-to-form-dataset-training-root-cause/v1",
+  "status": "completed",
+  "mission": "M3BN",
+  "active_prompt": "docs/model/return-to-form-dataset-training-root-cause-goal-loop-prompt.md",
+  "generated_at": "2026-05-27T16:44:35Z",
+  "scope": {
+    "slice": "local_no_spend_dataset_training_root_cause_inventory",
+    "broad_training_run": false,
+    "brev_command_run": false,
+    "source_imported": false,
+    "source_register_changed": false,
+    "manifest_or_tensor_mutated": false,
+    "model_exported": false,
+    "browser_activation_changed": false,
+    "model_card_or_claim_surface_changed": false,
+    "final_gates_changed": false,
+    "push_performed": false
+  },
+  "source_of_truth": {
+    "goal": "GOAL.md",
+    "active_prompt": "docs/model/return-to-form-dataset-training-root-cause-goal-loop-prompt.md",
+    "plan": "docs/model/return-to-form-plan.md",
+    "source_register": {
+      "path": "docs/model/dataset-source-register.json",
+      "audit_command": "node scripts/audit_source_register.mjs",
+      "audit_status": "passed",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    "model_claim_surfaces": [
+      "web/public/model/model-card.json",
+      "docs/model/active-vocabulary-claim.json"
+    ]
+  },
+  "claim_state": {
+    "browser_model_status": "not_trained",
+    "active_vocabulary_model_version": "rawframe-not-trained",
+    "active_labels": [],
+    "diagnosis_is_not_promotion": true
+  },
+  "route_inventory": [
+    {
+      "route_id": "popsign_tier0_fixed_crop_and_detector0",
+      "route_name": "PopSign Tier 0 fixed-crop recognizer plus Detector 0/crop-normalization receipts",
+      "source_status": {
+        "source_id": "popsign-v1-original-videos",
+        "allowed_for_model_training": true,
+        "allowed_for_validation": true,
+        "license_review_status": "approved_cc_by_4_raw_video_with_attribution",
+        "evidence_paths": [
+          "docs/model/dataset-source-register.json",
+          "docs/research/popsign-v1-source-audit.json",
+          "docs/research/popsign-v1-source-review.md",
+          "docs/research/popsign-v1-external-rights-review-receipt.json"
+        ],
+        "restriction_summary": "Use only original PopSign v1 game raw video archives with attribution; derived pose, landmark, feature, detector, embedding, or pretrained artifacts are disallowed."
+      },
+      "local_assets": {
+        "manifests": [
+          "data/manifests/return-to-form-tier0/train.json",
+          "data/manifests/return-to-form-tier0/validation.json",
+          "data/manifests/return-to-form-tier0/test.json"
+        ],
+        "manifest_counts": {
+          "train": 125,
+          "validation": 125,
+          "test": 95
+        },
+        "labels": [
+          "dad",
+          "grandpa",
+          "hat",
+          "please",
+          "table"
+        ],
+        "per_label_counts": {
+          "train": {
+            "dad": 25,
+            "grandpa": 25,
+            "hat": 25,
+            "please": 25,
+            "table": 25
+          },
+          "validation": {
+            "dad": 25,
+            "grandpa": 25,
+            "hat": 25,
+            "please": 25,
+            "table": 25
+          },
+          "test": {
+            "dad": 19,
+            "grandpa": 19,
+            "hat": 19,
+            "please": 19,
+            "table": 19
+          }
+        },
+        "tensor_inventory": {
+          "train_existing": 125,
+          "validation_existing": 125,
+          "test_existing": 95,
+          "missing": 0,
+          "layout": "T,R,H,W,C",
+          "shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "input_contract": "rgb_regions fixed crop stack"
+        }
+      },
+      "split_and_signer_support": {
+        "unique_signers": {
+          "train": 28,
+          "validation": 8,
+          "test": 7
+        },
+        "train_validation_signer_overlap": 0,
+        "train_test_signer_overlap": 0,
+        "validation_test_signer_overlap": 0,
+        "interpretation": "The split is signer-disjoint; this is desirable for proof quality but made fixed-crop generalization harder."
+      },
+      "training_evidence": {
+        "failed_smokes": [
+          {
+            "path": "docs/validation/return-to-form-tier0-learnability-smoke.json",
+            "train_top1": 0.376,
+            "validation_top1": 0.256,
+            "test_top1": 0.24210526315789474,
+            "result": "failed train sanity and validation signal"
+          },
+          {
+            "path": "docs/validation/return-to-form-tier0-learnability-smoke-rerun.json",
+            "train_top1": 0.312,
+            "validation_top1": 0.224,
+            "test_top1": 0.2,
+            "result": "failed train sanity and validation signal"
+          }
+        ],
+        "train_fit_positive_control": {
+          "path": "docs/validation/return-to-form-tier0-microprobe-config-smoke.json",
+          "train_top1": 1.0,
+          "train_macro_recall": 1.0,
+          "validation_top1": 0.216,
+          "validation_macro_recall": 0.21600000000000003,
+          "test_top1": 0.2736842105263158,
+          "result": "crop-identity-preserving path fits train but fails held-out signer-disjoint signal"
+        },
+        "split_remediation": {
+          "path": "docs/validation/return-to-form-tier0-label-split-remediation.json",
+          "classification": "source_signer_distribution_gap",
+          "confidence": "medium",
+          "most_likely_blocker": "source/signer distribution under current PopSign-only preserved splits"
+        }
+      },
+      "detector0_and_crop_evidence": {
+        "annotation_packet": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+        "annotation_rows": 32,
+        "target_ids": [
+          "left_or_first_hand",
+          "right_or_second_hand",
+          "head_or_face",
+          "upper_body_or_signing_space",
+          "table_two_hand_union_or_contact_region"
+        ],
+        "excluded_targets": [
+          "full_hand_landmarks",
+          "full_body_landmarks",
+          "full_face_landmarks",
+          "pretrained_detector_outputs",
+          "pretrained_generated_labels"
+        ],
+        "latest_detector_receipt": {
+          "path": "docs/validation/return-to-form-tier0-detector0-union-target-architecture-microprobe-v2.json",
+          "classification": "train_fit_but_heldout_failure_repeated",
+          "train_presence_accuracy": 1.0,
+          "train_present_box_mae": 0.0015357083175331354,
+          "validation_presence_accuracy": 0.3636363744735718,
+          "validation_present_box_mae": 0.04699942097067833,
+          "test_presence_accuracy": 0.4000000059604645,
+          "selected_next_action": "stop_reduced_claim"
+        }
+      },
+      "blocker_before_successful_attempt": "PopSign has the cleanest source and tensor provenance, and the recognizer path can fit train, but held-out signer-disjoint generalization remains weak. The current Detector 0/crop-normalization path also fits train but fails held-out behavior, so it is not ready to drive a promoted crop-normalized recognizer."
+    },
+    {
+      "route_id": "asl_citizen_rawframe_lesson_milestone",
+      "route_name": "ASL Citizen 25-label rawframe lesson milestone tensors",
+      "source_status": {
+        "source_id": "asl-citizen-school-assignment-raw-videos",
+        "allowed_for_model_training": true,
+        "allowed_for_validation": true,
+        "license_review_status": "approved_noncommercial_school_assignment_raw_video_only",
+        "evidence_paths": [
+          "docs/model/dataset-source-register.json",
+          "docs/research/asl-citizen-academic-source-review.md",
+          "docs/research/asl-citizen-academic-external-rights-review-receipt.json"
+        ],
+        "restriction_summary": "Approved only for this noncommercial school assignment as local raw-RGB training and validation. Raw videos, modified videos, extracted frames, local mirrors, pretrained baselines, pose outputs, landmarks, feature caches, and derived CV artifacts are disallowed for redistribution or promoted-lane shortcuts."
+      },
+      "local_assets": {
+        "manifests": [
+          "data/manifests/lesson/rawframe-milestone/train.json",
+          "data/manifests/lesson/rawframe-milestone/validation.json",
+          "data/manifests/lesson/rawframe-milestone/test.json"
+        ],
+        "manifest_counts": {
+          "train": 300,
+          "validation": 94,
+          "test": 100
+        },
+        "label_count": 25,
+        "tensor_inventory": {
+          "train_existing": 300,
+          "validation_existing": 94,
+          "test_existing": 100,
+          "missing": 0,
+          "layout": "T,H,W,C",
+          "shape": [
+            12,
+            96,
+            96,
+            3
+          ]
+        }
+      },
+      "split_and_signer_support": {
+        "unique_signers": {
+          "train": 29,
+          "validation": 5,
+          "test": 7
+        },
+        "train_validation_signer_overlap": 0,
+        "train_test_signer_overlap": 0,
+        "validation_test_signer_overlap": 0
+      },
+      "training_evidence": {
+        "generalization_diagnosis": {
+          "path": "docs/validation/return-to-form-asl-citizen-generalization-diagnosis-v1.json",
+          "primary_failure_classification": "data_split_support",
+          "selected_next_action": "reduce_to_high_signal_5_10_sign_module",
+          "summary": "Only seven labels had nonzero recall on both validation and test; broad 25-label retry was not justified."
+        },
+        "core_negative_diagnostic": {
+          "path": "docs/validation/return-to-form-asl-citizen-core-negative-diagnostic-v1.json",
+          "status": "diagnostic_failed_generalization",
+          "summary": "The checkpoint fit train but did not generalize; top-1 and macro F1 were the dominant blockers rather than the current core negative set."
+        }
+      },
+      "blocker_before_successful_attempt": "The 25-label ASL Citizen route has local tensors and signer-disjoint manifests, but held-out support is too thin and broad failures justified downselecting before any additional training."
+    },
+    {
+      "route_id": "asl_citizen_high_signal_region_grid",
+      "route_name": "ASL Citizen seven-label high-signal region-grid tensors",
+      "source_status": {
+        "source_id": "asl-citizen-school-assignment-raw-videos",
+        "allowed_for_model_training": true,
+        "allowed_for_validation": true,
+        "license_review_status": "approved_noncommercial_school_assignment_raw_video_only"
+      },
+      "local_assets": {
+        "manifests": [
+          "data/manifests/lesson/high-signal-region-grid/train.json",
+          "data/manifests/lesson/high-signal-region-grid/validation.json",
+          "data/manifests/lesson/high-signal-region-grid/test.json"
+        ],
+        "manifest_counts": {
+          "train": 84,
+          "validation": 27,
+          "test": 28
+        },
+        "labels": [
+          "black",
+          "hello",
+          "please",
+          "sad",
+          "table",
+          "uncle",
+          "white"
+        ],
+        "per_label_counts": {
+          "train": {
+            "black": 12,
+            "hello": 12,
+            "please": 12,
+            "sad": 12,
+            "table": 12,
+            "uncle": 12,
+            "white": 12
+          },
+          "validation": {
+            "black": 4,
+            "hello": 4,
+            "please": 4,
+            "sad": 4,
+            "table": 4,
+            "uncle": 3,
+            "white": 4
+          },
+          "test": {
+            "black": 4,
+            "hello": 4,
+            "please": 4,
+            "sad": 4,
+            "table": 4,
+            "uncle": 4,
+            "white": 4
+          }
+        },
+        "tensor_inventory": {
+          "train_existing": 84,
+          "validation_existing": 27,
+          "test_existing": 28,
+          "missing": 0,
+          "layout": "T,R,H,W,C",
+          "shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "input_contract": "rgb_regions_grid_v1"
+        }
+      },
+      "split_and_signer_support": {
+        "unique_signers": {
+          "train": 19,
+          "validation": 5,
+          "test": 7
+        },
+        "train_validation_signer_overlap": 0,
+        "train_test_signer_overlap": 0,
+        "validation_test_signer_overlap": 0
+      },
+      "training_evidence": {
+        "true_tcn_architecture": {
+          "path": "docs/validation/return-to-form-true-tcn-architecture-scaffold-v1.json",
+          "architecture": "true_temporal_convnet_region_grid",
+          "pretrained_components": [],
+          "random_initialization": true
+        },
+        "local_smoke": {
+          "path": "docs/validation/return-to-form-region-grid-tcn-local-smoke-v1.json",
+          "status": "completed_smoke_target_failed",
+          "train_accuracy_epoch_2": 0.020833333333333332,
+          "validation_top1_accuracy": 0.037037037037037035,
+          "validation_macro_f1": 0.015037593984962407,
+          "test_top1_accuracy": 0.17857142857142858,
+          "test_macro_f1": 0.09166666666666666,
+          "input_contract": "139/139 clips exposed rgb_regions_grid_v1"
+        },
+        "tiny_overfit": {
+          "path": "docs/validation/return-to-form-region-grid-tcn-tiny-overfit-v1.json",
+          "status": "tiny_overfit_succeeded",
+          "subset_clip_count": 7,
+          "final_subset_accuracy": 1.0,
+          "zero_recall_labels": [],
+          "interpretation": "The model/input/training loop can memorize one clip per label; the stack is not obviously dead."
+        },
+        "split_contract": {
+          "path": "docs/validation/return-to-form-split-signer-contract-v1.json",
+          "conclusion": "high-signal manifests are signer-disjoint; crop/region gate remains required before future training"
+        },
+        "crop_region_contract": {
+          "path": "docs/validation/return-to-form-crop-region-contract-v1.json",
+          "conclusions": [
+            "All 139 selected manifest-bound tensors expose preserved rgb_regions_grid_v1-compatible input.",
+            "M3AY crop-stat drift remains unresolved for 10 split-label rows.",
+            "No training-worthy paid Brev micro-experiment is identified."
+          ],
+          "training_candidate_labels_now": []
+        },
+        "vocabulary_contract": {
+          "path": "docs/validation/return-to-form-vocab-subset-contract-v1.json",
+          "retained_labels": [],
+          "training_worthy_subset_identified": false,
+          "excluded_labels": {
+            "hold": [
+              "table",
+              "please",
+              "white",
+              "sad"
+            ],
+            "defer": [
+              "black",
+              "hello"
+            ],
+            "repair": [
+              "uncle"
+            ]
+          }
+        },
+        "data_quality_contract": {
+          "path": "docs/validation/return-to-form-data-quality-contract-v1.json",
+          "training_worthy_subset_identified": false,
+          "smallest_honest_candidate_subset": [],
+          "paid_microexperiment_supported_now": false
+        }
+      },
+      "blocker_before_successful_attempt": "The route has approved source status, manifests, tensors, signer-disjoint splits, and a model path that can tiny-overfit. The present blocker is unresolved fixed-crop/ROI and label-level held-out support drift: no label currently clears crop/region and vocabulary/data-quality gates into a nonempty training-worthy subset."
+    },
+    {
+      "route_id": "semlex_asl_lex_phonology_candidate",
+      "route_name": "SemLex / ASL-LEX phonology or metadata candidate route",
+      "source_status": {
+        "asl_lex_source_id": "asl-lex",
+        "asl_lex_allowed_for_model_training": false,
+        "asl_lex_license_review_status": "blocked_video_permission_required",
+        "semlex_present_in_source_register": false,
+        "default_public_dataset_policy": "blocked_without_external_rights_review"
+      },
+      "local_assets": {
+        "repo_local_semlex_metadata_or_phonology_surface_exists": false,
+        "repo_local_asl_lex_video_or_non_media_training_surface_exists": false,
+        "media_downloaded": false,
+        "manifests": [],
+        "tensors": []
+      },
+      "evidence": {
+        "overlap_review": {
+          "path": "docs/research/semlex-asl-lex-overlap-source-review-v1.json",
+          "status": "completed_candidate_source_gap_reviewed",
+          "training_use_blockers": [
+            "ASL-LEX sign reference videos require explicit permission for video use.",
+            "SemLex is absent from docs/model/dataset-source-register.json.",
+            "No repo-local SemLex/ASL-LEX/phonology vocabulary artifact exists."
+          ]
+        },
+        "candidate_review": {
+          "path": "docs/research/semlex-source-register-candidate-no-import-v1.json",
+          "status": "completed_no_usable_semlex_candidate_surface",
+          "proposal_type": "negative_candidate_boundary_no_register_edit",
+          "exactly_one_next_action": "escalate_strategy_research"
+        }
+      },
+      "blocker_before_successful_attempt": "This route is blocked before training by source/provenance and local asset absence, not by model architecture or compute. ASL-LEX videos remain blocked, SemLex is not registered, and no repo-local allowed non-media phonology artifact exists."
+    },
+    {
+      "route_id": "first_party_consent_capture_future_route",
+      "route_name": "First-party consented browser recordings",
+      "source_status": {
+        "source_id": "first-party-browser-consent-capture",
+        "allowed_for_model_training": true,
+        "license_review_status": "approved_after_clip_level_consent",
+        "required_evidence": [
+          "dataset signer registry record",
+          "clip-level consent record",
+          "dataset consent form version and hash",
+          "raw clip SHA-256 hash",
+          "clip-level ASL label review approval"
+        ]
+      },
+      "local_assets": {
+        "current_training_manifests_in_this_slice": [],
+        "current_training_tensor_counts": {
+          "train": 0,
+          "validation": 0,
+          "test": 0
+        }
+      },
+      "blocker_before_successful_attempt": "This remains the clean policy route, but this M3BN slice found no current first-party training manifest or tensor set to train."
+    }
+  ],
+  "root_cause_matrix": [
+    {
+      "category": "source_provenance_rights",
+      "classification": "mixed_by_route",
+      "is_current_global_blocker": false,
+      "evidence_paths": [
+        "docs/model/dataset-source-register.json",
+        "docs/research/semlex-asl-lex-overlap-source-review-v1.json",
+        "docs/research/semlex-source-register-candidate-no-import-v1.json"
+      ],
+      "diagnosis": "PopSign and the narrow ASL Citizen school-assignment raw-video route are approved for local training/validation. SemLex/ASL-LEX is blocked before training. Source rights alone do not explain why PopSign and ASL Citizen training attempts fail, but they eliminate SemLex/ASL-LEX as a current training input."
+    },
+    {
+      "category": "missing_local_media_or_metadata",
+      "classification": "route_specific_blocker",
+      "is_current_global_blocker": false,
+      "evidence_paths": [
+        "data/manifests/return-to-form-tier0/",
+        "data/manifests/lesson/rawframe-milestone/",
+        "data/manifests/lesson/high-signal-region-grid/",
+        "docs/research/semlex-source-register-candidate-no-import-v1.json"
+      ],
+      "diagnosis": "PopSign and ASL Citizen have local manifests and tensors. SemLex/ASL-LEX lacks a repo-local usable metadata/phonology surface and media permission. First-party collection is policy-clean but not currently materialized into a training manifest in this slice."
+    },
+    {
+      "category": "manifest_schema_label_mapping",
+      "classification": "not_primary_current_blocker",
+      "is_current_global_blocker": false,
+      "evidence_paths": [
+        "docs/validation/return-to-form-region-grid-tcn-local-smoke-v1.json",
+        "docs/validation/return-to-form-region-grid-tcn-tiny-overfit-v1.json",
+        "docs/validation/return-to-form-crop-region-contract-v1.json"
+      ],
+      "diagnosis": "The high-signal ASL Citizen manifests expose 139/139 rgb_regions_grid_v1-compatible tensors, and the TCN path can tiny-overfit one clip per label. The manifest/schema path is therefore usable enough to load labels and tensors, although no label currently passes crop/data-quality gates into a training-worthy subset."
+    },
+    {
+      "category": "signer_split_support",
+      "classification": "heldout_generalization_stress",
+      "is_current_global_blocker": true,
+      "evidence_paths": [
+        "data/manifests/return-to-form-tier0/",
+        "data/manifests/lesson/high-signal-region-grid/",
+        "docs/validation/return-to-form-tier0-label-split-remediation.json",
+        "docs/validation/return-to-form-split-signer-contract-v1.json"
+      ],
+      "diagnosis": "PopSign and ASL Citizen selected splits are signer-disjoint with zero train-to-heldout signer overlap. That is appropriate evidence, not a leak, but current models train-fit or tiny-overfit without held-out transfer. Thin held-out support and signer/domain spread make broad retries unjustified."
+    },
+    {
+      "category": "crop_roi_region_drift",
+      "classification": "primary_current_training_blocker",
+      "is_current_global_blocker": true,
+      "evidence_paths": [
+        "docs/validation/return-to-form-crop-region-contract-v1.json",
+        "docs/validation/return-to-form-vocab-subset-contract-v1.json",
+        "docs/validation/return-to-form-data-quality-contract-v1.json",
+        "docs/validation/return-to-form-tier0-detector0-union-target-architecture-microprobe-v2.json"
+      ],
+      "diagnosis": "ASL Citizen high-signal tensors are present, but unresolved crop-stat drift and held-out label behavior exclude every label from a training-worthy subset. PopSign Detector 0/crop-normalization has manual coarse target support and train-fit, but held-out detector behavior repeats failure. The smallest unblock is a crop/ROI contract repair, not another recognizer training run."
+    },
+    {
+      "category": "model_input_architecture_training_loop",
+      "classification": "not_dead_but_not_sufficient",
+      "is_current_global_blocker": false,
+      "evidence_paths": [
+        "scripts/train_rawframe_model.py",
+        "docs/validation/return-to-form-true-tcn-architecture-scaffold-v1.json",
+        "docs/validation/return-to-form-region-grid-tcn-local-smoke-v1.json",
+        "docs/validation/return-to-form-region-grid-tcn-tiny-overfit-v1.json",
+        "docs/validation/return-to-form-tier0-microprobe-config-smoke.json"
+      ],
+      "diagnosis": "The training loop is not proven dead: PopSign reaches train_top1=1.0 under the crop-identity-preserving config, ASL Citizen TCN tiny-overfits seven clips, and no pretrained components are needed. These positives do not translate into held-out signal, which points back to data/crop/generalization rather than a pure codepath failure."
+    },
+    {
+      "category": "compute_environment",
+      "classification": "not_current_blocker_for_this_slice",
+      "is_current_global_blocker": false,
+      "evidence_paths": [
+        "GOAL.md",
+        "docs/model/return-to-form-dataset-training-root-cause-goal-loop-prompt.md"
+      ],
+      "diagnosis": "This mission forbids Brev commands. The current evidence does not justify paid remote compute because no nonempty training-worthy subset or crop-normalized input contract has been repaired. Brev may be useful later only after a bounded receipt records worker state, listed price, command, max runtime, max spend, kill condition, expected metric signal, copyback, and default-off cleanup."
+    },
+    {
+      "category": "detector_landmark_gap",
+      "classification": "coarse_crop_supervision_current_full_landmarks_future",
+      "is_current_global_blocker": true,
+      "evidence_paths": [
+        "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+        "docs/validation/return-to-form-tier0-detector0-union-target-architecture-microprobe-v2.json",
+        "docs/model/dataset-and-training-plan.md"
+      ],
+      "diagnosis": "Missing full hand, posture, and face landmarks are not a current required blocker and remain disallowed as pretrained/generated shortcuts in the promoted lane. The current blocker is narrower: missing reliable reviewed coarse ROI/crop supervision that transfers to held-out signers and can justify recognizer inputs."
+    },
+    {
+      "category": "unsupported_claim_or_audit_blocker",
+      "classification": "guardrail_satisfied_fail_closed",
+      "is_current_global_blocker": false,
+      "evidence_paths": [
+        "web/public/model/model-card.json",
+        "docs/model/active-vocabulary-claim.json",
+        "docs/validation/supported-label-registry.json"
+      ],
+      "diagnosis": "The browser model remains not_trained and activeLabels is empty. Required audits pass. This correctly blocks promotion but does not block local diagnostic repair work."
+    }
+  ],
+  "detector_and_landmark_assessment": {
+    "are_missing_hand_posture_face_landmark_detectors_current_blockers": false,
+    "current_blocker": "coarse ROI/crop localization and crop inclusion evidence, especially for ASL Citizen high-signal held-out labels",
+    "why_full_landmarks_are_not_required_now": [
+      "The promoted lane forbids pretrained landmark, pose, detector, backbone, embedding, or generated-label shortcuts.",
+      "Existing Detector 0 target schema intentionally excludes full hand, full body, and full face landmarks.",
+      "The TCN and PopSign recognizer paths can fit small/train subsets without full landmarks, so full landmarks are not the first missing proof."
+    ],
+    "future_robustness_work": "Full hand/posture/face landmark-style supervision could be researched later only if created under approved no-pretrained/manual or first-party rules, but it is not the next justified repair."
+  },
+  "smallest_supported_next_training_attempt": {
+    "training_attempt_supported_now": false,
+    "reason": "No route currently provides both a nonempty training-worthy label subset and a repaired crop/ROI contract with held-out gates. PopSign and ASL Citizen both show train-fit or tiny-overfit without held-out readiness.",
+    "labels": [],
+    "manifests_or_tensors": [],
+    "command_shape": null,
+    "gates_before_any_training": [
+      "nonempty retained label subset",
+      "manifest-bound crop/ROI inclusion contract by label and split",
+      "held-out signer-disjoint gate that does not rely on train-fit alone",
+      "no-pretrained/source-register audits",
+      "claim surfaces remain fail-closed until promotion gates are separately satisfied"
+    ]
+  },
+  "exact_repair_needed_before_training_is_justified": {
+    "repair_id": "asl_citizen_high_signal_crop_roi_contract_repair",
+    "description": "Create one no-training crop/ROI repair contract for the ASL Citizen high-signal region-grid route. It should inspect existing manifest-bound full-frame/reference and fixed-region evidence, classify whether each retained label/split keeps active signing motion inside the static crop regions, and identify the smallest reviewed coarse-ROI packet or crop-config adjustment needed before a recognizer or Detector 0 retry.",
+    "expected_artifact": "docs/validation/return-to-form-asl-citizen-high-signal-crop-roi-contract-v1.json",
+    "must_not_do": [
+      "run recognizer training",
+      "run Brev commands",
+      "import media",
+      "mutate source register",
+      "mutate manifests or tensors",
+      "generate pseudo-labels from pretrained detectors",
+      "promote browser recognition"
+    ],
+    "minimum_fields": [
+      "per-label split support",
+      "fixed-crop inclusion or drift classification",
+      "manifest-bound frame/tensor evidence paths",
+      "whether a coarse manual ROI packet is needed",
+      "nonempty retained subset decision",
+      "gates required before any local or Brev training receipt"
+    ]
+  },
+  "brev_assessment": {
+    "brev_useful_now": false,
+    "brev_commands_run_in_this_slice": [],
+    "reason": "The active prompt forbids Brev commands, and evidence does not support paid training until crop/ROI repair yields a nonempty retained subset.",
+    "missing_before_any_remote_run": [
+      "fresh brev ls --json worker state",
+      "listed price",
+      "planned command",
+      "max runtime",
+      "max spend",
+      "kill condition",
+      "expected metric signal",
+      "artifact copyback",
+      "teardown and default-off verification",
+      "explicit current human approval tied to that bounded receipt"
+    ]
+  },
+  "commands_run": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "notes": "Clean worktree at the start of the slice; branch compound-plan-m0 ahead of origin."
+    },
+    {
+      "command": "git log -10 --oneline --decorate",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs --json",
+      "status": "failed_non_blocking",
+      "exit_code": 2,
+      "notes": "The audit script does not support --json; rerun without the unsupported argument."
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "python3 manifest and receipt inventory probes over tracked JSON files",
+      "status": "passed",
+      "notes": "Read-only local probes summarized manifest counts, signer overlap, tensor layouts, receipt metrics, Detector 0 packet counts, and fail-closed claim state."
+    },
+    {
+      "command": "date -u +%Y-%m-%dT%H:%M:%SZ",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-dataset-training-root-cause-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "files_changed": [
+    "docs/validation/return-to-form-dataset-training-root-cause-v1.json",
+    "docs/session-logs/359-mission-3bn-dataset-training-root-cause.md"
+  ],
+  "blockers": [
+    "No current route has a nonempty training-worthy subset plus repaired crop/ROI gates.",
+    "SemLex/ASL-LEX has no repo-local usable surface and ASL-LEX videos remain blocked.",
+    "Brev training is not justified in this slice and Brev commands are forbidden by the active prompt."
+  ],
+  "exactly_one_next_action": "continue_detector_or_crop_contract_repair",
+  "next_action_rationale": "The cheapest action that can change training justification is to repair the crop/ROI contract for the ASL Citizen high-signal route using existing local evidence. This directly targets the primary current blocker while preserving source, no-pretrained, no-spend, and fail-closed boundaries."
+}

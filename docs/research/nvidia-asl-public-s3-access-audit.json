@@ -1,0 +1,150 @@
+{
+  "schema_version": "asl-pilot-nvidia-asl-public-s3-access-audit/v1",
+  "status": "blocked_public_s3_access_denied_no_dataset_downloaded",
+  "checked_at": "2026-05-21T21:21:58.155Z",
+  "generated_by": {
+    "tool": "node",
+    "command": [
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/Users/kelly/Developer/asl-pilot/scripts/audit_nvidia_asl_public_s3_access.mjs",
+      "--write"
+    ],
+    "script": {
+      "path": "scripts/audit_nvidia_asl_public_s3_access.mjs",
+      "sha256": "05aa48c7f9f54d565d7bd54745ab762118c3d3d5be5933c0b76c2cec88b02896"
+    }
+  },
+  "decision_boundary": {
+    "approves_training_use": false,
+    "downloads_dataset_media": false,
+    "imports_media_to_manifests": false,
+    "changes_source_register": false,
+    "trains_or_promotes_model": false
+  },
+  "commands_attempted": [
+    "brew install awscli",
+    "aws --version",
+    "aws s3 ls --no-sign-request s3://trustworthyaiproduct/ --region us-east-2",
+    "aws s3 ls --no-sign-request s3://trustworthyaiproduct/ --recursive --human-readable --summarize --region us-east-2",
+    "aws s3api list-objects-v2 --no-sign-request --bucket trustworthyaiproduct --region us-east-2 --max-keys 20",
+    "aws s3api head-bucket --no-sign-request --bucket trustworthyaiproduct --region us-east-2",
+    "aws s3 sync --no-sign-request s3://trustworthyaiproduct/ ./asl-1000 --region us-east-2",
+    "aws s3 ls --no-sign-request s3://trustworthyaiproduct/ --region us-east-1",
+    "aws s3api list-objects-v2 --no-sign-request --bucket trustworthyaiproduct --region us-east-1 --max-keys 20"
+  ],
+  "environment": {
+    "aws_version": "aws-cli/2.34.51 Python/3.14.5 Darwin/25.2.0 source/arm64",
+    "aws_cli_runtime_note": "Homebrew awscli initially required expat repair on this machine because pyexpat loaded the system libexpat and failed before startup; pyexpat was relinked to Homebrew expat and ad-hoc re-signed so plain aws now runs."
+  },
+  "registry_evidence": {
+    "open_data_registry_yaml": {
+      "path": "artifacts/dataset-research/nvidia-asl/s3-inventory/asl_1000.yaml",
+      "exists": true,
+      "sha256": "9c4080ac243b0cfada8bf6cadfdd00065a8b84cfbb807eb5668dd2e8caf3f69b",
+      "bytes": 2596
+    },
+    "github_license_pdf": {
+      "path": "artifacts/dataset-research/nvidia-asl/s3-inventory/NVIDIA-Data-License-ASL-GitHub.pdf",
+      "exists": true,
+      "sha256": "173f7955e1cb04f7da34effaac0d90078633a8759faca001a55faa4c9c2da1f1",
+      "bytes": 82040
+    },
+    "bucket_arn": "arn:aws:s3:::trustworthyaiproduct",
+    "registry_region": "us-east-2",
+    "registry_names_controlled_access": true
+  },
+  "s3_access_evidence": {
+    "top_level_ls_us_east_2": {
+      "path": "artifacts/dataset-research/nvidia-asl/s3-inventory/top-level-ls-error.txt",
+      "exists": true,
+      "sha256": "df91bf356910f57e159ca002050541dd22309fddca798ea2c68cc6c3e2ac84a2",
+      "bytes": 104
+    },
+    "recursive_ls_us_east_2": {
+      "path": "artifacts/dataset-research/nvidia-asl/s3-inventory/recursive-ls-human-summarize.txt",
+      "exists": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "s3api_list_objects_us_east_2": {
+      "path": "artifacts/dataset-research/nvidia-asl/s3-inventory/s3api-list-objects-error.txt",
+      "exists": true,
+      "sha256": "df91bf356910f57e159ca002050541dd22309fddca798ea2c68cc6c3e2ac84a2",
+      "bytes": 104
+    },
+    "s3api_head_bucket_us_east_2": {
+      "path": "artifacts/dataset-research/nvidia-asl/s3-inventory/s3api-head-bucket.txt",
+      "exists": true,
+      "sha256": "dbf38c4f1550368a4d3790cb4ae656def73438089266a409d8bc1469c6d5dbb5",
+      "bytes": 88
+    },
+    "sync_root_us_east_2": {
+      "path": "artifacts/dataset-research/nvidia-asl/s3-inventory/sync-root-error.txt",
+      "exists": true,
+      "sha256": "d5f2a7129e75cb3e3cf6150729b71baf80f8e297cc870aac9ea3cdbe9ba43915",
+      "bytes": 102
+    },
+    "top_level_ls_us_east_1": {
+      "path": "artifacts/dataset-research/nvidia-asl/s3-inventory/top-level-ls-us-east-1.txt",
+      "exists": true,
+      "sha256": "df91bf356910f57e159ca002050541dd22309fddca798ea2c68cc6c3e2ac84a2",
+      "bytes": 104
+    },
+    "s3api_list_objects_us_east_1": {
+      "path": "artifacts/dataset-research/nvidia-asl/s3-inventory/s3api-list-objects-us-east-1.txt",
+      "exists": true,
+      "sha256": "df91bf356910f57e159ca002050541dd22309fddca798ea2c68cc6c3e2ac84a2",
+      "bytes": 104
+    },
+    "https_bucket_root_regional": {
+      "headers": {
+        "path": "artifacts/dataset-research/nvidia-asl/s3-inventory/https-bucket-root.headers",
+        "exists": true,
+        "sha256": "0de99e04d33a9bdda5f6279e9291c3da2f29055e0fb8362e88f4a97352bd975c",
+        "bytes": 326
+      },
+      "body": {
+        "path": "artifacts/dataset-research/nvidia-asl/s3-inventory/https-bucket-root.xml",
+        "exists": true,
+        "sha256": "c63222fbbc32476dc07e6d1c6b249ead5fd04618f85603ec1f88f07179019daa",
+        "bytes": 466
+      },
+      "permanent_redirect_to_global_endpoint": true
+    },
+    "https_bucket_root_global": {
+      "headers": {
+        "path": "artifacts/dataset-research/nvidia-asl/s3-inventory/https-bucket-root-global.headers",
+        "exists": true,
+        "sha256": "d67f1732f25587b90300d147a79f7803359c21989ac3078dbf972bab083443a4",
+        "bytes": 318
+      },
+      "body": {
+        "path": "artifacts/dataset-research/nvidia-asl/s3-inventory/https-bucket-root-global.xml",
+        "exists": true,
+        "sha256": "92a3d0f409cd3e0b97858e39cb51b8c5a4c28afecb8ed9600627ec7e7723d0e9",
+        "bytes": 263
+      },
+      "access_denied": true
+    },
+    "observed_bucket_region_from_s3": "us-east-1"
+  },
+  "local_dataset_target": {
+    "path": "asl-1000",
+    "exists": true,
+    "file_count": 0,
+    "files": []
+  },
+  "project_state": {
+    "nvidia_asl_1000_status": "blocked_pending_nvidia_controlled_access",
+    "anonymous_s3_status": "expected_403_after_registry_controlledaccess_review",
+    "training_use": "none",
+    "import_use": "none",
+    "next_action": "submit_nvidia_access_request_and_request_current_delivery_method"
+  },
+  "blockers": [],
+  "conclusion": {
+    "access_result": "Anonymous S3 access is currently denied for list/head/sync from this machine even though Marketplace/registry evidence names the bucket.",
+    "training_status": "not_approved_not_downloaded_not_imported",
+    "recommended_next_action": "Contact trustworthyaiprojects@nvidia.com or AWS Marketplace/Open Data support with the retained AccessDenied request evidence, then retry anonymous list/sync only after the bucket policy is fixed or exact authorized object keys are provided."
+  }
+}

@@ -1,0 +1,717 @@
+{
+  "artifacts": {
+    "decode_dataloader_receipt": {
+      "path": "docs/validation/return-to-form-tier0-decode-dataloader.json",
+      "sha256": "d64c0b46500075d94207ef2197a6f6d8f1570cf548da8b08ca16dc520ba386c2"
+    },
+    "gates": {
+      "path": "docs/validation/return-to-form-tier0-gates.json",
+      "sha256": "2cc000d3f90e9be236cf64768530bf9786fc61fe6605c774b9c1e8ab123d9d97"
+    },
+    "model_artifact": {
+      "path": "output/return-to-form-tier0-learnability-smoke/model_state.pt",
+      "sha256": "14480f572567127f4e51acc4df8b939d48c47a29cea4c5a1ecaaacfae00bb20f"
+    },
+    "report_script": {
+      "path": "scripts/report_return_to_form_tier0_learnability.py",
+      "sha256": "ed94898cf680006c3e5c50d1458b341f997b140975557c7a6af9581c6a7052b5"
+    },
+    "training_provenance": {
+      "path": "output/return-to-form-tier0-learnability-smoke/training-provenance.json",
+      "sha256": "7a0178c6b26421bb8e49f493ee1ce3b2ec604d5b27d78c6a0a409660141f8386"
+    }
+  },
+  "gate_results": {
+    "no_zero_accepted_true_class": {
+      "accepted_true_class_counts": null,
+      "blocker": "Training provenance threshold_policy is not_calibrated, so accepted true-class counts cannot be computed without a calibration/rejection slice.",
+      "gate_id": "no_zero_accepted_true_class",
+      "required": true,
+      "status": "blocked",
+      "uncalibrated_validation_true_positive_counts": {
+        "dad": 0,
+        "grandpa": 0,
+        "hat": 7,
+        "please": 16,
+        "table": 9
+      }
+    },
+    "tier0_hard_negative_far": {
+      "blocker": "No calibrated threshold or reviewed Tier 0 small-proof reject set is available for this smoke. The retained final-promotion negative-challenge gate also remains underfilled and must stay separate.",
+      "false_accept_rate": null,
+      "gate_id": "tier0_hard_negative_far",
+      "required": true,
+      "separation_from_final_gate": "The full 17-type negative-challenge gate remains a final-promotion requirement and is still blocked by 12 underfilled final-promotion types.",
+      "status": "blocked"
+    },
+    "tier0_train_sanity": {
+      "checks": {
+        "loss_drop_min_fraction_from_initial_to_best": {
+          "actual": 0.1710546144006228,
+          "passed": false,
+          "target": 0.4
+        },
+        "no_zero_train_recall": {
+          "actual_zero_recall_labels": [
+            "dad",
+            "grandpa"
+          ],
+          "passed": false,
+          "target": "no selected label has zero train recall"
+        },
+        "train_macro_recall_min": {
+          "actual": 0.376,
+          "passed": false,
+          "target": 0.8
+        },
+        "train_top1_min": {
+          "actual": 0.376,
+          "passed": false,
+          "target": 0.8
+        }
+      },
+      "gate_id": "tier0_train_sanity",
+      "interpretation": "Failure here means the fixed-crop/tensor/model path is not even fitting the small approved-source set; do not expand labels.",
+      "required": true,
+      "status": "failed"
+    },
+    "tier0_validation_signal": {
+      "checks": {
+        "validation_macro_recall_min": {
+          "actual": 0.256,
+          "passed": false,
+          "target": 0.5
+        },
+        "validation_top1_min": {
+          "actual": 0.256,
+          "passed": false,
+          "target": 0.6
+        }
+      },
+      "gate_id": "tier0_validation_signal",
+      "interpretation": "Passing validation is evidence for Tier 0 learnability only, not final product readiness.",
+      "required": true,
+      "status": "failed",
+      "test_report_only": {
+        "macro_recall": 0.24210526315789474,
+        "top1_accuracy": 0.24210526315789474
+      }
+    }
+  },
+  "generated_at": "2026-05-25T20:20:14.269237+00:00",
+  "metrics": {
+    "test": {
+      "confusion_matrix": [
+        [
+          0,
+          0,
+          9,
+          9,
+          1
+        ],
+        [
+          1,
+          0,
+          5,
+          10,
+          3
+        ],
+        [
+          0,
+          0,
+          7,
+          12,
+          0
+        ],
+        [
+          0,
+          0,
+          6,
+          13,
+          0
+        ],
+        [
+          0,
+          0,
+          3,
+          13,
+          3
+        ]
+      ],
+      "confusion_matrix_labels": [
+        "dad",
+        "grandpa",
+        "hat",
+        "please",
+        "table"
+      ],
+      "examples": 95,
+      "loss": 1.6330358304475483,
+      "macro_f1": 0.17171775592828226,
+      "macro_recall": 0.24210526315789474,
+      "per_label": [
+        {
+          "f1": 0.0,
+          "label_id": "dad",
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 19,
+          "true_positive": 0
+        },
+        {
+          "f1": 0.0,
+          "label_id": "grandpa",
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 19,
+          "true_positive": 0
+        },
+        {
+          "f1": 0.2857142857142857,
+          "label_id": "hat",
+          "precision": 0.23333333333333334,
+          "recall": 0.3684210526315789,
+          "support": 19,
+          "true_positive": 7
+        },
+        {
+          "f1": 0.3421052631578948,
+          "label_id": "please",
+          "precision": 0.22807017543859648,
+          "recall": 0.6842105263157895,
+          "support": 19,
+          "true_positive": 13
+        },
+        {
+          "f1": 0.23076923076923078,
+          "label_id": "table",
+          "precision": 0.42857142857142855,
+          "recall": 0.15789473684210525,
+          "support": 19,
+          "true_positive": 3
+        }
+      ],
+      "top1_accuracy": 0.24210526315789474,
+      "top_confusions": [
+        {
+          "actual": "table",
+          "count": 13,
+          "predicted": "please"
+        },
+        {
+          "actual": "hat",
+          "count": 12,
+          "predicted": "please"
+        },
+        {
+          "actual": "grandpa",
+          "count": 10,
+          "predicted": "please"
+        },
+        {
+          "actual": "dad",
+          "count": 9,
+          "predicted": "hat"
+        },
+        {
+          "actual": "dad",
+          "count": 9,
+          "predicted": "please"
+        },
+        {
+          "actual": "please",
+          "count": 6,
+          "predicted": "hat"
+        },
+        {
+          "actual": "grandpa",
+          "count": 5,
+          "predicted": "hat"
+        },
+        {
+          "actual": "grandpa",
+          "count": 3,
+          "predicted": "table"
+        },
+        {
+          "actual": "table",
+          "count": 3,
+          "predicted": "hat"
+        },
+        {
+          "actual": "dad",
+          "count": 1,
+          "predicted": "table"
+        },
+        {
+          "actual": "grandpa",
+          "count": 1,
+          "predicted": "dad"
+        }
+      ]
+    },
+    "train": {
+      "confusion_matrix": [
+        [
+          0,
+          0,
+          10,
+          14,
+          1
+        ],
+        [
+          0,
+          0,
+          12,
+          10,
+          3
+        ],
+        [
+          0,
+          0,
+          14,
+          10,
+          1
+        ],
+        [
+          0,
+          0,
+          1,
+          24,
+          0
+        ],
+        [
+          0,
+          0,
+          2,
+          14,
+          9
+        ]
+      ],
+      "confusion_matrix_labels": [
+        "dad",
+        "grandpa",
+        "hat",
+        "please",
+        "table"
+      ],
+      "examples": 125,
+      "loss": 1.4857416648864745,
+      "macro_f1": 0.27877676447264077,
+      "macro_recall": 0.376,
+      "per_label": [
+        {
+          "f1": 0.0,
+          "label_id": "dad",
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25,
+          "true_positive": 0
+        },
+        {
+          "f1": 0.0,
+          "label_id": "grandpa",
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25,
+          "true_positive": 0
+        },
+        {
+          "f1": 0.4375,
+          "label_id": "hat",
+          "precision": 0.358974358974359,
+          "recall": 0.56,
+          "support": 25,
+          "true_positive": 14
+        },
+        {
+          "f1": 0.49484536082474223,
+          "label_id": "please",
+          "precision": 0.3333333333333333,
+          "recall": 0.96,
+          "support": 25,
+          "true_positive": 24
+        },
+        {
+          "f1": 0.4615384615384615,
+          "label_id": "table",
+          "precision": 0.6428571428571429,
+          "recall": 0.36,
+          "support": 25,
+          "true_positive": 9
+        }
+      ],
+      "top1_accuracy": 0.376,
+      "top_confusions": [
+        {
+          "actual": "dad",
+          "count": 14,
+          "predicted": "please"
+        },
+        {
+          "actual": "table",
+          "count": 14,
+          "predicted": "please"
+        },
+        {
+          "actual": "grandpa",
+          "count": 12,
+          "predicted": "hat"
+        },
+        {
+          "actual": "dad",
+          "count": 10,
+          "predicted": "hat"
+        },
+        {
+          "actual": "grandpa",
+          "count": 10,
+          "predicted": "please"
+        },
+        {
+          "actual": "hat",
+          "count": 10,
+          "predicted": "please"
+        },
+        {
+          "actual": "grandpa",
+          "count": 3,
+          "predicted": "table"
+        },
+        {
+          "actual": "table",
+          "count": 2,
+          "predicted": "hat"
+        },
+        {
+          "actual": "dad",
+          "count": 1,
+          "predicted": "table"
+        },
+        {
+          "actual": "hat",
+          "count": 1,
+          "predicted": "table"
+        },
+        {
+          "actual": "please",
+          "count": 1,
+          "predicted": "hat"
+        }
+      ]
+    },
+    "validation": {
+      "confusion_matrix": [
+        [
+          0,
+          0,
+          5,
+          16,
+          4
+        ],
+        [
+          0,
+          0,
+          7,
+          15,
+          3
+        ],
+        [
+          0,
+          0,
+          7,
+          15,
+          3
+        ],
+        [
+          0,
+          0,
+          3,
+          16,
+          6
+        ],
+        [
+          0,
+          0,
+          3,
+          13,
+          9
+        ]
+      ],
+      "confusion_matrix_labels": [
+        "dad",
+        "grandpa",
+        "hat",
+        "please",
+        "table"
+      ],
+      "examples": 125,
+      "loss": 1.6542098388671875,
+      "macro_f1": 0.192,
+      "macro_recall": 0.256,
+      "per_label": [
+        {
+          "f1": 0.0,
+          "label_id": "dad",
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25,
+          "true_positive": 0
+        },
+        {
+          "f1": 0.0,
+          "label_id": "grandpa",
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25,
+          "true_positive": 0
+        },
+        {
+          "f1": 0.28,
+          "label_id": "hat",
+          "precision": 0.28,
+          "recall": 0.28,
+          "support": 25,
+          "true_positive": 7
+        },
+        {
+          "f1": 0.32,
+          "label_id": "please",
+          "precision": 0.21333333333333335,
+          "recall": 0.64,
+          "support": 25,
+          "true_positive": 16
+        },
+        {
+          "f1": 0.36,
+          "label_id": "table",
+          "precision": 0.36,
+          "recall": 0.36,
+          "support": 25,
+          "true_positive": 9
+        }
+      ],
+      "top1_accuracy": 0.256,
+      "top_confusions": [
+        {
+          "actual": "dad",
+          "count": 16,
+          "predicted": "please"
+        },
+        {
+          "actual": "grandpa",
+          "count": 15,
+          "predicted": "please"
+        },
+        {
+          "actual": "hat",
+          "count": 15,
+          "predicted": "please"
+        },
+        {
+          "actual": "table",
+          "count": 13,
+          "predicted": "please"
+        },
+        {
+          "actual": "grandpa",
+          "count": 7,
+          "predicted": "hat"
+        },
+        {
+          "actual": "please",
+          "count": 6,
+          "predicted": "table"
+        },
+        {
+          "actual": "dad",
+          "count": 5,
+          "predicted": "hat"
+        },
+        {
+          "actual": "dad",
+          "count": 4,
+          "predicted": "table"
+        },
+        {
+          "actual": "grandpa",
+          "count": 3,
+          "predicted": "table"
+        },
+        {
+          "actual": "hat",
+          "count": 3,
+          "predicted": "table"
+        },
+        {
+          "actual": "please",
+          "count": 3,
+          "predicted": "hat"
+        },
+        {
+          "actual": "table",
+          "count": 3,
+          "predicted": "hat"
+        }
+      ]
+    }
+  },
+  "mission": "M3AE",
+  "negative_challenge_audit": {
+    "command": "./.venv/bin/python scripts/audit_final_manifests.py",
+    "exit_code": 1,
+    "status": "failed",
+    "stderr_tail": [
+      "Final manifest audit failed: /Users/kelly/Developer/asl-pilot/data/manifests/negative-challenge.json: negative challenge manifest needs at least 5 clips for each required type; missing/underfilled: casual_non_asl_gesture, counting, fingerspelling_like_motion, hand_clap, hands_cropped_out, idle_hands, mouth_touch, partial_sign, thumbs_up, waving, wrong_location, wrong_palm_orientation"
+    ],
+    "stdout_tail": [
+      "{",
+      "  \"blockers\": [",
+      "    \"/Users/kelly/Developer/asl-pilot/data/manifests/negative-challenge.json: negative challenge manifest needs at least 5 clips for each required type; missing/underfilled: casual_non_asl_gesture, counting, fingerspelling_like_motion, hand_clap, hands_cropped_out, idle_hands, mouth_touch, partial_sign, thumbs_up, waving, wrong_location, wrong_palm_orientation\"",
+      "  ],",
+      "  \"checked_at\": \"2026-05-25T20:20:39.948980+00:00\",",
+      "  \"schema_version\": \"asl-pilot-final-manifest-audit/v1\",",
+      "  \"status\": \"failed\"",
+      "}"
+    ]
+  },
+  "next_action": {
+    "description": "Return to M3AC/M3AD remediation: inspect fixed-crop contact sheets, region selection, tensor payload compatibility, and model architecture before any label expansion.",
+    "id": "m3ac_m3ad_remediation"
+  },
+  "non_actions": [
+    "No labels were expanded.",
+    "No controlled clip-heldout checkpoint was evaluated or promoted.",
+    "No ONNX export was produced.",
+    "No model card or final claim matrix was promoted.",
+    "No final-promotion gate was weakened.",
+    "No Brev instance was created or stopped."
+  ],
+  "random_top1_chance": 0.2,
+  "schema_version": "asl-pilot-return-to-form-tier0-learnability-smoke/v1",
+  "selected_labels": [
+    "dad",
+    "grandpa",
+    "hat",
+    "please",
+    "table"
+  ],
+  "source_ids": [
+    "popsign-v1-original-videos"
+  ],
+  "status": "failed",
+  "training_input_contract": {
+    "manifest_tensor_contract": {
+      "dataloader_batch_shape": {
+        "test": [
+          4,
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "train": [
+          4,
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "validation": [
+          4,
+          16,
+          5,
+          96,
+          96,
+          3
+        ]
+      },
+      "region_axis": "T,R,H,W,C"
+    },
+    "model_loader_region": "RawFrameClipDataset reads the rgb_frames compatibility tensor from each M3AD payload; the M3AD fixed-crop rgb_regions payload remains hash-bound for region proof."
+  },
+  "training_summary": {
+    "architecture": "compact_3d_cnn_spatiotemporal",
+    "checkpoint_selection": {
+      "policy": "best_validation",
+      "selected_epoch": 7,
+      "selected_validation_metrics": {
+        "accuracy": 0.390625,
+        "batches": 8.0,
+        "examples": 64.0,
+        "loss": 1.596394032239914
+      }
+    },
+    "framework": {
+      "device": "mps",
+      "name": "pytorch",
+      "python": "3.14.5",
+      "version": "2.12.0"
+    },
+    "hyperparameters": {
+      "architecture": "compact_3d_cnn_spatiotemporal",
+      "batch_size": 8,
+      "checkpoint_selection": "best_validation",
+      "epochs": 8,
+      "frame_count": 16,
+      "image_size": 96,
+      "label_smoothing": 0.0,
+      "learning_rate": 0.001,
+      "max_train_batches": 8,
+      "max_validation_batches": 8,
+      "num_workers": 0,
+      "optimizer": "adamw",
+      "training_augmentation": "none",
+      "weight_decay": 0.01
+    },
+    "initialization": "random",
+    "loss_movement": {
+      "best_train_loss": 1.413798525929451,
+      "best_validation_loss": 1.596394032239914,
+      "drop_fraction_initial_to_best_train": 0.1710546144006228,
+      "final_train_loss": 1.413798525929451,
+      "final_validation_loss": 5.637886315584183,
+      "initial_train_loss": 1.705538809299469,
+      "initial_validation_loss": 1.7741260826587677
+    },
+    "model_id": "asl-pilot-return-to-form-tier0-smoke-v0",
+    "pretrained_components": [],
+    "threshold_policy": "not_calibrated",
+    "training_command": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/train_rawframe_model.py",
+      "--train-manifest",
+      "data/manifests/return-to-form-tier0/train.json",
+      "--validation-manifest",
+      "data/manifests/return-to-form-tier0/validation.json",
+      "--test-manifest",
+      "data/manifests/return-to-form-tier0/test.json",
+      "--output-dir",
+      "output/return-to-form-tier0-learnability-smoke",
+      "--model-id",
+      "asl-pilot-return-to-form-tier0-smoke-v0",
+      "--architecture",
+      "compact_3d_cnn_spatiotemporal",
+      "--epochs",
+      "8",
+      "--batch-size",
+      "8",
+      "--learning-rate",
+      "0.001",
+      "--optimizer",
+      "adamw",
+      "--weight-decay",
+      "0.01",
+      "--checkpoint-selection",
+      "best_validation",
+      "--max-train-batches",
+      "8",
+      "--max-validation-batches",
+      "8",
+      "--check-files",
+      "--allow-small-label-set"
+    ]
+  }
+}

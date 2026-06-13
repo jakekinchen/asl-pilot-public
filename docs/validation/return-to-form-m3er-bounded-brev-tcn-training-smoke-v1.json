@@ -1,0 +1,281 @@
+{
+  "schema_version": 1,
+  "mission": "M3ER",
+  "status": "blocked_pre_training_dry_run_output_dir_allowlist",
+  "generated_at": "2026-05-28T18:32:41Z",
+  "generated_by": "codex-executor",
+  "active_prompt": {
+    "path": "docs/model/return-to-form-m3er-bounded-brev-tcn-training-smoke-goal-loop-prompt.md",
+    "sha256": "abd75c802e16e51d902d89b6603da47384014383ad062445b7825d0b12f08e19"
+  },
+  "goal": {
+    "path": "GOAL.md",
+    "sha256": "91850a8e09aed2d06552eafea3e20fbc6a221f1aa17bc19dc83934f61bf48b8a"
+  },
+  "authorization_and_compute_envelope": {
+    "brev_spend_authorized": true,
+    "approval_source": "GOAL.md and active M3ER prompt",
+    "worker_name": "asl-pilot-m3eh-l40s-001",
+    "worker_id": "3d58wpy9o",
+    "instance_type": "l40s-48gb.1x",
+    "gpu": "L40S",
+    "current_listed_price_per_hour_usd": 1.74,
+    "price_command": "brev search --stoppable --min-vram 40 --sort price --json",
+    "price_observed_at_utc": "2026-05-28T18:32:52Z",
+    "price_evidence_first_result": {
+      "type": "l40s-48gb.1x",
+      "cloud": "crusoe",
+      "provider": "crusoe",
+      "gpu_name": "L40S",
+      "gpu_count": 1,
+      "total_vram_gb": 48,
+      "stoppable": true,
+      "price_per_hour": 1.74
+    },
+    "max_training_runtime_seconds": 2700,
+    "max_wall_time_after_first_start_minutes": 60,
+    "max_expected_spend_usd": 4,
+    "timed_training_command_limit": 1,
+    "timed_training_commands_run": 0,
+    "new_workers": 0,
+    "worker_delete_or_reset": 0,
+    "package_install_commands": 0
+  },
+  "local_checks": [
+    {
+      "command": "git status --short --branch",
+      "result": "passed",
+      "output": "## compound-plan-m0...origin/compound-plan-m0 [ahead 187]"
+    },
+    {
+      "command": "git log -10 --oneline --decorate",
+      "result": "passed",
+      "head": "80668bf (HEAD -> compound-plan-m0) observer: CONTINUE - m3eq bounded brev tcn smoke handoff"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "result": "passed",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "result": "passed",
+      "status": "passed",
+      "active_prompt": "docs/model/return-to-form-m3er-bounded-brev-tcn-training-smoke-goal-loop-prompt.md"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "result": "passed",
+      "register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3eq-brev-recovery-readiness-v1.json >/dev/null",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "result": "passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "result": "passed"
+    },
+    {
+      "command": "bash -n scripts/brev_sync_repo.sh",
+      "result": "passed"
+    },
+    {
+      "command": "brev ls --json",
+      "result": "passed",
+      "worker_count": 1
+    }
+  ],
+  "claim_surfaces": {
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "status": "not_trained"
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "activeLabels": []
+    },
+    "claim_status": "fail_closed_unchanged"
+  },
+  "brev_provider_state": {
+    "initial_ls": {
+      "command": "brev ls --json",
+      "worker": {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      },
+      "safe_to_start": true
+    },
+    "start": {
+      "command": "brev start asl-pilot-m3eh-l40s-001",
+      "started_at_utc": "2026-05-28T18:30:08Z",
+      "result": "passed",
+      "output_summary": "Brev reported the approved worker ready."
+    },
+    "post_start_ls": {
+      "observed_at_utc": "2026-05-28T18:30:33Z",
+      "status": "RUNNING",
+      "build_status": "COMPLETED",
+      "shell_status": "READY",
+      "health_status": "UNAVAILABLE"
+    },
+    "final_teardown": {
+      "stop_attempts": [
+        {
+          "command": "brev stop asl-pilot-m3eh-l40s-001",
+          "started_at_utc": "2026-05-28T18:31:54Z",
+          "result": "passed"
+        }
+      ],
+      "post_stop_ls": [
+        {
+          "observed_at_utc": "2026-05-28T18:32:00Z",
+          "status": "STOPPING",
+          "build_status": "COMPLETED",
+          "shell_status": "NOT READY",
+          "health_status": "HEALTHY"
+        },
+        {
+          "observed_at_utc": "2026-05-28T18:32:27Z",
+          "status": "STOPPED",
+          "build_status": "COMPLETED",
+          "shell_status": "NOT READY",
+          "health_status": "HEALTHY"
+        }
+      ],
+      "worker_verified_stopped": true,
+      "worker_delete_or_reset_used": false
+    }
+  },
+  "remote_safety_check": {
+    "command": "timeout 240s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && nvidia-smi --query-gpu=name,memory.total,memory.used,utilization.gpu --format=csv,noheader && ps -eo pid,etime,pcpu,pmem,args | egrep 'python|torch|train|screen|tmux|jupyter' | grep -v egrep || true && .venv/bin/python - <<'PY' ... PY\"",
+    "result": "passed_after_initial_ssh_timeout_recovery",
+    "gpu": {
+      "name": "NVIDIA L40S",
+      "memory_total_mib": 46068,
+      "memory_used_mib": 1,
+      "utilization_gpu_percent": 0
+    },
+    "observed_processes": [
+      "/home/ubuntu/.venv/bin/jupyter-lab --ip=0.0.0.0 --no-browser --NotebookApp.token= --NotebookApp.password= --ServerApp.allow_remote_access=True",
+      "/usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers"
+    ],
+    "unexpected_gpu_training_process": false,
+    "python_cuda_probe": {
+      "torch": "2.12.0+cu126",
+      "cuda_available": true,
+      "device_count": 1,
+      "device_name": "NVIDIA L40S"
+    }
+  },
+  "sync": {
+    "command": "bash scripts/brev_sync_repo.sh asl-pilot-m3eh-l40s-001",
+    "result": "passed",
+    "run_count": 1,
+    "data_allowlist_synced": true,
+    "manual_rsync_paths_used": false,
+    "post_sync_hashes": {
+      "GOAL.md": "91850a8e09aed2d06552eafea3e20fbc6a221f1aa17bc19dc83934f61bf48b8a",
+      "docs/model/return-to-form-m3er-bounded-brev-tcn-training-smoke-goal-loop-prompt.md": "abd75c802e16e51d902d89b6603da47384014383ad062445b7825d0b12f08e19",
+      "docs/validation/return-to-form-m3eq-brev-recovery-readiness-v1.json": "f93ecf06f238b4fe75953456af0efc9aadc44e02301b479314a2da5f3702ae89",
+      "scripts/train_rawframe_model.py": "bf8f23d5c80fcc456632eeaf5fa8e748cfe6fd1cafc6250200fca5e5f0067d7d",
+      "scripts/evaluate_rawframe_model.py": "dfd23c55e09a360f15acb4d432c816508e1ebf536339892c0dded28d20ffbf5c"
+    },
+    "hashes_match_local": true
+  },
+  "remote_dry_run": {
+    "command": "timeout 300s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3er-high-signal-region-grid-tcn-brev --model-id m3er-high-signal-region-grid-tcn-brev --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1\"",
+    "result": "failed",
+    "outer_exit_code": 1,
+    "script_exit_status": 2,
+    "failure": "Manifest validation failed: region-grid TCN training smoke requires --output-dir output/m3aw-region-grid-tcn-local-smoke or one of output/m3dm-high-signal-region-grid-tcn-brev, output/m3dq-high-signal-region-grid-tcn-brev, output/m3eh-high-signal-region-grid-tcn-brev",
+    "classification": "pre_training_output_dir_contract_mismatch",
+    "training_performed": false,
+    "checkpoint_written": false
+  },
+  "timed_training_command": {
+    "command": "timeout 3000s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && timeout 2700 .venv/bin/python scripts/train_rawframe_model.py ...\"",
+    "status": "not_run",
+    "reason": "The required post-sync dry-run/check-files command failed before training, which is a M3ER kill condition.",
+    "runtime_seconds": 0,
+    "timeout_status": "not_applicable",
+    "printed_training_plan": null,
+    "training_history": null,
+    "selected_epoch": null,
+    "checkpoint_paths": [],
+    "provenance_paths": []
+  },
+  "evaluation": {
+    "command": "timeout 1500s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && .venv/bin/python scripts/evaluate_rawframe_model.py ...\"",
+    "status": "skipped",
+    "reason": "No timed training command ran, and no checkpoint or training provenance existed from this M3ER attempt."
+  },
+  "copyback": {
+    "command": "brev copy asl-pilot-m3eh-l40s-001:/home/ubuntu/asl-pilot/output/m3er-high-signal-region-grid-tcn-brev output/",
+    "status": "skipped",
+    "reason": "No M3ER training artifacts were produced because the required dry-run failed before training."
+  },
+  "pretrained_components": [],
+  "negative_authorizations": [
+    "no second training command",
+    "no broad 75/80/95-label run",
+    "no label expansion",
+    "no architecture search",
+    "no hyperparameter sweep",
+    "no Detector 0 training",
+    "no source/media import",
+    "no source-register mutation",
+    "no manifest/tensor/vocabulary/packet mutation",
+    "no dependency-file mutation",
+    "no generated labels or pseudo-labels",
+    "no raw learner video upload",
+    "no pretrained detector/landmark/backbone/embedding/feature extractor/teacher path",
+    "no ONNX export",
+    "no model-card promotion",
+    "no browser recognition activation",
+    "no threshold promotion",
+    "no product-runtime mutation",
+    "no final-readiness claim",
+    "no ASL-correctness claim",
+    "no duplicate worker",
+    "no worker delete/reset",
+    "no push",
+    "no amend",
+    "no no-verify"
+  ],
+  "changed_files": [
+    "docs/validation/return-to-form-m3er-bounded-brev-tcn-training-smoke-v1.json",
+    "docs/session-logs/536-mission-3er-bounded-brev-tcn-training-smoke.md"
+  ],
+  "blockers": [
+    {
+      "type": "pre_training_dry_run_failure",
+      "summary": "The active M3ER prompt uses output/m3er-high-signal-region-grid-tcn-brev, but scripts/train_rawframe_model.py currently allows only output/m3aw-region-grid-tcn-local-smoke, output/m3dm-high-signal-region-grid-tcn-brev, output/m3dq-high-signal-region-grid-tcn-brev, or output/m3eh-high-signal-region-grid-tcn-brev for --region-grid-tcn-training-smoke."
+    }
+  ],
+  "next_action": "continue_local_tcn_failure_diagnosis_after_m3er",
+  "next_action_reason": "Resolve the prompt/script output-dir contract mismatch locally before any new Brev training attempt; no source/data/dependency/product mutation or second remote training command occurred in M3ER."
+}

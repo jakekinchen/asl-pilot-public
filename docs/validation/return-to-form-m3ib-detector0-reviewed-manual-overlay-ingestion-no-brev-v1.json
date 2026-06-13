@@ -1,0 +1,131 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3ib-detector0-reviewed-manual-overlay-ingestion-no-brev/v1",
+  "mission": "M3IB - Detector 0 reviewed manual overlay ingestion no Brev",
+  "created_at": "2026-05-30T02:31:30.014Z",
+  "current_commit": "67200da1a1b68aef3236d37f11f7e4f7baa3916e",
+  "status": "completed_supplemental_ingestion_artifact_created_not_training_ready",
+  "purpose": "Materialize existing tracked reviewed manual contact-sheet overlay rows into one supplemental Detector 0 label artifact, without authoring new boxes, training, exporting, promoting, or changing claim surfaces.",
+  "source_files_inspected": [
+    "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlays-v1.json",
+    "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlay-gap-repair-v1.json",
+    "data/annotations/detector0/return-to-form-targeted-annotation-packet-expansion-v1.json",
+    "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+    "docs/model/return-to-form-detector0-manual-label-ingestion-contract-v1.json",
+    "docs/model/return-to-form-detector0-fixed-baseline-gate-contract-v1.json",
+    "docs/model/dataset-source-register.json",
+    "web/public/model/detector0-card.json",
+    "web/public/model/browser-model-bundle.json",
+    "web/public/model/model-card.json",
+    "docs/model/active-vocabulary-claim.json"
+  ],
+  "changed_files_for_this_slice": [
+    "data/annotations/detector0/return-to-form-targeted-annotation-workbench-ingestion-v1.json",
+    "docs/validation/return-to-form-m3ib-detector0-reviewed-manual-overlay-ingestion-no-brev-v1.json"
+  ],
+  "artifact": {
+    "path": "data/annotations/detector0/return-to-form-targeted-annotation-workbench-ingestion-v1.json",
+    "created": true,
+    "promoted_row_count": 17,
+    "blocked_row_count": 1,
+    "rejected_row_count": 0,
+    "sha256": "91d9f32cdaef7c58f123f487cc8749769fc30f702f2be65a11142ab8d6120d02"
+  },
+  "validation_summary": {
+    "source_candidate_row_count": 18,
+    "promoted_row_count": 17,
+    "blocked_row_count": 1,
+    "rejected_row_count": 0,
+    "promoted_targets": {
+      "left_or_first_hand": 17,
+      "right_or_second_hand": 17
+    },
+    "accepted_review_status": "manual_contact_sheet_overlay_authored",
+    "preserved_blocked_status": "blocked_insufficient_visual_evidence",
+    "coordinate_space": "normalized_full_frame_top_left_xyxy"
+  },
+  "claim_surface_proof": {
+    "claim_surfaces_mutated": false,
+    "web/public/model/detector0-card.json": {
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null
+    },
+    "web/public/model/browser-model-bundle.json": {
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9",
+      "recognition_enabled": false,
+      "detector0_tracking_enabled": false,
+      "box_driven_avatar_enabled": false
+    },
+    "web/public/model/model-card.json": {
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "status": "not_trained"
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "activeLabels": []
+    }
+  },
+  "source_rights_and_no_pretrained_proof": {
+    "source_id": "popsign-v1-original-videos",
+    "source_rights_scope": "PopSign v1 original raw video/frame/tensor rows and project-authored manual boxes/regions with attribution and provenance, per existing source register and overlays.",
+    "source_register_path": "docs/model/dataset-source-register.json",
+    "source_register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+    "no_pretrained_attestation": "No pretrained detector, landmark model, feature extractor, backbone, teacher model, generated label, pseudo-label, source-provided landmark/pose, or pretrained feature cache was used. This packet is manual offline supervision evidence only and does not enter the promoted browser lane.",
+    "raw_learner_video_upload_used": false
+  },
+  "fixed_baseline_gate_context": {
+    "path": "docs/model/return-to-form-detector0-fixed-baseline-gate-contract-v1.json",
+    "sha256": "92f4650a50b562b3055bb455fe9b5ae30ad639fe843b5efd834cd24925142423",
+    "learned_targets": [
+      "left_or_first_hand",
+      "right_or_second_hand"
+    ],
+    "fixed_anchor_targets": [
+      "head_or_face",
+      "upper_body_or_signing_space"
+    ],
+    "diagnostic_only_targets": [
+      "table_two_hand_union_or_contact_region"
+    ],
+    "held_out_fixed_box_iou_baselines_to_beat": {
+      "left_or_first_hand_iou_above": 0.4073,
+      "right_or_second_hand_iou_above": 0.6476
+    },
+    "promotion_language_allowed_by_this_artifact": false
+  },
+  "readiness_classification": {
+    "authoritative_supplemental_labels_created": true,
+    "promoted_reviewed_row_count": 17,
+    "blocked_row_count": 1,
+    "detector0_training_ready": false,
+    "detector0_evaluation_ready": false,
+    "browser_promotion_ready": false,
+    "final_gate_ready": false,
+    "claim_expansion_ready": false,
+    "claim_surfaces_remain_fail_closed": true,
+    "reason": "This artifact adds reviewed supplemental hand boxes, but it is not by itself a full training/evaluation manifest, hard-negative packet, browser artifact, or fixed-baseline gate win."
+  },
+  "forbidden_action_proof": {
+    "author_new_boxes": false,
+    "fabricate_review_metadata": false,
+    "source_or_media_import": false,
+    "raw_learner_media_inspection": false,
+    "raw_learner_video_upload": false,
+    "pretrained_or_generated_label_dependency": false,
+    "training_or_evaluation_run": false,
+    "brev_lifecycle_or_remote_command": false,
+    "paid_compute_started": false,
+    "model_card_or_claim_surface_mutation": false,
+    "final_gate_change": false,
+    "export_promotion_or_browser_activation": false
+  },
+  "command_statuses": [
+    {
+      "command": "node scripts/ingest_detector0_reviewed_manual_overlays.mjs --write",
+      "status": "passed",
+      "summary": "Materialized 17 reviewed manual overlay rows and preserved 1 insufficient-visual-evidence blocker."
+    }
+  ],
+  "exactly_one_next_action": "continue_m3ic_detector0_combined_packet_training_contract_no_brev"
+}

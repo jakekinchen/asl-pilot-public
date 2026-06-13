@@ -1,0 +1,297 @@
+{
+  "schema_version": "asl-pilot-external-attestations/v1",
+  "status": "verified",
+  "generated_at": "YYYY-MM-DDTHH:mm:ss.sssZ",
+  "attestations": [
+    {
+      "id": "vocabulary_deaf_educator_review",
+      "status": "attested",
+      "statement": "A qualified ASL/Deaf-education reviewer reviewed every vocabulary prompt, label, and coaching hint for beginner appropriateness and accuracy.",
+      "attested_by": {
+        "name": "",
+        "role": "",
+        "affiliation_or_context": "",
+        "credential_or_authority": "",
+        "contact_or_signed_evidence": "",
+        "is_project_operator": false
+      },
+      "attested_at": "YYYY-MM-DDTHH:mm:ss.sssZ",
+      "evidence_files": [
+        {
+          "path": "docs/review/final-vocabulary-review.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Final reviewed vocabulary evidence"
+        },
+        {
+          "path": "data/vocabulary-review/asl-pilot-vocabulary-reviewer-receipt.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Ed25519-signed reviewer receipt binding the reviewer to the returned packet"
+        }
+      ],
+      "evidence_digest": "replace-with-digest-over-evidence-files",
+      "signed_evidence_files": [
+        {
+          "path": "output/final-attestations/vocabulary_deaf_educator_review-signed.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Signed reviewer receipt binding the Deaf educator review to the evidence digest",
+          "signed_at": "YYYY-MM-DDTHH:mm:ss.sssZ"
+        }
+      ]
+    },
+    {
+      "id": "dataset_consent_and_signer_identity",
+      "status": "attested",
+      "statement": "The dataset clips came from eligible consenting signers, signer aliases map to distinct real signers, and consent covers model training, validation, pilot submission/use, retention, withdrawal, and derived artifacts.",
+      "attested_by": {
+        "name": "",
+        "role": "",
+        "affiliation_or_context": "",
+        "credential_or_authority": "",
+        "contact_or_signed_evidence": "",
+        "is_project_operator": false
+      },
+      "attested_at": "YYYY-MM-DDTHH:mm:ss.sssZ",
+      "evidence_files": [
+        {
+          "path": "docs/privacy/dataset-consent-form.md",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Consent terms presented during explicit dataset collection"
+        },
+        {
+          "path": "data/asl-pilot-store.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Local collection store with signer registry and consent records"
+        },
+        {
+          "path": "docs/review/final-clip-review.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Clip-level review evidence bound to the current store"
+        }
+      ],
+      "evidence_digest": "replace-with-digest-over-evidence-files",
+      "signed_evidence_files": [
+        {
+          "path": "output/final-attestations/dataset_consent_and_signer_identity-signed.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Signed receipt binding consent and real-person signer identity review to the evidence digest",
+          "signed_at": "YYYY-MM-DDTHH:mm:ss.sssZ"
+        }
+      ]
+    },
+    {
+      "id": "signer_disjoint_split",
+      "status": "attested",
+      "statement": "The train, validation, and test splits are signer-disjoint at the real-person level, not only by self-entered signer alias or hashed identifier.",
+      "attested_by": {
+        "name": "",
+        "role": "",
+        "affiliation_or_context": "",
+        "credential_or_authority": "",
+        "contact_or_signed_evidence": "",
+        "is_project_operator": false
+      },
+      "attested_at": "YYYY-MM-DDTHH:mm:ss.sssZ",
+      "evidence_files": [
+        {
+          "path": "docs/validation/final-manifest-audit.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Strict final manifest audit reusing training and evaluation validators"
+        },
+        {
+          "path": "data/manifests/train.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Final train manifest"
+        },
+        {
+          "path": "data/manifests/validation.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Final validation manifest"
+        },
+        {
+          "path": "data/manifests/test.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Final test manifest"
+        }
+      ],
+      "evidence_digest": "replace-with-digest-over-evidence-files",
+      "signed_evidence_files": [
+        {
+          "path": "output/final-attestations/signer_disjoint_split-signed.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Signed receipt binding real-person signer-disjoint split review to the evidence digest",
+          "signed_at": "YYYY-MM-DDTHH:mm:ss.sssZ"
+        }
+      ]
+    },
+    {
+      "id": "negative_challenge_review",
+      "status": "attested",
+      "statement": "The negative challenge clips represent empty-camera, no-hands, low-light, and off-center conditions that should be rejected, and the challenge signers are disjoint from train, validation, and test signers.",
+      "attested_by": {
+        "name": "",
+        "role": "",
+        "affiliation_or_context": "",
+        "credential_or_authority": "",
+        "contact_or_signed_evidence": "",
+        "is_project_operator": false
+      },
+      "attested_at": "YYYY-MM-DDTHH:mm:ss.sssZ",
+      "evidence_files": [
+        {
+          "path": "docs/validation/final-manifest-audit.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Strict final manifest audit reusing training and evaluation validators"
+        },
+        {
+          "path": "docs/review/final-negative-challenge-review.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Final negative challenge review evidence"
+        },
+        {
+          "path": "data/manifests/negative-challenge.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Final negative challenge manifest with reject-only clips"
+        },
+        {
+          "path": "artifacts/rawframe-model/validation-report.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Final validation report with negative challenge false-pass metric"
+        }
+      ],
+      "evidence_digest": "replace-with-digest-over-evidence-files",
+      "signed_evidence_files": [
+        {
+          "path": "output/final-attestations/negative_challenge_review-signed.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Signed receipt binding negative challenge review to the evidence digest",
+          "signed_at": "YYYY-MM-DDTHH:mm:ss.sssZ"
+        }
+      ]
+    },
+    {
+      "id": "privacy_static_http_smoke",
+      "status": "attested",
+      "statement": "Static source checks plus live HTTP checks of normal practice found no raw media upload paths, no common analytics or session-replay hosts in the rendered root page, and default-disabled dataset collection routes.",
+      "attested_by": {
+        "name": "",
+        "role": "",
+        "affiliation_or_context": "",
+        "credential_or_authority": "",
+        "contact_or_signed_evidence": "",
+        "is_project_operator": false
+      },
+      "attested_at": "YYYY-MM-DDTHH:mm:ss.sssZ",
+      "evidence_files": [
+        {
+          "path": "docs/privacy/video-handling.md",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Privacy policy and raw-video handling statement"
+        },
+        {
+          "path": "docs/privacy/final-privacy-smoke.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Final static/live HTTP privacy smoke evidence"
+        }
+      ],
+      "evidence_digest": "replace-with-digest-over-evidence-files",
+      "signed_evidence_files": [
+        {
+          "path": "output/final-attestations/privacy_static_http_smoke-signed.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Signed receipt binding privacy smoke review to the evidence digest",
+          "signed_at": "YYYY-MM-DDTHH:mm:ss.sssZ"
+        }
+      ]
+    },
+    {
+      "id": "browser_onnx_smoke",
+      "status": "attested",
+      "statement": "The exact final ONNX model artifact referenced by the trained model card loaded in a real browser through onnxruntime-web WASM and returned logits matching the final label count.",
+      "attested_by": {
+        "name": "",
+        "role": "",
+        "affiliation_or_context": "",
+        "credential_or_authority": "",
+        "contact_or_signed_evidence": "",
+        "is_project_operator": false
+      },
+      "attested_at": "YYYY-MM-DDTHH:mm:ss.sssZ",
+      "evidence_files": [
+        {
+          "path": "web/public/model/model-card.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Final trained model card"
+        },
+        {
+          "path": "web/public/model/asl-pilot-rawframe-v0-export-provenance.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "ONNX browser artifact export provenance"
+        },
+        {
+          "path": "docs/validation/final-browser-onnx-smoke.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Final retained browser ONNX runtime smoke evidence"
+        },
+        {
+          "path": "docs/validation/final-browser-compatibility.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Final Chrome, Edge, Safari, and Firefox compatibility evidence"
+        }
+      ],
+      "evidence_digest": "replace-with-digest-over-evidence-files",
+      "signed_evidence_files": [
+        {
+          "path": "output/final-attestations/browser_onnx_smoke-signed.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Signed receipt binding browser ONNX smoke and compatibility review to the evidence digest",
+          "signed_at": "YYYY-MM-DDTHH:mm:ss.sssZ"
+        }
+      ]
+    },
+    {
+      "id": "model_training_provenance",
+      "status": "attested",
+      "statement": "The final browser model was trained from random initialization on the approved manifests, exported from the validated checkpoint, and was not initialized from pretrained CV/sign-language weights or pretrained feature extractors.",
+      "attested_by": {
+        "name": "",
+        "role": "",
+        "affiliation_or_context": "",
+        "credential_or_authority": "",
+        "contact_or_signed_evidence": "",
+        "is_project_operator": false
+      },
+      "attested_at": "YYYY-MM-DDTHH:mm:ss.sssZ",
+      "evidence_files": [
+        {
+          "path": "artifacts/rawframe-model/calibrated-provenance.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Calibrated fail-closed training provenance"
+        },
+        {
+          "path": "artifacts/rawframe-model/validation-report.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Final validation/test metrics"
+        },
+        {
+          "path": "web/public/model/asl-pilot-rawframe-v0-export-provenance.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "ONNX browser artifact export provenance"
+        },
+        {
+          "path": "docs/validation/final-browser-onnx-smoke.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Retained browser runtime proof for the final ONNX artifact"
+        }
+      ],
+      "evidence_digest": "replace-with-digest-over-evidence-files",
+      "signed_evidence_files": [
+        {
+          "path": "output/final-attestations/model_training_provenance-signed.json",
+          "sha256": "replace-with-current-sha256",
+          "purpose": "Signed receipt binding final model provenance review to the evidence digest",
+          "signed_at": "YYYY-MM-DDTHH:mm:ss.sssZ"
+        }
+      ]
+    }
+  ]
+}

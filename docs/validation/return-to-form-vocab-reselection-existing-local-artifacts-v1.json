@@ -1,0 +1,775 @@
+{
+  "schema_version": "asl-pilot-return-to-form-vocab-reselection-existing-local-artifacts/v1",
+  "mission": "Mission 3BR - vocabulary reselection from existing local artifacts",
+  "status": "completed_no_training_candidate",
+  "generated_at": "2026-05-27T18:02:45Z",
+  "generated_by": "Codex executor",
+  "active_prompt": "docs/model/return-to-form-vocab-reselection-existing-local-artifacts-goal-loop-prompt.md",
+  "scope": {
+    "local_only": true,
+    "no_spend": true,
+    "no_training": true,
+    "no_brev_commands": true,
+    "no_source_import": true,
+    "no_source_register_change": true,
+    "no_manifest_or_tensor_mutation": true,
+    "no_crop_config_mutation": true,
+    "no_pseudo_labels": true,
+    "no_export_or_browser_activation": true,
+    "no_model_card_promotion": true,
+    "no_final_gate_change": true
+  },
+  "source_of_truth": [
+    "GOAL.md",
+    "docs/model/return-to-form-vocab-reselection-existing-local-artifacts-goal-loop-prompt.md",
+    "docs/model/return-to-form-plan.md",
+    "docs/validation/return-to-form-label-split-tensor-drift-diagnosis-v1.json",
+    "docs/validation/return-to-form-dataset-training-root-cause-v1.json",
+    "docs/model/dataset-source-register.json",
+    "docs/validation/wlasl-academic-selected-manifests.json"
+  ],
+  "source_register_snapshot": {
+    "path": "docs/model/dataset-source-register.json",
+    "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+    "source_count": 12,
+    "checked_by": "node scripts/audit_source_register.mjs",
+    "relevant_sources": [
+      {
+        "source_id": "popsign-v1-original-videos",
+        "allowed_for_model_training": true,
+        "allowed_for_validation": true,
+        "license_review_status": "approved_cc_by_4_raw_video_with_attribution",
+        "decision_id": "approved_popsign_v1_original_videos_2026_05_20",
+        "evidence_paths": [
+          "docs/research/popsign-v1-source-audit.json",
+          "docs/research/popsign-v1-source-review.md",
+          "docs/research/popsign-v1-external-rights-review-receipt.json"
+        ],
+        "restriction_summary": "Use only original PopSign v1 game raw video archives with attribution; derived pose, landmark, feature, detector, embedding, or pretrained artifacts are disallowed."
+      },
+      {
+        "source_id": "asl-citizen-school-assignment-raw-videos",
+        "allowed_for_model_training": true,
+        "allowed_for_validation": true,
+        "license_review_status": "approved_noncommercial_school_assignment_raw_video_only",
+        "decision_id": "approved_asl_citizen_school_assignment_raw_videos_2026_05_21",
+        "evidence_paths": [
+          "docs/research/asl-citizen-academic-source-review.md",
+          "docs/research/asl-citizen-academic-external-rights-review-receipt.json"
+        ],
+        "restriction_summary": "Approved only for this noncommercial school assignment as local raw-RGB training and validation. Raw videos, modified videos, extracted frames, local mirrors, pretrained baselines, pose outputs, landmarks, feature caches, and derived CV artifacts may not enter the promoted lane."
+      },
+      {
+        "source_id": "wlasl-school-assignment-raw-videos",
+        "allowed_for_model_training": true,
+        "allowed_for_validation": true,
+        "license_review_status": "approved_academic_computational_school_assignment_raw_video_only",
+        "decision_id": "approved_wlasl_school_assignment_raw_videos_2026_05_21",
+        "evidence_paths": [
+          "docs/research/wlasl-academic-source-review.md",
+          "docs/research/wlasl-academic-external-rights-review-receipt.json"
+        ],
+        "restriction_summary": "Approved only for local noncommercial raw-RGB school-assignment use. Current URL availability must be probed before new clip import; pretrained weights, pose/keypoint outputs, bounding-box crops, and feature artifacts are disallowed."
+      },
+      {
+        "source_id": "first-party-browser-consent-capture",
+        "allowed_for_model_training": true,
+        "allowed_for_validation": true,
+        "license_review_status": "approved_after_clip_level_consent",
+        "decision_id": "first_party_consent_required_v1",
+        "required_evidence": [
+          "dataset signer registry record",
+          "clip-level consent record",
+          "dataset consent form version and hash",
+          "raw clip SHA-256 hash",
+          "clip-level ASL label review approval"
+        ],
+        "restriction_summary": "Approved only after clip-level consent and local storage evidence exist."
+      },
+      {
+        "source_id": "asl-lex",
+        "allowed_for_model_training": false,
+        "license_review_status": "blocked_video_permission_required",
+        "restriction_summary": "ASL-LEX database and visualization are CC BY-NC 4.0, but sign reference videos are excluded and require explicit permission before use."
+      },
+      {
+        "source_id": "online-negative-challenge-mixed-wikimedia-cira-v1",
+        "allowed_for_model_training": false,
+        "allowed_for_validation": true,
+        "license_review_status": "approved_exact_file_negative_challenge_only",
+        "restriction_summary": "Approved only for negative-challenge validation and pilot evidence, not model training."
+      },
+      {
+        "source_id": "kaggle-or-static-asl",
+        "allowed_for_model_training": false,
+        "license_review_status": "blocked_until_dataset_specific_review",
+        "restriction_summary": "Provenance, consent, and redistribution rights are not assumed; static alphabet datasets do not satisfy isolated ASL vocabulary recognition requirements."
+      }
+    ]
+  },
+  "m3bq_preserved_findings": {
+    "path": "docs/validation/return-to-form-label-split-tensor-drift-diagnosis-v1.json",
+    "mapping_and_class_index_status": "cleared_for_current_seven_label_set",
+    "tensor_availability_status": "cleared_for_current_seven_label_set",
+    "training_worthy_retained_labels": [],
+    "candidate_labels_not_training_worthy": [
+      "hello"
+    ],
+    "at_least_two_training_worthy_labels_gate_met": false,
+    "reason": "No scoped label clears the combined mapping, split/domain, tensor/stat, local-quality, and prior held-out gates into a training-worthy retained label. Hello is the only non-zero-recall ROI-cleared candidate, but a one-label candidate cannot support training and still has crop-stat drift plus low-signal quality indicators."
+  },
+  "artifact_inventory": [
+    {
+      "artifact_id": "popsign_tier0_fixed_crop_and_detector0",
+      "source_id": "popsign-v1-original-videos",
+      "source_approval_status": "approved_for_local_training_validation_and_pilot_with_attribution",
+      "local_manifest_paths": [
+        "data/manifests/return-to-form-tier0/train.json",
+        "data/manifests/return-to-form-tier0/validation.json",
+        "data/manifests/return-to-form-tier0/test.json"
+      ],
+      "local_tensor_root": "data/tensors/return-to-form-tier0",
+      "labels": [
+        "dad",
+        "grandpa",
+        "hat",
+        "please",
+        "table"
+      ],
+      "split_support": {
+        "train": {
+          "clips": 125,
+          "per_label": 25,
+          "unique_signers": 28,
+          "per_label_signers_range": "14-18"
+        },
+        "validation": {
+          "clips": 125,
+          "per_label": 25,
+          "unique_signers": 8,
+          "per_label_signers_range": "8"
+        },
+        "test": {
+          "clips": 95,
+          "per_label": 19,
+          "unique_signers": 7,
+          "per_label_signers_range": "6"
+        }
+      },
+      "tensor_inventory": {
+        "train_existing": 125,
+        "validation_existing": 125,
+        "test_existing": 95,
+        "missing": 0,
+        "layout": "T,R,H,W,C",
+        "shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "input_contract": "rgb_regions fixed crop stack"
+      },
+      "prior_failure_evidence": [
+        {
+          "path": "docs/validation/return-to-form-tier0-learnability-smoke.json",
+          "summary": "Failed train sanity and validation signal; train_top1 0.376, validation_top1 0.256, test_top1 0.24210526315789474."
+        },
+        {
+          "path": "docs/validation/return-to-form-tier0-learnability-smoke-rerun.json",
+          "summary": "Corrected input rerun still failed train sanity and validation signal; train_top1 0.312, validation_top1 0.224, test_top1 0.2."
+        },
+        {
+          "path": "docs/validation/return-to-form-tier0-microprobe-config-smoke.json",
+          "summary": "Crop-identity-preserving path fit train at 1.0 top1 but did not generalize; validation_top1 0.216 and test_top1 0.2736842105263158."
+        },
+        {
+          "path": "docs/validation/return-to-form-tier0-detector0-union-target-architecture-microprobe-v2.json",
+          "summary": "Detector 0/crop-normalization path fit train but repeated held-out failure; selected stop_reduced_claim."
+        }
+      ],
+      "local_quality_status": "cleanest source/tensor provenance but held-out signer-disjoint recognizer and Detector 0/crop-normalization gates failed",
+      "candidate_decision": "excluded_from_training_candidate_now",
+      "decision_reason": "Support is strong on paper, but the existing receipts show repeated train-fit with weak held-out behavior. A new training receipt from the same artifacts would repeat a known failed route rather than define a better vocabulary subset."
+    },
+    {
+      "artifact_id": "asl_citizen_25_label_rawframe_lesson_milestone",
+      "source_id": "asl-citizen-school-assignment-raw-videos",
+      "source_approval_status": "approved_for_local_noncommercial_school_assignment_raw_rgb_training_and_validation",
+      "local_manifest_paths": [
+        "data/manifests/lesson/rawframe-milestone/train.json",
+        "data/manifests/lesson/rawframe-milestone/validation.json",
+        "data/manifests/lesson/rawframe-milestone/test.json"
+      ],
+      "local_tensor_root": "data/tensors/asl-citizen-lesson-milestone",
+      "label_count": 25,
+      "labels": [
+        "apple",
+        "aunt",
+        "bird",
+        "black",
+        "book",
+        "brother",
+        "brown",
+        "frog",
+        "hello",
+        "man",
+        "no",
+        "orange",
+        "please",
+        "read",
+        "sad",
+        "sick",
+        "table",
+        "thank_you",
+        "think",
+        "thirsty",
+        "uncle",
+        "white",
+        "who",
+        "why",
+        "yes"
+      ],
+      "split_support": {
+        "train": {
+          "clips": 300,
+          "per_label": 12,
+          "unique_signers": 29
+        },
+        "validation": {
+          "clips": 94,
+          "per_label_range": "3-4",
+          "unique_signers": 5
+        },
+        "test": {
+          "clips": 100,
+          "per_label": 4,
+          "unique_signers": 7
+        }
+      },
+      "tensor_inventory": {
+        "train_existing": 300,
+        "validation_existing": 94,
+        "test_existing": 100,
+        "missing": 0,
+        "layout": "T,H,W,C",
+        "shape": [
+          12,
+          96,
+          96,
+          3
+        ]
+      },
+      "prior_failure_evidence": [
+        {
+          "path": "docs/validation/return-to-form-asl-citizen-local-training-smoke-v1.json",
+          "summary": "One-epoch local smoke proved the path loads and optimizes only; validation signal stayed weak."
+        },
+        {
+          "path": "docs/validation/return-to-form-asl-citizen-core-negative-diagnostic-v1.json",
+          "summary": "Checkpoint fit train but did not generalize; top-1 and macro F1 were the dominant blockers."
+        },
+        {
+          "path": "docs/validation/return-to-form-asl-citizen-generalization-diagnosis-v1.json",
+          "summary": "Primary failure classification was data_split_support; only seven labels had nonzero recall on both validation and test, so a broad 25-label retry was not justified."
+        }
+      ],
+      "local_quality_status": "approved local raw RGB route with signer-disjoint tensors, but broad 25-label evidence already selected downselection instead of more training",
+      "candidate_decision": "excluded_from_training_candidate_now",
+      "decision_reason": "The route contains many labels with at least two clips per split, but prior receipts show the broad set is not a better candidate subset without more quality/split repair."
+    },
+    {
+      "artifact_id": "asl_citizen_high_signal_region_grid_seven_label_set",
+      "source_id": "asl-citizen-school-assignment-raw-videos",
+      "source_approval_status": "approved_for_local_noncommercial_school_assignment_raw_rgb_training_and_validation",
+      "local_manifest_paths": [
+        "data/manifests/lesson/high-signal-region-grid/train.json",
+        "data/manifests/lesson/high-signal-region-grid/validation.json",
+        "data/manifests/lesson/high-signal-region-grid/test.json"
+      ],
+      "local_tensor_root": "data/tensors/asl-citizen-high-signal-region-grid",
+      "labels": [
+        "black",
+        "hello",
+        "please",
+        "sad",
+        "table",
+        "uncle",
+        "white"
+      ],
+      "split_support": {
+        "train": {
+          "clips": 84,
+          "per_label": 12,
+          "unique_signers": 19
+        },
+        "validation": {
+          "clips": 27,
+          "per_label_range": "3-4",
+          "unique_signers": 5
+        },
+        "test": {
+          "clips": 28,
+          "per_label": 4,
+          "unique_signers": 7
+        }
+      },
+      "tensor_inventory": {
+        "train_existing": 84,
+        "validation_existing": 27,
+        "test_existing": 28,
+        "missing": 0,
+        "layout": "T,R,H,W,C",
+        "shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "input_contract": "rgb_regions_grid_v1"
+      },
+      "prior_failure_evidence": [
+        {
+          "path": "docs/validation/return-to-form-region-grid-tcn-local-smoke-v1.json",
+          "summary": "Local TCN smoke failed target signal despite valid region-grid input."
+        },
+        {
+          "path": "docs/validation/return-to-form-region-grid-tcn-tiny-overfit-v1.json",
+          "summary": "Tiny overfit succeeded, proving the stack can memorize one clip per label and is not simply dead."
+        },
+        {
+          "path": "docs/validation/return-to-form-vocab-subset-contract-v1.json",
+          "summary": "Training-worthy subset identified false; retained labels empty."
+        },
+        {
+          "path": "docs/validation/return-to-form-data-quality-contract-v1.json",
+          "summary": "Smallest honest candidate subset empty and paid microexperiment unsupported."
+        },
+        {
+          "path": "docs/validation/return-to-form-label-split-tensor-drift-diagnosis-v1.json",
+          "summary": "Mapping and tensors clear, but no retained training-worthy labels; at-least-two gate failed."
+        }
+      ],
+      "local_quality_status": "mapping and tensor validity clear; split/stat drift, source-quality suspicion, insufficient held-out support, or prior zero-recall/never-predicted gates remain",
+      "candidate_decision": "explicitly_excluded_current_failed_set",
+      "decision_reason": "This is the current failed set. M3BQ preserved mapping/tensor validity but found the retained label list empty; hello alone is insufficient."
+    },
+    {
+      "artifact_id": "wlasl_academic_selected_diagnostic_set",
+      "source_id": "wlasl-school-assignment-raw-videos",
+      "source_approval_status": "approved_for_local_noncommercial_school_assignment_raw_rgb_training_and_validation_after_url_availability_for_import",
+      "local_manifest_paths": [
+        "data/manifests/diagnostics/wlasl-academic-selected/train.json",
+        "data/manifests/diagnostics/wlasl-academic-selected/validation.json",
+        "data/manifests/diagnostics/wlasl-academic-selected/test.json"
+      ],
+      "local_tensor_root": "data/tensors/diagnostics/wlasl-academic-selected",
+      "labels": [
+        "apple",
+        "aunt",
+        "bird",
+        "black",
+        "book",
+        "brother",
+        "brown",
+        "carrot",
+        "fine",
+        "frog",
+        "man",
+        "milk",
+        "night",
+        "no",
+        "orange",
+        "read",
+        "sad",
+        "sick",
+        "think",
+        "thirsty",
+        "uncle",
+        "white",
+        "who",
+        "why",
+        "yes"
+      ],
+      "split_support": {
+        "train": {
+          "clips": 38,
+          "label_count": 25,
+          "min_clips_per_label": 1,
+          "unique_signers": 7
+        },
+        "validation": {
+          "clips": 32,
+          "label_count": 25,
+          "min_clips_per_label": 1,
+          "unique_signers": 7
+        },
+        "test": {
+          "clips": 30,
+          "label_count": 25,
+          "min_clips_per_label": 1,
+          "unique_signers": 9
+        }
+      },
+      "tensor_inventory": {
+        "train_missing": 0,
+        "validation_missing": 0,
+        "test_missing": 0,
+        "layout": "T,H,W,C",
+        "shape": [
+          16,
+          96,
+          96,
+          3
+        ]
+      },
+      "labels_with_at_least_two_clips_per_split": [],
+      "prior_failure_evidence": [
+        {
+          "path": "docs/validation/wlasl-academic-selected-manifests.json",
+          "summary": "Receipt classifies this as a local diagnostic set, not final evidence; each split has min_clips_per_label 1."
+        }
+      ],
+      "local_quality_status": "local diagnostic evidence only; too sparse for a 2+ label training-worthy subset",
+      "candidate_decision": "excluded_from_training_candidate_now",
+      "decision_reason": "No label has at least two clips in train, validation, and test, so the existing local WLASL artifact cannot support a 2+ label candidate subset."
+    },
+    {
+      "artifact_id": "first_party_consent_capture_future_route",
+      "source_id": "first-party-browser-consent-capture",
+      "source_approval_status": "approved_after_clip_level_consent",
+      "local_manifest_paths": [],
+      "local_tensor_root": null,
+      "labels": [],
+      "split_support": {
+        "train": {
+          "clips": 0
+        },
+        "validation": {
+          "clips": 0
+        },
+        "test": {
+          "clips": 0
+        }
+      },
+      "tensor_inventory": {
+        "train_existing": 0,
+        "validation_existing": 0,
+        "test_existing": 0
+      },
+      "prior_failure_evidence": [],
+      "local_quality_status": "clean policy route but no current training manifests or tensors in this slice",
+      "candidate_decision": "not_available_as_existing_local_artifact",
+      "decision_reason": "The route may be the cleanest future unblock, but M3BR is restricted to existing local artifacts."
+    },
+    {
+      "artifact_id": "semlex_asl_lex_phonology_candidate",
+      "source_id": "asl-lex/semlex",
+      "source_approval_status": "blocked_or_absent",
+      "local_manifest_paths": [],
+      "local_tensor_root": null,
+      "labels": [],
+      "split_support": {},
+      "tensor_inventory": {},
+      "prior_failure_evidence": [
+        {
+          "path": "docs/research/semlex-asl-lex-overlap-source-review-v1.json",
+          "summary": "ASL-LEX videos require explicit permission, SemLex is absent from the source register, and no repo-local SemLex/ASL-LEX phonology surface exists."
+        },
+        {
+          "path": "docs/research/semlex-source-register-candidate-no-import-v1.json",
+          "summary": "Completed no-import candidate review and found no usable SemLex candidate surface."
+        }
+      ],
+      "local_quality_status": "blocked before training by source/provenance and local asset absence",
+      "candidate_decision": "excluded_blocked_nonlocal",
+      "decision_reason": "No approved local training artifact exists."
+    }
+  ],
+  "candidate_label_table": [
+    {
+      "candidate_id": "popsign_tier0_all_five_labels",
+      "labels": [
+        "dad",
+        "grandpa",
+        "hat",
+        "please",
+        "table"
+      ],
+      "source_id": "popsign-v1-original-videos",
+      "manifest_tensor_availability": "all local manifests and tensors present",
+      "split_support_status": "strong per-label counts and signer-disjoint splits",
+      "local_quality_status": "clean provenance, but prior recognizer and Detector 0 held-out gates failed",
+      "prior_failure_status": "repeated held-out failure after train-fit",
+      "source_approval_status": "approved",
+      "training_worthy_now": false,
+      "reason": "Existing evidence says this exact local route already fits train but fails held-out signer-disjoint behavior."
+    },
+    {
+      "candidate_id": "asl_citizen_25_label_broad_set",
+      "labels": [
+        "apple",
+        "aunt",
+        "bird",
+        "black",
+        "book",
+        "brother",
+        "brown",
+        "frog",
+        "hello",
+        "man",
+        "no",
+        "orange",
+        "please",
+        "read",
+        "sad",
+        "sick",
+        "table",
+        "thank_you",
+        "think",
+        "thirsty",
+        "uncle",
+        "white",
+        "who",
+        "why",
+        "yes"
+      ],
+      "source_id": "asl-citizen-school-assignment-raw-videos",
+      "manifest_tensor_availability": "all local manifests and tensors present",
+      "split_support_status": "300 train, 94 validation, 100 test clips; held-out support thin per label",
+      "local_quality_status": "not cleared as a broad training candidate",
+      "prior_failure_status": "generalization diagnosis selected downselection rather than retrying broad set",
+      "source_approval_status": "approved",
+      "training_worthy_now": false,
+      "reason": "The broad route has already been rejected as the next training target because support and held-out signal were not sufficient."
+    },
+    {
+      "candidate_id": "asl_citizen_current_high_signal_seven",
+      "labels": [
+        "black",
+        "hello",
+        "please",
+        "sad",
+        "table",
+        "uncle",
+        "white"
+      ],
+      "source_id": "asl-citizen-school-assignment-raw-videos",
+      "manifest_tensor_availability": "all local manifests and tensors present",
+      "split_support_status": "84 train, 27 validation, 28 test clips; signer-disjoint; mapping and tensors clear",
+      "local_quality_status": "failed M3BQ retained-label gate",
+      "prior_failure_status": "split/stat drift, source-quality suspicion, insufficient held-out support, or prior zero-recall/never-predicted gates remain",
+      "source_approval_status": "approved",
+      "training_worthy_now": false,
+      "reason": "M3BQ found no training-worthy retained labels and hello alone cannot support training."
+    },
+    {
+      "candidate_id": "wlasl_academic_selected_sparse_local_set",
+      "labels": [
+        "apple",
+        "aunt",
+        "bird",
+        "black",
+        "book",
+        "brother",
+        "brown",
+        "carrot",
+        "fine",
+        "frog",
+        "man",
+        "milk",
+        "night",
+        "no",
+        "orange",
+        "read",
+        "sad",
+        "sick",
+        "think",
+        "thirsty",
+        "uncle",
+        "white",
+        "who",
+        "why",
+        "yes"
+      ],
+      "source_id": "wlasl-school-assignment-raw-videos",
+      "manifest_tensor_availability": "all local diagnostic manifests and tensors present",
+      "split_support_status": "38 train, 32 validation, 30 test clips across 25 labels; min clips per label is 1 in every split; no label has at least two clips in every split",
+      "local_quality_status": "diagnostic-only artifact",
+      "prior_failure_status": "no training receipt; support fails before training",
+      "source_approval_status": "approved with raw-video-only and current-URL caveats",
+      "training_worthy_now": false,
+      "reason": "The existing local selected WLASL set is too sparse to support a 2+ label candidate subset."
+    }
+  ],
+  "explicit_exclusions": [
+    {
+      "exclusion_id": "current_seven_asl_citizen_high_signal_set",
+      "reason": "M3BQ cleared mapping/tensors but found no retained training-worthy labels; at-least-two gate failed.",
+      "evidence_paths": [
+        "docs/validation/return-to-form-label-split-tensor-drift-diagnosis-v1.json"
+      ]
+    },
+    {
+      "exclusion_id": "asl_citizen_25_label_broad_retry",
+      "reason": "Prior generalization diagnosis selected downselection; broad 25-label retry is not justified by existing local evidence.",
+      "evidence_paths": [
+        "docs/validation/return-to-form-asl-citizen-generalization-diagnosis-v1.json",
+        "docs/validation/return-to-form-dataset-training-root-cause-v1.json"
+      ]
+    },
+    {
+      "exclusion_id": "popsign_tier0_same_artifacts_retry",
+      "reason": "Local support is strong, but existing receipts already show train-fit with weak held-out signer-disjoint behavior and Detector 0/crop-normalization held-out failure.",
+      "evidence_paths": [
+        "docs/validation/return-to-form-tier0-microprobe-config-smoke.json",
+        "docs/validation/return-to-form-tier0-detector0-union-target-architecture-microprobe-v2.json",
+        "docs/validation/return-to-form-dataset-training-root-cause-v1.json"
+      ]
+    },
+    {
+      "exclusion_id": "wlasl_academic_selected_sparse_set",
+      "reason": "The local selected set has min_clips_per_label 1 in train, validation, and test and no label with at least two clips per split.",
+      "evidence_paths": [
+        "docs/validation/wlasl-academic-selected-manifests.json"
+      ]
+    },
+    {
+      "exclusion_id": "semlex_asl_lex_media",
+      "reason": "ASL-LEX sign reference videos require explicit permission, SemLex is absent from the source register, and no repo-local approved phonology/training artifact exists.",
+      "evidence_paths": [
+        "docs/research/semlex-asl-lex-overlap-source-review-v1.json",
+        "docs/research/semlex-source-register-candidate-no-import-v1.json"
+      ]
+    },
+    {
+      "exclusion_id": "unsupported_public_or_static_datasets",
+      "reason": "Kaggle/static ASL and unreviewed public datasets remain blocked until dataset-specific rights/provenance review and local evidence exist.",
+      "evidence_paths": [
+        "docs/model/dataset-source-register.json"
+      ]
+    },
+    {
+      "exclusion_id": "negative_challenge_sources",
+      "reason": "Mixed/Wikimedia/CIRA/Internet Archive negative challenge sources are approved only for validation/pilot evidence, not model training.",
+      "evidence_paths": [
+        "docs/model/dataset-source-register.json"
+      ]
+    },
+    {
+      "exclusion_id": "stale_product_only_or_fail_closed_artifacts",
+      "reason": "Browser/product fail-closed artifacts and stale proof surfaces do not supply training manifests, source approval, and tensor evidence for a new subset.",
+      "evidence_paths": [
+        "web/public/model/model-card.json",
+        "docs/model/active-vocabulary-claim.json"
+      ]
+    },
+    {
+      "exclusion_id": "artifacts_lacking_local_reviewable_evidence",
+      "reason": "M3BR is restricted to existing local approved artifacts; any nonlocal, unreviewed, or non-reviewable artifact fails closed.",
+      "evidence_paths": [
+        "docs/model/return-to-form-vocab-reselection-existing-local-artifacts-goal-loop-prompt.md"
+      ]
+    }
+  ],
+  "candidate_subset_decision": {
+    "two_or_more_label_candidate_exists_before_training": false,
+    "candidate_labels": [],
+    "candidate_source_id": null,
+    "candidate_manifest_paths": [],
+    "candidate_tensor_root": null,
+    "reason": "No existing local approved artifact provides at least two labels that are both source-approved, locally materialized, sufficiently split-supported, and clear of the current held-out/failure gates. PopSign has support but repeated held-out failure; ASL Citizen 25 failed broad generalization; ASL Citizen seven-label high-signal failed retained-label gates; WLASL selected is too sparse; first-party has no current local training artifacts; SemLex/ASL-LEX and other public/static sources are blocked or absent.",
+    "decision_confidence": "high"
+  },
+  "remaining_gates_before_any_future_subset_or_training": [
+    {
+      "gate": "supported_training_data_exists",
+      "requirement": "At least two labels must have approved local source rights, reviewable train/validation/test manifests, tensors, and split/signature support before any manifest/tensor contract or training receipt."
+    },
+    {
+      "gate": "at_least_two_training_worthy_labels",
+      "requirement": "At least two labels must clear mapping, split/domain, tensor/stat, local quality, and prior held-out gates."
+    },
+    {
+      "gate": "local_quality_and_annotation_review",
+      "requirement": "Low-signal, dark, ambiguous, or source-quality-suspect rows must be repaired, dropped, replaced, or manually reviewed before claiming training readiness."
+    },
+    {
+      "gate": "crop_roi_or_input_contract_clear",
+      "requirement": "Any selected subset must bind an input/crop contract whose held-out crop-stat and ROI evidence is clear enough for a training receipt."
+    },
+    {
+      "gate": "no_pretrained_no_pseudo_no_promotion",
+      "requirement": "No pretrained CV/sign/landmark dependency, generated pseudo-label, browser activation, model-card promotion, or final-gate weakening may enter the promoted lane."
+    },
+    {
+      "gate": "bounded_compute_receipt_before_local_or_brev_training",
+      "requirement": "Future training requires a separate receipt with exact command, data paths, expected signal, stop condition, artifact copyback, and validation plan; Brev additionally requires worker state, listed price, max runtime, max spend, kill condition, cleanup/default-off verification, duplicate-worker avoidance, and current human approval."
+    }
+  ],
+  "brev_assessment": {
+    "brev_useful_now": false,
+    "brev_commands_run": [],
+    "reason": "No 2+ label training-worthy local subset exists, and the active M3BR prompt forbids Brev commands. Remote compute would not answer the current blocker.",
+    "missing_receipt_fields_before_remote_execution": [
+      "verified worker state",
+      "listed price",
+      "planned command",
+      "max runtime",
+      "max spend",
+      "kill condition",
+      "expected metric signal",
+      "artifact copyback plan",
+      "teardown/default-off verification",
+      "duplicate-worker avoidance",
+      "current human approval for this specific remote run"
+    ]
+  },
+  "guardrails": {
+    "pretrained_components": [],
+    "pseudo_labels_generated": false,
+    "training_or_fitting_run": false,
+    "manifest_or_tensor_mutation": false,
+    "source_register_mutation": false,
+    "brev_command_run": false,
+    "promoted_browser_model": false,
+    "final_readiness_claim": false,
+    "claim_state": "fail_closed_browser_model_remains_not_trained"
+  },
+  "commands_run": [
+    "git status --short --branch",
+    "git log -10 --oneline --decorate",
+    "find .. -name AGENTS.md -print",
+    "sed -n '1,220p' GOAL.md",
+    "sed -n '1,260p' docs/model/return-to-form-vocab-reselection-existing-local-artifacts-goal-loop-prompt.md",
+    "sed -n '1,260p' docs/model/return-to-form-plan.md",
+    "sed -n '1,260p' docs/runbooks/codex-goal-loop.md",
+    "sed -n '1,260p' docs/runbooks/observer-runbook-codex.md",
+    "node scripts/audit_loop_premise.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs --json",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "python3 -m json.tool docs/validation/return-to-form-label-split-tensor-drift-diagnosis-v1.json >/dev/null",
+    "node scripts/audit_source_register.mjs",
+    "jq inspections over docs/model/dataset-source-register.json, M3BQ, M3BN, ASL Citizen, PopSign, and WLASL receipts",
+    "find data/manifests data/tensors -maxdepth 3 -type d",
+    "node read-only manifest/tensor inventory script over PopSign, ASL Citizen 25, ASL Citizen high-signal, and WLASL selected local artifacts",
+    "date -u +%Y-%m-%dT%H:%M:%SZ"
+  ],
+  "files_changed": [
+    "docs/validation/return-to-form-vocab-reselection-existing-local-artifacts-v1.json",
+    "docs/session-logs/367-mission-3br-vocab-reselection-existing-local-artifacts.md"
+  ],
+  "blockers": [
+    "No existing local approved artifact supports a 2+ label training-worthy subset before training.",
+    "PopSign has strong local support but repeated held-out failure and Detector 0/crop-normalization held-out failure.",
+    "ASL Citizen 25-label and seven-label routes have local approved tensors but failed broad generalization or retained-label gates.",
+    "WLASL selected local diagnostic set is too sparse, with no label having at least two clips per split.",
+    "First-party consent route has no current local training manifests or tensors.",
+    "SemLex/ASL-LEX and other public/static routes are blocked, absent, nonlocal, or validation-only."
+  ],
+  "exactly_one_next_action": "stop_until_supported_training_data_exists",
+  "next_action_rationale": "The next useful step is not another local training receipt or Brev receipt. The project needs supported training data: either new approved first-party/source artifacts, annotation/quality repair that creates a reviewable 2+ label subset, or a human-approved source/data strategy that produces such artifacts."
+}

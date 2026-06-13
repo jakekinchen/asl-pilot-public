@@ -1,0 +1,91 @@
+{
+ "schema_version": "asl-pilot-recognizer-distill/v1",
+ "teacher": "checkpoint:/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/recognizer-v1.pt",
+ "teacher_data": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/handcrop-lm2",
+ "student_data": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/recog-seq-w64-merged",
+ "student_cache": {
+  "data_dir": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/recog-seq-w64-merged",
+  "clips": 10335,
+  "classes": 95,
+  "sequence_length": 20,
+  "tensor_sequence_length": 20,
+  "feature_dim": 90,
+  "length_min": 15,
+  "length_max": 20,
+  "split_counts": {
+   "test": 2369,
+   "train": 5591,
+   "validation": 2375
+  }
+ },
+ "classes": 95,
+ "student_arch": "transformer",
+ "training_mode": "dry_run_forward",
+ "epochs": 240,
+ "alpha": 0.55,
+ "temperature": 3.0,
+ "jitter_std": 0.02,
+ "frame_drop": 0.1,
+ "teacher_covered_train": 2,
+ "teacher_covered_total": 4560,
+ "train_clips": 4,
+ "monitor_clips": 4,
+ "test_clips": 4,
+ "optimizer_steps": 0,
+ "expected_optimizer_steps": 0,
+ "planned_optimizer_steps": 240,
+ "steps_per_epoch": 1,
+ "lr_scheduler": {
+  "name": "cosine",
+  "base_lr": 0.0005,
+  "warmup_steps": 500,
+  "min_lr": 5e-05
+ },
+ "eval_train": false,
+ "diagnostics": false,
+ "dry_run_forward": {
+  "batch_size": 4,
+  "logits_shape": [
+   4,
+   95
+  ],
+  "loss": 9.876837,
+  "loss_components": {
+   "covered": 2,
+   "plain": 2,
+   "ce_teacher": 4.706362,
+   "kd": 28.266853,
+   "ce_plain": 4.445092,
+   "loss": 9.876837
+  },
+  "diagnostics": {
+   "logit_mean": 0.024518,
+   "logit_std": 0.16648,
+   "logit_max_abs": 0.512138,
+   "entropy_mean": 4.539811,
+   "mean_max_prob": 0.015773,
+   "pred_unique": 3,
+   "pred_hist": {
+    "21": 1,
+    "22": 1,
+    "28": 2
+   },
+   "label_hist": {
+    "4": 1,
+    "28": 1,
+    "90": 1,
+    "93": 1
+   }
+  },
+  "optimizer_constructed": false,
+  "backward_called": false,
+  "optimizer_steps": 0
+ },
+ "no_save_model": false,
+ "history": [],
+ "test_top1": null,
+ "test_top5": null,
+ "verification_recall_at_far10": null,
+ "chance": 0.0105,
+ "weights": null
+}

@@ -1,0 +1,402 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3gr-local-dataloader-or-micro-overfit-preflight-no-brev/v1",
+  "mission": "Mission 3GR - local dataloader or micro-overfit preflight no Brev",
+  "status": "completed_local_no_brev_tiny_micro_overfit_preflight",
+  "generated_at": "2026-05-29T11:02:20Z",
+  "current_commit_before_slice_commit": "ed5c1d9 observer: CONTINUE - m3gq m3gr preflight handoff",
+  "active_prompt": "docs/model/return-to-form-m3gr-local-dataloader-or-micro-overfit-preflight-no-brev-goal-loop-prompt.md",
+  "architecture_anchors": [
+    "ARCHITECTURE.md#arch-no-pretrained",
+    "ARCHITECTURE.md#arch-camera-privacy",
+    "ARCHITECTURE.md#arch-data-provenance",
+    "ARCHITECTURE.md#arch-gpu-execution"
+  ],
+  "commands_run": {
+    "freshness_and_source_of_truth": [
+      "git log -1 --oneline",
+      "git status --short",
+      "sed -n '1,220p' GOAL.md",
+      "sed -n '1,260p' docs/model/return-to-form-m3gr-local-dataloader-or-micro-overfit-preflight-no-brev-goal-loop-prompt.md",
+      "sed -n '1,260p' docs/runbooks/codex-goal-loop.md",
+      "sed -n '1,260p' docs/runbooks/observer-runbook-codex.md",
+      "sed -n '1,220p' docs/observer-prompt.md",
+      "sed -n '1,260p' .agents/skills/asl-pilot-codex-pair/SKILL.md",
+      "sed -n '1,180p' .agents/skills/incremental-implementation/SKILL.md",
+      "sed -n '1,180p' .agents/skills/test-driven-development/SKILL.md",
+      "sed -n '1,260p' docs/model/return-to-form-plan.md",
+      "sed -n '1,260p' docs/validation/return-to-form-m3gq-source-vocab-input-repair-no-brev-v1.json",
+      "sed -n '1,220p' docs/session-logs/649-mission-3gq-source-vocab-input-repair-no-brev.md",
+      "sed -n '1,200p' docs/session-logs/650-observer-continue-m3gq-m3gr-preflight-handoff.md"
+    ],
+    "required_baseline_checks": [
+      "git status --short --branch",
+      "git log -12 --oneline --decorate",
+      "node scripts/audit_loop_premise.mjs --json",
+      "node scripts/audit_return_to_form_plan.mjs --json",
+      "node scripts/audit_source_register.mjs",
+      "node scripts/audit_no_pretrained_deps.mjs",
+      "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "python3 -m json.tool docs/validation/return-to-form-m3gq-source-vocab-input-repair-no-brev-v1.json >/dev/null",
+      "python3 -m json.tool data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json >/dev/null",
+      "python3 -m json.tool data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json >/dev/null",
+      "python3 -m json.tool data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json >/dev/null",
+      "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "python3 -m json.tool web/public/model/detector0-card.json >/dev/null",
+      "python3 -m json.tool web/public/model/claim-matrix.json >/dev/null",
+      "python3 -m json.tool docs/validation/final-claim-matrix.json >/dev/null",
+      "brev ls --json",
+      "git diff --check"
+    ],
+    "dataloader_input_contract_proof": [
+      "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json --output-dir output/m3gr-reduced4-contract-dry-run --model-id asl-pilot-m3gr-reduced4-contract-v1 --architecture true_temporal_convnet_region_grid --check-files --dry-run --allow-small-label-set --require-input-contract rgb_regions_grid_v1 --frame-count 16 --image-size 96 --num-workers 0 > /tmp/asl-pilot-m3gr-reduced4-contract-dry-run.json",
+      "python3 -m json.tool /tmp/asl-pilot-m3gr-reduced4-contract-dry-run.json >/dev/null"
+    ],
+    "scoped_preflight_support_validation": [
+      "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/run_m3gr_reduced4_micro_overfit_preflight.py scripts/run_region_grid_tcn_tiny_overfit.py scripts/train_rawframe_model.py",
+      "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/run_m3gr_reduced4_micro_overfit_preflight.py --train-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json --output-dir output/m3gr-reduced4-local-micro-overfit-preflight --model-id asl-pilot-m3gr-reduced4-local-micro-overfit-preflight-v1 --seed 20260529 --clips-per-label 1 --epochs 120 --batch-size 4 --learning-rate 0.003 --weight-decay 0.0 --frame-count 16 --image-size 96 --num-workers 0 --check-files --dry-run > /tmp/asl-pilot-m3gr-micro-overfit-dry-run.json",
+      "python3 -m json.tool /tmp/asl-pilot-m3gr-micro-overfit-dry-run.json >/dev/null"
+    ],
+    "single_local_micro_overfit_probe": [
+      "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/run_m3gr_reduced4_micro_overfit_preflight.py --train-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json --output-dir output/m3gr-reduced4-local-micro-overfit-preflight --model-id asl-pilot-m3gr-reduced4-local-micro-overfit-preflight-v1 --seed 20260529 --clips-per-label 1 --epochs 120 --batch-size 4 --learning-rate 0.003 --weight-decay 0.0 --frame-count 16 --image-size 96 --num-workers 0 --check-files > /tmp/asl-pilot-m3gr-micro-overfit-run.json",
+      "python3 -m json.tool /tmp/asl-pilot-m3gr-micro-overfit-run.json >/dev/null",
+      "python3 -m json.tool output/m3gr-reduced4-local-micro-overfit-preflight/selected-subset.json >/dev/null",
+      "python3 -m json.tool output/m3gr-reduced4-local-micro-overfit-preflight/tiny-overfit-provenance.json >/dev/null",
+      "git check-ignore -v output/m3gr-reduced4-local-micro-overfit-preflight/model_state.pt output/m3gr-reduced4-local-micro-overfit-preflight/selected-subset.json output/m3gr-reduced4-local-micro-overfit-preflight/tiny-overfit-provenance.json"
+    ],
+    "claim_surface_reads": [
+      "jq reads of web/public/model/model-card.json, web/public/model/detector0-card.json, docs/model/active-vocabulary-claim.json, web/public/model/claim-matrix.json, and docs/validation/final-claim-matrix.json"
+    ]
+  },
+  "command_results_summary": {
+    "git_status_short_branch": "## compound-plan-m0...origin/compound-plan-m0 [ahead 317] at baseline",
+    "audit_loop_premise": "passed",
+    "audit_return_to_form_plan": "passed; active prompt is docs/model/return-to-form-m3gr-local-dataloader-or-micro-overfit-preflight-no-brev-goal-loop-prompt.md",
+    "audit_source_register": "passed; sha256 b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8; source_count 12",
+    "audit_no_pretrained_deps": "passed",
+    "audit_no_pretrained_artifact_json": "passed with no findings",
+    "required_json_validation": "passed",
+    "git_diff_check_before_edits": "passed",
+    "reduced4_dry_run_check_files": {
+      "status": "passed",
+      "training_status": "dry_run_only",
+      "evidence_mode": "smoke",
+      "total_clip_count": 79,
+      "observed_input_contract_counts": {
+        "rgb_regions_grid_v1": 79
+      },
+      "output_dir_created": false
+    },
+    "micro_overfit_dry_run": {
+      "status": "dry_run_only",
+      "subset_clip_count": 4,
+      "labels": [
+        "hello",
+        "sad",
+        "uncle",
+        "white"
+      ],
+      "batched_model_input_shape": [
+        4,
+        16,
+        5,
+        3,
+        96,
+        96
+      ],
+      "logits_shape": [
+        4,
+        4
+      ]
+    },
+    "single_micro_overfit_probe": {
+      "status": "tiny_overfit_succeeded",
+      "success": true,
+      "final_accuracy": 1.0,
+      "zero_recall_labels": [],
+      "runtime": {
+        "device": "mps",
+        "elapsed_seconds": 4.381503084092401,
+        "python": "3.14.5",
+        "torch": "2.12.0"
+      }
+    }
+  },
+  "read_only_brev_default_off_state": {
+    "command": "brev ls --json",
+    "lifecycle_remote_sync_copy_exec_or_spend_commands_run": [],
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ],
+    "default_off_preserved": true
+  },
+  "m3gq_reduced4_manifest_paths_and_hashes": {
+    "source_receipt": "docs/validation/return-to-form-m3gq-source-vocab-input-repair-no-brev-v1.json",
+    "all_hashes_match_m3gq_receipt": true,
+    "splits": {
+      "train": {
+        "path": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json",
+        "sha256": "aab52f670b9dbf6d219521a8ebf84d1af1a798ec5f1c8a54cbe126222ffe0f11",
+        "clip_count": 48,
+        "label_count": 4
+      },
+      "validation": {
+        "path": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json",
+        "sha256": "03f4d1e391146ab98bbb1aea9936396b82a09cbb09d5e783b6a147292140f13b",
+        "clip_count": 15,
+        "label_count": 4
+      },
+      "test": {
+        "path": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json",
+        "sha256": "c02486e4a50cb2894e8e1bf9ac848871368702371311c9b62b519ac8ce9b6920",
+        "clip_count": 16,
+        "label_count": 4
+      }
+    }
+  },
+  "parent_high_signal_region_grid_manifest_hashes": {
+    "all_hashes_match_m3gq_receipt": true,
+    "splits": {
+      "train": {
+        "path": "data/manifests/lesson/high-signal-region-grid/train.json",
+        "sha256": "101455329ae04ad06a2c3fd4ca26a29c04ae945bb7925bee373cf3229594fc3d"
+      },
+      "validation": {
+        "path": "data/manifests/lesson/high-signal-region-grid/validation.json",
+        "sha256": "16a4a64a8fd48a1384c4cfd2e01dddcaa45fb3b1f0588af9ec66f96668cc3a53"
+      },
+      "test": {
+        "path": "data/manifests/lesson/high-signal-region-grid/test.json",
+        "sha256": "5a315d49438242febb410287c4ff235ae8cd269a5aba5c3cf550950bae0359f8"
+      }
+    }
+  },
+  "dataloader_input_contract_proof": {
+    "required_input_contract": "rgb_regions_grid_v1",
+    "status": "passed",
+    "sample_payload_keys": [
+      "crop_config",
+      "region_axis",
+      "region_ids",
+      "rgb_frames",
+      "rgb_frames_region_id",
+      "rgb_regions",
+      "schema_version"
+    ],
+    "raw_rgb_regions_shape": [
+      16,
+      5,
+      96,
+      96,
+      3
+    ],
+    "prepared_model_input_shape": [
+      16,
+      5,
+      3,
+      96,
+      96
+    ],
+    "prepared_model_input_axis": "T,R,C,H,W",
+    "batched_model_input_shape": [
+      4,
+      16,
+      5,
+      3,
+      96,
+      96
+    ],
+    "batched_model_input_axis": "B,T,R,C,H,W",
+    "region_axis_order": [
+      "viewer_left_hand_context",
+      "viewer_right_hand_context",
+      "upper_body_signing_space",
+      "head_context",
+      "full_frame_reference"
+    ],
+    "label_mapping": {
+      "hello": 0,
+      "sad": 1,
+      "uncle": 2,
+      "white": 3
+    },
+    "proof_logits_shape": [
+      4,
+      4
+    ],
+    "region_axis_preserved_until": "TrueTemporalConvNetRawFrameClassifier.region_attention",
+    "rgb_frames_fallback_used": false
+  },
+  "selected_local_route": {
+    "route": "tiny_local_micro_overfit_preflight",
+    "reason": "The reduced4 dry-run/check-files/input-contract proof passed across train, validation, and test manifests, and the scoped helper dry-run proved a deterministic preserved-region-axis train subset before fitting.",
+    "rejected_route": "dataloader_preflight_only",
+    "rejected_route_reason": "No dataloader, tensor-hash, label-mapping, environment, or model-input blocker was observed before fitting."
+  },
+  "micro_overfit_subset_caps_runtime_and_metrics": {
+    "output_dir": "output/m3gr-reduced4-local-micro-overfit-preflight",
+    "selection_rule": "sort labels lexicographically, sort clips within each label by clip_id, select first clips_per_label",
+    "clips_per_label": 1,
+    "clip_count": 4,
+    "clips": [
+      {
+        "clip_id": "asl-citizen-train-hello-0022932153577568393-hello",
+        "label_id": "hello",
+        "label_index": 0,
+        "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/train/asl-citizen-train-hello-0022932153577568393-hello-regions.pt"
+      },
+      {
+        "clip_id": "asl-citizen-train-sad-0100581049977424-sad",
+        "label_id": "sad",
+        "label_index": 1,
+        "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/train/asl-citizen-train-sad-0100581049977424-sad-regions.pt"
+      },
+      {
+        "clip_id": "asl-citizen-train-uncle-17149431081883848-uncle",
+        "label_id": "uncle",
+        "label_index": 2,
+        "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/train/asl-citizen-train-uncle-17149431081883848-uncle-regions.pt"
+      },
+      {
+        "clip_id": "asl-citizen-train-white-10848457531453715-white",
+        "label_id": "white",
+        "label_index": 3,
+        "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/train/asl-citizen-train-white-10848457531453715-white-regions.pt"
+      }
+    ],
+    "caps": {
+      "single_probe_only": true,
+      "scratch_initialized": true,
+      "architecture": "true_temporal_convnet_region_grid",
+      "epochs": 120,
+      "batch_size": 4,
+      "learning_rate": 0.003,
+      "weight_decay": 0.0,
+      "frame_count": 16,
+      "image_size": 96,
+      "num_workers": 0,
+      "no_validation_or_test_readiness_evaluation": true,
+      "ignored_output_only": true,
+      "success_threshold_predeclared_before_run": {
+        "accuracy_gte": 0.95,
+        "no_zero_recall_selected_labels": true
+      }
+    },
+    "runtime": {
+      "device": "mps",
+      "elapsed_seconds": 4.381503084092401,
+      "python": "3.14.5",
+      "torch": "2.12.0"
+    },
+    "metrics": {
+      "status": "succeeded",
+      "success": true,
+      "final_eval_same_subset_only": {
+        "accuracy": 1.0,
+        "correct": 4,
+        "examples": 4,
+        "loss": 1.1920928244535389e-7,
+        "zero_recall_labels": []
+      },
+      "per_label_recall_same_subset_only": {
+        "hello": 1.0,
+        "sad": 1.0,
+        "uncle": 1.0,
+        "white": 1.0
+      },
+      "best_epoch_same_subset_only": 76
+    },
+    "interpretation": "This proves local train-fit connectivity for the deterministic tiny reduced4 subset only. It is not held-out quality, readiness, promotion, export, browser activation, or authorization for broad training."
+  },
+  "local_ignored_outputs_written": [
+    {
+      "path": "output/m3gr-reduced4-local-micro-overfit-preflight/model_state.pt",
+      "sha256": "5030212e24dcbf4da58110726de2bcf795da5e47387bdd472e2a49a9b06dbfed",
+      "ignored_by": ".gitignore:27:output/"
+    },
+    {
+      "path": "output/m3gr-reduced4-local-micro-overfit-preflight/selected-subset.json",
+      "sha256": "fa4f9e16e60230299fe17c85004e62db13f97eeb624f9eeb6afdd657330bb58b",
+      "ignored_by": ".gitignore:27:output/"
+    },
+    {
+      "path": "output/m3gr-reduced4-local-micro-overfit-preflight/tiny-overfit-provenance.json",
+      "sha256": "31234b929eab8bc0f084ecd695d7b9caab025c41ff33883b7ca58ec4b240984b",
+      "ignored_by": ".gitignore:27:output/"
+    }
+  ],
+  "claim_surface_status": {
+    "fail_closed_unchanged": true,
+    "web_public_model_model_card": {
+      "path": "web/public/model/model-card.json",
+      "status": "not_trained",
+      "model_id": "asl-pilot-rawframe-v0"
+    },
+    "web_public_model_detector0_card": {
+      "path": "web/public/model/detector0-card.json",
+      "status": "not_trained"
+    },
+    "docs_model_active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "activeLabels": []
+    },
+    "web_public_model_claim_matrix": {
+      "path": "web/public/model/claim-matrix.json",
+      "status": "no_active_claim_rawframe_not_trained"
+    },
+    "docs_validation_final_claim_matrix": {
+      "path": "docs/validation/final-claim-matrix.json",
+      "status": "no_active_claim_rawframe_not_trained"
+    }
+  },
+  "forbidden_action_proof": {
+    "brev_lifecycle_remote_sync_copy_exec_or_spend": false,
+    "broad_or_full_training": false,
+    "checkpoint_evaluator_rerun": false,
+    "validation_or_test_readiness_evaluation": false,
+    "export": false,
+    "browser_activation": false,
+    "browser_or_product_smoke": false,
+    "source_import": false,
+    "source_register_rights_mutation": false,
+    "raw_learner_video_upload": false,
+    "raw_media_inspection": false,
+    "claim_expansion": false,
+    "model_card_promotion": false,
+    "final_gate_change": false,
+    "research_api_or_gpt_pro_call": false,
+    "pretrained_detector_landmark_backbone_feature_model_or_generated_label_shortcut": false
+  },
+  "pretrained_components": [],
+  "corrected_read_only_probe_errors": [
+    {
+      "command_class": "jq summary-only read after probe",
+      "result": "One jq aggregation exited nonzero while reading two /tmp JSON summaries because the filter misused input.",
+      "correction": "Reran direct jq reads of the dry-run and output provenance JSON; no repo files were changed."
+    }
+  ],
+  "changed_files": [
+    {
+      "path": "scripts/run_m3gr_reduced4_micro_overfit_preflight.py",
+      "sha256": "c574d5d931ba7dc5ccbc39b546a6e03a9cc5a9d7a239fd8210fb172e89abb8f3"
+    },
+    {
+      "path": "docs/validation/return-to-form-m3gr-local-dataloader-or-micro-overfit-preflight-no-brev-v1.json"
+    },
+    {
+      "path": "docs/session-logs/651-mission-3gr-local-dataloader-or-micro-overfit-preflight-no-brev.md"
+    }
+  ],
+  "exact_blocker": null,
+  "exactly_one_next_action": "continue_m3gs_reduced4_trainability_result_triage_no_brev"
+}

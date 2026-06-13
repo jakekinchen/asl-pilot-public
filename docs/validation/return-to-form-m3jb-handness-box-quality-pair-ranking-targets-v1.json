@@ -1,0 +1,154 @@
+{
+  "schema_version": "asl-pilot-validation-receipt/v1",
+  "receipt_id": "return-to-form-m3jb-handness-box-quality-pair-ranking-targets-v1",
+  "mission": "M3JB - handness and box-quality pair-ranking targets",
+  "created_at": "2026-06-02T02:35:44Z",
+  "status": "diagnostic_target_plumbing_complete_probe_not_selected_fail_closed",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "next_action": "continue_m3jb_validation_selected_target_pair_ranker_or_proposal_head_no_brev",
+  "runtime_boundary": {
+    "mediapipe_runtime_dependency_allowed": false,
+    "offline_mediapipe_teacher_allowed": true,
+    "raw_learner_video_upload_allowed": false,
+    "browser_artifact_exported": false,
+    "browser_tracking_activated": false,
+    "detector0_model_card_promoted": false,
+    "brev_or_paid_compute_used": false
+  },
+  "side_worktree": {
+    "path": "/Users/kelly/Developer/asl-pilot-annotator",
+    "branch": "annotator-tool",
+    "changed_code": [
+      {
+        "path": "tools/detector0-annotator/train_hand_pair_ranker.py",
+        "sha256": "b3978d05d8fbdb802b79dc6ae6c098980d5062ed1cec5590bad6fc8c0cd5cef4",
+        "purpose": "Adds M3JB candidate-ranking targets: slot_targets, box_quality_scores, hard_negative_mask, target weighting, and hard-negative BCE weighting for broad-box failures."
+      }
+    ],
+    "ignored_outputs": [
+      {
+        "path": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-targets-smoke-top4-train32-e1.json",
+        "sha256": "3417b49e999b5027d1065a3b3b6633d2a1aed63ca4c14a406f8e2a2489bb3465",
+        "purpose": "Top-4/train-32 one-epoch smoke receipt proving the new target schema and loss path execute."
+      },
+      {
+        "path": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-targets-smoke-top4-train32-e1.pt",
+        "sha256": "d51afe3a0c58479892729177d6c40a8dd0fd6d8816afb41d48fcd466b150f8c1",
+        "purpose": "Ignored diagnostic smoke checkpoint; not selected."
+      },
+      {
+        "path": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-targets-top20-train2500-e10-v1.json",
+        "sha256": "30a4f5d1976736cae4756bc47e920f18ff5a2d5b215cce99a7595d2b56eeaea0",
+        "purpose": "Bounded top-20 target-weighted pair-ranker probe receipt."
+      },
+      {
+        "path": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-targets-top20-train2500-e10-v1.pt",
+        "sha256": "9e233565748f1c4046250a448ca95dca22cb66a02d1e4f62653571d58b46a60b",
+        "purpose": "Ignored diagnostic top-20 checkpoint; not selected."
+      }
+    ]
+  },
+  "target_schema": {
+    "slot_targets": "-1 none, 0 direct left_or_first/right_or_second, 1 swapped right_or_second/left_or_first",
+    "box_quality_scores": "Mean IoU of the selected direct/swap assignment for positive distinct pairs.",
+    "hard_negative_mask": "Candidate pair includes a broad single box covering both GT hands with weak or ambiguous distinct assignment.",
+    "rank_target": "Distinct assignment score plus optional box-quality and slot-margin bonuses minus broad-box hard-negative penalty.",
+    "bce_weights": "Broad-box hard negatives receive extra BCE negative weight when enabled."
+  },
+  "commands_run": [
+    "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_hand_pair_ranker.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --self-test",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --data tools/detector0-annotator/.cache/m3ja-hands2-twohand-plus-big2real-v1 --real-data tools/detector0-annotator/.cache/autolabel-big --coarse-weights tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.pt --topk 4 --epochs 1 --batch-groups 64 --max-train-rows 32 --target-temperature 0.05 --aux-bce-weight 0.1 --box-quality-target-weight 0.25 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 0.25 --hard-negative-bce-weight 3.0 --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --crop-feature-batch 128 --device mps --ranker-device cpu --out tools/detector0-annotator/output/m3jb-hand-pair-ranker-targets-smoke-top4-train32-e1.json",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --data tools/detector0-annotator/.cache/m3ja-hands2-twohand-plus-big2real-v1 --real-data tools/detector0-annotator/.cache/autolabel-big --coarse-weights tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.pt --topk 20 --epochs 10 --batch-groups 256 --max-train-rows 2500 --target-temperature 0.05 --aux-bce-weight 0.1 --box-quality-target-weight 0.25 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 0.25 --hard-negative-bce-weight 3.0 --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --crop-feature-batch 256 --device mps --ranker-device cpu --out tools/detector0-annotator/output/m3jb-hand-pair-ranker-targets-top20-train2500-e10-v1.json"
+  ],
+  "commands_intentionally_not_run": [
+    "No browser export or browser activation.",
+    "No Detector 0 model-card promotion.",
+    "No Brev lifecycle, remote sync, remote training, or paid compute.",
+    "No source import, raw learner video upload, source-register mutation, tensor mutation, or claim expansion."
+  ],
+  "metrics": {
+    "current_best_reference": {
+      "receipt": "tools/detector0-annotator/output/m3ja-hand-pair-ranker-cropfeat-top20-fulltrain-e20-v1.json",
+      "real_twohand": {
+        "coverage": 0.9404761904761905,
+        "distinct_assigned_coverage": 0.5238095238095238,
+        "collapse_rate": 0.0,
+        "same_prediction_coverage_count": 35,
+        "n": 84
+      },
+      "selected": true
+    },
+    "top4_smoke": {
+      "receipt": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-targets-smoke-top4-train32-e1.json",
+      "params": {
+        "topk": 4,
+        "epochs": 1,
+        "max_train_rows": 32,
+        "box_quality_target_weight": 0.25,
+        "slot_margin_target_weight": 0.1,
+        "hard_negative_target_penalty": 0.25,
+        "hard_negative_bce_weight": 3.0
+      },
+      "real_twohand": {
+        "coverage": 0.7023809523809523,
+        "distinct_assigned_coverage": 0.32142857142857145,
+        "collapse_rate": 0.0,
+        "same_prediction_coverage_count": 32,
+        "oracle_distinct_assigned_coverage": 0.6190476190476191,
+        "hard_negative_pairs": 103,
+        "slot_direct_pairs": 45,
+        "slot_swapped_pairs": 47,
+        "n": 84
+      },
+      "selected": false
+    },
+    "top20_target_probe": {
+      "receipt": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-targets-top20-train2500-e10-v1.json",
+      "params": {
+        "topk": 20,
+        "epochs": 10,
+        "max_train_rows": 2500,
+        "box_quality_target_weight": 0.25,
+        "slot_margin_target_weight": 0.1,
+        "hard_negative_target_penalty": 0.25,
+        "hard_negative_bce_weight": 3.0
+      },
+      "validation": {
+        "coverage": 0.7531897926634769,
+        "distinct_assigned_coverage": 0.7328548644338118,
+        "collapse_rate": 0.0,
+        "n": 2508
+      },
+      "test": {
+        "coverage": 0.738265464718682,
+        "distinct_assigned_coverage": 0.7242772769661175,
+        "collapse_rate": 0.0,
+        "n": 3217
+      },
+      "real_twohand": {
+        "coverage": 0.9642857142857143,
+        "distinct_assigned_coverage": 0.47619047619047616,
+        "collapse_rate": 0.0,
+        "same_prediction_coverage_count": 41,
+        "oracle_distinct_assigned_coverage": 0.9285714285714286,
+        "hard_negative_pairs": 1367,
+        "slot_direct_pairs": 205,
+        "slot_swapped_pairs": 228,
+        "n": 84
+      },
+      "selected": false,
+      "selection_reason": "Real distinct assignment is below the current crop/pose ranker best 0.523810, so this is target-plumbing evidence rather than a checkpoint replacement."
+    }
+  },
+  "gate_status": {
+    "boxes": "failed_open",
+    "distinct_two_hand_assignment_required": 0.98,
+    "best_current_distinct_two_hand_assignment": 0.5238095238095238,
+    "target_probe_distinct_two_hand_assignment": 0.47619047619047616,
+    "duplicate_collapse_requirement": "<= 0.02",
+    "target_probe_duplicate_collapse": 0.0
+  },
+  "conclusion": "M3JB now has explicit handness/slot, box-quality, and broad-box hard-negative target plumbing for candidate ranking. The bounded target-weighted probe did not beat the existing crop/pose ranker and must remain fail-closed.",
+  "next_action_reason": "Candidate generation still has a high top-20 oracle, but target-weighted ranking did not select the right distinct pair often enough. Continue with validation-selected target tuning or a stronger proposal head before any browser export."
+}

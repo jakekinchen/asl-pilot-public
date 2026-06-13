@@ -1,0 +1,185 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-t32-cache-smoke-validate/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_t32_cache_materialize_validate_no_brev",
+  "recorded_at_utc": "2026-06-03T21:47:12Z",
+  "head_before_slice": "4bc7289f62a054db561f452c5045470e70714d7c",
+  "status": "passed_t32_smoke_cache_materialized_and_loader_validated_no_brev",
+  "source_of_truth": {
+    "loader_preflight_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-t32-cache-loader-preflight-v1.json",
+    "selected_step": "Materialize a local T=32 student cache and validate --seq-len 32 --dry-run-forward before any paid run4.",
+    "scope_note": "This slice materialized an all-label smoke cache using clips-per-word 1 across train/validation/test; it is not the full run4 cache."
+  },
+  "side_worktree": {
+    "path": "/Users/kelly/Developer/asl-pilot-annotator",
+    "branch": "annotator-tool",
+    "code_commit": "46cd3ddf69fd8bf2e1cf17523f4217f335c8cd6d",
+    "extractor_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/extract_recognizer_sequences.py",
+    "trainer_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_recognizer_distill.py"
+  },
+  "cache": {
+    "kind": "local_smoke_cache_all_labels_not_full_run4_cache",
+    "rows_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/recog-seq-w64-t32-cpw1-v1/rows.json",
+    "rows_sha256": "4a5b90792362a8ffa8498aa0eed6632cf7bb76afa0d8b1d9f61a3c9e3bd51116",
+    "rows_size_bytes": 9995662,
+    "source": "scratch region+landmark models (our-models-only, no mediapipe)",
+    "region_model": "detector0-grid-big2.pt",
+    "landmark_model": "detector0-hand-landmarks-big2.pt",
+    "frames_per_clip": 32,
+    "clips_per_word": 1,
+    "rows": 9120,
+    "clips": 285,
+    "missing": 0,
+    "frames": 9120,
+    "hand_present": 5324,
+    "label_count": 95,
+    "split_counts": {
+      "train": 95,
+      "validation": 95,
+      "test": 95
+    },
+    "frame_counts": {
+      "32": 285
+    },
+    "materialize_command": "cd /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator && env PYTORCH_ENABLE_MPS_FALLBACK=1 PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python extract_recognizer_sequences.py --clips-per-word 1 --frames-per-clip 32 --device mps --out .cache/recog-seq-w64-t32-cpw1-v1"
+  },
+  "dryrun": {
+    "receipt_path": "docs/validation/m3jb-recognizer-t32-cache-smoke-dryrun-cpw1-v1.json",
+    "receipt_sha256": "1927173a09a47c7fa6a0aa7b308dcda483dc78958ec67f5da47cd9f58643a916",
+    "command": "cd /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator && PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python train_recognizer_distill.py --student-data .cache/recog-seq-w64-t32-cpw1-v1 --student-arch transformer --device cpu --epochs 240 --batch 8 --lr 5e-4 --lr-scheduler cosine --warmup-steps 500 --min-lr 5e-5 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --seq-len 32 --dry-run-forward --out /Users/kelly/Developer/asl-pilot/docs/validation/m3jb-recognizer-t32-cache-smoke-dryrun-cpw1-v1.json",
+    "status": "passed_no_grad_no_optimizer_no_checkpoint",
+    "student_cache_sequence_length": 32,
+    "student_cache_clips": 285,
+    "student_cache_classes": 95,
+    "student_cache_feature_dim": 90,
+    "train_clips": 168,
+    "monitor_clips": 22,
+    "test_clips": 95,
+    "logits_shape": [
+      8,
+      95
+    ],
+    "loss": 15.614637,
+    "optimizer_steps": 0,
+    "expected_optimizer_steps": 0,
+    "planned_optimizer_steps": 5040,
+    "weights": null,
+    "checkpoint_written": false
+  },
+  "run4_prerequisite": {
+    "next_action": "m3jb_recognizer_transformer_t32_full_cache_materialize_validate_no_brev",
+    "must_complete_before_brev_run4": [
+      "materialize the full T=32 student cache locally or with an explicitly approved compute envelope",
+      "validate the full cache with train_recognizer_distill.py --student-data <full T32 cache> --seq-len 32 --dry-run-forward",
+      "record full cache rows, clips, labels, split counts, sha256, dry-run logits, zero optimizer steps, and weights null",
+      "only then consider the paid run4 recipe"
+    ]
+  },
+  "runtime_boundary": {
+    "brev_used": false,
+    "brev_lifecycle_or_exec": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "browser_artifact_promoted": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "push": false
+  },
+  "validation": [
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "shasum -a 256 .cache/recog-seq-w64-t32-cpw1-v1/rows.json",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/m3jb-recognizer-t32-cache-smoke-dryrun-cpw1-v1.json",
+      "status": "passed"
+    }
+  ],
+  "final_validation": {
+    "json_receipts": [
+      {
+        "command": "python3 -m json.tool docs/validation/return-to-form-m3jb-recognizer-transformer-t32-cache-smoke-validate-v1.json",
+        "status": "passed"
+      },
+      {
+        "command": "python3 -m json.tool docs/validation/m3jb-recognizer-t32-cache-smoke-dryrun-cpw1-v1.json",
+        "status": "passed"
+      },
+      {
+        "command": "python3 -m json.tool docs/validation/return-to-form-m3jb-hierarchical-hand-state-tracker-v1.json",
+        "status": "passed"
+      }
+    ],
+    "repo_audits": [
+      {
+        "command": "node --check scripts/audit_m3jb_hand_state_tracker.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_m3jb_hand_state_tracker.mjs --json",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_loop_premise.mjs --json",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_return_to_form_plan.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_source_register.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_deps.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_raw_video_upload.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "git diff --check",
+        "status": "passed"
+      }
+    ],
+    "final_brev_visibility": {
+      "command": "brev ls --json",
+      "status": "passed_read_only",
+      "workspaces": [
+        {
+          "name": "asl-pilot-m3jb-pairrank-l40s-001",
+          "id": "h15cj91es",
+          "status": "STOPPED",
+          "shell_status": "NOT READY",
+          "health_status": "UNHEALTHY",
+          "gpu": "L40S"
+        },
+        {
+          "name": "asl-pilot-m3eh-l40s-001",
+          "id": "3d58wpy9o",
+          "status": "STOPPED",
+          "shell_status": "NOT READY",
+          "health_status": "HEALTHY",
+          "gpu": "L40S"
+        }
+      ]
+    }
+  },
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_t32_full_cache_materialize_validate_no_brev",
+    "reason": "The all-label T=32 smoke cache proves the extractor and trainer loader path, but run4 still needs a full T=32 student cache before paid training."
+  }
+}

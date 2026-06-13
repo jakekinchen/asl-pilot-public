@@ -1,0 +1,313 @@
+{
+  "schema_version": "asl-pilot-m3jb-pairrank-selector-objective-smoke-and-brev-provider/v1",
+  "status": "pairrank_objective_full_scope_brev_completed_fail_closed_not_gate_passing",
+  "checked_at": "2026-06-02T05:50:13Z",
+  "mission": "M3JB - Hierarchical hand-state tracker",
+  "purpose": "Repair the candidate-level selector objective/calibration from the candidate-selection failure taxonomy, prove the repaired path locally as smoke only, and route uncapped full-scope fitting to Brev instead of preserving local row caps.",
+  "code": {
+    "path": "tools/detector0-annotator/train_hand_pair_ranker.py",
+    "sha256": "c2399fdcb06b0f653863232dc92905741761fc930efca2e440ce4cb661389ee3",
+    "summary": "Added pair_candidate_indices and pair_ious to pair packs, an optional candidate-head pair-rank loss over the exact final pair-selection score, and CLI/receipt fields for candidate_head_pair_rank_weight and candidate_head_pair_temperature.",
+    "objective_repair": "The candidate head still predicts per-candidate quality/slot, but training can now add listwise supervision over all candidate pairs so the logits prefer the oracle-compatible two-hand pair rather than independently plausible same-slot, low-target, too-small, or hard-negative candidates."
+  },
+  "local_validation": {
+    "commands": [
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_hand_pair_ranker.py",
+        "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+        "exit_status": 0,
+        "summary": "syntax compile passed"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --self-test",
+        "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+        "exit_status": 0,
+        "summary": "self-test passed, including candidate head, cached candidate pack, and pair-rank loss shape/mask path"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --train-candidate-head --train-subproposal-candidates --topk 40 --subproposal-source-topk 4 --subproposal-max-topk 16 --max-train-rows 32 --epochs 1 --batch-groups 16 --select-by-validation --eval-every 1 --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --candidate-feature-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --device cpu --landmark-device cpu --ranker-device cpu --candidate-head-pair-rank-weight 1.0 --candidate-head-pair-temperature 0.05 --box-quality-target-weight 0.5 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 1.0 --hard-negative-bce-weight 3.0 --candidate-head-quality-mse-weight 0.5 --candidate-head-slot-ce-weight 0.2 --candidate-head-slot-score-weight 0.5 --candidate-head-overlap-penalty 3.0 --out tools/detector0-annotator/output/m3jb-hand-candidate-head-pairrank-croppose-top40-src4-aug16-train32-e1-smoke-v1.json",
+        "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+        "exit_status": "terminated_by_agent_before_receipt",
+        "summary": "CPU smoke was stopped at PID 19436 because validation crop/pose feature extraction was the bottleneck; no smoke receipt was written by this run."
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --train-candidate-head --train-subproposal-candidates --topk 40 --subproposal-source-topk 4 --subproposal-max-topk 16 --max-train-rows 32 --epochs 1 --batch-groups 16 --select-by-validation --eval-every 1 --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --candidate-feature-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --device mps --landmark-device mps --ranker-device cpu --candidate-head-pair-rank-weight 1.0 --candidate-head-pair-temperature 0.05 --box-quality-target-weight 0.5 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 1.0 --hard-negative-bce-weight 3.0 --candidate-head-quality-mse-weight 0.5 --candidate-head-slot-ce-weight 0.2 --candidate-head-slot-score-weight 0.5 --candidate-head-overlap-penalty 3.0 --out tools/detector0-annotator/output/m3jb-hand-candidate-head-pairrank-croppose-top40-src4-aug16-train32-e1-smoke-v1.json",
+        "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+        "exit_status": 0,
+        "summary": "MPS local smoke trained one epoch, wrote a diagnostic receipt and weights, and evaluated validation/test/real two-hand rows."
+      }
+    ],
+    "note": "The local train32 smoke is only a dataloader/loss/receipt proof; it is not a substitute for the uncapped Brev run.",
+    "smoke_receipt": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-candidate-head-pairrank-croppose-top40-src4-aug16-train32-e1-smoke-v1.json",
+      "sha256": "57a1382842dc32377230e4374e6264bf391da5a2fd7f62c2ee4c6d04e53e30fd"
+    },
+    "smoke_weights": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-candidate-head-pairrank-croppose-top40-src4-aug16-train32-e1-smoke-v1.pt",
+      "sha256": "893c3380347491891fd1ffff331776dea903f4c4aa1def1f3e3b46b8fe89e3fd"
+    },
+    "smoke_params": {
+      "topk": 16,
+      "base_topk": 40,
+      "subproposal_source_topk": 4,
+      "subproposal_max_topk": 16,
+      "max_train_rows": 32,
+      "epochs": 1,
+      "candidate_head_pair_rank_weight": 1.0,
+      "candidate_head_pair_temperature": 0.05,
+      "pair_rank_target_box_quality_weight": 0.5,
+      "pair_rank_target_slot_margin_weight": 0.1,
+      "pair_rank_target_hard_negative_penalty": 1.0,
+      "candidate_head_slot_score_weight": 0.5,
+      "candidate_head_overlap_penalty": 3.0
+    },
+    "smoke_metrics": {
+      "validation_selection_best": {
+        "epoch": 0,
+        "selection_score": 0.5768540669856459,
+        "coverage": 0.4700956937799043,
+        "distinct_assigned_coverage": 0.45933014354066987,
+        "collapse_rate": 0.0,
+        "same_prediction_coverage_count": 27
+      },
+      "real_twohand_selected": {
+        "coverage": 0.5833333333333334,
+        "distinct_assigned_coverage": 0.30952380952380953,
+        "collapse_rate": 0.0,
+        "n": 84,
+        "coverage_failure_count": 35,
+        "distinct_assignment_failure_count": 58
+      },
+      "real_twohand_oracle": {
+        "coverage": 0.9880952380952381,
+        "distinct_assigned_coverage": 0.9880952380952381,
+        "collapse_rate": 0.0,
+        "n": 84,
+        "coverage_failure_count": 1,
+        "distinct_assignment_failure_count": 1
+      },
+      "interpretation": "Smoke proves the repaired objective/dataloader/receipt path only. It is not gate evidence and is not a substitute for uncapped Brev fitting."
+    }
+  },
+  "intended_full_scope_brev_command": {
+    "cwd": "/home/ubuntu/asl-pilot",
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --train-candidate-head --train-subproposal-candidates --topk 40 --subproposal-source-topk 8 --subproposal-max-topk 24 --max-train-rows 0 --epochs 36 --batch-groups 512 --select-by-validation --eval-every 3 --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --candidate-feature-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --device cuda --landmark-device cuda --ranker-device cuda --candidate-head-pair-rank-weight 1.0 --candidate-head-pair-temperature 0.05 --box-quality-target-weight 0.5 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 1.0 --hard-negative-bce-weight 3.0 --candidate-head-quality-mse-weight 0.5 --candidate-head-slot-ce-weight 0.2 --candidate-head-slot-score-weight 0.5 --candidate-head-overlap-penalty 3.0 --out tools/detector0-annotator/output/m3jb-hand-candidate-head-pairrank-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.json",
+    "status": "run_completed_on_recovered_retained_worker",
+    "reason": "The retained L40S worker recovered to RUNNING/READY/HEALTHY after the earlier provider safety failure, passed CUDA/process safety, received the narrow annotator bundle, and completed the uncapped full-scope command.",
+    "critical_scope_guard": "--max-train-rows 0 disables the previous 2500-row local cap and must remain in the full-scope Brev command."
+  },
+  "brev_full_scope_attempt": {
+    "price_evidence": {
+      "command": "brev search --stoppable --min-vram 40 --sort price --json",
+      "cheapest_suitable_type": "l40s-48gb.1x",
+      "gpu": "L40S",
+      "total_vram_gb": 48,
+      "price_per_hour": 1.74
+    },
+    "retained_worker": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "initial_state": {
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY"
+      },
+      "start_command": "brev start asl-pilot-m3eh-l40s-001",
+      "post_start_state": {
+        "status": "RUNNING",
+        "build_status": "COMPLETED",
+        "shell_status": "READY",
+        "health_status": "UNAVAILABLE"
+      },
+      "safety_probe": {
+        "command": "timeout 420s brev exec asl-pilot-m3eh-l40s-001 remote_home/nvidia-smi/process/torch-cuda probe",
+        "result": "initial_failed_then_recovered_and_passed",
+        "observed_error": "ssh: connect to host 204.52.30.164 port 22: Operation timed out; Brev then waited for SSH while provider state changed to UNHEALTHY.",
+        "recovered_state": {
+          "status": "RUNNING",
+          "build_status": "COMPLETED",
+          "shell_status": "READY",
+          "health_status": "HEALTHY"
+        },
+        "recovery_probe": {
+          "result": "passed",
+          "gpu": "NVIDIA L40S",
+          "memory_total_mib": 46068,
+          "torch": "2.12.0+cu126",
+          "cuda_available": true,
+          "cuda_device_count": 1,
+          "cuda_device_name": "NVIDIA L40S",
+          "active_training_process_before_run": false
+        },
+        "local_client_pids_killed": [
+          29179,
+          29180
+        ],
+        "remote_sync_started": true,
+        "remote_training_started": true,
+        "remote_output_created": true
+      },
+      "stop_commands": [
+        "brev stop asl-pilot-m3eh-l40s-001",
+        "brev stop 3d58wpy9o",
+        "brev stop 3d58wpy9o",
+        "brev stop asl-pilot-m3eh-l40s-001",
+        "brev stop 3d58wpy9o"
+      ],
+      "final_state": {
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY"
+      }
+    },
+    "fresh_worker": {
+      "name": "asl-pilot-m3jb-pairrank-l40s-001",
+      "id": "h15cj91es",
+      "instance_type": "l40s-48gb.1x",
+      "create_command": "brev create asl-pilot-m3jb-pairrank-l40s-001 --type l40s-48gb.1x",
+      "create_result": "success_created_single_l40s_worker",
+      "safety_probe": {
+        "command": "timeout 420s brev exec asl-pilot-m3jb-pairrank-l40s-001 remote_home/nvidia-smi/process/torch-cuda probe",
+        "result": "failed_before_remote_command_body",
+        "observed_error": "First exec could not resolve the hostname, then Brev waited for SSH while provider state remained BUILDING/NOT READY and later UNHEALTHY.",
+        "local_client_pids_killed": [
+          33681,
+          33683
+        ],
+        "remote_sync_started": false,
+        "remote_training_started": false,
+        "remote_output_created": false
+      },
+      "stop_commands": [
+        "brev stop asl-pilot-m3jb-pairrank-l40s-001",
+        "brev stop h15cj91es"
+      ],
+      "final_state": {
+        "status": "STOPPED",
+        "build_status": "",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY"
+      },
+      "cleanup_note": "The fresh worker is stopped. It was not deleted because delete is a durable destructive action that requires explicit confirmation under the Brev CLI safety policy."
+    },
+    "sync_and_training": {
+      "main_repo_sync": {
+        "command": "BREV_SYNC_TRAINING_DATA=0 bash scripts/brev_sync_repo.sh asl-pilot-m3eh-l40s-001",
+        "result": "completed",
+        "training_data_sync": "skipped by BREV_SYNC_TRAINING_DATA=0"
+      },
+      "annotator_bundle_synced": true,
+      "side_bundle": {
+        "script_sha256": "c2399fdcb06b0f653863232dc92905741761fc930efca2e440ce4cb661389ee3",
+        "coarse_weights_sha256": "3ee33eda56c42e89ee67d73b7efdce7b0bd07577c2a74c7c925363fdfdff3d28",
+        "landmark_weights_sha256": "edbb683d9d68da57442937ef6c96482ecb009b52ed7f05ba2d42ef8ad75815d6",
+        "cache_note": "Synced prepared detector/candidate/feature arrays; no normal-practice raw learner video upload was performed."
+      },
+      "remote_validation": {
+        "commands": [
+          "sha256sum repaired script and required M3JA weights",
+          "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile tools/detector0-annotator/train_hand_pair_ranker.py",
+          "PYTHONDONTWRITEBYTECODE=1 /home/ubuntu/asl-pilot/.venv/bin/python train_hand_pair_ranker.py --self-test"
+        ],
+        "dependency_repair": "Installed Pillow 11.3.0 into the remote project venv after the self-test initially failed on missing PIL.",
+        "result": "passed"
+      },
+      "full_scope_training_run": true,
+      "full_scope_command": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd \\$HOME/asl-pilot && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --train-candidate-head --train-subproposal-candidates --topk 40 --subproposal-source-topk 8 --subproposal-max-topk 24 --max-train-rows 0 --epochs 36 --batch-groups 512 --select-by-validation --eval-every 3 --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --candidate-feature-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --device cuda --landmark-device cuda --ranker-device cuda --candidate-head-pair-rank-weight 1.0 --candidate-head-pair-temperature 0.05 --box-quality-target-weight 0.5 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 1.0 --hard-negative-bce-weight 3.0 --candidate-head-quality-mse-weight 0.5 --candidate-head-slot-ce-weight 0.2 --candidate-head-slot-score-weight 0.5 --candidate-head-overlap-penalty 3.0 --out tools/detector0-annotator/output/m3jb-hand-candidate-head-pairrank-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.json\"",
+      "copyback_run": true,
+      "artifacts": {
+        "receipt": {
+          "path": "tools/detector0-annotator/output/m3jb-hand-candidate-head-pairrank-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.json",
+          "sha256": "db4f590719849ec6fb824e49a551b088330e32b0e2ec997201947237a0ea2664"
+        },
+        "weights": {
+          "path": "tools/detector0-annotator/output/m3jb-hand-candidate-head-pairrank-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.pt",
+          "sha256": "49c4218aa9d7b02b7498a29db362b99379c2764134979254697344dd4988f95c"
+        }
+      },
+      "metrics": {
+        "train_groups": 2535,
+        "train_candidates": 60840,
+        "train_positive_candidates": 41589,
+        "validation_selected": {
+          "epoch": 2,
+          "selection_score": 0.7674441786283891,
+          "coverage": 0.6359649122807017,
+          "distinct_assigned_coverage": 0.6172248803827751,
+          "collapse_rate": 0.008771929824561403
+        },
+        "test_selected": {
+          "n": 3217,
+          "coverage": 0.636307118433323,
+          "distinct_assigned_coverage": 0.6223189306807585,
+          "collapse_rate": 0.008703761268262356
+        },
+        "real_twohand_selected": {
+          "n": 84,
+          "coverage": 0.8928571428571429,
+          "distinct_assigned_coverage": 0.4642857142857143,
+          "collapse_rate": 0.05952380952380952,
+          "decoded_two_distinct": 0.9404761904761905,
+          "coverage_failure_count": 9
+        },
+        "real_twohand_oracle": {
+          "n": 84,
+          "coverage": 0.9880952380952381,
+          "distinct_assigned_coverage": 0.9880952380952381,
+          "collapse_rate": 0.0,
+          "coverage_failure_count": 1
+        }
+      },
+      "failure_audit": {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --candidate-selection-audit-only --candidate-head-receipt tools/detector0-annotator/output/m3jb-hand-candidate-head-pairrank-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.json --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --candidate-feature-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features --ranker-device cpu --out tools/detector0-annotator/output/m3jb-hand-candidate-selection-failure-audit-pairrank-croppose-top40-src8-aug24-fulltrain-e36-v1.json --candidate-selection-audit-render tools/detector0-annotator/output/m3jb-hand-candidate-selection-failure-audit-pairrank-croppose-top40-src8-aug24-fulltrain-e36-v1.png",
+        "failure_count": 47,
+        "selected_pass_count": 37,
+        "oracle_pass_selected_fail_count": 46,
+        "oracle_fail_count": 1,
+        "top_tags": {
+          "selected_low_target_candidate": 46,
+          "quality_false_positive": 33,
+          "same_gt_slot_selected": 27,
+          "selected_subbox_too_small": 24,
+          "selected_hard_negative_candidate": 19,
+          "selected_pair_overlap_high": 12
+        },
+        "receipt": {
+          "path": "tools/detector0-annotator/output/m3jb-hand-candidate-selection-failure-audit-pairrank-croppose-top40-src8-aug24-fulltrain-e36-v1.json",
+          "sha256": "85b8966781965c9f0d976bb176aa7f30440c304f2243d0296bd143fb7c08604b"
+        },
+        "contact_sheet": {
+          "path": "tools/detector0-annotator/output/m3jb-hand-candidate-selection-failure-audit-pairrank-croppose-top40-src8-aug24-fulltrain-e36-v1.png",
+          "sha256": "3d6df50bc4bb3c1f3457b78ffbc68526d8c4b4fd9b343b42d714b96ace15f4dd"
+        }
+      }
+    }
+  },
+  "runtime_boundary": {
+    "local_smoke_training_run": true,
+    "full_scope_training_run": true,
+    "smoke_checkpoint_written": true,
+    "full_scope_checkpoint_written": true,
+    "browser_exported": false,
+    "model_card_promoted": false,
+    "mediapipe_runtime_dependency": false,
+    "raw_learner_video_uploaded": false,
+    "remote_sync_started": true,
+    "remote_training_started": true,
+    "brev_lifecycle_used": true,
+    "all_observed_brev_workers_stopped": true
+  },
+  "selection": {
+    "gate_status": "not_gate_passing_full_scope_pairrank_rejected",
+    "required_distinct_assigned_coverage": 0.98,
+    "local_smoke_real_twohand_distinct_assigned_coverage": 0.30952380952380953,
+    "full_scope_real_twohand_selected_distinct_assigned_coverage": 0.4642857142857143,
+    "full_scope_real_twohand_selected_coverage": 0.8928571428571429,
+    "full_scope_real_twohand_selected_collapse_rate": 0.05952380952380952,
+    "full_scope_real_twohand_oracle_distinct_assigned_coverage": 0.9880952380952381,
+    "reason": "The uncapped Brev run is valid full-scope evidence, but it is still far below the M3JB distinct two-hand assignment gate and remains fail-closed. The failure audit shows the selector still prefers low-target, false-positive, same-slot, too-small, or hard-negative candidates despite the oracle candidate set being nearly gate-passing."
+  },
+  "next_action": "continue_m3jb_selector_failure_repair_after_uncapped_pairrank_brev"
+}

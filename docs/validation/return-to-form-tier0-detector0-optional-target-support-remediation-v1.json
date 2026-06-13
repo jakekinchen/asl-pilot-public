@@ -1,0 +1,467 @@
+{
+  "schema_version": "asl-pilot-return-to-form-tier0-detector0-optional-target-support-remediation/v1",
+  "mission": "M3AE-W detector0 optional-target support remediation triage",
+  "status": "action_selected",
+  "checked_at": "2026-05-26T01:42:51Z",
+  "command_provenance": {
+    "local_only": true,
+    "read_only_triage": true,
+    "commands_run": [
+      {
+        "command": "git status --short --branch",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_return_to_form_plan.mjs --json",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_loop_premise.mjs --json",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_source_register.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_deps.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "jq empty required Tier 0 JSON artifacts, M3AE-S/T/V receipts, packet, and manifests",
+        "status": "passed"
+      },
+      {
+        "command": "test -s docs/validation/return-to-form-tier0-crop-normalization-optional-target-policy-v1.md",
+        "status": "passed"
+      },
+      {
+        "command": "./.venv/bin/python scripts/run_return_to_form_tier0_decode_dataloader.py",
+        "status": "passed",
+        "summary": {
+          "missing_file_count": 0,
+          "tensor_count": 345,
+          "write": false
+        }
+      },
+      {
+        "command": "./.venv/bin/python scripts/audit_return_to_form_tier0_tensor_contract.py",
+        "status": "passed",
+        "summary": {
+          "consumed_tensor_keys": [
+            "rgb_regions"
+          ],
+          "fallback_to_rgb_frames_count": 0,
+          "sample_count": 45,
+          "wrote": false
+        }
+      },
+      {
+        "command": "git diff --check",
+        "status": "passed"
+      },
+      {
+        "command": "brev ls --json",
+        "status": "passed_inventory_only"
+      }
+    ]
+  },
+  "source_artifacts": {
+    "source_register": {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    "source_coverage": {
+      "path": "docs/research/return-to-form-tier0-source-coverage.json",
+      "sha256": "1ff7da89a51e62f9efbeb08cf6361784e160ed862ac579f9e40db332fa576378"
+    },
+    "crop_config": {
+      "path": "docs/model/return-to-form-fixed-crop-config.json",
+      "sha256": "dbc735dad34fa9df1174a40374037976f9c88d789012634b2b22743ae0802b29"
+    },
+    "pre_training_gates": {
+      "path": "docs/validation/return-to-form-tier0-gates.json",
+      "sha256": "2cc000d3f90e9be236cf64768530bf9786fc61fe6605c774b9c1e8ab123d9d97"
+    },
+    "decode_dataloader": {
+      "path": "docs/validation/return-to-form-tier0-decode-dataloader.json",
+      "sha256": "d64c0b46500075d94207ef2197a6f6d8f1570cf548da8b08ca16dc520ba386c2"
+    },
+    "tensor_contract": {
+      "path": "docs/validation/return-to-form-tier0-tensor-contract.json",
+      "sha256": "0f2ea12cf9a6517bafb67876ba4b0e4951ce821b61b27a740d45f6d1e36b3cd3"
+    },
+    "m3ae_l_bootstrap": {
+      "path": "docs/validation/return-to-form-tier0-detector0-crop-normalization-bootstrap.json",
+      "sha256": "bd17e32bc7d4adbd195d1a26173740163e314a54577a9d9245a38dce752331e5"
+    },
+    "m3ae_p_detector0_smoke": {
+      "path": "docs/validation/return-to-form-tier0-detector0-training-smoke-v1.json",
+      "sha256": "ba8871964ba24bae88935bcad24c132af90dcd8d607bef04df54f56ebdd3b611"
+    },
+    "m3ae_q_design": {
+      "path": "docs/validation/return-to-form-tier0-crop-normalization-ablation-design-v1.md",
+      "sha256": "5658eec611b40459ff6473dad1338a718572c40cb297a6f704563f8f657d1316"
+    },
+    "m3ae_s_smoke": {
+      "path": "docs/validation/return-to-form-tier0-crop-normalization-ablation-smoke-v1.json",
+      "sha256": "b3c86cc08a82bdbe8ca212c26f8bc0287514ca559ad7beac0f9f41c8e21b20a7"
+    },
+    "m3ae_t_remediation": {
+      "path": "docs/validation/return-to-form-tier0-detector0-data-target-remediation-v1.json",
+      "sha256": "4ca5fbd2a10acb0d8d817370e6778466d989a61b6c939b1f87f1066eb6091f28"
+    },
+    "m3ae_u_policy": {
+      "path": "docs/validation/return-to-form-tier0-crop-normalization-optional-target-policy-v1.md",
+      "sha256": "565a34fa0029345b64d9f1ac485d2c474a79f33fd4a5bec786ac8e69fe99b4a8"
+    },
+    "m3ae_v_policy_aware": {
+      "path": "docs/validation/return-to-form-tier0-policy-aware-crop-normalization-ablation-smoke-v1.json",
+      "sha256": "fdf665aa6d223b60cbe9804f47f2b0b8619b6a8c7273bd79ba5696fee45af304"
+    },
+    "detector0_packet": {
+      "path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "sha256": "ecbd0a53d46cdcc302cbc6c2cb5bb2c7f2049abda0e24328fe82c68118c48f34"
+    },
+    "train_manifest": {
+      "path": "data/manifests/return-to-form-tier0/train.json",
+      "sha256": "03ae563a5f2ef0d5b868f6c80f50acb64ae642e782cd541faa5c022d4d0af1de"
+    },
+    "validation_manifest": {
+      "path": "data/manifests/return-to-form-tier0/validation.json",
+      "sha256": "23da15a80ce2eee1dab1a7e64c08e2aefcf5d7dd48263677fdc49d1efb0ad808"
+    },
+    "test_manifest": {
+      "path": "data/manifests/return-to-form-tier0/test.json",
+      "sha256": "b0c771b612ebb52beb375a98b4180ccd465aa642312a8c6c29d7ff225febd8ed"
+    }
+  },
+  "selected_labels": [
+    "dad",
+    "grandpa",
+    "hat",
+    "please",
+    "table"
+  ],
+  "split_counts": {
+    "train": 125,
+    "validation": 125,
+    "test": 95
+  },
+  "split_label_counts": {
+    "train": {
+      "dad": 25,
+      "grandpa": 25,
+      "hat": 25,
+      "please": 25,
+      "table": 25
+    },
+    "validation": {
+      "dad": 25,
+      "grandpa": 25,
+      "hat": 25,
+      "please": 25,
+      "table": 25
+    },
+    "test": {
+      "dad": 19,
+      "grandpa": 19,
+      "hat": 19,
+      "please": 19,
+      "table": 19
+    }
+  },
+  "packet_support_evidence": {
+    "packet_row_count": 15,
+    "review_status_counts": {
+      "manual_verified": 6,
+      "manual_corrected": 9
+    },
+    "right_or_second_hand": {
+      "present_count": 3,
+      "absent_count": 12,
+      "present_rate": 0.2,
+      "absent_rate": 0.8,
+      "positive_support_labels": [
+        "table"
+      ],
+      "by_label": {
+        "dad": {
+          "present": 0,
+          "absent": 3,
+          "expectation": "expected_absent"
+        },
+        "grandpa": {
+          "present": 0,
+          "absent": 3,
+          "expectation": "expected_absent"
+        },
+        "hat": {
+          "present": 0,
+          "absent": 3,
+          "expectation": "expected_absent"
+        },
+        "please": {
+          "present": 0,
+          "absent": 3,
+          "expectation": "expected_absent"
+        },
+        "table": {
+          "present": 3,
+          "absent": 0,
+          "expectation": "expected_present"
+        }
+      },
+      "by_split": {
+        "train": {
+          "present": 1,
+          "absent": 4,
+          "total": 5
+        },
+        "validation": {
+          "present": 1,
+          "absent": 4,
+          "total": 5
+        },
+        "test": {
+          "present": 1,
+          "absent": 4,
+          "total": 5
+        }
+      }
+    },
+    "table_positive_rows": [
+      {
+        "row_id": "det0-v0-train-table-000376-f010",
+        "split": "train",
+        "clip_id": "popsign-v1-train-table-000376",
+        "review_status": "manual_corrected",
+        "annotation_source": "manual_verified_from_fixed_crop_context",
+        "presence": true,
+        "box_xyxy_norm": [
+          0.34,
+          0.58,
+          0.86,
+          0.82
+        ],
+        "visibility_confidence": 0.62,
+        "occlusion_flag": false,
+        "truncation_flag": false
+      },
+      {
+        "row_id": "det0-v0-validation-table-000376-f005",
+        "split": "validation",
+        "clip_id": "popsign-v1-validation-table-000376",
+        "review_status": "manual_verified",
+        "annotation_source": "manual_verified_from_fixed_crop_context",
+        "presence": true,
+        "box_xyxy_norm": [
+          0.44,
+          0.46,
+          0.8,
+          0.66
+        ],
+        "visibility_confidence": 0.58,
+        "occlusion_flag": false,
+        "truncation_flag": false
+      },
+      {
+        "row_id": "det0-v0-test-table-000286-f005",
+        "split": "test",
+        "clip_id": "popsign-v1-test-table-000286",
+        "review_status": "manual_verified",
+        "annotation_source": "manual_verified_from_fixed_crop_context",
+        "presence": true,
+        "box_xyxy_norm": [
+          0.44,
+          0.47,
+          0.8,
+          0.68
+        ],
+        "visibility_confidence": 0.55,
+        "occlusion_flag": false,
+        "truncation_flag": false
+      }
+    ]
+  },
+  "m3ae_v_expected_present_evidence": {
+    "label": "table",
+    "target_id": "right_or_second_hand",
+    "manifest_examples": 69,
+    "expected_present_decisions": 1104,
+    "missed_present_count": 928,
+    "missed_present_rate": 0.8405797101449275,
+    "missed_present_by_split": {
+      "train": 347,
+      "validation": 307,
+      "test": 274
+    },
+    "expected_present_decisions_by_split": {
+      "train": 400,
+      "validation": 400,
+      "test": 304
+    },
+    "missed_present_rate_by_split": {
+      "train": 0.8675,
+      "validation": 0.7675,
+      "test": 0.9013157894736842
+    },
+    "policy_gate": {
+      "gateable_per_target_fallback_rate_max": 0.6,
+      "status": "failed"
+    }
+  },
+  "retained_detector0_evidence": {
+    "m3ae_s_detector_localization_sanity": {
+      "status": "passed",
+      "train_presence_accuracy": 1.0,
+      "train_present_box_mae": 0.1229877769947052,
+      "train_present_box_mean_iou": 0.5270578861236572,
+      "right_or_second_hand_train_present_support": 1,
+      "right_or_second_hand_train_presence_accuracy": 1.0,
+      "right_or_second_hand_validation_present_support": 1,
+      "right_or_second_hand_validation_presence_accuracy": 0.20000000298023224,
+      "right_or_second_hand_test_present_support": 1,
+      "right_or_second_hand_test_presence_accuracy": 0.800000011920929
+    },
+    "m3ae_s_transform_integrity": {
+      "status": "passed",
+      "generated_tensor_count": 345,
+      "shape_mismatches": [],
+      "source_ids": [
+        "popsign-v1-original-videos"
+      ],
+      "required_target_fallback_counts": {
+        "left_or_first_hand": 0,
+        "head_or_face": 0,
+        "upper_body_or_signing_space": 0
+      }
+    },
+    "m3ae_s_raw_fallback_accounting": {
+      "right_or_second_hand_fallback_count": 4477,
+      "right_or_second_hand_decisions": 5520,
+      "right_or_second_hand_fallback_rate": 0.8110507246376811,
+      "fallback_reason": "below_presence_threshold"
+    },
+    "m3ae_v_policy_aware_accounting": {
+      "gateable_fallback_count": 928,
+      "gateable_denominator": 17664,
+      "gateable_fallback_rate_overall": 0.05253623188405797,
+      "missed_present_optional_target_rate": 0.8405797101449275,
+      "verified_absent_optional_target_count": 3549,
+      "required_target_fallback_counts": {
+        "left_or_first_hand": 0,
+        "head_or_face": 0,
+        "upper_body_or_signing_space": 0
+      },
+      "status": "failed"
+    }
+  },
+  "root_cause_classification": {
+    "primary": "packet_positive_support_scarcity",
+    "secondary": "retained_detector0_optional_target_generalization_limit_due_to_sparse_support",
+    "confidence": "high",
+    "evidence": [
+      "The packet contains only three table right_or_second_hand positive rows, one per split, while the policy-aware gate applies to 1104 table expected-present frame decisions across 69 manifest clips.",
+      "The three positive rows are reviewed and source-bound: two manual_verified and one manual_corrected, with non-null boxes and no occlusion or truncation flags.",
+      "M3AE-S transform integrity passed with 345 generated tensors, no shape mismatches, and only approved PopSign source ids.",
+      "Required Detector 0 targets had zero fallback in M3AE-S and M3AE-V, so the retained evidence does not show a global transform or source-accounting defect.",
+      "The remaining gate failure is confined to right_or_second_hand expected-present table frames, where M3AE-V records 928 misses out of 1104 decisions."
+    ],
+    "alternatives_considered": {
+      "incorrect_or_missing_table_second_hand_boxes": {
+        "selected": false,
+        "reason": "No concrete inconsistent or missing table second-hand box was found in the three reviewed rows; the train row is manual_corrected and the validation/test rows are manual_verified."
+      },
+      "optional_target_threshold_or_schema_policy": {
+        "selected": false,
+        "reason": "M3AE-U already separates verified-absent optional targets from missed-present optional targets; the remaining failure is expected-present table support, not policy accounting."
+      },
+      "retained_detector0_localization_weakness": {
+        "selected": false,
+        "reason": "The detector weakness is real on the optional target, but the bounded cause to address first is that the model has only one positive table second-hand support frame per split."
+      },
+      "crop_normalization_transform_or_accounting_defect": {
+        "selected": false,
+        "reason": "M3AE-S transform integrity passed, required targets had zero fallback, and M3AE-V policy-aware accounting localizes the defect to table right_or_second_hand expected-present decisions."
+      },
+      "source_signer_distribution_gap": {
+        "selected": false,
+        "reason": "M3AE-K remains retained recognizer evidence, but this crop-normalization gate fails before a source/signer claim can explain the optional-target support issue."
+      },
+      "no_bounded_path": {
+        "selected": false,
+        "reason": "A bounded no-new-source design path exists: select or add more reviewed table right_or_second_hand packet rows from the already approved Tier 0 manifests before retraining or rerunning the ablation."
+      }
+    }
+  },
+  "recommendation": {
+    "summary": "Design a bounded table second-hand packet expansion using existing approved Tier 0 PopSign rows before any packet mutation, detector retraining, recognizer retraining, or ablation rerun.",
+    "packet_expansion_recommended": true,
+    "box_review_recommended": false,
+    "threshold_or_schema_adjustment_recommended": false,
+    "transform_fix_recommended": false,
+    "stop_or_reduced_claim_recommended": false,
+    "minimum_design_requirements": [
+      "Stay inside the approved PopSign Tier 0 manifests and source register.",
+      "Select candidate table frames that visibly contain both hands from train, validation, and test without importing new media.",
+      "Define manual/manual-corrected review criteria for additional right_or_second_hand boxes before mutating the packet.",
+      "Keep M3AE-V expected-present miss accounting as the baseline comparison for any later retrain or ablation rerun."
+    ]
+  },
+  "no_pretrained_source_boundaries": {
+    "source_id": "popsign-v1-original-videos",
+    "source_register_status": "passed",
+    "unapproved_media_imported": false,
+    "source_approval_changed": false,
+    "pretrained_detector_outputs_used": false,
+    "pretrained_landmarks_used": false,
+    "pretrained_backbones_or_embeddings_used": false,
+    "generated_pseudo_labels_used": false,
+    "product_runtime_code_changed": false
+  },
+  "brev_no_spend_boundary": {
+    "inventory_command": "brev ls --json",
+    "workspace": "asl-pilot-rawframe-001",
+    "status": "RUNNING",
+    "health_status": "HEALTHY",
+    "instance_type": "massedcompute_A100_sxm4_80G_DGX",
+    "gpu": "A100",
+    "brev_compute_used": false,
+    "brev_sync_or_training_used": false,
+    "duplicate_worker_created": false,
+    "manual_stop_command": "brev stop asl-pilot-rawframe-001",
+    "manual_stop_command_run": false
+  },
+  "final_promotion_blocker_separation": {
+    "tier0_hard_negative_far_assessed": false,
+    "no_zero_accepted_true_class_assessed": false,
+    "full_17_type_negative_challenge_gate": "unchanged",
+    "threshold_selected": false,
+    "onnx_export": false,
+    "model_card_promotion": false,
+    "final_readiness_claim": false,
+    "final_gate_weakening": false
+  },
+  "non_actions": {
+    "packet_mutation": false,
+    "detector0_training": false,
+    "recognizer_training": false,
+    "ablation_rerun": false,
+    "label_expansion": false,
+    "controlled_clip_heldout_evaluation": false,
+    "source_approval_or_import": false,
+    "product_runtime_code_change": false,
+    "onnx_export": false,
+    "model_card_promotion": false,
+    "push": false
+  },
+  "next_action": {
+    "id": "detector0_table_second_hand_packet_expansion_design",
+    "description": "Write a bounded design for selecting additional approved Tier 0 table right/second-hand packet rows before any packet mutation, retraining, or ablation rerun."
+  }
+}

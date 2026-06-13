@@ -1,0 +1,261 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3fq-detector0-crop-normalized-recognizer-integration/v1",
+  "mission": "M3FQ Detector 0 crop-normalized recognizer integration",
+  "created_at": "2026-05-29T02:25:00Z",
+  "status": "completed_contract_ported",
+  "head_before_slice": "1b48139 observer: CONTINUE - m3fp detector0 integration handoff",
+  "active_prompt": "docs/model/return-to-form-m3fq-detector0-crop-normalized-recognizer-integration-goal-loop-prompt.md",
+  "scope": {
+    "mode": "local_no_spend_static_integration_contract",
+    "max_spend_usd": 0,
+    "training_or_fitting": false,
+    "completed_checkpoint_evaluation": false,
+    "brev_lifecycle_or_remote_command": false,
+    "source_or_media_import": false,
+    "export_or_promotion": false,
+    "browser_activation": false
+  },
+  "m3fp_failed_gate_summary": {
+    "receipt": "docs/validation/return-to-form-m3fp-overnight-brev-detector-tcn-completion-v1.json",
+    "status": "completed_not_promotable",
+    "validation_top1": 0.2,
+    "validation_macro_f1": 0.06666666666666668,
+    "test_top1": 0.2,
+    "test_macro_f1": 0.06666666666666668,
+    "zero_recall_labels_validation": [
+      "morning",
+      "pen",
+      "thank_you",
+      "who"
+    ],
+    "zero_recall_labels_test": [
+      "morning",
+      "pen",
+      "thank_you",
+      "who"
+    ],
+    "copied_artifact_boundary": "Ignored output artifacts are accounting evidence only and are not browser/runtime/model-card evidence."
+  },
+  "side_worktree_evidence": {
+    "path": "/Users/kelly/Developer/asl-pilot-detector0-win",
+    "status": "## detector0-win-20260528",
+    "head": "d43a5bb detector0: add hybrid gate ablation",
+    "recent_commits": [
+      "d43a5bb detector0: add hybrid gate ablation",
+      "1c98198 detector0: add hybrid crop normalization ablation",
+      "ccffc3d detector0: add multitarget gaussian policy",
+      "5e810d0 detector0: add gaussian objectness heldout win"
+    ],
+    "receipts_inspected": [
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-detector0-win/docs/validation/return-to-form-tier0-detector0-hybrid-crop-normalization-ablation-v1.json",
+        "sha256": "57cd2f9ebd81fb4ef674b797be2f3544d054528114e4a72b39c79de42bb9758a",
+        "summary": "Prior permissive hybrid crop-normalization improved test top-1 to 0.3263157894736842 but used learned right-hand crops on 44.43840579710145 percent of frames."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-detector0-win/docs/validation/return-to-form-tier0-detector0-hybrid-gate-ablation-v1.json",
+        "sha256": "b7acb20925278fae0656b74ce793957ea98bfbb26ec1ae272daa55c99f09a240",
+        "summary": "Strict manifest_validation_fp05_contact_gate reduces learned right-hand crop use to 6.068840579710145 percent, improves validation top-1 to 0.256, holds test top-1 at 0.3263157894736842, and keeps validation/test zero-recall labels empty in the isolated smoke."
+      }
+    ],
+    "session_logs_inspected": [
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-detector0-win/docs/session-logs/416-detector0-hybrid-crop-normalization-ablation.md",
+        "sha256": "a2dbca8a671ebcfc5bc111bd555547a8d4bd81fccb6d9c46af18afaca00538ed"
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-detector0-win/docs/session-logs/417-detector0-hybrid-gate-ablation.md",
+        "sha256": "d2e441e3acdb406cf0020fb225cb74a2798a91368b824e9180bf3cea65075433"
+      }
+    ],
+    "strict_gate_metrics": {
+      "variant_id": "manifest_validation_fp05_contact_gate",
+      "classification": "stricter_gate_supported_not_product_ready",
+      "contact_threshold": 0.20632459223270416,
+      "validation_frame_false_positive_rate_limit": 0.05,
+      "validation_frame_counts": {
+        "true_positive_count": 23,
+        "false_positive_count": 79,
+        "false_negative_count": 377,
+        "true_negative_count": 1521
+      },
+      "validation_frame_precision": 0.22549019607843138,
+      "validation_frame_recall": 0.0575,
+      "used_learned_right_crop_rate": 0.06068840579710145,
+      "fallback_right_crop_rate": 0.9393115942028986,
+      "validation_top1": 0.256,
+      "validation_macro_recall": 0.256,
+      "test_top1": 0.3263157894736842,
+      "test_macro_recall": 0.3263157894736842,
+      "validation_zero_recall_labels": [],
+      "test_zero_recall_labels": []
+    }
+  },
+  "main_branch_files_inspected": [
+    "scripts/train_rawframe_model.py",
+    "scripts/evaluate_rawframe_model.py",
+    "scripts/run_return_to_form_tier0_crop_norm_ablation_smoke.py",
+    "scripts/run_return_to_form_tier0_policy_aware_crop_norm_ablation_smoke.py",
+    "scripts/audit_detector0_manifest_contract.mjs",
+    "docs/model/return-to-form-fixed-crop-config.json",
+    "docs/validation/return-to-form-composable-recognizer-contract-v1.json",
+    "web/public/model/model-card.json",
+    "web/public/model/detector0-card.json",
+    "docs/model/active-vocabulary-claim.json"
+  ],
+  "main_branch_files_changed": [
+    "docs/model/return-to-form-detector0-strict-gate-crop-normalization-contract.json",
+    "scripts/audit_detector0_strict_gate_crop_contract.mjs",
+    "docs/validation/return-to-form-m3fq-detector0-crop-normalized-recognizer-integration-v1.json",
+    "docs/session-logs/592-mission-3fq-detector0-crop-normalized-recognizer-integration.md"
+  ],
+  "integration_result": {
+    "minimal_contract_ported": true,
+    "contract_path": "docs/model/return-to-form-detector0-strict-gate-crop-normalization-contract.json",
+    "audit_path": "scripts/audit_detector0_strict_gate_crop_contract.mjs",
+    "port_description": "Ported the reviewed strict Detector 0 contact/right-hand gate into a main-branch static contract for a future local crop-normalized recognizer smoke. The port records target sets, threshold, frame-level threshold metrics, transform rates, isolated-smoke recognizer metrics, claim boundaries, and the next local smoke target.",
+    "why_no_side_code_wholesale_merge": "The active prompt forbids wholesale side-worktree merges. This slice ports only reviewed policy/metric contract values and an audit, not the large side runner or generated outputs."
+  },
+  "local_checks": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "## compound-plan-m0...origin/compound-plan-m0 [ahead 252]"
+    },
+    {
+      "command": "git log -12 --oneline --decorate",
+      "status": "passed",
+      "head": "1b48139 observer: CONTINUE - m3fp detector0 integration handoff"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed",
+      "active_prompt": "docs/model/return-to-form-m3fq-detector0-crop-normalized-recognizer-integration-goal-loop-prompt.md"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed",
+      "source_register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3fp-overnight-brev-detector-tcn-completion-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "git -C /Users/kelly/Developer/asl-pilot-detector0-win status --short --branch",
+      "status": "passed",
+      "summary": "## detector0-win-20260528"
+    },
+    {
+      "command": "git -C /Users/kelly/Developer/asl-pilot-detector0-win log -4 --oneline --decorate",
+      "status": "passed",
+      "head": "d43a5bb detector0: add hybrid gate ablation"
+    },
+    {
+      "command": "brev ls --json",
+      "status": "passed",
+      "worker": {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY"
+      }
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/return-to-form-detector0-strict-gate-crop-normalization-contract.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_detector0_strict_gate_crop_contract.mjs",
+      "status": "passed",
+      "checks": [
+        "schema_and_status",
+        "m3fp_boundary",
+        "strict_gate_identity",
+        "strict_gate_target_sets",
+        "strict_gate_threshold",
+        "strict_gate_transform_and_metrics",
+        "future_smoke_contract",
+        "fail_closed_claim_surfaces",
+        "claim_boundary",
+        "next_action"
+      ]
+    }
+  ],
+  "brev_read_only_default_off_state": {
+    "command": "brev ls --json",
+    "status": "STOPPED",
+    "build_status": "COMPLETED",
+    "shell_status": "NOT READY",
+    "health_status": "HEALTHY",
+    "spent_money_this_slice": false,
+    "lifecycle_command_run_this_slice": false
+  },
+  "fail_closed_claim_boundary": {
+    "model_card_status": "not_trained",
+    "active_vocabulary_label_count": 0,
+    "detector0_status": "not_trained",
+    "detector0_promotion_state": "research_only",
+    "detector0_browser_artifact": null,
+    "detector0_product_authority": false,
+    "browser_recognition_authority": false,
+    "asl_correctness_authority": false,
+    "model_readiness_claim": false,
+    "product_readiness_claim": false
+  },
+  "forbidden_actions_not_run": [
+    "brev_start_exec_sync_copy_stop_or_remote_command",
+    "recognizer_training_or_fitting",
+    "completed_checkpoint_evaluation",
+    "architecture_sweep",
+    "export",
+    "model_card_promotion",
+    "active_vocabulary_promotion",
+    "browser_recognition_activation",
+    "final_gate_weakening",
+    "source_register_edit",
+    "source_or_media_import",
+    "manifest_tensor_packet_or_vocabulary_mutation",
+    "pretrained_detector_landmark_backbone_embedding_or_generated_label_path",
+    "raw_learner_video_or_frame_upload",
+    "wholesale_side_worktree_merge",
+    "fake_detector_or_recognizer_output",
+    "unsupported_correctness_or_readiness_claim",
+    "push",
+    "amend",
+    "destructive_reset",
+    "no_verify_commit"
+  ],
+  "next_action": "continue_detector0_crop_normalized_local_smoke_no_brev"
+}

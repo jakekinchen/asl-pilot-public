@@ -1,0 +1,238 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-run6-research-tuning/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_run6_research_guided_tuning_no_brev",
+  "recorded_at_utc": "2026-06-04T04:54:43Z",
+  "head_before_slice": "047bb6ee",
+  "status": "completed_research_tuning_no_brev_no_training",
+  "inputs": {
+    "run6_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run6-verifselect-brev-v1.json",
+    "run6_verification_margin_diagnostic": "docs/validation/m3jb-recognizer-run6-verification-margin-diagnostic-v1.json",
+    "run6_verifselect_dryrun": "docs/validation/m3jb-recognizer-run6-verifselect-dryrun-v1.json",
+    "prior_run5_research_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run5-research-tuning-v1.json",
+    "prior_run5_research_response": "artifacts/research/m3jb-recognizer-transformer-run5-tuning-933/response.md"
+  },
+  "run6_summary": {
+    "student_arch": "transformer",
+    "full_data_no_limit_flags": true,
+    "sequence_length": 32,
+    "feature_dim": 90,
+    "train_clips": 7011,
+    "monitor_clips": 955,
+    "test_clips": 2369,
+    "clips": 10335,
+    "classes": 95,
+    "teacher_covered_train": 2671,
+    "teacher_covered_total": 4560,
+    "epochs": 240,
+    "batch": 128,
+    "lr": 0.0005,
+    "lr_scheduler": "cosine",
+    "warmup_steps": 500,
+    "min_lr": 0.00005,
+    "d_model": 256,
+    "n_layers": 6,
+    "n_heads": 8,
+    "dropout": 0,
+    "alpha": 0.55,
+    "temperature": 3,
+    "jitter_std": 0.02,
+    "frame_drop": 0.1,
+    "supcon_weight": 0,
+    "eval_verification": true,
+    "checkpoint_metric": "monitor_verification_recall_far10",
+    "best_monitor_epoch": 14,
+    "best_monitor_verification_recall_far10": 0.8169,
+    "final_epoch_monitor_verification_recall_far10": 0.7835,
+    "test_top1": 0.287,
+    "test_top5": 0.6399,
+    "verification_recall_at_far10": 0.8039,
+    "gap_to_gate_verification_recall_at_far10": 0.0461,
+    "prior_running_best_run4_verification_recall_at_far10": 0.7626,
+    "delta_vs_run4_verification_recall_at_far10": 0.0413,
+    "optimizer_steps": 13200,
+    "expected_optimizer_steps": 13200,
+    "decision": "improved_primary_running_best_but_rejected_fail_closed_below_0_85_gate",
+    "top_failure_words": [
+      {
+        "label": "give",
+        "recall_at_far10": 0.32,
+        "far10_threshold": 0.02744
+      },
+      {
+        "label": "milk",
+        "recall_at_far10": 0.48,
+        "far10_threshold": 0.014737
+      },
+      {
+        "label": "airplane",
+        "recall_at_far10": 0.48,
+        "far10_threshold": 0.001417
+      },
+      {
+        "label": "food",
+        "recall_at_far10": 0.52,
+        "far10_threshold": 0.004536
+      },
+      {
+        "label": "dog",
+        "recall_at_far10": 0.526316,
+        "far10_threshold": 0.012784
+      },
+      {
+        "label": "before",
+        "recall_at_far10": 0.56,
+        "far10_threshold": 0.009505
+      },
+      {
+        "label": "child",
+        "recall_at_far10": 0.6,
+        "far10_threshold": 0.0183
+      },
+      {
+        "label": "person",
+        "recall_at_far10": 0.6,
+        "far10_threshold": 0.004629
+      },
+      {
+        "label": "morning",
+        "recall_at_far10": 0.64,
+        "far10_threshold": 0.01399
+      },
+      {
+        "label": "girl",
+        "recall_at_far10": 0.64,
+        "far10_threshold": 0.005645
+      }
+    ]
+  },
+  "research_escalation": {
+    "gpt_pro_web_attempt": {
+      "attempted": true,
+      "status": "blocked_no_browser_control_iab_tool_exposed",
+      "details": "tool_search exposed node_repl and unrelated connectors/docs tools, but no Browser/iab control tool for ChatGPT.com Pro in this session."
+    },
+    "fallback": {
+      "used": true,
+      "route": "openai-api-research",
+      "model_requested": "gpt-5.5",
+      "calls": [
+        {
+          "response_id": "resp_0ded03e26cd18905006a21042a4e5081949efd9c2f60c581af",
+          "status": "completed",
+          "model_returned": "gpt-5.5-2026-04-23",
+          "total_tokens": 8857,
+          "reasoning_tokens": 3106
+        }
+      ],
+      "artifacts": {
+        "directory": "artifacts/research/m3jb-recognizer-transformer-run6-tuning-937",
+        "prompt_md": "artifacts/research/m3jb-recognizer-transformer-run6-tuning-937/prompt.md",
+        "request_json": "artifacts/research/m3jb-recognizer-transformer-run6-tuning-937/request.json",
+        "raw_json": "artifacts/research/m3jb-recognizer-transformer-run6-tuning-937/raw.json",
+        "response_md": "artifacts/research/m3jb-recognizer-transformer-run6-tuning-937/response.md"
+      },
+      "artifacts_sha256": {
+        "prompt_md": "84d2cd534956d2eeee6a09fc6e2962328de7173847d84abe6494b82eb67f0bd5",
+        "request_json": "34023d075429a84ae31dc2b8811a9d638b5baf439f1287cf0d28b4e443272be5",
+        "raw_json": "87d4ba512c4dda8e6ce152cab78340b56e54b74c1dfaa4cfa1468ab30f3f73f3",
+        "response_md": "8114f251982384bc9967031e45941cc0739c59026c8597b73c5b2de0fba0c442"
+      }
+    },
+    "advisory_not_authority": true
+  },
+  "research_conclusion": {
+    "diagnosis": [
+      "Run6 fixed a real checkpoint-selection mismatch: monitor verification peaked at epoch 14 and degraded by the final epoch.",
+      "The remaining gap is concentrated in per-class score tails and weak positive scores for low-recall words, not global top-k recognition alone.",
+      "Partial teacher coverage may be uneven by class, but this is not yet proven by the existing receipts."
+    ],
+    "model_recommended_token": "implement_and_run_run6_verification_tail_audit_no_brev",
+    "selected_next_action": "m3jb_recognizer_transformer_run7_verification_tail_audit_no_brev",
+    "selected_preflight": "Implement and run a no-Brev run6 verification-tail failure audit joined with class counts, teacher coverage, positive/negative score quantiles, high-scoring negative labels, hard-negative pairs, and class contribution to the 0.85-gate gap.",
+    "recommendation": "Audit run6 score-tail failures and class/teacher-coverage imbalance before any paid run7; only launch capped class-balanced CE if that audit confirms imbalance or coverage-driven weak classes.",
+    "pass_criteria": [
+      "Recompute run6 test verification recall@FAR10 within abs <= 0.002 of 0.8039.",
+      "Emit complete rows for all classes with positives and negatives.",
+      "Show low-recall classes have materially lower train counts or teacher-covered counts than the class median, or below-median count/coverage classes average at least 0.05 lower recall@FAR10 than above-median classes.",
+      "Show identified weak classes account for at least 0.020 of the mean-recall shortfall versus the 0.85 gate.",
+      "Show no data-labeling or split-join bug before any paid run7."
+    ],
+    "future_paid_run_if_audit_passes": {
+      "token": "m3jb_recognizer_transformer_run7_class_balanced_ce_fulltrain_brev_ok",
+      "recipe": "run6 unchanged except capped class-balanced CE and the same monitor_verification_recall_far10 checkpoint selection",
+      "sequence_length": 32,
+      "epochs": 240,
+      "batch": 128,
+      "lr": 0.0005,
+      "lr_scheduler": "cosine",
+      "warmup_steps": 500,
+      "min_lr": 0.00005,
+      "d_model": 256,
+      "n_layers": 6,
+      "n_heads": 8,
+      "dropout": 0,
+      "alpha": 0.55,
+      "temperature": 3,
+      "jitter_std": 0.02,
+      "frame_drop": 0.1,
+      "class_balanced_ce": true,
+      "class_balance_beta": 0.999,
+      "class_balance_normalize": "mean1",
+      "class_balance_max_weight": 4,
+      "checkpoint_metric": "monitor_verification_recall_far10",
+      "expected_optimizer_steps": 13200
+    },
+    "paid_run_kill_conditions": [
+      "Kill if actual optimizer steps differ from expected 13200.",
+      "Kill if class-balanced weights are missing, NaN, infinite, all equal unexpectedly, or exceed 4.0.",
+      "Kill if loss becomes NaN or infinite.",
+      "Kill if verification evaluation is not emitted or checkpoint metric is not monitor_verification_recall_far10.",
+      "By epoch 30, kill if best monitor verification recall@FAR10 is below 0.790.",
+      "By epoch 60, kill if best monitor verification recall@FAR10 is below 0.817.",
+      "By epoch 120, kill if best monitor verification recall@FAR10 is below 0.840.",
+      "By epoch 180, kill if best monitor verification recall@FAR10 is below 0.850."
+    ],
+    "why_supcon_tuning_waits": "Run5 already improved top-1/top-5 while slightly reducing primary verification recall, so more SupCon is not the smallest metric-aligned next move.",
+    "why_t40_waits": "T=40 requires additional cache/model preflight and does not directly target the observed per-class score-tail failure.",
+    "why_capacity_waits": "Run6 verification recall peaked early and degraded later, so more capacity could amplify overfitting or calibration issues before the per-class objective issue is understood."
+  },
+  "brev_visibility": {
+    "workspaces": {
+      "asl-pilot-m3jb-pairrank-l40s-001": {
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "gpu": "L40S"
+      },
+      "asl-pilot-m3eh-l40s-001": {
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "gpu": "L40S"
+      }
+    }
+  },
+  "boundaries": {
+    "brev_used": false,
+    "brev_lifecycle_or_exec": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "runtime_export": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false
+  },
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_run7_verification_tail_audit_no_brev",
+    "reason": "Run6 is the running best but remains below the gate; audit weak class score tails, class counts, teacher coverage, and hard negatives before any paid class-balanced run7."
+  }
+}

@@ -1,0 +1,37 @@
+{
+ "model": "recognizer-simccw48.onnx",
+ "source_checkpoint": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run10-simccw48-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.pt",
+ "source_checkpoint_sha256": "d0616db4174de8f489202b11f6be0e6ebf02ac960e1f419e5fc002c1a6c6eaf8",
+ "onnx_sha256": "3c9cac246c40ef8519e55c1a53253edf0a1249cfc583420cddee1c0efad7755f",
+ "size_mb": 19.06,
+ "arch": {
+  "type": "SeqTransformer",
+  "d_model": 256,
+  "n_layers": 6,
+  "n_heads": 8,
+  "feat": 90,
+  "T": 32,
+  "classes": 95
+ },
+ "contract": "[B,T,90] float32 sequence + [B] int64 lengths -> [B,95] logits; dynamic B,T",
+ "label_order": "verbatim web LABELS (scratch-pipeline.ts), verified at export",
+ "offline_metrics": {
+  "test_recall_at_far10": 0.9209,
+  "test_top1": 0.5428,
+  "test_top5": 0.8261,
+  "session": "asl-pilot session 962"
+ },
+ "export": {
+  "exporter": "torch 2.12.0 dynamo->merged single file",
+  "opset": 17,
+  "weights_embedded": true
+ },
+ "parity": {
+  "atol": 0.001,
+  "random_inputs_max_abs_logit_diff": 1.1444091796875e-05,
+  "real_test_sequences": 50,
+  "real_max_abs_logit_diff": 2.09808349609375e-05,
+  "real_top1_agreement": "50/50",
+  "real_source": "/Users/kelly/ws1-recog-extract-ws/cache-simccw48"
+ }
+}

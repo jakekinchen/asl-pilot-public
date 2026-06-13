@@ -1,0 +1,136 @@
+{
+  "schema_version": "asl-pilot-mission-3am-core-negative-diagnostic/v1",
+  "mission": "Mission 3AM - ASL Citizen diagnostic evaluation and next-action steering",
+  "created_at": "2026-05-27T06:24:29Z",
+  "status": "diagnostic_failed_generalization",
+  "scope": {
+    "source_mission": "Mission 3AL - ASL Citizen bounded Brev training",
+    "run_location": "local Mac Studio MPS",
+    "spend": "no Brev command, no remote training, no paid compute",
+    "purpose": "Recover held-out and core-negative diagnostic metrics from the copied-back M3AL checkpoint without weakening the full 17-type hard-negative gate."
+  },
+  "evaluator_change": {
+    "script": "scripts/evaluate_rawframe_model.py",
+    "flag": "--lesson-core-negative-diagnostic",
+    "behavior": "Requires --lesson-milestone, keeps strict provenance/decode/signer-disjoint checks, uses the current five-type lesson core negative taxonomy, and never writes calibrated promotion provenance.",
+    "required_negative_challenge_types": [
+      "empty_camera",
+      "low_light",
+      "no_hands_visible",
+      "non_target_asl_sign",
+      "off_center"
+    ],
+    "full_hard_negative_gate": "unchanged; data/manifests/negative-challenge.json remains underfilled for the full 17-type final/strict lesson gate"
+  },
+  "command": {
+    "argv": [
+      "./.venv/bin/python",
+      "scripts/evaluate_rawframe_model.py",
+      "--lesson-milestone",
+      "--lesson-core-negative-diagnostic",
+      "--checkpoint",
+      "artifacts/rawframe-lesson-milestone/model_state.pt",
+      "--training-provenance",
+      "artifacts/rawframe-lesson-milestone/training-provenance.json",
+      "--train-manifest",
+      "data/manifests/lesson/rawframe-milestone/train.json",
+      "--validation-manifest",
+      "data/manifests/lesson/rawframe-milestone/validation.json",
+      "--test-manifest",
+      "data/manifests/lesson/rawframe-milestone/test.json",
+      "--challenge-manifest",
+      "data/manifests/negative-challenge.json",
+      "--output-report",
+      "artifacts/rawframe-lesson-milestone/core-negative-diagnostic-report.json",
+      "--calibrated-provenance",
+      "artifacts/rawframe-lesson-milestone/core-negative-diagnostic-calibrated-provenance.json",
+      "--prediction-sidecar",
+      "artifacts/rawframe-lesson-milestone/core-negative-diagnostic-prediction-sidecar.json",
+      "--batch-size",
+      "16",
+      "--num-workers",
+      "0"
+    ],
+    "exit_code": 1,
+    "exit_code_interpretation": "Expected diagnostic failure because top-1 accuracy and macro F1 miss target gates."
+  },
+  "artifacts": {
+    "validation_report": {
+      "path": "artifacts/rawframe-lesson-milestone/core-negative-diagnostic-report.json",
+      "sha256": "07dc8e8a60893c230213bf2920a0e3a0e6114d13925ad479b15659d3dce7e5ef"
+    },
+    "prediction_sidecar": {
+      "path": "artifacts/rawframe-lesson-milestone/core-negative-diagnostic-prediction-sidecar.json",
+      "sha256": "d5eedaa23757441a6b1476993adf46c96ab711e75fbc64f512044698d6e1ca89"
+    },
+    "calibrated_provenance_written": false,
+    "training_provenance": {
+      "path": "artifacts/rawframe-lesson-milestone/training-provenance.json",
+      "sha256": "14f890c3620b92f74fa7a75cc152e80d0c93bb31446a9b1564f7677ff37afd83"
+    },
+    "checkpoint": {
+      "path": "artifacts/rawframe-lesson-milestone/model_state.pt",
+      "sha256": "a4e746895c76f02c7b135e707adc0563b372bd445336309fedbfbae03a9a9c31",
+      "tracked": false
+    }
+  },
+  "metrics": {
+    "validation": {
+      "examples": 94,
+      "top1_accuracy": 0.20212765957446807,
+      "macro_f1": 0.1803867243867244
+    },
+    "test": {
+      "examples": 100,
+      "top1_accuracy": 0.21,
+      "macro_f1": 0.16913707345286294,
+      "selected_threshold": 0.99,
+      "threshold_false_pass_rate": 0.03,
+      "threshold_coverage": 0.06,
+      "accepted_accuracy": 0.5,
+      "zero_correct_signer_count": 0
+    },
+    "negative_challenge": {
+      "examples": 25,
+      "false_pass_count": 1,
+      "false_pass_rate": 0.04,
+      "threshold": 0.99,
+      "by_type": {
+        "empty_camera": {
+          "examples": 5,
+          "false_pass_count": 1,
+          "false_pass_rate": 0.2
+        },
+        "low_light": {
+          "examples": 5,
+          "false_pass_count": 0,
+          "false_pass_rate": 0
+        },
+        "no_hands_visible": {
+          "examples": 5,
+          "false_pass_count": 0,
+          "false_pass_rate": 0
+        },
+        "non_target_asl_sign": {
+          "examples": 5,
+          "false_pass_count": 0,
+          "false_pass_rate": 0
+        },
+        "off_center": {
+          "examples": 5,
+          "false_pass_count": 0,
+          "false_pass_rate": 0
+        }
+      }
+    }
+  },
+  "pass_status": {
+    "top1_accuracy": false,
+    "macro_f1": false,
+    "false_pass_rate": true,
+    "negative_challenge_false_pass_rate": true,
+    "confidence_threshold": true
+  },
+  "conclusion": "The M3AL checkpoint fits train but does not generalize to signer-disjoint validation/test. The current core negative set is not the dominant blocker for this checkpoint; top-1 and macro F1 are. The result does not justify another remote training retry, threshold promotion, ONNX export, browser activation, or final-readiness claim.",
+  "next_action": "Reactivate the pair for a no-spend ASL Citizen generalization diagnosis and strategy memo before any additional training or Brev work."
+}

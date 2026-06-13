@@ -1,0 +1,605 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3gp-human-strategy-packet-no-brev/v1",
+  "mission": "Mission 3GP - human strategy packet no Brev",
+  "status": "completed_local_no_remote_no_training_human_strategy_packet",
+  "generated_at": "2026-05-29T10:17:46Z",
+  "current_commit_before_slice_commit": "3843c1c observer: CONTINUE - m3go m3gp strategy packet handoff",
+  "active_prompt": "docs/model/return-to-form-m3gp-human-strategy-packet-no-brev-goal-loop-prompt.md",
+  "commands_run": {
+    "freshness_and_source_of_truth": [
+      "git log -1 --oneline",
+      "git status --short",
+      "sed -n '1,220p' GOAL.md",
+      "sed -n '1,260p' docs/model/return-to-form-m3gp-human-strategy-packet-no-brev-goal-loop-prompt.md",
+      "sed -n '1,260p' docs/runbooks/codex-goal-loop.md",
+      "sed -n '1,260p' docs/runbooks/observer-runbook-codex.md",
+      "sed -n '1,260p' .agents/skills/asl-pilot-codex-pair/SKILL.md",
+      "sed -n '1,240p' .agents/skills/asl-pilot-ml-receipt/SKILL.md",
+      "sed -n '1,220p' .agents/skills/documentation-and-adrs/SKILL.md",
+      "sed -n '1,220p' AGENTS.md"
+    ],
+    "required_baseline_checks": [
+      "git status --short --branch",
+      "git log -14 --oneline --decorate",
+      "node scripts/audit_loop_premise.mjs --json",
+      "node scripts/audit_return_to_form_plan.mjs --json",
+      "node scripts/audit_source_register.mjs",
+      "node scripts/audit_no_pretrained_deps.mjs",
+      "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "python3 -m json.tool docs/validation/return-to-form-m3go-read-only-contract-gap-inventory-no-brev-v1.json >/dev/null",
+      "python3 -m json.tool docs/validation/return-to-form-m3gn-dataset-vocab-model-input-contract-no-brev-v1.json >/dev/null",
+      "python3 -m json.tool docs/validation/return-to-form-m3gm-metric-triage-dataset-vocab-model-input-strategy-no-brev-v1.json >/dev/null",
+      "python3 -m json.tool docs/validation/return-to-form-m3gl-brev-provider-recovery-and-completion-route-v1.json >/dev/null",
+      "python3 -m json.tool docs/validation/return-to-form-m3gj-human-approved-evaluator-regeneration-v2-consumer-compatibility-v1.json >/dev/null",
+      "python3 -m json.tool docs/validation/return-to-form-m3gb-human-approved-bounded-brev-composable-training-v1.json >/dev/null",
+      "python3 -m json.tool docs/model/dataset-source-register.json >/dev/null",
+      "python3 -m json.tool data/manifests/lesson/high-signal-region-grid/train.json >/dev/null",
+      "python3 -m json.tool data/manifests/lesson/high-signal-region-grid/validation.json >/dev/null",
+      "python3 -m json.tool data/manifests/lesson/high-signal-region-grid/test.json >/dev/null",
+      "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "python3 -m json.tool web/public/model/detector0-card.json >/dev/null",
+      "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "python3 -m json.tool web/public/model/claim-matrix.json >/dev/null",
+      "python3 -m json.tool docs/validation/final-claim-matrix.json >/dev/null",
+      "brev ls --json",
+      "git diff --check"
+    ],
+    "copied_back_json_validation": [
+      "python3 -m json.tool output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/training-provenance.json >/dev/null",
+      "python3 -m json.tool output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/validation-report.json >/dev/null",
+      "python3 -m json.tool output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/prediction-sidecar.json >/dev/null",
+      "python3 -m json.tool output/m3gb-high-signal-region-grid-tcn-brev/training-provenance.json >/dev/null",
+      "python3 -m json.tool output/m3gb-high-signal-region-grid-tcn-brev/validation-report.json >/dev/null",
+      "python3 -m json.tool output/m3gb-high-signal-region-grid-tcn-brev/prediction-sidecar.json >/dev/null",
+      "node heredoc read-only SHA-256 and JSON-validity summary for present M3GL and M3GB/M3GJ copied-back output JSON files"
+    ],
+    "read_only_extraction": [
+      "sed reads of docs/model/return-to-form-plan.md tactical overlay and current hard limits",
+      "sed reads of docs/session-logs/645-observer-continue-m3go-m3gp-strategy-packet-handoff.md",
+      "sed reads of docs/session-logs/644, 642, 640, 638, 633, and 613",
+      "sed reads of current strategy memos under artifacts/research/observer-547, observer-584, and observer-597",
+      "jq summaries from M3GO, M3GN, M3GM, M3GL, M3GJ, M3GB, M3GC, M3GD, M3GE, M3GF, M3GG, and M3GH receipts",
+      "jq summaries from dataset-source register, high-signal region-grid manifests, model-card, detector0-card, active-vocabulary claim, web claim matrix, and final claim matrix",
+      "shasum -a 256 over high-signal manifests, dataset-source register, and claim surfaces",
+      "date -u +\"%Y-%m-%dT%H:%M:%SZ\"",
+      "find .. -name AGENTS.md -print"
+    ],
+    "corrected_read_only_extraction_errors": [
+      {
+        "command_class": "ad hoc jq manifest summary",
+        "result": "failed before edits because the manifest root is an object, not an array",
+        "correction": "reran structure-aware jq summaries with .clips[]",
+        "files_changed": []
+      }
+    ]
+  },
+  "command_results_summary": {
+    "git_status_short_branch": "## compound-plan-m0...origin/compound-plan-m0 [ahead 312]",
+    "audit_loop_premise": "passed",
+    "audit_return_to_form_plan": "passed",
+    "audit_source_register": "passed; register sha256 b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8; source_count 12",
+    "audit_no_pretrained_deps": "passed",
+    "audit_no_pretrained_artifact_json": "passed with no findings",
+    "required_json_validation": "passed",
+    "copied_back_json_validation": "passed for all present M3GL and current M3GB/M3GJ copied-back JSON files",
+    "git_diff_check_before_edits": "passed",
+    "post_write_validation": {
+      "python3 -m json.tool docs/validation/return-to-form-m3gp-human-strategy-packet-no-brev-v1.json >/dev/null": "passed",
+      "node scripts/audit_loop_premise.mjs --json": "passed",
+      "node scripts/audit_return_to_form_plan.mjs --json": "passed",
+      "node scripts/audit_source_register.mjs": "passed",
+      "node scripts/audit_no_pretrained_deps.mjs": "passed",
+      "node scripts/audit_no_pretrained_artifact_json.mjs": "passed",
+      "git diff --check": "passed"
+    }
+  },
+  "read_only_brev_default_off_state": {
+    "command": "brev ls --json",
+    "lifecycle_remote_or_spend_commands_run": [],
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ],
+    "default_off_preserved": true
+  },
+  "source_receipts_logs_and_context_inspected": {
+    "steering": [
+      "GOAL.md",
+      "docs/model/return-to-form-m3gp-human-strategy-packet-no-brev-goal-loop-prompt.md",
+      "docs/model/return-to-form-plan.md",
+      "docs/runbooks/codex-goal-loop.md",
+      "docs/runbooks/observer-runbook-codex.md",
+      "AGENTS.md"
+    ],
+    "core_evidence_receipts_and_logs": [
+      "docs/validation/return-to-form-m3go-read-only-contract-gap-inventory-no-brev-v1.json",
+      "docs/session-logs/644-mission-3go-read-only-contract-gap-inventory-no-brev.md",
+      "docs/session-logs/645-observer-continue-m3go-m3gp-strategy-packet-handoff.md",
+      "docs/validation/return-to-form-m3gn-dataset-vocab-model-input-contract-no-brev-v1.json",
+      "docs/session-logs/642-mission-3gn-dataset-vocab-model-input-contract-no-brev.md",
+      "docs/validation/return-to-form-m3gm-metric-triage-dataset-vocab-model-input-strategy-no-brev-v1.json",
+      "docs/session-logs/640-mission-3gm-metric-triage-dataset-vocab-model-input-strategy-no-brev.md",
+      "docs/validation/return-to-form-m3gl-brev-provider-recovery-and-completion-route-v1.json",
+      "docs/session-logs/638-mission-3gl-brev-provider-recovery-and-completion-route.md",
+      "docs/validation/return-to-form-m3gj-human-approved-evaluator-regeneration-v2-consumer-compatibility-v1.json",
+      "docs/session-logs/633-mission-3gj-human-approved-evaluator-regeneration-v2-consumer-compatibility.md",
+      "docs/validation/return-to-form-m3gb-human-approved-bounded-brev-composable-training-v1.json",
+      "docs/session-logs/613-mission-3gb-human-approved-bounded-brev-composable-training.md"
+    ],
+    "local_accounting_receipts": [
+      "docs/validation/return-to-form-m3gc-m3gb-metric-triage-no-remote-v1.json",
+      "docs/validation/return-to-form-m3gd-m3gb-error-pattern-analysis-no-remote-v1.json",
+      "docs/validation/return-to-form-m3ge-m3gb-source-split-metadata-contract-no-remote-v1.json",
+      "docs/validation/return-to-form-m3gf-m3gb-source-split-manifest-accounting-repair-no-remote-v1.json",
+      "docs/validation/return-to-form-m3gg-m3gb-report-sidecar-contract-gap-patch-plan-no-remote-v1.json",
+      "docs/validation/return-to-form-m3gh-m3gb-evaluator-sidecar-contract-repair-no-remote-v1.json"
+    ],
+    "strategy_memos": [
+      "artifacts/research/observer-547-m3ew-post-tcn-strategy/response.md",
+      "artifacts/research/observer-584-m3fm-popsign-label-ladder-strategy/response.md",
+      "artifacts/research/observer-597-m3fs-detector0-strict-gate-strategy/response.md"
+    ],
+    "source_manifest_claim_surfaces": [
+      "docs/model/dataset-source-register.json",
+      "data/manifests/lesson/high-signal-region-grid/train.json",
+      "data/manifests/lesson/high-signal-region-grid/validation.json",
+      "data/manifests/lesson/high-signal-region-grid/test.json",
+      "web/public/model/model-card.json",
+      "web/public/model/detector0-card.json",
+      "docs/model/active-vocabulary-claim.json",
+      "web/public/model/claim-matrix.json",
+      "docs/validation/final-claim-matrix.json"
+    ]
+  },
+  "copied_back_output_file_presence_and_hashes": [
+    {
+      "path": "output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/training-provenance.json",
+      "exists": true,
+      "json_valid": true,
+      "tracked_status": "ignored_output_accounting_evidence",
+      "sha256": "ee40774cd64c1454b3b1b589becb19c873a87a3152cb4768dd109cf04278b5bf"
+    },
+    {
+      "path": "output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/validation-report.json",
+      "exists": true,
+      "json_valid": true,
+      "tracked_status": "ignored_output_accounting_evidence",
+      "sha256": "706728be4b0b38097ca7a3a6688b9462e7e6fdcbb62864cba709137930e34ad4"
+    },
+    {
+      "path": "output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/prediction-sidecar.json",
+      "exists": true,
+      "json_valid": true,
+      "tracked_status": "ignored_output_accounting_evidence",
+      "sha256": "937242b3e698486f6fe1694a0cdbf1eb961abe921345d95764a93d32f488b5b5"
+    },
+    {
+      "path": "output/m3gb-high-signal-region-grid-tcn-brev/training-provenance.json",
+      "exists": true,
+      "json_valid": true,
+      "tracked_status": "ignored_output_accounting_evidence",
+      "sha256": "16a76df276831437e3e6020ec0c05c399b0ffaca1dbcd70f749090143fab4f99"
+    },
+    {
+      "path": "output/m3gb-high-signal-region-grid-tcn-brev/validation-report.json",
+      "exists": true,
+      "json_valid": true,
+      "tracked_status": "ignored_output_accounting_evidence_current_m3gj_regenerated",
+      "sha256": "35065aec48798d02e7d887398cd1634a4b50a1c70f455098161fbb584fb847de"
+    },
+    {
+      "path": "output/m3gb-high-signal-region-grid-tcn-brev/prediction-sidecar.json",
+      "exists": true,
+      "json_valid": true,
+      "tracked_status": "ignored_output_accounting_evidence_current_m3gj_regenerated",
+      "sha256": "733fb93cf1e79b81cfe8c4c21835db98f0ffdc1e6464f59662103ff688c29e48"
+    }
+  ],
+  "current_7_label_high_signal_region_grid_contract_summary": {
+    "dataset": "ASL Citizen raw videos - noncommercial school assignment",
+    "source_id": "asl-citizen-school-assignment-raw-videos",
+    "source_license_review_status": "approved_noncommercial_school_assignment_raw_video_only",
+    "input_contract": "rgb_regions_grid_v1",
+    "tensor_shape": [16, 5, 96, 96, 3],
+    "region_order": [
+      "viewer_left_hand_context",
+      "viewer_right_hand_context",
+      "upper_body_signing_space",
+      "head_context",
+      "full_frame_reference"
+    ],
+    "labels": ["black", "hello", "please", "sad", "table", "uncle", "white"],
+    "split_counts": {
+      "train": 84,
+      "validation": 27,
+      "test": 28
+    },
+    "signer_counts": {
+      "train": 19,
+      "validation": 5,
+      "test": 7
+    },
+    "manifest_hashes": {
+      "data/manifests/lesson/high-signal-region-grid/train.json": "101455329ae04ad06a2c3fd4ca26a29c04ae945bb7925bee373cf3229594fc3d",
+      "data/manifests/lesson/high-signal-region-grid/validation.json": "16a4a64a8fd48a1384c4cfd2e01dddcaa45fb3b1f0588af9ec66f96668cc3a53",
+      "data/manifests/lesson/high-signal-region-grid/test.json": "5a315d49438242febb410287c4ff235ae8cd269a5aba5c3cf550950bae0359f8"
+    },
+    "claim_interpretation": "diagnostic-only high-signal region-grid evidence; not product, promotion, final-readiness, browser-recognition, or ASL-correctness evidence"
+  },
+  "source_supported_observations": [
+    {
+      "observation": "GOAL.md and the active prompt name M3GP as a local/no-remote/no-training human strategy packet mission.",
+      "supporting_sources": [
+        "GOAL.md",
+        "docs/model/return-to-form-m3gp-human-strategy-packet-no-brev-goal-loop-prompt.md",
+        "docs/session-logs/645-observer-continue-m3go-m3gp-strategy-packet-handoff.md"
+      ]
+    },
+    {
+      "observation": "The current active contract is a 7-label ASL Citizen high-signal region-grid diagnostic setup using labels black, hello, please, sad, table, uncle, and white with split counts 84/27/28 and signer counts 19/5/7.",
+      "supporting_sources": [
+        "docs/validation/return-to-form-m3gn-dataset-vocab-model-input-contract-no-brev-v1.json",
+        "data/manifests/lesson/high-signal-region-grid/train.json",
+        "data/manifests/lesson/high-signal-region-grid/validation.json",
+        "data/manifests/lesson/high-signal-region-grid/test.json"
+      ]
+    },
+    {
+      "observation": "M3GB/M3GJ current regenerated output remains weak and diagnostic-only: validation top-1 0.37037037037037035, validation macro-F1 0.3320964749536178, test top-1 0.25, test macro-F1 0.15634920634920638, selected threshold 0.49, failed top-1, macro-F1, and negative-challenge gates.",
+      "supporting_sources": [
+        "docs/validation/return-to-form-m3gj-human-approved-evaluator-regeneration-v2-consumer-compatibility-v1.json",
+        "docs/session-logs/633-mission-3gj-human-approved-evaluator-regeneration-v2-consumer-compatibility.md",
+        "output/m3gb-high-signal-region-grid-tcn-brev/validation-report.json"
+      ]
+    },
+    {
+      "observation": "M3GL completed the independent-seed Brev route but regressed versus M3GB/M3GJ: test top-1 0.14285714285714285, test macro-F1 0.09206349206349207, selected threshold 0.47, failed promotion gates, and final default-off was verified.",
+      "supporting_sources": [
+        "docs/validation/return-to-form-m3gl-brev-provider-recovery-and-completion-route-v1.json",
+        "docs/session-logs/638-mission-3gl-brev-provider-recovery-and-completion-route.md",
+        "output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/validation-report.json"
+      ]
+    },
+    {
+      "observation": "M3GO answered enough to reject promotion, browser activation, threshold rescue, another seed-only compute route, and accounting-contract repair as the primary blocker.",
+      "supporting_sources": [
+        "docs/validation/return-to-form-m3go-read-only-contract-gap-inventory-no-brev-v1.json",
+        "docs/session-logs/644-mission-3go-read-only-contract-gap-inventory-no-brev.md"
+      ]
+    },
+    {
+      "observation": "M3GJ/M3GH repaired or regenerated the current v2 sidecar/report contract enough for validation/test row accounting, including probability vectors, true-label probabilities, stable example IDs, manifest row indices, tensor path/hash fields, and source/review/crop metadata.",
+      "supporting_sources": [
+        "docs/validation/return-to-form-m3gj-human-approved-evaluator-regeneration-v2-consumer-compatibility-v1.json",
+        "docs/validation/return-to-form-m3gh-m3gb-evaluator-sidecar-contract-repair-no-remote-v1.json",
+        "output/m3gb-high-signal-region-grid-tcn-brev/prediction-sidecar.json"
+      ]
+    },
+    {
+      "observation": "Current strategy memos consistently recommend fail-closed behavior, no autonomous training-style retry without a specific local repair or human strategy approval, and approval gates for compute, source/media, architecture/input, runtime, and claim changes.",
+      "supporting_sources": [
+        "artifacts/research/observer-547-m3ew-post-tcn-strategy/response.md",
+        "artifacts/research/observer-584-m3fm-popsign-label-ladder-strategy/response.md",
+        "artifacts/research/observer-597-m3fs-detector0-strict-gate-strategy/response.md"
+      ]
+    },
+    {
+      "observation": "Brev is default-off now: retained worker asl-pilot-m3eh-l40s-001 / 3d58wpy9o is STOPPED / COMPLETED / NOT READY / HEALTHY.",
+      "supporting_sources": [
+        "brev ls --json"
+      ]
+    },
+    {
+      "observation": "Claim surfaces remain fail-closed and unpromoted.",
+      "supporting_sources": [
+        "web/public/model/model-card.json",
+        "web/public/model/detector0-card.json",
+        "docs/model/active-vocabulary-claim.json",
+        "web/public/model/claim-matrix.json",
+        "docs/validation/final-claim-matrix.json"
+      ]
+    }
+  ],
+  "inferences_from_observations": [
+    {
+      "inference": "The next project decision is strategic, not executable by an autonomous M3GP slice: choose source/vocabulary/input/research/compute/product direction before mutation or spend.",
+      "basis": "M3GO rejected compute-only continuation and routed to a human strategy packet; M3GN/M3GM leave vocabulary, source/split, crop/input, and architecture/objective as plausible but unproven."
+    },
+    {
+      "inference": "A follow-up compute receipt is premature unless a human selects a specific repair hypothesis with an expected metric signal and kill condition.",
+      "basis": "M3GL was an independent-seed compute attempt and regressed versus M3GB/M3GJ under the same setup."
+    },
+    {
+      "inference": "External OpenAI/GPT-Pro research could be useful for strategy selection, but it should be an explicit human choice because M3GP forbids research calls and because research may transmit summarized project evidence outside the repo.",
+      "basis": "The current strategy memos are older than the exact M3GL/M3GM/M3GN/M3GO packet and do not choose a concrete M3GP repair path."
+    },
+    {
+      "inference": "Fail-closed product hardening is available as a no-model-promotion product path, but should be selected explicitly because it shifts effort away from ML diagnosis and may touch runtime/user-facing surfaces.",
+      "basis": "Claim surfaces already fail closed; current M3GP deliverable is strategy packaging only."
+    }
+  ],
+  "closed_questions": [
+    {
+      "question": "Can current M3GB/M3GJ or M3GL evidence be promoted or used to activate browser recognition?",
+      "answer": "No.",
+      "reason": "Top-1, macro-F1, and negative-challenge gates failed; claim surfaces remain not_trained/no active claim."
+    },
+    {
+      "question": "Does threshold calibration rescue the current evidence?",
+      "answer": "No.",
+      "reason": "M3GB/M3GJ and M3GL both selected thresholds with 0.1111111111111111 validation coverage and 0.07407407407407407 validation correct-pass rate."
+    },
+    {
+      "question": "Is evaluator/reporting contract incompleteness the primary blocker now?",
+      "answer": "No for validation/test row accounting.",
+      "reason": "Current v2 sidecars include probability, true-label probability, manifest, tensor, source/review, and crop metadata."
+    },
+    {
+      "question": "Is another seed-only or compute-only Brev run justified by current evidence?",
+      "answer": "No.",
+      "reason": "M3GL was an independent-seed Brev completion route and regressed against M3GB/M3GJ."
+    },
+    {
+      "question": "Should M3GP perform source/media, crop/input, vocabulary, model/runtime, export, promotion, browser activation, or claim work?",
+      "answer": "No.",
+      "reason": "The active prompt is packet-only and explicitly approval-gates or forbids those actions."
+    }
+  ],
+  "open_human_choices": [
+    {
+      "choice": "Stop and choose dataset/vocabulary/model-input strategy",
+      "approval_required": "Human strategy approval before any source, vocabulary, split, manifest, tensor, crop, input, media, architecture, objective, compute, runtime, export, promotion, browser activation, final-gate, or claim mutation.",
+      "tradeoff": "Highest control and lowest risk; pauses autonomous ML progress until the human chooses the next lane."
+    },
+    {
+      "choice": "Authorize external OpenAI/GPT-Pro research diagnostic using M3GL/M3GM/M3GN/M3GO/M3GP evidence",
+      "approval_required": "Human approval to use OpenAI API or GPT-Pro/browser research and define what evidence may be transmitted or summarized.",
+      "tradeoff": "May improve strategy quality; costs time/tokens and still cannot mutate artifacts or spend compute without a later prompt."
+    },
+    {
+      "choice": "Continue fail-closed interactive product hardening with no model promotion",
+      "approval_required": "Human/product scope approval plus a new active prompt limiting runtime/UI changes and preserving not_trained/no active labels.",
+      "tradeoff": "Improves school-project usefulness while ML remains blocked; does not advance recognition readiness."
+    },
+    {
+      "choice": "Prepare a future compute receipt only after selecting a specific expected metric signal",
+      "approval_required": "Fresh human compute approval, separate active prompt, exact command, workspace, price, max runtime, max spend, kill condition, expected signal, copyback boundaries, and teardown.",
+      "tradeoff": "Could test a chosen repair; current evidence rejects compute-only retry and makes spend premature."
+    },
+    {
+      "choice": "Authorize source, vocabulary, split, manifest, tensor, crop, input, or media work",
+      "approval_required": "Human source/privacy/strategy approval and a separate active prompt before inspecting raw media, creating thumbnails, generating tensors/crops, mutating source approvals, changing labels/splits, or changing input representation.",
+      "tradeoff": "May address plausible root causes; carries privacy/source/artifact churn risk and must stay no-pretrained."
+    }
+  ],
+  "evaluated_strategy_options": [
+    {
+      "option": "human_review_dataset_vocab_input_strategy",
+      "classification": "recommended_default",
+      "future_action_if_selected": "stop for human choice before any mutation, spend, research, runtime, or claim change",
+      "risk_tradeoff_summary": "Lowest immediate risk and matches M3GO evidence; progress pauses until the human chooses a lane.",
+      "approval_required": "Human choice of next source/vocabulary/input/research/compute/product direction."
+    },
+    {
+      "option": "external_research_diagnostic",
+      "classification": "available_only_with_explicit_approval",
+      "future_action_if_selected": "run OpenAI/GPT-Pro research from existing evidence only, save artifact, then reduce to another decision",
+      "risk_tradeoff_summary": "Can add strategy insight before expensive or privacy-sensitive work; may consume token/time budget and must respect evidence-sharing boundaries.",
+      "approval_required": "Human approval for research tool, evidence scope, and artifact location."
+    },
+    {
+      "option": "fail_closed_product_hardening",
+      "classification": "available_after_human_scope_choice",
+      "future_action_if_selected": "work only on fail-closed product UX/status with no recognition activation or model promotion",
+      "risk_tradeoff_summary": "Useful for a school-project demo while ML is blocked; does not resolve recognizer quality and must avoid implying ASL correctness.",
+      "approval_required": "Human approval to shift from ML strategy to product hardening and a prompt defining scoped files/checks."
+    },
+    {
+      "option": "compute_receipt_only",
+      "classification": "not_recommended_now",
+      "future_action_if_selected": "prepare a bounded compute receipt only after a specific hypothesis, expected metric signal, and kill condition are chosen",
+      "risk_tradeoff_summary": "Avoids immediate spend but can still normalize compute-first thinking; M3GL regression means no current expected signal exists.",
+      "approval_required": "Fresh human compute approval plus a separate active prompt before any Brev lifecycle or remote command."
+    },
+    {
+      "option": "source_vocab_input_change",
+      "classification": "approval_gated",
+      "future_action_if_selected": "perform source/vocabulary/split/manifest/tensor/crop/input/media work only under a new approved prompt",
+      "risk_tradeoff_summary": "Targets plausible root causes; has the highest artifact, privacy, and source-rights risk.",
+      "approval_required": "Human source/privacy/strategy approval, source-register evidence where applicable, and validation receipts for every changed artifact."
+    }
+  ],
+  "recommended_default": {
+    "next_action": "stop_for_human_dataset_vocab_model_input_strategy_choice",
+    "reason": "M3GP has condensed the current evidence into a decision surface. Without fresh human authorization for research, spend, source/media work, product runtime work, or claim changes, the safest default is to stop and let the human choose the next dataset/vocabulary/model-input strategy."
+  },
+  "approval_gates_and_stop_escalation_rules": [
+    {
+      "gate": "research",
+      "requires": [
+        "explicit human approval for OpenAI API or GPT-Pro use",
+        "defined evidence-sharing boundary",
+        "saved research artifact under artifacts/research/",
+        "no source/media/model/runtime mutation during the research slice"
+      ],
+      "stop_rule": "Stop instead of calling research tools inside M3GP."
+    },
+    {
+      "gate": "compute_or_brev",
+      "requires": [
+        "fresh human compute approval",
+        "separate active prompt",
+        "exact command",
+        "workspace name and id",
+        "instance type and price",
+        "max runtime",
+        "max spend",
+        "kill condition",
+        "expected metric signal",
+        "copyback boundaries",
+        "teardown and stopped-state verification"
+      ],
+      "stop_rule": "Stop before any Brev lifecycle, remote, sync, copy, exec, training, evaluation rerun, duplicate worker, package install, or spend command."
+    },
+    {
+      "gate": "source_vocabulary_manifest_tensor_crop_input_or_media",
+      "requires": [
+        "human source/privacy/strategy approval",
+        "separate active prompt",
+        "source-register evidence when source scope changes",
+        "artifact mutation receipt",
+        "audit-chain validation"
+      ],
+      "stop_rule": "Stop before raw-video inspection, thumbnail/contact-sheet creation, source import, source-register mutation, relabeling, resplit, vocabulary change, manifest/tensor generation, crop/input representation change, or Detector 0 proxy output creation."
+    },
+    {
+      "gate": "architecture_objective_or_target_schema",
+      "requires": [
+        "research or human strategy approval",
+        "explicit hypothesis",
+        "expected metric signal",
+        "no-pretrained proof"
+      ],
+      "stop_rule": "Stop before architecture search, objective change, target-schema change, or model/runtime code changes."
+    },
+    {
+      "gate": "product_runtime_or_claims",
+      "requires": [
+        "human product scope approval or new active prompt",
+        "fail-closed claim audit",
+        "no raw learner video upload during normal practice",
+        "no model-card promotion without passing gates"
+      ],
+      "stop_rule": "Stop before browser activation, product runtime mutation, export, promotion, threshold promotion, final-gate change, active-vocabulary update, ASL-correctness claim, or final-readiness claim."
+    }
+  ],
+  "paths_explicitly_rejected_by_m3go_evidence": [
+    {
+      "path": "another_seed_only_or_compute_only_brev_run",
+      "rejected": true,
+      "reason": "M3GL was an independent-seed Brev route and regressed versus M3GB/M3GJ without a compute-worthy repair signal."
+    },
+    {
+      "path": "threshold_or_calibration_rescue",
+      "rejected": true,
+      "reason": "Selected thresholds have low validation coverage and low correct-pass rate; current evidence is not promotable."
+    },
+    {
+      "path": "evaluator_contract_repair_as_primary_next_step",
+      "rejected": true,
+      "reason": "M3GJ/M3GH v2 contract fields are sufficient for current validation/test row accounting."
+    },
+    {
+      "path": "browser_recognition_activation_or_model_promotion",
+      "rejected": true,
+      "reason": "Top-1, macro-F1, and negative-challenge gates failed; claim surfaces remain fail-closed."
+    },
+    {
+      "path": "product_hardening_before_strategy_packet",
+      "rejected": true,
+      "reason": "M3GO selected M3GP first so human choice can precede a product/ML direction change."
+    },
+    {
+      "path": "research_call_inside_m3gp",
+      "rejected": true,
+      "reason": "The active prompt forbids research calls; research must be a future approved path."
+    }
+  ],
+  "rejected_actions": [
+    {
+      "action": "run_training_or_evaluation_rerun",
+      "rejected": true,
+      "reason": "Forbidden by M3GP and unjustified by M3GL regression."
+    },
+    {
+      "action": "run_brev_lifecycle_or_remote_command",
+      "rejected": true,
+      "reason": "M3GP permits only read-only brev ls --json for accounting."
+    },
+    {
+      "action": "inspect_raw_video_or_generate_crop_thumbnails",
+      "rejected": true,
+      "reason": "Would require explicit source/privacy/media approval and is forbidden in M3GP."
+    },
+    {
+      "action": "mutate_source_register_manifests_tensors_vocabulary_input_runtime_or_claim_surfaces",
+      "rejected": true,
+      "reason": "M3GP is packet-only; all mutation paths require future approval and separate prompt."
+    },
+    {
+      "action": "call_openai_api_gpt_pro_or_browser_research",
+      "rejected": true,
+      "reason": "Research is evaluated as a future option only; the active prompt forbids calls inside M3GP."
+    },
+    {
+      "action": "export_promote_activate_browser_recognition_or_change_final_gates",
+      "rejected": true,
+      "reason": "Current evidence fails gates and claim surfaces must stay fail-closed."
+    }
+  ],
+  "claim_surface_status": {
+    "classification": "fail_closed_unchanged",
+    "web/public/model/model-card.json": {
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "status": "not_trained",
+      "model_id": "asl-pilot-rawframe-v0",
+      "browser_artifact": null
+    },
+    "web/public/model/detector0-card.json": {
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "status": "not_trained",
+      "detector_id": "asl-pilot-detector0-not-trained-v0",
+      "promotion_state": "research_only",
+      "browser_artifact": null
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": [],
+      "evidenceArtifacts": []
+    },
+    "web/public/model/claim-matrix.json": {
+      "sha256": "5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf",
+      "status": "no_active_claim_rawframe_not_trained",
+      "active_cv_claim": null,
+      "cv_supported_count": 0
+    },
+    "docs/validation/final-claim-matrix.json": {
+      "sha256": "5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf",
+      "status": "no_active_claim_rawframe_not_trained",
+      "active_cv_claim": null,
+      "cv_supported_count": 0
+    }
+  },
+  "explicit_forbidden_action_proof": {
+    "brev_lifecycle_remote_sync_copy_exec_or_spend_run": false,
+    "training_or_fitting_run": false,
+    "evaluation_rerun_or_output_regeneration_run": false,
+    "research_api_or_gpt_pro_call_run": false,
+    "browser_activation_or_product_smoke_run": false,
+    "raw_video_inspection_upload_or_media_import_run": false,
+    "source_register_manifest_tensor_vocabulary_crop_input_runtime_or_claim_mutation": false,
+    "model_card_promotion_or_active_vocabulary_claim_expansion": false,
+    "onnx_export_or_browser_artifact_activation": false,
+    "final_gate_change": false,
+    "pretrained_detector_landmark_backbone_embedding_feature_extractor_teacher_logits_or_generated_labels_added": false,
+    "push_amend_or_no_verify": false,
+    "notes": "The only changed files in this slice are the M3GP tracked receipt and numbered session log."
+  },
+  "pretrained_components": [],
+  "changed_files": [
+    "docs/validation/return-to-form-m3gp-human-strategy-packet-no-brev-v1.json",
+    "docs/session-logs/646-mission-3gp-human-strategy-packet-no-brev.md"
+  ],
+  "exactly_one_next_action": "stop_for_human_dataset_vocab_model_input_strategy_choice",
+  "next_action": "stop_for_human_dataset_vocab_model_input_strategy_choice"
+}

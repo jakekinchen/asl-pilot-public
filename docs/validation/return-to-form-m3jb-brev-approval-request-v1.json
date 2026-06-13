@@ -1,0 +1,224 @@
+{
+  "schema_version": "asl-pilot-m3jb-brev-approval-request/v1",
+  "receipt_id": "return-to-form-m3jb-brev-approval-request-v1",
+  "mission": "M3JB - Hierarchical hand-state tracker",
+  "active_tracker_next_action": "await_explicit_brev_spend_approval_then_launch_landmark_retrain_brev_plan",
+  "status": "completed_approved_launch_consumed_no_gate_pass",
+  "checked_at": "2026-06-03T11:34:10Z",
+  "source_of_truth": {
+    "goal": "GOAL.md",
+    "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+    "tracker_receipt": "docs/validation/return-to-form-m3jb-hierarchical-hand-state-tracker-v1.json",
+    "approval_gated_retrain_plan": "docs/validation/return-to-form-m3jb-landmark-retrain-brev-plan-v1.json",
+    "local_preflight": "docs/validation/return-to-form-m3jb-landmark-retrain-local-preflight-v1.json",
+    "brev_readiness_refresh": "docs/validation/return-to-form-m3jb-brev-readiness-refresh-v1.json"
+  },
+  "approval_state": {
+    "current_thread_explicit_brev_spend_approval": true,
+    "effective_launch_allowed_now": false,
+    "approval_recorded_by_this_receipt": true,
+    "requires_user_reply_in_current_thread": false,
+    "approval_record": {
+      "source": "current-thread user approval recorded in GOAL.md by commit f761dc5",
+      "source_commit": "f761dc5 approve(m3jb): grant explicit Brev spend for the landmark retrain launch",
+      "recorded_at": "2026-06-03T11:15:00Z",
+      "exact_approval_text": "I approve current-thread Brev/GPU spend for M3JB landmark retrain plan v1: use retained worker asl-pilot-m3eh-l40s-001 / 3d58wpy9o, max spend $40, max outer runtime 21600s, sync/copy only the files needed for docs/validation/return-to-form-m3jb-landmark-retrain-brev-plan-v1.json, run the recorded CUDA scratch landmark retrain, run eval-only PCK@0.10 and PCK@0.05, copy back the planned artifacts, and stop/cleanup according to the recorded kill conditions.",
+      "approved_worker": "asl-pilot-m3eh-l40s-001",
+      "approved_worker_id": "3d58wpy9o",
+      "max_spend_usd": 40,
+      "max_outer_runtime_seconds": 21600,
+      "bounded_plan_receipt": "docs/validation/return-to-form-m3jb-landmark-retrain-brev-plan-v1.json",
+      "recorded_surfaces": [
+        "GOAL.md",
+        "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+        "docs/validation/return-to-form-m3jb-landmark-retrain-brev-plan-v1.json",
+        "docs/validation/return-to-form-m3jb-brev-approval-request-v1.json"
+      ],
+      "not_authorized_without_separate_approval": [
+        "creating a new Brev worker",
+        "selector training",
+        "changing landmark gates",
+        "browser runtime promotion",
+        "raw learner video upload",
+        "adding pretrained runtime dependencies"
+      ]
+    },
+    "approval_consumed_by_run": true,
+    "consumed_run_receipt": "docs/validation/return-to-form-m3jb-landmark-retrain-brev-run-v1.json"
+  },
+  "approval_request": {
+    "exact_approval_text": "I approve current-thread Brev/GPU spend for M3JB landmark retrain plan v1: use retained worker asl-pilot-m3eh-l40s-001 / 3d58wpy9o, max spend $40, max outer runtime 21600s, sync/copy only the files needed for docs/validation/return-to-form-m3jb-landmark-retrain-brev-plan-v1.json, run the recorded CUDA scratch landmark retrain, run eval-only PCK@0.10 and PCK@0.05, copy back the planned artifacts, and stop/cleanup according to the recorded kill conditions.",
+    "approval_must_name": [
+      "current-thread Brev/GPU spend",
+      "M3JB landmark retrain plan v1",
+      "retained worker asl-pilot-m3eh-l40s-001 / 3d58wpy9o",
+      "max spend $40",
+      "max outer runtime 21600s"
+    ],
+    "approval_must_not_be_inferred_from": [
+      "old objective payloads",
+      "read-only brev ls output",
+      "local preflight receipts",
+      "background loop launch commands",
+      "general compute authorization text in GOAL.md"
+    ]
+  },
+  "authorization_envelope_if_approved": {
+    "plan_receipt": "docs/validation/return-to-form-m3jb-landmark-retrain-brev-plan-v1.json",
+    "preferred_instance": "asl-pilot-m3eh-l40s-001",
+    "preferred_instance_id": "3d58wpy9o",
+    "device": "cuda",
+    "remote_project_root": "/home/ubuntu/asl-pilot",
+    "max_spend_usd": 40,
+    "max_runtime_seconds": {
+      "outer_timeout": 21600,
+      "training_timeout": 20000,
+      "eval_timeout_per_pck": 3600
+    },
+    "training_command": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1 --epochs 80 --batch 512 --eval-batch 1024 --lr 5e-4 --device cuda --seed 0 --pck 0.10 --sigma 1.5 --heatmap-g 32 --width 64 --heatmap-ce-weight 0.05 --filter-train-quality --quality-exclude-oob --quality-min-gradient 0.012 --quality-min-contrast 0.10 --eval-every 5 --out tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1.json\"",
+    "planned_outputs": {
+      "training_receipt": "tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1.json",
+      "weights": "tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1.pt",
+      "eval_pck010": "tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1-eval-pck010.json",
+      "eval_pck005": "tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1-eval-pck005.json"
+    },
+    "allowed_after_approval_only": [
+      "brev ls --json duplicate-worker check",
+      "sync/copy required trainer, helper, and rebuilt cache files to retained worker",
+      "remote CUDA/process preflight on retained worker",
+      "recorded CUDA scratch landmark retrain command",
+      "eval-only PCK@0.10 and PCK@0.05 commands",
+      "copyback of planned output receipts and weights",
+      "stop/cleanup under recorded kill conditions"
+    ],
+    "not_authorized_without_separate_approval": [
+      "creating a new Brev worker",
+      "selector training",
+      "changing landmark gates",
+      "browser runtime promotion",
+      "raw learner video upload",
+      "adding pretrained runtime dependencies"
+    ]
+  },
+  "prerequisites": {
+    "landmark_retrain_plan_status": "approved_pending_launch",
+    "local_preflight_status": "passed_local_preflight_actual_launch_blocked_pending_brev_approval",
+    "brev_readiness_status": "passed_read_only_brev_visibility_launch_blocked_pending_approval",
+    "selected_worker_status": "RUNNING",
+    "selected_worker_shell_status": "READY",
+    "selected_worker_health_status": "HEALTHY",
+    "cache_rows": 30120,
+    "scratch_train": true,
+    "warm_start_or_init_weights": false,
+    "max_train_rows_cap": null,
+    "max_train_batches_cap": null,
+    "baseline_rebuilt_cache_pck_010": 0.6633,
+    "baseline_rebuilt_cache_pck_005": 0.3722
+  },
+  "actual_launch": {
+    "status": "completed_rejected_below_baseline_and_gate",
+    "run_receipt": "docs/validation/return-to-form-m3jb-landmark-retrain-brev-run-v1.json",
+    "metrics": {
+      "training_receipt_test_pck_010": 0.6484,
+      "eval_pck_010": 0.6484,
+      "eval_pck_005": 0.3651,
+      "validation_pck_010": 0.5998,
+      "validation_pck_005": 0.3,
+      "baseline_rebuilt_cache_pck_010": 0.6633,
+      "baseline_rebuilt_cache_pck_005": 0.3722,
+      "gate_pck_010": 0.9,
+      "gate_pck_005": 0.75,
+      "delta_vs_baseline_pck_010": -0.0149,
+      "delta_vs_baseline_pck_005": -0.0071,
+      "gap_to_gate_pck_010": 0.2516,
+      "gap_to_gate_pck_005": 0.3849,
+      "decision": "rejected_fail_closed_below_rebuilt_cache_baseline_and_gate"
+    },
+    "worker_teardown": {
+      "stop_command_status": "passed",
+      "final_status": "STOPPED",
+      "final_shell_status": "NOT READY",
+      "final_health_status": "HEALTHY",
+      "evidence": "/tmp/m3jb-brev-ls-after-stop2-903.json"
+    }
+  },
+  "commands_run_this_slice": [
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json >/tmp/m3jb-premise-900-pre.json",
+      "status": "passed",
+      "purpose": "confirmed the live premise before preparing the approval request"
+    },
+    {
+      "command": "node scripts/audit_m3jb_hand_state_tracker.mjs --json >/tmp/m3jb-audit-900-pre.json",
+      "status": "passed",
+      "purpose": "confirmed the tracker still points at the approval-gated landmark retrain next action"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3jb-brev-approval-request-v1.json >/tmp/m3jb-brev-approval-request-json-check-900.txt",
+      "status": "passed",
+      "purpose": "validated the approval-request receipt JSON"
+    },
+    {
+      "command": "node --check scripts/audit_m3jb_hand_state_tracker.mjs",
+      "status": "passed",
+      "purpose": "checked tracker audit syntax after adding the approval-request check"
+    },
+    {
+      "command": "node scripts/audit_m3jb_hand_state_tracker.mjs --write-receipt --json >/tmp/m3jb-tracker-900-write.json",
+      "status": "passed",
+      "purpose": "regenerated the canonical M3JB tracker receipt with approval-request evidence"
+    },
+    {
+      "command": "node scripts/audit_m3jb_hand_state_tracker.mjs --json >/tmp/m3jb-audit-900.json",
+      "status": "passed",
+      "purpose": "validated the canonical M3JB tracker after regeneration"
+    }
+  ],
+  "commands_intentionally_not_run_this_slice": [
+    "brev exec",
+    "brev copy",
+    "brev sync",
+    "ssh",
+    "rsync",
+    "remote CUDA preflight",
+    "remote training",
+    "eval-only PCK measurement",
+    "checkpoint write",
+    "browser export or promotion"
+  ],
+  "runtime_boundary": {
+    "local_only_this_slice": true,
+    "brev_exec_or_copy": false,
+    "brev_sync": false,
+    "brev_lifecycle_action": false,
+    "worker_created": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "eval_only_pck_run": false,
+    "optimizer_or_backward": false,
+    "checkpoint_written": false,
+    "browser_runtime_dependency_added": false,
+    "browser_artifact_promoted": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false
+  },
+  "claim_boundary": "This receipt records that the current-thread approval was consumed by one bounded launch. The run completed but is rejected fail-closed; it does not authorize relaunch, promotion, gate changes, raw upload, or pretrained runtime dependencies.",
+  "next_action": "analyze_m3jb_landmark_retrain_regression_and_select_pivot_no_brev",
+  "approval_recording_slice": {
+    "status": "recorded_no_launch",
+    "recorded_at": "2026-06-03T11:15:00Z",
+    "commands_intentionally_not_run_this_slice": [
+      "brev exec",
+      "brev copy",
+      "brev sync",
+      "ssh",
+      "rsync",
+      "remote CUDA/process preflight",
+      "remote training",
+      "eval-only PCK measurement",
+      "checkpoint write",
+      "browser export or promotion",
+      "Brev lifecycle stop/start/delete"
+    ]
+  }
+}

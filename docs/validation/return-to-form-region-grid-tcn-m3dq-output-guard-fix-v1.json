@@ -1,0 +1,236 @@
+{
+  "schema_version": "asl-pilot-region-grid-tcn-m3dq-output-guard-fix/v1",
+  "status": "completed_local_output_guard_and_prompt_contract_fix",
+  "mission": "M3DR",
+  "active_prompt": "docs/model/return-to-form-region-grid-tcn-m3dq-output-guard-fix-goal-loop-prompt.md",
+  "generated_at": "2026-05-28T10:34:19Z",
+  "generated_by": "codex_executor",
+  "local_head_before_slice": {
+    "commit": "9cfae54",
+    "subject": "observer: REDIRECT - m3dq output guard",
+    "branch": "compound-plan-m0",
+    "ahead_of_origin": 118
+  },
+  "failure_classification": {
+    "source": "Mission 3DQ remote dry-run and M3DR local reproduction",
+    "classification": "source_guard_rejected_intended_m3dq_output_dir_before_training",
+    "rejected_output_dir": "output/m3dq-high-signal-region-grid-tcn-brev",
+    "pre_repair_local_reproduction": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3dq-high-signal-region-grid-tcn-brev --model-id m3dq-high-signal-region-grid-tcn-brev --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1",
+      "exit_code": 2,
+      "stderr": "Manifest validation failed: region-grid TCN training smoke requires --output-dir output/m3aw-region-grid-tcn-local-smoke or output/m3dm-high-signal-region-grid-tcn-brev"
+    }
+  },
+  "contract_decision": {
+    "decision": "add_explicit_m3dq_full_split_brev_smoke_output_dir",
+    "rationale": "M3DQ is a follow-on retry after the M3DP 5D augmentation repair and uses its own output namespace. Reusing M3DM would conflate two remote-smoke attempts, so the source guard now accepts M3DQ as a second full-split Brev-smoke policy output while keeping the capped M3AW branch separate.",
+    "m3aw_contract": "unchanged capped local dry-run policy: output/m3aw-region-grid-tcn-local-smoke, max batches required, no augmentation, num_workers 0",
+    "m3dm_contract": "unchanged full-split Brev-smoke policy: output/m3dm-high-signal-region-grid-tcn-brev, mild augmentation, best_validation, no max batch caps",
+    "m3dq_contract": "new explicit full-split Brev-smoke output namespace: output/m3dq-high-signal-region-grid-tcn-brev, same full-split policy as M3DM"
+  },
+  "prompt_contract_correction": {
+    "initial_m3aw_prompt_command_status": "failed_before_script_validation",
+    "initial_error": "argument --checkpoint-selection: invalid choice: 'latest' (choose from 'final', 'best_validation')",
+    "repair": "The active M3DR prompt's M3AW compatibility command now uses --checkpoint-selection final, matching the parser and prior M3AW/M3DN dry-run behavior without widening source policy.",
+    "source_enum_changed": false
+  },
+  "changed_files": [
+    {
+      "path": "scripts/train_rawframe_model.py",
+      "sha256": "610743029c2165d2a6327c483a6139225dec3cf2daa2fed26cc5dad3c388d543",
+      "changes": [
+        "added REGION_GRID_TCN_M3DQ_BREV_SMOKE_OUTPUT_DIR for output/m3dq-high-signal-region-grid-tcn-brev",
+        "grouped M3DM and M3DQ under REGION_GRID_TCN_FULL_SPLIT_BREV_SMOKE_OUTPUT_DIRS",
+        "left REGION_GRID_TCN_TRAINING_SMOKE_OUTPUT_DIR as the only capped M3AW branch",
+        "updated manifest error wording to name both full-split Brev-smoke output directories",
+        "updated full-split policy error wording from M3DM-only to M3DM/M3DQ"
+      ]
+    },
+    {
+      "path": "docs/model/return-to-form-region-grid-tcn-m3dq-output-guard-fix-goal-loop-prompt.md",
+      "sha256": "8b6bd43f99dc883c17e7deaa5d7ec85aff8a9d491114d3a1115d747698866d73",
+      "changes": [
+        "corrected the required M3AW compatibility dry-run command from --checkpoint-selection latest to --checkpoint-selection final"
+      ]
+    }
+  ],
+  "local_checks": [
+    {
+      "command": "git status --short --branch",
+      "exit_code": 0,
+      "status": "passed",
+      "summary": "branch compound-plan-m0 ahead 118 with scoped source/prompt edits before receipt/log writes"
+    },
+    {
+      "command": "git log -10 --oneline",
+      "exit_code": 0,
+      "status": "passed",
+      "head": "9cfae54 observer: REDIRECT - m3dq output guard"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-region-grid-tcn-brev-smoke-after-5d-fix-v1.json >/dev/null",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-region-grid-tcn-brev-guard-fix-v1.json >/dev/null",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-region-grid-tcn-5d-augmentation-diagnosis-v1.json >/dev/null",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "exit_code": 0,
+      "status": "passed"
+    }
+  ],
+  "m3aw_compatibility_dry_run": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3aw-region-grid-tcn-local-smoke --model-id m3aw-region-grid-tcn-local-smoke --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 0 --epochs 1 --batch-size 2 --max-train-batches 1 --max-validation-batches 1 --training-augmentation none --checkpoint-selection final --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1",
+    "exit_code": 0,
+    "status": "passed",
+    "training_status": "dry_run_only",
+    "output_dir": "output/m3aw-region-grid-tcn-local-smoke",
+    "hyperparameters": {
+      "epochs": 1,
+      "batch_size": 2,
+      "num_workers": 0,
+      "max_train_batches": 1,
+      "max_validation_batches": 1,
+      "training_augmentation": "none",
+      "checkpoint_selection": "final",
+      "preserve_region_axis": true
+    },
+    "input_contract": {
+      "required_contract": "rgb_regions_grid_v1",
+      "status": "passed",
+      "total_clip_count": 139,
+      "observed_counts": {
+        "rgb_regions_grid_v1": 139
+      }
+    }
+  },
+  "m3dm_compatibility_dry_run": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3dm-high-signal-region-grid-tcn-brev --model-id m3dm-high-signal-region-grid-tcn-brev --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1",
+    "exit_code": 0,
+    "status": "passed",
+    "training_status": "dry_run_only",
+    "output_dir": "output/m3dm-high-signal-region-grid-tcn-brev",
+    "hyperparameters": {
+      "epochs": 12,
+      "batch_size": 8,
+      "num_workers": 2,
+      "max_train_batches": null,
+      "max_validation_batches": null,
+      "training_augmentation": "mild",
+      "checkpoint_selection": "best_validation",
+      "preserve_region_axis": true
+    },
+    "input_contract": {
+      "required_contract": "rgb_regions_grid_v1",
+      "status": "passed",
+      "total_clip_count": 139,
+      "observed_counts": {
+        "rgb_regions_grid_v1": 139
+      }
+    }
+  },
+  "m3dq_intended_dry_run": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3dq-high-signal-region-grid-tcn-brev --model-id m3dq-high-signal-region-grid-tcn-brev --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1",
+    "exit_code": 0,
+    "status": "passed",
+    "training_status": "dry_run_only",
+    "output_dir": "output/m3dq-high-signal-region-grid-tcn-brev",
+    "hyperparameters": {
+      "epochs": 12,
+      "batch_size": 8,
+      "num_workers": 2,
+      "max_train_batches": null,
+      "max_validation_batches": null,
+      "training_augmentation": "mild",
+      "checkpoint_selection": "best_validation",
+      "preserve_region_axis": true
+    },
+    "input_contract": {
+      "required_contract": "rgb_regions_grid_v1",
+      "status": "passed",
+      "total_clip_count": 139,
+      "observed_counts": {
+        "rgb_regions_grid_v1": 139
+      }
+    }
+  },
+  "brev_state": {
+    "inspected": false,
+    "reason_not_checked": "Mission 3DR is local/no-spend and the active prompt only allowed read-only brev ls if needed to keep the receipt current; no current Brev state was needed for this local source/prompt repair.",
+    "brev_exec_run": false,
+    "brev_sync_run": false,
+    "brev_copy_run": false,
+    "brev_start_run": false,
+    "brev_stop_or_lifecycle_run": false,
+    "remote_dry_run_run": false,
+    "remote_training_run": false
+  },
+  "pretrained_components": [],
+  "negative_authorizations": {
+    "no_brev_exec_sync_copy_lifecycle": true,
+    "no_remote_dry_run": true,
+    "no_remote_training": true,
+    "no_fitting_backward_optimizer_or_epoch_training": true,
+    "no_checkpoint_creation": true,
+    "no_evaluation": true,
+    "no_copyback": true,
+    "no_export": true,
+    "no_promotion": true,
+    "no_browser_activation": true,
+    "no_final_readiness_claim": true,
+    "no_positive_asl_correctness_claim": true,
+    "no_broad_label_work": true,
+    "no_pretrained_detector_landmark_backbone_embedding_pseudolabel_or_generated_label_dependency": true,
+    "no_source_register_approval_change": true,
+    "no_manifest_mutation": true,
+    "no_tensor_mutation": true,
+    "no_vocabulary_expansion": true,
+    "no_model_card_promotion": true,
+    "no_threshold_promotion": true,
+    "no_final_gate_weakening": true,
+    "no_raw_learner_video_upload": true,
+    "no_push": true,
+    "no_amend": true,
+    "no_no_verify": true,
+    "no_duplicate_worker": true,
+    "no_worker_delete_or_reset": true,
+    "no_unapproved_media_import": true
+  },
+  "artifacts_created_by_training": [],
+  "conclusion": "The local source guard now explicitly accepts the intended M3DQ high-signal region-grid true-TCN dry-run output directory while preserving the old M3AW capped and M3DM full-split contracts. The active prompt's M3AW dry-run command was corrected to use the parser-supported final checkpoint selection. M3AW, M3DM, and M3DQ local dry-runs all pass with pretrained_components empty and no Brev, training, evaluation, copyback, promotion, export, browser activation, final-gate, or source/data mutation.",
+  "exactly_one_next_action": "request_brev_smoke_approval_after_m3dq_output_guard_fix"
+}

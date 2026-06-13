@@ -1,0 +1,134 @@
+{
+  "schema_version": "asl-pilot-controlled-pilot-remediation-queue-api-smoke/v1",
+  "status": "passed",
+  "evidence_mode": "operator_api_smoke",
+  "finality": "queue_ready_not_training_data",
+  "tested_at": "2026-05-25T16:54:25.029Z",
+  "runner": {
+    "tool": "node-fetch",
+    "app_url": "http://127.0.0.1:52447",
+    "command": [
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/Users/kelly/Developer/asl-pilot/scripts/run_controlled_pilot_queue_api_smoke.mjs",
+      "--write"
+    ],
+    "script": {
+      "path": "scripts/run_controlled_pilot_queue_api_smoke.mjs",
+      "exists": true,
+      "sha256": "6c42dfcf0c723b221c8b5b06ab2fca1ff5e4441c6ab5bdfd5266c768f98ffff2"
+    }
+  },
+  "inputs": {
+    "collection_plan": {
+      "path": "data/dataset/collection-plan.json",
+      "exists": true,
+      "sha256": "4ce4ad70954ade1d5f7f49a003696ee37e3a3013dcb9f09fd1f9a37af870feb5"
+    },
+    "active_collection_queue": {
+      "path": "data/dataset/canonical-verifier-010-collection-queue.json",
+      "exists": true,
+      "sha256": "f522c8638301aafe5da1b8d1fe153fca9da1813eacd016fa6944c143959501bb"
+    },
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "exists": true,
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a"
+    }
+  },
+  "runtime_env": {
+    "ENABLE_DATASET_COLLECTION": "true",
+    "NEXT_PUBLIC_ENABLE_DATASET_COLLECTION": "true",
+    "ASL_PILOT_STORE_PATH": "output/controlled-pilot-remediation-queue-api-smoke/store.json",
+    "ASL_PILOT_DATASET_CLIP_ROOT": "output/controlled-pilot-remediation-queue-api-smoke/clips",
+    "ASL_PILOT_COLLECTION_PLAN_PATH": "unset: default real collection plan",
+    "ASL_PILOT_REMEDIATION_QUEUE_PATH": "unset: default active canonical queue candidate",
+    "ASL_PILOT_AUTH_PROVIDER": "local"
+  },
+  "collection_api": {
+    "authenticated_plan_request": true,
+    "loaded_real_collection_plan": true,
+    "loaded_active_collection_queue": true,
+    "loaded_focused_remediation_queue": false,
+    "first_queue_row_matches_plan": true,
+    "checks": {
+      "register_status": 200,
+      "plan_status": 200,
+      "plan_assignment_count": 1500,
+      "plan_negative_challenge_assignment_count": 85,
+      "queue_status": "queue_ready_not_training_data",
+      "queue_assignment_count": 235,
+      "queue_priority_label_count": 10,
+      "first_queue_assignment_key": "vocabulary:1056",
+      "first_queue_label_id": "book",
+      "first_queue_priority_bucket": "canonical_verifier_vocabulary",
+      "first_queue_matches_plan": true
+    },
+    "first_queue_row": {
+      "queue_index": 1,
+      "assignment_key": "vocabulary:1056",
+      "assignment_type": "vocabulary_capture",
+      "priority_bucket": "canonical_verifier_vocabulary",
+      "priority_score": 999,
+      "split": "test",
+      "signer_alias": "signer-001",
+      "label_id": "book",
+      "display_text": "Book",
+      "challenge_type": null,
+      "expected_outcome": null
+    },
+    "first_plan_assignment": {
+      "split": "test",
+      "signer_alias": "signer-001",
+      "label_id": "book",
+      "display_text": "Book",
+      "capture_count_for_label_split": 2
+    }
+  },
+  "final_evidence_exclusion": {
+    "excluded_from_model_completion": true,
+    "reason": "This smoke verifies operator collection routing only. It does not collect clips, approve sources, export manifests, train weights, or promote a browser model."
+  },
+  "evidence": {
+    "source_files": [
+      {
+        "path": "scripts/run_controlled_pilot_queue_api_smoke.mjs",
+        "exists": true,
+        "sha256": "6c42dfcf0c723b221c8b5b06ab2fca1ff5e4441c6ab5bdfd5266c768f98ffff2"
+      },
+      {
+        "path": "web/src/app/api/dataset/plan/route.ts",
+        "exists": true,
+        "sha256": "f3c0e42ae595228e09b7d722a7e4e1d9416c2d174a7137c3e1ec2a90d61405c2"
+      },
+      {
+        "path": "web/src/components/DatasetCollectionPanel.tsx",
+        "exists": true,
+        "sha256": "83d89a6b1c4054e47d1b937ac81ff36ed51bbc62a7117628e0db93f95210125a"
+      },
+      {
+        "path": "scripts/audit_collection_plan_contract.mjs",
+        "exists": true,
+        "sha256": "9c2cdc59bd2fdb63d3ffee38d7c7598869762f6f3cd9dc9ddad1eeafd2770a6c"
+      }
+    ]
+  },
+  "server": {
+    "mode": "next_start",
+    "build_id_sha256": "072fcd943d54ffd4b72f38351fc802aeb88d72d7e8cf553c2f1492f119eb2630",
+    "stdout_tail": [
+      "> web@0.1.0 start",
+      "> next start --hostname 127.0.0.1 --port 52447",
+      "",
+      "▲ Next.js 16.2.6",
+      "- Local:         http://127.0.0.1:52447",
+      "- Network:       http://127.0.0.1:52447",
+      "✓ Ready in 131ms"
+    ],
+    "stderr_tail": [
+      ""
+    ]
+  },
+  "output": "docs/validation/controlled-pilot-remediation-queue-api-smoke.json",
+  "blockers": []
+}

@@ -1,0 +1,412 @@
+{
+  "schema_version": "asl-pilot-detector0-region-hand-landmark-target-contract/v1",
+  "contract_id": "return-to-form-detector0-region-hand-landmark-target-contract-v1",
+  "created_at": "2026-05-30T16:40:00Z",
+  "mission": "M3IR - Detector 0 landmark contract or card integration",
+  "active_prompt": "docs/model/return-to-form-m3ir-detector0-landmark-contract-or-card-integration-goal-loop-prompt.md",
+  "status": "contract_with_current_measured_side_worktree_state_fail_closed_no_runtime_artifact",
+  "purpose": "Define the future Detector 0 target contract for four coarse regions plus 21 hand landmarks per hand, without promoting or activating any detector artifact.",
+  "offline_label_provenance_disclosure": "targets offline-derived via MediaPipe Holistic; runtime uses only our scratch-trained model and is not a runtime dependency.",
+  "runtime_boundary": {
+    "contract_is_runtime_authority": false,
+    "browser_artifact_created": false,
+    "model_card_promotion_state_changed": false,
+    "recognition_or_avatar_gate_changed": false,
+    "raw_learner_video_upload_allowed": false,
+    "future_runtime_must_use_project_scratch_model_only": true
+  },
+  "source_evidence": {
+    "m3iq_policy_decision": {
+      "path": "DECISIONS.md",
+      "sha256": "82f9e70f4f84c4523d0a92d41f9cfeb93e9bcf505673eb7191aa302cc91ac72d"
+    },
+    "m3iq_receipt": {
+      "path": "docs/validation/return-to-form-m3iq-detector0-landmark-integration-v1.json",
+      "sha256": "61fbb09aa4ac2092ce254faeded8e8f72a1db6786caaa9081e51f4d638bd214e"
+    },
+    "m3iq_session_log": {
+      "path": "docs/session-logs/809-mission-3iq-detector0-offline-label-policy-decision-record.md",
+      "sha256": "39578a550d5fb96347731d0f7f18899ffa6581bc913bbaaad8da02c2d2a933f0"
+    },
+    "supervisor_side_worktree": {
+      "path": "/Users/kelly/Developer/asl-pilot-annotator",
+      "branch": "annotator-tool",
+      "head": "ef6e3aa detector0: bigger-data landmark retrain closes right-hand gap (HAND PCK 0.645->0.759)",
+      "read_only": true,
+      "dirty_paths_observed_but_not_consumed_as_contract_inputs": [
+        "tools/detector0-annotator/output/demo/demo_00_TV.png",
+        "tools/detector0-annotator/output/demo/demo_01_after.png",
+        "tools/detector0-annotator/output/demo/demo_results.json",
+        ".labelvenv/",
+        "data/external/popsign-v1",
+        "tools/detector0-annotator/.cache-eval/"
+      ]
+    },
+    "supervisor_files": [
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-grid-big2.json",
+        "sha256": "c14d73898a2995fbabd16609db7daa96a78be69dcfd23b17dbf19c7ad0754222",
+        "role": "current measured scratch coarse-region detector receipt"
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-grid-big2.pt",
+        "sha256": "78df64b4fe86026c75d00433aa2da34424bc35aa8331304a2222dfd932968194",
+        "role": "current scratch coarse-region detector checkpoint in side worktree; not copied, exported, promoted, or browser activated"
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-hand-landmarks-big2.json",
+        "sha256": "4ae54395a98769004d999a7248286d4f9a3f850cdaefbc38c015b438c37aeb4f",
+        "role": "current measured scratch hand-landmark receipt"
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-hand-landmarks-big2.pt",
+        "sha256": "a536631f4524f5a724f5547414862a8fc70a440b587c266f6850173bc990bd36",
+        "role": "current scratch hand-landmark checkpoint in side worktree; not copied, exported, promoted, or browser activated"
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-spec-eval.json",
+        "sha256": "66810d0e1c21b832a22ec1f20a0f38fd66e5abdaa11f5929a721513ba65077d9",
+        "role": "held-out region recall reference for head_or_face and upper_body_or_signing_space spec-fit context"
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-grid-final.json",
+        "sha256": "4f0230ebc071fa09b8e618a379a95835c74b35719679d67af1f0626deb008cb1",
+        "role": "prior coarse-region receipt retained for historical comparison"
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/research/detector0-trained-evidence.md",
+        "sha256": "34bc2ade24badd1ddfeb79f0377b88b40b1853052b189c268bf2e675a89d47ef",
+        "role": "earlier coarse-region evidence summary; current measured state is the big2 receipt above"
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/research/detector0-landmark-results.md",
+        "sha256": "be8faa81b53eb53e815e268caede1bf98e00d13950a323a8938ae8d5dda96f82",
+        "role": "earlier landmark evidence summary; current measured state is the big2 receipt above"
+      }
+    ]
+  },
+  "contract_scope": {
+    "includes": [
+      "four coarse region targets",
+      "21 hand landmarks for left_or_first_hand",
+      "21 hand landmarks for right_or_second_hand",
+      "coordinate-space and mapping rules",
+      "future validation and promotion prerequisites"
+    ],
+    "excludes": [
+      "runtime TypeScript interface mutation",
+      "model-card promotion",
+      "browser bundle creation",
+      "ONNX export",
+      "training or evaluation execution",
+      "side-worktree mutation",
+      "source/media authority changes"
+    ]
+  },
+  "coordinate_spaces": {
+    "coarse_region_box_space": {
+      "id": "normalized_full_frame_top_left_xyxy",
+      "definition": "[x1, y1, x2, y2] normalized to the source full frame with top-left origin; not display-mirrored UI coordinates.",
+      "aliases_observed": [
+        "normalized_full_frame_xyxy_top_left_origin"
+      ],
+      "canonical_for_project": true
+    },
+    "hand_landmark_space": {
+      "id": "normalized_expanded_signing_space_crop_top_left_xy",
+      "definition": "21 (x, y) points normalized to the expanded signing-space crop used by the hand-landmark stage.",
+      "requires_crop_box_xyxy_norm": true,
+      "crop_box_space": "normalized_full_frame_top_left_xyxy",
+      "full_frame_mapping": {
+        "x": "crop_box_xyxy_norm[0] + landmark_xy_norm_in_crop[0] * (crop_box_xyxy_norm[2] - crop_box_xyxy_norm[0])",
+        "y": "crop_box_xyxy_norm[1] + landmark_xy_norm_in_crop[1] * (crop_box_xyxy_norm[3] - crop_box_xyxy_norm[1])"
+      }
+    }
+  },
+  "coarse_region_targets": [
+    {
+      "target_id": "left_or_first_hand",
+      "kind": "region_box",
+      "required_fields": [
+        "presence",
+        "center_xy_norm",
+        "box_xyxy_norm",
+        "visibility_confidence",
+        "occlusion_flag",
+        "truncation_flag",
+        "coordinate_space"
+      ],
+      "future_runtime_role": "crop and landmark-stage support only; not ASL correctness authority"
+    },
+    {
+      "target_id": "right_or_second_hand",
+      "kind": "region_box",
+      "required_fields": [
+        "presence",
+        "center_xy_norm",
+        "box_xyxy_norm",
+        "visibility_confidence",
+        "occlusion_flag",
+        "truncation_flag",
+        "coordinate_space"
+      ],
+      "future_runtime_role": "crop and landmark-stage support only; not ASL correctness authority"
+    },
+    {
+      "target_id": "head_or_face",
+      "kind": "region_box",
+      "required_fields": [
+        "presence",
+        "center_xy_norm",
+        "box_xyxy_norm",
+        "visibility_confidence",
+        "occlusion_flag",
+        "truncation_flag",
+        "coordinate_space"
+      ],
+      "future_runtime_role": "context/crop support only; not identity, emotion, face-recognition, or ASL correctness authority"
+    },
+    {
+      "target_id": "upper_body_or_signing_space",
+      "kind": "region_box",
+      "required_fields": [
+        "presence",
+        "center_xy_norm",
+        "box_xyxy_norm",
+        "visibility_confidence",
+        "occlusion_flag",
+        "truncation_flag",
+        "coordinate_space"
+      ],
+      "future_runtime_role": "signing-space crop support for downstream hand-landmark and recognizer stages; not pass/fail authority"
+    }
+  ],
+  "hand_landmark_targets": {
+    "applies_to_region_targets": [
+      "left_or_first_hand",
+      "right_or_second_hand"
+    ],
+    "landmark_count_per_hand": 21,
+    "required_fields_per_hand": [
+      "presence",
+      "crop_box_xyxy_norm",
+      "landmark_xy_norm_in_crop",
+      "landmark_xy_norm_full_frame",
+      "visibility_confidence",
+      "coordinate_space",
+      "landmark_order"
+    ],
+    "landmark_order": [
+      "wrist",
+      "thumb_cmc",
+      "thumb_mcp",
+      "thumb_ip",
+      "thumb_tip",
+      "index_finger_mcp",
+      "index_finger_pip",
+      "index_finger_dip",
+      "index_finger_tip",
+      "middle_finger_mcp",
+      "middle_finger_pip",
+      "middle_finger_dip",
+      "middle_finger_tip",
+      "ring_finger_mcp",
+      "ring_finger_pip",
+      "ring_finger_dip",
+      "ring_finger_tip",
+      "pinky_mcp",
+      "pinky_pip",
+      "pinky_dip",
+      "pinky_tip"
+    ],
+    "recognizer_facing_role": "handshape and hand-position sequence signal for future isolated-sign recognizer planning",
+    "not_allowed_roles": [
+      "standalone ASL correctness claim",
+      "identity or biometric inference",
+      "browser activation without promotion receipt",
+      "replacement for source-rights or label-provenance review"
+    ]
+  },
+  "diagnostic_evidence_snapshot": {
+    "status": "measured_in_supervisor_side_worktree_not_integrated_or_promoted",
+    "measured_at": "2026-05-30T18:25:13Z",
+    "side_worktree": {
+      "path": "/Users/kelly/Developer/asl-pilot-annotator",
+      "branch": "annotator-tool",
+      "head": "ef6e3aa detector0: bigger-data landmark retrain closes right-hand gap (HAND PCK 0.645->0.759)",
+      "read_only": true,
+      "dirty_paths_observed_but_not_consumed_as_contract_inputs": [
+        "tools/detector0-annotator/output/demo/demo_00_TV.png",
+        "tools/detector0-annotator/output/demo/demo_01_after.png",
+        "tools/detector0-annotator/output/demo/demo_results.json",
+        ".labelvenv/",
+        "data/external/popsign-v1",
+        "tools/detector0-annotator/.cache-eval/"
+      ]
+    },
+    "provenance_disclosure": "targets offline-derived via MediaPipe Holistic; runtime uses only our scratch-trained model and is not a runtime dependency.",
+    "data_scope": {
+      "clips": 4560,
+      "frames": 27286,
+      "clips_missing": 0,
+      "no_pose_frames": 74,
+      "coarse_region_input_px": 96,
+      "hand_landmark_crop_px": 128,
+      "present_counts": {
+        "left_or_first_hand": 7874,
+        "right_or_second_hand": 3088,
+        "head_or_face": 27228,
+        "upper_body_or_signing_space": 27286
+      }
+    },
+    "coarse_region_detector": {
+      "receipt": {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-grid-big2.json",
+        "sha256": "c14d73898a2995fbabd16609db7daa96a78be69dcfd23b17dbf19c7ad0754222",
+        "role": "current measured scratch coarse-region detector receipt"
+      },
+      "checkpoint": {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-grid-big2.pt",
+        "sha256": "78df64b4fe86026c75d00433aa2da34424bc35aa8331304a2222dfd932968194",
+        "role": "current scratch coarse-region detector checkpoint in side worktree; not copied, exported, promoted, or browser activated"
+      },
+      "architecture": {
+        "head": "spatial_grid",
+        "grid": 12,
+        "image_px": 96,
+        "epochs": 140,
+        "device": "mps"
+      },
+      "validation": {
+        "mean_hand_iou": 0.5658,
+        "mean_hand_fixed_iou": 0.2646,
+        "per_target": {
+          "left_or_first_hand": {
+            "learned_iou": 0.5794,
+            "fixed_iou": 0.266,
+            "n_present": 2796
+          },
+          "right_or_second_hand": {
+            "learned_iou": 0.5523,
+            "fixed_iou": 0.2633,
+            "n_present": 613
+          },
+          "head_or_face": {
+            "learned_iou": 0.8405,
+            "fixed_iou": 0.4513,
+            "n_present": 9089
+          },
+          "upper_body_or_signing_space": {
+            "learned_iou": 0.8536,
+            "fixed_iou": 0.804,
+            "n_present": 9116
+          }
+        }
+      },
+      "test": {
+        "mean_hand_iou": 0.5739,
+        "mean_hand_fixed_iou": 0.2396,
+        "per_target": {
+          "left_or_first_hand": {
+            "learned_iou": 0.5884,
+            "fixed_iou": 0.2438,
+            "n_present": 2626
+          },
+          "right_or_second_hand": {
+            "learned_iou": 0.5593,
+            "fixed_iou": 0.2354,
+            "n_present": 1280
+          },
+          "head_or_face": {
+            "learned_iou": 0.8437,
+            "fixed_iou": 0.4849,
+            "n_present": 9088
+          },
+          "upper_body_or_signing_space": {
+            "learned_iou": 0.8791,
+            "fixed_iou": 0.8507,
+            "n_present": 9110
+          }
+        }
+      },
+      "supervisor_asserted_spec_context": {
+        "source": "GOAL.md supervisor consolidation directive at commit a3a432d",
+        "head_or_face_and_signing_space_recall_at_spec": true,
+        "hash_cited_recall_reference": {
+          "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-spec-eval.json",
+          "sha256": "66810d0e1c21b832a22ec1f20a0f38fd66e5abdaa11f5929a721513ba65077d9",
+          "role": "held-out region recall reference for head_or_face and upper_body_or_signing_space spec-fit context"
+        },
+        "note": "The current big2 receipt records IoU metrics; the retained spec-eval reference records the earlier head/signing-space recall proof. This consolidation does not create a new evaluator run."
+      }
+    },
+    "hand_landmark_model": {
+      "receipt": {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-hand-landmarks-big2.json",
+        "sha256": "4ae54395a98769004d999a7248286d4f9a3f850cdaefbc38c015b438c37aeb4f",
+        "role": "current measured scratch hand-landmark receipt"
+      },
+      "checkpoint": {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-hand-landmarks-big2.pt",
+        "sha256": "a536631f4524f5a724f5547414862a8fc70a440b587c266f6850173bc990bd36",
+        "role": "current scratch hand-landmark checkpoint in side worktree; not copied, exported, promoted, or browser activated"
+      },
+      "architecture": {
+        "schema_version": "asl-pilot-detector0-hand-landmarks-heatmap/v1",
+        "epochs": 200,
+        "device": "mps"
+      },
+      "test": {
+        "left_or_first_hand": {
+          "n": 2975,
+          "pck_at_0_10": 0.7839,
+          "mean_keypoint_error_crop_width": 0.0836,
+          "derived_box_iou": 0.4564
+        },
+        "right_or_second_hand": {
+          "n": 1430,
+          "pck_at_0_10": 0.7347,
+          "mean_keypoint_error_crop_width": 0.0937,
+          "derived_box_iou": 0.446
+        },
+        "hand_pck_at_0_10": 0.7593
+      }
+    },
+    "integration_boundary": {
+      "checkpoints_copied_into_loop_repo": false,
+      "browser_artifact_created": false,
+      "onnx_export_created": false,
+      "model_card_promotion_state_changed": false,
+      "detector0_tracking_enabled": false,
+      "recognizer_or_asl_correctness_authority": false,
+      "packet_or_label_sidecar_materialized": false,
+      "final_gate_changed": false
+    }
+  },
+  "future_validation_prerequisites": [
+    "source-rights receipt explicitly allowing any derived labels for each source used",
+    "held-out split accounting for region boxes and hand landmarks",
+    "manual or human-reviewed landmark evaluation where available",
+    "PCK and mean keypoint error by hand, split, visibility, occlusion, and signer group",
+    "region recall@IoU0.30 and recall@IoU0.50 by target and split",
+    "false no-hand and false trigger accounting on no-hand, empty-camera, low-light, off-center, and non-target signing rows",
+    "browser runtime latency and parity receipt only after a scratch artifact exists",
+    "claim-surface proof that Detector 0 remains fail-closed until explicit promotion"
+  ],
+  "current_project_claim_surfaces": {
+    "web/public/model/detector0-card.json": {
+      "sha256_before_m3iy_measured_state_consolidation": "71cd26006db1f419b03f723c6ae82872486f356211425964df569539a8efc618",
+      "sha256_after_m3iy_measured_state_consolidation": "recorded_in_m3iy_validation_receipt_to_avoid_cyclic_hash_reference",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null,
+      "changed_by_this_contract": true
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "active_labels": [],
+      "changed_by_this_contract": false
+    }
+  },
+  "next_action": "stop_for_supervisor_next_artifact"
+}

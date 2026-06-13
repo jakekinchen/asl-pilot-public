@@ -1,0 +1,1673 @@
+{
+  "blocker_classification": {
+    "confidence": "medium",
+    "evidence": [
+      "M3AE-J train sanity passed with train_top1=1.0 and train_macro_recall=1.0.",
+      "M3AE-J validation remained near chance at top1=0.216 with zero recall labels=['grandpa'].",
+      "M3AE-J test remained weak at top1=0.2736842105263158 with zero recall labels=['table'].",
+      "No clip_id, source_record_id, signer_identity_hash, or tensor_path overlap exists between train and validation/test.",
+      "All splits share the same coarse approved source_id, but preserve PopSign source_split boundaries.",
+      "The crop-identity-preserving M3AE-J path consumed rgb_regions directly and did not use rgb_frames or pretrained features."
+    ],
+    "id": "source_signer_distribution_gap",
+    "most_likely_blocker": "source/signer distribution under the current PopSign-only preserved splits",
+    "next_action_id": "source_distribution_remediation",
+    "ruled_down": {
+      "input_adapter_remediation": "The current failed smoke used the crop-identity-preserving M3AE-I adapter and preserved rgb_regions.",
+      "label_set_remediation": "Label fragility is visible, but zero-recall labels rotate across validation and test rather than isolating one unusable label.",
+      "split_manifest_remediation": "No concrete clip/source-record/signer/tensor overlap was found; the manifest is not leaking train examples.",
+      "stop_reduced_claim": "One bounded source-distribution remediation remains identifiable before a product-claim stop decision."
+    }
+  },
+  "boundaries": {
+    "brev_stop": false,
+    "controlled_clip_heldout_evaluation": false,
+    "duplicate_brev_worker": false,
+    "final_gate_weakening": false,
+    "final_readiness_claim": false,
+    "label_expansion": false,
+    "microprobe_runs_run": 0,
+    "model_card_promotion": false,
+    "onnx_export": false,
+    "push": false,
+    "smoke_jobs_run": 0,
+    "source_approval": false,
+    "training_jobs_run": 0,
+    "unapproved_media_import": false
+  },
+  "command": "/Users/kelly/Developer/asl-pilot/.venv/bin/python scripts/audit_return_to_form_tier0_label_split_remediation.py",
+  "crop_and_input_observations": {
+    "crop_config": {
+      "path": "docs/model/return-to-form-fixed-crop-config.json",
+      "sha256": "dbc735dad34fa9df1174a40374037976f9c88d789012634b2b22743ae0802b29"
+    },
+    "existing_crop_limitations": [
+      "This protocol assumes a centered signer with visible upper body and hands in PopSign game videos.",
+      "It is not robust to off-center webcam capture, seated/standing framing changes, or camera crops that remove the head/upper torso.",
+      "It does not solve final-promotion negative-challenge coverage.",
+      "If M3AD contact sheets show systematic hand/head truncation, adjust this config and re-run M3AD before any training.",
+      "If M3AE fails mainly on dad/grandpa/hat confusion, treat it as a crop/label-set remediation signal rather than permission to expand labels."
+    ],
+    "head_region_stress_labels": [
+      "dad",
+      "grandpa",
+      "hat"
+    ],
+    "m3ae_h_contact_sheet_observation": "The retained M3AE-H triage reported no concrete crop cut-off in sampled contact sheets.",
+    "m3ae_j_crop_identity_preservation": {
+      "derived_from_m3ae_i": {
+        "path": "docs/validation/return-to-form-tier0-model-architecture-microprobe.json",
+        "sha256": "a527dd447753016d24f225b3b6c4556542c80fab381aa69350fb373e67d89a00"
+      },
+      "does_not_use": [
+        "rgb_regions_grid_v1",
+        "rgb_frames compatibility tensor",
+        "pretrained features"
+      ],
+      "method": "Load rgb_regions directly as T,R,H,W,C, keep R as an explicit crop stream, resize each crop independently to the feature spatial size, fit train normalization, then flatten ordered T,R,C,H,W tensors for a random-init classifier.",
+      "preserved": true
+    },
+    "region_ids": [
+      "viewer_left_hand_context",
+      "viewer_right_hand_context",
+      "upper_body_signing_space",
+      "head_context",
+      "full_frame_reference"
+    ]
+  },
+  "generated_at": "2026-05-25T22:32:40+00:00",
+  "hard_negative_and_calibration_blockers": {
+    "assessed_in_this_slice": false,
+    "final_promotion_negative_challenge_blocker": "unchanged and separate; this diagnostic does not select thresholds, evaluate hard negatives, export ONNX, promote a model card, or alter final gates",
+    "source": {
+      "assessed_in_this_smoke": false,
+      "calibration_blocker": "unchanged; no threshold selection, ONNX export, or model promotion authorized",
+      "final_promotion_negative_challenge_blocker": "unchanged and separate from this smoke"
+    },
+    "status": "separate_not_addressed"
+  },
+  "m3ae_j_failure_evidence": {
+    "baseline_comparison": {
+      "m3ae_g_train_macro_recall": 0.312,
+      "m3ae_g_train_top1": 0.312,
+      "m3ae_g_validation_macro_recall": 0.22400000000000003,
+      "m3ae_g_validation_top1": 0.224,
+      "m3ae_i_tiny_train_macro_recall": 1.0,
+      "m3ae_i_tiny_train_top1": 1.0,
+      "random_top1_chance": 0.2,
+      "smoke_test_macro_recall": 0.27368421052631575,
+      "smoke_test_top1": 0.2736842105263158,
+      "smoke_train_macro_recall": 1.0,
+      "smoke_train_top1": 1.0,
+      "smoke_validation_macro_recall": 0.21600000000000003,
+      "smoke_validation_top1": 0.216
+    },
+    "command": "/Users/kelly/Developer/asl-pilot/.venv/bin/python scripts/run_return_to_form_tier0_microprobe_config_smoke.py",
+    "gate_classifications": {
+      "no_zero_accepted_true_class": {
+        "reason": "No acceptance threshold is selected in this smoke.",
+        "status": "blocked_not_assessed"
+      },
+      "tier0_hard_negative_far": {
+        "reason": "No calibrated threshold or reviewed Tier 0 reject set is evaluated in this smoke.",
+        "status": "blocked_not_assessed"
+      },
+      "tier0_train_sanity": {
+        "actual": {
+          "loss_drop_fraction_from_initial_to_best": 0.9998795650976163,
+          "train_macro_recall": 1.0,
+          "train_top1": 1.0,
+          "zero_recall_labels": []
+        },
+        "status": "passed",
+        "targets": {
+          "loss_drop_min_fraction_from_initial_to_best": 0.4,
+          "train_macro_recall_min": 0.8,
+          "train_top1_min": 0.8
+        }
+      },
+      "tier0_validation_signal": {
+        "actual": {
+          "validation_macro_recall": 0.21600000000000003,
+          "validation_top1": 0.216,
+          "zero_recall_labels": [
+            "grandpa"
+          ]
+        },
+        "status": "failed",
+        "targets": {
+          "test_macro_recall_report_only": true,
+          "test_top1_report_only": true,
+          "validation_macro_recall_min": 0.5,
+          "validation_top1_min": 0.6
+        }
+      }
+    },
+    "m3ae_j_selected_remediation_input": "label_or_split_remediation",
+    "model": {
+      "base_model_id": "region_identity_mlp_v1",
+      "description": "Random-init MLP over full-split downsampled per-region tensors. The region axis is kept explicit before flattening; no rgb_regions_grid_v1 mosaic is used.",
+      "model_id": "region_identity_mlp_v1_full_split_smoke",
+      "parameter_count": 17697797,
+      "pretrained_components": [],
+      "random_initialization": true
+    },
+    "source_report": {
+      "path": "docs/validation/return-to-form-tier0-microprobe-config-smoke.json",
+      "sha256": "f83977b53910dbb51e71e6175048565b1643ac9699ad89f24ee2c989e3df98f4"
+    }
+  },
+  "m3ae_j_per_label_confusion_summary": {
+    "test": {
+      "confusion_matrix_labels": [
+        "dad",
+        "grandpa",
+        "hat",
+        "please",
+        "table"
+      ],
+      "examples": 95,
+      "loss": 50.879825592041016,
+      "macro_f1": 0.2510822510822511,
+      "macro_recall": 0.27368421052631575,
+      "per_label": {
+        "dad": {
+          "confusions": [
+            {
+              "count": 9,
+              "fraction_of_true_label": 0.47368421052631576,
+              "predicted_label": "dad"
+            },
+            {
+              "count": 8,
+              "fraction_of_true_label": 0.42105263157894735,
+              "predicted_label": "grandpa"
+            },
+            {
+              "count": 2,
+              "fraction_of_true_label": 0.10526315789473684,
+              "predicted_label": "hat"
+            }
+          ],
+          "dominant_wrong_predictions": [
+            {
+              "count": 8,
+              "fraction_of_true_label": 0.42105263157894735,
+              "predicted_label": "grandpa"
+            },
+            {
+              "count": 2,
+              "fraction_of_true_label": 0.10526315789473684,
+              "predicted_label": "hat"
+            }
+          ],
+          "f1": 0.2727272727272727,
+          "precision": 0.19148936170212766,
+          "recall": 0.47368421052631576,
+          "support": 19,
+          "true_positive": 9
+        },
+        "grandpa": {
+          "confusions": [
+            {
+              "count": 11,
+              "fraction_of_true_label": 0.5789473684210527,
+              "predicted_label": "dad"
+            },
+            {
+              "count": 8,
+              "fraction_of_true_label": 0.42105263157894735,
+              "predicted_label": "grandpa"
+            }
+          ],
+          "dominant_wrong_predictions": [
+            {
+              "count": 11,
+              "fraction_of_true_label": 0.5789473684210527,
+              "predicted_label": "dad"
+            }
+          ],
+          "f1": 0.3636363636363636,
+          "precision": 0.32,
+          "recall": 0.42105263157894735,
+          "support": 19,
+          "true_positive": 8
+        },
+        "hat": {
+          "confusions": [
+            {
+              "count": 7,
+              "fraction_of_true_label": 0.3684210526315789,
+              "predicted_label": "dad"
+            },
+            {
+              "count": 5,
+              "fraction_of_true_label": 0.2631578947368421,
+              "predicted_label": "grandpa"
+            },
+            {
+              "count": 5,
+              "fraction_of_true_label": 0.2631578947368421,
+              "predicted_label": "hat"
+            },
+            {
+              "count": 2,
+              "fraction_of_true_label": 0.10526315789473684,
+              "predicted_label": "please"
+            }
+          ],
+          "dominant_wrong_predictions": [
+            {
+              "count": 7,
+              "fraction_of_true_label": 0.3684210526315789,
+              "predicted_label": "dad"
+            },
+            {
+              "count": 5,
+              "fraction_of_true_label": 0.2631578947368421,
+              "predicted_label": "grandpa"
+            },
+            {
+              "count": 2,
+              "fraction_of_true_label": 0.10526315789473684,
+              "predicted_label": "please"
+            }
+          ],
+          "f1": 0.3333333333333333,
+          "precision": 0.45454545454545453,
+          "recall": 0.2631578947368421,
+          "support": 19,
+          "true_positive": 5
+        },
+        "please": {
+          "confusions": [
+            {
+              "count": 7,
+              "fraction_of_true_label": 0.3684210526315789,
+              "predicted_label": "dad"
+            },
+            {
+              "count": 4,
+              "fraction_of_true_label": 0.21052631578947367,
+              "predicted_label": "grandpa"
+            },
+            {
+              "count": 4,
+              "fraction_of_true_label": 0.21052631578947367,
+              "predicted_label": "please"
+            },
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.15789473684210525,
+              "predicted_label": "table"
+            },
+            {
+              "count": 1,
+              "fraction_of_true_label": 0.05263157894736842,
+              "predicted_label": "hat"
+            }
+          ],
+          "dominant_wrong_predictions": [
+            {
+              "count": 7,
+              "fraction_of_true_label": 0.3684210526315789,
+              "predicted_label": "dad"
+            },
+            {
+              "count": 4,
+              "fraction_of_true_label": 0.21052631578947367,
+              "predicted_label": "grandpa"
+            },
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.15789473684210525,
+              "predicted_label": "table"
+            }
+          ],
+          "f1": 0.2857142857142857,
+          "precision": 0.4444444444444444,
+          "recall": 0.21052631578947367,
+          "support": 19,
+          "true_positive": 4
+        },
+        "table": {
+          "confusions": [
+            {
+              "count": 13,
+              "fraction_of_true_label": 0.6842105263157895,
+              "predicted_label": "dad"
+            },
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.15789473684210525,
+              "predicted_label": "hat"
+            },
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.15789473684210525,
+              "predicted_label": "please"
+            }
+          ],
+          "dominant_wrong_predictions": [
+            {
+              "count": 13,
+              "fraction_of_true_label": 0.6842105263157895,
+              "predicted_label": "dad"
+            },
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.15789473684210525,
+              "predicted_label": "hat"
+            },
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.15789473684210525,
+              "predicted_label": "please"
+            }
+          ],
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 19,
+          "true_positive": 0
+        }
+      },
+      "prediction_totals": {
+        "dad": 47,
+        "grandpa": 25,
+        "hat": 11,
+        "please": 9,
+        "table": 3
+      },
+      "top1_accuracy": 0.2736842105263158,
+      "zero_recall_labels": [
+        "table"
+      ]
+    },
+    "train": {
+      "confusion_matrix_labels": [
+        "dad",
+        "grandpa",
+        "hat",
+        "please",
+        "table"
+      ],
+      "examples": 125,
+      "loss": 0.0002005763672059402,
+      "macro_f1": 1.0,
+      "macro_recall": 1.0,
+      "per_label": {
+        "dad": {
+          "confusions": [
+            {
+              "count": 25,
+              "fraction_of_true_label": 1.0,
+              "predicted_label": "dad"
+            }
+          ],
+          "dominant_wrong_predictions": [],
+          "f1": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 25,
+          "true_positive": 25
+        },
+        "grandpa": {
+          "confusions": [
+            {
+              "count": 25,
+              "fraction_of_true_label": 1.0,
+              "predicted_label": "grandpa"
+            }
+          ],
+          "dominant_wrong_predictions": [],
+          "f1": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 25,
+          "true_positive": 25
+        },
+        "hat": {
+          "confusions": [
+            {
+              "count": 25,
+              "fraction_of_true_label": 1.0,
+              "predicted_label": "hat"
+            }
+          ],
+          "dominant_wrong_predictions": [],
+          "f1": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 25,
+          "true_positive": 25
+        },
+        "please": {
+          "confusions": [
+            {
+              "count": 25,
+              "fraction_of_true_label": 1.0,
+              "predicted_label": "please"
+            }
+          ],
+          "dominant_wrong_predictions": [],
+          "f1": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 25,
+          "true_positive": 25
+        },
+        "table": {
+          "confusions": [
+            {
+              "count": 25,
+              "fraction_of_true_label": 1.0,
+              "predicted_label": "table"
+            }
+          ],
+          "dominant_wrong_predictions": [],
+          "f1": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 25,
+          "true_positive": 25
+        }
+      },
+      "prediction_totals": {
+        "dad": 25,
+        "grandpa": 25,
+        "hat": 25,
+        "please": 25,
+        "table": 25
+      },
+      "top1_accuracy": 1.0,
+      "zero_recall_labels": []
+    },
+    "validation": {
+      "confusion_matrix_labels": [
+        "dad",
+        "grandpa",
+        "hat",
+        "please",
+        "table"
+      ],
+      "examples": 125,
+      "loss": 61.42903137207031,
+      "macro_f1": 0.1757145147713152,
+      "macro_recall": 0.21600000000000003,
+      "per_label": {
+        "dad": {
+          "confusions": [
+            {
+              "count": 16,
+              "fraction_of_true_label": 0.64,
+              "predicted_label": "dad"
+            },
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.12,
+              "predicted_label": "grandpa"
+            },
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.12,
+              "predicted_label": "hat"
+            },
+            {
+              "count": 2,
+              "fraction_of_true_label": 0.08,
+              "predicted_label": "please"
+            },
+            {
+              "count": 1,
+              "fraction_of_true_label": 0.04,
+              "predicted_label": "table"
+            }
+          ],
+          "dominant_wrong_predictions": [
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.12,
+              "predicted_label": "grandpa"
+            },
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.12,
+              "predicted_label": "hat"
+            },
+            {
+              "count": 2,
+              "fraction_of_true_label": 0.08,
+              "predicted_label": "please"
+            }
+          ],
+          "f1": 0.31683168316831684,
+          "precision": 0.21052631578947367,
+          "recall": 0.64,
+          "support": 25,
+          "true_positive": 16
+        },
+        "grandpa": {
+          "confusions": [
+            {
+              "count": 20,
+              "fraction_of_true_label": 0.8,
+              "predicted_label": "dad"
+            },
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.12,
+              "predicted_label": "table"
+            },
+            {
+              "count": 1,
+              "fraction_of_true_label": 0.04,
+              "predicted_label": "hat"
+            },
+            {
+              "count": 1,
+              "fraction_of_true_label": 0.04,
+              "predicted_label": "please"
+            }
+          ],
+          "dominant_wrong_predictions": [
+            {
+              "count": 20,
+              "fraction_of_true_label": 0.8,
+              "predicted_label": "dad"
+            },
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.12,
+              "predicted_label": "table"
+            },
+            {
+              "count": 1,
+              "fraction_of_true_label": 0.04,
+              "predicted_label": "hat"
+            }
+          ],
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25,
+          "true_positive": 0
+        },
+        "hat": {
+          "confusions": [
+            {
+              "count": 15,
+              "fraction_of_true_label": 0.6,
+              "predicted_label": "dad"
+            },
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.12,
+              "predicted_label": "hat"
+            },
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.12,
+              "predicted_label": "please"
+            },
+            {
+              "count": 2,
+              "fraction_of_true_label": 0.08,
+              "predicted_label": "grandpa"
+            },
+            {
+              "count": 2,
+              "fraction_of_true_label": 0.08,
+              "predicted_label": "table"
+            }
+          ],
+          "dominant_wrong_predictions": [
+            {
+              "count": 15,
+              "fraction_of_true_label": 0.6,
+              "predicted_label": "dad"
+            },
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.12,
+              "predicted_label": "please"
+            },
+            {
+              "count": 2,
+              "fraction_of_true_label": 0.08,
+              "predicted_label": "grandpa"
+            }
+          ],
+          "f1": 0.15789473684210525,
+          "precision": 0.23076923076923078,
+          "recall": 0.12,
+          "support": 25,
+          "true_positive": 3
+        },
+        "please": {
+          "confusions": [
+            {
+              "count": 12,
+              "fraction_of_true_label": 0.48,
+              "predicted_label": "dad"
+            },
+            {
+              "count": 5,
+              "fraction_of_true_label": 0.2,
+              "predicted_label": "please"
+            },
+            {
+              "count": 5,
+              "fraction_of_true_label": 0.2,
+              "predicted_label": "table"
+            },
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.12,
+              "predicted_label": "hat"
+            }
+          ],
+          "dominant_wrong_predictions": [
+            {
+              "count": 12,
+              "fraction_of_true_label": 0.48,
+              "predicted_label": "dad"
+            },
+            {
+              "count": 5,
+              "fraction_of_true_label": 0.2,
+              "predicted_label": "table"
+            },
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.12,
+              "predicted_label": "hat"
+            }
+          ],
+          "f1": 0.25,
+          "precision": 0.3333333333333333,
+          "recall": 0.2,
+          "support": 25,
+          "true_positive": 5
+        },
+        "table": {
+          "confusions": [
+            {
+              "count": 13,
+              "fraction_of_true_label": 0.52,
+              "predicted_label": "dad"
+            },
+            {
+              "count": 4,
+              "fraction_of_true_label": 0.16,
+              "predicted_label": "please"
+            },
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.12,
+              "predicted_label": "hat"
+            },
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.12,
+              "predicted_label": "table"
+            },
+            {
+              "count": 2,
+              "fraction_of_true_label": 0.08,
+              "predicted_label": "grandpa"
+            }
+          ],
+          "dominant_wrong_predictions": [
+            {
+              "count": 13,
+              "fraction_of_true_label": 0.52,
+              "predicted_label": "dad"
+            },
+            {
+              "count": 4,
+              "fraction_of_true_label": 0.16,
+              "predicted_label": "please"
+            },
+            {
+              "count": 3,
+              "fraction_of_true_label": 0.12,
+              "predicted_label": "hat"
+            }
+          ],
+          "f1": 0.15384615384615383,
+          "precision": 0.21428571428571427,
+          "recall": 0.12,
+          "support": 25,
+          "true_positive": 3
+        }
+      },
+      "prediction_totals": {
+        "dad": 76,
+        "grandpa": 7,
+        "hat": 13,
+        "please": 15,
+        "table": 14
+      },
+      "top1_accuracy": 0.216,
+      "zero_recall_labels": [
+        "grandpa"
+      ]
+    }
+  },
+  "mission": "M3AE-K",
+  "next_action": {
+    "description": "Remediate the Tier 0 source/signer distribution before any additional training: the current PopSign-preserved train split is learnable, but validation/test are signer-disjoint and still near random under the crop-identity-preserving configuration.",
+    "id": "source_distribution_remediation"
+  },
+  "output": "docs/validation/return-to-form-tier0-label-split-remediation.json",
+  "schema_version": "asl-pilot-return-to-form-tier0-label-split-remediation/v1",
+  "selected_labels": [
+    "dad",
+    "grandpa",
+    "hat",
+    "please",
+    "table"
+  ],
+  "source_artifacts": {
+    "api_strategy_memo": {
+      "path": "artifacts/research/observer-195-tier0-strategy-api-response.md",
+      "sha256": "7fcd771d7b3db62cf314c4163361b87b4351449cf8d56f5a4175bd1f6880865d"
+    },
+    "crop_config": {
+      "path": "docs/model/return-to-form-fixed-crop-config.json",
+      "sha256": "dbc735dad34fa9df1174a40374037976f9c88d789012634b2b22743ae0802b29"
+    },
+    "decode_dataloader": {
+      "path": "docs/validation/return-to-form-tier0-decode-dataloader.json",
+      "sha256": "d64c0b46500075d94207ef2197a6f6d8f1570cf548da8b08ca16dc520ba386c2"
+    },
+    "m3ae_f_tensor_contract": {
+      "path": "docs/validation/return-to-form-tier0-tensor-contract.json",
+      "sha256": "0f2ea12cf9a6517bafb67876ba4b0e4951ce821b61b27a740d45f6d1e36b3cd3"
+    },
+    "m3ae_g_baseline": {
+      "path": "docs/validation/return-to-form-tier0-learnability-smoke-rerun.json",
+      "sha256": "917fa9b5beb0415dc593e8e44bbdd9c2656659fff52251fe3c364464106bf6a1"
+    },
+    "m3ae_i_microprobe": {
+      "path": "docs/validation/return-to-form-tier0-model-architecture-microprobe.json",
+      "sha256": "a527dd447753016d24f225b3b6c4556542c80fab381aa69350fb373e67d89a00"
+    },
+    "m3ae_j_smoke": {
+      "path": "docs/validation/return-to-form-tier0-microprobe-config-smoke.json",
+      "sha256": "f83977b53910dbb51e71e6175048565b1643ac9699ad89f24ee2c989e3df98f4"
+    },
+    "pre_training_gates": {
+      "path": "docs/validation/return-to-form-tier0-gates.json",
+      "sha256": "2cc000d3f90e9be236cf64768530bf9786fc61fe6605c774b9c1e8ab123d9d97"
+    },
+    "source_coverage": {
+      "path": "docs/research/return-to-form-tier0-source-coverage.json",
+      "sha256": "1ff7da89a51e62f9efbeb08cf6361784e160ed862ac579f9e40db332fa576378"
+    },
+    "source_register": {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    "source_triage_report": {
+      "path": "docs/validation/return-to-form-tier0-failure-remediation-triage.json",
+      "sha256": "1e0e8e429af6d4dddb132fd1ee8355761dcc6845b2bfb28f87de0c508f19e091"
+    },
+    "test_manifest": {
+      "path": "data/manifests/return-to-form-tier0/test.json",
+      "sha256": "b0c771b612ebb52beb375a98b4180ccd465aa642312a8c6c29d7ff225febd8ed"
+    },
+    "train_manifest": {
+      "path": "data/manifests/return-to-form-tier0/train.json",
+      "sha256": "03ae563a5f2ef0d5b868f6c80f50acb64ae642e782cd541faa5c022d4d0af1de"
+    },
+    "validation_manifest": {
+      "path": "data/manifests/return-to-form-tier0/validation.json",
+      "sha256": "23da15a80ce2eee1dab1a7e64c08e2aefcf5d7dd48263677fdc49d1efb0ad808"
+    }
+  },
+  "source_signer_distribution": {
+    "aggregate_unique_signers_by_split": {
+      "test": 7,
+      "train": 28,
+      "validation": 8
+    },
+    "interpretation": "The Tier 0 manifests preserve PopSign train/validation/test boundaries with no signer identity overlap between train and validation/test. The model can memorize train, but validation/test evaluate signer- and source-split transfer rather than a same-signer sanity split.",
+    "per_label": {
+      "dad": {
+        "test": {
+          "clip_count": 19,
+          "source_ids": {
+            "popsign-v1-original-videos": 19
+          },
+          "source_splits": {
+            "test": 19
+          },
+          "unique_signer_identity_hashes": 6
+        },
+        "train": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "train": 25
+          },
+          "unique_signer_identity_hashes": 18
+        },
+        "validation": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "val": 25
+          },
+          "unique_signer_identity_hashes": 8
+        }
+      },
+      "grandpa": {
+        "test": {
+          "clip_count": 19,
+          "source_ids": {
+            "popsign-v1-original-videos": 19
+          },
+          "source_splits": {
+            "test": 19
+          },
+          "unique_signer_identity_hashes": 6
+        },
+        "train": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "train": 25
+          },
+          "unique_signer_identity_hashes": 16
+        },
+        "validation": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "val": 25
+          },
+          "unique_signer_identity_hashes": 8
+        }
+      },
+      "hat": {
+        "test": {
+          "clip_count": 19,
+          "source_ids": {
+            "popsign-v1-original-videos": 19
+          },
+          "source_splits": {
+            "test": 19
+          },
+          "unique_signer_identity_hashes": 6
+        },
+        "train": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "train": 25
+          },
+          "unique_signer_identity_hashes": 14
+        },
+        "validation": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "val": 25
+          },
+          "unique_signer_identity_hashes": 8
+        }
+      },
+      "please": {
+        "test": {
+          "clip_count": 19,
+          "source_ids": {
+            "popsign-v1-original-videos": 19
+          },
+          "source_splits": {
+            "test": 19
+          },
+          "unique_signer_identity_hashes": 6
+        },
+        "train": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "train": 25
+          },
+          "unique_signer_identity_hashes": 16
+        },
+        "validation": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "val": 25
+          },
+          "unique_signer_identity_hashes": 8
+        }
+      },
+      "table": {
+        "test": {
+          "clip_count": 19,
+          "source_ids": {
+            "popsign-v1-original-videos": 19
+          },
+          "source_splits": {
+            "test": 19
+          },
+          "unique_signer_identity_hashes": 6
+        },
+        "train": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "train": 25
+          },
+          "unique_signer_identity_hashes": 16
+        },
+        "validation": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "val": 25
+          },
+          "unique_signer_identity_hashes": 8
+        }
+      }
+    },
+    "source_category_by_split": {
+      "test": {
+        "game": 95
+      },
+      "train": {
+        "game": 125
+      },
+      "validation": {
+        "game": 125
+      }
+    },
+    "source_id_by_split": {
+      "test": {
+        "popsign-v1-original-videos": 95
+      },
+      "train": {
+        "popsign-v1-original-videos": 125
+      },
+      "validation": {
+        "popsign-v1-original-videos": 125
+      }
+    },
+    "source_split_by_split": {
+      "test": {
+        "test": 95
+      },
+      "train": {
+        "train": 125
+      },
+      "validation": {
+        "val": 125
+      }
+    }
+  },
+  "split_counts": {
+    "test": {
+      "clip_count": 95,
+      "example_clip_ids_by_label": {
+        "dad": [
+          "popsign-v1-test-dad-000628",
+          "popsign-v1-test-dad-000629",
+          "popsign-v1-test-dad-000630"
+        ],
+        "grandpa": [
+          "popsign-v1-test-grandpa-000723",
+          "popsign-v1-test-grandpa-000724",
+          "popsign-v1-test-grandpa-000725"
+        ],
+        "hat": [
+          "popsign-v1-test-hat-001502",
+          "popsign-v1-test-hat-001503",
+          "popsign-v1-test-hat-001504"
+        ],
+        "please": [
+          "popsign-v1-test-please-000058",
+          "popsign-v1-test-please-000059",
+          "popsign-v1-test-please-000060"
+        ],
+        "table": [
+          "popsign-v1-test-table-000286",
+          "popsign-v1-test-table-000287",
+          "popsign-v1-test-table-000288"
+        ]
+      },
+      "label_counts": {
+        "dad": 19,
+        "grandpa": 19,
+        "hat": 19,
+        "please": 19,
+        "table": 19
+      },
+      "per_label": {
+        "dad": {
+          "clip_count": 19,
+          "source_ids": {
+            "popsign-v1-original-videos": 19
+          },
+          "source_splits": {
+            "test": 19
+          },
+          "unique_signer_identity_hashes": 6,
+          "unique_source_record_ids": 19,
+          "unique_tensor_paths": 19
+        },
+        "grandpa": {
+          "clip_count": 19,
+          "source_ids": {
+            "popsign-v1-original-videos": 19
+          },
+          "source_splits": {
+            "test": 19
+          },
+          "unique_signer_identity_hashes": 6,
+          "unique_source_record_ids": 19,
+          "unique_tensor_paths": 19
+        },
+        "hat": {
+          "clip_count": 19,
+          "source_ids": {
+            "popsign-v1-original-videos": 19
+          },
+          "source_splits": {
+            "test": 19
+          },
+          "unique_signer_identity_hashes": 6,
+          "unique_source_record_ids": 19,
+          "unique_tensor_paths": 19
+        },
+        "please": {
+          "clip_count": 19,
+          "source_ids": {
+            "popsign-v1-original-videos": 19
+          },
+          "source_splits": {
+            "test": 19
+          },
+          "unique_signer_identity_hashes": 6,
+          "unique_source_record_ids": 19,
+          "unique_tensor_paths": 19
+        },
+        "table": {
+          "clip_count": 19,
+          "source_ids": {
+            "popsign-v1-original-videos": 19
+          },
+          "source_splits": {
+            "test": 19
+          },
+          "unique_signer_identity_hashes": 6,
+          "unique_source_record_ids": 19,
+          "unique_tensor_paths": 19
+        }
+      },
+      "source_categories": {
+        "game": 95
+      },
+      "source_ids": {
+        "popsign-v1-original-videos": 95
+      },
+      "source_splits": {
+        "test": 95
+      },
+      "unique_clip_ids": 95,
+      "unique_signer_identity_hashes": 7,
+      "unique_source_record_ids": 95,
+      "unique_tensor_paths": 95
+    },
+    "train": {
+      "clip_count": 125,
+      "example_clip_ids_by_label": {
+        "dad": [
+          "popsign-v1-train-dad-000826",
+          "popsign-v1-train-dad-000827",
+          "popsign-v1-train-dad-000828"
+        ],
+        "grandpa": [
+          "popsign-v1-train-grandpa-000951",
+          "popsign-v1-train-grandpa-000952",
+          "popsign-v1-train-grandpa-000953"
+        ],
+        "hat": [
+          "popsign-v1-train-hat-001976",
+          "popsign-v1-train-hat-001977",
+          "popsign-v1-train-hat-001978"
+        ],
+        "please": [
+          "popsign-v1-train-please-000076",
+          "popsign-v1-train-please-000077",
+          "popsign-v1-train-please-000078"
+        ],
+        "table": [
+          "popsign-v1-train-table-000376",
+          "popsign-v1-train-table-000377",
+          "popsign-v1-train-table-000378"
+        ]
+      },
+      "label_counts": {
+        "dad": 25,
+        "grandpa": 25,
+        "hat": 25,
+        "please": 25,
+        "table": 25
+      },
+      "per_label": {
+        "dad": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "train": 25
+          },
+          "unique_signer_identity_hashes": 18,
+          "unique_source_record_ids": 25,
+          "unique_tensor_paths": 25
+        },
+        "grandpa": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "train": 25
+          },
+          "unique_signer_identity_hashes": 16,
+          "unique_source_record_ids": 25,
+          "unique_tensor_paths": 25
+        },
+        "hat": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "train": 25
+          },
+          "unique_signer_identity_hashes": 14,
+          "unique_source_record_ids": 25,
+          "unique_tensor_paths": 25
+        },
+        "please": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "train": 25
+          },
+          "unique_signer_identity_hashes": 16,
+          "unique_source_record_ids": 25,
+          "unique_tensor_paths": 25
+        },
+        "table": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "train": 25
+          },
+          "unique_signer_identity_hashes": 16,
+          "unique_source_record_ids": 25,
+          "unique_tensor_paths": 25
+        }
+      },
+      "source_categories": {
+        "game": 125
+      },
+      "source_ids": {
+        "popsign-v1-original-videos": 125
+      },
+      "source_splits": {
+        "train": 125
+      },
+      "unique_clip_ids": 125,
+      "unique_signer_identity_hashes": 28,
+      "unique_source_record_ids": 125,
+      "unique_tensor_paths": 125
+    },
+    "validation": {
+      "clip_count": 125,
+      "example_clip_ids_by_label": {
+        "dad": [
+          "popsign-v1-validation-dad-000826",
+          "popsign-v1-validation-dad-000827",
+          "popsign-v1-validation-dad-000828"
+        ],
+        "grandpa": [
+          "popsign-v1-validation-grandpa-000951",
+          "popsign-v1-validation-grandpa-000952",
+          "popsign-v1-validation-grandpa-000953"
+        ],
+        "hat": [
+          "popsign-v1-validation-hat-001976",
+          "popsign-v1-validation-hat-001977",
+          "popsign-v1-validation-hat-001978"
+        ],
+        "please": [
+          "popsign-v1-validation-please-000076",
+          "popsign-v1-validation-please-000077",
+          "popsign-v1-validation-please-000078"
+        ],
+        "table": [
+          "popsign-v1-validation-table-000376",
+          "popsign-v1-validation-table-000377",
+          "popsign-v1-validation-table-000378"
+        ]
+      },
+      "label_counts": {
+        "dad": 25,
+        "grandpa": 25,
+        "hat": 25,
+        "please": 25,
+        "table": 25
+      },
+      "per_label": {
+        "dad": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "val": 25
+          },
+          "unique_signer_identity_hashes": 8,
+          "unique_source_record_ids": 25,
+          "unique_tensor_paths": 25
+        },
+        "grandpa": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "val": 25
+          },
+          "unique_signer_identity_hashes": 8,
+          "unique_source_record_ids": 25,
+          "unique_tensor_paths": 25
+        },
+        "hat": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "val": 25
+          },
+          "unique_signer_identity_hashes": 8,
+          "unique_source_record_ids": 25,
+          "unique_tensor_paths": 25
+        },
+        "please": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "val": 25
+          },
+          "unique_signer_identity_hashes": 8,
+          "unique_source_record_ids": 25,
+          "unique_tensor_paths": 25
+        },
+        "table": {
+          "clip_count": 25,
+          "source_ids": {
+            "popsign-v1-original-videos": 25
+          },
+          "source_splits": {
+            "val": 25
+          },
+          "unique_signer_identity_hashes": 8,
+          "unique_source_record_ids": 25,
+          "unique_tensor_paths": 25
+        }
+      },
+      "source_categories": {
+        "game": 125
+      },
+      "source_ids": {
+        "popsign-v1-original-videos": 125
+      },
+      "source_splits": {
+        "val": 125
+      },
+      "unique_clip_ids": 125,
+      "unique_signer_identity_hashes": 8,
+      "unique_source_record_ids": 125,
+      "unique_tensor_paths": 125
+    }
+  },
+  "split_overlap_checks": {
+    "clip_ids": {
+      "train_test": {
+        "count": 0,
+        "examples": []
+      },
+      "train_validation": {
+        "count": 0,
+        "examples": []
+      },
+      "validation_test": {
+        "count": 0,
+        "examples": []
+      }
+    },
+    "per_label": {
+      "dad": {
+        "signer_identity_hashes": {
+          "train_test": {
+            "count": 0,
+            "examples": []
+          },
+          "train_validation": {
+            "count": 0,
+            "examples": []
+          },
+          "validation_test": {
+            "count": 0,
+            "examples": []
+          }
+        },
+        "source_record_ids": {
+          "train_test": {
+            "count": 0,
+            "examples": []
+          },
+          "train_validation": {
+            "count": 0,
+            "examples": []
+          },
+          "validation_test": {
+            "count": 0,
+            "examples": []
+          }
+        },
+        "tensor_paths": {
+          "train_test": {
+            "count": 0,
+            "examples": []
+          },
+          "train_validation": {
+            "count": 0,
+            "examples": []
+          },
+          "validation_test": {
+            "count": 0,
+            "examples": []
+          }
+        }
+      },
+      "grandpa": {
+        "signer_identity_hashes": {
+          "train_test": {
+            "count": 0,
+            "examples": []
+          },
+          "train_validation": {
+            "count": 0,
+            "examples": []
+          },
+          "validation_test": {
+            "count": 0,
+            "examples": []
+          }
+        },
+        "source_record_ids": {
+          "train_test": {
+            "count": 0,
+            "examples": []
+          },
+          "train_validation": {
+            "count": 0,
+            "examples": []
+          },
+          "validation_test": {
+            "count": 0,
+            "examples": []
+          }
+        },
+        "tensor_paths": {
+          "train_test": {
+            "count": 0,
+            "examples": []
+          },
+          "train_validation": {
+            "count": 0,
+            "examples": []
+          },
+          "validation_test": {
+            "count": 0,
+            "examples": []
+          }
+        }
+      },
+      "hat": {
+        "signer_identity_hashes": {
+          "train_test": {
+            "count": 0,
+            "examples": []
+          },
+          "train_validation": {
+            "count": 0,
+            "examples": []
+          },
+          "validation_test": {
+            "count": 0,
+            "examples": []
+          }
+        },
+        "source_record_ids": {
+          "train_test": {
+            "count": 0,
+            "examples": []
+          },
+          "train_validation": {
+            "count": 0,
+            "examples": []
+          },
+          "validation_test": {
+            "count": 0,
+            "examples": []
+          }
+        },
+        "tensor_paths": {
+          "train_test": {
+            "count": 0,
+            "examples": []
+          },
+          "train_validation": {
+            "count": 0,
+            "examples": []
+          },
+          "validation_test": {
+            "count": 0,
+            "examples": []
+          }
+        }
+      },
+      "please": {
+        "signer_identity_hashes": {
+          "train_test": {
+            "count": 0,
+            "examples": []
+          },
+          "train_validation": {
+            "count": 0,
+            "examples": []
+          },
+          "validation_test": {
+            "count": 0,
+            "examples": []
+          }
+        },
+        "source_record_ids": {
+          "train_test": {
+            "count": 0,
+            "examples": []
+          },
+          "train_validation": {
+            "count": 0,
+            "examples": []
+          },
+          "validation_test": {
+            "count": 0,
+            "examples": []
+          }
+        },
+        "tensor_paths": {
+          "train_test": {
+            "count": 0,
+            "examples": []
+          },
+          "train_validation": {
+            "count": 0,
+            "examples": []
+          },
+          "validation_test": {
+            "count": 0,
+            "examples": []
+          }
+        }
+      },
+      "table": {
+        "signer_identity_hashes": {
+          "train_test": {
+            "count": 0,
+            "examples": []
+          },
+          "train_validation": {
+            "count": 0,
+            "examples": []
+          },
+          "validation_test": {
+            "count": 0,
+            "examples": []
+          }
+        },
+        "source_record_ids": {
+          "train_test": {
+            "count": 0,
+            "examples": []
+          },
+          "train_validation": {
+            "count": 0,
+            "examples": []
+          },
+          "validation_test": {
+            "count": 0,
+            "examples": []
+          }
+        },
+        "tensor_paths": {
+          "train_test": {
+            "count": 0,
+            "examples": []
+          },
+          "train_validation": {
+            "count": 0,
+            "examples": []
+          },
+          "validation_test": {
+            "count": 0,
+            "examples": []
+          }
+        }
+      }
+    },
+    "signer_identity_hashes": {
+      "train_test": {
+        "count": 0,
+        "examples": []
+      },
+      "train_validation": {
+        "count": 0,
+        "examples": []
+      },
+      "validation_test": {
+        "count": 0,
+        "examples": []
+      }
+    },
+    "source_ids": {
+      "note": "All splits share the same approved coarse source_id. This is expected and is not clip/source-record leakage by itself.",
+      "train_test": {
+        "count": 1,
+        "examples": [
+          "popsign-v1-original-videos"
+        ]
+      },
+      "train_validation": {
+        "count": 1,
+        "examples": [
+          "popsign-v1-original-videos"
+        ]
+      },
+      "validation_test": {
+        "count": 1,
+        "examples": [
+          "popsign-v1-original-videos"
+        ]
+      }
+    },
+    "source_record_ids": {
+      "train_test": {
+        "count": 0,
+        "examples": []
+      },
+      "train_validation": {
+        "count": 0,
+        "examples": []
+      },
+      "validation_test": {
+        "count": 0,
+        "examples": []
+      }
+    },
+    "tensor_paths": {
+      "train_test": {
+        "count": 0,
+        "examples": []
+      },
+      "train_validation": {
+        "count": 0,
+        "examples": []
+      },
+      "validation_test": {
+        "count": 0,
+        "examples": []
+      }
+    }
+  },
+  "status": "passed"
+}

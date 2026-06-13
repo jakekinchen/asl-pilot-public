@@ -1,0 +1,384 @@
+{
+  "schema_version": "asl-pilot-m3jb-landmark-retrain-brev-run/v1",
+  "receipt_id": "return-to-form-m3jb-landmark-retrain-brev-run-v1",
+  "mission": "M3JB - Hierarchical hand-state tracker",
+  "active_directive_consumed": "launch_approved_landmark_retrain_brev_plan_v1",
+  "status": "completed_rejected_below_baseline_and_gate",
+  "checked_at": "2026-06-03T11:34:10Z",
+  "source_of_truth": {
+    "goal": "GOAL.md",
+    "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+    "plan_receipt": "docs/validation/return-to-form-m3jb-landmark-retrain-brev-plan-v1.json",
+    "approval_request": "docs/validation/return-to-form-m3jb-brev-approval-request-v1.json"
+  },
+  "approval_state": {
+    "current_thread_explicit_brev_spend_approval": true,
+    "approval_consumed_by_this_run": true,
+    "effective_launch_allowed_now": false,
+    "consumed_envelope": {
+      "plan_receipt": "docs/validation/return-to-form-m3jb-landmark-retrain-brev-plan-v1.json",
+      "preferred_instance": "asl-pilot-m3eh-l40s-001",
+      "preferred_instance_id": "3d58wpy9o",
+      "device": "cuda",
+      "remote_project_root": "/home/ubuntu/asl-pilot",
+      "max_spend_usd": 40,
+      "max_runtime_seconds": {
+        "outer_timeout": 21600,
+        "training_timeout": 20000,
+        "eval_timeout_per_pck": 3600
+      },
+      "training_command": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1 --epochs 80 --batch 512 --eval-batch 1024 --lr 5e-4 --device cuda --seed 0 --pck 0.10 --sigma 1.5 --heatmap-g 32 --width 64 --heatmap-ce-weight 0.05 --filter-train-quality --quality-exclude-oob --quality-min-gradient 0.012 --quality-min-contrast 0.10 --eval-every 5 --out tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1.json\"",
+      "planned_outputs": {
+        "training_receipt": "tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1.json",
+        "weights": "tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1.pt",
+        "eval_pck010": "tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1-eval-pck010.json",
+        "eval_pck005": "tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1-eval-pck005.json"
+      },
+      "allowed_after_approval_only": [
+        "brev ls --json duplicate-worker check",
+        "sync/copy required trainer, helper, and rebuilt cache files to retained worker",
+        "remote CUDA/process preflight on retained worker",
+        "recorded CUDA scratch landmark retrain command",
+        "eval-only PCK@0.10 and PCK@0.05 commands",
+        "copyback of planned output receipts and weights",
+        "stop/cleanup under recorded kill conditions"
+      ],
+      "not_authorized_without_separate_approval": [
+        "creating a new Brev worker",
+        "selector training",
+        "changing landmark gates",
+        "browser runtime promotion",
+        "raw learner video upload",
+        "adding pretrained runtime dependencies"
+      ]
+    }
+  },
+  "worker": {
+    "name": "asl-pilot-m3eh-l40s-001",
+    "id": "3d58wpy9o",
+    "gpu": "L40S",
+    "preflight": {
+      "status": "passed",
+      "cuda_available": true,
+      "cuda_device_count": 1,
+      "gpu_observed": "NVIDIA L40S",
+      "active_training_process_found": false,
+      "log": "/tmp/m3jb-remote-preflight-903.txt"
+    },
+    "teardown": {
+      "stop_command_status": "passed",
+      "final_status": "STOPPED",
+      "final_shell_status": "NOT READY",
+      "final_health_status": "HEALTHY",
+      "evidence": "/tmp/m3jb-brev-ls-after-stop2-903.json"
+    }
+  },
+  "sync_and_verification": {
+    "status": "passed",
+    "sync_log": "/tmp/m3jb-sync-903.txt",
+    "trainer_sha256": "75be98e185faf79215664ee811291a92ea0b8fcc87b7d9b4a2e83e6f116f9f77",
+    "helper_sha256": "e7aa5ea71d68ea8ccc3d27125908cdd2637961e051a628f7c31a808df7f8c4a9",
+    "rows_json_sha256": "693f2dfb2b740d5a0ec763ccc9b65a8521ef40607587f26e41421ebb4551a173",
+    "splits_json_sha256": "f8afb677179cdbf3fc11392c95ee0aede6c09d27cd86a336720d7eabb17f1d0f",
+    "remote_cache_shapes": {
+      "frames": [
+        30120,
+        128,
+        128,
+        3
+      ],
+      "frames_dtype": "uint8",
+      "kpts": [
+        30120,
+        21,
+        2
+      ],
+      "kpts_dtype": "float32",
+      "rows_count": 30120,
+      "splits_rows": 30120
+    },
+    "verification_logs": [
+      "/tmp/m3jb-remote-verify-903.txt",
+      "/tmp/m3jb-remote-verify-splits-903.txt",
+      "/tmp/m3jb-remote-output-check-903.txt"
+    ]
+  },
+  "training": {
+    "status": "passed",
+    "command": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1 --epochs 80 --batch 512 --eval-batch 1024 --lr 5e-4 --device cuda --seed 0 --pck 0.10 --sigma 1.5 --heatmap-g 32 --width 64 --heatmap-ce-weight 0.05 --filter-train-quality --quality-exclude-oob --quality-min-gradient 0.012 --quality-min-contrast 0.10 --eval-every 5 --out tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1.json\"",
+    "log": "/tmp/m3jb-training-903.log",
+    "best_epoch": 75,
+    "quality_filter": {
+      "enabled": true,
+      "before": 22202,
+      "after": 15649,
+      "removed": 6553,
+      "removed_fraction": 0.295154,
+      "thresholds": {
+        "exclude_oob": true,
+        "max_oob_points": -1,
+        "min_visible_frac": 0,
+        "exclude_edge": false,
+        "edge_margin": 0.03,
+        "min_area": 0,
+        "max_area": 0,
+        "min_gradient": 0.012,
+        "min_contrast": 0.1
+      },
+      "removed_breakdown": {
+        "oob": 1697,
+        "above_max_oob_points": 0,
+        "below_min_visible_frac": 0,
+        "edge": 2203,
+        "below_min_area": 0,
+        "above_max_area": 0,
+        "below_min_gradient": 5481,
+        "below_min_contrast": 206
+      }
+    },
+    "output_receipt": "tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1.json",
+    "output_weights": "tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1.pt",
+    "training_receipt_test": {
+      "samples": 4373,
+      "points": 91833,
+      "visible_points": 87231,
+      "PCK": 0.6484,
+      "visible_PCK": 0.6815,
+      "mean_kp_err": 0.1075,
+      "visible_mean_kp_err": 0.0926,
+      "per_keypoint_PCK": [
+        0.6721,
+        0.6815,
+        0.6906,
+        0.6453,
+        0.5433,
+        0.7324,
+        0.6805,
+        0.6364,
+        0.5465,
+        0.7775,
+        0.7126,
+        0.6611,
+        0.5491,
+        0.7393,
+        0.6895,
+        0.6641,
+        0.5774,
+        0.6588,
+        0.6158,
+        0.6021,
+        0.5399
+      ]
+    }
+  },
+  "evaluation": {
+    "status": "passed",
+    "pck_010": {
+      "command": "timeout 3600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --eval-only --data tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1 --weights tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1.pt --out tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1-eval-pck010.json --pck 0.10 --device cuda --eval-batch 1024\"",
+      "log": "/tmp/m3jb-eval-pck010-903.log",
+      "receipt": "tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1-eval-pck010.json",
+      "test": {
+        "samples": 4373,
+        "points": 91833,
+        "visible_points": 87231,
+        "PCK": 0.6484,
+        "visible_PCK": 0.6815,
+        "mean_kp_err": 0.1075,
+        "visible_mean_kp_err": 0.0926,
+        "per_keypoint_PCK": [
+          0.6721,
+          0.6815,
+          0.6906,
+          0.6453,
+          0.5433,
+          0.7324,
+          0.6805,
+          0.6364,
+          0.5465,
+          0.7775,
+          0.7126,
+          0.6611,
+          0.5491,
+          0.7393,
+          0.6895,
+          0.6641,
+          0.5774,
+          0.6588,
+          0.6158,
+          0.6021,
+          0.5399
+        ]
+      },
+      "validation": {
+        "samples": 3545,
+        "points": 74445,
+        "visible_points": 70438,
+        "PCK": 0.5998,
+        "visible_PCK": 0.6334,
+        "mean_kp_err": 0.1194,
+        "visible_mean_kp_err": 0.1031,
+        "per_keypoint_PCK": [
+          0.6039,
+          0.6412,
+          0.6516,
+          0.6322,
+          0.5379,
+          0.677,
+          0.635,
+          0.6071,
+          0.5289,
+          0.6948,
+          0.6564,
+          0.6237,
+          0.5252,
+          0.6556,
+          0.6093,
+          0.6169,
+          0.5362,
+          0.5698,
+          0.543,
+          0.5529,
+          0.4973
+        ]
+      }
+    },
+    "pck_005": {
+      "command": "timeout 3600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --eval-only --data tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1 --weights tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1.pt --out tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1-eval-pck005.json --pck 0.05 --device cuda --eval-batch 1024\"",
+      "log": "/tmp/m3jb-eval-pck005-903.log",
+      "receipt": "tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1-eval-pck005.json",
+      "test": {
+        "samples": 4373,
+        "points": 91833,
+        "visible_points": 87231,
+        "PCK": 0.3651,
+        "visible_PCK": 0.3843,
+        "mean_kp_err": 0.1075,
+        "visible_mean_kp_err": 0.0926,
+        "per_keypoint_PCK": [
+          0.4043,
+          0.3625,
+          0.3849,
+          0.3549,
+          0.2705,
+          0.442,
+          0.391,
+          0.3567,
+          0.265,
+          0.4949,
+          0.4089,
+          0.3773,
+          0.2744,
+          0.4562,
+          0.3945,
+          0.386,
+          0.2922,
+          0.378,
+          0.3517,
+          0.351,
+          0.2692
+        ]
+      },
+      "validation": {
+        "samples": 3545,
+        "points": 74445,
+        "visible_points": 70438,
+        "PCK": 0.3,
+        "visible_PCK": 0.317,
+        "mean_kp_err": 0.1194,
+        "visible_mean_kp_err": 0.1031,
+        "per_keypoint_PCK": [
+          0.3312,
+          0.2962,
+          0.3193,
+          0.3134,
+          0.2516,
+          0.3551,
+          0.314,
+          0.3165,
+          0.2553,
+          0.3842,
+          0.3171,
+          0.3227,
+          0.257,
+          0.3447,
+          0.2843,
+          0.3238,
+          0.2395,
+          0.2742,
+          0.2536,
+          0.3018,
+          0.244
+        ]
+      }
+    }
+  },
+  "metrics": {
+    "training_receipt_test_pck_010": 0.6484,
+    "eval_pck_010": 0.6484,
+    "eval_pck_005": 0.3651,
+    "validation_pck_010": 0.5998,
+    "validation_pck_005": 0.3,
+    "baseline_rebuilt_cache_pck_010": 0.6633,
+    "baseline_rebuilt_cache_pck_005": 0.3722,
+    "gate_pck_010": 0.9,
+    "gate_pck_005": 0.75,
+    "delta_vs_baseline_pck_010": -0.0149,
+    "delta_vs_baseline_pck_005": -0.0071,
+    "gap_to_gate_pck_010": 0.2516,
+    "gap_to_gate_pck_005": 0.3849,
+    "decision": "rejected_fail_closed_below_rebuilt_cache_baseline_and_gate"
+  },
+  "copied_artifacts": {
+    "training_receipt": {
+      "path": "tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1.json",
+      "local_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1.json",
+      "copied_back": true,
+      "size_bytes": 2756,
+      "sha256": "f6db4900b855c2c41ab0e54401fa64c34d89a35173ed4babcca31e0bb105bed4"
+    },
+    "weights": {
+      "path": "tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1.pt",
+      "local_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1.pt",
+      "copied_back": true,
+      "size_bytes": 5067782,
+      "sha256": "d708e2453c0f830c2d05e06253db99e1ec22b5d8eff80c888f1bda4ffae9f228"
+    },
+    "eval_pck010": {
+      "path": "tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1-eval-pck010.json",
+      "local_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1-eval-pck010.json",
+      "copied_back": true,
+      "size_bytes": 1242,
+      "sha256": "bde33edb995f0e693c435765f8097240aa8f0021f5ff58e3f33af58866c29216"
+    },
+    "eval_pck005": {
+      "path": "tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1-eval-pck005.json",
+      "local_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1-eval-pck005.json",
+      "copied_back": true,
+      "size_bytes": 1233,
+      "sha256": "118c09fa13427bdec2f7dc5bd7b0530275a97d2c59f8cb619c0421362cf343ad"
+    },
+    "remote_sha_log": "/tmp/m3jb-remote-artifact-sha-903.txt",
+    "local_json_checks": [
+      "/tmp/m3jb-local-train-json-check-903.txt",
+      "/tmp/m3jb-local-eval010-json-check-903.txt",
+      "/tmp/m3jb-local-eval005-json-check-903.txt"
+    ]
+  },
+  "runtime_boundary": {
+    "brev_spend_approved": true,
+    "brev_exec_or_copy": true,
+    "remote_mutation": true,
+    "training_run": true,
+    "eval_only_pck_run": true,
+    "checkpoint_written": true,
+    "worker_stopped_after_run": true,
+    "browser_artifact_promoted": false,
+    "browser_runtime_dependency_added": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "selector_training_run": false
+  },
+  "claim_boundary": "This receipt records a completed approved Brev scratch landmark retrain and eval-only PCK measurement. It is rejected fail-closed because PCK regressed below the rebuilt-cache baseline and remains below the landmark gates. It does not promote browser artifacts, change final gates, authorize another Brev run, upload raw learner video, or add pretrained runtime dependencies.",
+  "next_action": "analyze_m3jb_landmark_retrain_regression_and_select_pivot_no_brev"
+}

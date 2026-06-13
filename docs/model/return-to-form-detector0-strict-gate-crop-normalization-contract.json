@@ -1,0 +1,181 @@
+{
+  "schema_version": "asl-pilot-detector0-strict-gate-crop-normalization-contract/v1",
+  "contract_id": "return-to-form-detector0-strict-gate-crop-normalization-contract-v1",
+  "created_at": "2026-05-29T02:25:00Z",
+  "status": "diagnostic_contract_only",
+  "mission": "M3FQ Detector 0 crop-normalized recognizer integration",
+  "active_prompt": "docs/model/return-to-form-m3fq-detector0-crop-normalized-recognizer-integration-goal-loop-prompt.md",
+  "purpose": "Port the reviewed Detector 0 strict right-hand/contact gate into main as a static integration contract for a future local crop-normalized recognizer smoke.",
+  "source_evidence": {
+    "side_worktree": {
+      "path": "/Users/kelly/Developer/asl-pilot-detector0-win",
+      "branch": "detector0-win-20260528",
+      "head": "d43a5bb detector0: add hybrid gate ablation"
+    },
+    "receipts": [
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-detector0-win/docs/validation/return-to-form-tier0-detector0-hybrid-crop-normalization-ablation-v1.json",
+        "sha256": "57cd2f9ebd81fb4ef674b797be2f3544d054528114e4a72b39c79de42bb9758a",
+        "role": "prior permissive hybrid crop-normalization evidence"
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-detector0-win/docs/validation/return-to-form-tier0-detector0-hybrid-gate-ablation-v1.json",
+        "sha256": "b7acb20925278fae0656b74ce793957ea98bfbb26ec1ae272daa55c99f09a240",
+        "role": "strict contact/right-hand gate evidence"
+      }
+    ],
+    "session_logs": [
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-detector0-win/docs/session-logs/416-detector0-hybrid-crop-normalization-ablation.md",
+        "sha256": "a2dbca8a671ebcfc5bc111bd555547a8d4bd81fccb6d9c46af18afaca00538ed"
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-detector0-win/docs/session-logs/417-detector0-hybrid-gate-ablation.md",
+        "sha256": "d2e441e3acdb406cf0020fb225cb74a2798a91368b824e9180bf3cea65075433"
+      }
+    ],
+    "side_scripts_reviewed": [
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-detector0-win/scripts/run_return_to_form_tier0_detector0_hybrid_crop_normalization_ablation.py",
+        "sha256": "7aaa34de53b7cb98375c43b16ffb1d0395872f325c5fa6cdc2decc3d0c8f5212",
+        "functions_or_constants": [
+          "RIGHT_TARGET_ID",
+          "CONTACT_TARGET_ID",
+          "RIGHT_REGION_ID",
+          "predict_clip_regions",
+          "train_gaussian_detector"
+        ]
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-detector0-win/scripts/run_return_to_form_tier0_detector0_hybrid_gate_ablation.py",
+        "sha256": "d31fd62f1c0e4d6e4870265bf606b5927f94bcc88844ca5a9e29604f2655c490",
+        "functions_or_constants": [
+          "validation_frame_scores",
+          "apply_variant",
+          "manifest_validation_fp05_contact_gate"
+        ]
+      }
+    ]
+  },
+  "m3fp_boundary": {
+    "receipt": {
+      "path": "docs/validation/return-to-form-m3fp-overnight-brev-detector-tcn-completion-v1.json",
+      "sha256": "74767dd594c26b69a3af09490f10079c5f59d7880f8ad74b32a2bad1924b5156"
+    },
+    "status": "completed_not_promotable",
+    "summary": {
+      "validation_top1": 0.2,
+      "validation_macro_f1": 0.06666666666666668,
+      "test_top1": 0.2,
+      "test_macro_f1": 0.06666666666666668,
+      "zero_recall_labels": [
+        "morning",
+        "pen",
+        "thank_you",
+        "who"
+      ],
+      "behavior": "Fresh5 classifier collapsed to predicting home."
+    },
+    "copied_artifacts_are_accounting_only": true
+  },
+  "strict_gate_policy": {
+    "variant_id": "manifest_validation_fp05_contact_gate",
+    "classification": "stricter_gate_supported_not_product_ready",
+    "learned_region": "right_or_second_hand",
+    "learned_region_id": "viewer_right_hand_context",
+    "contact_gate_target": "table_two_hand_union_or_contact_region",
+    "fixed_geometry_targets": [
+      "left_or_first_hand",
+      "head_or_face",
+      "upper_body_or_signing_space"
+    ],
+    "learned_runtime_targets": [
+      "right_or_second_hand"
+    ],
+    "diagnostic_targets": [
+      "table_two_hand_union_or_contact_region"
+    ],
+    "selection_rule": "maximize recall among validation-frame thresholds under false-positive-rate limit 0.05",
+    "contact_threshold": 0.20632459223270416,
+    "validation_frame_false_positive_rate_limit": 0.05,
+    "validation_frame_threshold_metrics": {
+      "true_positive_count": 23,
+      "false_positive_count": 79,
+      "false_negative_count": 377,
+      "true_negative_count": 1521,
+      "precision": 0.22549019607843138,
+      "recall": 0.0575,
+      "f1": 0.09163346613545816,
+      "presence_accuracy": 0.772
+    },
+    "transform_summary": {
+      "used_learned_right_crop_rate": 0.06068840579710145,
+      "fallback_right_crop_rate": 0.9393115942028986,
+      "used_learned_right_crop_by_label": {
+        "dad": 45,
+        "grandpa": 49,
+        "hat": 54,
+        "please": 66,
+        "table": 121
+      }
+    },
+    "recognizer_smoke_metrics": {
+      "train_top1": 1.0,
+      "train_macro_recall": 1.0,
+      "validation_top1": 0.256,
+      "validation_macro_recall": 0.256,
+      "validation_zero_recall_labels": [],
+      "test_top1": 0.3263157894736842,
+      "test_macro_recall": 0.3263157894736842,
+      "test_zero_recall_labels": [],
+      "delta_vs_fixed_validation_top1": 0.04000000000000001,
+      "delta_vs_fixed_test_top1": 0.05263157894736842,
+      "delta_vs_previous_hybrid_validation_top1": 0.032,
+      "delta_vs_previous_hybrid_test_top1": 0.0
+    }
+  },
+  "main_branch_integration_contract": {
+    "contract_kind": "static_policy_for_future_local_smoke",
+    "future_target_script": "scripts/run_return_to_form_tier0_detector0_strict_gate_crop_normalization_smoke.py",
+    "future_target_test_or_audit": "scripts/audit_detector0_strict_gate_crop_contract.mjs",
+    "required_future_inputs": [
+      "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "data/manifests/return-to-form-tier0/train.json",
+      "data/manifests/return-to-form-tier0/validation.json",
+      "data/manifests/return-to-form-tier0/test.json",
+      "data/tensors/** referenced by those manifests"
+    ],
+    "required_future_behavior": [
+      "Use fixed geometry for left_or_first_hand, head_or_face, and upper_body_or_signing_space.",
+      "Use a learned right_or_second_hand crop only when the table_two_hand_union_or_contact_region score is at least 0.20632459223270416.",
+      "Keep the right-hand contact gate diagnostic until a later reviewed local smoke proves it in main.",
+      "Preserve region-axis recognizer input as a diagnostic crop-normalized stream; do not activate browser recognition from this contract."
+    ],
+    "allowed_this_slice": [
+      "static contract",
+      "audit script",
+      "receipt",
+      "session log"
+    ],
+    "forbidden_this_slice": [
+      "brev_lifecycle_or_remote_command",
+      "recognizer_training_or_fitting",
+      "completed_checkpoint_evaluation",
+      "source_or_media_import",
+      "manifest_tensor_packet_or_vocabulary_mutation",
+      "export_or_promotion",
+      "browser_recognition_activation",
+      "runtime_detector_authority_claim",
+      "final_gate_change"
+    ]
+  },
+  "claim_boundary": {
+    "detector0_product_authority": false,
+    "browser_recognition_authority": false,
+    "asl_correctness_authority": false,
+    "model_readiness_claim": false,
+    "pretrained_components": [],
+    "raw_learner_video_upload": false
+  },
+  "next_action": "continue_detector0_crop_normalized_local_smoke_no_brev"
+}

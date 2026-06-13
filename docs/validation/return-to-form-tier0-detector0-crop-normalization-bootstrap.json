@@ -1,0 +1,425 @@
+{
+  "schema_version": "asl-pilot-return-to-form-tier0-detector0-crop-normalization-bootstrap/v1",
+  "status": "passed",
+  "mission": "M3AE-L",
+  "generated_at": "2026-05-25T22:46:12Z",
+  "generated_by": "Codex executor",
+  "scope": "No-training bootstrap report for scratch Detector 0 localization and crop normalization.",
+  "source_artifacts": {
+    "m3ae_j_microprobe_config_smoke": {
+      "path": "docs/validation/return-to-form-tier0-microprobe-config-smoke.json",
+      "sha256": "f83977b53910dbb51e71e6175048565b1643ac9699ad89f24ee2c989e3df98f4"
+    },
+    "m3ae_k_label_split_remediation": {
+      "path": "docs/validation/return-to-form-tier0-label-split-remediation.json",
+      "sha256": "2fa1ea2b45f374c26c6dff91fa4805234025d1d1911a1f33ab937596663402ba"
+    },
+    "observer_localization_strategy_memo": {
+      "path": "artifacts/research/observer-201-localization-strategy-api-response.md",
+      "sha256": "b6e167fbf5f40541f718153906d085b787d674fea3c055826dc900a01f4639e2"
+    },
+    "source_coverage": {
+      "path": "docs/research/return-to-form-tier0-source-coverage.json",
+      "sha256": "1ff7da89a51e62f9efbeb08cf6361784e160ed862ac579f9e40db332fa576378"
+    },
+    "source_register": {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+      "source_id": "popsign-v1-original-videos",
+      "decision_id": "approved_popsign_v1_original_videos_2026_05_20"
+    },
+    "fixed_crop_config": {
+      "path": "docs/model/return-to-form-fixed-crop-config.json",
+      "sha256": "dbc735dad34fa9df1174a40374037976f9c88d789012634b2b22743ae0802b29"
+    },
+    "pre_training_gates": {
+      "path": "docs/validation/return-to-form-tier0-gates.json",
+      "sha256": "2cc000d3f90e9be236cf64768530bf9786fc61fe6605c774b9c1e8ab123d9d97"
+    },
+    "decode_dataloader_receipt": {
+      "path": "docs/validation/return-to-form-tier0-decode-dataloader.json",
+      "sha256": "d64c0b46500075d94207ef2197a6f6d8f1570cf548da8b08ca16dc520ba386c2"
+    }
+  },
+  "selected_labels": [
+    "please",
+    "table",
+    "dad",
+    "grandpa",
+    "hat"
+  ],
+  "manifests": {
+    "train": {
+      "path": "data/manifests/return-to-form-tier0/train.json",
+      "sha256": "03ae563a5f2ef0d5b868f6c80f50acb64ae642e782cd541faa5c022d4d0af1de",
+      "clip_count": 125,
+      "clips_per_label": 25,
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "train",
+      "unique_signer_identity_hashes": 28
+    },
+    "validation": {
+      "path": "data/manifests/return-to-form-tier0/validation.json",
+      "sha256": "23da15a80ce2eee1dab1a7e64c08e2aefcf5d7dd48263677fdc49d1efb0ad808",
+      "clip_count": 125,
+      "clips_per_label": 25,
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "val",
+      "unique_signer_identity_hashes": 8
+    },
+    "test": {
+      "path": "data/manifests/return-to-form-tier0/test.json",
+      "sha256": "b0c771b612ebb52beb375a98b4180ccd465aa642312a8c6c29d7ff225febd8ed",
+      "clip_count": 95,
+      "clips_per_label": 19,
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "test",
+      "unique_signer_identity_hashes": 7
+    }
+  },
+  "retained_failure_evidence": {
+    "m3ae_j_train_fit": {
+      "train_top1": 1.0,
+      "train_macro_recall": 1.0,
+      "train_loss": 0.0002005763672059402,
+      "loss_drop_fraction_from_initial_to_best": 0.9998795650976163,
+      "per_label_train_recall": {
+        "dad": 1.0,
+        "grandpa": 1.0,
+        "hat": 1.0,
+        "please": 1.0,
+        "table": 1.0
+      },
+      "classification": "train_sanity_passed"
+    },
+    "m3ae_j_validation_test_signal": {
+      "random_top1_chance": 0.2,
+      "validation_top1": 0.216,
+      "validation_macro_recall": 0.21600000000000003,
+      "validation_zero_recall_labels": [
+        "grandpa"
+      ],
+      "test_top1": 0.2736842105263158,
+      "test_macro_recall": 0.27368421052631575,
+      "test_zero_recall_labels": [
+        "table"
+      ],
+      "classification": "validation_test_near_random_after_train_fit"
+    },
+    "m3ae_k_split_overlap": {
+      "clip_id_overlap": {
+        "train_validation": 0,
+        "train_test": 0,
+        "validation_test": 0
+      },
+      "source_record_id_overlap": {
+        "train_validation": 0,
+        "train_test": 0,
+        "validation_test": 0
+      },
+      "signer_identity_hash_overlap": {
+        "train_validation": 0,
+        "train_test": 0,
+        "validation_test": 0
+      },
+      "tensor_path_overlap": {
+        "train_validation": 0,
+        "train_test": 0,
+        "validation_test": 0
+      },
+      "coarse_source_id_overlap": "expected popsign-v1-original-videos overlap only; not clip/source-record leakage"
+    },
+    "blocker_classification": {
+      "id": "source_signer_distribution_gap",
+      "confidence": "medium",
+      "reason": "The crop-identity-preserving recognizer memorized train, validation/test remained near random, and M3AE-K found no clip/source-record/signer/tensor leakage across splits."
+    },
+    "api_memo_summary": {
+      "recommendation": "Split recognition into composable scratch localization/crop-normalization and classifier stages before more classifier tuning.",
+      "local_evidence_binding": "M3AE-I/J/K show fixed crops can be fit on train but do not generalize under signer-disjoint PopSign validation/test."
+    }
+  },
+  "detector0_target_schema": {
+    "coordinate_space": "normalized full-frame xyxy coordinates with origin at top-left; values must be in [0, 1]",
+    "frame_reference_fields": [
+      "clip_id",
+      "label_id",
+      "split",
+      "source_id",
+      "source_record_id",
+      "signer_identity_hash",
+      "frame_index",
+      "timestamp_sec",
+      "frame_tensor_path",
+      "frame_tensor_sha256"
+    ],
+    "target_groups": [
+      {
+        "target_id": "left_or_first_hand",
+        "semantic_role": "viewer-left hand when both hands are visible; first visible signing hand when only one hand is present",
+        "fields": [
+          "left_or_first_hand_present",
+          "left_or_first_hand_center_xy_norm",
+          "left_or_first_hand_box_xyxy_norm",
+          "left_or_first_hand_visibility_confidence",
+          "left_or_first_hand_occlusion_flag",
+          "left_or_first_hand_truncation_flag"
+        ]
+      },
+      {
+        "target_id": "right_or_second_hand",
+        "semantic_role": "viewer-right hand when both hands are visible; second visible signing hand when two hands are present",
+        "fields": [
+          "right_or_second_hand_present",
+          "right_or_second_hand_center_xy_norm",
+          "right_or_second_hand_box_xyxy_norm",
+          "right_or_second_hand_visibility_confidence",
+          "right_or_second_hand_occlusion_flag",
+          "right_or_second_hand_truncation_flag"
+        ]
+      },
+      {
+        "target_id": "head_or_face",
+        "semantic_role": "head/face box for head-contact signs and crop scale normalization",
+        "fields": [
+          "head_or_face_present",
+          "head_or_face_center_xy_norm",
+          "head_or_face_box_xyxy_norm",
+          "head_or_face_visibility_confidence",
+          "head_or_face_occlusion_flag",
+          "head_or_face_truncation_flag"
+        ]
+      },
+      {
+        "target_id": "upper_body_or_signing_space",
+        "semantic_role": "upper-body/signing-space context box used to normalize scale and retain torso context",
+        "fields": [
+          "upper_body_or_signing_space_present",
+          "upper_body_or_signing_space_center_xy_norm",
+          "upper_body_or_signing_space_box_xyxy_norm",
+          "upper_body_or_signing_space_visibility_confidence",
+          "upper_body_or_signing_space_occlusion_flag",
+          "upper_body_or_signing_space_truncation_flag"
+        ]
+      }
+    ],
+    "common_review_fields": [
+      "annotation_source",
+      "review_status",
+      "reviewer_id_hash",
+      "annotator_id_hash",
+      "created_at",
+      "notes"
+    ],
+    "explicitly_excluded_from_bootstrap": [
+      "full hand landmarks",
+      "full body landmarks",
+      "full face landmarks",
+      "pretrained detector outputs",
+      "pretrained-generated pseudo-labels"
+    ]
+  },
+  "annotation_provenance_taxonomy": {
+    "allowed_label_sources": [
+      {
+        "id": "project_manual_box_labels",
+        "description": "Human-authored boxes and centers on approved PopSign raw frames or decoded tensor frames retained in this repo.",
+        "status": "allowed"
+      },
+      {
+        "id": "manual_verified_from_fixed_crop_context",
+        "description": "Labels initialized from existing fixed-crop/contact-sheet context only after human verification and explicit review_status=manual_verified.",
+        "status": "allowed"
+      },
+      {
+        "id": "retained_contact_sheet_frame_reference",
+        "description": "Existing contact sheets may select or review frames, but do not become labels without human annotation or verification.",
+        "status": "allowed_as_reference_only"
+      },
+      {
+        "id": "manifest_tensor_provenance",
+        "description": "Existing M3AD manifests, source ids, source record ids, tensor hashes, signer hashes, and crop config hashes bind annotation rows to approved data.",
+        "status": "allowed_as_provenance_only"
+      }
+    ],
+    "disallowed_label_sources": [
+      "MediaPipe-generated labels",
+      "OpenPose-generated labels",
+      "YOLO-generated labels",
+      "RTMPose-generated labels",
+      "pretrained landmark or pose outputs",
+      "unknown-label boxes",
+      "preview videos or derived non-raw PopSign artifacts",
+      "unapproved datasets",
+      "synthetic clips or labels",
+      "labels without source-register binding"
+    ],
+    "source_register_checks": [
+      "annotation rows must point to source_id=popsign-v1-original-videos unless a future source-register decision explicitly expands the lane",
+      "packet metadata must record docs/model/dataset-source-register.json sha256=b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+      "packet validation must reject broad asl-citizen, broad wlasl, preview-video, pose, landmark, embedding, detector, and feature artifacts"
+    ]
+  },
+  "annotation_packet_plan": {
+    "primary_packet_path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+    "overlay_review_path": "docs/validation/return-to-form-tier0-detector0-annotation-packet-v0-review.md",
+    "overlay_artifact_directory": "docs/validation/return-to-form-tier0-detector0-overlays/",
+    "review_status": "planned_not_created_in_this_slice",
+    "minimum_seed_packet_shape": {
+      "labels": 5,
+      "splits": [
+        "train",
+        "validation",
+        "test"
+      ],
+      "target_per_label_split": "at least 2 clips per label per split, with 4 temporally spaced frames per clip before any detector training smoke",
+      "heldout_requirement": "validation and test annotation rows must remain held out from detector optimization and be used only for localization gates"
+    },
+    "required_packet_fields": [
+      "schema_version",
+      "created_at",
+      "source_register_sha256",
+      "source_coverage_sha256",
+      "crop_config_sha256",
+      "manifest_sha256_by_split",
+      "selected_labels",
+      "coordinate_space",
+      "frame_rows",
+      "review_summary",
+      "banned_label_sources",
+      "non_actions"
+    ],
+    "required_frame_row_fields": [
+      "clip_id",
+      "label_id",
+      "split",
+      "source_id",
+      "source_record_id",
+      "signer_identity_hash",
+      "frame_index",
+      "timestamp_sec",
+      "frame_tensor_path",
+      "frame_tensor_sha256",
+      "left_or_first_hand_present",
+      "left_or_first_hand_center_xy_norm",
+      "left_or_first_hand_box_xyxy_norm",
+      "right_or_second_hand_present",
+      "right_or_second_hand_center_xy_norm",
+      "right_or_second_hand_box_xyxy_norm",
+      "head_or_face_present",
+      "head_or_face_center_xy_norm",
+      "head_or_face_box_xyxy_norm",
+      "upper_body_or_signing_space_present",
+      "upper_body_or_signing_space_center_xy_norm",
+      "upper_body_or_signing_space_box_xyxy_norm",
+      "visibility_confidence_by_target",
+      "occlusion_flags_by_target",
+      "truncation_flags_by_target",
+      "annotation_source",
+      "review_status"
+    ]
+  },
+  "no_pretrained_constraints": {
+    "promoted_lane_requirement": "Detector 0 and downstream crop normalization must be scratch-trained or manually specified; no pretrained CV, sign, landmark, pose, detector, feature extractor, or backbone may produce labels or model weights.",
+    "banned_pretrained_generated_labels": [
+      "MediaPipe",
+      "OpenPose",
+      "YOLO",
+      "RTMPose",
+      "MMPose",
+      "pretrained hand landmarks",
+      "pretrained face landmarks",
+      "pretrained body pose",
+      "pretrained detector boxes",
+      "foundation-model visual annotations"
+    ],
+    "required_receipts_before_detector_training": [
+      "packet JSON validates and binds source/crop/manifest hashes",
+      "node scripts/audit_source_register.mjs exits 0",
+      "node scripts/audit_no_pretrained_deps.mjs exits 0",
+      "node scripts/audit_no_pretrained_artifact_json.mjs exits 0",
+      "annotation packet contains only allowed annotation_source values"
+    ]
+  },
+  "detector0_validation_gates": {
+    "heldout_visible_target_localization": {
+      "required": true,
+      "split_scope": [
+        "validation",
+        "test"
+      ],
+      "center_error_gate": "for visible hands/head targets, at least 80% of held-out annotated frames per target group must have center error <= 0.12 normalized frame diagonal",
+      "box_iou_gate": "hands and head_or_face must reach median IoU >= 0.35 on held-out visible targets; upper_body_or_signing_space must reach median IoU >= 0.50",
+      "per_label_reporting": true
+    },
+    "no_pretrained_provenance": {
+      "required": true,
+      "pass_condition": "detector training report records pretrained_components=[], allowed annotation sources only, and passing no-pretrained audits"
+    },
+    "temporal_stability": {
+      "required": true,
+      "pass_condition": "for unoccluded consecutive sampled frames, median target-center jitter <= 0.15 normalized frame diagonal and no unflagged box-area jump greater than 2x within a clip"
+    },
+    "visual_overlay_review": {
+      "required": true,
+      "pass_condition": "overlay sheets exist for held-out annotated clips, reviewer marks at least 80% target rows acceptable, and no systematic unflagged hand/head misses remain for dad, grandpa, or hat"
+    },
+    "fixed_vs_detector_crop_ablation": {
+      "required_before_promotion": true,
+      "design": "after Detector 0 passes localization gates, generate detector-normalized crops for the same Tier 0 train/validation/test manifests and compare one recognizer run against the retained M3AE-J fixed-crop baseline with identical labels, splits, source ids, and no pretrained components",
+      "minimum_useful_improvement": "detector-normalized recognizer must preserve train sanity and improve validation top1 or macro recall by at least 0.10 absolute over M3AE-J, or remove zero-recall validation/test labels without creating new zero-recall labels",
+      "non_promotion_rule": "do not make detector crops primary unless localization gates and the fixed-vs-detector ablation both pass"
+    }
+  },
+  "stop_conditions": {
+    "detector_failure": [
+      "held-out visible hand/head localization misses the center or IoU gates after the first scratch detector smoke",
+      "temporal stability or visual overlay review shows systematic unflagged misses on head-region signs",
+      "detector training requires pretrained weights, pretrained-generated labels, or unapproved source media"
+    ],
+    "annotation_insufficiency": [
+      "manual or manual-verified packet cannot cover all five selected labels across train plus held-out validation/test rows",
+      "annotation rows cannot bind back to approved PopSign source records and tensor hashes",
+      "review status remains unreviewed or uses unknown/generated label provenance"
+    ],
+    "unchanged_recognizer_generalization_after_normalized_crops": [
+      "after localization gates pass, the fixed-vs-detector ablation still reports validation/test near random",
+      "zero-recall validation or test labels persist without a new concrete crop/localization failure",
+      "the next meaningful change would require source approval, human data collection, final-gate changes, or a reduced product claim"
+    ]
+  },
+  "hard_negative_and_calibration_blockers": {
+    "status": "separate_not_addressed",
+    "hard_negative_far": "not assessed; no classifier threshold, hard-negative set, ONNX export, or model-card promotion is part of M3AE-L",
+    "no_zero_accepted_true_class": "not assessed; no acceptance threshold exists in this bootstrap report",
+    "final_promotion_negative_challenge_blocker": "unchanged; ./.venv/bin/python scripts/audit_final_manifests.py still remains the separate final-promotion negative-challenge gate and is not weakened by this Detector 0 bootstrap"
+  },
+  "brev_status": {
+    "checked_command": "brev ls --json",
+    "workspace": "asl-pilot-rawframe-001",
+    "status": "RUNNING",
+    "health_status": "HEALTHY",
+    "instance_type": "massedcompute_A100_sxm4_80G_DGX",
+    "manual_stop_command_not_run": "brev stop asl-pilot-rawframe-001"
+  },
+  "non_actions": [
+    "did_not_train_detector0",
+    "did_not_train_recognizer",
+    "did_not_run_second_smoke_or_microprobe",
+    "did_not_expand_labels",
+    "did_not_evaluate_controlled_clip_heldout_checkpoint",
+    "did_not_import_or_approve_sources",
+    "did_not_use_pretrained_detector_or_landmarks",
+    "did_not_export_onnx",
+    "did_not_promote_model_card",
+    "did_not_claim_final_readiness",
+    "did_not_weaken_final_gates",
+    "did_not_stop_brev",
+    "did_not_create_duplicate_brev_worker",
+    "did_not_push"
+  ],
+  "next_action": {
+    "id": "detector0_annotation_packet",
+    "description": "Create or populate the manual/manual-verified localization annotation packet at data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json, bind it to the existing Tier 0 manifests/source/crop hashes, and validate provenance before any Detector 0 training."
+  }
+}

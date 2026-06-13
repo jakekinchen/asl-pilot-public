@@ -1,0 +1,450 @@
+{
+  "schema_version": "asl-pilot-detector0-hard-negative-source-review/v1",
+  "mission": "M3IF - Detector 0 hard-negative source review no Brev",
+  "created_at": "2026-05-30T03:31:56Z",
+  "status": "source_review_only_not_data_import_not_training_ready",
+  "purpose": "Classify tracked source-register entries and local negative-challenge fixtures that can plausibly support future Detector 0 hard-negative/no-hand evidence without importing media, authoring labels, creating rows, training, exporting, promoting, or changing claims.",
+  "current_commit": "2b3d2cf observer: CONTINUE - m3ie to m3if hard negatives",
+  "active_prompt": "docs/model/return-to-form-m3if-detector0-hard-negative-source-review-no-brev-goal-loop-prompt.md",
+  "source_artifacts": {
+    "docs/model/return-to-form-detector0-evaluation-gap-contract-v1.json": {
+      "sha256": "9876acfbcf970b1f877829f795612a3cd5d346b64e8272f701c837d9e8559670",
+      "role": "M3IE evaluation-gap contract"
+    },
+    "docs/validation/return-to-form-m3ie-detector0-evaluation-gap-contract-no-brev-v1.json": {
+      "sha256": "1112af1cf0ef71884cad20c670ccce521b65c4a5167bc1a566586c0bfa554a21",
+      "role": "M3IE validation receipt"
+    },
+    "data/annotations/detector0/return-to-form-detector0-combined-training-packet-v1.json": {
+      "sha256": "59214b75e0f416ce8527e560a947c2201442d86ded2a80bcd0f4b62e418254e2",
+      "role": "M3ID 49-row positive-ish combined Detector 0 packet"
+    },
+    "docs/validation/return-to-form-m3id-detector0-combined-packet-materialization-no-brev-v1.json": {
+      "sha256": "c200b6c558e1b351079b10c339116a8e14d5e0d6bbf5708da9db565150bd4e2d",
+      "role": "M3ID validation receipt"
+    },
+    "docs/model/dataset-source-register.json": {
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+      "role": "source-rights register"
+    },
+    "docs/model/return-to-form-detector0-combined-packet-training-contract-v1.json": {
+      "sha256": "a4c21f0a4ccbf60ce4304d42f4ccee5d48a5a8140f2078afd43cc4770fa9fdfd",
+      "role": "M3IC combined-packet target policy"
+    },
+    "docs/model/return-to-form-detector0-fixed-baseline-gate-contract-v1.json": {
+      "sha256": "92f4650a50b562b3055bb455fe9b5ae30ad639fe843b5efd834cd24925142423",
+      "role": "fixed-baseline beat-it gate"
+    },
+    "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json": {
+      "sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d",
+      "role": "V0 Detector 0 positive packet"
+    },
+    "data/annotations/detector0/return-to-form-targeted-annotation-workbench-ingestion-v1.json": {
+      "sha256": "91d9f32cdaef7c58f123f487cc8749769fc30f702f2be65a11142ab8d6120d02",
+      "role": "M3IB supplemental positive packet"
+    },
+    "web/public/model/detector0-card.json": {
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "role": "Detector 0 fail-closed claim surface"
+    },
+    "web/public/model/browser-model-bundle.json": {
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9",
+      "role": "browser bundle fail-closed claim surface"
+    },
+    "web/public/model/model-card.json": {
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "role": "recognizer fail-closed model card"
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "role": "active vocabulary fail-closed claim surface"
+    },
+    "data/manifests/negative-challenge.json": {
+      "sha256": "b06c7990b9d0efbec908b8466064b87dd29bbf7c5d891e133c935c5c7ed02293",
+      "role": "tracked validation-only negative challenge manifest fixture"
+    },
+    "docs/review/online-negative-challenge-final-review.json": {
+      "sha256": "77dcd6843a5a62489150d5ee32501d11f5af360d31ef56c4eb3620109a82a28f",
+      "role": "final visual/source review for current negative challenge manifest"
+    },
+    "docs/review/online-negative-challenge-contact-sheet-observations.json": {
+      "sha256": "ac4a44e673c0889fb4633ec80ce2f6d70d5d920a92df454c18441cd8436e2fa3",
+      "role": "contact-sheet visual observations for negative challenge candidates"
+    }
+  },
+  "hard_negative_need_from_m3ie": {
+    "required_gap_id": "hard_negative_no_hand_rows",
+    "current_evidence": "M3ID contains 49 included reviewed PopSign hand/upper-body rows and one excluded insufficient-visual-evidence row. It does not contain approved hard-negative no-hand examples.",
+    "missing_evidence": "Reviewed source-approved rows where no hand should be detected, with explicit absence labels for both learned hand targets and provenance tying each row to an approved source route.",
+    "minimum_future_acceptance_proof": "A tracked source-review and annotation receipt must enumerate hard-negative/no-hand row count, source ids, splits, absence payloads for left_or_first_hand and right_or_second_hand, reviewer identity, no-pretrained attestation, and JSON parse/hash evidence.",
+    "related_m3ie_gaps_also_addressed_by_this_source_review": [
+      "empty_camera_rows",
+      "low_light_rows",
+      "false_trigger_rate"
+    ]
+  },
+  "candidate_source_review_entries": [
+    {
+      "candidate_id": "first-party-consented-hard-negative-capture-route",
+      "source_id_or_path": "first-party-browser-consent-capture",
+      "candidate_kind": "source_register_entry",
+      "current_approval_status": "approved_after_clip_level_consent",
+      "allowed_use": {
+        "model_training": true,
+        "validation": true,
+        "pilot_submission": true
+      },
+      "rights_provenance_status": "Source register permits first-party local clips only after dataset signer registry, clip-level consent, consent form version/hash, raw clip hash, and clip-level review evidence exist.",
+      "raw_media_allowed": true,
+      "derived_labels_allowed": "Human/project-authored absence labels may be allowed after clip-level consent and visual review; pretrained/generated labels remain forbidden.",
+      "no_hand_hard_negative_use_in_scope": true,
+      "supported_future_evidence_types": [
+        "no_hands_visible",
+        "empty_camera",
+        "low_light",
+        "off_center",
+        "local_browser_domain_false_trigger_challenge"
+      ],
+      "training_scope": "Only this route is currently source-register approved for future model-training hard negatives, but no concrete clips or rows exist yet.",
+      "missing_approvals_or_evidence": [
+        "actual consented hard-negative captures",
+        "clip-level consent and signer registry records",
+        "raw clip SHA-256 hashes",
+        "human visual review and expected absence payloads",
+        "Detector 0 manifest contract"
+      ],
+      "recommended_next_handling": "Keep as the future training-capable hard-negative route; do not claim readiness until a separate collection/manifest slice records actual consented clips and absence labels."
+    },
+    {
+      "candidate_id": "mixed-online-negative-challenge-exact-files",
+      "source_id_or_path": "online-negative-challenge-mixed-wikimedia-cira-v1",
+      "candidate_kind": "source_register_entry",
+      "current_approval_status": "approved_validation_only_mixed_external_raw_video_with_attribution",
+      "allowed_use": {
+        "model_training": false,
+        "validation": true,
+        "pilot_submission": true
+      },
+      "rights_provenance_status": "Exact-file scoped validation-only approval is recorded in the source register, mixed source audit, and external rights receipt.",
+      "raw_media_allowed": true,
+      "derived_labels_allowed": "Manual visual observations and reject-only expected outcomes are allowed for validation evidence; derived pose, landmark, embedding, detector, feature, pretrained artifacts, generated labels, and pseudo-labels are disallowed.",
+      "no_hand_hard_negative_use_in_scope": true,
+      "supported_future_evidence_types": [
+        "empty_camera",
+        "no_hands_visible",
+        "low_light",
+        "off_center",
+        "non_target_asl_sign",
+        "false_trigger_validation"
+      ],
+      "tracked_counts": {
+        "selected_files": 25,
+        "empty_camera": 5,
+        "no_hands_visible": 5,
+        "low_light": 5,
+        "off_center": 5,
+        "non_target_asl_sign": 5
+      },
+      "training_scope": "Not approved for model training; may support validation/pilot negative challenge evidence only.",
+      "missing_approvals_or_evidence": [
+        "Detector 0-specific manifest contract mapping these clips to left/right hand absence or expected rejection semantics",
+        "evaluator plan for false-trigger and no-hand metrics",
+        "confirmation that current 96px rawframe tensors are sufficient or that a Detector 0 fixture generation policy is needed"
+      ],
+      "recommended_next_handling": "Use as the primary approved validation-only source route for a future hard-negative manifest contract; do not use as training rows."
+    },
+    {
+      "candidate_id": "wikimedia-negative-challenge-exact-files",
+      "source_id_or_path": "wikimedia-commons-negative-challenge-videos",
+      "candidate_kind": "source_register_entry",
+      "current_approval_status": "approved_validation_only_free_license_or_public_domain_with_attribution",
+      "allowed_use": {
+        "model_training": false,
+        "validation": true,
+        "pilot_submission": true
+      },
+      "rights_provenance_status": "Source register and exact-file receipts approve retained Wikimedia files for validation-only negative challenge evidence with attribution.",
+      "raw_media_allowed": true,
+      "derived_labels_allowed": "Manual visual observations and expected reject outcomes are allowed for validation evidence only; generated labels and pretrained-derived outputs are forbidden.",
+      "no_hand_hard_negative_use_in_scope": true,
+      "supported_future_evidence_types": [
+        "empty_camera",
+        "no_hands_visible",
+        "low_light"
+      ],
+      "tracked_counts": {
+        "selected_files_in_rights_receipt": 12,
+        "empty_camera": 3,
+        "no_hands_visible": 5,
+        "low_light": 4
+      },
+      "training_scope": "Not approved for model training.",
+      "missing_approvals_or_evidence": [
+        "Detector 0-specific absence-label manifest contract",
+        "per-file attribution retention in any future manifest",
+        "metric/evaluator receipt"
+      ],
+      "recommended_next_handling": "Use through the mixed online negative challenge manifest contract for validation-only hard-negative coverage."
+    },
+    {
+      "candidate_id": "cira-negative-challenge-exact-files",
+      "source_id_or_path": "cira-satellite-library-negative-challenge-videos",
+      "candidate_kind": "source_register_entry",
+      "current_approval_status": "approved_validation_only_cira_noaa_credit_required",
+      "allowed_use": {
+        "model_training": false,
+        "validation": true,
+        "pilot_submission": true
+      },
+      "rights_provenance_status": "Source register and CIRA exact-file receipt approve retained satellite clips for validation-only negative challenge evidence with required credit metadata.",
+      "raw_media_allowed": true,
+      "derived_labels_allowed": "Manual visual observations and expected reject outcomes are allowed for validation evidence only; generated labels and pretrained-derived outputs are forbidden.",
+      "no_hand_hard_negative_use_in_scope": true,
+      "supported_future_evidence_types": [
+        "empty_camera",
+        "low_light",
+        "off_center"
+      ],
+      "tracked_counts": {
+        "selected_files_in_rights_receipt": 8,
+        "empty_camera": 2,
+        "low_light": 1,
+        "off_center": 5
+      },
+      "training_scope": "Not approved for model training.",
+      "missing_approvals_or_evidence": [
+        "Detector 0-specific absence-label manifest contract",
+        "per-file credit retention in any future manifest",
+        "metric/evaluator receipt"
+      ],
+      "recommended_next_handling": "Use through the mixed online negative challenge manifest contract for validation-only empty/background and off-center coverage."
+    },
+    {
+      "candidate_id": "asl-citizen-non-target-sign-exact-files",
+      "source_id_or_path": "asl-citizen-school-assignment-raw-videos",
+      "candidate_kind": "source_register_entry_and_mixed_negative_challenge_component",
+      "current_approval_status": "approved_noncommercial_school_assignment_raw_video_only",
+      "allowed_use": {
+        "model_training": true,
+        "validation": true,
+        "pilot_submission": true
+      },
+      "rights_provenance_status": "Source register approves local raw RGB ASL Citizen use for this noncommercial school assignment; mixed negative challenge evidence includes five exact non-target ASL sign files as validation/pilot evidence.",
+      "raw_media_allowed": true,
+      "derived_labels_allowed": "Raw video and human review are allowed within school-assignment constraints; pretrained baselines, pose outputs, landmarks, feature caches, generated labels, and redistributed excerpts are forbidden.",
+      "no_hand_hard_negative_use_in_scope": false,
+      "supported_future_evidence_types": [
+        "non_target_asl_sign",
+        "hands_visible_false_trigger_challenge"
+      ],
+      "tracked_counts": {
+        "non_target_asl_sign_files_in_mixed_negative_challenge": 5
+      },
+      "training_scope": "May be training/validation approved as raw RGB under the school-assignment source entry, but the five tracked negative-challenge exact files are currently validation/pilot reject-only evidence; they are not no-hand examples.",
+      "missing_approvals_or_evidence": [
+        "Detector 0-specific reason to include hands-visible non-target ASL signs in a hard-negative/no-hand manifest",
+        "manifest contract separating no-hand absence rows from hands-visible false-trigger challenge rows",
+        "confidentiality handling for any future ASL Citizen raw clips"
+      ],
+      "recommended_next_handling": "Treat as false-trigger challenge evidence, not no-hand absence evidence, unless a later Detector 0 manifest contract explicitly needs hands-visible non-target challenge rows."
+    },
+    {
+      "candidate_id": "internet-archive-prelinger-negative-candidates",
+      "source_id_or_path": "internet-archive-negative-challenge-videos",
+      "candidate_kind": "source_register_entry",
+      "current_approval_status": "approved_validation_only_prelinger_public_domain_with_attribution",
+      "allowed_use": {
+        "model_training": false,
+        "validation": true,
+        "pilot_submission": true
+      },
+      "rights_provenance_status": "Source register approves seven exact Internet Archive/Prelinger files for validation-only negative challenge evidence, but also requires contact-sheet/visual-observation evidence before manifest inclusion.",
+      "raw_media_allowed": true,
+      "derived_labels_allowed": "Manual visual observations may support validation-only expected outcomes after contact-sheet review; pretrained/generated labels remain forbidden.",
+      "no_hand_hard_negative_use_in_scope": true,
+      "supported_future_evidence_types": [
+        "hands_cropped_out",
+        "hand_clap",
+        "non_signing_hand_or_partial_hand_false_trigger_validation"
+      ],
+      "tracked_counts": {
+        "selected_files_in_rights_receipt": 7,
+        "hand_clap": 2,
+        "hands_cropped_out": 5
+      },
+      "training_scope": "Not approved for model training.",
+      "missing_approvals_or_evidence": [
+        "current contact-sheet/visual-observation approval marking each candidate strong_visual_candidate",
+        "future manifest inclusion decision",
+        "Detector 0 absence/false-trigger semantics for cropped/partial hands"
+      ],
+      "recommended_next_handling": "Keep as a secondary validation-only candidate route; do not include in the next Detector 0 manifest unless the required visual-observation receipt exists or is created in a later no-import review slice."
+    },
+    {
+      "candidate_id": "tracked-negative-challenge-manifest-fixture",
+      "source_id_or_path": "data/manifests/negative-challenge.json",
+      "candidate_kind": "local_manifest_fixture",
+      "current_approval_status": "manifest_exists_for_validation_negative_challenge",
+      "allowed_use": {
+        "model_training": false,
+        "validation": true,
+        "pilot_submission": true
+      },
+      "rights_provenance_status": "Manifest binds to the source register hash, mixed source audit, selected review packet, and final review status approved_for_manifest_import.",
+      "raw_media_allowed": true,
+      "derived_labels_allowed": "Existing rawframe tensors and capture-condition expected reject metadata exist for the rawframe lane; they are not Detector 0 box labels and must not be promoted as generated labels.",
+      "no_hand_hard_negative_use_in_scope": true,
+      "supported_future_evidence_types": [
+        "empty_camera",
+        "no_hands_visible",
+        "low_light",
+        "off_center",
+        "non_target_asl_sign",
+        "false_trigger_validation"
+      ],
+      "tracked_counts": {
+        "clips": 25,
+        "empty_camera": 5,
+        "no_hands_visible": 5,
+        "low_light": 5,
+        "off_center": 5,
+        "non_target_asl_sign": 5
+      },
+      "training_scope": "Not training-ready and not a Detector 0 label packet; can seed a future validation-only Detector 0 manifest contract if source/fixture semantics are preserved.",
+      "missing_approvals_or_evidence": [
+        "Detector 0-specific manifest contract",
+        "explicit target absence/expected rejection semantics for left_or_first_hand and right_or_second_hand",
+        "evaluator receipt for false-trigger/no-hand metrics"
+      ],
+      "recommended_next_handling": "Use as the concrete local fixture for the next hard-negative manifest contract, while preserving validation-only scope and avoiding row/label creation in this slice."
+    },
+    {
+      "candidate_id": "online-negative-challenge-visual-review-fixtures",
+      "source_id_or_path": "docs/review/online-negative-challenge-final-review.json and docs/review/online-negative-challenge-contact-sheet-observations.json",
+      "candidate_kind": "local_review_fixture",
+      "current_approval_status": "final review approved selected 25 clips for manifest import; broader contact-sheet observations include excluded and non-selected candidates",
+      "allowed_use": {
+        "model_training": false,
+        "validation": true,
+        "pilot_submission": true
+      },
+      "rights_provenance_status": "Final review ties selected clips to source-approved local raw videos and sampled contact-sheet observations; observations alone are review evidence, not a manifest.",
+      "raw_media_allowed": false,
+      "derived_labels_allowed": "Observation metadata may support future manifest decisions; it is not a label source and cannot create Detector 0 rows by itself.",
+      "no_hand_hard_negative_use_in_scope": true,
+      "supported_future_evidence_types": [
+        "visual_review_status",
+        "challenge_type_matches_video",
+        "expected_reject_outcome_confirmed"
+      ],
+      "tracked_counts": {
+        "final_review_selected_clips": 25,
+        "contact_sheet_observations": 43
+      },
+      "training_scope": "Not training data.",
+      "missing_approvals_or_evidence": [
+        "manifest contract selecting exact Detector 0 use of reviewed clips",
+        "explicit absence target semantics",
+        "no new selection from excluded observations without a later review slice"
+      ],
+      "recommended_next_handling": "Use as supporting evidence for the next manifest contract; do not treat contact-sheet observations as imported rows or labels."
+    }
+  ],
+  "sources_considered_not_selected_for_hard_negative_route": [
+    {
+      "source_id": "popsign-v1-original-videos",
+      "reason": "Approved and already used for positive hand/sign rows; not a no-hand/background-only source. It should remain positive/source-split evidence unless a later prompt asks for a different non-target-sign challenge review."
+    },
+    {
+      "source_id": "asl-citizen",
+      "reason": "The general ASL Citizen entry remains blocked; only the school-assignment raw-video entry is approved."
+    },
+    {
+      "source_id": "wlasl",
+      "reason": "Blocked academic computational-only source entry."
+    },
+    {
+      "source_id": "wlasl-school-assignment-raw-videos",
+      "reason": "Approved raw source clips may support future ASL data, but no tracked hard-negative/no-hand or source-reviewed local fixture is present in this M3IF evidence set."
+    },
+    {
+      "source_id": "asl-lex",
+      "reason": "Blocked because sign reference video permission is required."
+    },
+    {
+      "source_id": "kaggle-or-static-asl",
+      "reason": "Blocked until dataset-specific review and not adequate for ASL Pilot isolated vocabulary video evidence by default."
+    }
+  ],
+  "source_review_classification": {
+    "classification": "approved_sources_available_for_future_manifest_contract",
+    "approved_validation_only_sources_available": true,
+    "training_ready_hard_negative_rows_available": false,
+    "first_party_training_capable_route_available_after_consent": true,
+    "reason": "Tracked exact-file negative challenge sources and the existing negative-challenge manifest can support a future validation-only Detector 0 hard-negative/no-hand manifest contract. They cannot be used as training rows. First-party consented capture is the only current training-capable source route, but no concrete first-party hard-negative clips or labels exist."
+  },
+  "future_manifest_contract_requirements": [
+    "Do not import media or create rows from this review alone.",
+    "Separate validation-only external negative challenge clips from any future training hard-negative rows.",
+    "For each selected validation clip, preserve source id, exact local path, source URL, license/credit fields, SHA-256, challenge type, visual review status, and expected reject outcome.",
+    "For Detector 0 no-hand/absence semantics, require explicit future contract language for left_or_first_hand and right_or_second_hand expected absence or false-trigger measurement.",
+    "Do not use existing rawframe tensors as Detector 0 labels or generated labels.",
+    "Keep pretrained detector, landmark, feature, backbone, generated-label, pseudo-label, and teacher-model outputs forbidden."
+  ],
+  "claim_surface_proof": {
+    "web/public/model/detector0-card.json": {
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null,
+      "runtime_gates": {
+        "detector0_tracking": false,
+        "box_driven_avatar": false,
+        "recognition_pass_fail": false
+      }
+    },
+    "web/public/model/browser-model-bundle.json": {
+      "recognition_enabled": false,
+      "detector0_tracking_enabled": false,
+      "box_driven_avatar_enabled": false,
+      "authored_avatar_demos_enabled": false
+    },
+    "web/public/model/model-card.json": {
+      "status": "not_trained",
+      "pretrained_components": []
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": [],
+      "evidenceArtifacts": []
+    },
+    "claim_language_allowed_by_this_review": false
+  },
+  "forbidden_action_proof": {
+    "no_brev_lifecycle": true,
+    "no_remote_commands": true,
+    "no_paid_compute_started": true,
+    "no_source_or_media_import": true,
+    "no_row_creation": true,
+    "no_label_authoring_or_repair": true,
+    "no_generated_labels_or_pseudo_labels": true,
+    "no_tensor_generation_or_mutation": true,
+    "no_detector0_training": true,
+    "no_recognizer_training": true,
+    "no_export_or_promotion": true,
+    "no_browser_activation": true,
+    "no_final_gate_change": true,
+    "no_claim_expansion": true
+  },
+  "readiness_classification": {
+    "source_review_written": true,
+    "approved_sources_available_for_future_manifest_contract": true,
+    "ready_for_hard_negative_manifest_contract": true,
+    "ready_for_training": false,
+    "ready_for_evaluation": false,
+    "ready_for_export": false,
+    "ready_for_browser_promotion": false,
+    "ready_for_final_gate_or_claim_expansion": false,
+    "reason": "This review identifies approved source routes and local fixtures only. It does not create Detector 0 rows, labels, manifests, tensors, metrics, exports, browser artifacts, or claims."
+  },
+  "exactly_one_next_action": "continue_m3ig_detector0_hard_negative_manifest_contract_no_brev"
+}

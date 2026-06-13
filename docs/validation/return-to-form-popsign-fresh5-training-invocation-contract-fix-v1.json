@@ -1,0 +1,263 @@
+{
+  "schema_version": "asl-pilot-popsign-fresh5-training-invocation-contract-fix/v1",
+  "status": "accepted_no_training_invocation_contract_fixed",
+  "mission": "Mission 3CG - PopSign fresh5 training invocation contract fix",
+  "generated_at": "2026-05-27T22:48:00Z",
+  "generated_by": "Codex executor",
+  "current_commit": {
+    "short": "cd08e7e",
+    "full": "cd08e7e6c8373f98e38e047a65d4ef8f1fb7845b"
+  },
+  "active_prompt": "docs/model/return-to-form-popsign-fresh5-training-invocation-contract-fix-goal-loop-prompt.md",
+  "input_artifacts": {
+    "goal": {
+      "path": "GOAL.md",
+      "sha256": "b85dc1cf263c881cb15841e67623586fe7164261b285cb4f55ae2795f20b091f"
+    },
+    "active_prompt": {
+      "path": "docs/model/return-to-form-popsign-fresh5-training-invocation-contract-fix-goal-loop-prompt.md",
+      "sha256": "1b58cee6731d97b7737373d75397a1075a7e71141ffe85f9375faf9ec6eaa33e"
+    },
+    "m3cf_compute_receipt": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-training-compute-receipt-v1.json",
+      "sha256": "2a82b99f693b6ff1241aa933e77e9809a43f8f76008852b48f5971c0ec1a40c8",
+      "selected_next_action": "continue_training_invocation_contract_fix_no_training"
+    },
+    "m3ce_scaffold_contract": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-architecture-scaffold-contract-v1.json",
+      "sha256": "0ed5a1fa1e5ea178cf666723f7c2a645e567890b98be63001259149de7cba378",
+      "architecture_id": "scratch_region_temporal_late_fusion_tcn_contract_v1"
+    },
+    "repaired_manifest_contract": {
+      "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/manifest-contract.json",
+      "sha256": "38e8e1b8663e0e360fd9b8284bad9a5f08dd7fa00d236ec50fecfb87c8c9ce4a"
+    },
+    "train_rawframe_model_after_fix": {
+      "path": "scripts/train_rawframe_model.py",
+      "sha256": "ed08906341a00f22f0a305bc62cc9cf80193d16fabc4148f5837a0d36b547370"
+    }
+  },
+  "m3cf_blocker_summary": {
+    "failed_command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json --validation-manifest data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json --test-manifest data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json --output-dir output/m3cf-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-local-sanity --model-id asl-pilot-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-v1 --architecture scratch_region_temporal_late_fusion_tcn_contract_v1 --region-grid-tcn-training-smoke --dry-run --check-files --frame-count 16 --image-size 96 --epochs 1 --batch-size 4 --learning-rate 0.001 --optimizer adamw --weight-decay 0.0 --training-augmentation none --max-train-batches 1 --max-validation-batches 1 --num-workers 0",
+    "exit_code": 2,
+    "stderr": "Manifest validation failed: region-grid TCN training smoke requires --architecture true_temporal_convnet_region_grid",
+    "source_blocker": "--region-grid-tcn-training-smoke was scoped to true_temporal_convnet_region_grid, the older ASL Citizen high-signal region-grid manifests, and output/m3aw-region-grid-tcn-local-smoke."
+  },
+  "files_and_symbols_inspected": [
+    {
+      "path": "GOAL.md",
+      "symbols_or_sections": [
+        "Mission 3CG active prompt",
+        "Brev no-spend/no-training guardrails",
+        "M3CG exit requirements"
+      ]
+    },
+    {
+      "path": "docs/model/return-to-form-popsign-fresh5-training-invocation-contract-fix-goal-loop-prompt.md",
+      "symbols_or_sections": [
+        "Required Slice",
+        "Preferred properties for a fix",
+        "next action enum",
+        "Hard Boundaries",
+        "Acceptance Criteria"
+      ]
+    },
+    {
+      "path": "docs/validation/return-to-form-popsign-fresh5-training-compute-receipt-v1.json",
+      "symbols_or_sections": [
+        "planned_local_no_spend_sanity_command",
+        "command_compatibility",
+        "route_selection",
+        "compute_envelope"
+      ]
+    },
+    {
+      "path": "docs/session-logs/400-observer-continue-popsign-fresh5-invocation-contract-handoff.md",
+      "symbols_or_sections": [
+        "Executor Evidence",
+        "Action Taken",
+        "Progress Ledger"
+      ]
+    },
+    {
+      "path": "docs/runbooks/codex-goal-loop.md",
+      "symbols_or_sections": [
+        "executor responsibilities",
+        "validation and session-log expectations"
+      ]
+    },
+    {
+      "path": "docs/runbooks/observer-runbook-codex.md",
+      "symbols_or_sections": [
+        "executor/observer role boundary",
+        "observer-only redirect boundaries"
+      ]
+    },
+    {
+      "path": "scripts/train_rawframe_model.py",
+      "symbols_or_sections": [
+        "ALLOWED_MODEL_ARCHITECTURES",
+        "FINAL_MODEL_ARCHITECTURES",
+        "parse_args training-mode flags",
+        "validate_vocabulary_review",
+        "validate_labels",
+        "validate_external_clip_provenance",
+        "validate_manifest",
+        "training_evidence_mode",
+        "generated_by",
+        "validate_training_invocation",
+        "print_plan",
+        "run_training preserve_region_axis"
+      ]
+    },
+    {
+      "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/manifest-contract.json",
+      "symbols_or_sections": [
+        "dataset_id",
+        "rgb_regions_grid_v1 input contract",
+        "train/validation/test manifest hashes",
+        "approved source and label contract"
+      ]
+    }
+  ],
+  "files_changed": [
+    {
+      "path": "scripts/train_rawframe_model.py",
+      "changes": [
+        "Added POPSIGN_SOURCE_ID plus PopSign fresh5 repaired manifest, output, label, and cap constants.",
+        "Added --popsign-fresh5-training-smoke as a dedicated bounded mode.",
+        "Added PopSign fresh5 manifest evidence validation for dataset id, source mode, external source id, exact five-label order, and all-clip source id.",
+        "Allowed reviewed vocabulary subsets only when the PopSign fresh5 mode passes the scoped flag.",
+        "Added invocation guards requiring the M3CE architecture, exact repaired train/validation/test manifests, exact output directory, --check-files, frame/image dimensions, epoch/batch caps, batch-limit caps, num-workers 0, and no augmentation.",
+        "Rejected combinations with allow-small-label-set, lesson milestone, reduced real-data modes, region-grid TCN mode, and controlled clip-heldout mode.",
+        "Preserved the rgb_regions region axis for the new mode in dry-run planning and any later explicitly approved fitting path."
+      ]
+    },
+    {
+      "path": "docs/validation/return-to-form-popsign-fresh5-training-invocation-contract-fix-v1.json",
+      "changes": [
+        "Added this no-training invocation-contract-fix receipt."
+      ]
+    },
+    {
+      "path": "docs/session-logs/401-mission-3cg-popsign-fresh5-training-invocation-contract-fix.md",
+      "changes": [
+        "Added numbered executor session log for this slice."
+      ]
+    }
+  ],
+  "new_dry_run_check_files_command": {
+    "purpose": "No-side-effect compatibility proof for PopSign fresh5 repaired manifests with the M3CE scratch region-temporal late-fusion TCN architecture.",
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json --validation-manifest data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json --test-manifest data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json --output-dir output/m3cf-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-local-sanity --model-id asl-pilot-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-v1 --architecture scratch_region_temporal_late_fusion_tcn_contract_v1 --popsign-fresh5-training-smoke --dry-run --check-files --frame-count 16 --image-size 96 --epochs 1 --batch-size 4 --learning-rate 0.001 --optimizer adamw --weight-decay 0.0 --training-augmentation none --max-train-batches 1 --max-validation-batches 1 --num-workers 0",
+    "ran_in_this_mission": true,
+    "exit_code": 0,
+    "training_status": "dry_run_only",
+    "evidence_mode": "popsign_fresh5_training_smoke",
+    "architecture": "scratch_region_temporal_late_fusion_tcn_contract_v1",
+    "preserve_region_axis": true,
+    "manifest_results": [
+      {
+        "split": "train",
+        "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json",
+        "clip_count": 125,
+        "label_count": 5,
+        "popsign_fresh5_repaired_evidence": {
+          "dataset_id": "return-to-form-popsign-fresh5-repaired-v1",
+          "source_id": "popsign-v1-original-videos",
+          "label_ids": [
+            "thank_you",
+            "pen",
+            "home",
+            "who",
+            "morning"
+          ]
+        }
+      },
+      {
+        "split": "validation",
+        "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json",
+        "clip_count": 125,
+        "label_count": 5,
+        "popsign_fresh5_repaired_evidence": {
+          "dataset_id": "return-to-form-popsign-fresh5-repaired-v1",
+          "source_id": "popsign-v1-original-videos",
+          "label_ids": [
+            "thank_you",
+            "pen",
+            "home",
+            "who",
+            "morning"
+          ]
+        }
+      },
+      {
+        "split": "test",
+        "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json",
+        "clip_count": 125,
+        "label_count": 5,
+        "popsign_fresh5_repaired_evidence": {
+          "dataset_id": "return-to-form-popsign-fresh5-repaired-v1",
+          "source_id": "popsign-v1-original-videos",
+          "label_ids": [
+            "thank_you",
+            "pen",
+            "home",
+            "who",
+            "morning"
+          ]
+        }
+      }
+    ]
+  },
+  "side_effect_check": {
+    "output_directory": "output/m3cf-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-local-sanity",
+    "output_directory_exists_after_dry_run": false,
+    "checkpoint_created": false,
+    "tensor_artifact_created_or_mutated": false,
+    "manifest_artifact_created_or_mutated": false,
+    "optimizer_constructed_for_fitting": false,
+    "backward_called": false,
+    "fitting_started": false,
+    "brev_command_ran": false,
+    "brev_spend_usd": 0,
+    "source_mutation": false,
+    "export_or_browser_activation": false,
+    "model_card_or_final_gate_change": false,
+    "push_ran": false
+  },
+  "guard_scope": {
+    "final_model_architectures_changed": false,
+    "final_training_guard_changed": false,
+    "lesson_milestone_guard_changed": false,
+    "reduced_real_data_guard_changed": false,
+    "controlled_clip_heldout_guard_changed": false,
+    "region_grid_tcn_training_smoke_contract_changed": false,
+    "new_popsign_specific_mode_added": true,
+    "shared_reporting_change": "The region-axis preserve flag and decode-provenance dry-run status now cover both region_grid_tcn_training_smoke and popsign_fresh5_training_smoke.",
+    "scope_proof": [
+      "The new mode requires --architecture scratch_region_temporal_late_fusion_tcn_contract_v1.",
+      "The new mode requires the exact PopSign fresh5 repaired train, validation, and test manifest paths.",
+      "The new mode requires output/m3cf-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-local-sanity.",
+      "The new mode validates dataset_id return-to-form-popsign-fresh5-repaired-v1 and source_id popsign-v1-original-videos.",
+      "The new mode requires the exact label order thank_you, pen, home, who, morning.",
+      "The new mode rejects combination with final broad modes, lesson milestone, reduced real-data modes, region-grid TCN mode, controlled clip-heldout, and allow-small-label-set.",
+      "The new mode is still bounded by dry-run/no-side-effect validation in this mission; later fitting remains blocked behind a refreshed compute receipt and current human approval."
+    ]
+  },
+  "remaining_training_authorization": {
+    "training_or_fitting_authorized_by_this_receipt": false,
+    "brev_authorized_by_this_receipt": false,
+    "future_training_requirement": "A future prompt must refresh the compute receipt with the now-compatible command and separately record any current human approval, budget, runtime, kill-condition, copyback, and teardown rules before fitting."
+  },
+  "validation_summary": {
+    "initial_required_audits_passed_before_edit": true,
+    "post_edit_py_compile_passed": true,
+    "post_edit_dry_run_passed": true,
+    "post_edit_old_m3cf_guard_still_rejects_region_grid_mode_with_m3ce_architecture": true,
+    "post_edit_final_mode_still_rejects_m3ce_architecture": true,
+    "post_edit_help_lists_new_mode": true,
+    "post_edit_git_diff_check_passed": true,
+    "final_validation_after_receipt_and_log": "recorded in session log 401"
+  },
+  "selected_next_action": "continue_compute_receipt_refresh_after_invocation_contract_fix"
+}

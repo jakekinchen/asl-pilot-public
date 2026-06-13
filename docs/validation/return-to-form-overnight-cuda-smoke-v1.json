@@ -1,0 +1,90 @@
+{
+  "schema_version": "asl-pilot-return-to-form-overnight-cuda-smoke/v1",
+  "status": "remote_cuda_smoke_completed_not_promotable",
+  "mission": "M3AH overnight completion",
+  "checked_at": "2026-05-27T03:52:00Z",
+  "workspace": {
+    "name": "asl-pilot-rawframe-001",
+    "id": "2hl1hytty",
+    "gpu": "NVIDIA A100-SXM4-80GB",
+    "device": "cuda",
+    "torch": "2.12.0+cu130",
+    "project_python": "/home/shadeform/asl-pilot/.venv/bin/python"
+  },
+  "sync_evidence": {
+    "repo_synced": true,
+    "data_annotations_synced": true,
+    "remote_active_prompt": "docs/model/return-to-form-overnight-completion-goal-loop-prompt.md",
+    "remote_goal_sha256": "912bc3da698f41c56cb87805130903b465c5004270a46f905f8acfe6d0e58e60",
+    "remote_prompt_sha256": "74d44d98de610e25a5acb003bf1079b9c8abe60acc6f9b76402c9c9963a06928",
+    "remote_detector0_packet_sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d",
+    "remote_annotation_file_count": 1,
+    "remote_return_to_form_manifest_file_count": 3,
+    "remote_return_to_form_region_tensor_count": 345,
+    "remote_popsign_raw_present": true
+  },
+  "dry_run_preflight": {
+    "status": "passed",
+    "command": "/home/shadeform/asl-pilot/.venv/bin/python scripts/train_rawframe_model.py --dry-run --allow-small-label-set --train-manifest data/manifests/return-to-form-tier0/train.json --validation-manifest data/manifests/return-to-form-tier0/validation.json --test-manifest data/manifests/return-to-form-tier0/test.json --output-dir output/m3ah-tier0-rawframe-preflight --model-id m3ah-tier0-preflight --architecture motion_2d_temporal_cnn --check-files --epochs 1 --batch-size 8 --frame-count 12 --image-size 96",
+    "pretrained_components": [],
+    "label_count": 5,
+    "train_clip_count": 125,
+    "validation_clip_count": 125,
+    "test_clip_count": 95
+  },
+  "cuda_smoke": {
+    "status": "completed",
+    "purpose": "prove remote CUDA training path and collect early Tier 0 signal; not a promotion run",
+    "command": "/home/shadeform/asl-pilot/.venv/bin/python scripts/train_rawframe_model.py --allow-small-label-set --train-manifest data/manifests/return-to-form-tier0/train.json --validation-manifest data/manifests/return-to-form-tier0/validation.json --test-manifest data/manifests/return-to-form-tier0/test.json --output-dir output/m3ah-tier0-cuda-smoke --model-id m3ah-tier0-cuda-smoke --architecture motion_2d_temporal_cnn --check-files --epochs 2 --batch-size 16 --frame-count 12 --image-size 96 --training-augmentation mild --checkpoint-selection best_validation --num-workers 2 --max-train-batches 8 --max-validation-batches 4",
+    "timeout_seconds": 900,
+    "architecture": "motion_2d_temporal_cnn",
+    "initialization": "random",
+    "pretrained_components": [],
+    "evidence_mode": "smoke",
+    "allow_small_label_set": true,
+    "max_train_batches": 8,
+    "max_validation_batches": 4,
+    "history": [
+      {
+        "epoch": 1,
+        "train_accuracy": 0.232,
+        "train_loss": 1.6387114572525023,
+        "validation_accuracy": 0.390625,
+        "validation_loss": 1.5044929683208466
+      },
+      {
+        "epoch": 2,
+        "train_accuracy": 0.472,
+        "train_loss": 1.3930822458267211,
+        "validation_accuracy": 0.390625,
+        "validation_loss": 1.4155907332897186
+      }
+    ],
+    "selected_epoch": 2,
+    "copied_back_artifacts": {
+      "model_state": {
+        "path": "output/m3ah-tier0-cuda-smoke/model_state.pt",
+        "sha256": "70005798c2cf80d4e767b8f4f751bd4caad31e1584a56c10babea66bc3a37b23",
+        "git_tracking": "ignored_by_output_gitignore"
+      },
+      "training_provenance": {
+        "path": "output/m3ah-tier0-cuda-smoke/training-provenance.json",
+        "sha256": "4c3c0309de5aeb11eab637769cf855f5470fdb6982e6c5c1ecacd8c3abd34f24",
+        "git_tracking": "ignored_by_output_gitignore"
+      }
+    }
+  },
+  "post_run_remote_status": {
+    "gpu_memory_used": "0 MiB",
+    "gpu_utilization": "0 %",
+    "active_training_processes": "none",
+    "jupyter_process_present": true
+  },
+  "interpretation": {
+    "remote_compute_unblocked": true,
+    "promotion_justified": false,
+    "why_not_promotable": "This was a two-epoch capped smoke. It proved CUDA execution and train-loss movement, but validation was capped and remained 0.390625; no hard-negative, threshold, ONNX, browser, or model-card gates were run.",
+    "notable_signal": "A scratch motion-temporal rawframe recognizer can train on the synced Tier 0 tensors on the A100, but current validation signal is still weak."
+  },
+  "next_action": "select_next_bounded_model_or_product_slice_from_cuda_smoke"
+}

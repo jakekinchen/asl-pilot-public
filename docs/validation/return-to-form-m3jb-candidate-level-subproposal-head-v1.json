@@ -1,0 +1,111 @@
+{
+  "schema_version": "asl-pilot-m3jb-candidate-level-subproposal-head-receipt/v1",
+  "receipt_id": "return-to-form-m3jb-candidate-level-subproposal-head-v1",
+  "status": "rejected_fail_closed_not_promoted",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "summary": "A candidate-level crop/pose subproposal head was added to score individual deterministic subproposals before distinct pair selection. The path smoke-tested and wrote receipts, but the bounded top40/src8/aug24 train2500/e12 probe is rejected: real two-hand selected coverage/distinct/collapse is 0.845238 / 0.380952 / 0.000000 while the same candidate set oracle remains 0.988095 / 0.988095 / 0.000000.",
+  "runtime_boundary": {
+    "trained_or_promoted_model": false,
+    "checkpoint_written": true,
+    "browser_exported": false,
+    "mediapipe_runtime_dependency": false,
+    "raw_learner_video_uploaded": false,
+    "brev_used": false
+  },
+  "artifacts": {
+    "side_script": {
+      "path": "tools/detector0-annotator/train_hand_pair_ranker.py",
+      "sha256": "c3f9530b9069667d09ff1cd102ff32c779e0f24a07bef2d34cca8a510e8f1624"
+    },
+    "smoke_receipt": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-candidate-head-croppose-smoke-top4-src4-aug16-train32-e1-v1.json",
+      "sha256": "f39ab4b98e29635ce0c12dfa843340117046199b87989d89136dc58efaf4f7ca"
+    },
+    "smoke_weights": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-candidate-head-croppose-smoke-top4-src4-aug16-train32-e1-v1.pt",
+      "sha256": "00112ffc4904f82c9abf960680365fc7a3c0ff551a275ec0164b2e43809c0658"
+    },
+    "bounded_probe_receipt": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-candidate-head-croppose-top40-src8-aug24-train2500-e12-v1.json",
+      "sha256": "70c1e11e30ebe0a710fbc42021bec49bf0cc9a998e1444ffbe475cf77cbd9924"
+    },
+    "bounded_probe_weights": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-candidate-head-croppose-top40-src8-aug24-train2500-e12-v1.pt",
+      "sha256": "87eb1b0cd177556b9c706156459a899027010a5385aaf77f4308cf0dc43d27fa"
+    },
+    "landmark_feature_source": {
+      "path": "tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt",
+      "sha256": "edbb683d9d68da57442937ef6c96482ecb009b52ed7f05ba2d42ef8ad75815d6"
+    }
+  },
+  "implementation": {
+    "model": "CandidateScorer scratch MLP, outputting quality plus two slot logits per candidate",
+    "features": "candidate score/rank/box geometry plus owned crop/pose features from the per-hand landmark student",
+    "targets": "best single-hand IoU above coverage threshold, slot label for positive candidates, broad boxes covering both GT hands zeroed as hard negatives",
+    "selection": "choose two high-quality candidates with slot-diversity bonus and candidate-overlap penalty"
+  },
+  "commands_run": [
+    {
+      "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_hand_pair_ranker.py",
+      "result": "passed"
+    },
+    {
+      "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --self-test",
+      "result": "passed: self-test ok: candidate head, cached candidate pack, and listwise pair ranker forward"
+    },
+    {
+      "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --train-candidate-head --train-subproposal-candidates --topk 4 --subproposal-source-topk 4 --subproposal-max-topk 16 --max-train-rows 32 --epochs 1 --batch-groups 16 --lr 5e-4 --select-by-validation --eval-every 1 --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --candidate-feature-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features --crop-feature-batch 512 --ranker-device cpu --out tools/detector0-annotator/output/m3jb-hand-candidate-head-croppose-smoke-top4-src4-aug16-train32-e1-v1.json",
+      "result": "passed: smoke receipt and weights written"
+    },
+    {
+      "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --train-candidate-head --train-subproposal-candidates --topk 40 --subproposal-source-topk 8 --subproposal-max-topk 24 --max-train-rows 2500 --epochs 12 --batch-groups 128 --lr 5e-4 --select-by-validation --eval-every 2 --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --candidate-feature-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features --crop-feature-batch 512 --ranker-device cpu --out tools/detector0-annotator/output/m3jb-hand-candidate-head-croppose-top40-src8-aug24-train2500-e12-v1.json",
+      "result": "passed: bounded probe receipt and weights written"
+    }
+  ],
+  "metrics": {
+    "smoke": {
+      "real_twohand_selected": {
+        "coverage": 0.535714,
+        "distinct_assigned_coverage": 0.190476,
+        "collapse_rate": 0.0
+      },
+      "real_twohand_oracle": {
+        "distinct_assigned_coverage": 0.988095
+      }
+    },
+    "bounded_probe": {
+      "validation_selected": {
+        "coverage": 0.623604,
+        "distinct_assigned_coverage": 0.605662,
+        "collapse_rate": 0.0
+      },
+      "test_selected": {
+        "coverage": 0.612993,
+        "distinct_assigned_coverage": 0.596208,
+        "collapse_rate": 0.0
+      },
+      "real_twohand_selected": {
+        "coverage": 0.845238,
+        "distinct_assigned_coverage": 0.380952,
+        "collapse_rate": 0.0,
+        "coverage_failure_count": 13,
+        "distinct_assignment_failure_count": 52
+      },
+      "real_twohand_oracle": {
+        "coverage": 0.988095,
+        "distinct_assigned_coverage": 0.988095,
+        "collapse_rate": 0.0
+      }
+    }
+  },
+  "decision": {
+    "promoted": false,
+    "browser_tracking_exported": false,
+    "reason": "The candidate-level head reduces collapse but selected real distinct assignment is far below the 0.98 gate and below the rejected pairwise subproposal probes. The oracle gap remains a selector failure, not evidence for browser readiness."
+  },
+  "next_action": "continue_m3jb_candidate_selection_failure_audit_no_brev"
+}

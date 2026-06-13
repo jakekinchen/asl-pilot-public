@@ -1,0 +1,57 @@
+{
+  "schema_version": "asl-pilot-detector0-fullvshortcut-bakeoff/v1",
+  "id": "return-to-form-detector0-fullvshortcut-bakeoff-v1",
+  "created_at": "2026-05-29",
+  "author": "supervisor (Claude) under human direction; isolated bake-off worktrees off detector0-win-20260528",
+  "status": "diagnostic_bakeoff_no_brev_no_promotion",
+  "purpose": "Decide empirically whether a reduced 'shortcut' Detector 0 target set (learn both hands, keep face/body as fixed anchors, drop the table union) reaches the same outcome as the 'full' multi-target set, and define a measurable success gate for any learned Detector 0.",
+  "method": {
+    "data": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json (32 hand-labeled frames: train 11 / val 11 / test 10, 5 PopSign words).",
+    "base_script": "scripts/run_return_to_form_tier0_detector0_multitarget_gaussian_policy.py",
+    "device": "local Mac Studio MPS; no Brev, no remote, no paid compute, no pretrained deps",
+    "protocol": "12 seeds (1-12) full-train per arm + a train-size sweep at 4/7/11 rows over seeds 1-6; all hyperparameters at script defaults (max-epochs 250); only the learned-target set differs between arms.",
+    "fair_comparison_note": "median_constant_box_mean_iou is data-only (seed-invariant) and matched the prior single-run all-targets receipt exactly (head 0.951, body 0.949, right 0.648, left 0.407), confirming identical data loading across arms."
+  },
+  "key_correction": "The constants LEARNED_RUNTIME_TARGETS / FIXED_GEOMETRY_TARGETS / DIAGNOSTIC_TARGETS in the multitarget script do NOT drive the training gradient in the original code (they are runtime/reporting metadata used by classify()). The original training loss optimizes all five targets. The strict-gate contract's '3 fixed + 1 learned right hand' is therefore a runtime/reporting policy, not what training optimizes. The shortcut arm gated the loss to the two hands via a minimal edit and verified gradient isolation (non-learned targets' learned IoU == constant IoU at std 0.0).",
+  "results_shortcut_arm": {
+    "executed": true,
+    "seeds": 12,
+    "test_iou_learned_vs_fixed_baseline": {
+      "left_or_first_hand": { "learned_mean": 0.3209, "learned_std": 0.0351, "fixed_box_baseline": 0.4073 },
+      "right_or_second_hand": { "learned_mean": 0.6063, "learned_std": 0.0342, "fixed_box_baseline": 0.6476 },
+      "combined_hands": { "learned_mean": 0.4636, "learned_std": 0.0276, "fixed_box_baseline": 0.5275 },
+      "head_or_face": { "fixed_box": 0.9514, "learning_helps": false },
+      "upper_body_or_signing_space": { "fixed_box": 0.9488, "learning_helps": false }
+    },
+    "learned_beats_fixed_baseline_seed_fraction_test": "0 of 12",
+    "overfit_signal": { "train_hand_iou": 0.8845, "test_hand_iou": 0.4636, "gap": 0.421 },
+    "learning_curve_test_combined_hand_iou": { "rows_4": 0.3943, "rows_7": 0.4440, "rows_11": 0.4708 }
+  },
+  "results_full_arm": {
+    "executed": false,
+    "reason": "the full-arm agent run was declined; the prior single-run all-targets receipt return-to-form-tier0-detector0-multitarget-gaussian-policy-v1.json is used as a full-config proxy",
+    "full_config_proxy_test_learned_iou": { "left_or_first_hand_selected_cell": 0.2766, "right_or_second_hand_selected_cell": 0.6859 },
+    "interpretation": "Full-config proxy hand IoU (~0.28 left / ~0.69 right) is within noise of the shortcut arm (0.32 / 0.61); neither configuration's learned hands beat the fixed-box baseline at 32 frames. Full vs shortcut is effectively a tie at this data scale."
+  },
+  "conclusion": [
+    "At 32 labeled frames a LEARNED coarse Detector 0 overfits and is WORSE than a fixed-geometry box on held-out hands; learning beat the fixed baseline in 0 of 12 seeds.",
+    "head_or_face and upper_body_or_signing_space reach ~0.95 IoU from a fixed median box; learning does not improve them. Detection value is entirely in the two hands.",
+    "The shortcut (learn hands, fix face/body, drop union) loses nothing versus full at this data scale; the binding constraint is labeled data, not architecture or compute.",
+    "Materially more labeled rows are required before a learned detector can exceed the fixed baseline. The loop cannot manufacture labels; added rows come from manual contact-sheet/visual-overlay annotation on already-approved Tier 0 PopSign frames and from source-reviewed hard negatives."
+  ],
+  "success_gate": {
+    "definition": "A learned Detector 0 may be called an improvement, promoted, exported, or activated only when a retrained model BEATS the fixed-box baseline on held-out test and then trends toward the product spec.",
+    "beat_fixed_baseline_test": { "left_or_first_hand_iou_above": 0.4073, "right_or_second_hand_iou_above": 0.6476 },
+    "then_trend_toward_spec": { "recall_at_iou_0_30_at_least": 0.98, "recall_at_iou_0_50_at_least": 0.90, "false_no_hand_at_most": 0.02, "false_trigger_at_most": 0.05 },
+    "until_gate_met": "claim surfaces stay fail-closed; the fixed-geometry baseline remains the operative Detector 0."
+  },
+  "design_decision": {
+    "learned_targets": ["left_or_first_hand", "right_or_second_hand"],
+    "fixed_anchor_targets": ["head_or_face", "upper_body_or_signing_space"],
+    "diagnostic_only_targets": ["table_two_hand_union_or_contact_region"],
+    "rationale": "Face/body are ~0.95 as fixed anchors and stable; spend learned capacity and annotation labor on the hands, which are the discriminative and difficult targets and where ASL sign location is encoded relative to the face anchor."
+  },
+  "brev_status": "Verified working on 2026-05-29 (read-only ls/org + a start/SSH/GPU smoke on the retained L40S; the prior M3HI 'provider blocker' was a post-start sshd race + rotating IP, not an outage). Compute is not the Detector 0 constraint; labeled data is. Do not start Brev for Detector 0 until a gate-targeting training run needs scale.",
+  "claim_boundary": "Diagnostic only. Does not promote Detector 0, does not change model cards, does not activate browser recognition, does not claim ASL correctness or readiness.",
+  "isolation": "Run in throwaway git worktrees off detector0-win-20260528 (bakeoff-det0-full / bakeoff-det0-shortcut); main and the live loop branch were untouched."
+}

@@ -1,0 +1,405 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3ey-overnight-brev-lesson-model-completion/v1",
+  "mission": "M3EY - Overnight Brev lesson model completion",
+  "status": "completed_train_evaluate_copyback_non_promotable",
+  "generated_at": "2026-05-28T20:46:02Z",
+  "generated_by": "Codex executor",
+  "active_prompt": "docs/model/return-to-form-m3ey-overnight-brev-lesson-model-completion-goal-loop-prompt.md",
+  "goal": "GOAL.md",
+  "current_user_approval": {
+    "recorded_in_goal": true,
+    "recorded_in_active_prompt": true,
+    "window_until": "2026-05-29T04:00:00-05:00",
+    "max_brev_spend_usd": 250,
+    "preferred_worker": "asl-pilot-m3eh-l40s-001",
+    "preferred_worker_id": "3d58wpy9o",
+    "scope": "bounded retained-worker lesson-model train/evaluate/copyback slice"
+  },
+  "price_budget_state": {
+    "search_command": "brev search --gpu-name L40S --sort price --json",
+    "retained_worker_instance_type": "l40s-48gb.1x",
+    "retained_worker_provider": "crusoe",
+    "retained_worker_price_per_hour_usd": 1.74,
+    "price_threshold_for_human_review_usd_per_hour": 5,
+    "estimated_wall_window_seconds_from_start_attempt_to_stopped_verification": 600,
+    "estimated_spend_usd_at_1_74_per_hour": 0.29,
+    "budget_blocker": false
+  },
+  "worker_identity": {
+    "name": "asl-pilot-m3eh-l40s-001",
+    "id": "3d58wpy9o",
+    "instance_type": "l40s-48gb.1x",
+    "gpu": "L40S",
+    "duplicate_worker_created": false
+  },
+  "local_checks": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "## compound-plan-m0...origin/compound-plan-m0 [ahead 205]"
+    },
+    {
+      "command": "git log -10 --oneline --decorate",
+      "status": "passed",
+      "head": "0bbfba6 supervisor: repair m3ey lesson output contract"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed",
+      "active_prompt": "docs/model/return-to-form-m3ey-overnight-brev-lesson-model-completion-goal-loop-prompt.md",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed",
+      "register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed",
+      "findings": []
+    },
+    {
+      "command": "python3 -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py scripts/export_onnx_model.py",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3ew-m3ev-metric-triage-no-remote-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "brev ls --json",
+      "status": "passed_read_only_before_start",
+      "worker_status": "STOPPED / COMPLETED / NOT READY / HEALTHY"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed_before_receipt_write"
+    }
+  ],
+  "local_dry_run": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/rawframe-milestone/train.json --validation-manifest data/manifests/lesson/rawframe-milestone/validation.json --test-manifest data/manifests/lesson/rawframe-milestone/test.json --output-dir artifacts/rawframe-lesson-milestone --model-id m3ey-lesson25-motion2d-brev --dry-run --check-files --lesson-milestone --architecture motion_2d_temporal_cnn --epochs 24 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation",
+    "status": "passed",
+    "training_status": "dry_run_only",
+    "manifest_summary": {
+      "train": {
+        "clip_count": 300,
+        "label_count": 25,
+        "sha256": "27b2a7c8dc00bd972c41e12dc3b3aa4ccac673c44e000ab5368e1679973ed395"
+      },
+      "validation": {
+        "clip_count": 94,
+        "label_count": 25,
+        "sha256": "396a5671edd74eed3e36d108663a8a7aae351e0e1c5617a3d307b810aad290c1"
+      },
+      "test": {
+        "clip_count": 100,
+        "label_count": 25,
+        "sha256": "08c1111f5f699f8b2c42b283850f4f421ae5f277fc6921ed00cc80a4df86fa64"
+      }
+    },
+    "pretrained_components": []
+  },
+  "brev_commands_run": [
+    {
+      "command": "brev start asl-pilot-m3eh-l40s-001",
+      "status": "passed",
+      "result": "retained worker started; transient STARTING/UNHEALTHY while booting, then READY"
+    },
+    {
+      "command": "timeout 300s brev exec asl-pilot-m3eh-l40s-001 \"<remote cuda/process inspection>\"",
+      "status": "passed",
+      "result": {
+        "gpu": "NVIDIA L40S",
+        "memory_total_mib": 46068,
+        "memory_used_mib": 1,
+        "gpu_utilization_percent": 0,
+        "torch": "2.12.0+cu126",
+        "cuda_available": true,
+        "device_count": 1,
+        "device_name": "NVIDIA L40S",
+        "unexpected_training_process": false,
+        "background_processes": [
+          "jupyter-lab",
+          "networkd-dispatcher"
+        ]
+      }
+    },
+    {
+      "command": "bash scripts/brev_sync_repo.sh asl-pilot-m3eh-l40s-001",
+      "status": "passed",
+      "result": "repo and rawframe training data allowlist synced once"
+    },
+    {
+      "command": "timeout 300s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && sha256sum GOAL.md docs/model/return-to-form-m3ey-overnight-brev-lesson-model-completion-goal-loop-prompt.md scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py data/manifests/lesson/rawframe-milestone/train.json data/manifests/lesson/rawframe-milestone/validation.json data/manifests/lesson/rawframe-milestone/test.json data/manifests/negative-challenge.json\"",
+      "status": "passed",
+      "result": "remote hashes matched local hashes"
+    },
+    {
+      "command": "timeout 600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/rawframe-milestone/train.json --validation-manifest data/manifests/lesson/rawframe-milestone/validation.json --test-manifest data/manifests/lesson/rawframe-milestone/test.json --output-dir artifacts/rawframe-lesson-milestone --model-id m3ey-lesson25-motion2d-brev --dry-run --check-files --lesson-milestone --architecture motion_2d_temporal_cnn --epochs 24 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation\"",
+      "status": "passed",
+      "result": "remote dry-run/check-files passed"
+    },
+    {
+      "command": "timeout 5400s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && timeout 5100 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/rawframe-milestone/train.json --validation-manifest data/manifests/lesson/rawframe-milestone/validation.json --test-manifest data/manifests/lesson/rawframe-milestone/test.json --output-dir artifacts/rawframe-lesson-milestone --model-id m3ey-lesson25-motion2d-brev --architecture motion_2d_temporal_cnn --check-files --lesson-milestone --frame-count 16 --image-size 96 --num-workers 2 --epochs 24 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation\"",
+      "status": "passed",
+      "result": "completed 24 epochs and wrote model_state.pt plus training-provenance.json"
+    },
+    {
+      "command": "timeout 2400s brev exec asl-pilot-m3eh-l40s-001 \"<remote evaluation without diagnostic override>\"",
+      "status": "failed_expected_negative_challenge_contract",
+      "exit_status": 2,
+      "result": "negative-challenge manifest underfilled 12 full hard-negative required types"
+    },
+    {
+      "command": "timeout 2400s brev exec asl-pilot-m3eh-l40s-001 \"<remote evaluation with --lesson-core-negative-diagnostic>\"",
+      "status": "completed_non_promotable",
+      "exit_status": 1,
+      "result": "diagnostic report written; script returned nonzero because targets failed"
+    },
+    {
+      "command": "brev copy asl-pilot-m3eh-l40s-001:/home/ubuntu/asl-pilot/artifacts/rawframe-lesson-milestone artifacts/",
+      "status": "passed",
+      "result": "copied scoped artifact directory after readiness wait"
+    },
+    {
+      "command": "brev stop asl-pilot-m3eh-l40s-001",
+      "status": "returned_but_not_stopped",
+      "result": "first stop returned but brev ls still reported RUNNING"
+    },
+    {
+      "command": "brev stop 3d58wpy9o",
+      "status": "returned_but_not_stopped",
+      "result": "workspace-id stop returned but brev ls still reported RUNNING"
+    },
+    {
+      "command": "brev stop --all",
+      "status": "passed",
+      "result": "runbook fallback stopped the retained worker"
+    },
+    {
+      "command": "sleep 10 && brev ls --json",
+      "status": "passed",
+      "result": "worker verified STOPPED / COMPLETED / NOT READY / HEALTHY"
+    }
+  ],
+  "remote_hashes": {
+    "GOAL.md": "e85bbaffd5f6f17684e540ae7aba3d2f5394e30da3e956a9c5541cbe29a4690c",
+    "docs/model/return-to-form-m3ey-overnight-brev-lesson-model-completion-goal-loop-prompt.md": "570ae6d53bfe5f0fa773bf7ee9d60b86e7b20e317fe91f428739b57146dbb83f",
+    "scripts/train_rawframe_model.py": "00a86079768b94120687a2f465f751176fc9d166b34cabd371ce87474fae912d",
+    "scripts/evaluate_rawframe_model.py": "dfd23c55e09a360f15acb4d432c816508e1ebf536339892c0dded28d20ffbf5c",
+    "data/manifests/lesson/rawframe-milestone/train.json": "27b2a7c8dc00bd972c41e12dc3b3aa4ccac673c44e000ab5368e1679973ed395",
+    "data/manifests/lesson/rawframe-milestone/validation.json": "396a5671edd74eed3e36d108663a8a7aae351e0e1c5617a3d307b810aad290c1",
+    "data/manifests/lesson/rawframe-milestone/test.json": "08c1111f5f699f8b2c42b283850f4f421ae5f277fc6921ed00cc80a4df86fa64",
+    "data/manifests/negative-challenge.json": "b06c7990b9d0efbec908b8466064b87dd29bbf7c5d891e133c935c5c7ed02293"
+  },
+  "train_command": {
+    "status": "completed",
+    "output_path": "artifacts/rawframe-lesson-milestone",
+    "model_id": "m3ey-lesson25-motion2d-brev",
+    "device": "cuda",
+    "architecture": "motion_2d_temporal_cnn",
+    "epochs": 24,
+    "batch_size": 8,
+    "frame_count": 16,
+    "image_size": 96,
+    "selected_epoch": 24,
+    "selected_validation_accuracy": 0.19148936170212766,
+    "selected_validation_loss": 3.5792771793426352,
+    "checkpoint_created": true
+  },
+  "evaluation": {
+    "status": "lesson_core_negative_diagnostic_failed",
+    "full_lesson_hard_negative_evaluation_status": "not_available_due_underfilled_negative_challenge_manifest",
+    "diagnostic_only": true,
+    "not_promotable": true,
+    "selected_threshold": 0.73,
+    "validation": {
+      "examples": 94,
+      "top1_accuracy": 0.19148936170212766,
+      "macro_f1": 0.1723174603174603,
+      "selected_threshold_correct_pass_rate": 0.06382978723404255,
+      "selected_threshold_false_pass_rate": 0.0851063829787234,
+      "zero_recall_labels": [
+        "apple",
+        "aunt",
+        "book",
+        "brother",
+        "brown",
+        "frog",
+        "no",
+        "orange",
+        "read",
+        "sad",
+        "thank_you",
+        "thirsty",
+        "white",
+        "who",
+        "why"
+      ]
+    },
+    "test": {
+      "examples": 100,
+      "top1_accuracy": 0.17,
+      "macro_f1": 0.15166666666666667,
+      "selected_threshold_correct_pass_rate": 0.04,
+      "selected_threshold_false_pass_rate": 0.22,
+      "zero_recall_labels": [
+        "aunt",
+        "bird",
+        "black",
+        "book",
+        "brother",
+        "brown",
+        "frog",
+        "hello",
+        "man",
+        "orange",
+        "sick",
+        "thirsty",
+        "uncle",
+        "why",
+        "yes"
+      ]
+    },
+    "negative_challenge": {
+      "diagnostic_required_types": [
+        "empty_camera",
+        "low_light",
+        "no_hands_visible",
+        "non_target_asl_sign",
+        "off_center"
+      ],
+      "examples": 25,
+      "false_pass_count": 10,
+      "false_pass_rate": 0.4,
+      "max_confidence": 0.9627498388290405,
+      "threshold": 0.73,
+      "full_hard_negative_missing_or_underfilled_types": [
+        "casual_non_asl_gesture",
+        "counting",
+        "fingerspelling_like_motion",
+        "hand_clap",
+        "hands_cropped_out",
+        "idle_hands",
+        "mouth_touch",
+        "partial_sign",
+        "thumbs_up",
+        "waving",
+        "wrong_location",
+        "wrong_palm_orientation"
+      ]
+    },
+    "gate_pass_fail": {
+      "validation_top1_ge_0_70": false,
+      "validation_macro_f1_ge_0_65": false,
+      "test_top1_ge_0_70": false,
+      "no_zero_recall_active_labels": false,
+      "hard_negative_false_accept_rate_le_0_05": false,
+      "calibrated_threshold_nonzero_true_positive_coverage": true,
+      "no_pretrained_generated_components": true,
+      "claim_surfaces_and_audits_pass": true
+    }
+  },
+  "copied_artifacts": {
+    "copyback_run": true,
+    "local_output_dir": "artifacts/rawframe-lesson-milestone",
+    "hashes": {
+      "artifacts/rawframe-lesson-milestone/model_state.pt": "95d4af4b53fc9acd33851e141698f85c3ee1e05b198e83190070c905240bb34c",
+      "artifacts/rawframe-lesson-milestone/training-provenance.json": "46e8b023dac320114edaa4268b68f2a55305988d892323f3e2aed179b9d7b79d",
+      "artifacts/rawframe-lesson-milestone/validation-report.json": "1d249e7eee94f7049b15424472d3f8f4cf0b6f52aae4a1ce6f245b9efabf9a0c",
+      "artifacts/rawframe-lesson-milestone/prediction-sidecar.json": "6cc577c5aa2ef3263b8d0ddac61348e366c481ad456afb0fb14196faec55341e",
+      "artifacts/rawframe-lesson-milestone/core-negative-diagnostic-report.json": "07dc8e8a60893c230213bf2920a0e3a0e6114d13925ad479b15659d3dce7e5ef",
+      "artifacts/rawframe-lesson-milestone/core-negative-diagnostic-prediction-sidecar.json": "d5eedaa23757441a6b1476993adf46c96ab711e75fbc64f512044698d6e1ca89"
+    },
+    "checkpoint_ignore_status": {
+      "path": "artifacts/rawframe-lesson-milestone/model_state.pt",
+      "ignored_by": ".gitignore:52:artifacts/rawframe-lesson-milestone/model_state.pt"
+    }
+  },
+  "artifact_tracking_decision": {
+    "decided_at": "2026-05-28T20:56:18Z",
+    "status": "sidecar_json_tracked_evidence",
+    "rationale": "The copied validation report and prediction sidecar are hashed in this receipt, are small JSON evidence artifacts, and sibling core-negative diagnostic JSON files in the same directory are already tracked. The binary checkpoint remains ignored by policy.",
+    "tracked_json_artifacts": [
+      "artifacts/rawframe-lesson-milestone/validation-report.json",
+      "artifacts/rawframe-lesson-milestone/prediction-sidecar.json"
+    ],
+    "ignored_artifacts": [
+      "artifacts/rawframe-lesson-milestone/model_state.pt"
+    ]
+  },
+  "stop_default_off_verification": {
+    "timestamp": "2026-05-28T20:44:00Z",
+    "worker_status": "STOPPED / COMPLETED / NOT READY / HEALTHY",
+    "verified": true,
+    "stop_retry_sequence": [
+      "brev stop asl-pilot-m3eh-l40s-001",
+      "brev stop 3d58wpy9o",
+      "brev stop --all"
+    ],
+    "active_training_process_after_evaluation": false
+  },
+  "claim_boundary": {
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "status": "not_trained"
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "activeLabels": []
+    },
+    "export_promotion_browser_activation_run": false,
+    "product_or_model_readiness_claim": false,
+    "asl_correctness_claim": false,
+    "recognition_activation_claim": false
+  },
+  "forbidden_actions_run": {
+    "unapproved_media_import": false,
+    "source_import_or_register_change": false,
+    "manifest_tensor_vocabulary_packet_mutation": false,
+    "popsign_training": false,
+    "duplicate_worker": false,
+    "worker_delete_or_reset": false,
+    "pretrained_or_generated_label_path": false,
+    "raw_learner_video_upload": false,
+    "final_gate_weakening": false,
+    "export": false,
+    "promotion": false,
+    "browser_activation": false,
+    "push": false
+  },
+  "pretrained_components": [],
+  "changed_files": [
+    "artifacts/rawframe-lesson-milestone/training-provenance.json",
+    "artifacts/rawframe-lesson-milestone/validation-report.json",
+    "artifacts/rawframe-lesson-milestone/prediction-sidecar.json",
+    "docs/validation/return-to-form-m3ey-overnight-brev-lesson-model-completion-v1.json",
+    "docs/session-logs/552-mission-3ey-overnight-brev-lesson-model-completion-after-output-contract-repair.md",
+    "docs/session-logs/554-mission-3ey-artifact-sidecar-status-cleanup.md"
+  ],
+  "unstaged_copied_artifacts": [],
+  "previous_attempt_context": {
+    "commit": "c13d610",
+    "status": "blocked_before_training_remote_output_dir_contract_mismatch",
+    "repair_commit": "0bbfba6"
+  },
+  "next_action": "continue_fail_closed_interactive_product_hardening"
+}

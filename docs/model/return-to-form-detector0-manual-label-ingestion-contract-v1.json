@@ -1,0 +1,419 @@
+{
+  "schema_version": "asl-pilot-detector0-manual-label-ingestion-contract/v1",
+  "status": "contract_ready_only_not_label_ingestion",
+  "mission": "M3HZ - Detector 0 manual label ingestion contract no Brev",
+  "created_at": "2026-05-29T21:29:25Z",
+  "current_commit": "7feff69",
+  "active_prompt": "docs/model/return-to-form-m3hz-detector0-manual-label-ingestion-contract-no-brev-goal-loop-prompt.md",
+  "purpose": "Define the validation, provenance, human-review, and forbidden-input contract that a later local ingestion slice must satisfy before Detector 0 workbench draft exports may become authoritative label artifacts.",
+  "source_files_inspected": [
+    "GOAL.md",
+    "docs/model/return-to-form-m3hz-detector0-manual-label-ingestion-contract-no-brev-goal-loop-prompt.md",
+    "docs/model/return-to-form-plan.md",
+    "docs/runbooks/codex-goal-loop.md",
+    "docs/runbooks/observer-runbook-codex.md",
+    "docs/model/return-to-form-detector0-annotation-workbench-review-v1.json",
+    "docs/validation/return-to-form-m3hy-detector0-annotation-workbench-review-no-brev-v1.json",
+    "docs/session-logs/715-mission-3hy-detector0-annotation-workbench-review-no-brev.md",
+    "docs/validation/return-to-form-m3hx-detector0-annotation-workbench-no-brev-v1.json",
+    "tools/detector0-annotator/prepare.py",
+    "tools/detector0-annotator/app.html",
+    "tools/detector0-annotator/README.md",
+    "tools/detector0-annotator/.gitignore",
+    "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlays-v1.json",
+    "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlay-gap-repair-v1.json",
+    "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+    "docs/model/return-to-form-detector0-fixed-baseline-gate-contract-v1.json",
+    "docs/model/dataset-source-register.json",
+    "web/public/model/detector0-card.json",
+    "web/public/model/browser-model-bundle.json",
+    "web/public/model/model-card.json",
+    "docs/model/active-vocabulary-claim.json"
+  ],
+  "changed_files_for_this_slice": [
+    "docs/model/return-to-form-detector0-manual-label-ingestion-contract-v1.json",
+    "docs/validation/return-to-form-m3hz-detector0-manual-label-ingestion-contract-no-brev-v1.json",
+    "docs/session-logs/717-mission-3hz-detector0-manual-label-ingestion-contract-no-brev.md"
+  ],
+  "m3hy_review_references": {
+    "docs/model/return-to-form-detector0-annotation-workbench-review-v1.json": {
+      "sha256": "5da7121293df1b1b7b793094e8b7c0686586dbabff7d51e6a24b30587afe56d0",
+      "status": "completed",
+      "classification": "workbench_review_passed_draft_only_ingestion_contract_next"
+    },
+    "docs/validation/return-to-form-m3hy-detector0-annotation-workbench-review-no-brev-v1.json": {
+      "sha256": "f01261654df539125c8ae872608fa5746c17d0298f40333b6400da332b1188df",
+      "status": "completed",
+      "next_action": "continue_m3hz_detector0_manual_label_ingestion_contract_no_brev"
+    },
+    "docs/session-logs/715-mission-3hy-detector0-annotation-workbench-review-no-brev.md": {
+      "sha256": "f85b444b8ad28cb44fc90bbf79d091157bbf107db2bac9693025d4c487078509",
+      "summary": "M3HY reviewed the M3HX workbench as safe for draft-only local annotation review and not authoritative label evidence, training readiness, browser promotion readiness, final-gate evidence, or claim expansion evidence."
+    }
+  },
+  "m3hx_workbench_references": {
+    "tools/detector0-annotator/prepare.py": {
+      "sha256": "d22434b32a195f4b795f43ad61a68420695415ce061b7746dfaccc85358f41f9",
+      "role": "Creates ignored local PNG/index cache from tracked Tier 0 tensors and packet metadata."
+    },
+    "tools/detector0-annotator/app.html": {
+      "sha256": "6be96d3124dc75c38a977c51776a53cb7add6b234fd3e34c2a61b6beb4769002",
+      "role": "Static local browser draft-box editor and draft JSON exporter."
+    },
+    "tools/detector0-annotator/README.md": {
+      "sha256": "14b6f9a0b363a4de0a6df0511c66fc22584f2bd929d1001055c8fd022d6ee1e0",
+      "role": "Documents local-only, draft-only, no-upload, no-inference, no-training, no-claim-change boundaries."
+    },
+    "tools/detector0-annotator/.gitignore": {
+      "sha256": "cfd0bf33bf0bd0eb93f1b0901d5dc77d8d761e38198a89c7c4df202c3f6f55a2",
+      "role": "Ignores .cache, exports, and draft JSON/JSONL/NDJSON outputs."
+    },
+    "docs/validation/return-to-form-m3hx-detector0-annotation-workbench-no-brev-v1.json": {
+      "sha256": "2edb9fc9726ddefc198cc8d21e9bacd63b81f248dcecb5fd270e4bc9fb0b0724",
+      "classification": "local_workbench_smoke_ready_only"
+    }
+  },
+  "allowed_input_draft_schema": {
+    "schema_version": "asl-pilot-detector0-annotator-draft/v1",
+    "required_top_level_fields": [
+      "schema_version",
+      "exported_at",
+      "status",
+      "source_index_schema_version",
+      "boundaries",
+      "rows"
+    ],
+    "required_top_level_status": "draft_unreviewed_not_authoritative_labels",
+    "required_source_index_schema_version": "asl-pilot-detector0-annotation-workbench-index/v1",
+    "required_boundaries": {
+      "local_browser_export_only": true,
+      "uploads_media_or_labels": false,
+      "runs_inference_or_auto_labels": false,
+      "authoritative_label_packet": false
+    },
+    "required_row_fields": [
+      "row_id",
+      "split",
+      "label_id",
+      "clip_id",
+      "frame_index",
+      "image_path",
+      "tensor_path",
+      "coordinate_space",
+      "targets"
+    ],
+    "required_target_fields": [
+      "presence",
+      "box_xyxy_norm",
+      "coordinate_space",
+      "status"
+    ],
+    "required_target_status": "draft_unreviewed_not_authoritative",
+    "required_coordinate_space": "normalized_full_frame_top_left_xyxy",
+    "accepted_promoted_target_ids": [
+      "left_or_first_hand",
+      "right_or_second_hand",
+      "head_or_face",
+      "upper_body_or_signing_space"
+    ],
+    "accepted_diagnostic_target_ids": [
+      "table_two_hand_union_or_contact_region"
+    ],
+    "draft_fields_that_are_not_authority": [
+      "image_path",
+      "exported_at",
+      "target.status",
+      "top_level.status"
+    ]
+  },
+  "required_row_identity_validation": {
+    "row_id": [
+      "must be unique within the draft export",
+      "must resolve to exactly one tracked workbench-index frame or one later approved candidate-row source",
+      "must not conflict with a different split, label_id, clip_id, frame_index, tensor path, source_record_id, or source hash"
+    ],
+    "split": [
+      "must be one of train, validation, or test",
+      "must match the tracked source row and must not move rows across splits"
+    ],
+    "label_id": [
+      "must match the tracked source row",
+      "must be a return-to-form Tier 0 label or a later source-reviewed hard-negative label only when that later source review exists"
+    ],
+    "clip_id": [
+      "must match the tracked manifest/source row",
+      "must not be reused for a different source_record_id"
+    ],
+    "frame_index": [
+      "must match the tracked candidate row",
+      "must be within the retained tensor frame count for the referenced tensor"
+    ],
+    "tensor_path": [
+      "must stay under data/tensors/return-to-form-tier0/",
+      "must exist in the tracked repo state used for ingestion",
+      "must match the packet/index tensor path for the row"
+    ],
+    "tensor_hashes": [
+      "must match the source packet/index tensor_file_sha256 or packet frame/tensor digest",
+      "must fail ingestion on missing, changed, or untraceable tensor hashes"
+    ],
+    "coordinate_space": [
+      "must equal normalized_full_frame_top_left_xyxy",
+      "may be accepted as equivalent to the older packet alias normalized_full_frame_xyxy_top_left_origin only when the ingestion receipt records the alias mapping explicitly"
+    ]
+  },
+  "required_target_validation": {
+    "left_or_first_hand": {
+      "role": "learned_detector0_target",
+      "required_for_promotion_when_applicable": true,
+      "absence_allowed_only_with_reviewed_absence_reason": true
+    },
+    "right_or_second_hand": {
+      "role": "learned_detector0_target",
+      "required_for_promotion_when_applicable": true,
+      "absence_allowed_only_with_reviewed_absence_reason": true
+    },
+    "head_or_face": {
+      "role": "fixed_geometry_context_anchor",
+      "must_not_be_used_as_learned_improvement_claim": true
+    },
+    "upper_body_or_signing_space": {
+      "role": "fixed_geometry_context_anchor",
+      "must_not_be_used_as_learned_improvement_claim": true
+    },
+    "table_two_hand_union_or_contact_region": {
+      "role": "diagnostic_only_auxiliary_table_contact_target",
+      "promoted_detector0_target_id": false,
+      "may_be_carried_only_as_diagnostic_metadata": true,
+      "must_not_expand_browser_claims": true
+    },
+    "box_rules": [
+      "present targets require box_xyxy_norm as four finite numeric values",
+      "box coordinates must satisfy 0 <= x1 < x2 <= 1 and 0 <= y1 < y2 <= 1",
+      "absent targets require box_xyxy_norm null",
+      "present targets must not use zero-area, negative-area, NaN, infinity, string, or pixel-space coordinates",
+      "unknown target ids must fail ingestion unless a later committed target-policy artifact explicitly adds them"
+    ],
+    "missing_target_rules": [
+      "promoted hand targets missing from an applicable draft row must be treated as unresolved, not absent",
+      "fixed anchor targets may remain fixed-geometry anchors and must not be silently overwritten by drafts",
+      "diagnostic-only table union/contact must remain absent or diagnostic unless both manual hand boxes support it under the target policy"
+    ]
+  },
+  "required_source_license_provenance_and_no_pretrained_checks": {
+    "source_register": {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+      "must_pass": "node scripts/audit_source_register.mjs"
+    },
+    "required_per_row_source_fields": [
+      "source_id",
+      "source_split",
+      "source_record_id",
+      "source_video_sha256 or equivalent reviewed source hash",
+      "signer_identity_hash when present in the source row",
+      "source_license_decision",
+      "source_license_review_status",
+      "allowed_label_annotation_scope"
+    ],
+    "required_attestations": [
+      "human_authored_or_explicitly_source_approved_annotation",
+      "no_pretrained_detector_outputs",
+      "no_pretrained_landmark_outputs",
+      "no_generated_labels",
+      "no_pseudo_labels",
+      "no_raw_learner_media",
+      "no_network_export_or_upload"
+    ],
+    "required_audits": [
+      "node scripts/audit_no_pretrained_deps.mjs",
+      "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "node scripts/audit_detector0_manifest_contract.mjs"
+    ],
+    "input_must_be_rejected_when": [
+      "source row is absent from the source register or later approved source-review artifact",
+      "license status is not approved for the exact annotation scope",
+      "provenance omits reviewer identity or approval reference",
+      "any pretrained, generated, pseudo-label, network, or learner-media origin is detected"
+    ]
+  },
+  "required_human_review_contract": {
+    "draft_exports_are_authority": false,
+    "minimum_review_fields_before_promotion": [
+      "review_status",
+      "reviewer",
+      "reviewed_at",
+      "human_review_method",
+      "review_evidence_reference",
+      "annotation_source",
+      "label_source",
+      "source_rights_attestation",
+      "no_pretrained_attestation"
+    ],
+    "accepted_review_status_values": [
+      "manual_verified",
+      "blocked_insufficient_visual_evidence",
+      "rejected_conflict",
+      "rejected_source_unapproved",
+      "draft_needs_review"
+    ],
+    "promotion_allowed_only_from_status": [
+      "manual_verified"
+    ],
+    "reviewer_identity_or_approval_reference": [
+      "must identify the human reviewer or committed approval artifact",
+      "must not be inferred from a local browser export timestamp alone",
+      "must be preserved in the future ingestion receipt"
+    ],
+    "absence_semantics": {
+      "true_absent": "The target is not present in the retained frame and the reviewer explicitly records that absence.",
+      "not_applicable": "The target policy says the target does not apply to this row or label context.",
+      "insufficient_visual_evidence": "The retained frame cannot support a reliable target decision; this blocks promotion for that target.",
+      "occluded_or_truncated": "The target is present but visibility is limited and the reviewer records occlusion or truncation metadata.",
+      "unresolved": "The draft or review lacks enough evidence; unresolved must not be promoted as absent."
+    },
+    "target_applicability_rules": {
+      "promoted_visual_target_applicable_if_visible": [
+        "applies to left_or_first_hand and right_or_second_hand",
+        "requires manual present box, true_absent, or insufficient_visual_evidence review"
+      ],
+      "fixed_geometry_context_anchor": [
+        "applies to head_or_face and upper_body_or_signing_space",
+        "may remain fixed anchor metadata and does not create learned-detector improvement claims"
+      ],
+      "diagnostic_only_auxiliary_table_contact_target_applicable_when_both_manual_hand_boxes_exist": [
+        "applies only to table_two_hand_union_or_contact_region",
+        "requires both manual hand boxes and remains diagnostic-only"
+      ]
+    }
+  },
+  "duplicate_conflict_and_bounds_handling": {
+    "duplicate_rows": "Reject exports with duplicate row_id entries unless every field and target is byte-identical and the ingestion receipt explicitly de-duplicates them.",
+    "existing_authoritative_conflicts": "Reject or quarantine any draft that changes an already authoritative target without an explicit conflict-resolution artifact.",
+    "draft_target_conflicts": "Reject rows where multiple draft targets for the same row_id/target_id disagree.",
+    "coordinate_bounds": "Reject any present box outside normalized bounds, with inverted coordinates, or with too little area to represent a target.",
+    "missing_targets": "Classify missing applicable promoted hand targets as unresolved, not absent.",
+    "insufficient_visual_evidence": "Preserve blockers exactly; do not copy temporal-neighbor boxes or fixed boxes into unresolved frames.",
+    "source_mismatch": "Reject drafts where row identity matches but source hashes, tensor hashes, or manifest metadata do not."
+  },
+  "future_authoritative_artifact_scope": {
+    "may_propose_to_update": [
+      {
+        "path": "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlays-v1.json",
+        "condition": "Only for a later committed local ingestion slice that promotes reviewed supplemental manual rows with complete provenance and human-review proof."
+      },
+      {
+        "path": "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlay-gap-repair-v1.json",
+        "condition": "Only if a later human-reviewed source of evidence resolves a preserved blocker without extrapolating unsupported labels."
+      },
+      {
+        "path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+        "condition": "Only if a later explicitly scoped packet refresh is approved; M3HZ does not authorize mutation of this V0 packet."
+      }
+    ],
+    "may_propose_to_create": [
+      {
+        "path": "data/annotations/detector0/return-to-form-targeted-annotation-workbench-ingestion-v1.json",
+        "condition": "A future local ingestion slice may create a new authoritative supplemental artifact rather than mutating existing packets, if it records all contract validations and review approvals."
+      }
+    ],
+    "must_not_mutate_in_m3hz": [
+      "workbench draft exports",
+      "authoritative label rows",
+      "label packets",
+      "source manifests",
+      "source register",
+      "tensors",
+      "vocabulary",
+      "model cards",
+      "runtime code",
+      "claim surfaces",
+      "final gates"
+    ]
+  },
+  "forbidden_input_proof": {
+    "generated_labels": "Draft exports must not contain generated labels, pseudo-labels, model predictions, or teacher labels.",
+    "pretrained_outputs": "Draft exports must not originate from MediaPipe, OpenPose, YOLO, SAM, DINO, CLIP, from_pretrained, pretrained=True, pretrained detector outputs, pretrained landmarks, pretrained embeddings, or pretrained feature caches.",
+    "raw_learner_media": "Draft exports must not contain raw learner video, learner frames, learner identifiers, or upload-derived data.",
+    "network_exports": "Draft exports must not be accepted from network submissions, remote URLs, cloud sync, telemetry, browser sendBeacon/fetch/XMLHttpRequest/WebSocket/EventSource, or unreviewed downloaded media.",
+    "source_unapproved_media": "Rows from sources not explicitly approved for the exact annotation scope must fail ingestion."
+  },
+  "claim_surface_proof": {
+    "audit_detector0_manifest_contract_status": "passed",
+    "claim_surfaces_mutated": false,
+    "web/public/model/detector0-card.json": {
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null
+    },
+    "web/public/model/browser-model-bundle.json": {
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9",
+      "recognition_enabled": false,
+      "detector0_tracking_enabled": false,
+      "box_driven_avatar_enabled": false
+    },
+    "web/public/model/model-card.json": {
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "status": "not_trained"
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "activeLabels": []
+    }
+  },
+  "fixed_baseline_gate_context": {
+    "contract_path": "docs/model/return-to-form-detector0-fixed-baseline-gate-contract-v1.json",
+    "sha256": "92f4650a50b562b3055bb455fe9b5ae30ad639fe843b5efd834cd24925142423",
+    "learned_targets": [
+      "left_or_first_hand",
+      "right_or_second_hand"
+    ],
+    "fixed_anchor_targets": [
+      "head_or_face",
+      "upper_body_or_signing_space"
+    ],
+    "diagnostic_only_targets": [
+      "table_two_hand_union_or_contact_region"
+    ],
+    "held_out_fixed_box_iou_baselines_to_beat": {
+      "left_or_first_hand": 0.4073,
+      "right_or_second_hand": 0.6476
+    },
+    "promotion_language_allowed_by_this_contract": false
+  },
+  "readiness_classification": {
+    "manual_label_ingestion_contract_written": true,
+    "ready_for_later_contract_based_draft_ingestion_slice": true,
+    "authoritative_labels_created": false,
+    "draft_labels_ingested": false,
+    "detector0_training_ready": false,
+    "detector0_evaluation_ready": false,
+    "browser_promotion_ready": false,
+    "final_gate_ready": false,
+    "claim_expansion_ready": false,
+    "classification": "manual_label_ingestion_contract_ready_only_not_authoritative_labels"
+  },
+  "forbidden_action_proof": {
+    "brev_lifecycle_or_remote_command": false,
+    "paid_compute_started": false,
+    "training_or_evaluation_run": false,
+    "source_or_media_import": false,
+    "raw_learner_media_inspection": false,
+    "raw_learner_video_upload": false,
+    "pretrained_or_generated_label_dependency": false,
+    "draft_label_ingestion": false,
+    "authoritative_label_row_creation": false,
+    "label_packet_mutation": false,
+    "source_register_or_manifest_mutation": false,
+    "tensor_mutation": false,
+    "vocabulary_mutation": false,
+    "model_card_or_claim_surface_mutation": false,
+    "runtime_code_mutation": false,
+    "final_gate_change": false,
+    "export_promotion_or_browser_activation": false,
+    "push": false,
+    "amend_or_no_verify": false
+  },
+  "exactly_one_recommended_next_action": "continue_m3ia_detector0_manual_draft_label_ingestion_no_brev"
+}

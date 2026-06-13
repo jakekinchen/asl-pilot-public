@@ -1,0 +1,362 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3eh-bounded-brev-relaunch-preflight/v1",
+  "mission": "M3EH - Bounded Brev relaunch preflight",
+  "status": "action_selected",
+  "checked_at": "2026-05-28T15:42:31Z",
+  "active_prompt": "docs/model/return-to-form-m3eh-bounded-brev-relaunch-preflight-goal-loop-prompt.md",
+  "outcome": {
+    "classification": "remote_cuda_environment_blocked_before_dry_runs",
+    "reason": "The single approved stoppable L40S worker was created, synced, and stopped, but CUDA proof failed after installing the repo-pinned torch==2.12.0 wheel because the worker driver is too old for torch 2.12.0+cu130.",
+    "next_action": "continue_remote_environment_repair_no_training"
+  },
+  "next_action": {
+    "id": "continue_remote_environment_repair_no_training",
+    "reason": "Repair the remote PyTorch/CUDA compatibility path or provider image before any timed training. Remote dry-runs were intentionally skipped because CUDA proof did not pass."
+  },
+  "source_artifacts": {
+    "goal": {
+      "path": "GOAL.md",
+      "sha256": "42260fccf08cbdcbb8948c1c25af66530c37aa7bd02f204927b7eb660ee21974"
+    },
+    "active_prompt": {
+      "path": "docs/model/return-to-form-m3eh-bounded-brev-relaunch-preflight-goal-loop-prompt.md",
+      "sha256": "05f31ccc893eeb9f12b28a07321853d9147d4db08d20bbeb20f8880b189bd056"
+    },
+    "return_to_form_plan": {
+      "path": "docs/model/return-to-form-plan.md",
+      "sha256": "959516b1c769cce59ba6c41156b082e5d64d7de103ed58d9486a1a3b9de54a97"
+    },
+    "requirements": {
+      "path": "requirements.txt",
+      "sha256": "f01e6fc468f195ddd8f5c1d7331cc5ca1dd6861b5aa892aef2360bb001d4cb4a"
+    },
+    "train_script": {
+      "path": "scripts/train_rawframe_model.py",
+      "sha256": "bf8f23d5c80fcc456632eeaf5fa8e748cfe6fd1cafc6250200fca5e5f0067d7d"
+    },
+    "evaluate_script": {
+      "path": "scripts/evaluate_rawframe_model.py",
+      "sha256": "dfd23c55e09a360f15acb4d432c816508e1ebf536339892c0dded28d20ffbf5c"
+    }
+  },
+  "local_validation": {
+    "git_head_before_slice": "88e89e9 supervisor: activate m3eh bounded brev relaunch",
+    "branch_status": "## compound-plan-m0...origin/compound-plan-m0 [ahead 162]",
+    "audits": [
+      {
+        "command": "node scripts/audit_loop_premise.mjs --json",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_return_to_form_plan.mjs --json",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_deps.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_source_register.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+        "status": "passed"
+      }
+    ],
+    "dry_runs": [
+      {
+        "id": "popsign_fresh5_motion_region_token_temporal",
+        "command_summary": "scripts/train_rawframe_model.py with return-to-form-popsign-fresh5-repaired-v1 manifests, scratch_motion_region_token_temporal_contract_v1, --dry-run, --popsign-fresh5-training-smoke",
+        "status": "passed",
+        "training_status": "dry_run_only",
+        "output_dir": "output/m3eh-popsign-fresh5-motion-region-token-temporal-brev-fit",
+        "model_id": "m3eh-popsign-fresh5-motion-region-token-brev-preflight",
+        "clip_counts": {
+          "train": 125,
+          "validation": 125,
+          "test": 125
+        },
+        "labels": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "pretrained_components": []
+      },
+      {
+        "id": "high_signal_region_grid_tcn",
+        "command_summary": "scripts/train_rawframe_model.py with lesson/high-signal-region-grid manifests, true_temporal_convnet_region_grid, --dry-run, --region-grid-tcn-training-smoke, --require-input-contract rgb_regions_grid_v1",
+        "status": "passed",
+        "training_status": "dry_run_only",
+        "output_dir": "output/m3eh-high-signal-region-grid-tcn-brev",
+        "model_id": "m3eh-high-signal-region-grid-tcn-brev-preflight",
+        "clip_counts": {
+          "train": 84,
+          "validation": 27,
+          "test": 28
+        },
+        "input_contract_report": {
+          "status": "passed",
+          "total_clip_count": 139,
+          "total_observed_counts": {
+            "rgb_regions_grid_v1": 139
+          }
+        },
+        "labels": [
+          "table",
+          "please",
+          "black",
+          "hello",
+          "uncle",
+          "white",
+          "sad"
+        ],
+        "pretrained_components": []
+      }
+    ]
+  },
+  "brev": {
+    "approval_state": "authorized_for_bounded_brev_preflight",
+    "workspace_name": "asl-pilot-m3eh-l40s-001",
+    "max_wall_time_after_create_minutes": 90,
+    "max_spend_usd": 12,
+    "search_evidence": {
+      "command": "brev search --stoppable --min-vram 40 --sort price --json",
+      "selected_offer": {
+        "type": "l40s-48gb.1x",
+        "provider": "crusoe",
+        "gpu_name": "L40S",
+        "gpu_count": 1,
+        "total_vram_gb": 48,
+        "stoppable": true,
+        "target_disk_gb": 128,
+        "price_per_hour_usd": 1.74
+      }
+    },
+    "initial_state": {
+      "command": "brev ls --json",
+      "workspaces": null
+    },
+    "lifecycle_events": [
+      {
+        "event": "create",
+        "command": "brev create asl-pilot-m3eh-l40s-001 --type l40s-48gb.1x --stoppable --min-disk 128 --timeout 900",
+        "status": "succeeded",
+        "output_summary": "Created instance 'asl-pilot-m3eh-l40s-001' and reported Ready."
+      },
+      {
+        "event": "post_create_state",
+        "command": "brev ls --json",
+        "status": "observed",
+        "state": {
+          "name": "asl-pilot-m3eh-l40s-001",
+          "id": "3d58wpy9o",
+          "status": "RUNNING",
+          "build_status": "BUILDING",
+          "shell_status": "NOT READY",
+          "health_status": "HEALTHY",
+          "instance_type": "l40s-48gb.1x",
+          "gpu": "L40S"
+        }
+      },
+      {
+        "event": "stop",
+        "command": "brev stop asl-pilot-m3eh-l40s-001",
+        "status": "succeeded",
+        "output_summary": "Command returned the workspace name."
+      },
+      {
+        "event": "immediate_post_stop_state",
+        "command": "brev ls --json",
+        "status": "observed",
+        "state": {
+          "name": "asl-pilot-m3eh-l40s-001",
+          "status": "RUNNING",
+          "build_status": "COMPLETED",
+          "shell_status": "READY",
+          "health_status": "HEALTHY"
+        }
+      },
+      {
+        "event": "final_post_stop_state",
+        "command": "sleep 30; brev ls --json",
+        "status": "observed_stopped",
+        "state": {
+          "name": "asl-pilot-m3eh-l40s-001",
+          "id": "3d58wpy9o",
+          "status": "STOPPED",
+          "build_status": "COMPLETED",
+          "shell_status": "NOT READY",
+          "health_status": "HEALTHY",
+          "instance_type": "l40s-48gb.1x",
+          "gpu": "L40S"
+        }
+      },
+      {
+        "event": "post_commit_sanity_state",
+        "command": "brev ls --json",
+        "status": "observed_stopped",
+        "state": {
+          "name": "asl-pilot-m3eh-l40s-001",
+          "id": "3d58wpy9o",
+          "status": "STOPPED",
+          "build_status": "COMPLETED",
+          "shell_status": "NOT READY",
+          "health_status": "UNHEALTHY",
+          "instance_type": "l40s-48gb.1x",
+          "gpu": "L40S"
+        }
+      }
+    ],
+    "sync": {
+      "command": "bash scripts/brev_sync_repo.sh asl-pilot-m3eh-l40s-001",
+      "status": "passed_after_readiness_probe",
+      "remote_path": "/home/ubuntu/asl-pilot",
+      "initial_attempt": {
+        "status": "failed",
+        "reason": "ssh target not resolvable while shell_status was NOT READY"
+      },
+      "readiness_probe": {
+        "command": "brev exec asl-pilot-m3eh-l40s-001 \"printf 'brev-exec-ready\\n'\"",
+        "status": "passed",
+        "output": "brev-exec-ready"
+      },
+      "completed_allowlist_paths": [
+        "repo tree excluding .git, data, node_modules, .next, artifacts, .venv, output",
+        "data/annotations",
+        "data/active-module",
+        "data/manifests",
+        "data/tensors",
+        "data/external/popsign-v1/raw",
+        "data/external/asl-citizen/raw",
+        "data/external/cira-negative-challenge-videos/raw",
+        "data/external/wikimedia-commons-negative-challenge-videos/raw"
+      ],
+      "observed_transfer_summaries": [
+        "data/tensors: sent 8227837932 bytes; total size 11904856434 bytes",
+        "one raw source tree: sent 515173041 bytes; total size 558914511 bytes",
+        "cira negative raw: sent 102769366 bytes; total size 105174195 bytes",
+        "wikimedia negative raw: sent 437521397 bytes; total size 453909579 bytes"
+      ]
+    },
+    "remote_environment": {
+      "venv_path": "/home/ubuntu/asl-pilot/.venv",
+      "setup_commands": [
+        "python3 -m venv .venv --system-site-packages",
+        ".venv/bin/python -m pip install -U pip",
+        ".venv/bin/python -m pip install onnx==1.21.0 onnxscript==0.7.0",
+        ".venv/bin/python -m pip install -r requirements.txt"
+      ],
+      "first_cuda_probe": {
+        "status": "failed",
+        "reason": "ModuleNotFoundError: No module named 'torch'"
+      },
+      "dependency_repair": {
+        "status": "completed",
+        "installed_repo_pinned_torch": "2.12.0",
+        "installed_torch_runtime": "2.12.0+cu130"
+      },
+      "cuda_proof": {
+        "status": "failed",
+        "torch": "2.12.0+cu130",
+        "cuda_available": false,
+        "device_count": 1,
+        "device_name": null,
+        "error_summary": "CUDA initialization warned that the NVIDIA driver is too old: found version 12070. PyTorch recommended either a newer driver or a PyTorch version compiled with the installed driver."
+      },
+      "gpu_snapshot": {
+        "command": "nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv,noheader",
+        "status": "passed",
+        "gpu_name": "NVIDIA L40S",
+        "driver_version": "565.57.01",
+        "memory_total": "46068 MiB"
+      }
+    },
+    "remote_dry_runs": [
+      {
+        "id": "popsign_fresh5_motion_region_token_temporal",
+        "status": "not_run",
+        "reason": "CUDA proof failed before dry-runs; prompt requires stopping and recording blocker when CUDA is unavailable."
+      },
+      {
+        "id": "high_signal_region_grid_tcn",
+        "status": "not_run",
+        "reason": "CUDA proof failed before dry-runs; prompt requires stopping and recording blocker when CUDA is unavailable."
+      }
+    ],
+    "final_state": {
+      "status": "STOPPED",
+      "health_status": "UNHEALTHY",
+      "cost_control_status": "safe_after_stop_propagation",
+      "delete_or_reset_used": false
+    }
+  },
+  "commands_run": [
+    "git status --short --branch",
+    "git log -10 --oneline --decorate",
+    "node scripts/audit_loop_premise.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs --json",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "node scripts/audit_source_register.mjs",
+    "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+    "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py ... --popsign-fresh5-training-smoke --dry-run",
+    "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py ... --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1",
+    "brev ls --json",
+    "brev search --stoppable --min-vram 40 --sort price --json",
+    "brev create asl-pilot-m3eh-l40s-001 --type l40s-48gb.1x --stoppable --min-disk 128 --timeout 900",
+    "bash scripts/brev_sync_repo.sh asl-pilot-m3eh-l40s-001",
+    "brev exec asl-pilot-m3eh-l40s-001 \"printf 'brev-exec-ready\\n'\"",
+    "bash scripts/brev_sync_repo.sh asl-pilot-m3eh-l40s-001",
+    "brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && python3 -m venv .venv --system-site-packages && .venv/bin/python -m pip install -U pip && .venv/bin/python -m pip install onnx==1.21.0 onnxscript==0.7.0 && .venv/bin/python - <<'PY' ... PY\"",
+    "brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && .venv/bin/python -m pip install -r requirements.txt && .venv/bin/python - <<'PY' ... PY\"",
+    "brev exec asl-pilot-m3eh-l40s-001 \"nvidia-smi --query-gpu=name,driver_version,cuda_version,memory.total --format=csv,noheader\"",
+    "brev exec asl-pilot-m3eh-l40s-001 \"nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv,noheader\"",
+    "brev stop asl-pilot-m3eh-l40s-001",
+    "brev ls --json"
+  ],
+  "commands_intentionally_not_run": [
+    "No remote PopSign Fresh5 dry-run because CUDA proof failed before dry-run execution.",
+    "No remote high-signal region-grid TCN dry-run because CUDA proof failed before dry-run execution.",
+    "No timed training/fitting command, checkpoint save, evaluation, ONNX export, model-card promotion, browser activation, product runtime change, ASL-correctness claim, or final-readiness claim.",
+    "No broad 75/80/95/100-label run.",
+    "No source import, media download, source-register mutation, manifest mutation, tracked tensor mutation, vocabulary mutation, packet-row mutation, SemLex media use, or generated pseudo-label path.",
+    "No pretrained detector, landmark, backbone, embedding, feature extractor, teacher-logit, YOLO, MediaPipe, OpenPose, CLIP, SAM, DINO, from_pretrained, pretrained=True, or similar shortcut.",
+    "No duplicate worker, non-stoppable worker, worker delete, worker reset, push, amend, or no-verify."
+  ],
+  "boundaries": {
+    "brev_spend_authorized_by_goal_and_prompt": true,
+    "single_stoppable_worker_created": true,
+    "worker_stopped": true,
+    "timed_training": false,
+    "remote_dry_runs": false,
+    "checkpoint_or_model_artifact": false,
+    "evaluation": false,
+    "onnx_export": false,
+    "browser_activation": false,
+    "product_runtime_change": false,
+    "final_readiness_claim": false,
+    "source_import": false,
+    "media_download": false,
+    "source_register_mutation": false,
+    "manifest_mutation": false,
+    "tracked_tensor_mutation": false,
+    "vocabulary_mutation": false,
+    "packet_row_mutation": false,
+    "generated_pseudo_labels": false,
+    "pretrained_components": [],
+    "raw_learner_video_upload": false,
+    "push": false
+  },
+  "files_changed": [
+    "docs/validation/return-to-form-m3eh-bounded-brev-relaunch-preflight-v1.json",
+    "docs/session-logs/512-mission-3eh-bounded-brev-relaunch-preflight.md"
+  ]
+}

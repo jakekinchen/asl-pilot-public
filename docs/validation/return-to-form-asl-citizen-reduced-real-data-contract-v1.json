@@ -1,0 +1,297 @@
+{
+  "boundaries": {
+    "final_75_100_gate_unchanged": true,
+    "full_17_type_hard_negative_gate_unchanged": true,
+    "no_brev_command_or_spend": true,
+    "no_browser_activation": true,
+    "no_classifier_or_detector_training": true,
+    "no_export_or_promotion": true,
+    "no_generated_pseudo_labels": true,
+    "no_pretrained_component": true,
+    "no_push": true,
+    "no_source_import": true,
+    "no_training_epoch": true,
+    "strict_25_label_lesson_milestone_gate_unchanged": true
+  },
+  "command_results": [
+    {
+      "command": [
+        "python3",
+        "scripts/train_rawframe_model.py",
+        "--train-manifest",
+        "data/manifests/lesson/high-signal-module/train.json",
+        "--validation-manifest",
+        "data/manifests/lesson/high-signal-module/validation.json",
+        "--test-manifest",
+        "data/manifests/lesson/high-signal-module/test.json",
+        "--output-dir",
+        "artifacts/rawframe-high-signal-module",
+        "--model-id",
+        "asl-pilot-asl-citizen-high-signal-contract-probe-v1",
+        "--architecture",
+        "motion_2d_temporal_cnn",
+        "--check-files",
+        "--epochs",
+        "1",
+        "--batch-size",
+        "16",
+        "--frame-count",
+        "12",
+        "--image-size",
+        "96",
+        "--learning-rate",
+        "0.001",
+        "--training-augmentation",
+        "mild",
+        "--checkpoint-selection",
+        "best_validation",
+        "--num-workers",
+        "0",
+        "--reduced-real-data-module",
+        "--dry-run"
+      ],
+      "exit_code": 0,
+      "name": "reduced_real_data_module_dry_run_check_files",
+      "stderr": "",
+      "stdout_summary": {
+        "evidence_mode": "reduced_real_data_module",
+        "manifest_count": 3,
+        "pretrained_components": [],
+        "training_status": "dry_run_only"
+      }
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/train_rawframe_model.py",
+        "--train-manifest",
+        "data/manifests/lesson/high-signal-module/train.json",
+        "--validation-manifest",
+        "data/manifests/lesson/high-signal-module/validation.json",
+        "--test-manifest",
+        "data/manifests/lesson/high-signal-module/test.json",
+        "--output-dir",
+        "artifacts/rawframe-high-signal-module",
+        "--model-id",
+        "asl-pilot-asl-citizen-high-signal-contract-probe-v1",
+        "--architecture",
+        "motion_2d_temporal_cnn",
+        "--check-files",
+        "--epochs",
+        "1",
+        "--batch-size",
+        "16",
+        "--frame-count",
+        "12",
+        "--image-size",
+        "96",
+        "--learning-rate",
+        "0.001",
+        "--training-augmentation",
+        "mild",
+        "--checkpoint-selection",
+        "best_validation",
+        "--num-workers",
+        "0",
+        "--reduced-real-data-module"
+      ],
+      "exit_code": 2,
+      "name": "non_dry_run_guard",
+      "stderr": "Manifest validation failed: reduced real-data module validation is no-training and requires --dry-run"
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/train_rawframe_model.py",
+        "--train-manifest",
+        "data/manifests/lesson/high-signal-module/train.json",
+        "--validation-manifest",
+        "data/manifests/lesson/high-signal-module/validation.json",
+        "--test-manifest",
+        "data/manifests/lesson/high-signal-module/test.json",
+        "--output-dir",
+        "artifacts/rawframe-high-signal-module",
+        "--model-id",
+        "asl-pilot-asl-citizen-high-signal-contract-probe-v1",
+        "--architecture",
+        "motion_2d_temporal_cnn",
+        "--check-files",
+        "--epochs",
+        "1",
+        "--batch-size",
+        "16",
+        "--frame-count",
+        "12",
+        "--image-size",
+        "96",
+        "--learning-rate",
+        "0.001",
+        "--training-augmentation",
+        "mild",
+        "--checkpoint-selection",
+        "best_validation",
+        "--num-workers",
+        "0",
+        "--reduced-real-data-module",
+        "--allow-small-label-set",
+        "--dry-run"
+      ],
+      "exit_code": 2,
+      "name": "synthetic_small_label_flag_guard",
+      "stderr": "Manifest validation failed: --reduced-real-data-module cannot be combined with --allow-small-label-set"
+    }
+  ],
+  "conclusion": "The reduced real-data manifest contract is implemented and validated without using synthetic small-label mode or running training.",
+  "created_at": "2026-05-27T07:24:45Z",
+  "manifests": {
+    "test": {
+      "clip_count": 28,
+      "dataset_id": "asl-pilot-asl-citizen-high-signal-module-v0",
+      "dataset_source_mode": "approved_external_raw_video_source",
+      "decode_provenance_missing": 0,
+      "high_signal_module_evidence_finality": "reduced_module_manifest_not_training_or_model_promotion",
+      "label_count": 7,
+      "labels": [
+        "table",
+        "please",
+        "black",
+        "hello",
+        "uncle",
+        "white",
+        "sad"
+      ],
+      "path": "data/manifests/lesson/high-signal-module/test.json",
+      "per_label_clip_counts": {
+        "black": 4,
+        "hello": 4,
+        "please": 4,
+        "sad": 4,
+        "table": 4,
+        "uncle": 4,
+        "white": 4
+      },
+      "sha256": "e6acd70e8ebe7302ca31b1616959e607c74a854b302281dde3a47e7d7f725284",
+      "signer_count": 7,
+      "source_ids": [
+        "asl-citizen-school-assignment-raw-videos"
+      ],
+      "split": "test",
+      "tensor_hash_missing": 0
+    },
+    "train": {
+      "clip_count": 84,
+      "dataset_id": "asl-pilot-asl-citizen-high-signal-module-v0",
+      "dataset_source_mode": "approved_external_raw_video_source",
+      "decode_provenance_missing": 0,
+      "high_signal_module_evidence_finality": "reduced_module_manifest_not_training_or_model_promotion",
+      "label_count": 7,
+      "labels": [
+        "table",
+        "please",
+        "black",
+        "hello",
+        "uncle",
+        "white",
+        "sad"
+      ],
+      "path": "data/manifests/lesson/high-signal-module/train.json",
+      "per_label_clip_counts": {
+        "black": 12,
+        "hello": 12,
+        "please": 12,
+        "sad": 12,
+        "table": 12,
+        "uncle": 12,
+        "white": 12
+      },
+      "sha256": "f1aff5267c4c7cd3f6cec08d0e34f573529260106c97987e16c887745d419258",
+      "signer_count": 19,
+      "source_ids": [
+        "asl-citizen-school-assignment-raw-videos"
+      ],
+      "split": "train",
+      "tensor_hash_missing": 0
+    },
+    "validation": {
+      "clip_count": 27,
+      "dataset_id": "asl-pilot-asl-citizen-high-signal-module-v0",
+      "dataset_source_mode": "approved_external_raw_video_source",
+      "decode_provenance_missing": 0,
+      "high_signal_module_evidence_finality": "reduced_module_manifest_not_training_or_model_promotion",
+      "label_count": 7,
+      "labels": [
+        "table",
+        "please",
+        "black",
+        "hello",
+        "uncle",
+        "white",
+        "sad"
+      ],
+      "path": "data/manifests/lesson/high-signal-module/validation.json",
+      "per_label_clip_counts": {
+        "black": 4,
+        "hello": 4,
+        "please": 4,
+        "sad": 4,
+        "table": 4,
+        "uncle": 3,
+        "white": 4
+      },
+      "sha256": "a92bd0cd8a4e0bdc4009ac6bf6b61f899dab420b2f8bb91aaefdc0691f934b4c",
+      "signer_count": 5,
+      "source_ids": [
+        "asl-citizen-school-assignment-raw-videos"
+      ],
+      "split": "validation",
+      "tensor_hash_missing": 0
+    }
+  },
+  "mission": "Mission 3AP - ASL Citizen reduced real-data contract",
+  "schema_version": "asl-pilot-mission-3ap-reduced-real-data-contract/v1",
+  "script_contract": {
+    "accepted_label_count_range": [
+      5,
+      10
+    ],
+    "accepted_source_id": "asl-citizen-school-assignment-raw-videos",
+    "distinct_from": [
+      "--allow-small-label-set",
+      "--lesson-milestone",
+      "final_75_100_label_training",
+      "--controlled-clip-heldout"
+    ],
+    "evidence_mode": "reduced_real_data_module",
+    "new_flag": "--reduced-real-data-module",
+    "required_manifest_paths": {
+      "test": "data/manifests/lesson/high-signal-module/test.json",
+      "train": "data/manifests/lesson/high-signal-module/train.json",
+      "validation": "data/manifests/lesson/high-signal-module/validation.json"
+    },
+    "required_output_dir": "artifacts/rawframe-high-signal-module",
+    "requires_check_files": true,
+    "requires_dry_run": true,
+    "script": {
+      "path": "scripts/train_rawframe_model.py",
+      "sha256": "d1d73520e91fa1cb2f4d670625ed9a9f4e92927fb131c2ea7765e1981077b2c3"
+    },
+    "strict_checks": [
+      "source_register_hash_and_allowed_model_training_source",
+      "approved_external_raw_video_source_mode",
+      "asl_citizen_source_id_only",
+      "signer_disjoint_splits",
+      "raw_video_file_hashes_with_check_files",
+      "decoded_tensor_file_hashes",
+      "retained_decode_provenance_metadata",
+      "high_signal_module_evidence_finality",
+      "no_pretrained_component_tokens"
+    ]
+  },
+  "selected_next_action": {
+    "action": "stop_for_reduced_module_training_scope_decision",
+    "reason": "The local no-training script contract now validates the seven-label real-data module. Any next model-learning step is outside Mission 3AP and requires a human/observer decision about whether to run a local reduced-module training smoke, prepare a bounded compute prompt, or park ML work.",
+    "requires_brev_or_training": true,
+    "requires_human_decision": true
+  },
+  "status": "passed_no_training"
+}

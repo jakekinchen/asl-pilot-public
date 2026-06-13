@@ -1,0 +1,492 @@
+{
+  "active_prompt": "docs/model/return-to-form-product-fallback-scope-design-goal-loop-prompt.md",
+  "blocked_actions_requiring_human_approval": [
+    "Brev login, worker inspection, worker lifecycle changes, or paid compute without a compute-receipt prompt",
+    "any training run, model fitting, optimizer/backward pass, checkpoint creation, or sweep",
+    "source import, source approval expansion, generated pseudo-labels, or manual annotation/data collection",
+    "manifest or tensor mutation",
+    "Detector 0 or landmark revival",
+    "ONNX export, model-card promotion, browser trained activation, final-readiness claim, or final-gate changes",
+    "product-runtime implementation outside the bounded fail-closed scope in this design",
+    "push"
+  ],
+  "commands": {
+    "design_generation": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/audit_product_fallback_scope_design.py",
+      "--receipt",
+      "docs/validation/return-to-form-product-fallback-scope-design-v1.json",
+      "--write-receipt"
+    ],
+    "json_validation": [
+      [
+        "python3",
+        "-m",
+        "json.tool",
+        "docs/validation/return-to-form-product-fallback-scope-design-v1.json"
+      ]
+    ],
+    "required_audits": [
+      [
+        "node",
+        "scripts/audit_loop_premise.mjs",
+        "--json"
+      ],
+      [
+        "node",
+        "scripts/audit_return_to_form_plan.mjs",
+        "--json"
+      ],
+      [
+        "node",
+        "scripts/audit_no_pretrained_deps.mjs"
+      ],
+      [
+        "node",
+        "scripts/audit_no_pretrained_artifact_json.mjs"
+      ],
+      [
+        "python3",
+        "-m",
+        "json.tool",
+        "docs/validation/return-to-form-data-quality-contract-v1.json"
+      ],
+      [
+        "python3",
+        "-m",
+        "py_compile",
+        "scripts/audit_product_fallback_scope_design.py"
+      ],
+      [
+        "node",
+        "scripts/audit_final_claim_matrix.mjs"
+      ],
+      [
+        "node",
+        "scripts/audit_lesson_fail_closed.mjs"
+      ],
+      [
+        "node",
+        "scripts/audit_avatar_no_recognition_claims.mjs"
+      ],
+      [
+        "node",
+        "scripts/audit_practice_screen_contract.mjs"
+      ],
+      [
+        "node",
+        "scripts/audit_lesson_page_smoke.mjs"
+      ],
+      [
+        "node",
+        "scripts/audit_practice_camera_behavior_smoke.mjs"
+      ],
+      [
+        "node",
+        "scripts/audit_practice_progress_smoke.mjs"
+      ],
+      [
+        "node",
+        "scripts/audit_practice_scope_copy_smoke.mjs"
+      ],
+      [
+        "node",
+        "scripts/audit_browser_onnx_wiring_smoke.mjs"
+      ],
+      [
+        "git",
+        "diff",
+        "--check"
+      ]
+    ]
+  },
+  "contract_conclusions": [
+    "The current honest product fallback is learn-only and fail-closed while recognition remains not_trained.",
+    "Existing product receipts already prove local camera UX, metadata-only fail-closed practice history, lesson robot timing/demo scaffolding, and claim-matrix honesty.",
+    "A bounded product implementation prompt is safe only if it preserves not_trained claims, activeLabels [], no active_cv_claim, no positive recognition outcomes, and no final-gate changes.",
+    "Training, Brev, export, model-card promotion, browser trained activation, Detector 0 tracking, and final-readiness claims remain blocked.",
+    "The single next action is continue_product_interactive_integration_no_promotion."
+  ],
+  "copy_ux_guardrails": [
+    "Use learn-only, model inactive, not_trained, practice history, or timing/demo language.",
+    "Do not use correct, passed, matched, tracking active, active vocabulary support, final readiness, calibrated, trained, or recognized language unless a promoted artifact exists.",
+    "Every saved attempt while not_trained must communicate that automatic sign checking is unavailable and the attempt is practice history only.",
+    "Robot/avatar language must describe authored timing/demo scaffolding, not live tracking or correctness.",
+    "Prompt catalog copy must distinguish content coverage from recognition support."
+  ],
+  "current_browser_model_claim_status": {
+    "active_cv_claim": null,
+    "active_labels": [],
+    "active_vocabulary_model_version": "rawframe-not-trained",
+    "authored_avatar_demos_enabled": false,
+    "box_driven_avatar_enabled": false,
+    "browser_recognition_enabled": false,
+    "claim_matrix_status": "no_active_claim_rawframe_not_trained",
+    "detector0_status": "not_trained",
+    "detector0_tracking_enabled": false,
+    "model_card_status": "not_trained",
+    "model_id": "asl-pilot-rawframe-v0",
+    "public_claim_matrix_status": "no_active_claim_rawframe_not_trained"
+  },
+  "exactly_one_next_action": "continue_product_interactive_integration_no_promotion",
+  "existing_product_evidence": {
+    "browser_onnx_wiring_smoke": {
+      "evidence_mode": "smoke",
+      "excluded_from_completion": true,
+      "finality": "smoke_only",
+      "status": "passed"
+    },
+    "lesson_page_smoke": {
+      "fail_closed_payload": {
+        "confidence": 0,
+        "frame_count": 16,
+        "model_status": "not_trained",
+        "passed": false,
+        "payload_keys": [
+          "confidence",
+          "durationMs",
+          "frameCount",
+          "hint",
+          "modelId",
+          "modelStatus",
+          "passed",
+          "predictedId",
+          "reason",
+          "vocabularyId"
+        ],
+        "payload_present": true,
+        "raw_payload_keys": []
+      },
+      "passed_checks": [
+        "unauthenticated_lesson_gate",
+        "practice_links_to_lesson",
+        "authenticated_lesson_ui",
+        "robot_three_canvas",
+        "fail_closed_claims_absent",
+        "camera_local_sample",
+        "avatar_demo_mode"
+      ],
+      "robot_mode": {
+        "data_avatar_mode": "demo"
+      },
+      "status": "passed"
+    },
+    "practice_camera_behavior_smoke": {
+      "fail_closed_attempt_visible": {
+        "camera_ready_text_visible": true,
+        "fail_closed_hint_visible": true,
+        "progress_updated_visible": true,
+        "result_visible": true
+      },
+      "passed_checks": [
+        "authenticated_practice_ui",
+        "camera_success_attempt_result_and_progress",
+        "next_prompt_action",
+        "camera_denied",
+        "camera_missing",
+        "camera_unsupported",
+        "camera_generic_error"
+      ],
+      "status": "passed"
+    },
+    "practice_progress_smoke": {
+      "dataset_collection_default_disabled": {
+        "dataset_clip_post_status": 403,
+        "dataset_coverage_get_status": 403
+      },
+      "metadata_attempt_fail_closed": {
+        "saved_attempt": {
+          "confidence": 1,
+          "createdAt": "2026-05-27T04:38:28.251Z",
+          "durationMs": null,
+          "frameCount": null,
+          "hint": "Automatic sign checking is not ready for this pilot yet. Your attempt was saved as practice history only.",
+          "id": "7343b110-1804-4939-9e43-2d18a155f3b5",
+          "modelId": "asl-pilot-rawframe-v0",
+          "modelStatus": "not_trained",
+          "passed": false,
+          "predictedId": "hello",
+          "reason": "server fail-closed because active model card is not_trained",
+          "userId": "fd2243bd-f668-4b1f-8acd-f32463512a05",
+          "vocabularyId": "hello"
+        },
+        "status": 200
+      },
+      "passed_checks": [
+        "model_card_not_trained",
+        "unauthenticated_progress_requires_login",
+        "register_creates_session",
+        "me_returns_registered_user",
+        "initial_progress_empty",
+        "raw_payload_rejected",
+        "raw_payload_rejection_does_not_save",
+        "metadata_attempt_fail_closed",
+        "progress_updates_after_attempt",
+        "logout_blocks_progress",
+        "login_restores_persisted_progress",
+        "dataset_collection_default_disabled"
+      ],
+      "raw_payload_rejected": {
+        "error_mentions_raw_camera": true,
+        "status": 400
+      },
+      "status": "passed"
+    },
+    "practice_scope_copy_smoke": {
+      "boundary": {
+        "canonical_store_mutated": false,
+        "not_model_evidence": true,
+        "not_training_evidence": true,
+        "verifies_copy_only": true
+      },
+      "copy_boundary_evidence": {
+        "auth_prompt_catalog_boundary": {
+          "has_curated_prompts": false,
+          "has_prompt_catalog": true
+        },
+        "practice_prompt_catalog_boundary": {
+          "has_not_trained_copy": true,
+          "has_old_ready_overclaim": false,
+          "has_practice_ledger": true,
+          "has_prompt_catalog": true
+        }
+      },
+      "passed_checks": [
+        "auth_prompt_catalog_boundary",
+        "practice_prompt_catalog_boundary"
+      ],
+      "status": "passed"
+    }
+  },
+  "generated_at": "2026-05-27T13:19:19.566037+00:00",
+  "generated_by": {
+    "command": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/audit_product_fallback_scope_design.py",
+      "--receipt",
+      "docs/validation/return-to-form-product-fallback-scope-design-v1.json",
+      "--write-receipt"
+    ],
+    "script": {
+      "path": "scripts/audit_product_fallback_scope_design.py",
+      "sha256": "9b1ca85e65dc70d7351386031c5be57efbb3804e890e5df7595d9847b17cd2cf"
+    },
+    "tool": "scripts/audit_product_fallback_scope_design.py"
+  },
+  "guardrails": {
+    "brev_used": false,
+    "browser_or_final_claims_changed": false,
+    "external_media_imported": false,
+    "final_gates_changed": false,
+    "manifest_or_tensor_mutated": false,
+    "model_exported": false,
+    "model_promoted": false,
+    "non_promotion": "This product fallback scope design is not training, calibration, export, browser activation, final readiness, or evidence that the M3AW recognizer generalizes. The browser model remains not_trained/fail-closed.",
+    "paid_compute_used": false,
+    "pretrained_components": [],
+    "product_runtime_changed": false,
+    "pseudo_labels_generated": false
+  },
+  "honest_learner_facing_fallback_scope": {
+    "available_now_without_promotion": [
+      "100-item prompt catalog as learn-only content, not active CV support.",
+      "Local camera preview and local frame sampling for practice UX, with metadata-only attempt persistence.",
+      "Fail-closed practice history and progress counts where attempts can increment but recognizer passes remain zero.",
+      "Lesson studio with selected prompts, local-only camera preview, and a timing/demo robot scaffold with no tracking authority.",
+      "Validation page and claim matrices that explain the not_trained browser state and missing final-readiness evidence."
+    ],
+    "not_available_until_trained_artifact_exists": [
+      "ASL correctness scoring or pass/fail recognition.",
+      "Active vocabulary labels in docs/model/active-vocabulary-claim.json.",
+      "Browser trained model activation, model-card promotion, ONNX export, or calibrated thresholds.",
+      "Detector 0 tracking, box-driven avatar motion, or avatar correctness feedback.",
+      "Final readiness, product-domain recognition, or commercial/public deployment claims."
+    ]
+  },
+  "input_artifacts": [
+    {
+      "path": "docs/validation/return-to-form-data-quality-contract-v1.json",
+      "sha256": "ad09d35c84075ff21926af611b7a8cf13477edd072853225d6ca21b52590e0da"
+    },
+    {
+      "path": "docs/session-logs/338-mission-3bd-data-quality-contract.md",
+      "sha256": "36a80f268b330240d46184c2b65a91f704f53440b5c02ce7ad223162b1dfe82e"
+    },
+    {
+      "path": "web/public/model/model-card.json",
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a"
+    },
+    {
+      "path": "web/public/model/claim-matrix.json",
+      "sha256": "24ea5ca219b45c6307acc2ccb3f288a5b76cc5627593a35da0fc983b33bf041f"
+    },
+    {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546"
+    },
+    {
+      "path": "docs/validation/final-claim-matrix.json",
+      "sha256": "24ea5ca219b45c6307acc2ccb3f288a5b76cc5627593a35da0fc983b33bf041f"
+    },
+    {
+      "path": "web/public/model/browser-model-bundle.json",
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9"
+    },
+    {
+      "path": "web/public/model/detector0-card.json",
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929"
+    },
+    {
+      "path": "docs/validation/lesson-page-smoke.json",
+      "sha256": "9ed62f365eab7ce82d7fc15e633d26213288f8df3e1a34c4507460f91985eb5c"
+    },
+    {
+      "path": "docs/validation/practice-camera-behavior-smoke.json",
+      "sha256": "41b266f29deb428412dc08f3a039830b6d45f3019e9ff53fe5c6588ee0d37f13"
+    },
+    {
+      "path": "docs/validation/practice-progress-smoke.json",
+      "sha256": "2ffd3204a101d1df4d9c89a93126d0aec0dfda62f9fa4e577d86b93f36d06afe"
+    },
+    {
+      "path": "docs/validation/practice-scope-copy-smoke.json",
+      "sha256": "7a9dfe567c98786d2c297fa26e4a04fb4aa70cfa5a08dbd2f07b82b814b4120a"
+    },
+    {
+      "path": "docs/validation/browser-onnx-wiring-smoke.json",
+      "sha256": "3fc268a273c57dccbb8ddbe504a3d3b6d7bcea63d63843fad6e7b060c1d0ea48"
+    },
+    {
+      "path": "docs/model/return-to-form-plan.md",
+      "sha256": "995ac2263cfed9729485f75d9167eddfa8a76049ff5976648164bfbff76047b1"
+    }
+  ],
+  "m3bd_data_quality_summary": {
+    "candidate_subset_status": "none_currently_training_ready",
+    "receipt_status": "completed",
+    "selected_next_action": "continue_product_fallback_scope_design_no_training",
+    "smallest_honest_candidate_subset": [],
+    "training_worthy_subset_identified": false
+  },
+  "method": {
+    "brev_used": false,
+    "browser_or_final_claim_changed": false,
+    "description": "Loaded existing data-quality, claim, model-card, browser-bundle, Detector 0, and product-smoke artifacts; verified current fail-closed status; recorded a product fallback scope design without runtime edits, claim changes, training, Brev, export, or final-gate changes.",
+    "manifest_or_tensor_mutated": false,
+    "model_loaded_or_checkpoint_created": false,
+    "optimizer_or_backward_used": false,
+    "product_runtime_changed": false,
+    "source_imported": false,
+    "training_or_fitting_performed": false
+  },
+  "mission": "M3BE",
+  "next_prompt_candidate": {
+    "scope": "One bounded product implementation slice that improves the fail-closed learner experience without changing model cards, claim matrices, active vocabulary, trained browser activation, export, Detector 0 tracking, final gates, or Brev state.",
+    "suggested_path": "docs/model/return-to-form-product-interactive-integration-no-promotion-goal-loop-prompt.md"
+  },
+  "product_surfaces": {
+    "may_be_improved_without_promotion": [
+      {
+        "allowed": [
+          "practice flow ergonomics",
+          "progress/history presentation",
+          "local camera state and recovery UX",
+          "copy that reinforces learn-only/fail-closed status"
+        ],
+        "must_preserve": [
+          "no raw camera payload persistence",
+          "passed remains false while model_card.status is not_trained",
+          "active vocabulary remains empty"
+        ],
+        "surface": "practice"
+      },
+      {
+        "allowed": [
+          "authored timing scaffolds",
+          "prompt study flow",
+          "robot demo/timing poses with recognitionAuthority false",
+          "camera preview ergonomics"
+        ],
+        "must_preserve": [
+          "Detector 0 unavailable copy",
+          "no tracking active claim",
+          "no ASL correctness or pass/fail feedback"
+        ],
+        "surface": "lesson"
+      },
+      {
+        "allowed": [
+          "clearer reviewer-facing gap inventory",
+          "links to existing receipts",
+          "claim-matrix readability"
+        ],
+        "must_preserve": [
+          "no active CV claim",
+          "no final readiness claim",
+          "model card remains not_trained"
+        ],
+        "surface": "validation"
+      }
+    ],
+    "must_remain_unchanged_until_trained_artifact_exists": [
+      "web/public/model/model-card.json status and trained activation fields",
+      "web/public/model/claim-matrix.json active_cv_claim and label support",
+      "docs/model/active-vocabulary-claim.json activeLabels and evidenceArtifacts",
+      "docs/validation/final-claim-matrix.json final/readiness status",
+      "web/public/model/browser-model-bundle.json recognition, Detector 0, and box-driven avatar gates"
+    ]
+  },
+  "schema_version": "asl-pilot-product-fallback-scope-design/v1",
+  "status": "completed",
+  "stop_conditions_requiring_human_approval": [
+    "Stop before any Brev login, worker inspection, worker lifecycle action, or paid compute unless a bounded compute-receipt prompt is active and human approval is current.",
+    "Stop before any training run, model fitting, optimizer/backward pass, checkpoint creation, sweep, calibration, export, browser activation, final-readiness claim, threshold promotion, or final-gate change.",
+    "Stop before any source import, source-approval expansion, generated pseudo-labels, manual labels, manual data collection, manual annotation, or manifest/tensor mutation.",
+    "Stop before Detector 0, landmark, broad-label, product-runtime, or browser model changes that create correctness, tracking, active-vocabulary, or final-readiness claims.",
+    "Stop if the next product implementation requires a human UX/content choice outside the bounded fail-closed scope in this design."
+  ],
+  "technical_gates_before_future_ml_export_brev_or_final_readiness": [
+    {
+      "gate": "training_worthy_subset_or_human_repair",
+      "requirement": "M3BD currently has no retained labels. Future ML work needs a nonempty training-worthy subset or explicit human-approved data/source/label repair.",
+      "status": "failed_current_design"
+    },
+    {
+      "gate": "bounded_compute_receipt_before_brev",
+      "requirement": "Paid Brev work requires current auth, worker/cost/runtime/kill-condition/teardown receipt, and no duplicate workers.",
+      "status": "blocked_current_design"
+    },
+    {
+      "gate": "promoted_artifact_before_browser_activation",
+      "requirement": "Browser activation requires trained scratch artifact, signer-disjoint metrics, negative challenge results, model-card promotion, and final claim matrix update.",
+      "status": "blocked_current_design"
+    },
+    {
+      "gate": "no_pretrained_promoted_lane",
+      "requirement": "Promoted recognition lane must keep pretrained_components empty.",
+      "status": "passed_current_design"
+    }
+  ],
+  "technical_gates_before_product_runtime_implementation_prompt": [
+    {
+      "gate": "bounded_fail_closed_scope",
+      "requirement": "The next implementation prompt must name exact product surfaces and preserve model-card not_trained status, activeLabels [], and active_cv_claim null.",
+      "status": "required_next"
+    },
+    {
+      "gate": "claim_audits_after_any_runtime_change",
+      "requirement": "Any product implementation must run final-claim, lesson fail-closed, avatar no-claim, practice screen, relevant smoke receipt audits, typecheck, build, and browser QA as applicable.",
+      "status": "required_next"
+    },
+    {
+      "gate": "local_privacy_boundary",
+      "requirement": "Raw camera frames must stay local; persisted attempts must remain metadata-only while not_trained.",
+      "status": "passed_current_design"
+    },
+    {
+      "gate": "no_positive_recognition_outcomes",
+      "requirement": "Product runtime must not save passed=true from recognizer logic while model-card.status is not_trained.",
+      "status": "passed_current_design"
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "schema_version": "asl-pilot-detector0-union-margin-packet-mutation/v1",
+  "mission": "M3AE-AF",
+  "status": "training_smoke_selected",
+  "created_at": "2026-05-26T12:51:30Z",
+  "target_id": "table_two_hand_union_or_contact_region",
+  "derivation_policy": {
+    "source_schema_revision_path": "docs/validation/return-to-form-tier0-detector0-two-hand-union-margin-schema-revision-v1.md",
+    "source_schema_revision_sha256": "d48998a5e661a06a106359a5fcaf24d0c0aac65919f83ebc846ec469e3cc58ab",
+    "policy": "bounded_adaptive_context_margin",
+    "desired_context_margin_norm": 0.02,
+    "max_width_norm": 0.85,
+    "max_height_norm": 0.85,
+    "max_area_norm": 0.55,
+    "min_source_visibility_confidence": 0.45,
+    "source_targets": [
+      "left_or_first_hand",
+      "right_or_second_hand"
+    ],
+    "source_boxes_are_derivation_evidence_only": true
+  },
+  "packet": {
+    "path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+    "pre_mutation_sha256": "b0456313f78f0ddb9a4656876f2021046e4324f8cd06bc7a62021579ff56144f",
+    "post_mutation_sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d",
+    "row_count_before": 32,
+    "row_count_after": 32,
+    "row_ids_unchanged": true,
+    "rows_added_count": 0,
+    "target_schema_changed": false,
+    "mutated_target_id": "table_two_hand_union_or_contact_region",
+    "changed_target_count": 1,
+    "changed_target_rows": [
+      {
+        "row_id": "det0-v0-train-table-000376-f010",
+        "split": "train",
+        "label_id": "table",
+        "target_id": "table_two_hand_union_or_contact_region",
+        "before": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "after": {
+          "presence": true,
+          "center_xy_norm": [
+            0.44,
+            0.695
+          ],
+          "box_xyxy_norm": [
+            0.015,
+            0.55,
+            0.865,
+            0.84
+          ],
+          "visibility_confidence": 0.57,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "effective_margin_x": 0.005,
+        "effective_margin_y": 0.02,
+        "raw_union_box_xyxy_norm": [
+          0.02,
+          0.57,
+          0.86,
+          0.82
+        ]
+      }
+    ]
+  },
+  "derived_targets": {
+    "table_row_count": 20,
+    "present_counts_by_split": {
+      "train": 7,
+      "validation": 7,
+      "test": 6
+    },
+    "absent_non_table_count": 12,
+    "unresolved_targets": {
+      "count": 0,
+      "counts_by_split": {
+        "train": 0,
+        "validation": 0,
+        "test": 0
+      },
+      "rows": []
+    },
+    "reduced_context_margin_rows": [
+      {
+        "row_id": "det0-v0-train-table-000376-f010",
+        "split": "train",
+        "raw_union_box_xyxy_norm": [
+          0.02,
+          0.57,
+          0.86,
+          0.82
+        ],
+        "raw_union_width": 0.84,
+        "raw_union_height": 0.25,
+        "desired_margin": 0.02,
+        "effective_margin_x": 0.005,
+        "effective_margin_y": 0.02,
+        "revised_box_xyxy_norm": [
+          0.015,
+          0.55,
+          0.865,
+          0.84
+        ],
+        "revised_center_xy_norm": [
+          0.44,
+          0.695
+        ],
+        "revised_width": 0.85,
+        "revised_height": 0.29,
+        "revised_area": 0.2465
+      }
+    ],
+    "support_gate": {
+      "minimum_present_table_union_targets_per_split": 5,
+      "train_present_count": 7,
+      "validation_present_count": 7,
+      "test_present_count": 6,
+      "support_threshold_met": true,
+      "unresolved_table_rows_zero": true
+    }
+  },
+  "evidence_hashes": {
+    "source_register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+    "source_coverage_sha256": "1ff7da89a51e62f9efbeb08cf6361784e160ed862ac579f9e40db332fa576378",
+    "fixed_crop_config_sha256": "dbc735dad34fa9df1174a40374037976f9c88d789012634b2b22743ae0802b29",
+    "pre_training_gates_sha256": "2cc000d3f90e9be236cf64768530bf9786fc61fe6605c774b9c1e8ab123d9d97",
+    "decode_dataloader_sha256": "d64c0b46500075d94207ef2197a6f6d8f1570cf548da8b08ca16dc520ba386c2",
+    "remediation_diagnostic_sha256": "7d0375c77aeea0448cf9e4209065e876e6ef60e04b374428b40177aea2d4e722",
+    "tensor_contract_sha256": "0f2ea12cf9a6517bafb67876ba4b0e4951ce821b61b27a740d45f6d1e36b3cd3",
+    "detector0_bootstrap_sha256": "bd17e32bc7d4adbd195d1a26173740163e314a54577a9d9245a38dce752331e5",
+    "detector0_training_smoke_sha256": "ba8871964ba24bae88935bcad24c132af90dcd8d607bef04df54f56ebdd3b611",
+    "crop_normalization_ablation_smoke_sha256": "b3c86cc08a82bdbe8ca212c26f8bc0287514ca559ad7beac0f9f41c8e21b20a7",
+    "detector0_data_target_remediation_sha256": "4ca5fbd2a10acb0d8d817370e6778466d989a61b6c939b1f87f1066eb6091f28",
+    "optional_target_policy_sha256": "565a34fa0029345b64d9f1ac485d2c474a79f33fd4a5bec786ac8e69fe99b4a8",
+    "policy_aware_ablation_smoke_sha256": "fdf665aa6d223b60cbe9804f47f2b0b8619b6a8c7273bd79ba5696fee45af304",
+    "optional_target_support_remediation_sha256": "ab42d0f02b037fafde3e5299d513a4b671b685e83bf1d9654d23cd89f2a6783a",
+    "packet_expansion_design_sha256": "ef9b84fd891c6e69e91259f26059a7ce69f0b75f1e3f860673551eea2b3f2717",
+    "candidate_review_sha256": "1f132125dee5bbb0c4d57bd325ffcca04a2c6921abc434ac02ee93f69471c09e",
+    "table_second_hand_packet_mutation_sha256": "0f8d8c43fcce041694df132b327407b8dca5d11e22b89ecadca42ace5221ce82",
+    "expanded_packet_training_smoke_sha256": "baa2d2f958f50e299fb8d59e2ea2a0d081dd8995181da1719d60ead0c4971def",
+    "two_hand_union_schema_sha256": "4e0972b77304c09ffa3e4f5fee4c3b9f71c26f6efe2fe14a13eed82773892716",
+    "two_hand_union_packet_mutation_sha256": "0a0b1a89c904f19bba38e56e5cc08dbe7a23b9e47a7e596785488bcccac6cf28",
+    "two_hand_union_margin_schema_revision_sha256": "d48998a5e661a06a106359a5fcaf24d0c0aac65919f83ebc846ec469e3cc58ab",
+    "union_target_remediation_sha256": "f9b8111c0cda034f8c19e8aaab271851a0daa97de744d32f04c1019d4ae58553",
+    "detector0_packet_pre_sha256": "b0456313f78f0ddb9a4656876f2021046e4324f8cd06bc7a62021579ff56144f",
+    "detector0_packet_post_sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d",
+    "train_manifest_sha256": "03ae563a5f2ef0d5b868f6c80f50acb64ae642e782cd541faa5c022d4d0af1de",
+    "validation_manifest_sha256": "23da15a80ce2eee1dab1a7e64c08e2aefcf5d7dd48263677fdc49d1efb0ad808",
+    "test_manifest_sha256": "b0c771b612ebb52beb375a98b4180ccd465aa642312a8c6c29d7ff225febd8ed",
+    "observer_localization_memo_sha256": "b6e167fbf5f40541f718153906d085b787d674fea3c055826dc900a01f4639e2"
+  },
+  "brev_no_spend": {
+    "command": "brev ls --json",
+    "workspace": "asl-pilot-rawframe-001",
+    "status": "RUNNING",
+    "build_status": "COMPLETED",
+    "shell_status": "READY",
+    "health_status": "HEALTHY",
+    "instance_type": "massedcompute_A100_sxm4_80G_DGX",
+    "instance_kind": "gpu",
+    "gpu": "A100",
+    "planned_remote_command": "none",
+    "max_runtime_minutes": 0,
+    "max_spend_usd": 0,
+    "human_spend_approval": false,
+    "manual_stop_command": "brev stop asl-pilot-rawframe-001",
+    "manual_stop_command_run": false
+  },
+  "boundaries": {
+    "rows_added": false,
+    "detector0_training": false,
+    "crop_normalization_ablation_rerun": false,
+    "recognizer_training": false,
+    "label_expansion": false,
+    "controlled_clip_heldout_evaluation": false,
+    "source_approval_or_import": false,
+    "unapproved_media_import": false,
+    "generated_pseudo_labels": false,
+    "pretrained_detector_landmark_pose_feature_or_embedding_use": false,
+    "onnx_export": false,
+    "model_card_promotion": false,
+    "final_readiness_claim": false,
+    "final_gate_weakening": false,
+    "collection_capture": false,
+    "synthetic_clips": false,
+    "duplicate_brev_worker": false,
+    "brev_stop_sync_training_or_spend": false,
+    "product_runtime_code_change": false,
+    "broad_run_redirect": false,
+    "push": false
+  },
+  "final_promotion_blocker_separation": {
+    "unchanged": true,
+    "blocker": "The full final-promotion negative-challenge gate remains separate; ./.venv/bin/python scripts/audit_final_manifests.py is not weakened or satisfied by this packet mutation receipt."
+  },
+  "next_action": {
+    "id": "detector0_two_hand_union_training_smoke",
+    "description": "Run one bounded local no-spend scratch Detector 0 smoke consuming the resolved table_two_hand_union_or_contact_region target before any crop-normalization ablation rerun or recognizer training."
+  }
+}

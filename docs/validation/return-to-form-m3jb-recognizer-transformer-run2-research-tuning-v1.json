@@ -1,0 +1,254 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-run2-research-tuning/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_run2_research_guided_tuning_no_brev",
+  "recorded_at_utc": "2026-06-03T20:12:59Z",
+  "head_before_slice": "67b50ee record(m3jb): capture recognizer transformer run2",
+  "status": "completed_research_tuning_no_brev_no_training",
+  "inputs": {
+    "run2_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run2-lowlr-brev-v1.json",
+    "run2_copied_receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run2-lowlr-fulltrain-e200-lr5e4-brev-v1.json",
+    "prior_run1_research_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run1-research-triage-v1.json",
+    "prior_run1_research_response": "artifacts/research/m3jb-recognizer-transformer-run1-triage-914/response.md",
+    "trainer_source": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_recognizer_distill.py"
+  },
+  "run2_summary": {
+    "student_arch": "transformer",
+    "full_data_no_limit_flags": true,
+    "epochs": 200,
+    "batch": 256,
+    "lr": 0.0005,
+    "d_model": 256,
+    "n_layers": 6,
+    "n_heads": 8,
+    "dropout": 0.0,
+    "alpha": 0.55,
+    "temperature": 3.0,
+    "jitter_std": 0.02,
+    "frame_drop": 0.1,
+    "train_clips": 7011,
+    "monitor_clips": 955,
+    "test_clips": 2369,
+    "classes": 95,
+    "sequence_length": 20,
+    "feature_dim": 90,
+    "teacher_covered_train": 2668,
+    "teacher_covered_total": 4560,
+    "optimizer_steps": 5600,
+    "test_top1": 0.2609,
+    "test_top5": 0.5635,
+    "verification_recall_at_far10": 0.686,
+    "monitor_best_top1": 0.3497,
+    "monitor_best_top1_epoch": 199,
+    "monitor_best_top5": 0.6346,
+    "monitor_best_top5_epoch": 51,
+    "final_loss": 0.2224,
+    "decision": "learned_but_rejected_fail_closed_below_primary_verification_gate"
+  },
+  "baseline": {
+    "gru_receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/recognizer-distill.json",
+    "test_top1": 0.2322,
+    "test_top5": 0.5673,
+    "verification_recall_at_far10_approx": 0.7,
+    "batch": 64,
+    "epochs": 80,
+    "lr": 0.002,
+    "estimated_optimizer_steps": 8760
+  },
+  "trainer_surface": {
+    "source_inspected": true,
+    "help_command_attempted": "cd /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator && PYTHONDONTWRITEBYTECODE=1 ../../.labelvenv/bin/python train_recognizer_distill.py --help",
+    "help_command_status": "blocked_local_venv_missing_torch",
+    "existing_flags": [
+      "--student-arch",
+      "--epochs",
+      "--batch",
+      "--lr",
+      "--student-hidden",
+      "--d-model",
+      "--n-layers",
+      "--n-heads",
+      "--dropout",
+      "--alpha",
+      "--temperature",
+      "--jitter-std",
+      "--frame-drop",
+      "--device",
+      "--seed",
+      "--limit-train",
+      "--limit-monitor",
+      "--limit-test",
+      "--eval-train",
+      "--diagnostics",
+      "--no-save",
+      "--no-save-model",
+      "--out"
+    ],
+    "missing_for_selected_recipe": [
+      "--lr-scheduler",
+      "--warmup-steps",
+      "--min-lr or --final-lr-ratio"
+    ],
+    "also_missing_not_selected_for_next_slice": [
+      "sequence-length/window CLI support",
+      "pooling-mode CLI support",
+      "verification-ranking objective"
+    ]
+  },
+  "research_escalation": {
+    "required_by_goal": true,
+    "gpt_pro_web_attempt": {
+      "attempted": true,
+      "status": "blocked_no_session_owned_iab_backend",
+      "evidence": "Browser setup through node_repl/browser-client listed no iab browser backends; failures were connection refused/native pipe closed, and browser list was empty."
+    },
+    "fallback": {
+      "used": true,
+      "route": "openai-api-research",
+      "model_requested": "gpt-5.5",
+      "calls": [
+        {
+          "kind": "initial",
+          "response_id": "resp_098f77bd3404d3c9006a20899539d08190a9712a53bf38039b",
+          "status": "incomplete_max_output_tokens",
+          "model_returned": "gpt-5.5-2026-04-23",
+          "total_tokens": 7500,
+          "reasoning_tokens": 4142,
+          "prompt_path": "artifacts/research/m3jb-recognizer-transformer-run2-tuning-920/prompt.md",
+          "request_path": "artifacts/research/m3jb-recognizer-transformer-run2-tuning-920/request.json",
+          "raw_response_path": "artifacts/research/m3jb-recognizer-transformer-run2-tuning-920/raw.json",
+          "response_path": "artifacts/research/m3jb-recognizer-transformer-run2-tuning-920/response.partial.md"
+        },
+        {
+          "kind": "compact",
+          "response_id": "resp_05c453b8eb1f24fc006a208a38ce388190a1ff5029c185dbe9",
+          "status": "completed",
+          "model_returned": "gpt-5.5-2026-04-23",
+          "total_tokens": 4757,
+          "reasoning_tokens": 2543,
+          "prompt_path": "artifacts/research/m3jb-recognizer-transformer-run2-tuning-920/prompt-compact.md",
+          "request_path": "artifacts/research/m3jb-recognizer-transformer-run2-tuning-920/request-compact.json",
+          "raw_response_path": "artifacts/research/m3jb-recognizer-transformer-run2-tuning-920/raw-compact.json",
+          "response_path": "artifacts/research/m3jb-recognizer-transformer-run2-tuning-920/response.md"
+        }
+      ],
+      "artifacts_sha256": {
+        "prompt_md": "314f106c50d2a3d0ee51862365b58ba011ae1f3933353f0cf0057ff14619ba64",
+        "request_json": "4e8248de7e4b889e77c4c46b0576029ff15412b72367639039b0f1508fe90158",
+        "raw_json": "64125f83327deaae211a6e5e3ff7443743b5242cbaed4aeba6d6f681c0f0da5a",
+        "response_partial_md": "d23898be5c53fe558cca7dabdacb39e18d31a472051cac402571fb50c3b859e9",
+        "prompt_compact_md": "0f38bc563874099f571f8f7332aa0f4866bec88523d286a3843fc0864f77e277",
+        "request_compact_json": "d52370918350f9c97ebb78d3c844edaf5da6150cd2082b835c9e0cc96c00cf8e",
+        "raw_compact_json": "d42f4711f6c3f0a7212413362c6770171ba7d1b32a8a5da15962961e031b96f5",
+        "response_md": "6c4f329c917e06b8b881ae8e6c2d6c3421d370fd1f102c1129f8f9becb68e2a3"
+      }
+    },
+    "advisory_not_authority": true
+  },
+  "research_conclusion": {
+    "diagnosis": [
+      "Run2 fixed the gross optimization failure but was likely under-optimized for a Transformer.",
+      "Fixed lr 5e-4 without warmup/decay likely limited late-stage margin and verification-score separation.",
+      "Batch 256 reduced optimizer update count versus the GRU baseline and may have hurt generalization.",
+      "Distillation coverage and sequence length may matter later, but changing them now would confound the optimizer diagnosis."
+    ],
+    "selected_next_action": "m3jb_recognizer_transformer_lr_schedule_preflight_no_brev",
+    "recommendation": "Add trainer-only LR scheduler support with defaults preserving current behavior, then smoke/preflight the run3 recipe locally/no-save before any paid full-scope run.",
+    "run3_recipe_if_preflight_passes": {
+      "student_arch": "transformer",
+      "device": "cuda",
+      "full_data_no_limit_flags": true,
+      "epochs": 240,
+      "batch": 128,
+      "lr": 0.0005,
+      "lr_scheduler": "cosine",
+      "warmup_steps": 500,
+      "min_lr": 0.00005,
+      "d_model": 256,
+      "n_layers": 6,
+      "n_heads": 8,
+      "dropout": 0.0,
+      "alpha": 0.55,
+      "temperature": 3.0,
+      "jitter_std": 0.02,
+      "frame_drop": 0.1,
+      "expected_optimizer_steps": 13200,
+      "reason": "More update density than run2 plus a standard warmup/decay path is the smallest controlled change targeting run2's best-at-final-epoch signal and verification-margin gap."
+    },
+    "preflight_before_paid_run3": [
+      "Implement scheduler flags and receipt fields while defaulting to current fixed-lr behavior.",
+      "Unit or source-level check that scheduler config is parsed and serialized.",
+      "No-save 32-clip overfit check with run3 model path still overfits; failure means code regression.",
+      "Short no-save full-data smoke verifies exact counts, no limit flags, scheduler trace, no NaNs, loss/eval/receipt all work.",
+      "Record expected steps: ceil(7011 / 128) * 240 = 13200."
+    ],
+    "paid_run3_kill_conditions": [
+      "Kill immediately on NaNs, broken eval, wrong dataset counts, wrong scheduler trace, or accidental limit flags.",
+      "Kill by about 40 epochs / 2200 steps if monitor top-1 remains near chance (<=0.05).",
+      "At run2-equivalent steps, about 105 epochs / 5800 steps, stop if clearly behind run2 (top-1 <0.23 and recall@FAR10 <0.62).",
+      "After about 160 epochs / 8800 steps, stop if validation/verification signal is flat below about 0.70 with no upward trend.",
+      "Otherwise run to 240 epochs and copy back receipt/checkpoint, then stop the worker."
+    ],
+    "do_not_do_next": [
+      "Do not promote browser/runtime artifacts.",
+      "Do not change final gates.",
+      "Do not add pretrained runtime dependencies.",
+      "Do not blind-rerun run2 unchanged.",
+      "Do not jump to a larger Transformer before fixing the optimizer path.",
+      "Do not start sequence-length or pooling sweeps before the scheduler preflight unless run3 fails preflight."
+    ]
+  },
+  "brev_visibility": {
+    "checked_after_research": true,
+    "command": "brev ls --json",
+    "workspaces": {
+      "asl-pilot-m3jb-pairrank-l40s-001": {
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY"
+      },
+      "asl-pilot-m3eh-l40s-001": {
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY"
+      }
+    }
+  },
+  "boundaries": {
+    "brev_used": false,
+    "brev_lifecycle_or_exec": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "pushed_to_remote": false
+  },
+  "validation": [
+    "node scripts/audit_loop_premise.mjs --json",
+    "Browser route attempted via node_repl/browser-client; no iab backend available",
+    "test -f /Users/kelly/.codex/secrets/openai-api.env && grep -q '^OPENAI_API_KEY=sk-' /Users/kelly/.codex/secrets/openai-api.env",
+    "python3 -m json.tool artifacts/research/m3jb-recognizer-transformer-run2-tuning-920/request.json",
+    "python3 -m json.tool artifacts/research/m3jb-recognizer-transformer-run2-tuning-920/raw.json",
+    "python3 -m json.tool artifacts/research/m3jb-recognizer-transformer-run2-tuning-920/request-compact.json",
+    "python3 -m json.tool artifacts/research/m3jb-recognizer-transformer-run2-tuning-920/raw-compact.json",
+    "brev ls --json",
+    "node scripts/audit_m3jb_hand_state_tracker.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs",
+    "node scripts/audit_source_register.mjs",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "node scripts/audit_no_raw_video_upload.mjs",
+    "git diff --check"
+  ],
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_lr_schedule_preflight_no_brev",
+    "description": "Implement and locally/no-save preflight scheduler support for the selected run3 recipe; do not launch Brev run3 until scheduler behavior, counts, no-limit command shape, and receipt fields are validated."
+  }
+}

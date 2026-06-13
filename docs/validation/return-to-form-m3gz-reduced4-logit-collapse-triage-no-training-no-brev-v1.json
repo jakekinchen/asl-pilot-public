@@ -1,0 +1,388 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3gz-reduced4-logit-collapse-triage-no-training-no-brev/v1",
+  "status": "completed",
+  "generated_at": "2026-05-29T13:36:54Z",
+  "mission": "M3GZ - reduced4 logits sidecar result triage no training no Brev",
+  "active_prompt": "docs/model/return-to-form-m3gz-reduced4-logit-collapse-triage-no-training-no-brev-goal-loop-prompt.md",
+  "current_commit_before_slice_commit": "6d9df350977cb3ea7a674aaffb8495eea76b0786",
+  "files_changed": [
+    "docs/validation/return-to-form-m3gz-reduced4-logit-collapse-triage-no-training-no-brev-v1.json",
+    "docs/session-logs/667-mission-3gz-reduced4-logit-collapse-triage-no-training-no-brev.md"
+  ],
+  "freshness_guard": {
+    "git_log_1_oneline": "6d9df35 observer: correct m3gz logit collapse handoff",
+    "git_status_short_before_slice": "",
+    "goal_points_at_active_prompt": true,
+    "active_prompt_names_mission_3gz": true,
+    "interpretation": "The live filesystem surfaces point at Mission 3GZ and supersede prior chat or stale handoff context."
+  },
+  "commands_run": {
+    "required_baseline": [
+      {
+        "command": "git status --short --branch",
+        "exit_status": 0,
+        "result": "## compound-plan-m0...origin/compound-plan-m0 [ahead 336]"
+      },
+      {
+        "command": "git log -12 --oneline --decorate",
+        "exit_status": 0,
+        "result": "head 6d9df35; recent route includes M3GY, M3GX, M3GW, M3GV, and M3GU commits"
+      },
+      {
+        "command": "node scripts/audit_loop_premise.mjs --json",
+        "exit_status": 0,
+        "result": "passed"
+      },
+      {
+        "command": "node scripts/audit_return_to_form_plan.mjs --json",
+        "exit_status": 0,
+        "result": "passed"
+      },
+      {
+        "command": "node scripts/audit_source_register.mjs",
+        "exit_status": 0,
+        "result": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_deps.mjs",
+        "exit_status": 0,
+        "result": "No banned pretrained-CV dependencies or source imports found."
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+        "exit_status": 0,
+        "result": "passed"
+      },
+      {
+        "command": "python3 -m json.tool docs/validation/return-to-form-m3gy-reduced4-diagnostic-eval-rerun-no-training-no-brev-v1.json >/dev/null",
+        "exit_status": 0,
+        "result": "valid JSON"
+      },
+      {
+        "command": "python3 -m json.tool output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/validation-report.json >/dev/null",
+        "exit_status": 0,
+        "result": "valid JSON"
+      },
+      {
+        "command": "python3 -m json.tool output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/prediction-sidecar.json >/dev/null",
+        "exit_status": 0,
+        "result": "valid JSON"
+      },
+      {
+        "command": "git diff --check",
+        "exit_status": 0,
+        "result": "passed"
+      }
+    ],
+    "read_only_evidence_inspection": [
+      "sed -n '1,260p' docs/model/return-to-form-m3gz-reduced4-logit-collapse-triage-no-training-no-brev-goal-loop-prompt.md",
+      "sed -n '1,260p' docs/runbooks/codex-goal-loop.md",
+      "sed -n '1,260p' docs/runbooks/observer-runbook-codex.md",
+      "sed -n '1,260p' docs/model/return-to-form-plan.md",
+      "sed -n '7048,7108p' docs/model/return-to-form-plan.md",
+      "shasum -a 256 docs/validation/return-to-form-m3gy-reduced4-diagnostic-eval-rerun-no-training-no-brev-v1.json docs/session-logs/665-mission-3gy-reduced4-diagnostic-eval-rerun-no-training-no-brev.md output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/validation-report.json output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/prediction-sidecar.json docs/validation/return-to-form-m3gx-reduced4-manifest-metadata-or-sidecar-diagnostic-repair-no-training-v1.json docs/validation/return-to-form-m3gw-reduced4-data-split-zero-recall-diagnosis-no-training-v1.json docs/validation/return-to-form-m3gu-reduced4-local-training-smoke-no-brev-v1.json",
+      "jq 'keys' output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/validation-report.json",
+      "jq 'keys' output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/prediction-sidecar.json",
+      "jq 'keys' docs/validation/return-to-form-m3gy-reduced4-diagnostic-eval-rerun-no-training-no-brev-v1.json",
+      "sed -n '1,220p' docs/session-logs/665-mission-3gy-reduced4-diagnostic-eval-rerun-no-training-no-brev.md",
+      "jq '.diagnostic_summary, .sidecar_contract_proof, .claim_surface_proof, .forbidden_action_proof, .selected_next_action' docs/validation/return-to-form-m3gy-reduced4-diagnostic-eval-rerun-no-training-no-brev-v1.json",
+      "jq '{validation:{examples:(.validation.examples|length), predicted_counts:(.validation.examples|group_by(.predicted_label)|map({key:.[0].predicted_label,value:length})|from_entries), true_counts:(.validation.examples|group_by(.true_label)|map({key:.[0].true_label,value:length})|from_entries), no_predicted_labels:(([\"hello\",\"sad\",\"uncle\",\"white\"])-(.validation.examples|map(.predicted_label)|unique)), required_fields_present:(.validation.examples|all(has(\"logits_by_label\") and has(\"predicted_label_logit\") and has(\"true_label_logit\") and has(\"top2_logit\") and has(\"top2_logit_label\") and has(\"logit_margin\"))), logit_margin:{min:(.validation.examples|map(.logit_margin)|min),max:(.validation.examples|map(.logit_margin)|max),mean:(.validation.examples|map(.logit_margin)|add/length)}, entropy:{min:(.validation.examples|map(.entropy)|min),max:(.validation.examples|map(.entropy)|max),mean:(.validation.examples|map(.entropy)|add/length)}, confidence:{min:(.validation.examples|map(.confidence)|min),max:(.validation.examples|map(.confidence)|max),mean:(.validation.examples|map(.confidence)|add/length)}}, test:{examples:(.test.examples|length), predicted_counts:(.test.examples|group_by(.predicted_label)|map({key:.[0].predicted_label,value:length})|from_entries), true_counts:(.test.examples|group_by(.true_label)|map({key:.[0].true_label,value:length})|from_entries), no_predicted_labels:(([\"hello\",\"sad\",\"uncle\",\"white\"])-(.test.examples|map(.predicted_label)|unique)), required_fields_present:(.test.examples|all(has(\"logits_by_label\") and has(\"predicted_label_logit\") and has(\"true_label_logit\") and has(\"top2_logit\") and has(\"top2_logit_label\") and has(\"logit_margin\"))), logit_margin:{min:(.test.examples|map(.logit_margin)|min),max:(.test.examples|map(.logit_margin)|max),mean:(.test.examples|map(.logit_margin)|add/length)}, entropy:{min:(.test.examples|map(.entropy)|min),max:(.test.examples|map(.entropy)|max),mean:(.test.examples|map(.entropy)|add/length)}, confidence:{min:(.test.examples|map(.confidence)|min),max:(.test.examples|map(.confidence)|max),mean:(.test.examples|map(.confidence)|add/length)}}}' output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/prediction-sidecar.json",
+      "jq '{validation:{top1_accuracy:.validation.top1_accuracy, macro_f1:.validation.macro_f1, per_class:.validation.per_class, confusion_matrix:.validation.confusion_matrix}, test:{top1_accuracy:.test.top1_accuracy, macro_f1:.test.macro_f1, per_class:.test.per_class, confusion_matrix:.test.confusion_matrix, threshold_metrics:.test.threshold_metrics}, pass_status:.pass_status, status:.status, selected_threshold:.prediction_sidecar.selected_threshold, finality:.finality}' output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/validation-report.json",
+      "git check-ignore -v output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/validation-report.json output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/prediction-sidecar.json",
+      "shasum -a 256 data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json docs/model/active-vocabulary-claim.json web/public/model/model-card.json web/public/model/detector0-card.json web/public/model/claim-matrix.json docs/validation/final-claim-matrix.json docs/model/dataset-source-register.json"
+    ],
+    "exploratory_jq_commands_with_nonzero_status": [
+      {
+        "command": "jq '.validation | keys, .test | keys, .targets' output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/validation-report.json",
+        "exit_status": 5,
+        "result": "expression-precedence mistake during inspection; no files changed"
+      },
+      {
+        "command": "jq '.validation | keys, .test | keys, .sidecar_contract, .score_fields' output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/prediction-sidecar.json",
+        "exit_status": 5,
+        "result": "expression-precedence mistake during inspection; no files changed"
+      }
+    ],
+    "brev_commands_run": []
+  },
+  "inspected_artifact_hashes": {
+    "tracked_evidence": {
+      "docs/validation/return-to-form-m3gy-reduced4-diagnostic-eval-rerun-no-training-no-brev-v1.json": "503a89fb6041c501194216e0e6379ca74dae2b1554ee925ee75efb782e1363e5",
+      "docs/session-logs/665-mission-3gy-reduced4-diagnostic-eval-rerun-no-training-no-brev.md": "3d7484fc47329bdb8451b830bd0101ae5247b4eb7bf350c1ad2dfc4d5672ba37",
+      "docs/validation/return-to-form-m3gx-reduced4-manifest-metadata-or-sidecar-diagnostic-repair-no-training-v1.json": "e4e3c9635b8f05fed246866e17fb6c0cc4cfd487f6e702dc66972c166ab8aeb1",
+      "docs/validation/return-to-form-m3gw-reduced4-data-split-zero-recall-diagnosis-no-training-v1.json": "4378f5f1f092f91d253396a870a91b0a46b40581dc5d12a5929cb8864b3c51e6",
+      "docs/validation/return-to-form-m3gu-reduced4-local-training-smoke-no-brev-v1.json": "2234d8b19053c92d6db5b1b0f6d0545a74d0061fc2b63fc9dca613ffe79a471b"
+    },
+    "ignored_m3gy_outputs_read_only": {
+      "output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/validation-report.json": {
+        "sha256": "e77b4dafe54b5f99c5276b7c3449eab9030df44a2cd83765a932034332d19a0c",
+        "ignored_by_git": true
+      },
+      "output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/prediction-sidecar.json": {
+        "sha256": "44332448f2d63e98849766e3484ff05a305f8f714b96c1079cf74a82fe367bc7",
+        "ignored_by_git": true
+      }
+    },
+    "m3gq_manifests_read_only": {
+      "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json": "aab52f670b9dbf6d219521a8ebf84d1af1a798ec5f1c8a54cbe126222ffe0f11",
+      "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json": "03f4d1e391146ab98bbb1aea9936396b82a09cbb09d5e783b6a147292140f13b",
+      "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json": "c02486e4a50cb2894e8e1bf9ac848871368702371311c9b62b519ac8ce9b6920"
+    }
+  },
+  "metric_and_logit_collapse_interpretation": {
+    "class_labels": [
+      "hello",
+      "sad",
+      "uncle",
+      "white"
+    ],
+    "four_class_max_entropy_ln4": 1.3862943611198906,
+    "validation": {
+      "examples": 15,
+      "top1_accuracy": 0.26666666666666666,
+      "macro_f1": 0.11111111111111112,
+      "target_top1_accuracy": 0.7,
+      "target_macro_f1": 0.65,
+      "zero_recall_classes": [
+        "hello",
+        "uncle",
+        "white"
+      ],
+      "no_predicted_label_classes": [
+        "hello",
+        "white"
+      ],
+      "predicted_counts": {
+        "sad": 14,
+        "uncle": 1
+      },
+      "true_label_counts": {
+        "hello": 4,
+        "sad": 4,
+        "uncle": 3,
+        "white": 4
+      },
+      "logit_margin": {
+        "min": 0.002886515110731125,
+        "max": 0.12223242782056332,
+        "mean": 0.04215083544452985
+      },
+      "entropy": {
+        "min": 1.382690191268921,
+        "max": 1.3840487003326416,
+        "mean": 1.3836971282958985
+      },
+      "confidence": {
+        "min": 0.2666384279727936,
+        "max": 0.2839086055755615,
+        "mean": 0.27218786875406903
+      }
+    },
+    "test": {
+      "examples": 16,
+      "top1_accuracy": 0.25,
+      "macro_f1": 0.1678321678321678,
+      "target_top1_accuracy": 0.7,
+      "target_macro_f1": 0.65,
+      "zero_recall_classes": [
+        "hello",
+        "white"
+      ],
+      "no_predicted_label_classes": [
+        "hello",
+        "white"
+      ],
+      "predicted_counts": {
+        "sad": 9,
+        "uncle": 7
+      },
+      "true_label_counts": {
+        "hello": 4,
+        "sad": 4,
+        "uncle": 4,
+        "white": 4
+      },
+      "logit_margin": {
+        "min": 0.007421184331178665,
+        "max": 0.1454046331346035,
+        "mean": 0.05906312935985625
+      },
+      "entropy": {
+        "min": 1.3821208477020264,
+        "max": 1.384007215499878,
+        "mean": 1.383610151708126
+      },
+      "confidence": {
+        "min": 0.2684287130832672,
+        "max": 0.2878158986568451,
+        "mean": 0.2744887135922909
+      }
+    },
+    "interpretation": "M3GY is diagnostic failure evidence only. Predictions collapse to sad/uncle, hello and white are never predicted on validation/test, raw-logit margins are tiny, confidences stay near 0.25, and entropy is close to the four-class maximum. The result indicates near-uniform weak separation, not high-confidence class confusion and not a threshold-only problem."
+  },
+  "sidecar_contract_interpretation": {
+    "schema_version": "asl-pilot-rawframe-prediction-sidecar/v2",
+    "contract_version": "asl-pilot-rawframe-prediction-sidecar-contract/v2",
+    "selected_threshold": 1.0,
+    "validation_examples": 15,
+    "test_examples": 16,
+    "required_example_fields": [
+      "logits_by_label",
+      "predicted_label_logit",
+      "true_label_logit",
+      "top2_logit",
+      "top2_logit_label",
+      "logit_margin"
+    ],
+    "all_validation_examples_have_required_fields": true,
+    "all_test_examples_have_required_fields": true,
+    "score_fields": [
+      "predicted_label_logit",
+      "true_label_logit",
+      "confidence",
+      "true_label_probability",
+      "top2_logit",
+      "logit_margin",
+      "top2_confidence",
+      "probability_margin",
+      "entropy",
+      "logits_by_label",
+      "probability_by_label"
+    ],
+    "top2_logit_label_present_in_examples": true,
+    "top2_logit_label_listed_in_score_fields": false,
+    "metadata_gap": "sidecar_contract.score_fields and top-level score_fields still omit top2_logit_label even though validation/test examples contain it.",
+    "metadata_gap_blocks_this_triage": false,
+    "metadata_gap_blocks_artifact_promotion": true,
+    "interpretation": "The examples contain enough raw-logit evidence for M3GZ. The score-field omission should be patched before future promoted/consumer-facing sidecars, but it does not justify another training-style attempt."
+  },
+  "recent_route_comparison": {
+    "m3gr": "Proved local input wiring and tiny same-subset train-fit only; it did not prove held-out quality or readiness.",
+    "m3gu": "Proved the reduced4 route consumed rgb_regions, preserved the B,T,R,C,H,W region axis, and then failed held-out metrics after one capped local smoke/eval.",
+    "m3gw": "Ruled out obvious missing held-out label coverage or visible count imbalance as the primary explanation; all zero-recall labels have train and held-out rows.",
+    "m3gx": "Added future-sidecar raw-logit diagnostics without regenerating old outputs.",
+    "m3gy": "Produced fresh ignored M3GY report/sidecar outputs from the existing M3GU checkpoint/provenance and showed near-uniform weak separation plus sad/uncle collapse."
+  },
+  "claim_surface_proof": {
+    "changed_claim_or_model_files": false,
+    "fail_closed": true,
+    "hashes": {
+      "docs/model/active-vocabulary-claim.json": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "web/public/model/model-card.json": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "web/public/model/detector0-card.json": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "web/public/model/claim-matrix.json": "5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf",
+      "docs/validation/final-claim-matrix.json": "5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf",
+      "docs/model/dataset-source-register.json": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    "surface_values": {
+      "docs/model/active-vocabulary-claim.json": {
+        "modelVersion": "rawframe-not-trained",
+        "activeLabels": [],
+        "evidenceArtifacts": []
+      },
+      "web/public/model/model-card.json": {
+        "status": "not_trained"
+      },
+      "web/public/model/detector0-card.json": {
+        "status": "not_trained"
+      },
+      "web/public/model/claim-matrix.json": {
+        "status": "no_active_claim_rawframe_not_trained",
+        "cv_supported_count": 0
+      },
+      "docs/validation/final-claim-matrix.json": {
+        "status": "no_active_claim_rawframe_not_trained",
+        "cv_supported_count": 0
+      }
+    },
+    "interpretation": "Claim surfaces remain fail-closed and unpromoted; M3GY does not support export, promotion, browser activation, active-label expansion, or product claims."
+  },
+  "forbidden_action_proof": {
+    "training_or_fitting": false,
+    "micro_overfit": false,
+    "evaluation_rerun": false,
+    "ignored_output_overwrite_regenerate_move_delete_or_copy_to_tracked": false,
+    "brev_lifecycle_remote_sync_copy_exec_or_spend": false,
+    "raw_media_inspection": false,
+    "source_media_import": false,
+    "source_register_rights_mutation": false,
+    "manifest_tensor_vocabulary_mutation": false,
+    "export_or_promotion": false,
+    "browser_activation": false,
+    "final_gate_change": false,
+    "claim_expansion": false,
+    "broad_label_run": false,
+    "pretrained_shortcut": false
+  },
+  "post_write_validation": {
+    "commands": [
+      {
+        "command": "python3 -m json.tool docs/validation/return-to-form-m3gz-reduced4-logit-collapse-triage-no-training-no-brev-v1.json >/dev/null",
+        "exit_status": 0,
+        "result": "valid JSON"
+      },
+      {
+        "command": "node scripts/audit_loop_premise.mjs --json",
+        "exit_status": 0,
+        "result": "passed"
+      },
+      {
+        "command": "node scripts/audit_return_to_form_plan.mjs --json",
+        "exit_status": 0,
+        "result": "passed"
+      },
+      {
+        "command": "node scripts/audit_source_register.mjs",
+        "exit_status": 0,
+        "result": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_deps.mjs",
+        "exit_status": 0,
+        "result": "No banned pretrained-CV dependencies or source imports found."
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+        "exit_status": 0,
+        "result": "passed"
+      },
+      {
+        "command": "git diff --check",
+        "exit_status": 0,
+        "result": "passed"
+      },
+      {
+        "command": "shasum -a 256 output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/validation-report.json output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/prediction-sidecar.json",
+        "exit_status": 0,
+        "result": "ignored M3GY output hashes unchanged from inspected hashes"
+      }
+    ]
+  },
+  "next_action_decision": {
+    "another_local_no_training_diagnostic_can_materially_change_compute_decision": false,
+    "reason": "The current sidecar already exposes raw logits, margins, per-label probabilities, prediction counts, and entropy for every validation/test example. The evidence points at weak model/data strategy rather than an unobserved local contract gap.",
+    "options_considered": [
+      {
+        "option": "escalate_gpt_pro_strategy_with_m3gy_logits_evidence_no_brev",
+        "selected": true,
+        "reason": "The next useful decision is strategy review before any more fitting or Brev work, using M3GY's weak-separation evidence and the recent M3GR-M3GY route."
+      },
+      {
+        "option": "continue_m3ha_sidecar_score_fields_metadata_patch_no_training_no_brev",
+        "selected": false,
+        "reason": "The top2_logit_label score-field metadata gap is real, but examples contain the field and current triage is not blocked. Patch before promotion or future consumer reliance, not before strategy."
+      },
+      {
+        "option": "continue_m3ha_specific_local_diagnostic_no_training_no_brev",
+        "selected": false,
+        "reason": "No concrete local no-training diagnostic identified from current evidence would change the compute decision before strategy review."
+      },
+      {
+        "option": "stop_for_human_strategy_compute_or_claim_review",
+        "selected": false,
+        "reason": "No spend, claim, promotion, source, or final-gate approval is requested by this selected next action."
+      }
+    ],
+    "selected_next_action": "escalate_gpt_pro_strategy_with_m3gy_logits_evidence_no_brev"
+  }
+}

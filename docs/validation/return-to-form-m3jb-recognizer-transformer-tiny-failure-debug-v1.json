@@ -1,0 +1,104 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-tiny-failure-debug/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_tiny_failure_debug_no_brev",
+  "recorded_at_utc": "2026-06-03T19:25:18Z",
+  "head_before_slice": "3628035 record(m3jb): diagnose recognizer transformer tiny failure",
+  "status": "completed_local_debug_lr5e4_overfits_run1_shape",
+  "brev": {
+    "used": false,
+    "reason": "Local no-save tiny overfit debugging only."
+  },
+  "side_worktree": {
+    "path": "/Users/kelly/Developer/asl-pilot-annotator",
+    "head": "3f9d3f0 feat(recognizer): add distill diagnostics",
+    "scoped_files_changed": []
+  },
+  "commands": {
+    "seq_transformer_self_test": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python seq_transformer.py",
+    "small_cls_transformer": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python train_recognizer_distill.py --student-arch transformer --device cpu --epochs 80 --batch 16 --lr 2e-3 --alpha 1.0 --temperature 3.0 --jitter-std 0 --frame-drop 0 --limit-train 32 --limit-monitor 32 --limit-test 8 --eval-train --diagnostics --no-save-model --seed 0 --d-model 64 --n-layers 2 --n-heads 4 --dropout 0.0 --out /Users/kelly/Developer/asl-pilot/docs/validation/m3jb-recognizer-transformer-debug-small-cls-v1.json",
+    "run1_shape_low_lr": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python train_recognizer_distill.py --student-arch transformer --device cpu --epochs 80 --batch 16 --lr 5e-4 --alpha 1.0 --temperature 3.0 --jitter-std 0 --frame-drop 0 --limit-train 32 --limit-monitor 32 --limit-test 8 --eval-train --diagnostics --no-save-model --seed 0 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --out /Users/kelly/Developer/asl-pilot/docs/validation/m3jb-recognizer-transformer-debug-run1-lr5e4-v1.json"
+  },
+  "artifacts": {
+    "small_cls_transformer": {
+      "path": "docs/validation/m3jb-recognizer-transformer-debug-small-cls-v1.json",
+      "sha256": "d24b7420124217487a3183bbe9f5ca6ffb9b27eb5463d82e9436264576130989"
+    },
+    "run1_shape_low_lr": {
+      "path": "docs/validation/m3jb-recognizer-transformer-debug-run1-lr5e4-v1.json",
+      "sha256": "8869958207844f618dad06ee9dd3339812962a2fb8fbe3b1db5ae22477dd1981"
+    },
+    "session_915_failed_run1_shape_lr1e3": {
+      "path": "docs/validation/m3jb-recognizer-local-overfit-transformer-tiny-v1.json",
+      "sha256": "bb34936ded15598f934e4b79eeee6b70980e1e4808a024cac18160a89aca63fb"
+    }
+  },
+  "results": {
+    "common": {
+      "train_clips": 32,
+      "monitor_clips": 32,
+      "test_clips": 8,
+      "alpha": 1.0,
+      "jitter_std": 0.0,
+      "frame_drop": 0.0,
+      "weights_written": false,
+      "device": "cpu"
+    },
+    "session_915_failed_run1_shape_lr1e3": {
+      "d_model": 256,
+      "n_layers": 6,
+      "n_heads": 8,
+      "dropout": 0.0,
+      "lr": 0.001,
+      "first_loss": 4.5442,
+      "last_loss": 2.6501,
+      "history_best_train_top1": 0.25,
+      "history_final_train_top1": 0.1875,
+      "final_train_pred_unique": 2
+    },
+    "small_cls_transformer_lr2e3": {
+      "d_model": 64,
+      "n_layers": 2,
+      "n_heads": 4,
+      "dropout": 0.0,
+      "lr": 0.002,
+      "first_loss": 4.5943,
+      "last_loss": 0.0071,
+      "history_best_train_top1": 1.0,
+      "history_final_train_top1": 1.0,
+      "first_epoch_reaching_train_top1_1_0": 23
+    },
+    "run1_shape_lr5e4": {
+      "d_model": 256,
+      "n_layers": 6,
+      "n_heads": 8,
+      "dropout": 0.0,
+      "lr": 0.0005,
+      "first_loss": 4.5488,
+      "last_loss": 0.0068,
+      "history_best_train_top1": 1.0,
+      "history_final_train_top1": 1.0,
+      "first_epoch_reaching_train_top1_1_0": 19,
+      "final_train_pred_unique": 16
+    }
+  },
+  "decision": "The run1 Transformer tiny failure is isolated to LR/optimization at lr 1e-3. CLS pooling, trainer wiring, and run1 model size are not the blocking failure because both a small CLS Transformer and the run1-sized Transformer overfit locally when LR is suitable.",
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_low_lr_fulltrain_brev_ok",
+    "summary": "Run one full-scope CUDA Transformer distill with the run1 shape and lr 5e-4, no limit flags, then copy back artifacts and stop the worker."
+  },
+  "validation": [
+    "node scripts/audit_loop_premise.mjs --json passed before the slice",
+    "SeqTransformer self-test passed",
+    "python3 -m json.tool passed for both new trainer receipts"
+  ],
+  "boundaries": {
+    "no_brev_spend": true,
+    "no_checkpoint_write": true,
+    "no_browser_promotion": true,
+    "no_raw_learner_video_upload": true,
+    "no_pretrained_runtime_dependency": true,
+    "no_final_gate_change": true
+  }
+}

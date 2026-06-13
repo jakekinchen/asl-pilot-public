@@ -1,0 +1,4690 @@
+{
+  "blockers": [],
+  "checked_at": "2026-05-25T20:42:49.215786+00:00",
+  "configuration": {
+    "contact_sheet_dir": "docs/validation/return-to-form-tier0-remediation-contact-sheets",
+    "frame_count": 16,
+    "image_size": 96,
+    "label_selection": {
+      "explicit_labels": [
+        "dad",
+        "grandpa",
+        "hat",
+        "please",
+        "table"
+      ],
+      "mode": "explicit"
+    },
+    "samples_per_label_split": 3
+  },
+  "failure_classification": {
+    "confidence": "high",
+    "crop_error_stop_rule": {
+      "automated_warning_count": 0,
+      "contact_sheets_written": true,
+      "status": "not_adjudicated_after_first_concrete_tensor_contract_failure",
+      "threshold": 0.15
+    },
+    "likely_failure_class": "tensor_payload_preprocessing",
+    "next_action": "Fix the training/evaluation tensor contract so M3AE consumes the intended rgb_regions fixed-crop stack or an explicitly region-aware derived input before any additional smoke training.",
+    "rationale": [
+      "M3AD tensor payloads include rgb_regions fixed-crop stacks.",
+      "The M3AE RawFrameClipDataset loader does not look for rgb_regions and instead consumes rgb_frames.",
+      "The sampled rgb_frames tensors are the upper_body_signing_space compatibility slice, so the model did not consume the full fixed-region stack."
+    ]
+  },
+  "generated_by": {
+    "command": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/analyze_rawframe_tensor_visuals.py",
+      "--train-manifest",
+      "data/manifests/return-to-form-tier0/train.json",
+      "--validation-manifest",
+      "data/manifests/return-to-form-tier0/validation.json",
+      "--test-manifest",
+      "data/manifests/return-to-form-tier0/test.json",
+      "--failure-analysis",
+      "docs/validation/return-to-form-tier0-learnability-smoke.json",
+      "--output",
+      "docs/validation/return-to-form-tier0-remediation-diagnostic.json",
+      "--sheet-dir",
+      "docs/validation/return-to-form-tier0-remediation-contact-sheets",
+      "--label",
+      "dad",
+      "--label",
+      "grandpa",
+      "--label",
+      "please",
+      "--label",
+      "hat",
+      "--label",
+      "table",
+      "--samples-per-label-split",
+      "3",
+      "--write"
+    ],
+    "script": {
+      "path": "scripts/analyze_rawframe_tensor_visuals.py",
+      "sha256": "9440584f6f6c14c2da5f0a2d0eb33dc0b041a06d715b242c602c7f42ca29a6f5"
+    },
+    "tool": "/Users/kelly/Developer/asl-pilot/.venv/bin/python"
+  },
+  "inputs": {
+    "failure_analysis": {
+      "path": "docs/validation/return-to-form-tier0-learnability-smoke.json",
+      "sha256": "f712b68a330420dc3a608b6e385e4153b019dd706af51bef825ac0254857bf75"
+    },
+    "manifests": {
+      "test": {
+        "path": "data/manifests/return-to-form-tier0/test.json",
+        "sha256": "b0c771b612ebb52beb375a98b4180ccd465aa642312a8c6c29d7ff225febd8ed"
+      },
+      "train": {
+        "path": "data/manifests/return-to-form-tier0/train.json",
+        "sha256": "03ae563a5f2ef0d5b868f6c80f50acb64ae642e782cd541faa5c022d4d0af1de"
+      },
+      "validation": {
+        "path": "data/manifests/return-to-form-tier0/validation.json",
+        "sha256": "23da15a80ce2eee1dab1a7e64c08e2aefcf5d7dd48263677fdc49d1efb0ad808"
+      }
+    },
+    "supporting_references": {
+      "docs/model/dataset-source-register.json": {
+        "path": "docs/model/dataset-source-register.json",
+        "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+      },
+      "docs/model/return-to-form-fixed-crop-config.json": {
+        "path": "docs/model/return-to-form-fixed-crop-config.json",
+        "sha256": "dbc735dad34fa9df1174a40374037976f9c88d789012634b2b22743ae0802b29"
+      },
+      "docs/research/return-to-form-tier0-source-coverage.json": {
+        "path": "docs/research/return-to-form-tier0-source-coverage.json",
+        "sha256": "1ff7da89a51e62f9efbeb08cf6361784e160ed862ac579f9e40db332fa576378"
+      },
+      "docs/validation/return-to-form-tier0-decode-dataloader.json": {
+        "path": "docs/validation/return-to-form-tier0-decode-dataloader.json",
+        "sha256": "d64c0b46500075d94207ef2197a6f6d8f1570cf548da8b08ca16dc520ba386c2"
+      },
+      "docs/validation/return-to-form-tier0-gates.json": {
+        "path": "docs/validation/return-to-form-tier0-gates.json",
+        "sha256": "2cc000d3f90e9be236cf64768530bf9786fc61fe6605c774b9c1e8ab123d9d97"
+      }
+    }
+  },
+  "interpretation": [
+    "This diagnostic checks tensor hashes, shapes, value ranges, preprocessing output, and retained contact sheets for sampled train/validation/test clips.",
+    "It is not final model evidence and does not prove label correctness or source adequacy.",
+    "A pass means the inspected samples did not show a gross tensor-path, crop, blank-frame, or value-range problem detectable by this script."
+  ],
+  "labels": [
+    {
+      "contact_sheet": "docs/validation/return-to-form-tier0-remediation-contact-sheets/dad.png",
+      "failure_observation": "dad had zero train and validation recall in the M3AE smoke.",
+      "label_id": "dad",
+      "m3ae_failure_metrics": {
+        "test": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 19,
+          "true_positive": 0
+        },
+        "train": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25,
+          "true_positive": 0
+        },
+        "validation": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25,
+          "true_positive": 0
+        }
+      },
+      "splits": [
+        {
+          "samples": [
+            {
+              "clip_id": "popsign-v1-train-dad-000826",
+              "label_id": "dad",
+              "signer_id": "popsign-signer-55f7d45ae59832f6",
+              "source_split": "train",
+              "source_video_path": "dad/4a.6001-dad-2022_12_16_00_25_40.042-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-dad-000826-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.6192416548728943,
+                  0.5390626788139343,
+                  0.4843718707561493
+                ],
+                "per_channel_std": [
+                  0.22449490427970886,
+                  0.20592756569385529,
+                  0.18671047687530518
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.5475587248802185,
+                "prepared_min": 0.019607843831181526,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.2135947346687317,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "b2bbf8085a902b2ad929bbac86bfd4d49150b7c1d569c7e56a8893bb633bee06",
+                "temporal_abs_delta_mean": 0.05422953888773918
+              }
+            },
+            {
+              "clip_id": "popsign-v1-train-dad-000827",
+              "label_id": "dad",
+              "signer_id": "popsign-signer-55f7d45ae59832f6",
+              "source_split": "train",
+              "source_video_path": "dad/4a.6001-dad-2023_01_04_12_49_07.264-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-dad-000827-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.6031014919281006,
+                  0.4442799389362335,
+                  0.3999713957309723
+                ],
+                "per_channel_std": [
+                  0.21550589799880981,
+                  0.2467569261789322,
+                  0.20344668626785278
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.4824509024620056,
+                "prepared_min": 0.07058823853731155,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.23912255465984344,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "9ef0b068329377e27577968adb22329027944f49c2ba83e853ee3b0b35d09482",
+                "temporal_abs_delta_mean": 0.040984779596328735
+              }
+            },
+            {
+              "clip_id": "popsign-v1-train-dad-000828",
+              "label_id": "dad",
+              "signer_id": "popsign-signer-55f7d45ae59832f6",
+              "source_split": "train",
+              "source_video_path": "dad/4a.6001-dad-2023_01_04_22_47_52.541-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-dad-000828-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.42408353090286255,
+                  0.34689125418663025,
+                  0.3095442056655884
+                ],
+                "per_channel_std": [
+                  0.23357068002223969,
+                  0.1894410401582718,
+                  0.1454215794801712
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.36017298698425293,
+                "prepared_min": 0.01568627543747425,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.19867464900016785,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "6a8769df62596ced711755a6356e9ca0d93b17f721c0364c89f6d19d6976c1f6",
+                "temporal_abs_delta_mean": 0.044846609234809875
+              }
+            }
+          ],
+          "split": "train"
+        },
+        {
+          "samples": [
+            {
+              "clip_id": "popsign-v1-validation-dad-000826",
+              "label_id": "dad",
+              "signer_id": "popsign-signer-93953b2725a6d073",
+              "source_split": "val",
+              "source_video_path": "dad/4a.7002-dad-2022_12_22_01_53_46.646-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-dad-000826-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.5439530611038208,
+                  0.5221728086471558,
+                  0.5064758658409119
+                ],
+                "per_channel_std": [
+                  0.2252158224582672,
+                  0.23981240391731262,
+                  0.24633680284023285
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.5242005586624146,
+                "prepared_min": 0.08235294371843338,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.23778310418128967,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "0b9ba18bf30df4e7a9cc3a0bf38bb0903e9f4fb475325d5ff5163ff27c2262eb",
+                "temporal_abs_delta_mean": 0.04484495893120766
+              }
+            },
+            {
+              "clip_id": "popsign-v1-validation-dad-000827",
+              "label_id": "dad",
+              "signer_id": "popsign-signer-93953b2725a6d073",
+              "source_split": "val",
+              "source_video_path": "dad/4a.7002-dad-2022_12_23_22_21_25.018-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-dad-000827-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.5428685545921326,
+                  0.44367045164108276,
+                  0.39486438035964966
+                ],
+                "per_channel_std": [
+                  0.1887982338666916,
+                  0.1835513710975647,
+                  0.1801489144563675
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.46046778559684753,
+                "prepared_min": 0.08627451211214066,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.19422097504138947,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "28440d3a68ef632d53c02f5b4e5fd044d28f66ab6c619987b877ddf2de53c3ce",
+                "temporal_abs_delta_mean": 0.03315075859427452
+              }
+            },
+            {
+              "clip_id": "popsign-v1-validation-dad-000828",
+              "label_id": "dad",
+              "signer_id": "popsign-signer-93953b2725a6d073",
+              "source_split": "val",
+              "source_video_path": "dad/4a.7002-dad-2022_12_29_01_24_07.527-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-dad-000828-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.5070988535881042,
+                  0.43867623805999756,
+                  0.3755742013454437
+                ],
+                "per_channel_std": [
+                  0.18229779601097107,
+                  0.16844472289085388,
+                  0.15063568949699402
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.4404498338699341,
+                "prepared_min": 0.0941176488995552,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.17602206766605377,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "38684303c73e77843f606af0c425a301409da106de24e626b9ba9cca076deaeb",
+                "temporal_abs_delta_mean": 0.030135398730635643
+              }
+            }
+          ],
+          "split": "validation"
+        },
+        {
+          "samples": [
+            {
+              "clip_id": "popsign-v1-test-dad-000628",
+              "label_id": "dad",
+              "signer_id": "popsign-signer-dea2b45d14f9aa79",
+              "source_split": "test",
+              "source_video_path": "dad/gtsignstudy4a.8032-dad-2023_01_25_17_19_45.298-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-dad-000628-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.5409379601478577,
+                  0.4659177362918854,
+                  0.4110337793827057
+                ],
+                "per_channel_std": [
+                  0.14901980757713318,
+                  0.15975913405418396,
+                  0.13996471464633942
+                ],
+                "prepared_max": 0.9882352948188782,
+                "prepared_mean": 0.4726298153400421,
+                "prepared_min": 0.06666667014360428,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.15898126363754272,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "17491b3e34bc79e10f3625184c3db96df4141b96f8ef8ab085d508504fb5d72c",
+                "temporal_abs_delta_mean": 0.02968163602054119
+              }
+            },
+            {
+              "clip_id": "popsign-v1-test-dad-000629",
+              "label_id": "dad",
+              "signer_id": "popsign-signer-dea2b45d14f9aa79",
+              "source_split": "test",
+              "source_video_path": "dad/gtsignstudy4a.8032-dad-2023_01_25_21_16_42.429-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-dad-000629-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.5183565020561218,
+                  0.3680158257484436,
+                  0.34789374470710754
+                ],
+                "per_channel_std": [
+                  0.15569853782653809,
+                  0.13834445178508759,
+                  0.1259942203760147
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.4114220142364502,
+                "prepared_min": 0.04313725605607033,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.15980267524719238,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "2544310de722c90f2b74fd5ed81f3e2cea9157608607f5f3e0b8eb10e4c36d3c",
+                "temporal_abs_delta_mean": 0.03893981873989105
+              }
+            },
+            {
+              "clip_id": "popsign-v1-test-dad-000630",
+              "label_id": "dad",
+              "signer_id": "popsign-signer-dea2b45d14f9aa79",
+              "source_split": "test",
+              "source_video_path": "dad/gtsignstudy4a.8032-dad-2023_01_29_12_52_53.468-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-dad-000630-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.43554452061653137,
+                  0.3952944874763489,
+                  0.38466668128967285
+                ],
+                "per_channel_std": [
+                  0.23431934416294098,
+                  0.21674366295337677,
+                  0.20532311499118805
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.4051685333251953,
+                "prepared_min": 0.03921568766236305,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.2202131450176239,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "d3961097d0a177587b9467e42d884579969911f07e47cb038f024844f5bfad07",
+                "temporal_abs_delta_mean": 0.06515120714902878
+              }
+            }
+          ],
+          "split": "test"
+        }
+      ]
+    },
+    {
+      "contact_sheet": "docs/validation/return-to-form-tier0-remediation-contact-sheets/grandpa.png",
+      "failure_observation": "grandpa had zero train and validation recall in the M3AE smoke.",
+      "label_id": "grandpa",
+      "m3ae_failure_metrics": {
+        "test": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 19,
+          "true_positive": 0
+        },
+        "train": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25,
+          "true_positive": 0
+        },
+        "validation": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25,
+          "true_positive": 0
+        }
+      },
+      "splits": [
+        {
+          "samples": [
+            {
+              "clip_id": "popsign-v1-train-grandpa-000951",
+              "label_id": "grandpa",
+              "signer_id": "popsign-signer-55f7d45ae59832f6",
+              "source_split": "train",
+              "source_video_path": "grandpa/4a.6001-grandpa-2023_01_04_22_16_58.202-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-grandpa-000951-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.4496346116065979,
+                  0.3625328540802002,
+                  0.3203537166118622
+                ],
+                "per_channel_std": [
+                  0.22029002010822296,
+                  0.17612214386463165,
+                  0.1308964192867279
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.3775070905685425,
+                "prepared_min": 0.0235294122248888,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.1874154806137085,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "4e02571b24d5d0f2377271ae1df0e780a261f1355201fd9dabf743b7fc4f282d",
+                "temporal_abs_delta_mean": 0.06061195209622383
+              }
+            },
+            {
+              "clip_id": "popsign-v1-train-grandpa-000952",
+              "label_id": "grandpa",
+              "signer_id": "popsign-signer-55f7d45ae59832f6",
+              "source_split": "train",
+              "source_video_path": "grandpa/4a.6001-grandpa-2023_01_04_22_22_22.959-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-grandpa-000952-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.4309205412864685,
+                  0.34524714946746826,
+                  0.3093283474445343
+                ],
+                "per_channel_std": [
+                  0.2175361067056656,
+                  0.17118367552757263,
+                  0.1250874102115631
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.36183202266693115,
+                "prepared_min": 0.01568627543747425,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.18264499306678772,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "769b0e564a2b4328105248d7e7f5e81a965d7ff95cefd0cf17c172f9d35cd923",
+                "temporal_abs_delta_mean": 0.04643683135509491
+              }
+            },
+            {
+              "clip_id": "popsign-v1-train-grandpa-000953",
+              "label_id": "grandpa",
+              "signer_id": "popsign-signer-ff160883020e4503",
+              "source_split": "train",
+              "source_video_path": "grandpa/4a.7007-grandpa-2023_01_06_11_20_34.306-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-grandpa-000953-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.5560767650604248,
+                  0.4781821668148041,
+                  0.43132007122039795
+                ],
+                "per_channel_std": [
+                  0.21177062392234802,
+                  0.19999776780605316,
+                  0.19595766067504883
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.488526314496994,
+                "prepared_min": 0.04313725605607033,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.20911553502082825,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "8dfc38e931d54b6583b293da67106f5548fddbdbcd4c4c1fa0a0fd59044669ca",
+                "temporal_abs_delta_mean": 0.09325402230024338
+              }
+            }
+          ],
+          "split": "train"
+        },
+        {
+          "samples": [
+            {
+              "clip_id": "popsign-v1-validation-grandpa-000951",
+              "label_id": "grandpa",
+              "signer_id": "popsign-signer-93953b2725a6d073",
+              "source_split": "val",
+              "source_video_path": "grandpa/4a.7002-grandpa-2022_12_19_22_11_52.712-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-grandpa-000951-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.6580122709274292,
+                  0.5650301575660706,
+                  0.4502851665019989
+                ],
+                "per_channel_std": [
+                  0.3133275806903839,
+                  0.2837297022342682,
+                  0.22126640379428864
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.5577759146690369,
+                "prepared_min": 0.04313725605607033,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.28826478123664856,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "23115b61ec2eb63352d6b819a97938487a257597605f71992fcc17f78af425cb",
+                "temporal_abs_delta_mean": 0.04883958771824837
+              }
+            },
+            {
+              "clip_id": "popsign-v1-validation-grandpa-000952",
+              "label_id": "grandpa",
+              "signer_id": "popsign-signer-93953b2725a6d073",
+              "source_split": "val",
+              "source_video_path": "grandpa/4a.7002-grandpa-2022_12_19_23_35_52.624-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-grandpa-000952-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.6497493386268616,
+                  0.5635330677032471,
+                  0.46491944789886475
+                ],
+                "per_channel_std": [
+                  0.31410089135169983,
+                  0.2866877317428589,
+                  0.2279248684644699
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.5594006180763245,
+                "prepared_min": 0.05098039284348488,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.28862065076828003,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "255450344b20fcff77980fdc4edf6b3709e001671b968f7f66f97648d77208d1",
+                "temporal_abs_delta_mean": 0.047640636563301086
+              }
+            },
+            {
+              "clip_id": "popsign-v1-validation-grandpa-000953",
+              "label_id": "grandpa",
+              "signer_id": "popsign-signer-93953b2725a6d073",
+              "source_split": "val",
+              "source_video_path": "grandpa/4a.7002-grandpa-2022_12_20_00_05_51.982-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-grandpa-000953-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.6656524538993835,
+                  0.5742976069450378,
+                  0.4653381109237671
+                ],
+                "per_channel_std": [
+                  0.30739954113960266,
+                  0.2821185290813446,
+                  0.2117953896522522
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.5684294104576111,
+                "prepared_min": 0.05098039284348488,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.2822865843772888,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "1b12ed7cf6664f3868c67746b77d9b0acfae713d2dd71c85838f3e7937b55891",
+                "temporal_abs_delta_mean": 0.03628655523061752
+              }
+            }
+          ],
+          "split": "validation"
+        },
+        {
+          "samples": [
+            {
+              "clip_id": "popsign-v1-test-grandpa-000723",
+              "label_id": "grandpa",
+              "signer_id": "popsign-signer-dea2b45d14f9aa79",
+              "source_split": "test",
+              "source_video_path": "grandpa/gtsignstudy4a.8032-grandpa-2023_01_25_18_36_33.732-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-grandpa-000723-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.6658121347427368,
+                  0.481742262840271,
+                  0.32935699820518494
+                ],
+                "per_channel_std": [
+                  0.15780101716518402,
+                  0.15665511786937714,
+                  0.13742998242378235
+                ],
+                "prepared_max": 0.9803921580314636,
+                "prepared_mean": 0.4923037886619568,
+                "prepared_min": 0.0,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.20420360565185547,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "962a3d0de57d621fd5746b44a932a04c206c10d1aab04c4c95f7d7d8ed969c9d",
+                "temporal_abs_delta_mean": 0.03402507305145264
+              }
+            },
+            {
+              "clip_id": "popsign-v1-test-grandpa-000724",
+              "label_id": "grandpa",
+              "signer_id": "popsign-signer-dea2b45d14f9aa79",
+              "source_split": "test",
+              "source_video_path": "grandpa/gtsignstudy4a.8032-grandpa-2023_01_29_18_07_43.013-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-grandpa-000724-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.5444594621658325,
+                  0.40162521600723267,
+                  0.6260914206504822
+                ],
+                "per_channel_std": [
+                  0.26449304819107056,
+                  0.23863409459590912,
+                  0.2453630566596985
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.5240586996078491,
+                "prepared_min": 0.0235294122248888,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.26640987396240234,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "109056702fc8976b82774b811330d91ffa1cde1d445886a937c5549d3e76c41c",
+                "temporal_abs_delta_mean": 0.04867073893547058
+              }
+            },
+            {
+              "clip_id": "popsign-v1-test-grandpa-000725",
+              "label_id": "grandpa",
+              "signer_id": "popsign-signer-4027e4c04fcfc294",
+              "source_split": "test",
+              "source_video_path": "grandpa/gtsignstudy4a.8033-grandpa-2023_01_29_11_47_28.000-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-grandpa-000725-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.48147284984588623,
+                  0.4362477660179138,
+                  0.4173140227794647
+                ],
+                "per_channel_std": [
+                  0.2527351677417755,
+                  0.24268339574337006,
+                  0.2522871792316437
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.44501152634620667,
+                "prepared_min": 0.003921568859368563,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.25072726607322693,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "c6e317ab279a212834559aa5b0904e68763b4c63f88a6f280f5a76d0d31e46aa",
+                "temporal_abs_delta_mean": 0.07679088413715363
+              }
+            }
+          ],
+          "split": "test"
+        }
+      ]
+    },
+    {
+      "contact_sheet": "docs/validation/return-to-form-tier0-remediation-contact-sheets/hat.png",
+      "failure_observation": "hat retained non-zero recall in the M3AE smoke and is used as a comparison label.",
+      "label_id": "hat",
+      "m3ae_failure_metrics": {
+        "test": {
+          "f1": 0.2857142857142857,
+          "precision": 0.23333333333333334,
+          "recall": 0.3684210526315789,
+          "support": 19,
+          "true_positive": 7
+        },
+        "train": {
+          "f1": 0.4375,
+          "precision": 0.358974358974359,
+          "recall": 0.56,
+          "support": 25,
+          "true_positive": 14
+        },
+        "validation": {
+          "f1": 0.28,
+          "precision": 0.28,
+          "recall": 0.28,
+          "support": 25,
+          "true_positive": 7
+        }
+      },
+      "splits": [
+        {
+          "samples": [
+            {
+              "clip_id": "popsign-v1-train-hat-001976",
+              "label_id": "hat",
+              "signer_id": "popsign-signer-55f7d45ae59832f6",
+              "source_split": "train",
+              "source_video_path": "hat/4a.6001-hat-2022_12_16_00_17_27.405-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-hat-001976-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.6474875211715698,
+                  0.5663899779319763,
+                  0.5047152638435364
+                ],
+                "per_channel_std": [
+                  0.21741533279418945,
+                  0.20673927664756775,
+                  0.1994379460811615
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.572864294052124,
+                "prepared_min": 0.01568627543747425,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.216056227684021,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "66baceb8014d3315900727244ae85562f8cf4f676231e795dcd1e438edc1f5ba",
+                "temporal_abs_delta_mean": 0.049850594252347946
+              }
+            },
+            {
+              "clip_id": "popsign-v1-train-hat-001977",
+              "label_id": "hat",
+              "signer_id": "popsign-signer-55f7d45ae59832f6",
+              "source_split": "train",
+              "source_video_path": "hat/4a.6001-hat-2023_01_04_22_25_50.307-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-hat-001977-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.4455450475215912,
+                  0.3624606430530548,
+                  0.33165571093559265
+                ],
+                "per_channel_std": [
+                  0.2212458699941635,
+                  0.18048590421676636,
+                  0.13264711201190948
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.3798871338367462,
+                "prepared_min": 0.007843137718737125,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.18802577257156372,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "93dd4e0ac616fed4e94661f0ae7e5686f0c79017b254988cf16ae56dd0ba8249",
+                "temporal_abs_delta_mean": 0.04041574150323868
+              }
+            },
+            {
+              "clip_id": "popsign-v1-train-hat-001978",
+              "label_id": "hat",
+              "signer_id": "popsign-signer-27276bcbef84091a",
+              "source_split": "train",
+              "source_video_path": "hat/4a.7005-hat-2023_01_07_18_59_12.579-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-hat-001978-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.4511457681655884,
+                  0.3914961814880371,
+                  0.3314953148365021
+                ],
+                "per_channel_std": [
+                  0.21745565533638,
+                  0.18159672617912292,
+                  0.1550140380859375
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.3913790285587311,
+                "prepared_min": 0.027450980618596077,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.1927449256181717,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "5bc1c49dc4cbf6df8c97551ac79633caaef0d2f7bfaea30221dcd5e7d6156147",
+                "temporal_abs_delta_mean": 0.03153388574719429
+              }
+            }
+          ],
+          "split": "train"
+        },
+        {
+          "samples": [
+            {
+              "clip_id": "popsign-v1-validation-hat-001976",
+              "label_id": "hat",
+              "signer_id": "popsign-signer-93953b2725a6d073",
+              "source_split": "val",
+              "source_video_path": "hat/4a.7002-hat-2022_12_18_23_10_52.579-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-hat-001976-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.5316318273544312,
+                  0.489999920129776,
+                  0.45527389645576477
+                ],
+                "per_channel_std": [
+                  0.2518995404243469,
+                  0.2480422705411911,
+                  0.2333955615758896
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.492301881313324,
+                "prepared_min": 0.003921568859368563,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.24655970931053162,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "522a52b729fca85053f46bea1e0c68029405820cfdeff6180d6396901a4f46ff",
+                "temporal_abs_delta_mean": 0.05436078831553459
+              }
+            },
+            {
+              "clip_id": "popsign-v1-validation-hat-001977",
+              "label_id": "hat",
+              "signer_id": "popsign-signer-93953b2725a6d073",
+              "source_split": "val",
+              "source_video_path": "hat/4a.7002-hat-2022_12_19_23_51_41.602-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-hat-001977-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.6328725814819336,
+                  0.5471676588058472,
+                  0.44655635952949524
+                ],
+                "per_channel_std": [
+                  0.3138563334941864,
+                  0.2860550582408905,
+                  0.2194799780845642
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.542198896408081,
+                "prepared_min": 0.0470588244497776,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.28629741072654724,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "334fcffb3bef2160295b8197bb42a7e2552ea57440c4a3a8059ae70cba9911db",
+                "temporal_abs_delta_mean": 0.04391549527645111
+              }
+            },
+            {
+              "clip_id": "popsign-v1-validation-hat-001978",
+              "label_id": "hat",
+              "signer_id": "popsign-signer-93953b2725a6d073",
+              "source_split": "val",
+              "source_video_path": "hat/4a.7002-hat-2022_12_23_22_13_29.327-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-hat-001978-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.5111777782440186,
+                  0.4193171262741089,
+                  0.3759561777114868
+                ],
+                "per_channel_std": [
+                  0.19335298240184784,
+                  0.1856248527765274,
+                  0.1825498789548874
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.4354836940765381,
+                "prepared_min": 0.08627451211214066,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.19553421437740326,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "c281605256a4971fa6c64a4caed11b6537144df241630e47e6bf845bbf4a0a95",
+                "temporal_abs_delta_mean": 0.035389553755521774
+              }
+            }
+          ],
+          "split": "validation"
+        },
+        {
+          "samples": [
+            {
+              "clip_id": "popsign-v1-test-hat-001502",
+              "label_id": "hat",
+              "signer_id": "popsign-signer-dea2b45d14f9aa79",
+              "source_split": "test",
+              "source_video_path": "hat/gtsignstudy4a.8032-hat-2023_01_24_20_44_49.323-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-hat-001502-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.2921214699745178,
+                  0.23149752616882324,
+                  0.1983080953359604
+                ],
+                "per_channel_std": [
+                  0.22740478813648224,
+                  0.1930423527956009,
+                  0.1830320656299591
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.24064235389232635,
+                "prepared_min": 0.0,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.20575465261936188,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "79e815a302aef5e7c50867d3104443a3bfaa3f35aa74b2d77e8752ad5f15fb49",
+                "temporal_abs_delta_mean": 0.04948054999113083
+              }
+            },
+            {
+              "clip_id": "popsign-v1-test-hat-001503",
+              "label_id": "hat",
+              "signer_id": "popsign-signer-dea2b45d14f9aa79",
+              "source_split": "test",
+              "source_video_path": "hat/gtsignstudy4a.8032-hat-2023_01_25_21_11_53.095-1.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-hat-001503-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.5469189882278442,
+                  0.41094478964805603,
+                  0.3849291205406189
+                ],
+                "per_channel_std": [
+                  0.1489175707101822,
+                  0.15263552963733673,
+                  0.14320777356624603
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.4475976228713989,
+                "prepared_min": 0.07058823853731155,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.1644364297389984,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "016e8dd4b2047864738fe8596ee7b34cc355b10eef5c7aebfd1f81e3059ff4ca",
+                "temporal_abs_delta_mean": 0.04105771332979202
+              }
+            },
+            {
+              "clip_id": "popsign-v1-test-hat-001504",
+              "label_id": "hat",
+              "signer_id": "popsign-signer-dea2b45d14f9aa79",
+              "source_split": "test",
+              "source_video_path": "hat/gtsignstudy4a.8032-hat-2023_01_27_16_51_07.168-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-hat-001504-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.4963752031326294,
+                  0.44403600692749023,
+                  0.4301334619522095
+                ],
+                "per_channel_std": [
+                  0.2634126842021942,
+                  0.2656811773777008,
+                  0.2569241225719452
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.4568482041358948,
+                "prepared_min": 0.062745101749897,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.2635798156261444,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "1fd8ad5455a015adecfd5e47677dcef3a55ee02dfe98d383c34838a5fcef078c",
+                "temporal_abs_delta_mean": 0.038166437298059464
+              }
+            }
+          ],
+          "split": "test"
+        }
+      ]
+    },
+    {
+      "contact_sheet": "docs/validation/return-to-form-tier0-remediation-contact-sheets/please.png",
+      "failure_observation": "please retained non-zero recall in the M3AE smoke and is used as a comparison label.",
+      "label_id": "please",
+      "m3ae_failure_metrics": {
+        "test": {
+          "f1": 0.3421052631578948,
+          "precision": 0.22807017543859648,
+          "recall": 0.6842105263157895,
+          "support": 19,
+          "true_positive": 13
+        },
+        "train": {
+          "f1": 0.49484536082474223,
+          "precision": 0.3333333333333333,
+          "recall": 0.96,
+          "support": 25,
+          "true_positive": 24
+        },
+        "validation": {
+          "f1": 0.32,
+          "precision": 0.21333333333333335,
+          "recall": 0.64,
+          "support": 25,
+          "true_positive": 16
+        }
+      },
+      "splits": [
+        {
+          "samples": [
+            {
+              "clip_id": "popsign-v1-train-please-000076",
+              "label_id": "please",
+              "signer_id": "popsign-signer-7c01a9b7c2b20c7f",
+              "source_split": "train",
+              "source_video_path": "please/4a.7003-please-2022_12_16_20_37_37.252-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-please-000076-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.6058493852615356,
+                  0.5375221371650696,
+                  0.47782543301582336
+                ],
+                "per_channel_std": [
+                  0.20288188755512238,
+                  0.19873307645320892,
+                  0.19653339684009552
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.5403989553451538,
+                "prepared_min": 0.07058823853731155,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.20614618062973022,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "32dadc44d38225766957f2804cc9f9f15b6033ca9da77259fe1ded5b32185fa3",
+                "temporal_abs_delta_mean": 0.06064197048544884
+              }
+            },
+            {
+              "clip_id": "popsign-v1-train-please-000077",
+              "label_id": "please",
+              "signer_id": "popsign-signer-27276bcbef84091a",
+              "source_split": "train",
+              "source_video_path": "please/4a.7005-please-2023_01_06_21_12_11.948-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-please-000077-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.5100536346435547,
+                  0.3912544846534729,
+                  0.3453110456466675
+                ],
+                "per_channel_std": [
+                  0.2616788148880005,
+                  0.18839608132839203,
+                  0.16081978380680084
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.4155397117137909,
+                "prepared_min": 0.0,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.21930693089962006,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "f0b26e4690c25a1c21d4293e6b8a2267c4fb1a296022b4be715b3b43deaaa31f",
+                "temporal_abs_delta_mean": 0.06270106881856918
+              }
+            },
+            {
+              "clip_id": "popsign-v1-train-please-000078",
+              "label_id": "please",
+              "signer_id": "popsign-signer-ff160883020e4503",
+              "source_split": "train",
+              "source_video_path": "please/4a.7007-please-2023_01_06_15_27_21.841-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-please-000078-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.47642195224761963,
+                  0.4022711217403412,
+                  0.37914225459098816
+                ],
+                "per_channel_std": [
+                  0.2133028358221054,
+                  0.20796515047550201,
+                  0.2090086191892624
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.41927847266197205,
+                "prepared_min": 0.007843137718737125,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.21416328847408295,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "c3f1b6cd564d8a97a490789027e78333af651517c88c4f3b9fbd441e64c98ab5",
+                "temporal_abs_delta_mean": 0.08636826276779175
+              }
+            }
+          ],
+          "split": "train"
+        },
+        {
+          "samples": [
+            {
+              "clip_id": "popsign-v1-validation-please-000076",
+              "label_id": "please",
+              "signer_id": "popsign-signer-93953b2725a6d073",
+              "source_split": "val",
+              "source_video_path": "please/4a.7002-please-2022_12_20_01_33_08.888-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-please-000076-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.6496487855911255,
+                  0.5575001835823059,
+                  0.4509376287460327
+                ],
+                "per_channel_std": [
+                  0.31893280148506165,
+                  0.2897893488407135,
+                  0.21925446391105652
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.5526955127716064,
+                "prepared_min": 0.03529411926865578,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.2907153069972992,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "ea4635add669b880f187be26baa8f3ef992e208e44f1366c35d3a1ea83e72a6d",
+                "temporal_abs_delta_mean": 0.04521529749035835
+              }
+            },
+            {
+              "clip_id": "popsign-v1-validation-please-000077",
+              "label_id": "please",
+              "signer_id": "popsign-signer-93953b2725a6d073",
+              "source_split": "val",
+              "source_video_path": "please/4a.7002-please-2022_12_22_02_59_06.969-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-please-000077-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.5798501968383789,
+                  0.5531529784202576,
+                  0.5213955044746399
+                ],
+                "per_channel_std": [
+                  0.21811923384666443,
+                  0.23841898143291473,
+                  0.23953495919704437
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.5514662861824036,
+                "prepared_min": 0.09019608050584793,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.23345902562141418,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "30a3c017c1c5a75f13b19fd7e73d7f826f6a83fea12c18d483572c6feb1a8f25",
+                "temporal_abs_delta_mean": 0.02856685407459736
+              }
+            },
+            {
+              "clip_id": "popsign-v1-validation-please-000078",
+              "label_id": "please",
+              "signer_id": "popsign-signer-93953b2725a6d073",
+              "source_split": "val",
+              "source_video_path": "please/4a.7002-please-2022_12_24_18_17_32.685-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-please-000078-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.4565396308898926,
+                  0.376477986574173,
+                  0.3325648307800293
+                ],
+                "per_channel_std": [
+                  0.20831041038036346,
+                  0.17965267598628998,
+                  0.18304306268692017
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.3885274827480316,
+                "prepared_min": 0.019607843831181526,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.19754809141159058,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "7f6e00c9637ebf504660033268d1d5ac01543c925f5eeabc0a4a186ace028250",
+                "temporal_abs_delta_mean": 0.039393920451402664
+              }
+            }
+          ],
+          "split": "validation"
+        },
+        {
+          "samples": [
+            {
+              "clip_id": "popsign-v1-test-please-000058",
+              "label_id": "please",
+              "signer_id": "popsign-signer-e0940122312d361a",
+              "source_split": "test",
+              "source_video_path": "please/gtsignstudy4a.8031-please-2023_01_24_20_40_04.129-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-please-000058-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.5413858294487,
+                  0.5568967461585999,
+                  0.5364457964897156
+                ],
+                "per_channel_std": [
+                  0.21558165550231934,
+                  0.18687286972999573,
+                  0.19617679715156555
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.5449094772338867,
+                "prepared_min": 0.0,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.2000916451215744,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "6d98d02ed2b57d1381db852ecda59e45db6fe0e44099b0ee047f63211bed22b4",
+                "temporal_abs_delta_mean": 0.03495124354958534
+              }
+            },
+            {
+              "clip_id": "popsign-v1-test-please-000059",
+              "label_id": "please",
+              "signer_id": "popsign-signer-e0940122312d361a",
+              "source_split": "test",
+              "source_video_path": "please/gtsignstudy4a.8031-please-2023_01_25_13_45_56.442-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-please-000059-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.5414896607398987,
+                  0.5468184351921082,
+                  0.5251285433769226
+                ],
+                "per_channel_std": [
+                  0.2780647575855255,
+                  0.2436489760875702,
+                  0.24363528192043304
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.5378122925758362,
+                "prepared_min": 0.0,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.25579842925071716,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "db04f52900cdfb0f601d3f4e62d9140a062b6e1a6203b9dd422457d03081ba1e",
+                "temporal_abs_delta_mean": 0.052104171365499496
+              }
+            },
+            {
+              "clip_id": "popsign-v1-test-please-000060",
+              "label_id": "please",
+              "signer_id": "popsign-signer-e0940122312d361a",
+              "source_split": "test",
+              "source_video_path": "please/gtsignstudy4a.8031-please-2023_01_25_13_49_55.121-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-please-000060-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.5345933437347412,
+                  0.5229054689407349,
+                  0.4982212483882904
+                ],
+                "per_channel_std": [
+                  0.2734907269477844,
+                  0.23933443427085876,
+                  0.2410779893398285
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.5185732841491699,
+                "prepared_min": 0.0,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.25224748253822327,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "1af3094faa2d6d4c75c3fcc12ccedf472e91fb143b98ca48e40eb9fe54243bc5",
+                "temporal_abs_delta_mean": 0.03357939049601555
+              }
+            }
+          ],
+          "split": "test"
+        }
+      ]
+    },
+    {
+      "contact_sheet": "docs/validation/return-to-form-tier0-remediation-contact-sheets/table.png",
+      "failure_observation": "table retained non-zero recall in the M3AE smoke and is used as a comparison label.",
+      "label_id": "table",
+      "m3ae_failure_metrics": {
+        "test": {
+          "f1": 0.23076923076923078,
+          "precision": 0.42857142857142855,
+          "recall": 0.15789473684210525,
+          "support": 19,
+          "true_positive": 3
+        },
+        "train": {
+          "f1": 0.4615384615384615,
+          "precision": 0.6428571428571429,
+          "recall": 0.36,
+          "support": 25,
+          "true_positive": 9
+        },
+        "validation": {
+          "f1": 0.36,
+          "precision": 0.36,
+          "recall": 0.36,
+          "support": 25,
+          "true_positive": 9
+        }
+      },
+      "splits": [
+        {
+          "samples": [
+            {
+              "clip_id": "popsign-v1-train-table-000376",
+              "label_id": "table",
+              "signer_id": "popsign-signer-55f7d45ae59832f6",
+              "source_split": "train",
+              "source_video_path": "table/4a.6001-table-2022_12_16_00_17_47.002-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-table-000376-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.6511605381965637,
+                  0.5665558576583862,
+                  0.5008528828620911
+                ],
+                "per_channel_std": [
+                  0.22353793680667877,
+                  0.20676995813846588,
+                  0.1957665979862213
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.5728564262390137,
+                "prepared_min": 0.0117647061124444,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.21787101030349731,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "22a4a8b0db326286320be86e0caf526d8dbec3761d8bb431d556224230c41035",
+                "temporal_abs_delta_mean": 0.03987928479909897
+              }
+            },
+            {
+              "clip_id": "popsign-v1-train-table-000377",
+              "label_id": "table",
+              "signer_id": "popsign-signer-55f7d45ae59832f6",
+              "source_split": "train",
+              "source_video_path": "table/4a.6001-table-2023_01_04_12_38_11.438-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-table-000377-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.5682486295700073,
+                  0.4199056327342987,
+                  0.39238378405570984
+                ],
+                "per_channel_std": [
+                  0.21885716915130615,
+                  0.24328069388866425,
+                  0.22913409769535065
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.4601793587207794,
+                "prepared_min": 0.01568627543747425,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.24323074519634247,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "b79f3bb248354c3e4a69c962a6ce9fdb6b733816e6c746a9dd1721d2befe0fa6",
+                "temporal_abs_delta_mean": 0.05671273544430733
+              }
+            },
+            {
+              "clip_id": "popsign-v1-train-table-000378",
+              "label_id": "table",
+              "signer_id": "popsign-signer-55f7d45ae59832f6",
+              "source_split": "train",
+              "source_video_path": "table/4a.6001-table-2023_01_04_22_51_13.897-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-table-000378-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.461532860994339,
+                  0.37373459339141846,
+                  0.33283910155296326
+                ],
+                "per_channel_std": [
+                  0.23621094226837158,
+                  0.18881529569625854,
+                  0.13936249911785126
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.38936886191368103,
+                "prepared_min": 0.027450980618596077,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.1995965987443924,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "08ee782d469a57a6439c5b50dbe9e90e60c692260d3357739c029323891fc562",
+                "temporal_abs_delta_mean": 0.04869217425584793
+              }
+            }
+          ],
+          "split": "train"
+        },
+        {
+          "samples": [
+            {
+              "clip_id": "popsign-v1-validation-table-000376",
+              "label_id": "table",
+              "signer_id": "popsign-signer-93953b2725a6d073",
+              "source_split": "val",
+              "source_video_path": "table/4a.7002-table-2022_12_19_22_52_30.498-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000376-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.6449830532073975,
+                  0.560366153717041,
+                  0.45942920446395874
+                ],
+                "per_channel_std": [
+                  0.3065710961818695,
+                  0.2798099219799042,
+                  0.22236838936805725
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.5549261569976807,
+                "prepared_min": 0.04313725605607033,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.2822449505329132,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "0333582a01338a88bc818d7f45aa2f669d8acfed6c6876fa860d9ab8c01d50d7",
+                "temporal_abs_delta_mean": 0.043219391256570816
+              }
+            },
+            {
+              "clip_id": "popsign-v1-validation-table-000377",
+              "label_id": "table",
+              "signer_id": "popsign-signer-93953b2725a6d073",
+              "source_split": "val",
+              "source_video_path": "table/4a.7002-table-2022_12_20_00_59_07.487-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000377-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.6729257106781006,
+                  0.5831199288368225,
+                  0.47178947925567627
+                ],
+                "per_channel_std": [
+                  0.30392658710479736,
+                  0.27866819500923157,
+                  0.2197970449924469
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.5759450197219849,
+                "prepared_min": 0.054901961237192154,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.2820420563220978,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "0dbc8207c40cca26bab4616ecaf9cd431f718965a059bb12886616abdcf8d732",
+                "temporal_abs_delta_mean": 0.035666465759277344
+              }
+            },
+            {
+              "clip_id": "popsign-v1-validation-table-000378",
+              "label_id": "table",
+              "signer_id": "popsign-signer-93953b2725a6d073",
+              "source_split": "val",
+              "source_video_path": "table/4a.7002-table-2022_12_28_00_52_51.658-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000378-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.538874626159668,
+                  0.5011874437332153,
+                  0.45903411507606506
+                ],
+                "per_channel_std": [
+                  0.24810823798179626,
+                  0.23400424420833588,
+                  0.2286880612373352
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.4996986985206604,
+                "prepared_min": 0.003921568859368563,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.23930767178535461,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "2f93710f781c1c979706bcf47af97d97ef026b187f2f4f82ff7403b6f88977a5",
+                "temporal_abs_delta_mean": 0.06589223444461823
+              }
+            }
+          ],
+          "split": "validation"
+        },
+        {
+          "samples": [
+            {
+              "clip_id": "popsign-v1-test-table-000286",
+              "label_id": "table",
+              "signer_id": "popsign-signer-e0940122312d361a",
+              "source_split": "test",
+              "source_video_path": "table/gtsignstudy4a.8031-table-2023_01_25_13_50_32.495-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-table-000286-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.5684608221054077,
+                  0.5684876441955566,
+                  0.5440337061882019
+                ],
+                "per_channel_std": [
+                  0.27426108717918396,
+                  0.2406560182571411,
+                  0.24337537586688995
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.5603272914886475,
+                "prepared_min": 0.0,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.25348520278930664,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "e3bd3678a5b728cfa219254f6dad1047479e89f30a522a09405b456e2b3f2d70",
+                "temporal_abs_delta_mean": 0.03741271421313286
+              }
+            },
+            {
+              "clip_id": "popsign-v1-test-table-000287",
+              "label_id": "table",
+              "signer_id": "popsign-signer-e0940122312d361a",
+              "source_split": "test",
+              "source_video_path": "table/gtsignstudy4a.8031-table-2023_01_25_19_18_50.987-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-table-000287-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.5256290435791016,
+                  0.5488946437835693,
+                  0.5279501676559448
+                ],
+                "per_channel_std": [
+                  0.22052830457687378,
+                  0.18844051659107208,
+                  0.19564181566238403
+                ],
+                "prepared_max": 1.0,
+                "prepared_mean": 0.5341579914093018,
+                "prepared_min": 0.0,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.20227599143981934,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "d98a2f6906263986b62a3d115adb04dd0d15e792fad7958cf0a7fb0cb343f57c",
+                "temporal_abs_delta_mean": 0.022313877940177917
+              }
+            },
+            {
+              "clip_id": "popsign-v1-test-table-000288",
+              "label_id": "table",
+              "signer_id": "popsign-signer-dea2b45d14f9aa79",
+              "source_split": "test",
+              "source_video_path": "table/gtsignstudy4a.8032-table-2023_01_27_17_21_44.663-0.mp4",
+              "tensor": {
+                "path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-table-000288-regions.pt",
+                "payload_contract": {
+                  "payload_keys": [
+                    "crop_config",
+                    "region_axis",
+                    "region_ids",
+                    "rgb_frames",
+                    "rgb_frames_region_id",
+                    "rgb_regions",
+                    "schema_version"
+                  ],
+                  "payload_schema_version": "asl-pilot-return-to-form-tier0-fixed-crop-tensor/v1",
+                  "payload_type": "dict",
+                  "region_axis": "T,R,H,W,C",
+                  "region_ids": [
+                    "viewer_left_hand_context",
+                    "viewer_right_hand_context",
+                    "upper_body_signing_space",
+                    "head_context",
+                    "full_frame_reference"
+                  ],
+                  "rgb_frames_matches_region_slice": true,
+                  "rgb_frames_matches_region_slice_shape": true,
+                  "rgb_frames_present": true,
+                  "rgb_frames_region_id": "upper_body_signing_space",
+                  "rgb_frames_region_index": 2,
+                  "rgb_frames_region_slice_max_abs_diff": 0.0,
+                  "rgb_frames_shape": [
+                    16,
+                    96,
+                    96,
+                    3
+                  ],
+                  "rgb_regions_present": true,
+                  "rgb_regions_shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ],
+                  "training_loader": {
+                    "accepted_tensor_keys_in_order": [
+                      "frames",
+                      "tensor",
+                      "rgb_frames"
+                    ],
+                    "consumed_key": "rgb_frames",
+                    "consumed_shape": [
+                      16,
+                      96,
+                      96,
+                      3
+                    ],
+                    "rgb_regions_in_loader_key_order": false,
+                    "source": "scripts/train_rawframe_model.py::load_tensor_file"
+                  }
+                },
+                "per_channel_mean": [
+                  0.32890766859054565,
+                  0.4176456928253174,
+                  0.40570908784866333
+                ],
+                "per_channel_std": [
+                  0.26081106066703796,
+                  0.25030019879341125,
+                  0.2503836750984192
+                ],
+                "prepared_max": 0.9960784316062927,
+                "prepared_mean": 0.3840875029563904,
+                "prepared_min": 0.0,
+                "prepared_shape": [
+                  16,
+                  3,
+                  96,
+                  96
+                ],
+                "prepared_std": 0.2569066286087036,
+                "raw_shape": [
+                  16,
+                  96,
+                  96,
+                  3
+                ],
+                "sha256": "872eefcb3a18a24411bce0d34ac5ed22d1c331f92adfb33e495a67a3e4796fd1",
+                "temporal_abs_delta_mean": 0.070284403860569
+              }
+            }
+          ],
+          "split": "test"
+        }
+      ]
+    }
+  ],
+  "schema_version": "asl-pilot-rawframe-tensor-visual-diagnostic/v1",
+  "status": "attention_required",
+  "summary": {
+    "blocker_count": 0,
+    "contact_sheets": [
+      {
+        "path": "docs/validation/return-to-form-tier0-remediation-contact-sheets/dad.png",
+        "sha256": "b8ae585edc4b0f0d9f458ae330e8ff78c8c03fee335b406be963bb11e721756f"
+      },
+      {
+        "path": "docs/validation/return-to-form-tier0-remediation-contact-sheets/grandpa.png",
+        "sha256": "ed9357735920c90d97ecdae8093538dc144242137056a19004ad703d6928e804"
+      },
+      {
+        "path": "docs/validation/return-to-form-tier0-remediation-contact-sheets/hat.png",
+        "sha256": "a3f36abb634fc659bdde27822cb5e8da801c922c18cf9589b6f6070f4fec9e0e"
+      },
+      {
+        "path": "docs/validation/return-to-form-tier0-remediation-contact-sheets/please.png",
+        "sha256": "4fe601c9a7772c97bc09f1bba87c3cbe63594f39a878fd906b2f8f5862fdab73"
+      },
+      {
+        "path": "docs/validation/return-to-form-tier0-remediation-contact-sheets/table.png",
+        "sha256": "f223eb2c92c85418c999c85d0c664d35241e0b4a24f31b8af3bb37c19426169e"
+      }
+    ],
+    "label_count": 5,
+    "labels_inspected": [
+      "dad",
+      "grandpa",
+      "hat",
+      "please",
+      "table"
+    ],
+    "sample_count": 45,
+    "sampled_splits": [
+      "test",
+      "train",
+      "validation"
+    ],
+    "warning_count": 0
+  },
+  "tensor_contract": {
+    "interpretation": "RawFrameClipDataset consumes the rgb_frames compatibility tensor while rgb_regions remains present but unused by the M3AE training/evaluation path.",
+    "mismatch_detected": true,
+    "observed_payloads": {
+      "rgb_frames_matches_region_slice_count": 45,
+      "rgb_frames_present_count": 45,
+      "rgb_frames_region_ids": [
+        "upper_body_signing_space"
+      ],
+      "rgb_regions_present_count": 45
+    },
+    "sample_count": 45,
+    "training_loader": {
+      "accepted_tensor_keys_in_order": [
+        "frames",
+        "tensor",
+        "rgb_frames"
+      ],
+      "observed_consumed_keys": [
+        "rgb_frames"
+      ],
+      "rgb_regions_consumed_by_training": false,
+      "rgb_regions_in_loader_key_order": false,
+      "source": "scripts/train_rawframe_model.py::load_tensor_file"
+    }
+  },
+  "warnings": []
+}

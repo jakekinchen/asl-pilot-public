@@ -1,0 +1,353 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3fp-overnight-brev-detector-tcn-completion/v1",
+  "mission": "M3FP-A overnight Brev Detector/TCN completion first slice",
+  "created_at": "2026-05-29T02:06:31Z",
+  "status": "completed_not_promotable",
+  "current_user_approval": {
+    "source": "GOAL.md and docs/model/return-to-form-m3fp-overnight-brev-detector-tcn-completion-goal-loop-prompt.md",
+    "approval_recorded": true,
+    "window": {
+      "until": "2026-05-29 04:00 America/Chicago",
+      "local_start_observed": "2026-05-28 21:01:57 CDT",
+      "utc_start_observed": "2026-05-29T02:01:57Z"
+    },
+    "scope": "bounded overnight Brev/model/product work for the retained worker route",
+    "limits": {
+      "additional_brev_spend_ceiling_usd": 150,
+      "total_project_brev_spend_ceiling_usd": 250,
+      "price_guard_stop_above_usd_per_hour": 5,
+      "no_duplicate_gpu_worker": true,
+      "stop_default_off_after_slice": true
+    }
+  },
+  "budget_and_worker": {
+    "worker": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "instance_type": "l40s-48gb.1x",
+      "gpu": "L40S",
+      "instance_kind": "gpu"
+    },
+    "brev_ls_before": {
+      "status": "STOPPED",
+      "build_status": "COMPLETED",
+      "shell_status": "NOT READY",
+      "health_status": "HEALTHY"
+    },
+    "price_state": {
+      "command": "brev search --stoppable --min-vram 40 --sort price --json",
+      "retained_worker_type_price_per_hour_usd": 1.74,
+      "price_guard_passed": true,
+      "notes": "The retained worker type l40s-48gb.1x appeared as a stoppable L40S option at 1.74 USD/hour, below the 5 USD/hour guard."
+    },
+    "estimated_slice_runtime_minutes": 4,
+    "estimated_slice_spend_notes": "Brev billing was not queried; elapsed retained-worker use was only the bounded start/preflight/train/evaluate/copyback/stop slice."
+  },
+  "local_checks": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "## compound-plan-m0...origin/compound-plan-m0 [ahead 250]"
+    },
+    {
+      "command": "git log -12 --oneline --decorate",
+      "status": "passed",
+      "head": "ef5fc92 supervisor: tighten m3fp budget and stop-state wording"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed",
+      "active_prompt": "docs/model/return-to-form-m3fp-overnight-brev-detector-tcn-completion-goal-loop-prompt.md",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed",
+      "source_register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py scripts/export_onnx_model.py",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3fo-final-fail-closed-demo-evidence-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3ey-overnight-brev-lesson-model-completion-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3fm-popsign-label-ladder-metric-triage-no-training-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "brev ls --json",
+      "status": "passed",
+      "worker_status_before": "STOPPED"
+    },
+    {
+      "command": "git -C /Users/kelly/Developer/asl-pilot-detector0-win status --short --branch",
+      "status": "passed",
+      "summary": "## detector0-win-20260528"
+    },
+    {
+      "command": "git -C /Users/kelly/Developer/asl-pilot-detector0-win log -4 --oneline --decorate",
+      "status": "passed",
+      "head": "d43a5bb detector0: add hybrid gate ablation"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "local_dry_run": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --popsign-fresh5-training-smoke --train-manifest data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json --validation-manifest data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json --test-manifest data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json --output-dir output/m3eh-popsign-fresh5-motion-region-token-temporal-brev-fit --model-id m3fp-popsign-fresh5-motion-region-token-brev --dry-run --check-files --architecture scratch_motion_region_token_temporal_contract_v1 --frame-count 16 --image-size 96 --epochs 20 --batch-size 4 --max-train-batches 32 --max-validation-batches 32 --num-workers 0 --training-augmentation none --checkpoint-selection best_validation",
+    "status": "passed",
+    "training_status": "dry_run_only",
+    "architecture": "scratch_motion_region_token_temporal_contract_v1",
+    "model_id": "m3fp-popsign-fresh5-motion-region-token-brev",
+    "pretrained_components": []
+  },
+  "brev_commands": [
+    {
+      "command": "brev start asl-pilot-m3eh-l40s-001",
+      "timeout_seconds": null,
+      "status": "passed",
+      "outcome": "Worker became ready."
+    },
+    {
+      "command": "timeout 300s brev exec asl-pilot-m3eh-l40s-001 \"<remote cuda/process inspection>\"",
+      "timeout_seconds": 300,
+      "status": "failed_after_partial_evidence",
+      "exit_code": 1,
+      "outcome": "CUDA/process inspection succeeded, then git status failed because /home/ubuntu/asl-pilot was not yet a git repo and the sync script intentionally excludes .git.",
+      "remote_evidence": {
+        "remote_home": "/home/ubuntu",
+        "nvidia_smi_gpu": "NVIDIA L40S",
+        "driver_version": "565.57.01",
+        "cuda_version": "12.7",
+        "gpu_memory_used_mib": 1,
+        "gpu_compute_processes": [],
+        "non_slice_python_processes": [
+          "jupyter-lab"
+        ]
+      }
+    },
+    {
+      "command": "bash scripts/brev_sync_repo.sh asl-pilot-m3eh-l40s-001",
+      "timeout_seconds": null,
+      "status": "passed",
+      "outcome": "Synced repo and allowlisted rawframe training data to /home/ubuntu/asl-pilot."
+    },
+    {
+      "command": "timeout 600s brev exec asl-pilot-m3eh-l40s-001 \"<remote dry-run/check-files command>\"",
+      "timeout_seconds": 600,
+      "status": "passed",
+      "outcome": "Remote dry-run/check-files passed with .venv Python, Fresh5 manifests, scratch architecture, and pretrained_components empty."
+    },
+    {
+      "command": "timeout 5400s brev exec asl-pilot-m3eh-l40s-001 \"<remote timed PopSign Fresh5 train command>\"",
+      "timeout_seconds": 5400,
+      "status": "passed",
+      "outcome": "Training completed on CUDA and wrote model_state.pt plus training-provenance.json.",
+      "final_epoch": {
+        "epoch": 20,
+        "train_accuracy": 0.168,
+        "train_loss": 1.6383129663467406,
+        "validation_accuracy": 0.2,
+        "validation_loss": 1.6148828954696655
+      }
+    },
+    {
+      "command": "timeout 2400s brev exec asl-pilot-m3eh-l40s-001 \"<remote evaluation command>\"",
+      "timeout_seconds": 2400,
+      "status": "passed",
+      "outcome": "Evaluation wrote validation-report.json and prediction-sidecar.json; passes_targets false in command summary."
+    },
+    {
+      "command": "brev copy asl-pilot-m3eh-l40s-001:/home/ubuntu/asl-pilot/output/m3eh-popsign-fresh5-motion-region-token-temporal-brev-fit output/",
+      "timeout_seconds": null,
+      "status": "passed",
+      "outcome": "Copied remote output directory into local ignored output/."
+    },
+    {
+      "command": "brev stop asl-pilot-m3eh-l40s-001",
+      "timeout_seconds": null,
+      "status": "passed",
+      "outcome": "Stop command accepted."
+    },
+    {
+      "command": "brev ls --json",
+      "timeout_seconds": null,
+      "status": "passed",
+      "outcome": "Verified worker STOPPED / COMPLETED / NOT READY / HEALTHY after slice."
+    }
+  ],
+  "detector0_win_evidence_reviewed": {
+    "worktree": "/Users/kelly/Developer/asl-pilot-detector0-win",
+    "branch": "detector0-win-20260528",
+    "head": "d43a5bb detector0: add hybrid gate ablation",
+    "recent_commits": [
+      "d43a5bb detector0: add hybrid gate ablation",
+      "1c98198 detector0: add hybrid crop normalization ablation",
+      "ccffc3d detector0: add multitarget gaussian policy",
+      "5e810d0 detector0: add gaussian objectness heldout win"
+    ],
+    "evidence": [
+      {
+        "path": "docs/session-logs/416-detector0-hybrid-crop-normalization-ablation.md",
+        "summary": "Hybrid crop normalization generated 345 tensors, removed the validation zero-recall label in that local smoke, and improved test top-1 from 0.2736842105263158 to 0.3263157894736842, but used learned right-hand crops on 44.4% of frames."
+      },
+      {
+        "path": "docs/session-logs/417-detector0-hybrid-gate-ablation.md",
+        "summary": "A stricter full-validation 5% false-positive contact gate reduced learned right-hand crop use to 6.1%, raised validation top-1 to 0.256, held test top-1 at 0.3263157894736842, and kept validation/test zero-recall labels empty in that isolated smoke."
+      }
+    ],
+    "integrated_this_slice": false,
+    "why_not_integrated": "The active prompt forbids wholesale side-worktree merges and says Detector 0 evidence is not yet main-branch runtime authority. The side evidence has no calibrated product threshold, exported artifact, browser activation, or generic landmark-readiness claim. This M3FP-A slice was the prescribed Fresh5 Brev-backed recognizer attempt."
+  },
+  "training_artifacts": {
+    "remote_output_path": "/home/ubuntu/asl-pilot/output/m3eh-popsign-fresh5-motion-region-token-temporal-brev-fit",
+    "local_output_path": "output/m3eh-popsign-fresh5-motion-region-token-temporal-brev-fit",
+    "model_id": "m3fp-popsign-fresh5-motion-region-token-brev",
+    "architecture": "scratch_motion_region_token_temporal_contract_v1",
+    "training_status": "completed",
+    "pretrained_components": [],
+    "artifact_hashes": {
+      "model_state.pt": "2bad4ae3bb0007a757387c3dbb5c06bdfe655f88774e2c7ba89181116d871235",
+      "prediction-sidecar.json": "10a71f904aaa3066bbebaec276996ca8ed16152a7fd576a910be8b91a7181957",
+      "training-provenance.json": "92ccd821cf80529b28a411efa9a69e41513a7493b62b0b602f20de4325a22596",
+      "validation-report.json": "4855705eed1ffa2d699247b3a1a97e3dc16ac9922503a250bf5c6c6c8bad7147"
+    },
+    "checkpoint_ignore_status": {
+      "command": "git check-ignore -v output/m3eh-popsign-fresh5-motion-region-token-temporal-brev-fit/model_state.pt",
+      "status": "ignored",
+      "rule": ".gitignore:27:output/"
+    }
+  },
+  "evaluation": {
+    "status": "popsign_fresh5_training_smoke_completed",
+    "validation": {
+      "examples": 125,
+      "top1_accuracy": 0.2,
+      "macro_f1": 0.06666666666666668,
+      "zero_recall_labels": [
+        "morning",
+        "pen",
+        "thank_you",
+        "who"
+      ]
+    },
+    "test": {
+      "examples": 125,
+      "top1_accuracy": 0.2,
+      "macro_f1": 0.06666666666666668,
+      "zero_recall_labels": [
+        "morning",
+        "pen",
+        "thank_you",
+        "who"
+      ],
+      "threshold_metrics": {
+        "threshold": 1.0,
+        "coverage": 0.0,
+        "false_pass_rate": 0.0,
+        "accepted_accuracy": 0.0
+      }
+    },
+    "behavior_summary": "The classifier collapsed to predicting home for every validation and test example."
+  },
+  "promotion_gate_table": [
+    {
+      "gate": "validation top-1 >= 0.75",
+      "observed": 0.2,
+      "passed": false
+    },
+    {
+      "gate": "validation macro-F1 >= 0.70",
+      "observed": 0.06666666666666668,
+      "passed": false
+    },
+    {
+      "gate": "test top-1 >= 0.75",
+      "observed": 0.2,
+      "passed": false
+    },
+    {
+      "gate": "no zero-recall labels on validation",
+      "observed": [
+        "morning",
+        "pen",
+        "thank_you",
+        "who"
+      ],
+      "passed": false
+    },
+    {
+      "gate": "no zero-recall labels on test",
+      "observed": [
+        "morning",
+        "pen",
+        "thank_you",
+        "who"
+      ],
+      "passed": false
+    },
+    {
+      "gate": "no pretrained/generated-label components",
+      "observed": [],
+      "passed": true
+    },
+    {
+      "gate": "existing audits pass",
+      "observed": "local audit chain passed",
+      "passed": true
+    }
+  ],
+  "fail_closed_claim_boundary": {
+    "model_card_status": "not_trained",
+    "active_vocabulary_label_count": 0,
+    "export_ran": false,
+    "promotion_ran": false,
+    "browser_activation_ran": false,
+    "product_or_asl_correctness_claim": false,
+    "reason": "Promotion gates failed; copied output is accounting evidence only."
+  },
+  "changed_files": [
+    "docs/validation/return-to-form-m3fp-overnight-brev-detector-tcn-completion-v1.json",
+    "docs/session-logs/590-mission-3fp-overnight-brev-detector-tcn-completion.md"
+  ],
+  "hard_boundaries_observed": {
+    "brev_worker_stopped": true,
+    "duplicate_gpu_worker_created": false,
+    "pretrained_or_generated_label_path_used": false,
+    "raw_learner_video_upload": false,
+    "unreviewed_source_import": false,
+    "final_gate_weakened": false,
+    "export_or_promotion": false,
+    "push": false
+  },
+  "next_action": "continue_detector0_integration_for_crop_normalized_recognizer"
+}

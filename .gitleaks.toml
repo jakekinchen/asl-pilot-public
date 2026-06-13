@@ -1,0 +1,13 @@
+title = "ASL Pilot public snapshot gitleaks config"
+
+[[allowlists]]
+description = "False positive: WLASL research note describes public keypoint artifacts."
+condition = "AND"
+paths = ['''docs/research/wlasl-academic-source-review\.md''']
+regexes = ['''body keypoints''']
+
+[[allowlists]]
+description = "False positive: audit script writes an S3 CLI output filename."
+condition = "AND"
+paths = ['''scripts/audit_nvidia_asl_public_s3_access\.mjs''']
+regexes = ['''s3apiHeadBucket: "s3api-head-bucket\.txt"''']

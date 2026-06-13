@@ -1,0 +1,303 @@
+{
+  "schema_version": 1,
+  "mission": "M3EQ",
+  "status": "completed_brev_recovery_readiness_no_training",
+  "generated_at": "2026-05-28T18:13:22Z",
+  "generated_by": "codex-executor",
+  "active_prompt": {
+    "path": "docs/model/return-to-form-m3eq-brev-recovery-readiness-goal-loop-prompt.md",
+    "sha256": "736b33d7f555314b25dbfa78a7e78926115cdcab19579aa48d36034173557270"
+  },
+  "goal": {
+    "path": "GOAL.md",
+    "sha256": "c3f3267345b4df9382e8e8dae646ca8d537b95bf419ab12508f2a46c8aeadefd"
+  },
+  "starting_evidence": {
+    "m3ep_receipt": {
+      "path": "docs/validation/return-to-form-m3ep-brev-sync-preflight-no-training-v1.json",
+      "sha256": "81cb3cca159c7f1a86185bdbeb26cb30d7a8f9d54974c8fb619fd7483697ce76"
+    },
+    "m3ep_selected_next_action": "stop_for_provider_or_budget_blocker",
+    "supervisor_activation": "latest user instruction superseded M3EP STOP for the bounded M3EQ recovery/readiness envelope"
+  },
+  "compute_envelope": {
+    "approval_source": "GOAL.md and active M3EQ prompt",
+    "status": "authorized_for_brev_recovery_readiness_no_training",
+    "worker_name": "asl-pilot-m3eh-l40s-001",
+    "expected_worker_id": "3d58wpy9o",
+    "expected_type": "l40s-48gb.1x",
+    "max_wall_time_after_first_start_minutes": 35,
+    "max_expected_spend_usd": 7,
+    "timed_training_commands": 0,
+    "new_workers": 0,
+    "worker_delete_or_reset": 0,
+    "package_install_commands": 0
+  },
+  "local_checks": [
+    {
+      "command": "git status --short --branch",
+      "result": "passed"
+    },
+    {
+      "command": "git log -10 --oneline --decorate",
+      "result": "passed",
+      "head": "847d64c supervisor: activate m3eq brev recovery"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3ep-brev-sync-preflight-no-training-v1.json",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json",
+      "result": "passed"
+    },
+    {
+      "command": "bash -n scripts/brev_sync_repo.sh",
+      "result": "passed"
+    }
+  ],
+  "claim_surfaces": {
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "status": "not_trained"
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "activeLabels": []
+    },
+    "claim_status": "fail_closed_unchanged"
+  },
+  "worker_state_transitions": {
+    "pre_start_ls": {
+      "command": "brev ls --json",
+      "worker_count": 1,
+      "worker": {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      },
+      "safe_to_start": true
+    },
+    "start": {
+      "command": "brev start asl-pilot-m3eh-l40s-001",
+      "started_at_utc": "2026-05-28T18:10:46Z",
+      "result": "passed",
+      "observed_output_summary": "Brev reported the instance ready and printed the approved worker name."
+    },
+    "post_start_ls": {
+      "status": "RUNNING",
+      "build_status": "COMPLETED",
+      "shell_status": "READY",
+      "health_status": "UNAVAILABLE"
+    },
+    "teardown": {
+      "command": "brev stop asl-pilot-m3eh-l40s-001",
+      "result": "passed",
+      "initial_post_stop_ls": {
+        "status": "RUNNING",
+        "build_status": "COMPLETED",
+        "shell_status": "READY",
+        "health_status": "HEALTHY"
+      },
+      "final_post_stop_ls": {
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY"
+      },
+      "worker_verified_stopped": true
+    }
+  },
+  "exec_and_ssh_recovery_path": {
+    "brev_exec_command": "timeout 180s brev exec asl-pilot-m3eh-l40s-001 '<bounded inspection/probe command>'",
+    "brev_exec_result": "reached_remote_shell_after_initial_ssh_timeout",
+    "direct_ssh_fallback_used": false,
+    "local_stuck_process_cleanup_used": false
+  },
+  "remote_path_inspection": {
+    "whoami": "ubuntu",
+    "home": "/home/ubuntu",
+    "pwd": "/home/ubuntu",
+    "nvidia_smi_summary": {
+      "gpu_name": "NVIDIA L40S",
+      "driver_version": "565.57.01",
+      "memory_used_mib": 1,
+      "memory_total_mib": 46068,
+      "gpu_utilization_percent": 0
+    },
+    "gpu_processes": {
+      "nvidia_smi_pmon_running_processes": 0,
+      "notes": "nvidia-smi pmon showed no GPU process rows"
+    },
+    "non_gpu_process_notes": [
+      "/home/ubuntu/.venv/bin/jupyter-lab was running from the base Brev environment",
+      "networkd-dispatcher was running",
+      "no torch/train/screen/tmux training process was observed"
+    ],
+    "candidate_paths": {
+      "/home/ubuntu/asl-pilot": {
+        "exists_before_sync": true,
+        "venv_python_executable_before_sync": true,
+        "selected_checkout": true
+      },
+      "/home/shadeform/asl-pilot": {
+        "exists_before_sync": false,
+        "venv_python_executable_before_sync": false,
+        "selected_checkout": false
+      }
+    }
+  },
+  "file_freshness_evidence": {
+    "before_sync": {
+      "/home/ubuntu/asl-pilot/GOAL.md": {
+        "present": true,
+        "sha256": "36185b53100ee156822a775c2a91459d66f89c76ac31aafa56d3b5ca21d4640a",
+        "matches_local": false
+      },
+      "/home/ubuntu/asl-pilot/docs/model/return-to-form-m3eq-brev-recovery-readiness-goal-loop-prompt.md": {
+        "present": false
+      },
+      "/home/ubuntu/asl-pilot/docs/validation/return-to-form-m3ep-brev-sync-preflight-no-training-v1.json": {
+        "present": false
+      },
+      "/home/ubuntu/asl-pilot/scripts/train_rawframe_model.py": {
+        "present": true,
+        "sha256": "bf8f23d5c80fcc456632eeaf5fa8e748cfe6fd1cafc6250200fca5e5f0067d7d",
+        "matches_local": true
+      }
+    },
+    "after_sync": {
+      "/home/ubuntu/asl-pilot/GOAL.md": {
+        "present": true,
+        "sha256": "c3f3267345b4df9382e8e8dae646ca8d537b95bf419ab12508f2a46c8aeadefd",
+        "matches_local": true
+      },
+      "/home/ubuntu/asl-pilot/docs/model/return-to-form-m3eq-brev-recovery-readiness-goal-loop-prompt.md": {
+        "present": true,
+        "sha256": "736b33d7f555314b25dbfa78a7e78926115cdcab19579aa48d36034173557270",
+        "matches_local": true
+      },
+      "/home/ubuntu/asl-pilot/docs/validation/return-to-form-m3ep-brev-sync-preflight-no-training-v1.json": {
+        "present": true,
+        "sha256": "81cb3cca159c7f1a86185bdbeb26cb30d7a8f9d54974c8fb619fd7483697ce76",
+        "matches_local": true
+      },
+      "/home/ubuntu/asl-pilot/scripts/train_rawframe_model.py": {
+        "present": true,
+        "sha256": "bf8f23d5c80fcc456632eeaf5fa8e748cfe6fd1cafc6250200fca5e5f0067d7d",
+        "matches_local": true
+      }
+    }
+  },
+  "sync_decision": {
+    "decision": "run_once",
+    "reason": "Remote checkout existed but was stale: GOAL.md hash differed, and the M3EQ prompt plus M3EP receipt were missing.",
+    "command": "bash scripts/brev_sync_repo.sh asl-pilot-m3eh-l40s-001",
+    "result": "passed",
+    "data_allowlist_synced": true,
+    "manual_rsync_paths_used": false
+  },
+  "environment_repair": {
+    "decision": "skipped",
+    "reason": "The selected checkout already had executable .venv/bin/python with CUDA-enabled torch.",
+    "package_install_commands_run": 0
+  },
+  "python_cuda_probe": {
+    "path": "/home/ubuntu/asl-pilot/.venv/bin/python",
+    "torch": "2.12.0+cu126",
+    "cuda_available": true,
+    "cuda_version": "12.6",
+    "device_count": 1,
+    "device_name": "NVIDIA L40S"
+  },
+  "remote_dry_run": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3dm-high-signal-region-grid-tcn-brev --model-id m3eq-high-signal-region-grid-tcn-readiness --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1",
+    "result": "passed",
+    "training_status": "dry_run_only",
+    "architecture": "true_temporal_convnet_region_grid",
+    "model_id": "m3eq-high-signal-region-grid-tcn-readiness",
+    "input_contract_status": "passed",
+    "required_input_contract": "rgb_regions_grid_v1",
+    "total_clip_count": 139,
+    "split_clip_counts": {
+      "train": 84,
+      "validation": 27,
+      "test": 28
+    },
+    "observed_contract_counts": {
+      "rgb_regions_grid_v1": 139
+    },
+    "manifest_hashes": {
+      "train": "101455329ae04ad06a2c3fd4ca26a29c04ae945bb7925bee373cf3229594fc3d",
+      "validation": "16a4a64a8fd48a1384c4cfd2e01dddcaa45fb3b1f0588af9ec66f96668cc3a53",
+      "test": "5a315d49438242febb410287c4ff235ae8cd269a5aba5c3cf550950bae0359f8"
+    },
+    "checkpoint_written": false,
+    "training_performed": false,
+    "promotion_performed": false
+  },
+  "negative_authorizations": [
+    "no recognizer training/fitting/evaluation rerun",
+    "no Detector 0 training",
+    "no architecture search or hyperparameter sweep",
+    "no timed training command",
+    "no backward/optimizer loop",
+    "no checkpoint or model artifact",
+    "no export",
+    "no promotion",
+    "no dependency-file mutation",
+    "no source/media download",
+    "no source-register mutation",
+    "no manifest/tensor/vocabulary/packet mutation",
+    "no label expansion",
+    "no generated labels or pseudo-labels",
+    "no raw learner video upload",
+    "no pretrained detector/landmark/backbone/embedding/feature extractor",
+    "no browser recognition activation",
+    "no ASL-correctness claim",
+    "no product-runtime mutation",
+    "no final-readiness claim",
+    "no duplicate worker",
+    "no worker delete/reset",
+    "no broad remote run",
+    "no push",
+    "no amend",
+    "no no-verify"
+  ],
+  "changed_files": [
+    "docs/validation/return-to-form-m3eq-brev-recovery-readiness-v1.json",
+    "docs/session-logs/534-mission-3eq-brev-recovery-readiness.md"
+  ],
+  "next_action": "continue_bounded_brev_tcn_training_smoke",
+  "next_action_reason": "The retained worker is controllable, the selected checkout is fresh after one helper sync, CUDA torch works on the L40S, the approved data allowlist is present, and the no-training remote dry-run/check-files command passed. The next action is eligible only as a bounded training-smoke prompt; no training was run in M3EQ."
+}

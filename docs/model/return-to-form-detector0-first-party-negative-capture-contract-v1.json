@@ -1,0 +1,364 @@
+{
+  "schema_version": "asl-pilot-detector0-first-party-negative-capture-contract/v1",
+  "mission": "M3IK - Detector 0 first-party negative capture contract no Brev",
+  "created_at": "2026-05-30T04:56:00.000Z",
+  "status": "contract_only_no_capture_no_rows_not_training_ready",
+  "purpose": "Define the future first-party consented hard-negative/no-hand capture requirements needed before training-capable negative rows can complement the existing M3IH validation-only negative manifest.",
+  "current_commit": "b7c27e6 observer: CONTINUE - m3ij to m3ik first-party negatives",
+  "active_prompt": "docs/model/return-to-form-m3ik-detector0-first-party-negative-capture-contract-no-brev-goal-loop-prompt.md",
+  "source_artifacts": {
+    "scripts/evaluate_detector0_negative_metrics.mjs": {
+      "sha256": "a38267ea6df05a4f42d62ec8ab3a132562abb8ddf5a25f825e0db50f6c24a506",
+      "role": "M3IJ future prediction evaluator harness"
+    },
+    "docs/validation/return-to-form-m3ij-detector0-negative-evaluation-harness-no-brev-v1.json": {
+      "sha256": "11bfc02e2bfbc4958d03d5785a80bf02e714f0d6e83a370ec611a2d68dd00594",
+      "role": "M3IJ harness receipt"
+    },
+    "docs/session-logs/794-mission-3ij-detector0-negative-evaluation-harness-no-brev.md": {
+      "sha256": "b596be23fb6239c7d5c2d281399ea9b1131c736e309645a092557ddfdc01f40f",
+      "role": "M3IJ executor session log"
+    },
+    "docs/model/return-to-form-detector0-negative-evaluation-metric-contract-v1.json": {
+      "sha256": "efb3d10620b150bca65d1aa09180a5d4b8dc7b6f7e38fa120702d3e73945e9dc",
+      "role": "M3II negative evaluation metric contract"
+    },
+    "docs/validation/return-to-form-m3ii-detector0-negative-evaluation-metric-contract-no-brev-v1.json": {
+      "sha256": "be27247fae9dbaa6ccbab9c03c5b012096a71efd38a576e4b6e971e554e27efa",
+      "role": "M3II metric contract receipt"
+    },
+    "data/annotations/detector0/return-to-form-detector0-hard-negative-validation-manifest-v1.json": {
+      "sha256": "55483e2494dd807fb648e20d4fb713002614a372527e56bfc7a50d74fea3b89d",
+      "role": "M3IH validation-only negative manifest"
+    },
+    "docs/validation/return-to-form-m3ih-detector0-hard-negative-manifest-materialization-no-brev-v1.json": {
+      "sha256": "0e5ba98d3f07abd6d127e20603b4cf487eaa3fe074d2afb0a0f58b6594a82f08",
+      "role": "M3IH validation-only negative manifest receipt"
+    },
+    "data/annotations/detector0/return-to-form-detector0-combined-training-packet-v1.json": {
+      "sha256": "59214b75e0f416ce8527e560a947c2201442d86ded2a80bcd0f4b62e418254e2",
+      "role": "M3ID positive packet"
+    },
+    "docs/model/return-to-form-detector0-fixed-baseline-gate-contract-v1.json": {
+      "sha256": "92f4650a50b562b3055bb455fe9b5ae30ad639fe843b5efd834cd24925142423",
+      "role": "fixed-baseline beat-it gate"
+    },
+    "docs/model/dataset-source-register.json": {
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+      "role": "source authority register"
+    },
+    "docs/privacy/dataset-consent-form.md": {
+      "sha256": "c1832291070b351fd3bbedf3ee1e099ce55f027b659823b8eefff23cc51e1995",
+      "role": "first-party dataset consent form"
+    },
+    "docs/model/negative-challenge-manifest-schema.md": {
+      "sha256": "85a0b65f20f16a8ed48675a4dc97308b812b6148ea2e971f30d7c25ef963afc1",
+      "role": "existing negative challenge manifest schema guidance"
+    },
+    "web/public/model/detector0-card.json": {
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "role": "fail-closed Detector 0 claim surface"
+    },
+    "web/public/model/browser-model-bundle.json": {
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9",
+      "role": "fail-closed browser bundle claim surface"
+    },
+    "web/public/model/model-card.json": {
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "role": "fail-closed model card"
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "role": "fail-closed vocabulary claim surface"
+    }
+  },
+  "contract_scope": {
+    "planning_contract_only": true,
+    "creates_raw_media": false,
+    "creates_manifest_rows": false,
+    "authors_absence_labels": false,
+    "generates_tensors": false,
+    "runs_training": false,
+    "runs_evaluation": false,
+    "starts_brev_or_remote_compute": false,
+    "changes_claim_surfaces": false
+  },
+  "source_authority": {
+    "allowed_training_capable_source_id": "first-party-browser-consent-capture",
+    "source_register_decision_id": "first_party_consent_required_v1",
+    "source_register_license_review_status": "approved_after_clip_level_consent",
+    "source_allowed_for_model_training_after_clip_level_consent": true,
+    "source_allowed_for_validation_after_clip_level_consent": true,
+    "source_allowed_for_pilot_submission_after_clip_level_consent": true,
+    "current_training_capable_negative_rows_available": false,
+    "required_before_any_row_is_training_capable": [
+      "explicit future human approval for a dataset collection session",
+      "current dataset consent form path, SHA-256, and consent version bound into every row family",
+      "signer registry row and stable signer alias",
+      "clip-level consent record id",
+      "signed consent evidence receipt matching the signer and consent record",
+      "raw clip SHA-256 hash and local-only storage path",
+      "operator capture-condition attestation",
+      "reviewed absence-label approval"
+    ]
+  },
+  "training_capable_vs_validation_only_separation": {
+    "future_training_capable_first_party_negatives": {
+      "source_id": "first-party-browser-consent-capture",
+      "dataset_source_mode": "first_party_consent_capture",
+      "allowed_for_training_after_all_contract_requirements_pass": true,
+      "allowed_for_validation_after_all_contract_requirements_pass": true,
+      "may_be_merged_into_future_detector0_training_packet": true,
+      "requires_new_manifest_or_packet_materialization_slice": true
+    },
+    "existing_m3ih_external_validation_negatives": {
+      "path": "data/annotations/detector0/return-to-form-detector0-hard-negative-validation-manifest-v1.json",
+      "sha256": "55483e2494dd807fb648e20d4fb713002614a372527e56bfc7a50d74fea3b89d",
+      "allowed_for_training": false,
+      "allowed_for_validation": true,
+      "may_be_merged_into_training_packet": false,
+      "continued_role": "external validation-only false-trigger and context challenge evidence"
+    },
+    "hard_rule": "Future first-party rows must not inherit training approval from M3IH external rows, and M3IH external rows must not be reclassified as training-capable by this contract."
+  },
+  "allowed_training_capable_capture_categories": [
+    {
+      "category_id": "empty_camera_no_person_no_hands",
+      "future_manifest_challenge_type": "empty_camera",
+      "description": "Camera sees the normal capture area with no signer or hands visible.",
+      "required_capture_condition_evidence": {
+        "captureEnvironment": "negative_challenge",
+        "emptyCameraConfirmed": true,
+        "noHandsVisibleConfirmed": false,
+        "lowLightConfirmed": false,
+        "offCenterConfirmed": false,
+        "hardNegativeConditionConfirmed": false,
+        "expectedRejectOutcomeConfirmed": true
+      }
+    },
+    {
+      "category_id": "normal_environment_no_hands_visible",
+      "future_manifest_challenge_type": "no_hands_visible",
+      "description": "Consented signer or local scene is present, but no hands are visible and no hand target should fire.",
+      "required_capture_condition_evidence": {
+        "captureEnvironment": "negative_challenge",
+        "emptyCameraConfirmed": false,
+        "noHandsVisibleConfirmed": true,
+        "lowLightConfirmed": false,
+        "offCenterConfirmed": false,
+        "hardNegativeConditionConfirmed": false,
+        "expectedRejectOutcomeConfirmed": true
+      }
+    },
+    {
+      "category_id": "low_light_no_hands_visible",
+      "future_manifest_challenge_type": "low_light",
+      "description": "Low-light no-hand scene that should remain reject/no-hand rather than hallucinating hands.",
+      "required_capture_condition_evidence": {
+        "captureEnvironment": "negative_challenge",
+        "emptyCameraConfirmed": false,
+        "noHandsVisibleConfirmed": true,
+        "lowLightConfirmed": true,
+        "offCenterConfirmed": false,
+        "hardNegativeConditionConfirmed": true,
+        "expectedRejectOutcomeConfirmed": true
+      }
+    },
+    {
+      "category_id": "off_center_no_hands_visible",
+      "future_manifest_challenge_type": "off_center",
+      "description": "Off-center no-hand scene that should remain reject/no-hand rather than firing on background or partial body cues.",
+      "required_capture_condition_evidence": {
+        "captureEnvironment": "negative_challenge",
+        "emptyCameraConfirmed": false,
+        "noHandsVisibleConfirmed": true,
+        "lowLightConfirmed": false,
+        "offCenterConfirmed": true,
+        "hardNegativeConditionConfirmed": true,
+        "expectedRejectOutcomeConfirmed": true
+      }
+    }
+  ],
+  "future_row_schema_requirements": {
+    "required_row_identity_fields": [
+      "first_party_negative_row_id",
+      "source_id",
+      "dataset_source_mode",
+      "split",
+      "capture_category_id",
+      "future_manifest_challenge_type",
+      "consent_record_id",
+      "signer_alias",
+      "signer_identity_hash",
+      "raw_clip_sha256",
+      "review_status",
+      "reviewed_at",
+      "reviewer"
+    ],
+    "required_absence_label_fields": {
+      "expected_left_or_first_hand_presence": false,
+      "expected_right_or_second_hand_presence": false,
+      "expected_detector0_outcome": "reject_no_hand",
+      "left_or_first_hand_target_applicability": "absent_no_hand_negative_authoritative_after_review",
+      "right_or_second_hand_target_applicability": "absent_no_hand_negative_authoritative_after_review",
+      "box_xyxy_norm": null,
+      "center_xy_norm": null,
+      "visibility_confidence": 0,
+      "absence_label_source": "project_reviewed_first_party_capture_condition_evidence",
+      "absence_label_may_not_be_generated_or_pseudo": true
+    },
+    "required_provenance_fields": [
+      "source_register_path",
+      "source_register_sha256",
+      "source_license_decision",
+      "source_license_review_status",
+      "consent_form_path",
+      "consent_form_sha256",
+      "consent_version",
+      "signed_consent_evidence_path",
+      "signed_consent_evidence_sha256",
+      "collection_plan_path",
+      "collection_plan_sha256",
+      "collection_assignment_key",
+      "capture_condition_evidence",
+      "raw_clip_local_path",
+      "raw_clip_sha256"
+    ],
+    "forbidden_row_payloads": [
+      "pretrained detector outputs",
+      "pretrained landmark outputs",
+      "pretrained feature or embedding outputs",
+      "teacher-model outputs",
+      "generated labels",
+      "pseudo-labels",
+      "unreviewed absence labels",
+      "raw learner practice video captured outside an explicit dataset collection session"
+    ]
+  },
+  "split_policy_before_future_merge": {
+    "minimum_total_rows": 20,
+    "minimum_categories": [
+      "empty_camera_no_person_no_hands",
+      "normal_environment_no_hands_visible",
+      "low_light_no_hands_visible",
+      "off_center_no_hands_visible"
+    ],
+    "minimum_rows_per_category_total": 5,
+    "minimum_rows_per_category_by_split": {
+      "train": 3,
+      "validation": 1,
+      "test": 1
+    },
+    "minimum_rows_by_split": {
+      "train": 12,
+      "validation": 4,
+      "test": 4
+    },
+    "signer_split_policy": {
+      "train_validation_test_signer_overlap_allowed": false,
+      "required_signer_identity_hash_for_each_row": true,
+      "negative_challenge_signers_must_not_overlap_positive_test_signers_before_final_eval": true
+    },
+    "merge_rule": "Do not merge first-party negatives into a future Detector 0 training/evaluation packet until every row passes consent, provenance, absence-label review, no-pretrained attestation, split accounting, and hash checks."
+  },
+  "privacy_boundaries": {
+    "normal_practice_raw_video_upload_allowed": false,
+    "normal_practice_raw_video_persistence_allowed": false,
+    "durable_raw_learner_video_capture_allowed_by_this_contract": false,
+    "future_capture_requires_explicit_human_approval": true,
+    "future_capture_must_run_only_in_dataset_collection_mode": true,
+    "local_storage_boundary": "Raw clips, if later approved and captured, must remain in local project storage and must not be redistributed without separate written permission.",
+    "withdrawal_before_training": "Remove signer account records, consent records, signer registry records, clip metadata, and local raw clip files.",
+    "withdrawal_after_training": "Remove raw clips and collection metadata; retain derived artifacts only if derived-artifact retention was explicitly acknowledged before collection."
+  },
+  "no_pretrained_no_generated_label_attestation_requirements": {
+    "pretrained_components_must_be_empty": true,
+    "no_pretrained_detector_outputs_used": true,
+    "no_pretrained_landmark_outputs_used": true,
+    "no_pretrained_feature_or_embedding_outputs_used": true,
+    "no_pretrained_backbone_used": true,
+    "no_teacher_model_outputs_used": true,
+    "no_generated_labels_used": true,
+    "no_pseudo_labels_used": true,
+    "absence_labels_must_be_human_or_project_reviewed": true,
+    "attestation_required_per_row": true
+  },
+  "review_requirements_before_row_authority": {
+    "review_status_required": "approved_first_party_no_hand_negative_for_detector0",
+    "minimum_review_evidence": [
+      "operator capture-condition attestation",
+      "reviewer confirmation that no learned hand target is visible",
+      "reviewer confirmation that the category-specific condition is present",
+      "reviewer confirmation that no ASL prompt correctness label is being authored",
+      "reviewer confirmation that no pretrained/generated-label evidence was used",
+      "review timestamp and reviewer id",
+      "raw clip hash and frame/tensor hash after future decode"
+    ],
+    "row_must_remain_blocked_if": [
+      "consent evidence is missing or stale",
+      "raw clip hash is missing",
+      "capture condition is ambiguous",
+      "hands are visible in a strict no-hand row",
+      "split assignment is missing or violates signer-disjoint policy",
+      "review was performed from pretrained detector, landmark, feature, or teacher outputs",
+      "review status is anything other than approved"
+    ]
+  },
+  "m3ii_m3ij_integration_points": {
+    "m3ii_metric_contract": {
+      "path": "docs/model/return-to-form-detector0-negative-evaluation-metric-contract-v1.json",
+      "required_future_update": "A later metric-contract or evaluator-compatible packet slice must explicitly add first-party training-capable negatives without reclassifying M3IH validation-only rows."
+    },
+    "m3ij_harness": {
+      "path": "scripts/evaluate_detector0_negative_metrics.mjs",
+      "required_future_update": "A later harness-compatible artifact may score first-party negative rows only after their row family and source hashes are represented in a future prediction/evaluation contract."
+    },
+    "external_validation_role_retained": "M3IH rows remain external validation-only false-trigger challenge rows even after first-party negatives exist.",
+    "training_role_future_only": "First-party negatives may become training-capable only after a future capture packet plan and materialization receipt create reviewed rows."
+  },
+  "readiness_after_contract": {
+    "first_party_negative_capture_contract_written": true,
+    "first_party_capture_packet_plan_ready_to_write": true,
+    "first_party_negative_rows_available": false,
+    "ready_for_capture": false,
+    "ready_for_training": false,
+    "ready_for_real_evaluation": false,
+    "ready_for_export_or_promotion": false,
+    "ready_for_browser_activation": false,
+    "ready_for_final_gate_or_claim_expansion": false
+  },
+  "forbidden_action_proof": {
+    "no_raw_learner_video_capture_or_upload": true,
+    "no_brev_lifecycle": true,
+    "no_remote_commands": true,
+    "no_paid_compute_started": true,
+    "no_source_or_media_import": true,
+    "no_source_authority_addition": true,
+    "no_manifest_row_creation": true,
+    "no_label_authoring": true,
+    "no_generated_labels_or_pseudo_labels": true,
+    "no_tensor_generation_or_mutation": true,
+    "no_detector0_training": true,
+    "no_real_evaluation_run": true,
+    "no_trained_detector_invocation": true,
+    "no_export_or_promotion": true,
+    "no_browser_activation": true,
+    "no_final_gate_change": true,
+    "no_claim_expansion": true
+  },
+  "blockers": [
+    {
+      "blocker": "future_human_approval_required_before_capture",
+      "details": "This contract does not authorize durable raw learner video capture. A later capture packet plan and explicit human approval are required before any first-party no-hand media can be recorded."
+    },
+    {
+      "blocker": "first_party_negative_rows_absent",
+      "details": "No consented first-party no-hand rows, raw clip hashes, signed consent receipts, absence labels, decoded tensors, or reviewed packet rows exist yet."
+    },
+    {
+      "blocker": "metric_and_harness_extension_future_work",
+      "details": "M3II/M3IJ currently validate positive rows and M3IH validation-only negative rows. Future first-party negatives need an explicit packet/evaluation contract update before real evaluation."
+    }
+  ],
+  "exactly_one_next_action": "continue_m3il_detector0_first_party_negative_capture_packet_plan_no_brev"
+}

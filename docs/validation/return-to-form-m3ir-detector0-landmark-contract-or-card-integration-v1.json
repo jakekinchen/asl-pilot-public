@@ -1,0 +1,247 @@
+{
+  "schema_version": "asl-pilot-validation-receipt/v1",
+  "receipt_id": "return-to-form-m3ir-detector0-landmark-contract-or-card-integration-v1",
+  "mission": "M3IR - Detector 0 landmark contract or card integration",
+  "created_at": "2026-05-30T16:39:51Z",
+  "current_commit_at_start": "bacc6be observer: CONTINUE - m3iq to m3ir landmark integration",
+  "active_prompt": "docs/model/return-to-form-m3ir-detector0-landmark-contract-or-card-integration-goal-loop-prompt.md",
+  "status": "completed_target_contract_no_brev_no_training_no_promotion",
+  "chosen_slice": {
+    "slice_id": "region_hand_landmark_target_contract",
+    "prompt_option": 1,
+    "description": "Define the Detector 0 target contract for four coarse regions plus 21 hand landmarks per hand."
+  },
+  "changed_files": [
+    {
+      "path": "docs/model/return-to-form-detector0-region-hand-landmark-target-contract-v1.json",
+      "sha256": "19f592e5faa49f419470ef83582182e663a8ccc1fb9d66a22a193aa82b17759c",
+      "purpose": "Static M3IR Detector 0 region + hand-landmark target contract"
+    },
+    {
+      "path": "docs/validation/return-to-form-m3ir-detector0-landmark-contract-or-card-integration-v1.json",
+      "sha256": "self_hash_omitted_to_avoid_self_reference",
+      "purpose": "M3IR validation receipt"
+    },
+    {
+      "path": "docs/session-logs/811-mission-3ir-detector0-region-hand-landmark-target-contract.md",
+      "sha256": "b6e7ced50993bcba8e4fbffc5794e7ef9f86367d8c2f8dd48cf104f6f7fbc948",
+      "purpose": "M3IR numbered session log"
+    }
+  ],
+  "contract_summary": {
+    "contract_path": "docs/model/return-to-form-detector0-region-hand-landmark-target-contract-v1.json",
+    "contract_sha256": "19f592e5faa49f419470ef83582182e663a8ccc1fb9d66a22a193aa82b17759c",
+    "status": "contract_only_fail_closed_no_runtime_artifact",
+    "coarse_region_targets": [
+      "left_or_first_hand",
+      "right_or_second_hand",
+      "head_or_face",
+      "upper_body_or_signing_space"
+    ],
+    "hand_landmark_targets": {
+      "hands": [
+        "left_or_first_hand",
+        "right_or_second_hand"
+      ],
+      "landmark_count_per_hand": 21,
+      "landmark_coordinate_space": "normalized_expanded_signing_space_crop_top_left_xy",
+      "full_frame_mapping_requires_crop_box_xyxy_norm": true
+    },
+    "offline_label_provenance_disclosure": "targets offline-derived via MediaPipe Holistic; runtime uses only our scratch-trained model and is not a runtime dependency.",
+    "runtime_or_product_authority_granted": false
+  },
+  "source_evidence": {
+    "m3iq_policy_decision": {
+      "path": "DECISIONS.md",
+      "sha256": "82f9e70f4f84c4523d0a92d41f9cfeb93e9bcf505673eb7191aa302cc91ac72d"
+    },
+    "m3iq_receipt": {
+      "path": "docs/validation/return-to-form-m3iq-detector0-landmark-integration-v1.json",
+      "sha256": "61fbb09aa4ac2092ce254faeded8e8f72a1db6786caaa9081e51f4d638bd214e"
+    },
+    "m3iq_session_log": {
+      "path": "docs/session-logs/809-mission-3iq-detector0-offline-label-policy-decision-record.md",
+      "sha256": "39578a550d5fb96347731d0f7f18899ffa6581bc913bbaaad8da02c2d2a933f0"
+    },
+    "supervisor_side_worktree": {
+      "path": "/Users/kelly/Developer/asl-pilot-annotator",
+      "branch": "annotator-tool",
+      "head": "98d0944 detector0: hand-landmark model works (soft-argmax PCK 0.636, 2x baseline)",
+      "read_only": true,
+      "dirty_paths_observed_but_not_consumed_as_contract_inputs": [
+        "tools/detector0-annotator/train_hands_landmarks_heatmap.py",
+        ".labelvenv/",
+        "data/external/popsign-v1",
+        "tools/detector0-annotator/.cache-eval/"
+      ]
+    },
+    "supervisor_files": [
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/research/detector0-trained-evidence.md",
+        "sha256": "34bc2ade24badd1ddfeb79f0377b88b40b1853052b189c268bf2e675a89d47ef"
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/research/detector0-hand-push-findings.md",
+        "sha256": "f36dba70464bf6e06a8f2479d8ca32e912b99338643be21fdd2fefba00c4ffdd"
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/research/detector0-landmark-results.md",
+        "sha256": "be8faa81b53eb53e815e268caede1bf98e00d13950a323a8938ae8d5dda96f82"
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-grid-final.json",
+        "sha256": "4f0230ebc071fa09b8e618a379a95835c74b35719679d67af1f0626deb008cb1"
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-spec-eval.json",
+        "sha256": "66810d0e1c21b832a22ec1f20a0f38fd66e5abdaa11f5929a721513ba65077d9"
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-hand-landmarks-softargmax.json",
+        "sha256": "9f5b71f1af66eee02dd14e2cae7c15a9590db675c44a7ec804c5ee3da60ce2af"
+      }
+    ]
+  },
+  "diagnostic_evidence_snapshot": {
+    "data_scope": {
+      "frames": 18189,
+      "words": 95,
+      "coarse_region_input_px": 96,
+      "hand_landmark_crop_px": 128
+    },
+    "coarse_region_metrics": {
+      "head_or_face_recall_iou_0_30": 0.9838,
+      "upper_body_or_signing_space_recall_iou_0_30": 0.9987,
+      "left_or_first_hand_recall_iou_0_30": 0.8803,
+      "right_or_second_hand_recall_iou_0_30": 0.7821,
+      "mean_hand_iou": 0.5089
+    },
+    "hand_landmark_metrics": {
+      "left_or_first_hand_pck": 0.74,
+      "right_or_second_hand_pck": 0.5317,
+      "hand_pck": 0.6358,
+      "left_or_first_hand_mean_keypoint_error_crop_width": 0.0906,
+      "right_or_second_hand_mean_keypoint_error_crop_width": 0.147
+    },
+    "diagnostic_only": true,
+    "promotion_or_spec_pass_claim": false
+  },
+  "claim_surface_proof": {
+    "detector0_card": {
+      "path": "web/public/model/detector0-card.json",
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null,
+      "changed_by_this_slice": false
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "active_labels": [],
+      "changed_by_this_slice": false
+    },
+    "runtime_types_changed": false,
+    "browser_bundle_changed": false,
+    "recognition_enabled": false,
+    "detector0_tracking_enabled": false,
+    "box_driven_avatar_enabled": false,
+    "asl_correctness_claimed": false,
+    "final_gates_changed": false
+  },
+  "brev_read_only_inventory": {
+    "command": "brev ls --json",
+    "lifecycle_action_taken": false,
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ]
+  },
+  "command_statuses": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "branch compound-plan-m0 ahead of origin; worktree clean before edits"
+    },
+    {
+      "command": "git log -12 --oneline --decorate",
+      "status": "passed",
+      "summary": "HEAD at bacc6be observer: CONTINUE - m3iq to m3ir landmark integration"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_detector0_strict_gate_crop_contract.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/return-to-form-detector0-region-hand-landmark-target-contract-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3ir-detector0-landmark-contract-or-card-integration-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "brev ls --json",
+      "status": "passed_stopped_read_only"
+    },
+    {
+      "command": "git -C /Users/kelly/Developer/asl-pilot-annotator status --short --branch && git -C /Users/kelly/Developer/asl-pilot-annotator log -1 --oneline",
+      "status": "passed_read_only",
+      "summary": "side worktree branch annotator-tool at 98d0944; one modified script and untracked cache/data paths observed but not mutated"
+    },
+    {
+      "command": "jq <side-worktree detector receipts>",
+      "status": "passed_read_only",
+      "summary": "read detector0-grid-final.json, detector0-spec-eval.json, detector0-hand-landmarks-softargmax.json, and related summaries"
+    },
+    {
+      "command": "shasum -a 256 <side-worktree evidence and changed files>",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "forbidden_action_proof": {
+    "no_brev_lifecycle_or_remote_command": true,
+    "no_paid_compute_started": true,
+    "no_labeling_run": true,
+    "no_training_run": true,
+    "no_evaluation_run": true,
+    "no_source_or_media_import": true,
+    "no_side_worktree_mutation": true,
+    "no_runtime_type_change": true,
+    "no_model_card_promotion": true,
+    "no_export": true,
+    "no_browser_activation": true,
+    "no_final_gate_change": true,
+    "no_observer_only_redirect_decision_taken": true
+  },
+  "next_action": "continue_m3is_detector0_landmark_contract_or_card_followup"
+}

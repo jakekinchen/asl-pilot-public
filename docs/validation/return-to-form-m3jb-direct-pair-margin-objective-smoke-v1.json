@@ -1,0 +1,262 @@
+{
+  "schema_version": "asl-pilot-m3jb-direct-pair-margin-objective-smoke/v1",
+  "status": "direct_pair_margin_objective_smoke_passed_brev_full_scope_blocked_auth",
+  "checked_at": "2026-06-02T08:06:49Z",
+  "mission": "M3JB - Hierarchical hand-state tracker",
+  "purpose": "After the focused-sliver aug64 calibration audit proved oracle-compatible pairs are available but under-ranked, add a hard-negative margin objective to the direct PairRanker path and prove the implementation with local smoke before the uncapped Brev fit.",
+  "code": {
+    "path": "tools/detector0-annotator/train_hand_pair_ranker.py",
+    "sha256": "ed8696b2e6482c05687a6b997d59a02a0cd73638bb79f37b187f92bf9871d0cc",
+    "summary": "Added pair_ranker_margin_loss(...), optional pair-margin kwargs to listwise_loss(...), CLI flags --pair-ranker-margin-weight/--pair-ranker-margin/--pair-ranker-margin-positive-threshold, train-loop wiring, and receipt metadata for the direct pair-ranker objective."
+  },
+  "local_validation": [
+    {
+      "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_hand_pair_ranker.py",
+      "result": "passed"
+    },
+    {
+      "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --self-test",
+      "result": "passed: self-test ok: candidate head, cached candidate pack, listwise pair ranker, and pair-margin loss"
+    }
+  ],
+  "smoke_run": {
+    "status": "completed_local_diagnostic_only",
+    "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --train-subproposal-candidates --topk 40 --subproposal-source-topk 4 --subproposal-max-topk 16 --max-train-rows 32 --epochs 1 --batch-groups 16 --select-by-validation --eval-every 1 --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --candidate-feature-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --device mps --landmark-device mps --ranker-device cpu --target-temperature 0.05 --aux-bce-weight 0.3 --box-quality-target-weight 0.5 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 1.0 --hard-negative-bce-weight 3.0 --pair-ranker-margin-weight 0.5 --pair-ranker-margin 1.0 --pair-ranker-margin-positive-threshold 0.3 --out tools/detector0-annotator/output/m3jb-hand-pair-ranker-pairmargin-focusedsliver-src4-aug16-train32-e1-smoke-v1.json",
+    "scope_guard": "Train32/src4/aug16/1-epoch local smoke only. This verifies code, dataloaders, objective plumbing, validation selection, and receipt writing. It is not model-selection or gate evidence.",
+    "artifacts": {
+      "receipt": {
+        "path": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-pairmargin-focusedsliver-src4-aug16-train32-e1-smoke-v1.json",
+        "sha256": "8f9ef921a3a4245ac703558a721c6fa5dc3c91a991f9febacdb93ec22f528ecc"
+      },
+      "weights": {
+        "path": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-pairmargin-focusedsliver-src4-aug16-train32-e1-smoke-v1.pt",
+        "sha256": "2feffd6dd849d006473e60826a86fe31d2c3bc3780c08322bbd6314ff5c41c18"
+      }
+    },
+    "params": {
+      "topk": 16,
+      "base_topk": 40,
+      "subproposal_source_topk": 4,
+      "subproposal_max_topk": 16,
+      "max_train_rows": 32,
+      "epochs": 1,
+      "batch_groups": 16,
+      "target_temperature": 0.05,
+      "aux_bce_weight": 0.3,
+      "box_quality_target_weight": 0.5,
+      "slot_margin_target_weight": 0.1,
+      "hard_negative_target_penalty": 1.0,
+      "hard_negative_bce_weight": 3.0,
+      "pair_ranker_margin_weight": 0.5,
+      "pair_ranker_margin": 1.0,
+      "pair_ranker_margin_positive_threshold": 0.3,
+      "select_by_validation": true,
+      "eval_every": 1
+    },
+    "metrics": {
+      "validation_selected": {
+        "n": 2508,
+        "coverage": 0.42384370015948963,
+        "distinct_assigned_coverage": 0.4059011164274322,
+        "collapse_rate": 0.055422647527910686,
+        "coverage_failure_count": 1445,
+        "same_prediction_coverage_count": 45
+      },
+      "validation_oracle": {
+        "n": 2508,
+        "coverage": 0.7212918660287081,
+        "distinct_assigned_coverage": 0.7165071770334929,
+        "collapse_rate": 0.06818181818181818,
+        "coverage_failure_count": 699,
+        "same_prediction_coverage_count": 12
+      },
+      "real_twohand_selected": {
+        "n": 84,
+        "coverage": 0.6785714285714286,
+        "distinct_assigned_coverage": 0.20238095238095238,
+        "collapse_rate": 0.11904761904761904,
+        "coverage_failure_count": 27,
+        "same_prediction_coverage_count": 40
+      },
+      "real_twohand_oracle": {
+        "n": 84,
+        "coverage": 1.0,
+        "distinct_assigned_coverage": 0.8809523809523809,
+        "collapse_rate": 0.0,
+        "coverage_failure_count": 0,
+        "same_prediction_coverage_count": 10
+      }
+    },
+    "pair_counts": {
+      "train": {
+        "groups": 32,
+        "pairs": 3840,
+        "positive_pairs": 336,
+        "hard_negative_pairs": 14,
+        "groups_with_positive_pair": 32
+      },
+      "real_twohand": {
+        "groups": 84,
+        "pairs": 10080,
+        "positive_pairs": 377,
+        "hard_negative_pairs": 558,
+        "groups_with_positive_pair": 74
+      }
+    }
+  },
+  "brev_status_check": {
+    "status": "blocked_logged_out",
+    "checked_at": "2026-06-02T08:06:49Z",
+    "cwd": "/Users/kelly/Developer/asl-pilot",
+    "command": "brev ls --json",
+    "exit_code": 1,
+    "observed_output_summary": "Brev prompted: You are currently logged out, would you like to log in? [Y/n], then exited with EOF from GetFreshAccessTokenOrLogin/PromptForLogin.",
+    "effect": "The uncapped src8/aug64, --max-train-rows 0 Brev fit was not started in this slice."
+  },
+  "brev_login_attempt": {
+    "status": "blocked_waiting_for_browser_login",
+    "checked_at": "2026-06-02T08:01:10Z",
+    "cwd": "/Users/kelly/Developer/asl-pilot",
+    "command": "brev login",
+    "observed_output_summary": "The CLI started login for jakekinchen@gmail.com, accepted Enter to continue, then waited for login to complete in browser. It did not complete during the polling window and was interrupted with Ctrl-C so no background auth process remained.",
+    "exit_code_after_interrupt": 1,
+    "next_human_action": "Complete `brev login` in the browser, then confirm with `brev ls --json` before starting or creating any GPU worker."
+  },
+  "prepared_full_scope_brev_run": {
+    "status": "prepared_not_started",
+    "worker_preference": {
+      "preferred_existing_worker_name": "asl-pilot-m3eh-l40s-001",
+      "preferred_existing_worker_id": "3d58wpy9o",
+      "preferred_type": "l40s-48gb.1x",
+      "fallback": "If the retained worker is missing or unhealthy after auth, create or select an equivalent NVIDIA worker with enough memory for the full src8/aug64 run; do not reduce scope for local convenience."
+    },
+    "remote_project_root": "/home/ubuntu/asl-pilot",
+    "side_worktree_source": "/Users/kelly/Developer/asl-pilot-annotator",
+    "expected_remote_script_sha256": "ed8696b2e6482c05687a6b997d59a02a0cd73638bb79f37b187f92bf9871d0cc",
+    "expected_scope": {
+      "max_train_rows": 0,
+      "train_groups_expected": 2535,
+      "train_pairs_expected": 5110560,
+      "subproposal_source_topk": 8,
+      "subproposal_max_topk": 64,
+      "epochs": 36,
+      "batch_groups": 512,
+      "devices": {
+        "coarse": "cuda",
+        "landmark": "cuda",
+        "ranker": "cuda"
+      },
+      "pair_ranker_margin_weight": 0.5,
+      "pair_ranker_margin": 1.0,
+      "pair_ranker_margin_positive_threshold": 0.3
+    },
+    "prepared_commands": [
+      {
+        "step": "login",
+        "cwd": "/Users/kelly/Developer/asl-pilot",
+        "command": "brev login",
+        "purpose": "Refresh Brev auth in browser before any lifecycle or spend command."
+      },
+      {
+        "step": "instance_visibility",
+        "cwd": "/Users/kelly/Developer/asl-pilot",
+        "command": "brev ls --json",
+        "purpose": "Verify auth, worker state, duplicate-worker risk, and cost state."
+      },
+      {
+        "step": "start_preferred_worker_if_stopped",
+        "cwd": "/Users/kelly/Developer/asl-pilot",
+        "command": "brev start asl-pilot-m3eh-l40s-001",
+        "purpose": "Start the retained L40S worker only after visibility proves it is stopped or otherwise safe to start."
+      },
+      {
+        "step": "remote_safety_probe",
+        "cwd": "/Users/kelly/Developer/asl-pilot",
+        "command": "timeout 600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && nvidia-smi --query-gpu=name,memory.total,memory.used,utilization.gpu --format=csv,noheader && .venv/bin/python - <<'PY'\nimport torch\nprint('torch', torch.__version__)\nprint('cuda_available', torch.cuda.is_available())\nprint('cuda_device_count', torch.cuda.device_count())\nPY\nps -eo pid,etime,pcpu,pmem,args | egrep 'train_hand_pair_ranker|python|torch|tmux|screen' | grep -v egrep || true\"",
+        "purpose": "Prove CUDA surface and that no old trainer is running before sync or fitting."
+      },
+      {
+        "step": "sync_main_repo_light",
+        "cwd": "/Users/kelly/Developer/asl-pilot",
+        "command": "BREV_SYNC_TRAINING_DATA=0 bash scripts/brev_sync_repo.sh asl-pilot-m3eh-l40s-001 /home/ubuntu/asl-pilot",
+        "purpose": "Refresh repo scripts/docs without syncing unrelated rawframe training data."
+      },
+      {
+        "step": "sync_side_bundle",
+        "cwd": "/Users/kelly/Developer/asl-pilot",
+        "command": "ssh -F /Users/kelly/.brev/ssh_config -o RequestTTY=no asl-pilot-m3eh-l40s-001 \"mkdir -p /home/ubuntu/asl-pilot/tools/detector0-annotator/.cache /home/ubuntu/asl-pilot/tools/detector0-annotator/output\" && rsync -avz /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hand_pair_ranker.py asl-pilot-m3eh-l40s-001:/home/ubuntu/asl-pilot/tools/detector0-annotator/ && rsync -avz /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3ja-hands2-twohand-plus-big2real-v1 /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/autolabel-big /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features asl-pilot-m3eh-l40s-001:/home/ubuntu/asl-pilot/tools/detector0-annotator/.cache/ && rsync -avz /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.pt /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt asl-pilot-m3eh-l40s-001:/home/ubuntu/asl-pilot/tools/detector0-annotator/output/",
+        "purpose": "Refresh the side-worktree trainer, train/eval caches, focused-sliver candidate/feature caches, and required detector/landmark weights."
+      },
+      {
+        "step": "remote_validation_gate",
+        "cwd": "/Users/kelly/Developer/asl-pilot",
+        "command": "timeout 900s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && sha256sum tools/detector0-annotator/train_hand_pair_ranker.py tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.pt tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt && env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile tools/detector0-annotator/train_hand_pair_ranker.py && env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --self-test\"",
+        "purpose": "Fail before training if the remote script or dependencies are stale."
+      },
+      {
+        "step": "full_scope_train",
+        "cwd": "/Users/kelly/Developer/asl-pilot",
+        "command": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --train-subproposal-candidates --topk 40 --subproposal-source-topk 8 --subproposal-max-topk 64 --max-train-rows 0 --epochs 36 --batch-groups 512 --select-by-validation --eval-every 3 --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --candidate-feature-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --device cuda --landmark-device cuda --ranker-device cuda --target-temperature 0.05 --aux-bce-weight 0.3 --box-quality-target-weight 0.5 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 1.0 --hard-negative-bce-weight 3.0 --pair-ranker-margin-weight 0.5 --pair-ranker-margin 1.0 --pair-ranker-margin-positive-threshold 0.3 --out tools/detector0-annotator/output/m3jb-hand-pair-ranker-pairmargin-focusedsliver-directpair-croppose-top40-src8-aug64-fulltrain-e36-brev-v1.json\"",
+        "purpose": "Run the uncapped full-scope direct pair-margin objective on NVIDIA compute."
+      },
+      {
+        "step": "remote_hash_and_process_check",
+        "cwd": "/Users/kelly/Developer/asl-pilot",
+        "command": "timeout 900s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && sha256sum tools/detector0-annotator/output/m3jb-hand-pair-ranker-pairmargin-focusedsliver-directpair-croppose-top40-src8-aug64-fulltrain-e36-brev-v1.json tools/detector0-annotator/output/m3jb-hand-pair-ranker-pairmargin-focusedsliver-directpair-croppose-top40-src8-aug64-fulltrain-e36-brev-v1.pt && ps -eo pid,etime,pcpu,pmem,args | egrep 'train_hand_pair_ranker|python|torch|tmux|screen' | grep -v egrep || true\"",
+        "purpose": "Record remote artifact hashes and prove no lingering trainer before copyback/cleanup."
+      },
+      {
+        "step": "copyback",
+        "cwd": "/Users/kelly/Developer/asl-pilot",
+        "command": "brev copy asl-pilot-m3eh-l40s-001:/home/ubuntu/asl-pilot/tools/detector0-annotator/output/m3jb-hand-pair-ranker-pairmargin-focusedsliver-directpair-croppose-top40-src8-aug64-fulltrain-e36-brev-v1.json /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/ && brev copy asl-pilot-m3eh-l40s-001:/home/ubuntu/asl-pilot/tools/detector0-annotator/output/m3jb-hand-pair-ranker-pairmargin-focusedsliver-directpair-croppose-top40-src8-aug64-fulltrain-e36-brev-v1.pt /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/",
+        "purpose": "Copy the full-scope JSON/PT artifacts back to the side worktree."
+      },
+      {
+        "step": "local_hash_verify",
+        "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+        "command": "shasum -a 256 tools/detector0-annotator/output/m3jb-hand-pair-ranker-pairmargin-focusedsliver-directpair-croppose-top40-src8-aug64-fulltrain-e36-brev-v1.json tools/detector0-annotator/output/m3jb-hand-pair-ranker-pairmargin-focusedsliver-directpair-croppose-top40-src8-aug64-fulltrain-e36-brev-v1.pt && jq '{params, pair_counts: .pair_counts.train, real_twohand: .real_twohand | {selected: .selected | {coverage, distinct_assigned_coverage, collapse_rate, n}, oracle: .oracle | {coverage, distinct_assigned_coverage, collapse_rate, n}}}' tools/detector0-annotator/output/m3jb-hand-pair-ranker-pairmargin-focusedsliver-directpair-croppose-top40-src8-aug64-fulltrain-e36-brev-v1.json",
+        "purpose": "Verify local copyback hashes and summarize the decisive metrics."
+      },
+      {
+        "step": "cleanup",
+        "cwd": "/Users/kelly/Developer/asl-pilot",
+        "command": "brev stop asl-pilot-m3eh-l40s-001 && sleep 20 && brev ls --json",
+        "purpose": "Stop the worker after copyback and verify cost state."
+      }
+    ],
+    "remote_artifacts_expected": {
+      "receipt": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-pairmargin-focusedsliver-directpair-croppose-top40-src8-aug64-fulltrain-e36-brev-v1.json",
+      "weights": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-pairmargin-focusedsliver-directpair-croppose-top40-src8-aug64-fulltrain-e36-brev-v1.pt"
+    },
+    "not_gate_evidence_until": "The full-scope receipt/weights are copied back, hashes are verified, metrics are recorded, and canonical audit is refreshed."
+  },
+  "runtime_boundary": {
+    "local_training_run": true,
+    "local_training_scope": "smoke_only_train32_src4_aug16_e1",
+    "full_scope_brev_training_run": false,
+    "checkpoint_written": true,
+    "checkpoint_promoted": false,
+    "browser_exported": false,
+    "model_card_promoted": false,
+    "mediapipe_runtime_dependency": false,
+    "raw_learner_video_uploaded": false
+  },
+  "selection": {
+    "gate_status": "not_gate_passing_smoke_only",
+    "required_distinct_assigned_coverage": 0.98,
+    "focused_sliver_oracle_distinct_assigned_coverage": 1.0,
+    "smoke_real_twohand_selected_distinct_assigned_coverage": 0.20238095238095238,
+    "reason": "The implementation is green and receipt-producing, but the smoke is intentionally tiny and cannot substitute for uncapped Brev evidence."
+  },
+  "next_action": "refresh_brev_auth_then_run_uncapped_m3jb_direct_pair_margin_objective_on_brev",
+  "blocked_audit": {
+    "status": "repeated_external_brev_auth_blocker",
+    "checked_at": "2026-06-02T08:06:49Z",
+    "consecutive_goal_turns_observed": 3,
+    "repeated_condition": "Brev CLI remains logged out; brev ls --json exits at the login prompt, and prior explicit brev login waited for browser completion.",
+    "meaningful_progress_remaining_without_external_state_change": false,
+    "required_external_state_change": "Complete Brev browser login, then verify with brev ls --json before launching prepared full-scope run."
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "schema_version": "asl-pilot-m3jb-brev-readiness-refresh/v1",
+  "receipt_id": "return-to-form-m3jb-brev-readiness-refresh-v1",
+  "mission": "M3JB - Hierarchical hand-state tracker",
+  "active_tracker_next_action": "await_explicit_brev_spend_approval_then_launch_landmark_retrain_brev_plan",
+  "status": "passed_read_only_brev_visibility_launch_blocked_pending_approval",
+  "checked_at": "2026-06-03T00:25:47Z",
+  "source_of_truth": {
+    "goal": "GOAL.md",
+    "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+    "tracker_receipt": "docs/validation/return-to-form-m3jb-hierarchical-hand-state-tracker-v1.json",
+    "approval_gated_retrain_plan": "docs/validation/return-to-form-m3jb-landmark-retrain-brev-plan-v1.json",
+    "local_preflight": "docs/validation/return-to-form-m3jb-landmark-retrain-local-preflight-v1.json"
+  },
+  "approval_state": {
+    "current_thread_explicit_brev_spend_approval": false,
+    "effective_launch_allowed_now": false,
+    "blocked_commands_not_run": [
+      "brev exec",
+      "brev copy",
+      "brev sync",
+      "brev stop",
+      "brev start",
+      "worker creation",
+      "ssh",
+      "rsync",
+      "remote training",
+      "remote eval-only PCK measurement"
+    ]
+  },
+  "plan_match": {
+    "planned_instance": "asl-pilot-m3eh-l40s-001",
+    "planned_instance_id": "3d58wpy9o",
+    "planned_instance_type": "l40s-48gb.1x",
+    "planned_gpu": "L40S",
+    "planned_remote_project_root": "/home/ubuntu/asl-pilot",
+    "planned_device": "cuda",
+    "selected_worker_matches_plan": true
+  },
+  "read_only_brev_visibility": {
+    "command": "brev ls --json > /tmp/m3jb-brev-ls-899.json",
+    "status": "passed",
+    "visibility_only": true,
+    "launch_or_lifecycle_action": false,
+    "workspace_count": 2,
+    "selected_worker": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "status": "RUNNING",
+      "build_status": "COMPLETED",
+      "shell_status": "READY",
+      "health_status": "HEALTHY",
+      "instance_type": "l40s-48gb.1x",
+      "instance_kind": "gpu",
+      "gpu": "L40S"
+    },
+    "other_workers": [
+      {
+        "name": "asl-pilot-m3jb-pairrank-l40s-001",
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "build_status": "",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ],
+    "worker_readiness_for_approved_launch": true,
+    "caveat": "This is local Brev workspace visibility only. It does not verify remote checkout contents, sync side-worktree trainer/cache files, start a process, or prove CUDA/runtime preflight on the worker."
+  },
+  "actual_launch": {
+    "planned_command": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1 --epochs 80 --batch 512 --eval-batch 1024 --lr 5e-4 --device cuda --seed 0 --pck 0.10 --sigma 1.5 --heatmap-g 32 --width 64 --heatmap-ce-weight 0.05 --filter-train-quality --quality-exclude-oob --quality-min-gradient 0.012 --quality-min-contrast 0.10 --eval-every 5 --out tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1.json\"",
+    "status": "not_run",
+    "reason": "The live tracker next action remains explicit current-thread Brev/GPU spend approval before launching the recorded plan."
+  },
+  "commands_run_this_slice": [
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json >/tmp/m3jb-premise-899-pre.json",
+      "status": "passed",
+      "purpose": "confirmed the live premise before refreshing Brev visibility"
+    },
+    {
+      "command": "node scripts/audit_m3jb_hand_state_tracker.mjs --json >/tmp/m3jb-audit-899-pre.json",
+      "status": "passed",
+      "purpose": "confirmed the tracker still points at the approval-gated landmark retrain next action"
+    },
+    {
+      "command": "node scripts/audit_codex_pair_state.mjs --json >/tmp/m3jb-pair-state-899-pre.json",
+      "status": "warning",
+      "purpose": "captured current pair-loop state before the no-spend Brev visibility refresh"
+    },
+    {
+      "command": "brev ls --json > /tmp/m3jb-brev-ls-899.json",
+      "status": "passed",
+      "purpose": "refreshed read-only Brev workspace visibility without lifecycle or spend action"
+    }
+  ],
+  "runtime_boundary": {
+    "read_only_brev_visibility_only": true,
+    "brev_exec_or_copy": false,
+    "brev_sync": false,
+    "brev_lifecycle_action": false,
+    "worker_created": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "eval_only_pck_run": false,
+    "optimizer_or_backward": false,
+    "checkpoint_written": false,
+    "browser_runtime_dependency_added": false,
+    "browser_artifact_promoted": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false
+  },
+  "claim_boundary": "This receipt proves only that read-only Brev workspace visibility was refreshed and the preferred retained worker was RUNNING/READY/HEALTHY when checked. It does not approve or launch Brev spend, sync remote files, verify remote checkout contents, train a model, run eval-only PCK, produce checkpoints, prove PCK movement, prove landmark gate passage, or change browser/runtime behavior.",
+  "next_action": "await_explicit_brev_spend_approval_then_launch_landmark_retrain_brev_plan"
+}

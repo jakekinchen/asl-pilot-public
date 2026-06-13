@@ -1,0 +1,790 @@
+{
+  "active_prompt": "docs/model/return-to-form-popsign-fresh5-split-source-quality-contract-goal-loop-prompt.md",
+  "collapsed_class_stop_conditions": {
+    "source_evidence": {
+      "m3cj_train_all_lr003": {
+        "passes_targets": false,
+        "per_class_recall": {
+          "home": 0.0,
+          "morning": 0.0,
+          "pen": 1.0,
+          "thank_you": 0.0,
+          "who": 0.0
+        },
+        "predicted_single_class": "pen",
+        "test_macro_f1": 0.06666666666666668,
+        "test_top1_accuracy": 0.2
+      },
+      "m3ck_tiny_trainfit_final_accuracy": 1.0
+    },
+    "stop_if_any_future_train_all": [
+      {
+        "condition": "test_top1_accuracy_lte_chance_and_macro_f1_lte_m3cj",
+        "required_action": "stop_for_label_source_quality_review_before_brev_or_export",
+        "threshold": {
+          "test_macro_f1_lte": 0.06666666666666668,
+          "test_top1_accuracy_lte": 0.2
+        }
+      },
+      {
+        "condition": "single_class_prediction_collapse",
+        "required_action": "stop_for_label_source_quality_review_before_brev_or_export",
+        "threshold": {
+          "non_collapsed_label_recall_equals": 0.0,
+          "predicted_single_class_present": true
+        }
+      },
+      {
+        "condition": "pen_collapse_repeats",
+        "required_action": "review_pen_and_non_pen_source_label_quality_before_more_training",
+        "threshold": {
+          "home_morning_thank_you_who_recall_equals": 0.0,
+          "predicted_single_class": "pen"
+        }
+      },
+      {
+        "condition": "thank_you_absorption_repeats",
+        "required_action": "review_thank_you_source_label_quality_before_more_training",
+        "threshold": {
+          "thank_you_prediction_fraction_gte": 0.4
+        }
+      }
+    ]
+  },
+  "decision": {
+    "bounded_local_train_all_justified_now": false,
+    "brev_compute_receipt_justified_now": false,
+    "contract_complete": true,
+    "exactly_one_next_action": "continue_label_quality_review_packet_no_mutation",
+    "human_scope_budget_source_decision_required_now": false,
+    "label_quality_review_packet_justified_now": true,
+    "next_action_rationale": "The contract clears split/source/signer/tensor gates but preserves pen and thank_you as priority source-quality risks after M3CJ collapse. A no-mutation label-quality review packet is the smallest next action before any local train-all rerun or Brev compute receipt.",
+    "training_compute_receipt_justified_now": false
+  },
+  "exactly_one_next_action": "continue_label_quality_review_packet_no_mutation",
+  "future_training_or_compute_contract": {
+    "bounded_local_train_all_justified_now": false,
+    "brev_compute_receipt_justified_now": false,
+    "evidence_for_label_quality_review_instead_of_more_training": {
+      "m3cj_train_all_lr003": {
+        "passes_targets": false,
+        "per_class_recall": {
+          "home": 0.0,
+          "morning": 0.0,
+          "pen": 1.0,
+          "thank_you": 0.0,
+          "who": 0.0
+        },
+        "predicted_single_class": "pen",
+        "selected_threshold": 1.0,
+        "test_false_pass_rate": 0.0,
+        "test_macro_f1": 0.06666666666666668,
+        "test_top1_accuracy": 0.2
+      },
+      "m3ck_tiny_trainfit_passed": true,
+      "m3cl_bounded_local_train_all_justified_now": false,
+      "m3cl_remaining_failure_more_likely_per_label_quality": true,
+      "m3cl_remaining_failure_more_likely_split_source_signer_distribution": true
+    },
+    "future_local_train_all_must_prove": {
+      "must_improve_over_m3cj": {
+        "no_zero_recall_selected_labels": true,
+        "prediction_distribution_not_single_class": true,
+        "test_macro_f1_gt": 0.06666666666666668,
+        "test_top1_accuracy_gt": 0.2,
+        "validation_accuracy_not_flat_chance": true
+      },
+      "must_preserve": [
+        "approved PopSign source lane",
+        "train/validation/test source split boundaries",
+        "strict cross-split clip/source-record/signer/tensor disjointness",
+        "rgb_regions_grid_v1 region-axis input",
+        "random initialization with no pretrained CV/sign/landmark/model dependency",
+        "fail-closed browser/model-card/final-claim state"
+      ],
+      "same_architecture_lane": "scratch_region_temporal_late_fusion_tcn_contract_v1",
+      "same_manifest_package": "return-to-form-popsign-fresh5-repaired-v1",
+      "same_required_input_contract": "rgb_regions_grid_v1"
+    },
+    "human_decision_triggers": [
+      "Any label-quality review that finds ambiguous ASL correctness, regional-variant mismatch, or source-label mismatch.",
+      "Any source/register approval expansion, source import, label-set expansion, or annotation rewrite.",
+      "Any Brev command, paid compute, remote lifecycle change, or max-spend change.",
+      "Any export, browser activation, model-card promotion, final gate change, or ASL correctness claim."
+    ],
+    "label_quality_review_packet_justified_now": true,
+    "reason": "Current evidence clears label counts, tensor coverage, leakage, and tiny train-fit connectivity, but the only train-all evidence still collapses to pen at chance accuracy. The next useful slice is a no-mutation label/source-quality review packet, not another fitting run or Brev compute plan."
+  },
+  "generated_at": "2026-05-28T01:26:18.708142+00:00",
+  "generated_by": {
+    "command": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/build_popsign_fresh5_split_source_quality_contract.py",
+      "--receipt",
+      "docs/validation/return-to-form-popsign-fresh5-split-source-quality-contract-v1.json",
+      "--write-receipt"
+    ],
+    "script": {
+      "path": "scripts/build_popsign_fresh5_split_source_quality_contract.py",
+      "sha256": "ab5e1ce6d6327d40107b5650c19831d47cc9ce80204d3cbaca5657aeef92fd75"
+    },
+    "tool": "scripts/build_popsign_fresh5_split_source_quality_contract.py"
+  },
+  "guardrails": {
+    "backward_pass": false,
+    "brev_command_run": false,
+    "brev_spend": false,
+    "brev_worker_lifecycle_changed": false,
+    "browser_activation": false,
+    "checkpoint_created": false,
+    "export": false,
+    "final_gate_change": false,
+    "fitting": false,
+    "manifest_mutation": false,
+    "model_card_promotion": false,
+    "optimizer_step": false,
+    "pretrained_components": [],
+    "push": false,
+    "remote_command": false,
+    "source_import_or_media_download": false,
+    "source_register_mutation": false,
+    "tensor_mutation": false,
+    "tiny_overfit_rerun": false,
+    "training_run": false,
+    "unsupported_claim": false
+  },
+  "input_artifacts": {
+    "active_module_vocabulary_review": {
+      "path": "data/active-module/active-module-vocabulary-review.json",
+      "sha256": "7bc269d45a26b9b36cd111587e66663d57f5683626500b889c2b029725968481"
+    },
+    "active_prompt": {
+      "path": "docs/model/return-to-form-popsign-fresh5-split-source-quality-contract-goal-loop-prompt.md",
+      "sha256": "d012b3e84d4ab88585d04d66e37bf860dc156e81fe479da32bbb4c22e148bf6b"
+    },
+    "goal": {
+      "path": "GOAL.md",
+      "sha256": "8950615e0fa1e87697662446e71b080b1309c8c20eb3cb56420e3c2e9e21f7c1"
+    },
+    "m3bx_vocab_split_remediation": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-vocab-split-remediation-v1.json",
+      "sha256": "264819c3d687720b113af1f689b5d069084a76e5f4129cbf21e5a55784716b8b"
+    },
+    "m3by_repaired_manifest_contract": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-repaired-manifest-contract-v1.json",
+      "sha256": "97d92a052d6cd3740784102f6e999c86ec33d017877aad4b92aee5b44791d965"
+    },
+    "m3bz_repaired_manifest_materialization": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-repaired-manifest-materialization-v1.json",
+      "sha256": "a0ed38cf94affb0c4e20fac829c1370c1f65f7583cadd9923886663e6bfbe014"
+    },
+    "m3ca_learnability_isolation_probe": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-learnability-isolation-probe-v1.json",
+      "sha256": "eb9e70f5b70d0ebd8808e10ee0ad961901ad2dfb8b89e9580fbd0fd84a015831"
+    },
+    "m3ci_evaluation_invocation_contract": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-evaluation-invocation-contract-fix-v1.json",
+      "sha256": "6fe02154da6bf374dcf3e7227657ee491ac0790a3420f24da9cfbaaafc077b3c"
+    },
+    "m3cj_local_train_eval_sanity": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-local-train-eval-sanity-v1.json",
+      "sha256": "2e39eae2eba0709b40a26d16c81a35586149048a543dce6ae7ad403284e561dc"
+    },
+    "m3ck_architecture_input_microprobe": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-architecture-input-microprobe-v1.json",
+      "sha256": "487be592b2e58b2ba05514d783d67b6cf1121513419d84c2104982aa112df08c"
+    },
+    "m3cl_data_split_label_distribution_audit": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-data-split-label-distribution-audit-v1.json",
+      "sha256": "4b56cdfa91658eca5443fecb040c3d1fc60871fdbe772185db64475bd3b84f57"
+    },
+    "manifest_contract": {
+      "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/manifest-contract.json",
+      "sha256": "38e8e1b8663e0e360fd9b8284bad9a5f08dd7fa00d236ec50fecfb87c8c9ce4a"
+    },
+    "return_to_form_plan": {
+      "path": "docs/model/return-to-form-plan.md",
+      "sha256": "cb802b934611f27bd66764bbcfaeb9729041a438a4f2b245448dc9e375217ab8"
+    },
+    "source_register": {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    "test_manifest": {
+      "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json",
+      "sha256": "07a67651bcd38c6cff90d433ad2e18f84d905291ebb90760665c03678b75592c"
+    },
+    "train_manifest": {
+      "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json",
+      "sha256": "f84b8eec2ee3b5f29118518caf42b64636f231acd39864ad0363729c96365a16"
+    },
+    "validation_manifest": {
+      "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json",
+      "sha256": "090b40ec70775e96fb81450feb6a5e9960f93175dfda4c2ae9087b0b970cb04a"
+    }
+  },
+  "mission": "Mission 3CM - PopSign fresh5 split/source quality contract",
+  "per_label_source_quality_contract": [
+    {
+      "contract_stop_conditions": [
+        "Stop before local rerun/Brev/export if this label has zero recall under any repeated single-class collapse."
+      ],
+      "current_assessment": "M3CJ lr003 had zero recall under pen collapse despite balanced support.",
+      "label_id": "home",
+      "label_quality_review_required_before_more_training": false,
+      "m3bx_risk_flags": [
+        "low_test_recall",
+        "thank_you_absorption"
+      ],
+      "m3ca_stop_condition": null,
+      "m3cj_train_all_lr003_predicted_single_class": "pen",
+      "m3cj_train_all_lr003_recall": 0.0,
+      "m3ck_tiny_trainfit_recall": 1.0,
+      "priority": "normal",
+      "source_sign_slug_counts_by_split": {
+        "test": {
+          "home": 25
+        },
+        "train": {
+          "home": 25
+        },
+        "validation": {
+          "home": 25
+        }
+      },
+      "split_clip_counts": {
+        "test": 25,
+        "train": 25,
+        "validation": 25
+      },
+      "split_signer_identity_hash_counts": {
+        "test": 7,
+        "train": 18,
+        "validation": 8
+      },
+      "top_signer_fraction_by_split": {
+        "test": 0.2,
+        "train": 0.16,
+        "validation": 0.24
+      }
+    },
+    {
+      "contract_stop_conditions": [
+        "Stop before local rerun/Brev/export if this label has zero recall under any repeated single-class collapse."
+      ],
+      "current_assessment": "M3CJ lr003 had zero recall under pen collapse despite balanced support.",
+      "label_id": "morning",
+      "label_quality_review_required_before_more_training": false,
+      "m3bx_risk_flags": [
+        "thank_you_absorption"
+      ],
+      "m3ca_stop_condition": null,
+      "m3cj_train_all_lr003_predicted_single_class": "pen",
+      "m3cj_train_all_lr003_recall": 0.0,
+      "m3ck_tiny_trainfit_recall": 1.0,
+      "priority": "normal",
+      "source_sign_slug_counts_by_split": {
+        "test": {
+          "morning": 25
+        },
+        "train": {
+          "morning": 25
+        },
+        "validation": {
+          "morning": 25
+        }
+      },
+      "split_clip_counts": {
+        "test": 25,
+        "train": 25,
+        "validation": 25
+      },
+      "split_signer_identity_hash_counts": {
+        "test": 8,
+        "train": 15,
+        "validation": 7
+      },
+      "top_signer_fraction_by_split": {
+        "test": 0.2,
+        "train": 0.12,
+        "validation": 0.2
+      }
+    },
+    {
+      "contract_stop_conditions": [
+        "Stop before local rerun/Brev/export if pen remains the single predicted class while non-pen recall is zero.",
+        "Stop before local rerun/Brev/export if pen recall remains near historical 0.04 on held-out evaluation.",
+        "Review pen source clips and annotations because it moved from historical under-recognition to M3CJ collapse target."
+      ],
+      "current_assessment": "M3CJ collapsed to pen, reversing the older low-pen-recall symptom; this is not label-count imbalance and should be checked as split/source-quality or training distribution behavior before more compute.",
+      "label_id": "pen",
+      "label_quality_review_required_before_more_training": true,
+      "m3bx_risk_flags": [
+        "low_test_recall",
+        "thank_you_absorption"
+      ],
+      "m3ca_stop_condition": {
+        "cleared": false,
+        "confusion_row_true_label": {
+          "home": 14,
+          "morning": 7,
+          "pen": 1,
+          "thank_you": 1,
+          "who": 2
+        },
+        "m3bu_test_recall": 0.04,
+        "m3ca_test_recall": 0.04,
+        "required_recall_gte": 0.2
+      },
+      "m3cj_train_all_lr003_predicted_single_class": "pen",
+      "m3cj_train_all_lr003_recall": 1.0,
+      "m3ck_tiny_trainfit_recall": 1.0,
+      "priority": "highest",
+      "source_sign_slug_counts_by_split": {
+        "test": {
+          "pen": 25
+        },
+        "train": {
+          "pen": 25
+        },
+        "validation": {
+          "pen": 25
+        }
+      },
+      "split_clip_counts": {
+        "test": 25,
+        "train": 25,
+        "validation": 25
+      },
+      "split_signer_identity_hash_counts": {
+        "test": 8,
+        "train": 14,
+        "validation": 6
+      },
+      "top_signer_fraction_by_split": {
+        "test": 0.24,
+        "train": 0.2,
+        "validation": 0.36
+      }
+    },
+    {
+      "contract_stop_conditions": [
+        "Stop before local rerun/Brev/export if thank_you again absorbs more than 0.4 of held-out predictions.",
+        "Review thank_you source slug normalization because manifests use source slug thankyou for label thank_you.",
+        "Carry the M3BW overprediction risk even though the M3CA thank_you stop condition was cleared."
+      ],
+      "current_assessment": "Older thank_you overprediction risk remains historical; M3CA stop condition cleared=True, while M3CJ lr003 recall is 0.0 under pen collapse.",
+      "label_id": "thank_you",
+      "label_quality_review_required_before_more_training": true,
+      "m3bx_risk_flags": [
+        "overpredicted_confuser"
+      ],
+      "m3ca_stop_condition": {
+        "cleared": true,
+        "confusion_row_true_label": {
+          "home": 12,
+          "morning": 9,
+          "pen": 1,
+          "thank_you": 1,
+          "who": 2
+        },
+        "m3bw_prediction_fraction": 0.568,
+        "m3ca_test_prediction_fraction": 0.048,
+        "required_prediction_fraction_lte": 0.4
+      },
+      "m3cj_train_all_lr003_predicted_single_class": "pen",
+      "m3cj_train_all_lr003_recall": 0.0,
+      "m3ck_tiny_trainfit_recall": 1.0,
+      "priority": "high",
+      "source_sign_slug_counts_by_split": {
+        "test": {
+          "thankyou": 25
+        },
+        "train": {
+          "thankyou": 25
+        },
+        "validation": {
+          "thankyou": 25
+        }
+      },
+      "split_clip_counts": {
+        "test": 25,
+        "train": 25,
+        "validation": 25
+      },
+      "split_signer_identity_hash_counts": {
+        "test": 8,
+        "train": 18,
+        "validation": 8
+      },
+      "top_signer_fraction_by_split": {
+        "test": 0.24,
+        "train": 0.12,
+        "validation": 0.24
+      }
+    },
+    {
+      "contract_stop_conditions": [
+        "Stop before local rerun/Brev/export if this label has zero recall under any repeated single-class collapse."
+      ],
+      "current_assessment": "M3CJ lr003 had zero recall under pen collapse despite balanced support.",
+      "label_id": "who",
+      "label_quality_review_required_before_more_training": false,
+      "m3bx_risk_flags": [
+        "thank_you_absorption"
+      ],
+      "m3ca_stop_condition": null,
+      "m3cj_train_all_lr003_predicted_single_class": "pen",
+      "m3cj_train_all_lr003_recall": 0.0,
+      "m3ck_tiny_trainfit_recall": 1.0,
+      "priority": "normal",
+      "source_sign_slug_counts_by_split": {
+        "test": {
+          "who": 25
+        },
+        "train": {
+          "who": 25
+        },
+        "validation": {
+          "who": 25
+        }
+      },
+      "split_clip_counts": {
+        "test": 25,
+        "train": 25,
+        "validation": 25
+      },
+      "split_signer_identity_hash_counts": {
+        "test": 8,
+        "train": 18,
+        "validation": 8
+      },
+      "top_signer_fraction_by_split": {
+        "test": 0.2,
+        "train": 0.12,
+        "validation": 0.2
+      }
+    }
+  ],
+  "schema_version": "asl-pilot-popsign-fresh5-split-source-quality-contract/v1",
+  "scope": {
+    "existing_evidence_only": true,
+    "local_only": true,
+    "no_brev_command": true,
+    "no_brev_spend": true,
+    "no_brev_worker_lifecycle_change": true,
+    "no_checkpoint_creation": true,
+    "no_export_or_browser_activation": true,
+    "no_final_gate_change": true,
+    "no_label_expansion": true,
+    "no_manifest_mutation": true,
+    "no_model_card_promotion": true,
+    "no_optimizer_or_backward_pass": true,
+    "no_pretrained_dependency": true,
+    "no_pseudo_labels": true,
+    "no_push": true,
+    "no_remote_command": true,
+    "no_source_import_or_media_download": true,
+    "no_source_register_mutation": true,
+    "no_tensor_mutation": true,
+    "no_training_or_fitting": true
+  },
+  "split_source_signer_quality_contract_gates": [
+    {
+      "gate_id": "approved_single_source_lane",
+      "observed": {
+        "allowed_for_model_training": true,
+        "decision_id": "approved_popsign_v1_original_videos_2026_05_20",
+        "license_review_status": "approved_cc_by_4_raw_video_with_attribution",
+        "source_id": "popsign-v1-original-videos"
+      },
+      "required": {
+        "allowed_for_model_training": true,
+        "license_review_status": "approved_cc_by_4_raw_video_with_attribution",
+        "no_source_register_mutation": true,
+        "source_id": "popsign-v1-original-videos"
+      },
+      "status": "passed"
+    },
+    {
+      "gate_id": "split_boundaries_preserved",
+      "observed": {
+        "test": {
+          "test": 125
+        },
+        "train": {
+          "train": 125
+        },
+        "validation": {
+          "val": 125
+        }
+      },
+      "required": {
+        "test": {
+          "test": 125
+        },
+        "train": {
+          "train": 125
+        },
+        "validation": {
+          "val": 125
+        }
+      },
+      "status": "passed"
+    },
+    {
+      "gate_id": "balanced_label_support_per_split",
+      "observed": {
+        "test": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "train": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "validation": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        }
+      },
+      "required": {
+        "clip_count_per_label_per_split": 25,
+        "labels": [
+          "home",
+          "morning",
+          "pen",
+          "thank_you",
+          "who"
+        ]
+      },
+      "status": "passed"
+    },
+    {
+      "gate_id": "strict_cross_split_disjointness",
+      "interpretation": "The repaired route is a strict source-split/signer-disjoint generalization test. Passing this gate prevents leakage but does not prove the labels are visually/semantically learnable.",
+      "observed": {
+        "train_vs_test": {
+          "label_shared_signer_identity_hash_count": {
+            "home": 0,
+            "morning": 0,
+            "pen": 0,
+            "thank_you": 0,
+            "who": 0
+          },
+          "shared_clip_id_count": 0,
+          "shared_signer_identity_hash_count": 0,
+          "shared_source_record_id_count": 0,
+          "shared_tensor_path_count": 0,
+          "shared_tensor_sha256_count": 0
+        },
+        "train_vs_validation": {
+          "label_shared_signer_identity_hash_count": {
+            "home": 0,
+            "morning": 0,
+            "pen": 0,
+            "thank_you": 0,
+            "who": 0
+          },
+          "shared_clip_id_count": 0,
+          "shared_signer_identity_hash_count": 0,
+          "shared_source_record_id_count": 0,
+          "shared_tensor_path_count": 0,
+          "shared_tensor_sha256_count": 0
+        },
+        "validation_vs_test": {
+          "label_shared_signer_identity_hash_count": {
+            "home": 0,
+            "morning": 0,
+            "pen": 0,
+            "thank_you": 0,
+            "who": 0
+          },
+          "shared_clip_id_count": 0,
+          "shared_signer_identity_hash_count": 0,
+          "shared_source_record_id_count": 0,
+          "shared_tensor_path_count": 0,
+          "shared_tensor_sha256_count": 0
+        }
+      },
+      "required": {
+        "shared_clip_id_count": 0,
+        "shared_signer_identity_hash_count": 0,
+        "shared_source_record_id_count": 0,
+        "shared_tensor_path_count": 0,
+        "shared_tensor_sha256_count": 0
+      },
+      "status": "passed"
+    },
+    {
+      "gate_id": "per_label_signer_support_floor",
+      "observed": {
+        "maximum_single_signer_fraction_per_label_split": 0.36,
+        "minimum_signer_identity_hashes_per_label": {
+          "test": 7,
+          "train": 14,
+          "validation": 6
+        }
+      },
+      "required": {
+        "maximum_single_signer_fraction_per_label_split_lte": 0.4,
+        "minimum_signer_identity_hashes_per_label": {
+          "test": 5,
+          "train": 10,
+          "validation": 5
+        }
+      },
+      "status": "passed"
+    },
+    {
+      "gate_id": "tensor_contract_complete",
+      "observed": {
+        "test": {
+          "clip_count": 125,
+          "region_order_counts": {
+            "viewer_left_hand_context,viewer_right_hand_context,upper_body_signing_space,head_context,full_frame_reference": 125
+          },
+          "tensor_dtype_counts": {
+            "uint8": 125
+          },
+          "tensor_failures": [],
+          "tensor_hash_match_count": 125,
+          "tensor_shape_counts": {
+            "16x5x96x96x3": 125
+          }
+        },
+        "train": {
+          "clip_count": 125,
+          "region_order_counts": {
+            "viewer_left_hand_context,viewer_right_hand_context,upper_body_signing_space,head_context,full_frame_reference": 125
+          },
+          "tensor_dtype_counts": {
+            "uint8": 125
+          },
+          "tensor_failures": [],
+          "tensor_hash_match_count": 125,
+          "tensor_shape_counts": {
+            "16x5x96x96x3": 125
+          }
+        },
+        "validation": {
+          "clip_count": 125,
+          "region_order_counts": {
+            "viewer_left_hand_context,viewer_right_hand_context,upper_body_signing_space,head_context,full_frame_reference": 125
+          },
+          "tensor_dtype_counts": {
+            "uint8": 125
+          },
+          "tensor_failures": [],
+          "tensor_hash_match_count": 125,
+          "tensor_shape_counts": {
+            "16x5x96x96x3": 125
+          }
+        }
+      },
+      "required": {
+        "dtype": "uint8",
+        "region_order": "viewer_left_hand_context,viewer_right_hand_context,upper_body_signing_space,head_context,full_frame_reference",
+        "tensor_hash_matches_equal_clip_count": true,
+        "tensor_shape": "16x5x96x96x3"
+      },
+      "status": "passed"
+    },
+    {
+      "gate_id": "source_clip_label_review_carried",
+      "interpretation": "Clip-level source label review is carried, but external ASL educator review for the active module is still pending and cannot be claimed from this contract.",
+      "observed": {
+        "active_module_external_review": {
+          "claim": "No external Deaf educator, ASL instructor, or reviewer approval is claimed by this source-curated active-module snapshot evidence.",
+          "completed": false,
+          "optional_stronger_evidence": "The external review packet and Ed25519 receipt workflow may be used later to upgrade this snapshot to reviewed status without changing the bound snapshot SHA.",
+          "required_for_source_aligned_pilot": false
+        },
+        "manifest_clip_source_reviews": {
+          "test": {
+            "all_allowed_for_model_training": true,
+            "all_label_reviews_approved": true,
+            "clip_count": 125,
+            "label_review_statuses": [
+              "approved"
+            ],
+            "source_license_decision_ids": [
+              "approved_popsign_v1_original_videos_2026_05_20"
+            ],
+            "source_license_review_statuses": [
+              "approved_cc_by_4_raw_video_with_attribution"
+            ]
+          },
+          "train": {
+            "all_allowed_for_model_training": true,
+            "all_label_reviews_approved": true,
+            "clip_count": 125,
+            "label_review_statuses": [
+              "approved"
+            ],
+            "source_license_decision_ids": [
+              "approved_popsign_v1_original_videos_2026_05_20"
+            ],
+            "source_license_review_statuses": [
+              "approved_cc_by_4_raw_video_with_attribution"
+            ]
+          },
+          "validation": {
+            "all_allowed_for_model_training": true,
+            "all_label_reviews_approved": true,
+            "clip_count": 125,
+            "label_review_statuses": [
+              "approved"
+            ],
+            "source_license_decision_ids": [
+              "approved_popsign_v1_original_videos_2026_05_20"
+            ],
+            "source_license_review_statuses": [
+              "approved_cc_by_4_raw_video_with_attribution"
+            ]
+          }
+        }
+      },
+      "required": {
+        "active_module_external_review_claimed": false,
+        "all_manifest_clip_label_review_statuses": [
+          "approved"
+        ],
+        "all_manifest_clips_allowed_for_model_training": true
+      },
+      "status": "passed"
+    }
+  ],
+  "status": "completed_no_training_no_mutation_split_source_quality_contract",
+  "tracked_files_changed": [
+    "scripts/build_popsign_fresh5_split_source_quality_contract.py",
+    "docs/validation/return-to-form-popsign-fresh5-split-source-quality-contract-v1.json",
+    "docs/session-logs/412-mission-3cm-popsign-fresh5-split-source-quality-contract.md"
+  ],
+  "validation_commands": [
+    "git status --short --branch",
+    "git log -10 --oneline --decorate",
+    "node scripts/audit_loop_premise.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs --json",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "node scripts/audit_source_register.mjs",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-data-split-label-distribution-audit-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-architecture-input-microprobe-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-local-train-eval-sanity-v1.json >/dev/null",
+    "python3 -m json.tool data/manifests/return-to-form-popsign-fresh5-repaired-v1/manifest-contract.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/build_popsign_fresh5_split_source_quality_contract.py",
+    ".venv/bin/python scripts/build_popsign_fresh5_split_source_quality_contract.py --receipt docs/validation/return-to-form-popsign-fresh5-split-source-quality-contract-v1.json --write-receipt",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-split-source-quality-contract-v1.json >/dev/null",
+    "git diff --check"
+  ]
+}

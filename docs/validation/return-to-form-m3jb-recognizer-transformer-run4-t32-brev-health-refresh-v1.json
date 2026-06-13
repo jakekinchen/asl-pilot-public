@@ -1,0 +1,120 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-run4-t32-brev-health-refresh/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_run4_t32_wait_for_healthy_brev_worker_or_infra_approval",
+  "recorded_at_utc": "2026-06-04T01:27:26Z",
+  "head_before_slice": "80ac41063275e4b3881f45e5e30e8c980b7a2791",
+  "status": "state_changed_existing_retained_worker_healthy_no_spend",
+  "source_of_truth": {
+    "previous_blocker_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run4-t32-brev-preflight-blocker-v1.json",
+    "selected_step": "Refresh read-only Brev inventory and retry run4 only if an existing NVIDIA worker is healthy and SSH/CUDA/process preflight can pass."
+  },
+  "commands": [
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "brev ls --json",
+      "status": "passed_read_only"
+    }
+  ],
+  "initial_brev_ls": {
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3jb-pairrank-l40s-001",
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      },
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ],
+    "healthy_existing_nvidia_worker_available": false,
+    "retained_worker": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "status": "STOPPED",
+      "shell_status": "NOT READY",
+      "health_status": "UNHEALTHY"
+    }
+  },
+  "final_read_only_brev_ls": {
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3jb-pairrank-l40s-001",
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      },
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "RUNNING",
+        "build_status": "COMPLETED",
+        "shell_status": "READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ],
+    "healthy_existing_nvidia_worker_available": true,
+    "retained_worker": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "status": "RUNNING",
+      "shell_status": "READY",
+      "health_status": "HEALTHY"
+    },
+    "note": "Final read-only validation observed that the retained worker recovered after the initial blocked inventory. This slice did not run brev start, brev stop, brev exec, remote sync, or training."
+  },
+  "decision": {
+    "initial_run4_retry_allowed": false,
+    "run4_retry_allowed_now": "requires_ssh_cuda_process_preflight_first",
+    "reason": "The initial read-only inventory found no healthy existing NVIDIA worker; the final read-only validation later showed the retained worker recovered to RUNNING / READY / HEALTHY. This slice did not perform SSH/CUDA/process preflight or launch run4, so the next executor must start with that preflight.",
+    "human_approval_needed_for": [
+      "creating a new Brev worker",
+      "deleting a worker",
+      "resetting a worker",
+      "repairing Brev infrastructure"
+    ]
+  },
+  "runtime_boundary": {
+    "brev_read_only_visibility": true,
+    "brev_lifecycle_or_exec": false,
+    "remote_sync_attempted": false,
+    "remote_hash_verification_attempted": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "artifacts_copied_back": false,
+    "browser_artifact_promoted": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "push": false
+  },
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_run4_t32_wait_for_healthy_brev_worker_or_infra_approval",
+    "reason": "Start the next slice with SSH/CUDA/process preflight on the recovered retained worker; proceed with the same T=32 run4 recipe only if that preflight succeeds, or get explicit human approval before creating, deleting, resetting, or repairing Brev infrastructure."
+  }
+}

@@ -1,0 +1,386 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3hc-bounded-popsign-brev-training-or-eval/v1",
+  "mission": "Mission 3HC - bounded PopSign Brev training or eval",
+  "status": "completed_bounded_popsign25_brev_training_and_eval_default_off",
+  "generated_at": "2026-05-29T14:35:05Z",
+  "generated_by": "Codex executor",
+  "starting_commit": "38dac5e supervisor: carry landmark boundary into m3hc",
+  "active_prompt": "docs/model/return-to-form-m3hc-bounded-popsign-brev-training-or-eval-goal-loop-prompt.md",
+  "human_approval_summary": {
+    "source": "GOAL.md current mission and active M3HC prompt",
+    "brev_spend_authorized_by_current_files": true,
+    "summary": "The current mission records human approval for one bounded PopSign 25-label Brev training/evaluation attempt under the M3HC compute envelope."
+  },
+  "compute_envelope": {
+    "project_budget_context_usd": 250,
+    "mission_expected_additional_spend_cap_usd": 25,
+    "price_guard_max_usd_per_hour": 5,
+    "preferred_worker": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "instance_type": "l40s-48gb.1x",
+      "gpu": "L40S"
+    },
+    "observed_price_guard": {
+      "command": "brev search --stoppable --min-vram 40 --sort price --json",
+      "cheapest_eligible_type": "l40s-48gb.1x",
+      "cheapest_eligible_provider": "crusoe",
+      "cheapest_eligible_price_per_hour_usd": 1.74,
+      "under_price_guard": true
+    },
+    "limits_observed": {
+      "replacement_workers_created": 0,
+      "non_dry_run_training_commands": 1,
+      "evaluator_commands": 1,
+      "copyback_commands": 1,
+      "promotions_or_exports": 0
+    },
+    "spend_estimate": {
+      "basis": "Approximately 9 to 10 minutes from start request through verified STOPPED state on a 1.74 USD/hour L40S.",
+      "estimated_usd": 0.29,
+      "under_mission_cap": true
+    }
+  },
+  "pair_state_note": {
+    "command": "node scripts/audit_codex_pair_state.mjs",
+    "status": "warning",
+    "warning": "recorded executor session is older than HEAD; this API turn proceeded as the fresh executor from current filesystem state",
+    "live_executor_processes": 0,
+    "live_observer_processes": 0,
+    "active_prompt": "docs/model/return-to-form-m3hc-bounded-popsign-brev-training-or-eval-goal-loop-prompt.md"
+  },
+  "local_preflight": {
+    "commands": [
+      {
+        "command": "git status --short --branch",
+        "exit_status": 0,
+        "duration_seconds_approx": 1,
+        "important_output": "## compound-plan-m0...origin/compound-plan-m0 [ahead 344]"
+      },
+      {
+        "command": "git log -8 --oneline --decorate",
+        "exit_status": 0,
+        "duration_seconds_approx": 1,
+        "important_output": "38dac5e supervisor: carry landmark boundary into m3hc"
+      },
+      {
+        "command": "node scripts/audit_loop_premise.mjs --json",
+        "exit_status": 0,
+        "duration_seconds_approx": 1,
+        "important_output": "status passed; blockers []"
+      },
+      {
+        "command": "node scripts/audit_return_to_form_plan.mjs --json",
+        "exit_status": 0,
+        "duration_seconds_approx": 1,
+        "important_output": "status passed; active prompt is M3HC"
+      },
+      {
+        "command": "node scripts/audit_source_register.mjs",
+        "exit_status": 0,
+        "duration_seconds_approx": 1,
+        "important_output": "status passed; source_count 12; register sha256 b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_deps.mjs",
+        "exit_status": 0,
+        "duration_seconds_approx": 1,
+        "important_output": "No banned pretrained-CV dependencies or source imports found."
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+        "exit_status": 0,
+        "duration_seconds_approx": 1,
+        "important_output": "status passed; findings []"
+      },
+      {
+        "command": "python3 -m json.tool docs/validation/return-to-form-m3hb-human-reopened-model-completion-bounded-brev-v1.json >/dev/null",
+        "exit_status": 0,
+        "duration_seconds_approx": 1
+      },
+      {
+        "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+        "exit_status": 0,
+        "duration_seconds_approx": 1
+      },
+      {
+        "command": "python3 -m json.tool web/public/model/detector0-card.json >/dev/null",
+        "exit_status": 0,
+        "duration_seconds_approx": 1
+      },
+      {
+        "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+        "exit_status": 0,
+        "duration_seconds_approx": 1
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+        "exit_status": 0,
+        "duration_seconds_approx": 1
+      },
+      {
+        "command": "bash -n scripts/brev_sync_repo.sh",
+        "exit_status": 0,
+        "duration_seconds_approx": 1
+      },
+      {
+        "command": "brev ls --json",
+        "exit_status": 0,
+        "duration_seconds_approx": 2,
+        "important_output": "asl-pilot-m3eh-l40s-001 / 3d58wpy9o was STOPPED / COMPLETED / NOT READY / HEALTHY before start"
+      },
+      {
+        "command": "brev search --stoppable --min-vram 40 --sort price --json",
+        "exit_status": 0,
+        "duration_seconds_approx": 1,
+        "important_output": "cheapest eligible L40S entry: crusoe l40s-48gb.1x at 1.74 USD/hour"
+      },
+      {
+        "command": "git diff --check",
+        "exit_status": 0,
+        "duration_seconds_approx": 1
+      }
+    ],
+    "exact_local_dry_run": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/diagnostics/popsign-label-ladder/025-labels/train.json --validation-manifest data/manifests/diagnostics/popsign-label-ladder/025-labels/validation.json --test-manifest data/manifests/diagnostics/popsign-label-ladder/025-labels/test.json --output-dir output/m3hb-popsign25-bounded-brev-contract --model-id m3hb-popsign25-bounded-brev-contract --seed 20260529 --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 0 --epochs 1 --batch-size 4 --learning-rate 0.001 --training-augmentation none --checkpoint-selection best_validation --max-train-batches 16 --max-validation-batches 16 --popsign-label-ladder-training-smoke --dry-run",
+      "exit_status": 0,
+      "duration_seconds_approx": 4,
+      "important_output": "training_status dry_run_only; label_count 25; split clip counts 625/625/475; pretrained_components []",
+      "output_dir_absent_before_and_after": true
+    }
+  },
+  "worker_lifecycle": {
+    "start": {
+      "command": "brev start asl-pilot-m3eh-l40s-001",
+      "exit_status": 0,
+      "duration_seconds_approx": 270,
+      "important_output": "Your instance is ready; asl-pilot-m3eh-l40s-001"
+    },
+    "after_start_inventory": {
+      "command": "brev ls --json",
+      "exit_status": 0,
+      "important_output": "RUNNING / COMPLETED / READY / HEALTHY"
+    },
+    "cuda_and_process_proof": {
+      "command": "timeout 300s brev exec asl-pilot-m3eh-l40s-001 \"printf 'remote_home=%s\\n' \\\"$HOME\\\" && nvidia-smi --query-gpu=name,memory.total,memory.used,utilization.gpu --format=csv,noheader && ps -eo pid,etime,pcpu,pmem,args | egrep 'python|torch|train|screen|tmux|jupyter' | grep -v egrep || true\"",
+      "exit_status": 0,
+      "duration_seconds_approx": 9,
+      "remote_home": "/home/ubuntu",
+      "gpu_output": "NVIDIA L40S, 46068 MiB, 1 MiB, 0 %",
+      "process_output": "Only platform Python/Jupyter and networkd-dispatcher were present; no prior torch/train/screen/tmux job was running."
+    },
+    "sync": {
+      "command": "bash scripts/brev_sync_repo.sh asl-pilot-m3eh-l40s-001",
+      "exit_status": 0,
+      "duration_seconds_approx": 11,
+      "important_output": "synced repo to /home/ubuntu/asl-pilot; synced rawframe training data allowlist; brev_sync_repo: done"
+    },
+    "remote_output_preexistence": {
+      "command": "timeout 300s brev exec asl-pilot-m3eh-l40s-001 \"cd $HOME/asl-pilot && test ! -e output/m3hb-popsign25-bounded-brev-contract && echo output_absent\"",
+      "exit_status": 0,
+      "duration_seconds_approx": 1,
+      "important_output": "output_absent"
+    },
+    "stop": {
+      "commands": [
+        {
+          "command": "brev stop asl-pilot-m3eh-l40s-001",
+          "exit_status": 0,
+          "duration_seconds_approx": 5,
+          "important_output": "asl-pilot-m3eh-l40s-001"
+        },
+        {
+          "command": "brev ls --json",
+          "exit_status": 0,
+          "duration_seconds_approx": 22,
+          "important_output": "STOPPING / COMPLETED / NOT READY / HEALTHY"
+        },
+        {
+          "command": "brev stop 3d58wpy9o",
+          "exit_status": 0,
+          "duration_seconds_approx": 10,
+          "important_output": "3d58wpy9o"
+        },
+        {
+          "command": "sleep 20; brev ls --json",
+          "exit_status": 0,
+          "duration_seconds_approx": 37,
+          "important_output": "STOPPED / COMPLETED / NOT READY / HEALTHY"
+        }
+      ],
+      "final_default_off_proof": {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY"
+      }
+    }
+  },
+  "remote_commands": {
+    "dry_run": {
+      "command": "timeout 420s brev exec asl-pilot-m3eh-l40s-001 \"cd $HOME/asl-pilot && PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/diagnostics/popsign-label-ladder/025-labels/train.json --validation-manifest data/manifests/diagnostics/popsign-label-ladder/025-labels/validation.json --test-manifest data/manifests/diagnostics/popsign-label-ladder/025-labels/test.json --output-dir output/m3hb-popsign25-bounded-brev-contract --model-id m3hb-popsign25-bounded-brev-contract --seed 20260529 --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 0 --epochs 1 --batch-size 4 --learning-rate 0.001 --training-augmentation none --checkpoint-selection best_validation --max-train-batches 16 --max-validation-batches 16 --popsign-label-ladder-training-smoke --dry-run\"",
+      "exit_status": 0,
+      "duration_seconds_approx": 31,
+      "important_output": "training_status dry_run_only; pretrained_components []; output_dir output/m3hb-popsign25-bounded-brev-contract"
+    },
+    "training": {
+      "command": "timeout 2400s brev exec asl-pilot-m3eh-l40s-001 \"cd $HOME/asl-pilot && timeout 1800 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/diagnostics/popsign-label-ladder/025-labels/train.json --validation-manifest data/manifests/diagnostics/popsign-label-ladder/025-labels/validation.json --test-manifest data/manifests/diagnostics/popsign-label-ladder/025-labels/test.json --output-dir output/m3hb-popsign25-bounded-brev-contract --model-id m3hb-popsign25-bounded-brev-contract --seed 20260529 --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 0 --epochs 1 --batch-size 4 --learning-rate 0.001 --training-augmentation none --checkpoint-selection best_validation --max-train-batches 16 --max-validation-batches 16 --popsign-label-ladder-training-smoke\"",
+      "exit_status": 0,
+      "duration_seconds_approx": 20,
+      "important_output": "training_status completed; device cuda; wrote model_state.pt and training-provenance.json"
+    },
+    "evaluation": {
+      "command": "timeout 1200s brev exec asl-pilot-m3eh-l40s-001 \"cd $HOME/asl-pilot && .venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint output/m3hb-popsign25-bounded-brev-contract/model_state.pt --training-provenance output/m3hb-popsign25-bounded-brev-contract/training-provenance.json --train-manifest data/manifests/diagnostics/popsign-label-ladder/025-labels/train.json --validation-manifest data/manifests/diagnostics/popsign-label-ladder/025-labels/validation.json --test-manifest data/manifests/diagnostics/popsign-label-ladder/025-labels/test.json --output-report output/m3hb-popsign25-bounded-brev-contract/validation-report.json --calibrated-provenance output/m3hb-popsign25-bounded-brev-contract/calibrated-provenance.json --prediction-sidecar output/m3hb-popsign25-bounded-brev-contract/prediction-sidecar.json --batch-size 4 --num-workers 0 --popsign-label-ladder-training-smoke\"",
+      "exit_status": 0,
+      "duration_seconds_approx": 8,
+      "important_output": "passes_targets false; test_top1_accuracy 0.04; test_macro_f1 0.003076923076923077; output_report_sha256 1be93c09a5d1d69864f20c697a4166d493b586357ec4e0d277e54fac514f48b7"
+    },
+    "copyback": {
+      "command": "brev copy asl-pilot-m3eh-l40s-001:/home/ubuntu/asl-pilot/output/m3hb-popsign25-bounded-brev-contract output/",
+      "exit_status": 0,
+      "duration_seconds_approx": 15,
+      "important_output": "Successfully copied selected output directory to output/ in 2.929s"
+    }
+  },
+  "training_result": {
+    "output_dir": "output/m3hb-popsign25-bounded-brev-contract",
+    "model_id": "m3hb-popsign25-bounded-brev-contract",
+    "device": "cuda",
+    "architecture": "true_temporal_convnet_region_grid",
+    "evidence_mode": "popsign_label_ladder_training_smoke",
+    "pretrained_components": [],
+    "hyperparameters": {
+      "seed": 20260529,
+      "epochs": 1,
+      "batch_size": 4,
+      "max_train_batches": 16,
+      "max_validation_batches": 16,
+      "frame_count": 16,
+      "image_size": 96,
+      "num_workers": 0,
+      "learning_rate": 0.001,
+      "training_augmentation": "none",
+      "checkpoint_selection": "best_validation",
+      "preserve_region_axis": false
+    },
+    "history": [
+      {
+        "epoch": 1,
+        "train": {
+          "accuracy": 0.0625,
+          "batches": 16,
+          "examples": 64,
+          "loss": 3.357673019170761
+        },
+        "validation": {
+          "accuracy": 0.0,
+          "batches": 16,
+          "examples": 64,
+          "loss": 3.379140257835388
+        }
+      }
+    ]
+  },
+  "evaluation_result": {
+    "status": "popsign_label_ladder_training_smoke_completed",
+    "passes_targets": false,
+    "targets": {
+      "top1_accuracy": 0.7,
+      "macro_f1": 0.65,
+      "false_pass_rate_below": 0.1,
+      "negative_challenge_false_pass_rate_below": 0.05
+    },
+    "pass_status": {
+      "top1_accuracy": false,
+      "macro_f1": false,
+      "false_pass_rate": true,
+      "negative_challenge_false_pass_rate": false,
+      "confidence_threshold": false
+    },
+    "validation": {
+      "examples": 625,
+      "top1_accuracy": 0.04,
+      "macro_f1": 0.003076923076923077,
+      "predicted_distribution": {
+        "uncle": 625
+      },
+      "correct": 25,
+      "average_probability_margin": 0.014548832333087921,
+      "average_entropy": 3.177237119293213
+    },
+    "test": {
+      "examples": 475,
+      "top1_accuracy": 0.04,
+      "macro_f1": 0.003076923076923077,
+      "predicted_distribution": {
+        "uncle": 475
+      },
+      "correct": 19,
+      "test_false_pass_rate_at_selected_threshold": 0.0,
+      "average_probability_margin": 0.015507602432840748,
+      "average_entropy": 3.175757858376754
+    },
+    "selected_threshold": 1.0,
+    "calibrated_provenance": null,
+    "interpretation": "Diagnostic PopSign raw-frame result is weak and collapsed to the single predicted label uncle across validation and test. This is not Detector 0, crop-normalized, browser-recognition, or promotion evidence."
+  },
+  "copied_artifacts": {
+    "local_directory": "output/m3hb-popsign25-bounded-brev-contract",
+    "tracked_by_git": false,
+    "size": "9.9M",
+    "files": [
+      {
+        "path": "output/m3hb-popsign25-bounded-brev-contract/model_state.pt",
+        "sha256": "f8459597f07ed6e26166cd77ae159605e302b2d79ea97d94b62dade04988d161"
+      },
+      {
+        "path": "output/m3hb-popsign25-bounded-brev-contract/prediction-sidecar.json",
+        "sha256": "4a3bce8de1041e14fcaba2cae01a04ae0465eaccab5f8f06cdc559c26e831bbb"
+      },
+      {
+        "path": "output/m3hb-popsign25-bounded-brev-contract/training-provenance.json",
+        "sha256": "e28f7c8d332760199f31763f5054d05bb2422ccb41f3fd8ead8e7763a37c3204"
+      },
+      {
+        "path": "output/m3hb-popsign25-bounded-brev-contract/validation-report.json",
+        "sha256": "1be93c09a5d1d69864f20c697a4166d493b586357ec4e0d277e54fac514f48b7"
+      }
+    ],
+    "json_validation": {
+      "training_provenance": true,
+      "validation_report": true,
+      "prediction_sidecar": true
+    }
+  },
+  "claim_surface_proof": {
+    "web/public/model/model-card.json": {
+      "status": "not_trained",
+      "pretrained_components": []
+    },
+    "web/public/model/detector0-card.json": {
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null,
+      "pretrained_components": []
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": [],
+      "evidenceArtifacts": []
+    },
+    "mutated_claim_surfaces": false
+  },
+  "forbidden_actions": {
+    "browser_model_promoted": false,
+    "recognition_activated": false,
+    "active_vocabulary_expanded": false,
+    "final_gates_changed": false,
+    "source_register_rights_mutated": false,
+    "unapproved_media_imported": false,
+    "pretrained_cv_or_landmark_dependency_added": false
+  },
+  "pretrained_components": [],
+  "next_action": "continue_m3hd_popsign25_metric_triage_no_remote"
+}

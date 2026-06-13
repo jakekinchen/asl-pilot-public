@@ -1,0 +1,129 @@
+{
+  "schema_version": "asl-pilot-m3jb-validation-selected-pair-ranker/v1",
+  "receipt_id": "return-to-form-m3jb-validation-selected-pair-ranker-v1",
+  "mission": "M3JB - Validation-selected target pair ranker",
+  "status": "selected_fail_closed_not_gate_passing",
+  "checked_at": "2026-06-02T02:47:49.380Z",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "side_worktree": "/Users/kelly/Developer/asl-pilot-annotator",
+  "runtime_boundary": {
+    "browser_exported": false,
+    "detector0_promoted": false,
+    "mediapipe_runtime_dependency_allowed": false,
+    "offline_teacher_labels_allowed_only_as_supervision": true,
+    "raw_learner_video_uploaded": false,
+    "brev_used": false
+  },
+  "artifacts": {
+    "ranker_code": {
+      "path": "tools/detector0-annotator/train_hand_pair_ranker.py",
+      "sha256": "cc635478d1c800df0e1be75422f6325f81ec88721b4f7d2b64aa86fb83042d81",
+      "purpose": "Side-worktree pair ranker with validation-selected checkpointing plus M3JB slot, box-quality, and hard-negative targets."
+    },
+    "selected_receipt": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-targets-top20-train2500-e20-valselect-v1.json",
+      "sha256": "417c9485977c4b43e5c8fd8175f8ea34267c6dc5479283139982df776a96c9cd"
+    },
+    "selected_weights": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-targets-top20-train2500-e20-valselect-v1.pt",
+      "sha256": "5601ee25eb5339067ff4a13fe0b6f26fabaf150c1ceb826cc1aa8ee59eb550e7",
+      "promoted_to_browser_runtime": false
+    },
+    "previous_best_crop_pose_receipt": {
+      "path": "tools/detector0-annotator/output/m3ja-hand-pair-ranker-cropfeat-top20-fulltrain-e20-v1.json",
+      "real_twohand_coverage": 0.9404761904761905,
+      "real_twohand_distinct_assigned_coverage": 0.5238095238095238,
+      "real_twohand_collapse_rate": 0
+    },
+    "canonical_m3jb_audit": {
+      "path": "docs/validation/return-to-form-m3jb-hierarchical-hand-state-tracker-v1.json",
+      "status": "passed_fail_closed_not_gate_passing"
+    }
+  },
+  "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --data tools/detector0-annotator/.cache/m3ja-hands2-twohand-plus-big2real-v1 --real-data tools/detector0-annotator/.cache/autolabel-big --coarse-weights tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.pt --topk 20 --epochs 20 --batch-groups 256 --max-train-rows 2500 --target-temperature 0.05 --aux-bce-weight 0.1 --box-quality-target-weight 0.25 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 0.25 --hard-negative-bce-weight 3.0 --select-by-validation --eval-every 2 --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --crop-feature-batch 256 --device mps --ranker-device cpu --out tools/detector0-annotator/output/m3jb-hand-pair-ranker-targets-top20-train2500-e20-valselect-v1.json",
+  "params": {
+    "topk": 20,
+    "epochs": 20,
+    "max_train_rows": 2500,
+    "box_quality_target_weight": 0.25,
+    "slot_margin_target_weight": 0.1,
+    "hard_negative_target_penalty": 0.25,
+    "hard_negative_bce_weight": 3.0,
+    "select_by_validation": true,
+    "eval_every": 2,
+    "landmark_weights": "tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt"
+  },
+  "validation_selection": {
+    "score": "distinct_assigned_coverage + 0.25 * coverage - collapse_rate",
+    "best": {
+      "epoch": 19,
+      "selection_score": 0.9365031897926634,
+      "coverage": 0.7635566188197768,
+      "distinct_assigned_coverage": 0.7456140350877193,
+      "collapse_rate": 0,
+      "same_prediction_coverage_count": 45
+    }
+  },
+  "metrics": {
+    "validation": {
+      "coverage": 0.7635566188197768,
+      "distinct_assigned_coverage": 0.7456140350877193,
+      "collapse_rate": 0,
+      "same_prediction_coverage_count": 45,
+      "n": 2508,
+      "oracle_distinct_assigned_coverage": 0.9772727272727273
+    },
+    "test": {
+      "coverage": 0.7410631022691949,
+      "distinct_assigned_coverage": 0.7270749145166304,
+      "collapse_rate": 0,
+      "same_prediction_coverage_count": 45,
+      "n": 3217,
+      "oracle_distinct_assigned_coverage": 0.9726453217283183
+    },
+    "real_twohand": {
+      "coverage": 0.9642857142857143,
+      "distinct_assigned_coverage": 0.5238095238095238,
+      "collapse_rate": 0,
+      "same_prediction_coverage_count": 37,
+      "n": 84,
+      "oracle_distinct_assigned_coverage": 0.9285714285714286
+    },
+    "real_pair_counts": {
+      "groups": 84,
+      "pairs": 15960,
+      "positive_pairs": 433,
+      "hard_negative_pairs": 1367,
+      "slot_direct_pairs": 205,
+      "slot_swapped_pairs": 228,
+      "groups_with_positive_pair": 75,
+      "mean_box_quality_score": 0.013592102564871311,
+      "mean_best_distinct_score": 0.6270458698272705
+    }
+  },
+  "selection": {
+    "selected_as_current_pair_ranker_candidate": true,
+    "reason": "It ties the previous best real distinct assignment at 0.5238095238095238 while improving real coverage from 0.9404761904761905 to 0.9642857142857143 and keeping collapse at 0.",
+    "gate_status": "failed_open",
+    "gate_gap": {
+      "required_distinct_assigned_coverage": 0.98,
+      "current_distinct_assigned_coverage": 0.5238095238095238,
+      "top20_oracle_distinct_assigned_coverage": 0.9285714285714286
+    }
+  },
+  "commands_run": [
+    "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_hand_pair_ranker.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --self-test",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --data tools/detector0-annotator/.cache/m3ja-hands2-twohand-plus-big2real-v1 --real-data tools/detector0-annotator/.cache/autolabel-big --coarse-weights tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.pt --topk 20 --epochs 20 --batch-groups 256 --max-train-rows 2500 --target-temperature 0.05 --aux-bce-weight 0.1 --box-quality-target-weight 0.25 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 0.25 --hard-negative-bce-weight 3.0 --select-by-validation --eval-every 2 --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --crop-feature-batch 256 --device mps --ranker-device cpu --out tools/detector0-annotator/output/m3jb-hand-pair-ranker-targets-top20-train2500-e20-valselect-v1.json",
+    "node scripts/audit_m3jb_hand_state_tracker.mjs --write-receipt --json"
+  ],
+  "commands_intentionally_not_run": [
+    "No browser export or browser artifact promotion.",
+    "No model-card status promotion.",
+    "No Brev lifecycle, remote sync, or paid compute.",
+    "No raw learner video upload.",
+    "No sign/language model continuation."
+  ],
+  "next_action": "continue_m3jb_stronger_proposal_head_or_candidate_generation_repair_no_brev",
+  "next_action_reason": "The validation-selected target ranker is the best coverage/distinct balance so far, but distinct assignment and the top-20 oracle remain below the M3JB box gate. The next useful work is a stronger proposal head or candidate-generation repair, not more browser integration."
+}

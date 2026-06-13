@@ -1,0 +1,235 @@
+{
+  "schema_version": "asl-pilot-return-to-form-tier0-source-coverage/v1",
+  "created_at": "2026-05-25T19:16:00Z",
+  "mission": "M3AC",
+  "status": "selected_before_training",
+  "changes_manifests": false,
+  "imports_media": false,
+  "starts_training": false,
+  "selected_tier0": {
+    "label_count": 5,
+    "labels": [
+      {
+        "label_id": "please",
+        "display_text": "Please",
+        "selection_reason": "Chest-centered one-hand circular motion; grossly different from table/hat/family head signs and already present in the PopSign 5-label diagnostic ladder."
+      },
+      {
+        "label_id": "table",
+        "display_text": "Table",
+        "selection_reason": "Two-hand horizontal signing-space structure; visually separated from single-hand chest and head-contact signs and strongest retained PopSign ladder score."
+      },
+      {
+        "label_id": "dad",
+        "display_text": "Dad",
+        "selection_reason": "Single-hand forehead contact; intentionally exercises the head crop while remaining distinguishable from table and please."
+      },
+      {
+        "label_id": "grandpa",
+        "display_text": "Grandpa",
+        "selection_reason": "Head-origin movement with outward temporal arc; keeps a related-family contrast in the smoke so the proof cannot pass only on broad body location."
+      },
+      {
+        "label_id": "hat",
+        "display_text": "Hat",
+        "selection_reason": "Headwear placement silhouette; stresses the optional head region and provides a different hand configuration than dad/grandpa."
+      }
+    ],
+    "known_confusion_risk": "dad, grandpa, and hat all use the upper/head region. This is deliberate for a small proof with a head crop; if M3AE shows head-region confusion, the remediation path is to adjust crops or replace one head-region label before expanding.",
+    "tier1_reserve_not_for_training_in_m3ac": [
+      "like",
+      "bed",
+      "grandma",
+      "all",
+      "say"
+    ]
+  },
+  "selection_basis": {
+    "primary_source": "docs/validation/popsign-label-ladder-manifests.json",
+    "method": "Use the existing 5-label PopSign diagnostic ladder as the smallest approved-source seed, then bind source/crop/gate evidence before any new decode or training.",
+    "diagnostic_ladder_note": "The prior ladder ranked labels by retained broad-run validation/test recall and F1. This artifact does not promote that broad run; it only uses the ladder to choose a small source-reviewed candidate set."
+  },
+  "source_register": {
+    "path": "docs/model/dataset-source-register.json",
+    "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+    "source_id": "popsign-v1-original-videos",
+    "decision_id": "approved_popsign_v1_original_videos_2026_05_20",
+    "license_review_status": "approved_cc_by_4_raw_video_with_attribution",
+    "allowed_for_model_training": true,
+    "allowed_for_validation": true,
+    "restrictions": [
+      "must cite and attribute PopSign ASL v1.0 under CC BY 4.0",
+      "only original game-category raw video archives may be imported",
+      "preview videos and derived pose, landmark, embedding, detector, feature, or pretrained artifacts are disallowed",
+      "source train, validation, and test split boundaries must be preserved",
+      "source signer identifiers must remain pseudonymous in ASL Pilot manifests"
+    ],
+    "evidence": [
+      {
+        "path": "docs/research/popsign-v1-source-audit.json",
+        "sha256": "b9fe6f6ed042bbff08b58a85cba50b445e606239489e7cbab6be81f326a02ab1"
+      },
+      {
+        "path": "docs/research/popsign-v1-source-review.md",
+        "sha256": "5eb108140617a563cd9bf1b269b549dcc24057acb6e89edc308e6938fd61d908"
+      }
+    ]
+  },
+  "existing_seed_manifests": {
+    "note": "These diagnostic manifests establish source coverage only. M3AD must generate or refresh Tier 0 manifests/tensors with the committed crop_config_hash before training.",
+    "train": {
+      "path": "data/manifests/diagnostics/popsign-label-ladder/005-labels/train.json",
+      "sha256": "33cce59de9ec362612e26fc8ec1a961189fbba57a80d399c04b6034c6668efa0",
+      "clip_count": 125,
+      "clips_per_label": 25
+    },
+    "validation": {
+      "path": "data/manifests/diagnostics/popsign-label-ladder/005-labels/validation.json",
+      "sha256": "2adc34a22718536411528d6391529abca3afd7f8c193043976f5747a22c5c0cd",
+      "clip_count": 125,
+      "clips_per_label": 25
+    },
+    "test": {
+      "path": "data/manifests/diagnostics/popsign-label-ladder/005-labels/test.json",
+      "sha256": "58a0d66dd0bb47a4f9fc9e80227374a27429be834224ea57b3303dc25d15d2be",
+      "clip_count": 95,
+      "clips_per_label": 19
+    }
+  },
+  "coverage_by_label": [
+    {
+      "label_id": "please",
+      "source_ids": [
+        "popsign-v1-original-videos"
+      ],
+      "clips_by_split": {
+        "train": 25,
+        "validation": 25,
+        "test": 19
+      },
+      "unique_signers_by_split": {
+        "train": 16,
+        "validation": 8,
+        "test": 6
+      },
+      "split_signer_overlap": {
+        "train_validation": 0,
+        "train_test": 0,
+        "validation_test": 0
+      }
+    },
+    {
+      "label_id": "table",
+      "source_ids": [
+        "popsign-v1-original-videos"
+      ],
+      "clips_by_split": {
+        "train": 25,
+        "validation": 25,
+        "test": 19
+      },
+      "unique_signers_by_split": {
+        "train": 16,
+        "validation": 8,
+        "test": 6
+      },
+      "split_signer_overlap": {
+        "train_validation": 0,
+        "train_test": 0,
+        "validation_test": 0
+      }
+    },
+    {
+      "label_id": "dad",
+      "source_ids": [
+        "popsign-v1-original-videos"
+      ],
+      "clips_by_split": {
+        "train": 25,
+        "validation": 25,
+        "test": 19
+      },
+      "unique_signers_by_split": {
+        "train": 18,
+        "validation": 8,
+        "test": 6
+      },
+      "split_signer_overlap": {
+        "train_validation": 0,
+        "train_test": 0,
+        "validation_test": 0
+      }
+    },
+    {
+      "label_id": "grandpa",
+      "source_ids": [
+        "popsign-v1-original-videos"
+      ],
+      "clips_by_split": {
+        "train": 25,
+        "validation": 25,
+        "test": 19
+      },
+      "unique_signers_by_split": {
+        "train": 16,
+        "validation": 8,
+        "test": 6
+      },
+      "split_signer_overlap": {
+        "train_validation": 0,
+        "train_test": 0,
+        "validation_test": 0
+      }
+    },
+    {
+      "label_id": "hat",
+      "source_ids": [
+        "popsign-v1-original-videos"
+      ],
+      "clips_by_split": {
+        "train": 25,
+        "validation": 25,
+        "test": 19
+      },
+      "unique_signers_by_split": {
+        "train": 14,
+        "validation": 8,
+        "test": 6
+      },
+      "split_signer_overlap": {
+        "train_validation": 0,
+        "train_test": 0,
+        "validation_test": 0
+      }
+    }
+  ],
+  "aggregate_coverage": {
+    "clips_by_split": {
+      "train": 125,
+      "validation": 125,
+      "test": 95
+    },
+    "unique_signers_by_split": {
+      "train": 28,
+      "validation": 8,
+      "test": 7
+    },
+    "split_signer_overlap": {
+      "train_validation": 0,
+      "train_test": 0,
+      "validation_test": 0
+    }
+  },
+  "split_limitations": [
+    "The proof preserves PopSign source train/validation/test boundaries rather than reassigning clips.",
+    "The test split has 19 clips per selected label, while train and validation have 25 per selected label.",
+    "The selected labels come from approved external PopSign game videos, not first-party learner webcam recordings.",
+    "This is a learnability proof only; it is not final product validation or a final-promotion hard-negative gate."
+  ],
+  "phonology_status": {
+    "semlex_asl_lex_used": false,
+    "status": "candidate_only_not_required_for_m3ac",
+    "note": "SemLex / ASL-LEX phonology remains outside this source decision until source-register evidence and overlap artifacts are written."
+  },
+  "next_milestone": "M3AD decode and dataloader proof with crop-config hash binding before training."
+}

@@ -1,0 +1,119 @@
+{
+  "schema_version": "asl-pilot-m3jb-trainable-subproposal-ranker/v1",
+  "receipt_id": "return-to-form-m3jb-trainable-subproposal-ranker-v1",
+  "mission": "M3JB - Trainable subproposal ranker probe",
+  "status": "rejected_fail_closed_not_promoted",
+  "checked_at": "2026-06-02T04:29:25Z",
+  "side_worktree": "/Users/kelly/Developer/asl-pilot-annotator",
+  "runtime_boundary": {
+    "training_run": true,
+    "checkpoint_written": true,
+    "checkpoint_promoted": false,
+    "browser_exported": false,
+    "mediapipe_runtime_dependency": false,
+    "raw_learner_video_uploaded": false,
+    "brev_used": false
+  },
+  "artifacts": {
+    "side_script": {
+      "path": "tools/detector0-annotator/train_hand_pair_ranker.py",
+      "sha256": "c30c0c0b5d706021ae2257602ec48cdcad56554ce7cb05e2ad5012042176e6d4"
+    },
+    "smoke_receipt": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-subproposal-ranker-smoke-top4-src4-aug16-train32-e1-v1.json",
+      "sha256": "6f3910ecacb939f535667cdb1d2166b8c760209daccfbc1504de6581f1428a24"
+    },
+    "probe_receipt": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-subproposal-ranker-geom-top40-src8-aug40-train2500-e12-v1.json",
+      "sha256": "39899b5bebd72ee1386ccbac6443115a92698355cf958c1831c42e093ac5a04d"
+    },
+    "probe_weights": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-subproposal-ranker-geom-top40-src8-aug40-train2500-e12-v1.pt",
+      "sha256": "9396ed1998bf8344935076886333ea80f326cf49fbc1f617664a32b7a1a2bed6",
+      "promotion_status": "rejected_not_browser_exported"
+    },
+    "candidate_caches": {
+      "train": {
+        "path": "tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates/m3ja-hands2-twohand-plus-big2real-v1-train-n2500-07ba717cdb2a-top40-nms0p5.npz",
+        "sha256": "7819ca8cd549d4572c356e04846d30e7d9818ebf5260d0d2c6f047e41b3fcbd7"
+      },
+      "validation": {
+        "path": "tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates/m3ja-hands2-twohand-plus-big2real-v1-validation-n2508-daab897ef604-top40-nms0p5.npz",
+        "sha256": "db6c90c3f3910713224edc93c2cddffda3edd1cd1a2757cce920186226fb71db"
+      },
+      "test": {
+        "path": "tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates/m3ja-hands2-twohand-plus-big2real-v1-test-n3217-d4acfe6cf0d8-top40-nms0p5.npz",
+        "sha256": "b8ad1ce71ed7d6b4b4f797763080b9484df95d9becfe8b6555652a7d8e51fa5f"
+      },
+      "real_twohand": {
+        "path": "tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates/autolabel-big-real-twohand-n84-d857949b4a33-top40-nms0p5.npz",
+        "sha256": "417b8dced479779f81d6a9cab919038657d95b1515a9c5902aea3cc1089d904c"
+      }
+    }
+  },
+  "commands": {
+    "code_checks": [
+      "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_hand_pair_ranker.py",
+      "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --self-test"
+    ],
+    "smoke": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --data tools/detector0-annotator/.cache/m3ja-hands2-twohand-plus-big2real-v1 --real-data tools/detector0-annotator/.cache/autolabel-big --coarse-weights tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.pt --candidate-cache-dir tools/detector0-annotator/.cache/m3ja-pair-ranker-candidates --topk 4 --nms-iou 0.5 --coverage-iou 0.3 --epochs 1 --batch-groups 16 --lr 1e-3 --target-temperature 0.05 --aux-bce-weight 0.1 --box-quality-target-weight 0.25 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 0.25 --hard-negative-bce-weight 3.0 --select-by-validation --eval-every 1 --max-train-rows 32 --train-subproposal-candidates --subproposal-source-topk 4 --subproposal-max-topk 16 --device mps --ranker-device cpu --out tools/detector0-annotator/output/m3jb-hand-subproposal-ranker-smoke-top4-src4-aug16-train32-e1-v1.json",
+    "probe": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --data tools/detector0-annotator/.cache/m3ja-hands2-twohand-plus-big2real-v1 --real-data tools/detector0-annotator/.cache/autolabel-big --coarse-weights tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.pt --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --topk 40 --nms-iou 0.5 --coverage-iou 0.3 --epochs 12 --batch-groups 128 --lr 5e-4 --target-temperature 0.05 --aux-bce-weight 0.1 --box-quality-target-weight 0.25 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 0.25 --hard-negative-bce-weight 3.0 --select-by-validation --eval-every 2 --max-train-rows 2500 --train-subproposal-candidates --subproposal-source-topk 8 --subproposal-max-topk 40 --device mps --ranker-device cpu --out tools/detector0-annotator/output/m3jb-hand-subproposal-ranker-geom-top40-src8-aug40-train2500-e12-v1.json"
+  },
+  "params": {
+    "base_topk": 40,
+    "effective_topk": 40,
+    "subproposal_source_topk": 8,
+    "subproposal_max_topk": 40,
+    "nms_iou": 0.5,
+    "coverage_iou": 0.3,
+    "epochs": 12,
+    "max_train_rows": 2500,
+    "landmark_or_crop_features": false,
+    "validation_selection": true
+  },
+  "metrics": {
+    "smoke_real_twohand": {
+      "selected_coverage": 0.8333333333333334,
+      "selected_distinct_assigned_coverage": 0.5595238095238095,
+      "selected_collapse_rate": 0.03571428571428571,
+      "oracle_distinct_assigned_coverage": 0.9880952380952381
+    },
+    "probe_validation_selected": {
+      "coverage": 0.6527113237639554,
+      "distinct_assigned_coverage": 0.6455342902711324,
+      "collapse_rate": 0.03110047846889952
+    },
+    "probe_test_selected": {
+      "coverage": 0.6391047559838359,
+      "distinct_assigned_coverage": 0.6294684488654025,
+      "collapse_rate": 0.029219769972023624
+    },
+    "probe_real_twohand_selected": {
+      "coverage": 0.8333333333333334,
+      "distinct_assigned_coverage": 0.6309523809523809,
+      "collapse_rate": 0.13095238095238096,
+      "coverage_failure_count": 14,
+      "distinct_assignment_failure_count": 31
+    },
+    "probe_real_twohand_oracle": {
+      "coverage": 0.9880952380952381,
+      "distinct_assigned_coverage": 0.9880952380952381,
+      "collapse_rate": 0.0
+    }
+  },
+  "selection": {
+    "gate_status": "failed_open",
+    "required_distinct_assigned_coverage": 0.98,
+    "required_collapse_rate_max": 0.02,
+    "decision": "reject_geometry_only_subproposal_ranker",
+    "reason": "The augmented candidate set preserves the 0.988095 real oracle, but the trainable geometry-only selector reaches only 0.630952 distinct assignment and introduces 0.130952 collapse. This proves the training path but not a gate-passing model."
+  },
+  "commands_intentionally_not_run": [
+    "No browser export or live /tracking activation.",
+    "No model-card promotion.",
+    "No Brev training or sync.",
+    "No raw learner video upload.",
+    "No sign/language modeling continuation."
+  ],
+  "next_action": "continue_m3jb_crop_pose_subproposal_ranker_or_candidate_head_no_brev"
+}

@@ -1,0 +1,351 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3gk-bounded-brev-completion-route-after-regenerated-evidence/v1",
+  "mission": "Mission 3GK - bounded Brev completion route after regenerated evidence",
+  "status": "blocked_before_remote_sync_or_training_by_brev_ssh_safety_probe_timeout",
+  "checked_at": "2026-05-29T08:38:19Z",
+  "current_commit_before_slice_commit": "6899dd5",
+  "active_prompt": "docs/model/return-to-form-m3gk-bounded-brev-completion-route-after-regenerated-evidence-goal-loop-prompt.md",
+  "user_approval_summary": {
+    "brev_spend_authorized": true,
+    "approval_source": "GOAL.md and active M3GK prompt record latest supervising-user approval for bounded retained-worker Brev usage",
+    "bounded_scope": "one retained-worker independent-seed high-signal region-grid TCN attempt after local guards pass",
+    "actual_training_started": false
+  },
+  "compute_envelope": {
+    "workspace": "asl-pilot-m3eh-l40s-001",
+    "workspace_id": "3d58wpy9o",
+    "instance_type": "l40s-48gb.1x",
+    "gpu": "L40S",
+    "price_guard_usd_per_hour": 5,
+    "refreshed_matching_price_usd_per_hour": 1.74,
+    "max_training_runtime_seconds": 4800,
+    "max_wall_time_after_first_start_minutes": 100,
+    "max_expected_spend_usd": 6,
+    "timed_training_command_limit": 1,
+    "evaluation_command_limit": 1,
+    "new_workers": 0,
+    "package_install_commands": 0,
+    "actual_started_at": "2026-05-29T08:29:25Z",
+    "default_off_verified_at": "2026-05-29T08:38:19Z",
+    "estimated_started_wall_minutes": 9,
+    "estimated_compute_spend_usd_at_refreshed_price": 0.26
+  },
+  "baseline_evidence": {
+    "m3gj_regenerated_evaluator": {
+      "path": "docs/validation/return-to-form-m3gj-human-approved-evaluator-regeneration-v2-consumer-compatibility-v1.json",
+      "sha256": "d69d816ccaf321bcd2bac1cc012bf78050d58978cdca30424980cb8ccc916fef",
+      "status": "completed_local_no_remote_no_training_evaluator_regeneration_with_v2_consumer_compatibility",
+      "sidecar_schema": "asl-pilot-rawframe-prediction-sidecar/v2",
+      "test_top1_accuracy": 0.25,
+      "test_macro_f1": 0.15634920634920638,
+      "selected_threshold": 0.49,
+      "passes_targets": false
+    },
+    "m3gb_brev_baseline": {
+      "path": "docs/validation/return-to-form-m3gb-human-approved-bounded-brev-composable-training-v1.json",
+      "sha256": "f34eb28fd977e12782468e79f48c8a08618b5d91d70430cb9dcf6b9f19f040f6",
+      "status": "completed_training_evaluation_copyback_metrics_failed",
+      "validation_top1_accuracy": 0.37037037037037035,
+      "validation_macro_f1": 0.33209647495361777,
+      "test_top1_accuracy": 0.25,
+      "test_macro_f1": 0.15634920634920638,
+      "selected_threshold": 0.49
+    }
+  },
+  "local_output_guard_patch": {
+    "changed": true,
+    "file": "scripts/train_rawframe_model.py",
+    "summary": "Added output/m3gk-high-signal-region-grid-tcn-brev-seed20260529 to the existing region-grid TCN Brev smoke output allowlist and guard messages only.",
+    "forbidden_policy_changes": false
+  },
+  "local_hashes": {
+    "GOAL.md": "1cff6a6d7808fc62342cb61ce87b1315931874fc8bd172f1a4207e9cfdecb02b",
+    "docs/model/return-to-form-m3gk-bounded-brev-completion-route-after-regenerated-evidence-goal-loop-prompt.md": "9fbeb622f68ce0c48f6e7388b4a4f8a3f26b06ec412d1a99350671761e019f17",
+    "scripts/train_rawframe_model.py": "fcd9a92c1cf93b970dc14af8ce89dc797723f6051212057ba9ea05f559b164a8",
+    "scripts/evaluate_rawframe_model.py": "71f374b664837fce1e5eb92e04845b291db6cfbe9f79ccfca4655078c485ef87",
+    "data/manifests/lesson/high-signal-region-grid/train.json": "101455329ae04ad06a2c3fd4ca26a29c04ae945bb7925bee373cf3229594fc3d",
+    "data/manifests/lesson/high-signal-region-grid/validation.json": "16a4a64a8fd48a1384c4cfd2e01dddcaa45fb3b1f0588af9ec66f96668cc3a53",
+    "data/manifests/lesson/high-signal-region-grid/test.json": "5a315d49438242febb410287c4ff235ae8cd269a5aba5c3cf550950bae0359f8"
+  },
+  "commands": [
+    {
+      "command": "git status --short --branch",
+      "exit_status": 0,
+      "summary": "clean at start; branch compound-plan-m0 ahead of origin"
+    },
+    {
+      "command": "git log -14 --oneline --decorate",
+      "exit_status": 0,
+      "summary": "latest commit 6899dd5 observer: CONTINUE - m3gj bounded brev route handoff"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_status": 0,
+      "summary": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_status": 0,
+      "summary": "passed; GOAL.md points at M3GK prompt"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "exit_status": 0,
+      "summary": "passed; source register sha256 b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_status": 0,
+      "summary": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_status": 0,
+      "summary": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3gj-human-approved-evaluator-regeneration-v2-consumer-compatibility-v1.json >/dev/null",
+      "exit_status": 0,
+      "summary": "valid JSON"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3gb-human-approved-bounded-brev-composable-training-v1.json >/dev/null",
+      "exit_status": 0,
+      "summary": "valid JSON"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "exit_status": 0,
+      "summary": "valid JSON"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/detector0-card.json >/dev/null",
+      "exit_status": 0,
+      "summary": "valid JSON"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "exit_status": 0,
+      "summary": "valid JSON"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/claim-matrix.json >/dev/null",
+      "exit_status": 0,
+      "summary": "valid JSON"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/final-claim-matrix.json >/dev/null",
+      "exit_status": 0,
+      "summary": "valid JSON"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "exit_status": 0,
+      "summary": "passed before and after patch"
+    },
+    {
+      "command": "bash -n scripts/brev_sync_repo.sh",
+      "exit_status": 0,
+      "summary": "passed"
+    },
+    {
+      "command": "brev ls --json",
+      "exit_status": 0,
+      "summary": "initial worker state STOPPED / COMPLETED / NOT READY / HEALTHY"
+    },
+    {
+      "command": "brev search --stoppable --min-vram 40 --sort price --json",
+      "exit_status": 0,
+      "summary": "cheapest listed matching L40S l40s-48gb.1x at 1.74 USD/hour"
+    },
+    {
+      "command": "git diff --check",
+      "exit_status": 0,
+      "summary": "passed before and after patch"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3gk-high-signal-region-grid-tcn-brev-seed20260529 --model-id m3gk-high-signal-region-grid-tcn-brev-seed20260529 --seed 20260529 --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1",
+      "exit_status": 0,
+      "summary": "local dry-run/check-files passed; input contract rgb_regions_grid_v1 observed on 84 train, 27 validation, 28 test clips"
+    },
+    {
+      "command": "brev start asl-pilot-m3eh-l40s-001",
+      "exit_status": 0,
+      "summary": "retained worker started; no new worker created"
+    },
+    {
+      "command": "brev ls --json",
+      "exit_status": 0,
+      "summary": "after start state RUNNING / COMPLETED / READY / UNAVAILABLE"
+    },
+    {
+      "command": "timeout 300s brev exec asl-pilot-m3eh-l40s-001 \"cd $HOME/asl-pilot && printf 'remote_home=%s\\n' \\\"$HOME\\\" && nvidia-smi --query-gpu=name,memory.total,memory.used,utilization.gpu --format=csv,noheader && ps -eo pid,etime,pcpu,pmem,args | egrep 'python|torch|train|screen|tmux|jupyter' | grep -v egrep || true && .venv/bin/python - <<'PY' ... PY\"",
+      "exit_status": 124,
+      "summary": "timed out waiting for SSH connection; no remote_home, nvidia-smi, process, or CUDA evidence obtained"
+    },
+    {
+      "command": "brev ls --json",
+      "exit_status": 0,
+      "summary": "after safety timeout state UNHEALTHY / COMPLETED / READY / UNHEALTHY"
+    },
+    {
+      "command": "brev stop asl-pilot-m3eh-l40s-001",
+      "exit_status": 0,
+      "summary": "stop command returned workspace name"
+    },
+    {
+      "command": "brev ls --json",
+      "exit_status": 0,
+      "summary": "after first stop state UNHEALTHY / COMPLETED / READY / UNHEALTHY"
+    },
+    {
+      "command": "brev stop 3d58wpy9o",
+      "exit_status": 0,
+      "summary": "fallback stop by workspace id returned workspace id"
+    },
+    {
+      "command": "brev ls --json",
+      "exit_status": 0,
+      "summary": "intermediate state STOPPING / COMPLETED / NOT READY / UNHEALTHY"
+    },
+    {
+      "command": "brev ls --json",
+      "exit_status": 0,
+      "summary": "final state STOPPED / COMPLETED / NOT READY / UNHEALTHY"
+    }
+  ],
+  "brev_provider_states": {
+    "initial": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "status": "STOPPED",
+      "build_status": "COMPLETED",
+      "shell_status": "NOT READY",
+      "health_status": "HEALTHY",
+      "instance_type": "l40s-48gb.1x",
+      "gpu": "L40S"
+    },
+    "after_start": {
+      "status": "RUNNING",
+      "build_status": "COMPLETED",
+      "shell_status": "READY",
+      "health_status": "UNAVAILABLE"
+    },
+    "after_safety_timeout": {
+      "status": "UNHEALTHY",
+      "build_status": "COMPLETED",
+      "shell_status": "READY",
+      "health_status": "UNHEALTHY"
+    },
+    "after_name_stop": {
+      "status": "UNHEALTHY",
+      "build_status": "COMPLETED",
+      "shell_status": "READY",
+      "health_status": "UNHEALTHY"
+    },
+    "after_id_stop_intermediate": {
+      "status": "STOPPING",
+      "build_status": "COMPLETED",
+      "shell_status": "NOT READY",
+      "health_status": "UNHEALTHY"
+    },
+    "final": {
+      "status": "STOPPED",
+      "build_status": "COMPLETED",
+      "shell_status": "NOT READY",
+      "health_status": "UNHEALTHY"
+    }
+  },
+  "remote_cuda_process_venv_evidence": {
+    "status": "not_obtained",
+    "reason": "required safety probe timed out waiting for SSH before executing remote commands"
+  },
+  "sync_and_remote_hash_evidence": {
+    "status": "not_run",
+    "reason": "remote safety probe failed before sync step"
+  },
+  "dry_runs": {
+    "local": {
+      "status": "passed",
+      "required_input_contract": "rgb_regions_grid_v1",
+      "train_clip_count": 84,
+      "validation_clip_count": 27,
+      "test_clip_count": 28
+    },
+    "remote": {
+      "status": "not_run",
+      "reason": "remote safety probe failed before sync and remote dry-run steps"
+    }
+  },
+  "timed_training_command": {
+    "status": "not_run",
+    "exit_status": null,
+    "runtime_seconds": 0,
+    "timeout_status": "not_started",
+    "skip_reason": "Brev SSH safety probe timed out with exit status 124 before CUDA/process/venv safety could be verified"
+  },
+  "evaluation_command": {
+    "status": "not_run",
+    "exit_status": null,
+    "skip_reason": "no M3GK checkpoint or training provenance exists because training did not start"
+  },
+  "copyback": {
+    "status": "not_run",
+    "skip_reason": "remote output directory was never created or verified",
+    "local_output_dir_exists": false
+  },
+  "fail_closed_claim_surfaces": {
+    "web/public/model/model-card.json": {
+      "status": "not_trained",
+      "model_id": "asl-pilot-rawframe-v0"
+    },
+    "web/public/model/detector0-card.json": {
+      "status": "not_trained",
+      "browser_artifact": null
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": []
+    },
+    "web/public/model/claim-matrix.json": {
+      "status": "no_active_claim_rawframe_not_trained"
+    },
+    "docs/validation/final-claim-matrix.json": {
+      "status": "no_active_claim_rawframe_not_trained"
+    }
+  },
+  "forbidden_action_proof": {
+    "new_worker_created": false,
+    "package_install": false,
+    "remote_sync": false,
+    "timed_training": false,
+    "remote_evaluation": false,
+    "copyback": false,
+    "broad_label_sweep": false,
+    "detector0_training": false,
+    "source_or_media_import": false,
+    "manifest_tensor_or_vocabulary_mutation": false,
+    "raw_video_inspection_or_upload": false,
+    "dependency_mutation": false,
+    "onnx_export": false,
+    "model_card_promotion": false,
+    "browser_recognition_activation": false,
+    "final_gate_change": false,
+    "claim_expansion": false,
+    "push": false,
+    "amend": false,
+    "no_verify": false
+  },
+  "pretrained_components": [],
+  "changed_files": [
+    "scripts/train_rawframe_model.py",
+    "docs/validation/return-to-form-m3gk-bounded-brev-completion-route-after-regenerated-evidence-v1.json",
+    "docs/session-logs/635-mission-3gk-bounded-brev-completion-route-after-regenerated-evidence.md"
+  ],
+  "blocker": {
+    "kind": "brev_provider_safety",
+    "description": "The retained worker started, but the required remote safety check timed out waiting for SSH. CUDA/process/venv safety could not be verified, so sync, remote dry-run, timed training, evaluation, and copyback were skipped. The worker was stopped afterward and final provider state was STOPPED / NOT READY with health_status UNHEALTHY.",
+    "requires_human_review": true
+  },
+  "next_action": "stop_for_brev_provider_budget_or_claim_review"
+}

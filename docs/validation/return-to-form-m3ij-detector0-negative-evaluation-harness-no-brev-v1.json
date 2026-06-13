@@ -1,0 +1,270 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3ij-detector0-negative-evaluation-harness-no-brev/v1",
+  "mission": "M3IJ - Detector 0 negative evaluation harness no Brev",
+  "role": "Codex executor",
+  "created_at": "2026-05-30T04:42:00.000Z",
+  "status": "completed_local_harness_and_synthetic_smoke_not_real_evaluation_not_training_ready",
+  "head_at_start": "4f78322 observer: CONTINUE - m3ii to m3ij evaluation harness",
+  "active_prompt": "docs/model/return-to-form-m3ij-detector0-negative-evaluation-harness-no-brev-goal-loop-prompt.md",
+  "slice": "local/no-remote/no-Brev/no-paid-compute/no-training Detector 0 negative-evaluation harness",
+  "files_changed": [
+    "scripts/evaluate_detector0_negative_metrics.mjs",
+    "docs/validation/return-to-form-m3ij-detector0-negative-evaluation-harness-smoke-predictions-v1.json",
+    "docs/validation/return-to-form-m3ij-detector0-negative-evaluation-harness-smoke-v1.json",
+    "docs/validation/return-to-form-m3ij-detector0-negative-evaluation-harness-no-brev-v1.json",
+    "docs/session-logs/794-mission-3ij-detector0-negative-evaluation-harness-no-brev.md"
+  ],
+  "source_artifact_hashes": {
+    "docs/model/return-to-form-detector0-negative-evaluation-metric-contract-v1.json": "efb3d10620b150bca65d1aa09180a5d4b8dc7b6f7e38fa120702d3e73945e9dc",
+    "docs/validation/return-to-form-m3ii-detector0-negative-evaluation-metric-contract-no-brev-v1.json": "be27247fae9dbaa6ccbab9c03c5b012096a71efd38a576e4b6e971e554e27efa",
+    "data/annotations/detector0/return-to-form-detector0-hard-negative-validation-manifest-v1.json": "55483e2494dd807fb648e20d4fb713002614a372527e56bfc7a50d74fea3b89d",
+    "data/annotations/detector0/return-to-form-detector0-combined-training-packet-v1.json": "59214b75e0f416ce8527e560a947c2201442d86ded2a80bcd0f4b62e418254e2",
+    "web/public/model/detector0-card.json": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+    "web/public/model/browser-model-bundle.json": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9",
+    "web/public/model/model-card.json": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+    "docs/model/active-vocabulary-claim.json": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546"
+  },
+  "harness_behavior_proof": {
+    "script": {
+      "path": "scripts/evaluate_detector0_negative_metrics.mjs",
+      "sha256": "a38267ea6df05a4f42d62ec8ab3a132562abb8ddf5a25f825e0db50f6c24a506"
+    },
+    "reads_m3ii_metric_contract": true,
+    "reads_future_prediction_artifact": true,
+    "validates_source_row_ids_and_hashes": true,
+    "validates_source_split_and_category_metadata": true,
+    "validates_threshold_profile_frozen": true,
+    "validates_no_pretrained_no_generated_label_attestation": true,
+    "validates_prediction_row_hashes": true,
+    "separates_positive_strict_no_hand_and_non_target_context_rows": true,
+    "computes_positive_false_no_hand": true,
+    "computes_positive_hand_recall_at_iou_thresholds": [
+      0.3,
+      0.5
+    ],
+    "computes_strict_no_hand_false_trigger_rate": true,
+    "computes_category_level_false_trigger_counts": true,
+    "reports_non_target_asl_sign_context_separately": true,
+    "writes_json_only_with_explicit_output_path": true,
+    "synthetic_fixture_requires_explicit_allow_flag": true
+  },
+  "synthetic_smoke_proof": {
+    "predictions_fixture": {
+      "path": "docs/validation/return-to-form-m3ij-detector0-negative-evaluation-harness-smoke-predictions-v1.json",
+      "sha256": "a219f8caa45cd2ae847a6163f9b6d1ac432190a763e33082b5f1cbcc6d75ddcb",
+      "row_count": 74,
+      "positive_rows": 49,
+      "strict_no_hand_negative_rows": 20,
+      "non_target_context_rows": 5,
+      "synthetic_fixture": true,
+      "detector_output": false,
+      "trained_detector_invoked": false,
+      "generated_labels_or_pseudo_labels": false,
+      "derived_from_pretrained_outputs": false,
+      "model_performance_evidence": false
+    },
+    "smoke_output": {
+      "path": "docs/validation/return-to-form-m3ij-detector0-negative-evaluation-harness-smoke-v1.json",
+      "sha256": "41b6e45bf595053f27cec2aec6e9a7bf30f3d7083ee1d13a2c06147e420d57d7",
+      "status": "passed_synthetic_harness_validation_not_model_performance",
+      "positive_rows_validated": 49,
+      "strict_no_hand_negative_rows_validated": 20,
+      "non_target_context_rows_validated": 5,
+      "positive_false_no_hand_rate": 0,
+      "strict_no_hand_false_trigger_rate": 0,
+      "non_target_hand_prediction_count": 5,
+      "non_target_asl_sign_excluded_from_strict_no_hand_gate": true,
+      "model_performance_claimed": false
+    },
+    "disclaimer": "The smoke output is harness validation only. It is not detector output, not a real evaluation run, and not model performance evidence."
+  },
+  "brev_read_only_inventory": {
+    "command": "brev ls --json",
+    "status": "passed",
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ],
+    "brev_lifecycle_command_run": false
+  },
+  "claim_surface_proof": {
+    "web/public/model/detector0-card.json": {
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null,
+      "runtime_gates": {
+        "detector0_tracking": false,
+        "box_driven_avatar": false,
+        "recognition_pass_fail": false
+      }
+    },
+    "web/public/model/browser-model-bundle.json": {
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9",
+      "recognition_enabled": false,
+      "detector0_tracking_enabled": false,
+      "box_driven_avatar_enabled": false,
+      "authored_avatar_demos_enabled": false
+    },
+    "web/public/model/model-card.json": {
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "status": "not_trained"
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": [],
+      "evidenceArtifacts": []
+    },
+    "claim_surfaces_mutated": false
+  },
+  "command_statuses": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed"
+    },
+    {
+      "command": "git log -14 --oneline --decorate",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_detector0_manifest_contract.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/return-to-form-detector0-negative-evaluation-metric-contract-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3ii-detector0-negative-evaluation-metric-contract-no-brev-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-detector0-hard-negative-validation-manifest-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-detector0-combined-training-packet-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "brev ls --json",
+      "status": "passed_stopped"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "node --check scripts/evaluate_detector0_negative_metrics.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/evaluate_detector0_negative_metrics.mjs --write-synthetic-smoke-fixture docs/validation/return-to-form-m3ij-detector0-negative-evaluation-harness-smoke-predictions-v1.json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/evaluate_detector0_negative_metrics.mjs --predictions docs/validation/return-to-form-m3ij-detector0-negative-evaluation-harness-smoke-predictions-v1.json --output docs/validation/return-to-form-m3ij-detector0-negative-evaluation-harness-smoke-v1.json --allow-synthetic-smoke",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/evaluate_detector0_negative_metrics.mjs --predictions docs/validation/return-to-form-m3ij-detector0-negative-evaluation-harness-smoke-predictions-v1.json",
+      "status": "expected_failed_without_allow_synthetic_smoke"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3ij-detector0-negative-evaluation-harness-smoke-predictions-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3ij-detector0-negative-evaluation-harness-smoke-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3ij-detector0-negative-evaluation-harness-no-brev-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed_after_receipt_and_session_log"
+    }
+  ],
+  "no_real_evaluation_proof": {
+    "real_detector_evaluation_run": false,
+    "trained_detector_invoked": false,
+    "model_artifact_loaded": false,
+    "prediction_artifact_is_synthetic": true,
+    "model_performance_claimed": false
+  },
+  "no_pretrained_no_generated_label_proof": {
+    "prediction_attestation_validated": true,
+    "pretrained_components": [],
+    "no_pretrained_detector_outputs_used": true,
+    "no_pretrained_landmark_outputs_used": true,
+    "no_pretrained_feature_or_embedding_outputs_used": true,
+    "no_pretrained_backbone_used": true,
+    "no_teacher_model_outputs_used": true,
+    "no_generated_labels_used": true,
+    "no_pseudo_labels_used": true,
+    "audit_no_pretrained_deps_passed": true,
+    "audit_no_pretrained_artifact_json_passed": true
+  },
+  "forbidden_action_proof": {
+    "no_real_evaluation_run": true,
+    "no_trained_detector_invocation": true,
+    "no_brev_lifecycle": true,
+    "no_remote_commands": true,
+    "no_paid_compute_started": true,
+    "no_source_or_media_import": true,
+    "no_new_source_authority": true,
+    "no_label_authoring_or_repair": true,
+    "no_generated_labels_or_pseudo_labels": true,
+    "no_tensor_generation_or_mutation": true,
+    "no_detector0_training": true,
+    "no_recognizer_training": true,
+    "no_export_or_promotion": true,
+    "no_browser_activation": true,
+    "no_final_gate_change": true,
+    "no_claim_expansion": true,
+    "no_push": true
+  },
+  "blockers": [
+    {
+      "blocker": "trained_scratch_detector_prediction_artifact_absent",
+      "details": "The harness can now validate and score a future artifact, but this slice intentionally used only synthetic smoke predictions."
+    },
+    {
+      "blocker": "first_party_training_capable_hard_negative_rows_absent",
+      "details": "M3IH hard negatives remain validation-only; future training-capable no-hand negatives require first-party consent, review, and tracked absence labels."
+    }
+  ],
+  "exactly_one_next_action": "continue_m3ik_detector0_first_party_negative_capture_contract_no_brev"
+}

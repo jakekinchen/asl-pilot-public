@@ -1,0 +1,141 @@
+{
+  "schema_version": "asl-pilot-browser-onnx-wiring-smoke/v1",
+  "status": "passed",
+  "evidence_mode": "smoke",
+  "finality": "smoke_only",
+  "tested_at": "2026-05-27T08:52:35.754Z",
+  "runner": {
+    "tool": "playwright",
+    "browser": "148.0.7778.96",
+    "app_url": "http://127.0.0.1:62771/smoke/browser-onnx",
+    "command": [
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/Users/kelly/Developer/asl-pilot/scripts/run_browser_onnx_wiring_smoke.mjs",
+      "--write"
+    ],
+    "script": {
+      "path": "scripts/run_browser_onnx_wiring_smoke.mjs",
+      "sha256": "a110cfdf45938b0e345580c3b71f92d255849fb8541cac4f8a0b9b71840acb82"
+    }
+  },
+  "smoke_model_card": {
+    "path": "output/browser-onnx-wiring-smoke/model-card.json",
+    "sha256": "9d3315d791fed0129ec8b27fc320a8f86bd89d80006aa64d564777eb50f91d9b"
+  },
+  "smoke_browser_artifact": {
+    "path": "output/browser-onnx-wiring-smoke/asl-pilot-browser-onnx-wiring-smoke.onnx",
+    "sha256": "18428a0079c5afaf8c6309d9bbe3546565b493a84e51e2ca7886d843d691617f"
+  },
+  "runtime": {
+    "package": "onnxruntime-web",
+    "version": "1.26.0",
+    "execution_provider": "wasm",
+    "app_wasm_route": "/api/ort/"
+  },
+  "inference": {
+    "ran_browser_inference": true,
+    "expected_id": "hello",
+    "predicted_id": "hello",
+    "confidence": 0.765544338568308,
+    "model_status": "trained",
+    "model_id": "asl-pilot-browser-onnx-wiring-smoke-v0",
+    "input_shape": [
+      1,
+      3,
+      3,
+      16,
+      16
+    ],
+    "logits_shape": [
+      1,
+      2
+    ],
+    "client_validated_logits_against_label_count": true,
+    "result": {
+      "passed": true,
+      "expectedId": "hello",
+      "predictedId": "hello",
+      "confidence": 0.765544338568308,
+      "modelStatus": "trained",
+      "modelId": "asl-pilot-browser-onnx-wiring-smoke-v0",
+      "hint": "Accepted under the calibrated pilot threshold.",
+      "reason": "prompted class was top prediction and met threshold 0.500"
+    },
+    "frame_count": 3,
+    "image_size": 16,
+    "page_status": "passed",
+    "page_error": null
+  },
+  "network": {
+    "fetched_smoke_model_card": true,
+    "fetched_smoke_browser_artifact": true,
+    "fetched_ort_wasm_route": true,
+    "unexpected_external_requests": []
+  },
+  "evidence": {
+    "browser_files": [
+      {
+        "type": "screenshot",
+        "path": "output/browser-onnx-wiring-smoke/browser-onnx-wiring-smoke.png",
+        "sha256": "dc76ea0fd44c909f6ba3f2dc35bc2405e5c9f2a0a68df574225bef111f8989ef",
+        "purpose": "Rendered hidden app smoke page after client-model browser ONNX inference"
+      },
+      {
+        "type": "network_log",
+        "path": "output/browser-onnx-wiring-smoke/browser-onnx-wiring-smoke-network-log.json",
+        "sha256": "18d5451be4e4c54d974414f0a58dfbaae20f64a55f35514f535c73ab0d077743",
+        "purpose": "Observed smoke model-card, ONNX artifact, and app-served ORT WASM requests"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "scripts/run_browser_onnx_wiring_smoke.mjs",
+        "sha256": "a110cfdf45938b0e345580c3b71f92d255849fb8541cac4f8a0b9b71840acb82"
+      },
+      {
+        "path": "scripts/audit_browser_onnx_wiring_smoke.mjs",
+        "sha256": "55620dc78a288abfbf8cac825c1536f0b717bc0119d23e574d7110ab590aad96"
+      },
+      {
+        "path": "web/src/app/smoke/browser-onnx/page.tsx",
+        "sha256": "b9147bba94855207e234717b9f49cacc210a36af8bf6c606388b3805705ba1e3"
+      },
+      {
+        "path": "web/src/app/api/ort/[file]/route.ts",
+        "sha256": "10e75ab85362eefbb3c3bdc6c7234acb2105db64dff79f14368c76a670ab12a2"
+      },
+      {
+        "path": "web/src/lib/client-model.ts",
+        "sha256": "0fa11430ed6cdd20076866b46c053178998a1052d761ae276b1307c58ab4ae27"
+      },
+      {
+        "path": "web/package-lock.json",
+        "sha256": "caf0326b0a63065b1edb5fa1d627c32fa2a9ab5d3e025dd85752f255d98d6d2d"
+      }
+    ]
+  },
+  "final_evidence_exclusion": {
+    "excluded_from_completion": true,
+    "final_browser_smoke_report": "docs/validation/final-browser-onnx-smoke.json",
+    "reason": "This smoke uses a deterministic two-label fixture and is not trained ASL evidence."
+  },
+  "output": "docs/validation/browser-onnx-wiring-smoke.json",
+  "blockers": [],
+  "server": {
+    "mode": "next_start",
+    "build_id_sha256": "41f902367fbdbc1064191169fc323383aa8a515ea7f1e0158891c697c1dd2a50",
+    "stdout_tail": [
+      "> web@0.1.0 start",
+      "> next start --hostname 127.0.0.1 --port 62771",
+      "",
+      "▲ Next.js 16.2.6",
+      "- Local:         http://127.0.0.1:62771",
+      "- Network:       http://127.0.0.1:62771",
+      "✓ Ready in 72ms"
+    ],
+    "stderr_tail": [
+      ""
+    ]
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "schema_version": "asl-pilot-return-to-form-tier0-gates/v1",
+  "created_at": "2026-05-25T19:16:00Z",
+  "mission": "M3AC",
+  "status": "pre_training_gates",
+  "applies_to": {
+    "source_coverage": "docs/research/return-to-form-tier0-source-coverage.json",
+    "crop_config": "docs/model/return-to-form-fixed-crop-config.json",
+    "tier0_labels": [
+      "please",
+      "table",
+      "dad",
+      "grandpa",
+      "hat"
+    ],
+    "class_count": 5,
+    "random_top1_chance": 0.2
+  },
+  "pre_training_prerequisites": [
+    {
+      "gate_id": "m3ad_manifests_bind_source_and_crop",
+      "required": true,
+      "pass_condition": "Tier 0 train/validation/test manifests exist, include only selected labels, bind docs/model/dataset-source-register.json hash b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8, and bind the SHA-256 of docs/model/return-to-form-fixed-crop-config.json."
+    },
+    {
+      "gate_id": "m3ad_tensor_files_complete",
+      "required": true,
+      "pass_condition": "Every selected manifest clip has relative_frame_tensor_path, frame_tensor_sha256, frame_tensor_provenance, and crop region metadata; check-files or equivalent audit exits 0."
+    },
+    {
+      "gate_id": "m3ad_dataloader_batch_smoke",
+      "required": true,
+      "pass_condition": "A local or Brev-side dry run loads at least one batch per split with the expected class_count=5 and crop-region tensor shape."
+    }
+  ],
+  "training_sanity_gate": {
+    "gate_id": "tier0_train_sanity",
+    "required": true,
+    "metric_targets": {
+      "train_top1_min": 0.8,
+      "train_macro_recall_min": 0.8,
+      "loss_drop_min_fraction_from_initial_to_best": 0.4
+    },
+    "stop_if": [
+      "train_top1 remains below 0.5 after the planned smoke budget",
+      "training loss does not improve by at least 0.4 from initial to best",
+      "any selected label has zero train recall"
+    ],
+    "interpretation": "Failure here means the fixed-crop/tensor/model path is not even fitting the small approved-source set; do not expand labels."
+  },
+  "validation_gate": {
+    "gate_id": "tier0_validation_signal",
+    "required": true,
+    "metric_targets": {
+      "validation_top1_min": 0.6,
+      "validation_macro_recall_min": 0.5,
+      "test_top1_report_only": true,
+      "test_macro_recall_report_only": true
+    },
+    "stop_if": [
+      "validation_top1 is at or near random chance after train sanity passes",
+      "validation macro recall is below 0.5",
+      "test metrics expose a split/source failure that invalidates the validation claim"
+    ],
+    "interpretation": "Passing validation is evidence for Tier 0 learnability only, not final product readiness."
+  },
+  "hard_negative_gate": {
+    "gate_id": "tier0_hard_negative_far",
+    "required": true,
+    "metric_targets": {
+      "false_accept_rate_max": 0.2,
+      "report_by_negative_type": true,
+      "final_promotion_gate_satisfied": false
+    },
+    "allowed_inputs": [
+      "existing reviewed negative-challenge manifests or a clearly marked small-proof reject set"
+    ],
+    "stop_if": [
+      "hard-negative false accept rate exceeds 0.2 at the selected threshold",
+      "threshold tuning accepts no true-class examples for any selected label",
+      "negative inputs are unreviewed or source/register status is unclear"
+    ],
+    "separation_from_final_gate": "The full 17-type negative-challenge gate remains a final-promotion requirement and is still blocked by 12 underfilled final-promotion types."
+  },
+  "no_zero_accepted_true_class_rule": {
+    "gate_id": "no_zero_accepted_true_class",
+    "required": true,
+    "pass_condition": "For every selected label, at least one validation true-class clip is accepted above threshold and per-label accepted true-class count is reported.",
+    "stop_if": "Any selected label has zero accepted true-class validation examples after thresholding."
+  },
+  "non_goals": [
+    "Do not export ONNX from this proof in M3AC.",
+    "Do not promote web/public/model/model-card.json from this proof in M3AC.",
+    "Do not claim final readiness from Tier 0 metrics.",
+    "Do not evaluate or promote the retained controlled clip-heldout checkpoint.",
+    "Do not weaken final-promotion negative-challenge requirements.",
+    "Do not expand to Tier 1 until Tier 0 passes these gates."
+  ],
+  "stop_rules": [
+    "If M3AD cannot bind source/crop hashes or load tensors, fix M3AD before training.",
+    "If M3AE fails train sanity, inspect crop contact sheets, tensor provenance, and label selection before another run.",
+    "If M3AE passes train sanity but fails validation, record the split/source failure and do not scale labels.",
+    "If M3AE passes Tier 0 but hard-negative FAR fails, continue calibration/rejection work before any product claim.",
+    "If the next action requires new paid Brev spend, new source approval, final-gate policy changes, or human collection, stop for explicit user approval."
+  ],
+  "next_milestone": "M3AD decode and dataloader proof."
+}

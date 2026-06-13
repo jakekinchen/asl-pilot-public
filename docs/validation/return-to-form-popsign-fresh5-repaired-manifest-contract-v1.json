@@ -1,0 +1,552 @@
+{
+  "active_prompt": "docs/model/return-to-form-popsign-fresh5-repaired-manifest-contract-goal-loop-prompt.md",
+  "commands": {
+    "contract_verification": [
+      ".venv/bin/python",
+      "scripts/verify_popsign_fresh5_repaired_manifest_contract.py",
+      "--receipt",
+      "docs/validation/return-to-form-popsign-fresh5-repaired-manifest-contract-v1.json",
+      "--write-receipt"
+    ],
+    "required_audits": [
+      "git status --short --branch",
+      "git log -10 --oneline --decorate",
+      "node scripts/audit_loop_premise.mjs --json",
+      "node scripts/audit_return_to_form_plan.mjs --json",
+      "node scripts/audit_no_pretrained_deps.mjs",
+      "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "node scripts/audit_source_register.mjs",
+      "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-vocab-split-remediation-v1.json >/dev/null",
+      "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-data-vocabulary-separability-v1.json >/dev/null",
+      "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-model-data-design-ablation-v1.json >/dev/null",
+      "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-region-grid-local-smoke-v1.json >/dev/null",
+      "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/verify_popsign_fresh5_repaired_manifest_contract.py scripts/design_popsign_fresh5_vocab_split_remediation.py scripts/diagnose_popsign_fresh5_data_vocabulary_separability.py scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py scripts/decode_raw_videos.py scripts/materialize_popsign_fresh5_region_grid.py scripts/run_popsign_fresh5_region_grid_tcn_tiny_overfit.py",
+      "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-repaired-manifest-contract-v1.json >/dev/null",
+      "git diff --check"
+    ]
+  },
+  "contract_analysis": {
+    "cross_split_leakage": {
+      "train_vs_test": {
+        "label_shared_signer_identity_hash_count": {
+          "home": 0,
+          "morning": 0,
+          "pen": 0,
+          "thank_you": 0,
+          "who": 0
+        },
+        "shared_clip_id_count": 0,
+        "shared_signer_identity_hash_count": 0,
+        "shared_source_record_id_count": 0,
+        "shared_tensor_path_count": 0
+      },
+      "train_vs_validation": {
+        "label_shared_signer_identity_hash_count": {
+          "home": 0,
+          "morning": 0,
+          "pen": 0,
+          "thank_you": 0,
+          "who": 0
+        },
+        "shared_clip_id_count": 0,
+        "shared_signer_identity_hash_count": 0,
+        "shared_source_record_id_count": 0,
+        "shared_tensor_path_count": 0
+      },
+      "validation_vs_test": {
+        "label_shared_signer_identity_hash_count": {
+          "home": 0,
+          "morning": 0,
+          "pen": 0,
+          "thank_you": 0,
+          "who": 0
+        },
+        "shared_clip_id_count": 0,
+        "shared_signer_identity_hash_count": 0,
+        "shared_source_record_id_count": 0,
+        "shared_tensor_path_count": 0
+      }
+    },
+    "expected_label_order": [
+      "thank_you",
+      "pen",
+      "home",
+      "who",
+      "morning"
+    ],
+    "splits": {
+      "test": {
+        "clip_count": 125,
+        "dataset_source_mode": "approved_external_raw_video_source",
+        "duplicate_clip_ids": {},
+        "duplicate_source_record_ids": {},
+        "duplicate_tensor_paths": {},
+        "label_counts": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "labels": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "signer_identity_hash_count": 8,
+        "signer_identity_hash_count_by_label": {
+          "home": 7,
+          "morning": 8,
+          "pen": 8,
+          "thank_you": 8,
+          "who": 8
+        },
+        "source_id": "popsign-v1-original-videos",
+        "source_record_id_count": 125,
+        "source_record_id_count_by_label": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "source_split_counts": {
+          "test": 125
+        },
+        "tensor_file_count": 125,
+        "tensor_hash_match_count": 125,
+        "tensor_hash_samples": [
+          {
+            "clip_id": "popsign-v1-test-thank_you-000001",
+            "label_id": "thank_you",
+            "path": "data/tensors/return-to-form-popsign-fresh5-region-grid/test/popsign-v1-test-thank_you-000001-regions.pt",
+            "sha256": "39ca585be91e1392c5efc2fd77cede75b32c72c3673c2109b350f3b7a36917ee"
+          },
+          {
+            "clip_id": "popsign-v1-test-thank_you-000002",
+            "label_id": "thank_you",
+            "path": "data/tensors/return-to-form-popsign-fresh5-region-grid/test/popsign-v1-test-thank_you-000002-regions.pt",
+            "sha256": "225a3c19ef32602b371f18d685173b5deadddd1944342e0328e2d33232c01d7c"
+          }
+        ],
+        "tensor_reference_count": 125,
+        "tensor_sha256_count": 125
+      },
+      "train": {
+        "clip_count": 125,
+        "dataset_source_mode": "approved_external_raw_video_source",
+        "duplicate_clip_ids": {},
+        "duplicate_source_record_ids": {},
+        "duplicate_tensor_paths": {},
+        "label_counts": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "labels": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "signer_identity_hash_count": 31,
+        "signer_identity_hash_count_by_label": {
+          "home": 18,
+          "morning": 15,
+          "pen": 14,
+          "thank_you": 18,
+          "who": 18
+        },
+        "source_id": "popsign-v1-original-videos",
+        "source_record_id_count": 125,
+        "source_record_id_count_by_label": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "source_split_counts": {
+          "train": 125
+        },
+        "tensor_file_count": 125,
+        "tensor_hash_match_count": 125,
+        "tensor_hash_samples": [
+          {
+            "clip_id": "popsign-v1-train-thank_you-000001",
+            "label_id": "thank_you",
+            "path": "data/tensors/return-to-form-popsign-fresh5-region-grid/train/popsign-v1-train-thank_you-000001-regions.pt",
+            "sha256": "bac4801ae7a3fd3a207bdde5c110668cb114bedcff7b1c77590cf3a454b3000e"
+          },
+          {
+            "clip_id": "popsign-v1-train-thank_you-000002",
+            "label_id": "thank_you",
+            "path": "data/tensors/return-to-form-popsign-fresh5-region-grid/train/popsign-v1-train-thank_you-000002-regions.pt",
+            "sha256": "b63752b6519ae74ba5165705088ee5b77934d753f4ccd85cddfcae10e9d99fa1"
+          }
+        ],
+        "tensor_reference_count": 125,
+        "tensor_sha256_count": 125
+      },
+      "validation": {
+        "clip_count": 125,
+        "dataset_source_mode": "approved_external_raw_video_source",
+        "duplicate_clip_ids": {},
+        "duplicate_source_record_ids": {},
+        "duplicate_tensor_paths": {},
+        "label_counts": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "labels": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "signer_identity_hash_count": 8,
+        "signer_identity_hash_count_by_label": {
+          "home": 8,
+          "morning": 7,
+          "pen": 6,
+          "thank_you": 8,
+          "who": 8
+        },
+        "source_id": "popsign-v1-original-videos",
+        "source_record_id_count": 125,
+        "source_record_id_count_by_label": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "source_split_counts": {
+          "val": 125
+        },
+        "tensor_file_count": 125,
+        "tensor_hash_match_count": 125,
+        "tensor_hash_samples": [
+          {
+            "clip_id": "popsign-v1-validation-thank_you-000001",
+            "label_id": "thank_you",
+            "path": "data/tensors/return-to-form-popsign-fresh5-region-grid/validation/popsign-v1-validation-thank_you-000001-regions.pt",
+            "sha256": "5ba60e8dbe5c1c1e89f4104330777179690c6480e3895c8fa7b4be9cac3bb7af"
+          },
+          {
+            "clip_id": "popsign-v1-validation-thank_you-000002",
+            "label_id": "thank_you",
+            "path": "data/tensors/return-to-form-popsign-fresh5-region-grid/validation/popsign-v1-validation-thank_you-000002-regions.pt",
+            "sha256": "58b300b160bce6523c926abb3a6837da9c95703d555041313302d3e063d74a24"
+          }
+        ],
+        "tensor_reference_count": 125,
+        "tensor_sha256_count": 125
+      }
+    },
+    "tensor_failures": []
+  },
+  "decision": {
+    "blocker_classification": "none_contract_verified",
+    "brev_training_receipt_justified_now": false,
+    "detector0_or_crop_contract_justified_now": false,
+    "exactly_one_next_action": "continue_fresh5_repaired_manifest_materialization",
+    "fresh10_region_grid_materialization_justified_now": false,
+    "fresh5_repaired_manifest_materialization_justified_now": true,
+    "human_source_annotation_or_strategy_decision_required_now": false,
+    "next_action_rationale": "The same-label same-source PopSign fresh5 contract is explicit, leakage-free, tensor-backed, and ready for a later local/no-spend materialization prompt."
+  },
+  "exactly_one_next_action": "continue_fresh5_repaired_manifest_materialization",
+  "gate_results": {
+    "all_materialization_contract_gates_pass": true,
+    "gates": {
+      "import_plan_current": true,
+      "m3bx_selected_contract": true,
+      "no_cross_split_clip_source_or_tensor_leakage": true,
+      "no_internal_dedupe_failures": true,
+      "pen_and_thank_you_risks_carried_forward": true,
+      "per_label_clip_counts": true,
+      "same_label_order": true,
+      "same_label_set": true,
+      "same_source_lane": true,
+      "signer_coverage": true,
+      "source_record_coverage": true,
+      "source_register_approved": true,
+      "source_split_boundaries_preserved": true,
+      "tensor_files_exist_and_hash_match": true
+    }
+  },
+  "generated_at": "2026-05-27T20:25:23.725826Z",
+  "generated_by": {
+    "command": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/verify_popsign_fresh5_repaired_manifest_contract.py",
+      "--receipt",
+      "docs/validation/return-to-form-popsign-fresh5-repaired-manifest-contract-v1.json",
+      "--write-receipt"
+    ],
+    "python_executable": "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+    "script": {
+      "path": "scripts/verify_popsign_fresh5_repaired_manifest_contract.py",
+      "sha256": "b2a2418406f05b4352cfb2e8307e5172bf97d2864df244f943fbb1a3c6e0469e"
+    },
+    "tool": "scripts/verify_popsign_fresh5_repaired_manifest_contract.py"
+  },
+  "git": {
+    "head": "1f29603f6dbd0a9ac43aa17821efacf3c296cf88",
+    "head_short": "1f29603",
+    "status_short_branch": "## compound-plan-m0...origin/compound-plan-m0 [ahead 13]\n?? scripts/verify_popsign_fresh5_repaired_manifest_contract.py"
+  },
+  "input_artifacts": {
+    "m3bu_outputs": {
+      "prediction_sidecar": {
+        "path": "output/return-to-form-popsign-fresh5-region-grid-local-smoke/prediction-sidecar.json",
+        "sha256": "7846eaf0fc3d901224a0cb32ba5cba7ff489ac46eb4e59494692100c12058130"
+      },
+      "validation_report": {
+        "path": "output/return-to-form-popsign-fresh5-region-grid-local-smoke/validation-report.json",
+        "sha256": "aaa6687d573c007bf9326337b9070994556275a48ca03f362b6bc2a988160e1a"
+      }
+    },
+    "m3bx": {
+      "receipt": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-vocab-split-remediation-v1.json",
+        "sha256": "264819c3d687720b113af1f689b5d069084a76e5f4129cbf21e5a55784716b8b"
+      },
+      "session_log": {
+        "path": "docs/session-logs/381-mission-3bx-popsign-fresh5-vocab-split-remediation.md",
+        "sha256": "d56dc8d99020140d3f9a16ec9a9e48d018b1287c84fa88187371325380da5fa4"
+      }
+    },
+    "manifests": {
+      "test": {
+        "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/test.json",
+        "sha256": "fd1242c965ccf671384b38af8abf84333d107562a3700d30dfa6cd84720e4046"
+      },
+      "train": {
+        "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/train.json",
+        "sha256": "6cc8ca08bc127d8b42e55e03b604702a66c94d618821c07c23b6a9bd2b0f31ef"
+      },
+      "validation": {
+        "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/validation.json",
+        "sha256": "9e83e674ee9ee65508eb322b43fa0453ef7f5a76740735ebfa73a881ab3e0b40"
+      }
+    },
+    "receipts": {
+      "m3bs": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-materialization-local-smoke-v1.json",
+        "sha256": "510bce9946bf7afb145c5afb43e7b6492bb66e239511dfa91ade8ed3aca5f430"
+      },
+      "m3bt": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-region-grid-materialization-v1.json",
+        "sha256": "ff2de8d6047a6dfc735245fbe73989c90f370a32b9f35fbd3209186be10dba68"
+      },
+      "m3bu": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-region-grid-local-smoke-v1.json",
+        "sha256": "417664f34e8785d16979a3741d87a92222d20aaea6e9f789da223afaab1fcba2"
+      },
+      "m3bv": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-model-data-design-ablation-v1.json",
+        "sha256": "74590b35b59e7696bc2e4f46e5fd2ae0281935aa8d7360f6efeb563453b4effe"
+      },
+      "m3bw": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-data-vocabulary-separability-v1.json",
+        "sha256": "746d8bb0b17d8e749bd80c8054741cda680a044080010cc1b51a02645f490227"
+      }
+    },
+    "source_metadata": {
+      "popsign_import_plan": {
+        "path": "docs/research/popsign-v1-import-plan.json",
+        "sha256": "0438c3e39e8c7f8b21f9968baebdd18870311c8f4103adc13012d5e230c06234"
+      },
+      "source_register": {
+        "path": "docs/model/dataset-source-register.json",
+        "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+      }
+    },
+    "steering": {
+      "active_prompt": {
+        "path": "docs/model/return-to-form-popsign-fresh5-repaired-manifest-contract-goal-loop-prompt.md",
+        "sha256": "5da61e4becc42e554b0f433c1a1bb3d03147fc80bd4bfeb93d3e41341172f1fc"
+      },
+      "goal": {
+        "path": "GOAL.md",
+        "sha256": "2afdcfef372c8cff5d33fc5944e25f6db9661dbe37db0b42220a712b1df07b37"
+      },
+      "return_to_form_plan": {
+        "path": "docs/model/return-to-form-plan.md",
+        "sha256": "dceef151e10fcbcd574c73caf68dc9d3ffb0ad057e2661e4056d1986b4280659"
+      }
+    }
+  },
+  "label_risk_gates": {
+    "pen": {
+      "dominant_wrong_prediction": {
+        "count": 18,
+        "predicted_label": "thank_you"
+      },
+      "predicted_label_fraction": 0.032,
+      "status": "must_remain_training_stop_condition",
+      "stop_condition": "Any later training/materialization prompt must stop before Brev/export if pen recall remains near M3BU 0.04 or pen remains mostly absorbed by thank_you.",
+      "test_recall": 0.04
+    },
+    "thank_you": {
+      "dominant_wrong_prediction": {
+        "count": 3,
+        "predicted_label": "home"
+      },
+      "predicted_label_fraction": 0.568,
+      "status": "must_remain_training_stop_condition",
+      "stop_condition": "Any later training/materialization prompt must stop before Brev/export if thank_you remains an overpredicted class near M3BW 0.568 of test predictions.",
+      "test_recall": 0.64
+    }
+  },
+  "m3bx_contract_source": {
+    "blocker_classification": "fresh5_manifest_split_source_quality_contract_needed",
+    "m3bx_contract_id": "popsign_fresh5_source_quality_split_contract_v1",
+    "selected_next_action": "continue_fresh5_repaired_manifest_contract",
+    "status": "completed_no_training_design_packet"
+  },
+  "mission": "Mission 3BY - PopSign fresh5 repaired manifest contract",
+  "popsign_import_plan_status": {
+    "current_source_register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+    "derived_features_allowed": false,
+    "final_split_strategy": "preserve PopSign train/val/test signer-disjoint source splits",
+    "preview_videos_allowed": false,
+    "source_id": "popsign-v1-original-videos",
+    "source_register_hash_matches_current": true,
+    "source_register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+    "status": "ready_to_download"
+  },
+  "repaired_manifest_contract": {
+    "contract_id": "popsign_fresh5_repaired_manifest_contract_v1",
+    "contract_status": "ready_for_later_no_spend_materialization_prompt",
+    "current_contract_evidence_summary": {
+      "cross_split_leakage": {
+        "train_vs_test": {
+          "label_shared_signer_identity_hash_count": {
+            "home": 0,
+            "morning": 0,
+            "pen": 0,
+            "thank_you": 0,
+            "who": 0
+          },
+          "shared_clip_id_count": 0,
+          "shared_signer_identity_hash_count": 0,
+          "shared_source_record_id_count": 0,
+          "shared_tensor_path_count": 0
+        },
+        "train_vs_validation": {
+          "label_shared_signer_identity_hash_count": {
+            "home": 0,
+            "morning": 0,
+            "pen": 0,
+            "thank_you": 0,
+            "who": 0
+          },
+          "shared_clip_id_count": 0,
+          "shared_signer_identity_hash_count": 0,
+          "shared_source_record_id_count": 0,
+          "shared_tensor_path_count": 0
+        },
+        "validation_vs_test": {
+          "label_shared_signer_identity_hash_count": {
+            "home": 0,
+            "morning": 0,
+            "pen": 0,
+            "thank_you": 0,
+            "who": 0
+          },
+          "shared_clip_id_count": 0,
+          "shared_signer_identity_hash_count": 0,
+          "shared_source_record_id_count": 0,
+          "shared_tensor_path_count": 0
+        }
+      },
+      "split_count": 3,
+      "total_clip_count": 375,
+      "total_tensor_file_count": 375
+    },
+    "label_order": [
+      "thank_you",
+      "pen",
+      "home",
+      "who",
+      "morning"
+    ],
+    "materialize_later_only": true,
+    "no_manifest_written_this_mission": true,
+    "no_tensor_written_this_mission": true,
+    "required_gates_for_later_materialization": [
+      "use the same five labels and same approved PopSign raw-video source lane",
+      "preserve train/val/test source_split values exactly",
+      "carry source_record_id, source_sha256, signer_identity_hash, tensor path, and tensor sha256 provenance forward",
+      "reject any duplicate clip_id, source_record_id, or tensor path within a split",
+      "reject any source_record_id, clip_id, or tensor path crossing train/validation/test",
+      "require at least 25 clips and at least 6 pseudonymous signer hashes per label per split",
+      "require all tensor files to exist and match manifest frame_tensor_sha256",
+      "carry pen low-recall and thank_you overprediction gates into any later local smoke or compute receipt"
+    ],
+    "source_id": "popsign-v1-original-videos",
+    "split_strategy": "preserve PopSign train/val/test source split boundaries and retain signer-disjoint validation/test as evaluation property",
+    "training_stop_conditions": {
+      "browser": "No browser activation, active-label promotion, model-card promotion, or final-readiness claim is allowed from this contract alone.",
+      "compute": "No Brev compute receipt is allowed until a later local no-spend materialization/smoke records improved held-out signal over M3BU and preserves these gates.",
+      "pen": "Any later training/materialization prompt must stop before Brev/export if pen recall remains near M3BU 0.04 or pen remains mostly absorbed by thank_you.",
+      "thank_you": "Any later training/materialization prompt must stop before Brev/export if thank_you remains an overpredicted class near M3BW 0.568 of test predictions."
+    }
+  },
+  "schema_version": "asl-pilot-popsign-fresh5-repaired-manifest-contract/v1",
+  "scope": {
+    "existing_artifacts_only": true,
+    "local_only": true,
+    "no_brev_command_or_spend": true,
+    "no_checkpoint_created": true,
+    "no_detector0_training": true,
+    "no_export_or_browser_activation": true,
+    "no_final_gate_change": true,
+    "no_label_expansion": true,
+    "no_manifest_mutation": true,
+    "no_model_card_promotion": true,
+    "no_model_fitting": true,
+    "no_optimizer_or_backward_pass": true,
+    "no_pretrained_dependency": true,
+    "no_pseudo_labels": true,
+    "no_push": true,
+    "no_source_import_or_media_download": true,
+    "no_source_register_mutation": true,
+    "no_tensor_mutation": true,
+    "no_training_run": true
+  },
+  "source_register_status": {
+    "allowed_for_model_training": true,
+    "allowed_for_pilot_submission": true,
+    "allowed_for_validation": true,
+    "decision_id": "approved_popsign_v1_original_videos_2026_05_20",
+    "license_review_status": "approved_cc_by_4_raw_video_with_attribution",
+    "restrictions": [
+      "must cite and attribute PopSign ASL v1.0 under CC BY 4.0",
+      "only original game-category raw video archives may be imported",
+      "preview videos and derived pose, landmark, embedding, detector, feature, or pretrained artifacts are disallowed",
+      "source train, validation, and test split boundaries must be preserved",
+      "source signer identifiers must remain pseudonymous in ASL Pilot manifests"
+    ],
+    "source_id": "popsign-v1-original-videos",
+    "status": "approved"
+  },
+  "status": "completed_no_training_contract_verification",
+  "tracked_files_changed": [
+    "scripts/verify_popsign_fresh5_repaired_manifest_contract.py",
+    "docs/validation/return-to-form-popsign-fresh5-repaired-manifest-contract-v1.json",
+    "docs/session-logs/383-mission-3by-popsign-fresh5-repaired-manifest-contract.md"
+  ]
+}

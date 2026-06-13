@@ -1,0 +1,379 @@
+{
+  "schema_version": "asl-pilot-mission-3as-composable-recognizer-contract/v1",
+  "mission": "Mission 3AS - Composable recognizer contract",
+  "created_at": "2026-05-27T09:12:38Z",
+  "active_prompt": "docs/model/return-to-form-composable-recognizer-contract-goal-loop-prompt.md",
+  "status": "completed_contract_gap_selected",
+  "scope": {
+    "slice": "inspect existing code, manifests, and tensors; record current contract; select exactly one next action",
+    "non_actions": [
+      "no_training",
+      "no_brev_worker_start",
+      "no_brev_worker_stop",
+      "no_paid_compute",
+      "no_source_import",
+      "no_generated_labels",
+      "no_model_card_promotion",
+      "no_browser_trained_activation",
+      "no_onnx_export",
+      "no_threshold_or_final_gate_change",
+      "no_active_prompt_transition",
+      "no_push"
+    ]
+  },
+  "brev_state": {
+    "command": "brev ls --json",
+    "exit_code": 1,
+    "classification": "logged_out_eof_human_auth_required",
+    "spent_money": false,
+    "worker_state_known": false,
+    "stderr_excerpt": "You are currently logged out, would you like to log in? [Y/n]: ... EOF, Attempt 1 ... EOF"
+  },
+  "selected_dataset_and_vocabulary": {
+    "dataset": "ASL Citizen high-signal module",
+    "dataset_id": "asl-pilot-asl-citizen-high-signal-module-v0",
+    "dataset_source_mode": "approved_external_raw_video_source",
+    "source_id": "asl-citizen-school-assignment-raw-videos",
+    "source_register": {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    "labels": [
+      "table",
+      "please",
+      "black",
+      "hello",
+      "uncle",
+      "white",
+      "sad"
+    ],
+    "manifests": {
+      "train": {
+        "path": "data/manifests/lesson/high-signal-module/train.json",
+        "sha256": "f1aff5267c4c7cd3f6cec08d0e34f573529260106c97987e16c887745d419258",
+        "clip_count": 84,
+        "signer_count": 19,
+        "per_label_clip_count": 12
+      },
+      "validation": {
+        "path": "data/manifests/lesson/high-signal-module/validation.json",
+        "sha256": "a92bd0cd8a4e0bdc4009ac6bf6b61f899dab420b2f8bb91aaefdc0691f934b4c",
+        "clip_count": 27,
+        "signer_count": 5,
+        "per_label_clip_counts": {
+          "black": 4,
+          "hello": 4,
+          "please": 4,
+          "sad": 4,
+          "table": 4,
+          "uncle": 3,
+          "white": 4
+        }
+      },
+      "test": {
+        "path": "data/manifests/lesson/high-signal-module/test.json",
+        "sha256": "e6acd70e8ebe7302ca31b1616959e607c74a854b302281dde3a47e7d7f725284",
+        "clip_count": 28,
+        "signer_count": 7,
+        "per_label_clip_count": 4
+      }
+    },
+    "prior_smoke_context": {
+      "receipt": "docs/validation/return-to-form-asl-citizen-reduced-module-local-training-smoke-v1.json",
+      "architecture": "motion_2d_temporal_cnn",
+      "epoch_3_train_accuracy": 0.4642857142857143,
+      "validation_top1_accuracy": 0.25925925925925924,
+      "validation_macro_f1": 0.19480519480519481,
+      "test_top1_accuracy": 0.21428571428571427,
+      "test_macro_f1": 0.12558869701726846,
+      "finality": "weak_reduced_module_training_smoke_not_lesson_or_promotion_evidence"
+    }
+  },
+  "implemented_architecture_inventory": {
+    "source": "scripts/train_rawframe_model.py",
+    "allowed_architectures": [
+      "compact_3d_cnn_spatiotemporal",
+      "compact_3d_cnn_spatiotemporal_clip_norm",
+      "factorized_3d_cnn_spatiotemporal",
+      "motion_2d_temporal_cnn",
+      "small_2d_cnn_frame_encoder_with_temporal_mean_pooling"
+    ],
+    "final_training_architectures": [
+      "compact_3d_cnn_spatiotemporal",
+      "compact_3d_cnn_spatiotemporal_clip_norm",
+      "factorized_3d_cnn_spatiotemporal",
+      "motion_2d_temporal_cnn"
+    ],
+    "architectures": [
+      {
+        "name": "small_2d_cnn_frame_encoder_with_temporal_mean_pooling",
+        "class": "FrameMeanRawFrameClassifier",
+        "implemented": true,
+        "final_training_allowed": false,
+        "contract_summary": "Per-frame 2D CNN encoder with temporal mean pooling; retained as non-final baseline."
+      },
+      {
+        "name": "compact_3d_cnn_spatiotemporal",
+        "class": "Compact3DRawFrameClassifier",
+        "implemented": true,
+        "final_training_allowed": true,
+        "contract_summary": "Compact 3D convolutional clip classifier over full-frame clip tensors."
+      },
+      {
+        "name": "compact_3d_cnn_spatiotemporal_clip_norm",
+        "class": "Compact3DRawFrameClassifier(clip_standardization=True)",
+        "implemented": true,
+        "final_training_allowed": true,
+        "contract_summary": "Compact 3D convolutional classifier with per-clip standardization."
+      },
+      {
+        "name": "factorized_3d_cnn_spatiotemporal",
+        "class": "Factorized3DRawFrameClassifier",
+        "implemented": true,
+        "final_training_allowed": true,
+        "contract_summary": "Factorized spatial and temporal 3D convolutional blocks."
+      },
+      {
+        "name": "motion_2d_temporal_cnn",
+        "class": "Motion2DTemporalRawFrameClassifier",
+        "implemented": true,
+        "final_training_allowed": true,
+        "contract_summary": "Appearance and frame-delta 2D encoders concatenated into a Conv1d temporal stack."
+      }
+    ]
+  },
+  "true_tcn_status": {
+    "implemented": false,
+    "searched_symbols": [
+      "TCN",
+      "TemporalConv",
+      "TemporalConvNet"
+    ],
+    "closest_current_contract": "motion_2d_temporal_cnn",
+    "evidence": "scripts/train_rawframe_model.py contains a Motion2DTemporalRawFrameClassifier with a plain Conv1d temporal stack, but no named true TCN/TemporalConvNet implementation or architecture option."
+  },
+  "training_loader_tensor_contract": {
+    "source": "scripts/train_rawframe_model.py::load_tensor_file_with_contract",
+    "accepted_tensor_keys_in_order": [
+      "rgb_regions",
+      "frames",
+      "tensor",
+      "rgb_frames"
+    ],
+    "rgb_regions_in_loader_key_order": true,
+    "rgb_regions_behavior": {
+      "derived_input_name": "rgb_regions_grid_v1",
+      "source_axis": "T,R,H,W,C",
+      "output_axis": "T,H,W,C",
+      "behavior": "When a payload contains a valid rgb_regions tensor, the loader derives a 2x3 region grid before downstream frame preparation."
+    },
+    "fallback_behavior": {
+      "rgb_frames": "If rgb_regions, frames, and tensor are absent, the loader consumes rgb_frames and marks fallback_to_rgb_frames true."
+    }
+  },
+  "sampled_high_signal_tensor_evidence": {
+    "probe_command": ".venv/bin/python - <<'PY' ... import scripts.train_rawframe_model, load the first sample from each high-signal manifest with load_tensor_file_with_contract, then prepare_frames ... PY",
+    "sample_policy": "first manifest entry per split; read-only; no tensor mutation; no training",
+    "samples": [
+      {
+        "split": "train",
+        "clip_id": "asl-citizen-train-white-10848457531453715-white",
+        "label": "white",
+        "tensor_path": "data/tensors/asl-citizen-lesson-milestone/train/asl-citizen-train-white-10848457531453715-white.pt",
+        "tensor_sha256": "04d677597cc4e6ab664bba2c6eaa15ade91f5a2cd3aa3553701a52f6a58e9597",
+        "payload_type": "dict",
+        "payload_keys": [
+          "rgb_frames"
+        ],
+        "payload_schema_version": null,
+        "rgb_regions_present": false,
+        "rgb_regions_shape": null,
+        "rgb_frames_present": true,
+        "rgb_frames_shape": [
+          12,
+          96,
+          96,
+          3
+        ],
+        "region_ids": [],
+        "region_axis": null,
+        "training_loader": {
+          "consumed_key": "rgb_frames",
+          "consumed_shape": [
+            12,
+            96,
+            96,
+            3
+          ],
+          "derived_input_name": null,
+          "fallback_to_rgb_frames": true,
+          "prepared_shape": [
+            12,
+            3,
+            96,
+            96
+          ]
+        },
+        "decode_provenance_schema_version": "asl-pilot-rawframe-decode-provenance/v1"
+      },
+      {
+        "split": "validation",
+        "clip_id": "asl-citizen-validation-white-21947947473280904-white",
+        "label": "white",
+        "tensor_path": "data/tensors/asl-citizen-lesson-milestone/validation/asl-citizen-validation-white-21947947473280904-white.pt",
+        "tensor_sha256": "54e72d1279622859708571fcfb2917cce966e3d611ef3ba240ae96caf778605b",
+        "payload_type": "dict",
+        "payload_keys": [
+          "rgb_frames"
+        ],
+        "payload_schema_version": null,
+        "rgb_regions_present": false,
+        "rgb_regions_shape": null,
+        "rgb_frames_present": true,
+        "rgb_frames_shape": [
+          12,
+          96,
+          96,
+          3
+        ],
+        "region_ids": [],
+        "region_axis": null,
+        "training_loader": {
+          "consumed_key": "rgb_frames",
+          "consumed_shape": [
+            12,
+            96,
+            96,
+            3
+          ],
+          "derived_input_name": null,
+          "fallback_to_rgb_frames": true,
+          "prepared_shape": [
+            12,
+            3,
+            96,
+            96
+          ]
+        },
+        "decode_provenance_schema_version": "asl-pilot-rawframe-decode-provenance/v1"
+      },
+      {
+        "split": "test",
+        "clip_id": "asl-citizen-test-white-23222004944717023-white",
+        "label": "white",
+        "tensor_path": "data/tensors/asl-citizen-lesson-milestone/test/asl-citizen-test-white-23222004944717023-white.pt",
+        "tensor_sha256": "2f898a7cb6e4ec947278f812ed6a7b38354fd8e916884e67abae83f4fbd63f52",
+        "payload_type": "dict",
+        "payload_keys": [
+          "rgb_frames"
+        ],
+        "payload_schema_version": null,
+        "rgb_regions_present": false,
+        "rgb_regions_shape": null,
+        "rgb_frames_present": true,
+        "rgb_frames_shape": [
+          12,
+          96,
+          96,
+          3
+        ],
+        "region_ids": [],
+        "region_axis": null,
+        "training_loader": {
+          "consumed_key": "rgb_frames",
+          "consumed_shape": [
+            12,
+            96,
+            96,
+            3
+          ],
+          "derived_input_name": null,
+          "fallback_to_rgb_frames": true,
+          "prepared_shape": [
+            12,
+            3,
+            96,
+            96
+          ]
+        },
+        "decode_provenance_schema_version": "asl-pilot-rawframe-decode-provenance/v1"
+      }
+    ],
+    "conclusion": "The selected ASL Citizen high-signal tensors sampled here do not expose rgb_regions or region_ids to the current loader; they use the rgb_frames fallback path."
+  },
+  "retained_region_tensor_evidence": {
+    "receipt": "docs/validation/return-to-form-tier0-tensor-contract.json",
+    "status": "retained_prior_evidence_not_selected_current_dataset_contract",
+    "summary": "PopSign Tier0 fixed-crop tensors contain rgb_regions, region_ids, and schema_version; the same loader consumes rgb_regions and derives rgb_regions_grid_v1 there. That proves the loader path exists, but it is not present in the current high-signal ASL Citizen tensors sampled for M3AS."
+  },
+  "boundary_findings": [
+    "The current selected high-signal ASL Citizen route is approved external raw video data, but its materialized tensors are full-frame rgb_frames-only at the sampled train/validation/test points.",
+    "The loader is already region-aware when rgb_regions exists, but current high-signal tensors do not exercise that composable input path.",
+    "The strongest existing temporal architecture is motion_2d_temporal_cnn, not a true named TCN.",
+    "The prior M3AQ reduced-module smoke stayed weak and is not promotion evidence.",
+    "Brev remains logged out with EOF/human auth required; worker state and paid compute were not used."
+  ],
+  "exactly_one_next_action": "add_tcn_or_multistream_contract_scaffold",
+  "next_action_rationale": "Before another smoke or training retry, add a no-spend contract scaffold that makes the intended multistream/region input explicit for the selected high-signal ASL Citizen route, and decide whether the next architecture should remain motion_2d_temporal_cnn or introduce a true TCN. Running a capped local composable smoke now would only re-test the rgb_frames fallback path.",
+  "new_milestone_prompt_created": false,
+  "post_commit_corrections": [
+    {
+      "corrected_at": "2026-05-27T09:21:18Z",
+      "field": "sampled_high_signal_tensor_evidence.samples[].tensor_sha256",
+      "reason": "Post-supervisor hash consistency check compared receipt sample hashes to the first clip frame_tensor_sha256 values in each high-signal manifest. The original values were malformed copies; the corrected values now match the manifest evidence.",
+      "verification_result": "train, validation, and test sample tensor_sha256 values all match the corresponding manifest frame_tensor_sha256 values."
+    }
+  ],
+  "validation_commands": [
+    {
+      "command": "git status --short --branch",
+      "exit_code": 0,
+      "result": "## compound-plan-m0...origin/compound-plan-m0 [ahead 165]"
+    },
+    {
+      "command": "git log -10 --oneline --decorate",
+      "exit_code": 0,
+      "head": "4c60233 (HEAD -> compound-plan-m0) goal: activate composable recognizer contract"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_code": 0,
+      "result": "No banned pretrained-CV dependencies or source imports found."
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "exit_code": 0,
+      "result": "passed"
+    },
+    {
+      "command": "brev ls --json",
+      "exit_code": 1,
+      "result": "logged_out_eof_human_auth_required"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-composable-recognizer-contract-v1.json",
+      "exit_code": 0,
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0,
+      "result": "passed"
+    }
+  ]
+}

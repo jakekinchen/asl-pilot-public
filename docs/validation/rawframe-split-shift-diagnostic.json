@@ -1,0 +1,533 @@
+{
+  "blockers": [],
+  "checked_at": "2026-05-25T16:21:12.354039Z",
+  "feature_contract": {
+    "feature_count": 16,
+    "feature_names": [
+      "mean_r",
+      "mean_g",
+      "mean_b",
+      "std_r",
+      "std_g",
+      "std_b",
+      "overall_mean",
+      "overall_std",
+      "luma_mean",
+      "luma_std",
+      "center_luma_mean",
+      "edge_luma_mean",
+      "center_edge_luma_delta",
+      "temporal_abs_delta_mean",
+      "first_last_abs_delta_mean",
+      "frame_luma_mean_std"
+    ],
+    "source": "prepared_raw_rgb_tensors_only",
+    "standardization": "zscore_across_sampled_train_validation_test_records"
+  },
+  "generated_by": {
+    "command": [
+      "scripts/analyze_rawframe_split_shift.py",
+      "--write"
+    ],
+    "script": {
+      "path": "scripts/analyze_rawframe_split_shift.py",
+      "sha256": "d58440746d0b2c73d1f37ac83198628bd538b1bb6ad7d614d8363839d1e2b360"
+    }
+  },
+  "inputs": {
+    "failure_analysis": {
+      "path": "docs/validation/rawframe-model-failure-analysis.json",
+      "sha256": "f2c0473d186a39ea5a45c2f1cf3349861def3398fd1c313bd9f393f9b1fd17f1"
+    },
+    "manifests": {
+      "test": {
+        "clip_count": 1805,
+        "dataset_source_mode": "approved_external_raw_video_source",
+        "label_count": 95,
+        "path": "data/manifests/test.json",
+        "sha256": "519af64185793399262f4287e443f16546f4323fdbca9645b3525fdedffc4723"
+      },
+      "train": {
+        "clip_count": 2375,
+        "dataset_source_mode": "approved_external_raw_video_source",
+        "label_count": 95,
+        "path": "data/manifests/train.json",
+        "sha256": "19233cf4ec3af189fe4584a9f8b6fa978c0481bfe1023443cab111053069c9eb"
+      },
+      "validation": {
+        "clip_count": 2375,
+        "dataset_source_mode": "approved_external_raw_video_source",
+        "label_count": 95,
+        "path": "data/manifests/validation.json",
+        "sha256": "ba3c35f2da2c9949e171dbb42de11227bb305c37bc59761d90bce2d06c11409f"
+      }
+    }
+  },
+  "interpretation": {
+    "notes": [
+      "Uses only low-level RGB tensor statistics after the same frame preparation used by training/evaluation.",
+      "Does not approve any source, change manifests, train a classifier, calibrate thresholds, or export browser artifacts."
+    ],
+    "signals": [
+      "low_level_train_label_centroids_do_not_generalize_to_heldout_splits"
+    ],
+    "status": "diagnostic_only_not_training_evidence"
+  },
+  "label_shift_from_train": {
+    "mean_distance_nonzero_recall_both": 2.3478621248916367,
+    "mean_distance_zero_recall_both": 2.310521426270335,
+    "top_shifted_labels": [
+      {
+        "label_id": "say",
+        "mean_heldout_distance_from_train": 3.7399120480153627,
+        "test_distance_from_train": 3.06010532824344,
+        "test_recall": null,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 4.419718767787286,
+        "validation_recall": 0.28,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": false
+      },
+      {
+        "label_id": "aunt",
+        "mean_heldout_distance_from_train": 3.733089905458554,
+        "test_distance_from_train": 3.3855996838406703,
+        "test_recall": 0.0,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 4.080580127076438,
+        "validation_recall": 0.04,
+        "validation_sample_count": 6,
+        "zero_recall_test": true,
+        "zero_recall_validation": false
+      },
+      {
+        "label_id": "table",
+        "mean_heldout_distance_from_train": 3.5585120530194585,
+        "test_distance_from_train": 3.4699014102135637,
+        "test_recall": 0.631578947368421,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 3.647122695825353,
+        "validation_recall": 0.32,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": false
+      },
+      {
+        "label_id": "open",
+        "mean_heldout_distance_from_train": 3.3931205103988056,
+        "test_distance_from_train": 3.631842287674519,
+        "test_recall": 0.21052631578947367,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 3.1543987331230916,
+        "validation_recall": 0.2,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": false
+      },
+      {
+        "label_id": "person",
+        "mean_heldout_distance_from_train": 3.159552135940932,
+        "test_distance_from_train": 2.329276386499889,
+        "test_recall": null,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 3.9898278853819753,
+        "validation_recall": 0.2,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": false
+      },
+      {
+        "label_id": "see",
+        "mean_heldout_distance_from_train": 3.1327741014158925,
+        "test_distance_from_train": 1.4671459860844849,
+        "test_recall": 0.05263157894736842,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 4.7984022167473,
+        "validation_recall": null,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": false
+      },
+      {
+        "label_id": "find",
+        "mean_heldout_distance_from_train": 3.0927560237300336,
+        "test_distance_from_train": 2.727708096066487,
+        "test_recall": 0.2631578947368421,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 3.45780395139358,
+        "validation_recall": null,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": false
+      },
+      {
+        "label_id": "pen",
+        "mean_heldout_distance_from_train": 3.0908876323596326,
+        "test_distance_from_train": 2.878696258694336,
+        "test_recall": 0.05263157894736842,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 3.3030790060249298,
+        "validation_recall": 0.0,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": true
+      },
+      {
+        "label_id": "hot",
+        "mean_heldout_distance_from_train": 3.0871631477615367,
+        "test_distance_from_train": 3.9170503874020617,
+        "test_recall": 0.05263157894736842,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 2.257275908121011,
+        "validation_recall": null,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": false
+      },
+      {
+        "label_id": "fine",
+        "mean_heldout_distance_from_train": 3.0588760300782587,
+        "test_distance_from_train": 2.398713905590962,
+        "test_recall": null,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 3.719038154565555,
+        "validation_recall": 0.0,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": true
+      },
+      {
+        "label_id": "room",
+        "mean_heldout_distance_from_train": 3.0192285038309983,
+        "test_distance_from_train": 4.039260252615366,
+        "test_recall": 0.0,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 1.9991967550466312,
+        "validation_recall": 0.0,
+        "validation_sample_count": 6,
+        "zero_recall_test": true,
+        "zero_recall_validation": true
+      },
+      {
+        "label_id": "cat",
+        "mean_heldout_distance_from_train": 2.99009646737842,
+        "test_distance_from_train": 3.1979970341230874,
+        "test_recall": 0.0,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 2.7821959006337527,
+        "validation_recall": 0.0,
+        "validation_sample_count": 6,
+        "zero_recall_test": true,
+        "zero_recall_validation": true
+      },
+      {
+        "label_id": "before",
+        "mean_heldout_distance_from_train": 2.971362267070389,
+        "test_distance_from_train": 3.524228757610376,
+        "test_recall": 0.0,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 2.4184957765304014,
+        "validation_recall": 0.0,
+        "validation_sample_count": 6,
+        "zero_recall_test": true,
+        "zero_recall_validation": true
+      },
+      {
+        "label_id": "green",
+        "mean_heldout_distance_from_train": 2.936618223387942,
+        "test_distance_from_train": 2.909377183079817,
+        "test_recall": 0.0,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 2.963859263696067,
+        "validation_recall": 0.0,
+        "validation_sample_count": 6,
+        "zero_recall_test": true,
+        "zero_recall_validation": true
+      },
+      {
+        "label_id": "all",
+        "mean_heldout_distance_from_train": 2.895533826114646,
+        "test_distance_from_train": 3.3332510555643466,
+        "test_recall": 0.15789473684210525,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 2.4578165966649452,
+        "validation_recall": 0.28,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": false
+      },
+      {
+        "label_id": "hello",
+        "mean_heldout_distance_from_train": 2.875293789586718,
+        "test_distance_from_train": 3.480386230004974,
+        "test_recall": 0.05263157894736842,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 2.270201349168462,
+        "validation_recall": 0.0,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": true
+      },
+      {
+        "label_id": "after",
+        "mean_heldout_distance_from_train": 2.870662719618038,
+        "test_distance_from_train": 2.015762344761643,
+        "test_recall": 0.05263157894736842,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 3.725563094474433,
+        "validation_recall": 0.0,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": true
+      },
+      {
+        "label_id": "bad",
+        "mean_heldout_distance_from_train": 2.8409252634026547,
+        "test_distance_from_train": 2.5812828210763556,
+        "test_recall": 0.0,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 3.1005677057289533,
+        "validation_recall": 0.0,
+        "validation_sample_count": 6,
+        "zero_recall_test": true,
+        "zero_recall_validation": true
+      },
+      {
+        "label_id": "yes",
+        "mean_heldout_distance_from_train": 2.7529860890627993,
+        "test_distance_from_train": 2.642398542896442,
+        "test_recall": null,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 2.8635736352291565,
+        "validation_recall": 0.0,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": true
+      },
+      {
+        "label_id": "please",
+        "mean_heldout_distance_from_train": 2.7263973460694584,
+        "test_distance_from_train": 2.039238725572674,
+        "test_recall": 0.2631578947368421,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 3.4135559665662427,
+        "validation_recall": 0.2,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": false
+      }
+    ],
+    "zero_recall_both_count": 18
+  },
+  "nearest_train_label_centroid": {
+    "test": {
+      "correct": 9,
+      "nearest_train_label_centroid_accuracy": 0.015789473684210527,
+      "sample_count": 570,
+      "top_predicted_labels": [
+        {
+          "count": 102,
+          "label_id": "grandpa"
+        },
+        {
+          "count": 57,
+          "label_id": "milk"
+        },
+        {
+          "count": 57,
+          "label_id": "open"
+        },
+        {
+          "count": 55,
+          "label_id": "see"
+        },
+        {
+          "count": 26,
+          "label_id": "fish"
+        },
+        {
+          "count": 22,
+          "label_id": "say"
+        },
+        {
+          "count": 18,
+          "label_id": "why"
+        },
+        {
+          "count": 17,
+          "label_id": "orange"
+        },
+        {
+          "count": 16,
+          "label_id": "home"
+        },
+        {
+          "count": 14,
+          "label_id": "aunt"
+        }
+      ]
+    },
+    "train": {
+      "correct": 46,
+      "nearest_train_label_centroid_accuracy": 0.08070175438596491,
+      "sample_count": 570,
+      "top_predicted_labels": [
+        {
+          "count": 43,
+          "label_id": "milk"
+        },
+        {
+          "count": 34,
+          "label_id": "say"
+        },
+        {
+          "count": 34,
+          "label_id": "see"
+        },
+        {
+          "count": 32,
+          "label_id": "why"
+        },
+        {
+          "count": 31,
+          "label_id": "table"
+        },
+        {
+          "count": 30,
+          "label_id": "open"
+        },
+        {
+          "count": 24,
+          "label_id": "home"
+        },
+        {
+          "count": 19,
+          "label_id": "grandpa"
+        },
+        {
+          "count": 18,
+          "label_id": "hot"
+        },
+        {
+          "count": 17,
+          "label_id": "where"
+        }
+      ]
+    },
+    "validation": {
+      "correct": 5,
+      "nearest_train_label_centroid_accuracy": 0.008771929824561403,
+      "sample_count": 570,
+      "top_predicted_labels": [
+        {
+          "count": 134,
+          "label_id": "milk"
+        },
+        {
+          "count": 62,
+          "label_id": "open"
+        },
+        {
+          "count": 42,
+          "label_id": "grandpa"
+        },
+        {
+          "count": 39,
+          "label_id": "water"
+        },
+        {
+          "count": 37,
+          "label_id": "hot"
+        },
+        {
+          "count": 27,
+          "label_id": "orange"
+        },
+        {
+          "count": 20,
+          "label_id": "animal"
+        },
+        {
+          "count": 19,
+          "label_id": "see"
+        },
+        {
+          "count": 12,
+          "label_id": "like"
+        },
+        {
+          "count": 11,
+          "label_id": "man"
+        }
+      ]
+    }
+  },
+  "sampling": {
+    "frame_count": 16,
+    "image_size": 96,
+    "sample_count": 1710,
+    "sampled_label_count": 95,
+    "sampled_split_counts": {
+      "test": 570,
+      "train": 570,
+      "validation": 570
+    },
+    "samples_per_label_split": 6
+  },
+  "schema_version": "asl-pilot-rawframe-split-shift-diagnostic/v1",
+  "split_separability": {
+    "by_split": [
+      {
+        "nearest_own_split_rate": 0.5912280701754385,
+        "nearest_split_counts": {
+          "test": 337,
+          "train": 111,
+          "validation": 122
+        },
+        "sample_count": 570,
+        "split": "test"
+      },
+      {
+        "nearest_own_split_rate": 0.28596491228070176,
+        "nearest_split_counts": {
+          "test": 206,
+          "train": 163,
+          "validation": 201
+        },
+        "sample_count": 570,
+        "split": "train"
+      },
+      {
+        "nearest_own_split_rate": 0.5385964912280702,
+        "nearest_split_counts": {
+          "test": 163,
+          "train": 100,
+          "validation": 307
+        },
+        "sample_count": 570,
+        "split": "validation"
+      }
+    ],
+    "centroid_feature_names": [
+      "mean_r",
+      "mean_g",
+      "mean_b",
+      "std_r",
+      "std_g",
+      "std_b",
+      "overall_mean",
+      "overall_std",
+      "luma_mean",
+      "luma_std",
+      "center_luma_mean",
+      "edge_luma_mean",
+      "center_edge_luma_delta",
+      "temporal_abs_delta_mean",
+      "first_last_abs_delta_mean",
+      "frame_luma_mean_std"
+    ],
+    "mean_nearest_own_split_rate": 0.4719298245614035
+  },
+  "status": "split_shift_diagnostic_ready_not_training_data"
+}

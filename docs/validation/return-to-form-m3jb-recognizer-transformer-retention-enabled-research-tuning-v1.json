@@ -1,0 +1,165 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-retention-enabled-research-tuning/v1",
+  "status": "completed_retention_enabled_research_tuning_no_brev_no_training",
+  "slice": "m3jb_recognizer_transformer_retention_enabled_research_guided_tuning_no_brev",
+  "recorded_at": "2026-06-04T10:15:47Z",
+  "inputs": {
+    "run6_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run6-verifselect-brev-v1.json",
+    "run7_ovr_bce_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run7-ovr-bce-hardneg-brev-v1.json",
+    "run8_ovr_bce_w001_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run8-ovr-bce-w001-brev-v1.json",
+    "three_run_calibration_tail_audit_summary": "docs/validation/return-to-form-m3jb-recognizer-transformer-run6-run7-run8-calibration-tail-audit-v1.json",
+    "run6_monitor_selection_stability_preflight": "docs/validation/return-to-form-m3jb-recognizer-transformer-run6-monitor-selection-stability-preflight-v1.json",
+    "run6_monitor_selection_stability_detailed": "docs/validation/m3jb-recognizer-run6-monitor-selection-stability-preflight-v1.json",
+    "candidate_checkpoint_retention_preflight": "docs/validation/return-to-form-m3jb-recognizer-transformer-candidate-checkpoint-retention-preflight-v1.json",
+    "candidate_checkpoint_retention_dryrun": "docs/validation/m3jb-recognizer-candidate-checkpoint-retention-preflight-dryrun-v1.json",
+    "candidate_checkpoint_retention_dryrun_sha256": "b7319e59260c37f88c399ef3f8eee2816c376838853e27330b7cf8f3c660d4b3"
+  },
+  "research_escalation": {
+    "gpt_pro_web_attempt": {
+      "attempted": true,
+      "status": "blocked_no_browser_control_iab_tool_exposed",
+      "details": "tool_search was queried for Browser/iab ChatGPT Pro control; the exposed callable tools did not include an in-app Browser/iab route for ChatGPT.com Pro in this session."
+    },
+    "fallback": {
+      "used": true,
+      "route": "openai-api-research",
+      "model_requested": "gpt-5.5",
+      "calls": [
+        {
+          "response_id": "resp_0c05446d4cf7fa7b006a214fd83d4881969db35a0dcba78d49",
+          "status": "completed",
+          "model_returned": "gpt-5.5-2026-04-23",
+          "request_reasoning_effort": "medium",
+          "input_tokens": 2780,
+          "output_tokens": 1871,
+          "reasoning_tokens": 516,
+          "total_tokens": 4651
+        }
+      ],
+      "artifacts": {
+        "directory": "artifacts/research/m3jb-recognizer-transformer-retention-enabled-tuning-953",
+        "prompt_md": "artifacts/research/m3jb-recognizer-transformer-retention-enabled-tuning-953/prompt.md",
+        "request_json": "artifacts/research/m3jb-recognizer-transformer-retention-enabled-tuning-953/request.json",
+        "raw_json": "artifacts/research/m3jb-recognizer-transformer-retention-enabled-tuning-953/raw.json",
+        "response_md": "artifacts/research/m3jb-recognizer-transformer-retention-enabled-tuning-953/response.md"
+      },
+      "artifacts_sha256": {
+        "prompt_md": "542860e98e2d932b58c970f524f9e9faf6918d44f4e992bb7079379ce3bf6829",
+        "request_json": "ef740e1e14826c583eb8e42a097a36e46680618f35833dff92524735e4b3fbc9",
+        "raw_json": "324f08a8122daca6c674d2f4e2f19ef42c3cbf36149e7172dc979071431b6f75",
+        "response_md": "ce8bcedcfdd207313b7de0934ae417db63fe25334d6eb10ef0835e6997ced9b8"
+      }
+    },
+    "advisory_not_authority": true
+  },
+  "research_conclusion": {
+    "diagnosis": [
+      "Run6 remains the held-out verification running best at 0.8038559556786704 recall@FAR10 but below the 0.85 gate.",
+      "Run7 and run8 OVR-BCE variants improved or preserved monitor strength while regressing held-out verification, so OVR-BCE remains stopped.",
+      "Run6 monitor-selection stability found alternate robust-selector epoch 31 but existing artifacts cannot evaluate it.",
+      "Candidate checkpoint retention is now preflighted, so the smallest next slice is a no-Brev recipe/preflight receipt that records a run6-objective repeat with retention enabled rather than launching compute."
+    ],
+    "selected_next_action": "m3jb_recognizer_transformer_run9_retention_enabled_run6_recipe_preflight_no_brev",
+    "research_model_recommended_token": "record_run9_retention_enabled_run6_recipe",
+    "selected_no_brev_preflight": {
+      "summary": "Record a retention-enabled run9 recipe/preflight from the run6 objective/envelope, with OVR-BCE and SupCon disabled, monitor-verification checkpoint selection, candidate checkpoint retention enabled, exact future compute envelope, kill criteria, and local dry-run/no-save validation only.",
+      "required_recipe_terms": [
+        "--student-arch transformer",
+        "--seq-len 32",
+        "--epochs 240",
+        "--batch 128",
+        "--lr 5e-4",
+        "--lr-scheduler cosine",
+        "--warmup-steps 500",
+        "--min-lr 5e-5",
+        "--d-model 256",
+        "--n-layers 6",
+        "--n-heads 8",
+        "--dropout 0.0",
+        "--alpha 0.55",
+        "--temperature 3.0",
+        "--jitter-std 0.02",
+        "--frame-drop 0.10",
+        "--eval-verification",
+        "--eval-verification-every 1",
+        "--checkpoint-metric monitor_verification_recall_far10",
+        "--save-best-checkpoint",
+        "--retain-candidate-checkpoints",
+        "--candidate-checkpoint-epsilon 0.005",
+        "--candidate-checkpoint-window 5"
+      ],
+      "expected_counts": {
+        "train": 7011,
+        "monitor": 955,
+        "test": 2369,
+        "classes": 95,
+        "feature_dim": 90,
+        "planned_optimizer_steps": 13200
+      },
+      "pass_criteria": [
+        "Receipt records the run6 base objective with OVR-BCE and SupCon disabled.",
+        "Receipt records full T=32 counts/envelope and planned optimizer steps 13200.",
+        "Receipt records candidate checkpoint retention flags/selectors and future candidate-evaluation intent.",
+        "Local validation is dry-run/no-save only with zero optimizer/backward steps, no checkpoint writes, and no .pt files.",
+        "Future compute remains blocked until Brev auth is recovered and brev ls --json succeeds."
+      ],
+      "fail_criteria": [
+        "Any Brev lifecycle command, training step, checkpoint write, runtime export, browser promotion, raw learner upload, raw test-mined supervision, pretrained runtime dependency, or final-gate change occurs.",
+        "Recorded recipe changes objective pressure through OVR-BCE, SupCon, class balancing, T=40/capacity, or calibration transforms without a separate preflight.",
+        "Receipt omits future kill criteria for count mismatch, wrong optimizer steps, wrong checkpoint metric, inactive retention, nonzero auxiliary losses, or export/promotion attempts."
+      ]
+    },
+    "why_other_preflights_lower_priority": [
+      "Class/teacher-coverage audits are useful but do not address the immediate artifact insufficiency for robust monitor-selector transfer.",
+      "Post-hoc calibration simulation risks score shaping before confirming checkpoint-selection transfer can be evaluated.",
+      "T=40/cache/capacity is lower priority because the latest evidence points to selection/calibration instability rather than a clear capacity bottleneck.",
+      "Another OVR-BCE recipe is not justified after broad/local positive-margin damage and held-out regression."
+    ],
+    "future_paid_recipe": {
+      "recommendation": "gated_future_run_may_be_reasonable_after_next_preflight_and_brev_auth",
+      "selected_now": false,
+      "summary": "A future run6-objective repeat with candidate checkpoint retention enabled may become reasonable only after the next no-Brev recipe/preflight passes and Brev auth plus brev ls --json visibility are restored.",
+      "not_authorized_in_this_slice": true
+    },
+    "brev_auth_prerequisite": {
+      "required_before_future_lifecycle_or_compute": true,
+      "minimum_command": "brev ls --json",
+      "reason": "Run8 teardown lost Brev CLI API visibility; future compute must first recover auth and verify worker state."
+    }
+  },
+  "boundaries": {
+    "brev_used": false,
+    "brev_lifecycle_or_exec": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "runtime_export": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "raw_test_mined_supervision": false,
+    "future_paid_recipe_selected": false,
+    "push": false
+  },
+  "validations": [
+    {
+      "command": "test -f /Users/kelly/.codex/secrets/openai-api.env && grep -q ^OPENAI_API_KEY=sk- /Users/kelly/.codex/secrets/openai-api.env",
+      "status": "passed"
+    },
+    {
+      "command": "OpenAI Responses API request using artifacts/research/m3jb-recognizer-transformer-retention-enabled-tuning-953/request.json",
+      "status": "completed"
+    },
+    {
+      "command": "shasum -a 256 artifacts/research/m3jb-recognizer-transformer-retention-enabled-tuning-953/{prompt.md,request.json,raw.json,response.md}",
+      "status": "passed"
+    }
+  ],
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_run9_retention_enabled_run6_recipe_preflight_no_brev",
+    "requires_brev_spend": false,
+    "summary": "Record and locally validate a no-Brev retention-enabled run9 recipe/preflight receipt from the run6 base before any future paid compute is selected."
+  }
+}

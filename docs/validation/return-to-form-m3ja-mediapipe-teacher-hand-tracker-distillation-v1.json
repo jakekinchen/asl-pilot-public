@@ -1,0 +1,2672 @@
+{
+  "schema_version": "asl-pilot-validation-receipt/v1",
+  "receipt_id": "return-to-form-m3ja-mediapipe-teacher-hand-tracker-distillation-v1",
+  "mission": "M3JA - MediaPipe teacher hand-tracker distillation",
+  "created_at": "2026-06-01T20:07:41Z",
+  "status": "continued_distillation_lane_fail_closed_current_student_not_gate_passing",
+  "active_prompt": "docs/model/return-to-form-m3ja-mediapipe-teacher-hand-tracker-distillation-goal-loop-prompt.md",
+  "latest_user_instruction": "could we distill mediapipe into a model we own?",
+  "answer": "yes, MediaPipe may be used as an offline teacher only; the browser runtime must use owned scratch-trained student ONNX artifacts and must not depend on MediaPipe",
+  "provenance_disclosure": "targets offline-derived via MediaPipe Holistic; runtime uses only our scratch-trained model and is not a runtime dependency.",
+  "runtime_boundary": {
+    "mediapipe_runtime_dependency_allowed": false,
+    "offline_mediapipe_teacher_allowed": true,
+    "raw_learner_video_upload_allowed": false,
+    "detector0_model_card_promoted": false,
+    "browser_asl_correctness_claimed": false,
+    "brev_or_paid_compute_used": false
+  },
+  "changed_main_files": [
+    {
+      "path": "GOAL.md",
+      "purpose": "Removed the stop sentinel and redirected the current mission from M3IY static hold to M3JA MediaPipe-teacher student-model distillation."
+    },
+    {
+      "path": "docs/model/return-to-form-m3ja-mediapipe-teacher-hand-tracker-distillation-goal-loop-prompt.md",
+      "purpose": "Defines allowed offline-teacher work, forbidden runtime dependencies, acceptance gates, and first-slice validation for owned hand boxes, 21 landmarks, handedness, and browser truth."
+    },
+    {
+      "path": "docs/validation/return-to-form-m3ja-mediapipe-teacher-hand-tracker-distillation-v1.json",
+      "purpose": "Records the first M3JA validation and baseline evidence."
+    },
+    {
+      "path": "docs/session-logs/830-mission-3ja-mediapipe-teacher-hand-tracker-distillation.md",
+      "purpose": "Numbered session log for the first M3JA slice."
+    }
+  ],
+  "side_worktree": {
+    "path": "/Users/kelly/Developer/asl-pilot-annotator",
+    "branch": "annotator-tool",
+    "preexisting_dirty_paths_observed": [
+      "scripts/train_m1_hand_landmark_trainer.py",
+      "tools/detector0-annotator/make_twohand_composite.py",
+      "tools/detector0-annotator/output/demo/demo_00_TV.png",
+      "tools/detector0-annotator/output/demo/demo_01_after.png",
+      "tools/detector0-annotator/output/demo/demo_results.json",
+      ".labelvenv/",
+      "data/external/asl-citizen/",
+      "data/external/popsign-v1",
+      "data/receipts/m1-hand-public-manifest-v1.json",
+      "tools/detector0-annotator/.cache-eval/",
+      "tools/detector0-annotator/web-pilot/test/"
+    ],
+    "m3ja_side_changes": [
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_detector_grid_hands2.py",
+        "sha256": "a2dcb53969cabe908ad6d9aa8f25a97c8f7ca2964833f6fe20a9dfa73f1572d2",
+        "purpose": "Added eval-only loading for existing owned two-hand student checkpoints and coverage-failure samples for two-hand misses."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-existing-eval.json",
+        "sha256": "1cdb9c0301f8166d9f5bcdca0561ca9aad2581adb679ed0beeaada354f4e5741",
+        "purpose": "Eval-only receipt for the current detector0-hands2 student checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-existing-eval.png",
+        "sha256": "7f76e99943385f5c9c64f734f34ab8337c4f8734cff166cda270a6ae703501d9",
+        "purpose": "Two-hand prediction render from the eval-only run."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hands_landmarks_heatmap.py",
+        "sha256": "adec2c8a07ea467e83e132fe219f54f8b4e0774809084571bbddd029a8038db5",
+        "purpose": "Added eval-only scoring, compatible warm-start support, visible/in-bounds PCK metrics, bounded eval cadence, optional out-of-bounds keypoint masking, optional heatmap CE, geometry-aware oversampling, coordinate-mode probes, and worst-sample error reporting for scratch heatmap landmark checkpoints."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-eval-pck010.json",
+        "sha256": "3f1a0aaf82cbafa13e0a1be40e5a1fa0871a7038aafdf4be757a9dbc30ae67fa",
+        "purpose": "Eval-only landmark receipt for the existing merged-w64 checkpoint at PCK@0.10."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-eval-pck005.json",
+        "sha256": "67d3ccdcbec58c419a10ca493080744c5c545d14bce5d225a3f8ecde0b63cd74",
+        "purpose": "Eval-only landmark receipt for the existing merged-w64 checkpoint at PCK@0.05."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-eval-visible-pck010.json",
+        "sha256": "b720e95a2fdcd355401410bf03fabca6a2deff32475067621781b650de6823d1",
+        "purpose": "Eval-only landmark receipt adding visible/in-bounds PCK@0.10 for the existing merged-w64 checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-eval-visible-pck005.json",
+        "sha256": "ee5a12e7d3f5a6d96b2efd7f2e48b573fd9e317fc19138ab3d5e5fe09b87c73b",
+        "purpose": "Eval-only landmark receipt adding visible/in-bounds PCK@0.05 for the existing merged-w64 checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-maskoob-e3.json",
+        "sha256": "d906009f2638b1b069a2be6ec2fb7bea257545809f5a8a2275bc0a4cde2142fe",
+        "purpose": "Masked out-of-bounds keypoint fine-tune receipt; it regressed and was not selected."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-finetune-e3.json",
+        "sha256": "04848e1b5e2d7aa61a1c572f8dafa760db56a1e732960ba1d361ea8f55fb0082",
+        "purpose": "Unmasked warm-start fine-tune receipt; improved test hand PCK@0.10 to 0.7976."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-finetune-e3.pt",
+        "sha256": "b57e962b5757f0a9fb389396f2fbbe04d0a3de1fb59ddcc9ddc15186a9b54c96",
+        "purpose": "Owned scratch heatmap landmark checkpoint from the first M3JA unmasked fine-tune."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-finetune-e3-lr1e4-cont-e3.json",
+        "sha256": "1b2fa7c661461e2522757743b62fc7d53fbcba63eb056fc4be5f5f528a5f0be2",
+        "purpose": "Lower-learning-rate continuation receipt; improved test hand PCK@0.10 to 0.8009."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-finetune-e3-lr1e4-cont-e3.pt",
+        "sha256": "37e8c5e8b4bc1bd5332ceeb12f8fb65a32160d34749db92bc7877479d8f6ede6",
+        "purpose": "Best current owned scratch heatmap landmark checkpoint from this slice."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-finetune-e3-lr1e4-cont-e3-eval-pck005.json",
+        "sha256": "849077967f9c431f359fc6c6900109a8785f599b0ab50ede231875beecc03e0f",
+        "purpose": "Eval-only tight PCK@0.05 receipt for the best current M3JA landmark checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-best-error-report-test-top16.json",
+        "sha256": "58cce6337abd53c051a97f774860aa6d065117a3349afe9a199dcf9b9c1e1f40",
+        "purpose": "Worst-sample JSON report for the selected M3JA landmark checkpoint on the test split."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-best-error-report-test-top16.png",
+        "sha256": "05a03d3ff629827d721fa175560c3db5b9447087864a87f23dbfb4bd9c464c79",
+        "purpose": "Contact sheet overlay for the selected checkpoint worst landmark samples, with teacher points and predictions."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-heatce-vis-e4.json",
+        "sha256": "00e9272e3f86e5075e7a00b56a351fd25fdd38e40666cc7aca9920c3858dec74",
+        "purpose": "Visible-keypoint heatmap CE fine-tune receipt; tied test PCK@0.10 but regressed validation and was not selected."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-heatce-vis-e4.pt",
+        "sha256": "7077cec2d58c8b2015628dd1b9d59cbd32459ebafd7ab8e90f7399950caa5ece",
+        "purpose": "Checkpoint from the heatmap CE probe; not selected for promotion."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-heatce-vis-e4-eval-pck005.json",
+        "sha256": "4fa3f151211a0129115db9efc32b8c24a75d5df1c17c397f8897a116ce660e89",
+        "purpose": "Tight PCK@0.05 eval for the heatmap CE probe; marginal test movement only."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-hardgeom-e4.json",
+        "sha256": "362df3dc9a1e2a0ac923ed6c827bc056e97d5ca13fa9f678490ecb24fbf63e19",
+        "purpose": "Hard-geometry oversampling fine-tune receipt; small test bump but validation below selected checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-hardgeom-e4.pt",
+        "sha256": "a0faf8cd34fdffa3b4893d0452fbd95684ee515d1cbd511801ac96b1c14e5d58",
+        "purpose": "Checkpoint from the hard-geometry oversampling probe; not selected for promotion."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-hardgeom-e4-eval-pck005.json",
+        "sha256": "ff67adf3089bb4ff95c4cd2c0964a7063217165f3aab5ccae7565984d329cfc5",
+        "purpose": "Tight PCK@0.05 eval for hard-geometry oversampling; marginal test movement only."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-best-eval-coord-normalized-pck010.json",
+        "sha256": "97d22206b3090107660222f73b57e2baf39cdb21e6cb3af0a6510c895fc2b4e6",
+        "purpose": "Decoder coordinate-mode probe; normalized grid mapping worsened the existing checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-best-eval-coord-center-pck010.json",
+        "sha256": "b76f60da99f9bcd25f57c06172138ec0579109404b632319277c419a65050329",
+        "purpose": "Decoder coordinate-mode probe; centered grid mapping worsened the existing checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_perhand_landmarks_heatmap.py",
+        "sha256": "de368396fb37ec45226a22105018a2928d9a178e01f20c1a0b0ead24aa2e3c04",
+        "purpose": "Scratch per-hand tight-crop 21-landmark refinement trainer/evaluator for the M3JA crop-quality repair lane, now with train-quality filtering, hard-geometry sampling, affine/degradation augmentation, OOB masking, and eval-only error reports."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-label-sample.png",
+        "sha256": "caa0dfb2e4c9cff8f23118fc79d2013980844254a3ccbc52c6f0a9b6fce38388",
+        "purpose": "Per-hand high-resolution label sample contact sheet used to sanity-check teacher/crop alignment."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-old-best-eval-pck010.json",
+        "sha256": "0d69cf65a42f04c8c5ef3a2aa08b80faae9e1d50ee17dabc77026b902d9c8e51",
+        "purpose": "Eval-only receipt for the old per-hand checkpoint baseline at PCK@0.10."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60.json",
+        "sha256": "affcc564cbea406b9a8799f9e191bb6d2f22f01db58a768a6456248f896c8517",
+        "purpose": "First wider per-hand refinement training receipt; improved held-out test PCK@0.10 to 0.6364."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60.pt",
+        "sha256": "b8dea5a86b8f2f072f6b3309417beeefe6f69e77a6675ee76ed9584685139680",
+        "purpose": "Checkpoint from the first wider per-hand refinement run."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60-eval-pck005.json",
+        "sha256": "50f2e68987a6cd1482fda910b9236e0a17703a6ae07165b5fc9ba16bcf6ad2e6",
+        "purpose": "Tight PCK@0.05 eval for the first wider per-hand refinement run."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60-lr5e4-cont-e40.json",
+        "sha256": "79e1d31c91f64cddcff900d86e0248055ec21f194dd34c5ddd6b796efd8a3ccd",
+        "purpose": "Lower-LR per-hand continuation receipt; improved held-out test PCK@0.10 to 0.695."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60-lr5e4-cont-e40.pt",
+        "sha256": "5536426fbf54f283e93b8a84077eb9d65e9985824795b818d04482f1a3a18584",
+        "purpose": "Checkpoint from the 5e-4 per-hand continuation."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60-lr5e4-cont-e40-eval-pck005.json",
+        "sha256": "98056463fc4aa3997af718b3ce4397ba6240d07186af6c98ed30c8612322de3e",
+        "purpose": "Tight PCK@0.05 eval for the 5e-4 per-hand continuation."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60-lr5e4-cont-e40-lr1e4-cont-e30.json",
+        "sha256": "250e7dc0bb3e6a46d3b37d0f90c66860613d83c9077f8e21f6750d04754ae126",
+        "purpose": "Second lower-LR per-hand continuation receipt; current best held-out per-hand test PCK@0.10 0.7073."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60-lr5e4-cont-e40-lr1e4-cont-e30.pt",
+        "sha256": "f249b4c3d656d22aa88e97c4afaaff46e0722e1e32c247084e72f4c57cc239ec",
+        "purpose": "Current best per-hand refinement checkpoint from this slice."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60-lr5e4-cont-e40-lr1e4-cont-e30-eval-pck005.json",
+        "sha256": "aa1e972dce25f7ee609a93ccd6d383e427cb792ba8013a605ae4f9a84e7535b0",
+        "purpose": "Tight PCK@0.05 eval for the current best per-hand refinement checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-best-error-report-test-top16.json",
+        "sha256": "474067df5d32f165d6559d462cc219447d086e6c039720c8b712cdf97242b1d9",
+        "purpose": "Worst-sample JSON report for the current best per-hand refinement checkpoint on held-out test."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-best-error-report-test-top16.png",
+        "sha256": "14def57abe7fba983c7dcc1d0bbcc737389a1edc71075a197dd5a25d2e47d0ec",
+        "purpose": "Worst-sample contact sheet for current best per-hand refinement checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-hardaug-maskoob-lr5e5-e30.json",
+        "sha256": "a2a2c1b5596b5681600f58beb64a74b7a6e79169cabfd8bafb9020dbc61a511d",
+        "purpose": "Hard-geometry oversampling plus affine/degradation augmentation continuation receipt; improved edge/OOB/tiny subsets slightly but regressed overall held-out PCK and was not selected."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-hardaug-maskoob-lr5e5-e30.pt",
+        "sha256": "b8d7bd20488e28071fd4f45c92d5b5b15579cc628b55598284f211acfbf040d4",
+        "purpose": "Checkpoint from the hard-geometry augmentation continuation; diagnostic only, not the current best."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-hardaug-maskoob-lr5e5-e30-eval-pck005.json",
+        "sha256": "bad9b1e5a2227bb9220a7af748f19dc44fdb2c1ef311c2098d2f8b50be73bb18",
+        "purpose": "Tight PCK@0.05 eval for the hard-geometry augmentation checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hardaug-maskoob-error-report-test-top16.json",
+        "sha256": "8384572056a2f2873efb5a4d5effab34ecc954017f763c2a4283d4d989fbd666",
+        "purpose": "Stratified held-out error report for the hard-geometry augmentation checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hardaug-maskoob-error-report-test-top16.png",
+        "sha256": "54d9c1d17e41e1fa90f9e88a47af1e20e85868def2c1ee239f8a5622bb7d3614",
+        "purpose": "Worst-sample contact sheet for the hard-geometry augmentation checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-currentbest-error-report-test-top16.json",
+        "sha256": "05ec99b0dd2dce85276fca3371c4d4628a2331ec24e0220778f6a44ebc23329f",
+        "purpose": "Apples-to-apples stratified held-out error report for the current best per-hand checkpoint using the updated evaluator."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-currentbest-error-report-test-top16.png",
+        "sha256": "10c7fa933b9f15e5258ff39e872b98bb02d8b91e3b508f502b093151d904f09d",
+        "purpose": "Updated current-best worst-sample contact sheet."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-g64-smoke.json",
+        "sha256": "44f8a20e90e9edb70e3f19963a5e0cb99f995d45b67b0ab88ff85d0f0fbcb1c0",
+        "purpose": "Smoke receipt for a 64x64 heatmap per-hand architecture probe."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-g64-smoke.pt",
+        "sha256": "b4c1e0ec93c18b6faf72cf3afebd4971b5d25c3da3aec352c2f59901f9802349",
+        "purpose": "Smoke checkpoint from the 64x64 heatmap per-hand architecture probe."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-qualityfilter-smoke.json",
+        "sha256": "635d45c9dd10a40aaeb2aeda31b348f935b1248ffc7bd71af27b469beabff66b",
+        "purpose": "Smoke receipt for train-only per-hand quality filtering from the previous best checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-qualityfilter-smoke.pt",
+        "sha256": "82e3acc0bdd442ce148f04db8343822dc35c7992ce94b0e8366dc91adda4253c",
+        "purpose": "Smoke checkpoint from the train-only per-hand quality filter probe."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.json",
+        "sha256": "8e5581355aac9cbe68e261e8bf446af33325f191fa0d56c371b3dee96db18642",
+        "purpose": "Selected train-quality-filtered continuation receipt; current best per-hand held-out PCK@0.10 0.7106 and PCK@0.05 0.4121."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt",
+        "sha256": "edbb683d9d68da57442937ef6c96482ecb009b52ed7f05ba2d42ef8ad75815d6",
+        "purpose": "Selected per-hand quality-filter checkpoint; modestly improves all-test and tight PCK but remains below M3JA gates."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25-eval-pck005.json",
+        "sha256": "de393a89ee932ff675771f14466a78809d7a2ba3f0934e2a26fd82dc12b09a45",
+        "purpose": "Tight PCK@0.05 eval for the selected quality-filter checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-qualityfilter-error-report-test-top16.json",
+        "sha256": "2237943737e775cb686f3e24c2baab1908957c7dc68cd4bc72246e80c900ed5b",
+        "purpose": "Stratified held-out error report for the selected quality-filter checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-qualityfilter-error-report-test-top16.png",
+        "sha256": "2055a97951e388deed81a539628a070915da0282c0c829ac1ec9f5edef8a230f",
+        "purpose": "Worst-sample contact sheet for the selected quality-filter checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-hardmild-lr2e5-e15.json",
+        "sha256": "3335b698d65514624367e47b213b4a390ab97eff617bfe59d047842790f22a32",
+        "purpose": "Mild hard-augmentation continuation from the quality-filter checkpoint; not selected because all-test and tight PCK regressed."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-hardmild-lr2e5-e15.pt",
+        "sha256": "d44eb36b94863dade3d8b265244f3fbecac181037d2a48f50577554cda5187f1",
+        "purpose": "Checkpoint from the rejected quality-filter plus mild hard-augmentation continuation."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-hardmild-lr2e5-e15-eval-pck005.json",
+        "sha256": "e82490c155f7ddfc3e0f08ac091600d4de82b1cf29dd2e7beb3fadddba4cc23b",
+        "purpose": "Tight PCK@0.05 eval for the rejected quality-filter plus mild hard-augmentation continuation."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-qualityfilter-hardmild-error-report-test-top16.json",
+        "sha256": "59100297c21be8746d894a893b9463282d8fe4f24d5d2c7c254fa3109edef114",
+        "purpose": "Stratified held-out error report for the rejected quality-filter plus mild hard-augmentation checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-qualityfilter-hardmild-error-report-test-top16.png",
+        "sha256": "f898202dc8a94dd73eeace2fbcbea078491b9e21a4dbd89da005263ae1cfd042",
+        "purpose": "Worst-sample contact sheet for the rejected quality-filter plus mild hard-augmentation checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/analyze_perhand_quality.py",
+        "sha256": "66e2fb9256d34350f10465dd8059a7dc4d7d465e9db127073b068c8f8dca3fbc",
+        "purpose": "Offline teacher/student disagreement and crop-quality audit for the per-hand distillation cache, now with source-linked relabel candidate manifest output."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/build_perhand_hires_cache.py",
+        "sha256": "6b40c3496c5efe9bb4c75163c92d7633c7da6da86ebd508aa81fb27e1bd13364",
+        "purpose": "Row-preserving per-hand cache builder from offline MediaPipe teacher handcrop rows, with source metadata preservation and relabel-source replacement support."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/targeted_relabel_candidates.py",
+        "sha256": "35b4200f7ed7efdb44c786652bb0468a685e65834c3bd1e94a0ad0f4473dda00",
+        "purpose": "Offline-only targeted MediaPipe relabeler for source-linked PopSign and ASL Citizen candidate rows."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-quality-cache-audit.json",
+        "sha256": "eb10a2be2a82a588f520221bb9ac8de30944be1c696dd5e44807d9478cb6ebf7",
+        "purpose": "Full per-hand cache quality/error audit from the selected quality-filter checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-quality-cache-audit-top32.png",
+        "sha256": "dedeeefb0982fd8a79be4e72bc16a6fcbd020ebb1aba488556a7ff9121a39f09",
+        "purpose": "Full-cache top-32 disagreement contact sheet for the selected quality-filter checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-quality-cache-audit-test.json",
+        "sha256": "3ec37f767641a3519d07687d77d5f0b0277aaf8e20c8c9bc05ed020626aadf51",
+        "purpose": "Held-out test-only per-hand cache quality/error audit from the selected quality-filter checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-quality-cache-audit-test-top32.png",
+        "sha256": "08b680a994e0894e145b310656eb24f0a71f2ccd482f2938338959b4e36558e6",
+        "purpose": "Held-out test-only top-32 disagreement contact sheet for the selected quality-filter checkpoint."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3ja-perhand-rows-smoke/rows.json",
+        "sha256": "748b40122550e6b9455b8f61324081647ecf7b764394de96ee00c954242f6810",
+        "purpose": "Tiny row-preserving per-hand cache-builder smoke metadata."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35/rows.json",
+        "sha256": "86b9e20a73224757830135de1c6a8d0e3ac289496e61da879a040875cc0817dc",
+        "purpose": "Full source-preserved context-0.35 per-hand cache metadata built from PopSign and ASL Citizen teacher rows."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-currentbest-quality-audit-test.json",
+        "sha256": "5612d31c30d71ca76ae35426cbd6d4b3d04cc4d9949c4bfad756a8b609cfc0c1",
+        "purpose": "Held-out test quality audit on the source-preserved context-0.35 cache with source-linked worst samples."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-relabel-candidates-test-top512.json",
+        "sha256": "de3f42e48efeaf2eb511d9d0198129b116f8df26799f40eabb4981846a75ced5",
+        "purpose": "Source-linked held-out relabel candidate manifest for the context-0.35 cache."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-relabel-candidates-train-top1024.json",
+        "sha256": "09d76df4825bd9ac45227f1f6964cdf0ab5a4d6508b1abe81b00c2a0695fb1dc",
+        "purpose": "Source-linked train relabel candidate manifest for the context-0.35 cache."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3ja-targeted-relabel-pop-test-top32/rows.json",
+        "sha256": "acc4abe37f1444b38d0b63441ad44e3bbbd968d4fd9841a815bbb7519f7d475d",
+        "purpose": "Targeted offline MediaPipe relabel smoke for top held-out PopSign candidates."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3ja-targeted-relabel-pop-train-top128/rows.json",
+        "sha256": "5a816f3051e73297041c567b33823a9b6123e2e6ef581a474175f69565c88da4",
+        "purpose": "Targeted offline MediaPipe relabel pass for top PopSign train candidates."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35-augpop128/rows.json",
+        "sha256": "8894c16ecc592f23063f89777681f0aee25cb3b9f13c64c13d17ea2e7ef91163",
+        "purpose": "Source-preserved context-0.35 per-hand cache augmented with targeted PopSign train relabel rows."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-augpop128-smoke-lr2e5.json",
+        "sha256": "1cdd194bd400bcbd769f858a22ada778c210b61994dfb6e1efe0258fe21a56d3",
+        "purpose": "Rejected short adaptation smoke on the augmented context-0.35 cache; it regressed below warm-start validation."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3ja-targeted-relabel-ac-train-top256/rows.json",
+        "sha256": "4fd15b5e5976960ba1d128660d0248aaaa2c6ef777938429127b2998f5a80527",
+        "purpose": "Targeted offline MediaPipe relabel pass for top ASL Citizen train candidates."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35-augpop128-ac256/rows.json",
+        "sha256": "049df8da5c67e4149839159f6e687460da3f9cfd2c9db6f88bde9854d78fc288",
+        "purpose": "Source-preserved context-0.35 per-hand cache augmented with targeted PopSign and ASL Citizen train relabel rows."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-augpop128-ac256-smoke-lr1e5.json",
+        "sha256": "c1c929ef5a8414f307b5c4f97fdddf9bb63ffd79fbe0c1d0d5106aa1db1558f0",
+        "purpose": "Rejected short adaptation smoke on the PopSign+ASL Citizen augmented context-0.35 cache."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35-replacepop128-ac256/rows.json",
+        "sha256": "bb55748aec0d55fb5114f9cdf860e084fed057880e2e8c65c2fd2354c683a56e",
+        "purpose": "Source-preserved context-0.35 per-hand replacement cache with original bad source hands removed when targeted relabel replacements exist."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-replacepop128-ac256-smoke-lr1e5.json",
+        "sha256": "bc38ce364f2e4d51d8608e69081141ac60bb5581e8fb43f7229e725379700324",
+        "purpose": "Rejected short adaptation smoke on the targeted relabel replacement cache."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-replacepop128-ac256-maskoob-smoke-lr1e5.json",
+        "sha256": "dafde7e696e376c0d65a32f01c896074e66db5b6ecebbb7c014b9022952b2105",
+        "purpose": "Rejected masked-OOB short adaptation smoke on the targeted relabel replacement cache."
+      }
+    ]
+  },
+  "current_student_baseline": {
+    "coarse_grid_big2": {
+      "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-grid-big2.json",
+      "test_mean_hand_iou": 0.5739,
+      "test_left_hand_iou": 0.5884,
+      "test_right_hand_iou": 0.5593,
+      "interpretation": "owned scratch student baseline is useful but far below box gates"
+    },
+    "hands2_top2_nms": {
+      "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-existing-eval.json",
+      "weights": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-hands2-receipt.pt",
+      "real_twohand_frames": 84,
+      "old_collapse_rate": 0.47619047619047616,
+      "new_collapse_rate": 0.0,
+      "new_decoded_two_distinct": 1.0,
+      "new_coverage": 0.9285714285714286,
+      "new_coverage_failure_count": 6,
+      "coverage_gate_0_98_passed": false,
+      "interpretation": "duplicate collapse is fixed on this eval slice, but two-hand coverage is still below the M3JA gate"
+    },
+    "hand_landmarks": {
+      "best_receipt_reviewed": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-hand-landmarks-merged-w64.json",
+      "checkpoint_metadata_reviewed": {
+        "checkpoint": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-hand-landmarks-merged-w64.pt",
+        "head": "heatmap",
+        "width": 64,
+        "heatmap_grid": 32,
+        "landmarks_per_hand": 21
+      },
+      "baseline_before_m3ja_finetune": {
+        "test_hand_pck_at_0_10": 0.7782,
+        "test_visible_hand_pck_at_0_10": 0.8056,
+        "test_hand_pck_at_0_05": 0.4242,
+        "test_visible_hand_pck_at_0_05": 0.4466,
+        "validation_hand_pck_at_0_10": 0.6934,
+        "validation_visible_hand_pck_at_0_10": 0.7165,
+        "validation_hand_pck_at_0_05": 0.3376,
+        "validation_visible_hand_pck_at_0_05": 0.354
+      },
+      "best_current_checkpoint": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-finetune-e3-lr1e4-cont-e3.pt",
+      "best_current_receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-finetune-e3-lr1e4-cont-e3.json",
+      "test_left_pck_at_0_10": 0.8127,
+      "test_right_pck_at_0_10": 0.789,
+      "test_hand_pck_at_0_10": 0.8009,
+      "test_visible_hand_pck_at_0_10": 0.8246,
+      "test_left_pck_at_0_05": 0.4673,
+      "test_right_pck_at_0_05": 0.462,
+      "test_hand_pck_at_0_05": 0.4646,
+      "test_visible_hand_pck_at_0_05": 0.4885,
+      "validation_hand_pck_at_0_10": 0.7226,
+      "validation_visible_hand_pck_at_0_10": 0.7437,
+      "validation_hand_pck_at_0_05": 0.3772,
+      "validation_visible_hand_pck_at_0_05": 0.3947,
+      "pck_0_10_gate_0_90_passed": false,
+      "pck_0_05_gate_0_75_passed": false,
+      "warm_start_finetune_probe": {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hands_landmarks_heatmap.py --data .cache/handcrop-merged --init-weights output/detector0-hand-landmarks-merged-w64.pt --epochs 20 --batch 96 --lr 0.0005 --oversample-right 2 --width 64 --heatmap-g 32 --out output/m3ja-landmarks-merged-w64-finetune-e20.json --device mps",
+        "status": "interrupted_after_epoch_0_due_to_runtime",
+        "epoch_0_validation_hand_pck": 0.714,
+        "artifact_written": false,
+        "interpretation": "superseded by completed bounded runs; initial observation that epoch 0 improved validation was real"
+      },
+      "masked_oob_finetune_probe": {
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-maskoob-e3.json",
+        "test_hand_pck_at_0_10": 0.75,
+        "selected": false,
+        "interpretation": "masking out-of-bounds teacher keypoints during this fine-tune regressed all-point PCK and was not selected"
+      },
+      "unmasked_finetune_progression": [
+        {
+          "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-finetune-e3.json",
+          "test_hand_pck_at_0_10": 0.7976,
+          "test_hand_pck_at_0_05": 0.458
+        },
+        {
+          "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-finetune-e3-lr1e4-cont-e3.json",
+          "test_hand_pck_at_0_10": 0.8009,
+          "test_hand_pck_at_0_05": 0.4646
+        }
+      ],
+      "interpretation": "21-landmark student improved this turn but still needs a substantial PCK repair before browser promotion",
+      "best_selected_checkpoint_policy": "selected_by_validation_among_local M3JA landmark probes; later heatmap CE and hard-geometry probes were not promoted because validation did not improve.",
+      "followup_probes_after_selected_checkpoint": {
+        "best_checkpoint_re_eval_after_trainer_patch": {
+          "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-best-after-heatmap-loss-patch-eval-pck010.json",
+          "test_hand_pck_at_0_10": 0.8009,
+          "interpretation": "compatibility check; trainer changes did not perturb legacy checkpoint scoring"
+        },
+        "worst_sample_error_report": {
+          "json": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-best-error-report-test-top16.json",
+          "contact_sheet": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-best-error-report-test-top16.png",
+          "left_visible_pck_at_0_10": 0.837343,
+          "right_visible_pck_at_0_10": 0.811935,
+          "left_oob_points": 3578,
+          "right_oob_points": 1359,
+          "interpretation": "Worst samples cluster around hard geometry: near-face/high or low hands, edge/OOB keypoints, tiny hand boxes, and large/ambiguous hand extents. This argues for crop/teacher-label quality repair instead of blind longer fine-tuning."
+        },
+        "stratified_error_probe": {
+          "edge_pck_at_0_10": 0.6637,
+          "nonedge_pck_at_0_10": 0.84,
+          "oob_pck_at_0_10": 0.6309,
+          "inbounds_pck_at_0_10": 0.837,
+          "small_area_under_0_02_pck_at_0_10": 0.5695,
+          "mid_cy_0_55_to_0_70_pck_at_0_10": 0.8571,
+          "high_cy_0_25_to_0_40_pck_at_0_10": 0.7175,
+          "low_cy_0_70_to_1_50_pck_at_0_10": 0.7513,
+          "interpretation": "The selected checkpoint is substantially weaker on edge/OOB/small and vertical-extreme hands than centered non-edge hands."
+        },
+        "visible_heatmap_ce_probe": {
+          "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-heatce-vis-e4.json",
+          "test_hand_pck_at_0_10": 0.801,
+          "validation_hand_pck_at_0_10": 0.7159,
+          "test_hand_pck_at_0_05": 0.466,
+          "selected": false,
+          "interpretation": "Classic Gaussian heatmap CE did not validate; it tied test PCK but underperformed selected validation."
+        },
+        "hard_geometry_oversampling_probe": {
+          "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-landmarks-merged-w64-hardgeom-e4.json",
+          "hard_geometry_train_frames": 11302,
+          "test_hand_pck_at_0_10": 0.8022,
+          "validation_hand_pck_at_0_10": 0.7221,
+          "test_hand_pck_at_0_05": 0.467,
+          "selected": false,
+          "interpretation": "Targeted geometry oversampling made only tiny test gains and still missed selected validation; it is not enough by itself."
+        },
+        "decoder_coord_mode_probe": {
+          "legacy_test_hand_pck_at_0_10": 0.8009,
+          "normalized_test_hand_pck_at_0_10": 0.788,
+          "center_test_hand_pck_at_0_10": 0.79,
+          "interpretation": "The existing checkpoint should continue using legacy soft-argmax coordinate mapping; changing decoder mapping without retraining regresses right-hand PCK."
+        }
+      },
+      "perhand_refinement_candidate": {
+        "data": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/perhand-hires",
+        "data_summary": {
+          "samples": 14697,
+          "train_source_rows": 10737,
+          "test_rows": 3960,
+          "synthetic_validation_split_from_train_rows": 1073,
+          "visible_point_rate": 0.9954736470351903,
+          "any_oob_hand_rate": 0.04817309655031639
+        },
+        "old_baseline": {
+          "weights": "/Users/kelly/Developer/asl-pilot-annotator/output/m1-hand-perhand-hires.pt",
+          "test_pck_at_0_10": 0.4383,
+          "test_visible_pck_at_0_10": 0.4401,
+          "test_mean_kp_err": 0.1338
+        },
+        "previous_best_before_quality_filter": {
+          "weights": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60-lr5e4-cont-e40-lr1e4-cont-e30.pt",
+          "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60-lr5e4-cont-e40-lr1e4-cont-e30.json",
+          "validation_pck_at_0_10": 0.8247,
+          "validation_visible_pck_at_0_10": 0.827,
+          "test_pck_at_0_10": 0.7073,
+          "test_visible_pck_at_0_10": 0.7092,
+          "test_pck_at_0_05": 0.4056,
+          "test_visible_pck_at_0_05": 0.407,
+          "test_mean_kp_err": 0.0867
+        },
+        "current_best": {
+          "weights": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt",
+          "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.json",
+          "validation_pck_at_0_10": 0.8269,
+          "validation_visible_pck_at_0_10": 0.8293,
+          "test_pck_at_0_10": 0.7106,
+          "test_visible_pck_at_0_10": 0.7128,
+          "test_pck_at_0_05": 0.4121,
+          "test_visible_pck_at_0_05": 0.4139,
+          "test_mean_kp_err": 0.0863,
+          "quality_filter": {
+            "train_before": 9664,
+            "train_after": 8875,
+            "removed": 789,
+            "removed_fraction": 0.081643,
+            "exclude_oob": true,
+            "min_gradient": 0.012,
+            "min_contrast": 0.1
+          }
+        },
+        "progression": [
+          {
+            "name": "old_perhand_hires",
+            "test_pck_at_0_10": 0.4383
+          },
+          {
+            "name": "w64_e60",
+            "test_pck_at_0_10": 0.6364,
+            "test_pck_at_0_05": 0.3169
+          },
+          {
+            "name": "w64_e60_lr5e4_cont_e40",
+            "test_pck_at_0_10": 0.695,
+            "test_pck_at_0_05": 0.388
+          },
+          {
+            "name": "w64_e60_lr5e4_cont_e40_lr1e4_cont_e30",
+            "test_pck_at_0_10": 0.7073,
+            "test_pck_at_0_05": 0.4056
+          },
+          {
+            "name": "w64_qualityfilter_lr5e5_e25",
+            "test_pck_at_0_10": 0.7106,
+            "test_pck_at_0_05": 0.4121
+          }
+        ],
+        "worst_case_summary": {
+          "all_test_pck_at_0_10": 0.7106,
+          "edge_pck_at_0_10": 0.5241,
+          "nonedge_pck_at_0_10": 0.7257,
+          "oob_pck_at_0_10": 0.4945,
+          "inbounds_pck_at_0_10": 0.721,
+          "area_lt_0_08_pck_at_0_10": 0.681,
+          "interpretation": "Quality filtering modestly improves all-test, non-edge, in-bounds, and tight PCK, but edge/OOB/small slices regress; remaining worst samples still show blurred, warped, edge-truncated, and teacher-ambiguous crops."
+        },
+        "quality_filter_probe": {
+          "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.json",
+          "weights": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt",
+          "selected": true,
+          "test_pck_at_0_10_delta_vs_previous_best": 0.0033,
+          "test_pck_at_0_05_delta_vs_previous_best": 0.0065,
+          "stratified_delta_vs_previous_best": {
+            "all_pck_at_0_10": 0.0033,
+            "nonedge_pck_at_0_10": 0.0048,
+            "inbounds_pck_at_0_10": 0.0042,
+            "edge_pck_at_0_10": -0.0147,
+            "oob_pck_at_0_10": -0.0162,
+            "small_area_pck_at_0_10": -0.0119
+          },
+          "interpretation": "Removing the lowest-confidence OOB/low-texture training tail is a real but small gain for general held-out landmark accuracy; it is not sufficient for hard edge/OOB cases."
+        },
+        "hard_geometry_augmentation_probe": {
+          "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-hardaug-maskoob-lr5e5-e30.json",
+          "weights": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-hardaug-maskoob-lr5e5-e30.pt",
+          "validation_pck_at_0_10": 0.831,
+          "test_pck_at_0_10": 0.7041,
+          "test_visible_pck_at_0_10": 0.7062,
+          "test_pck_at_0_05": 0.401,
+          "test_mean_kp_err": 0.0879,
+          "selected": false,
+          "stratified_delta_vs_current_best": {
+            "all_pck_at_0_10": -0.0032,
+            "edge_pck_at_0_10": 0.0061,
+            "oob_pck_at_0_10": 0.0066,
+            "small_area_pck_at_0_10": 0.0079,
+            "inbounds_pck_at_0_10": -0.0036,
+            "nonedge_pck_at_0_10": -0.0039
+          },
+          "interpretation": "Hard augmentation nudged the exact hard slices upward but reduced overall and tight held-out PCK, so it is diagnostic rather than a promotion checkpoint."
+        },
+        "high_resolution_heatmap_probe": {
+          "smoke_receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-g64-smoke.json",
+          "full_command_status": "stopped_after_epoch_30_no_final_receipt",
+          "epoch_30_validation_pck_at_0_10": 0.709,
+          "current_best_validation_pck_at_0_10": 0.8247,
+          "selected": false,
+          "interpretation": "A 64x64 heatmap head trained from scratch learned, but by epoch 30 it was far behind the current 32x32 best and was stopped as an inefficient local lever."
+        },
+        "quality_filter_plus_mild_hard_aug_probe": {
+          "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-hardmild-lr2e5-e15.json",
+          "weights": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-hardmild-lr2e5-e15.pt",
+          "validation_pck_at_0_10": 0.8275,
+          "test_pck_at_0_10": 0.7063,
+          "test_pck_at_0_05": 0.406,
+          "selected": false,
+          "interpretation": "Mild hard augmentation after quality filtering improved only the small-area slice and regressed all-test, tight, edge, OOB, non-edge, and in-bounds metrics."
+        },
+        "quality_cache_audit": {
+          "script": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/analyze_perhand_quality.py",
+          "full_cache_receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-quality-cache-audit.json",
+          "test_receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-quality-cache-audit-test.json",
+          "test_contact_sheet": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-quality-cache-audit-test-top32.png",
+          "test_samples": 3960,
+          "test_pck_at_0_10": 0.7106,
+          "clean_test_pck_at_0_10": 0.8315,
+          "edge_test_pck_at_0_10": 0.5241,
+          "oob_test_pck_at_0_10": 0.4945,
+          "small_area_test_pck_at_0_10": 0.681,
+          "low_gradient_test_pck_at_0_10": 0.5077,
+          "low_contrast_test_pck_at_0_10": 0.35,
+          "high_error_test_samples": 704,
+          "low_pck_test_samples": 835,
+          "clean_high_error_test_samples": 520,
+          "metadata_gap": "perhand-hires has frames.npy, kpts.npy, and splits.json but no rows.json, so source-frame relabeling requires recovering the generator or rebuilding the cache with row metadata.",
+          "interpretation": "The held-out tail is dominated by edge/OOB, low-texture, and clean-high-error teacher/student disagreements. This confirms the next lever is teacher/crop-cache repair and row metadata, not another blind fine-tune."
+        },
+        "row_preserving_cache_builder_smoke": {
+          "script": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/build_perhand_hires_cache.py",
+          "source": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/handcrop-lm2",
+          "out": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3ja-perhand-rows-smoke",
+          "source_rows_scanned": 220,
+          "hands_seen": 96,
+          "hands_kept": 96,
+          "hands_skipped": 0,
+          "frames_shape": [
+            96,
+            128,
+            128,
+            3
+          ],
+          "kpts_shape": [
+            96,
+            21,
+            2
+          ],
+          "rows_json_sha256": "748b40122550e6b9455b8f61324081647ecf7b764394de96ee00c954242f6810",
+          "interpretation": "The metadata gap has a working rebuild path: each generated crop preserves source cache, source row index, hand key, label, clip, frame index, teacher hand box, derived per-hand crop box, and original teacher landmarks."
+        },
+        "source_preserved_relabel_slice": {
+          "source_preserved_cache_c35": {
+            "out": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35",
+            "samples": 30184,
+            "train": 22234,
+            "validation": 3545,
+            "test": 4405,
+            "sources": {
+              "handcrop_lm2": 11720,
+              "handcrop_ac": 18464
+            },
+            "any_oob_hand_rate": 0.100119,
+            "rows_json_sha256": "86b9e20a73224757830135de1c6a8d0e3ac289496e61da879a040875cc0817dc"
+          },
+          "current_selected_checkpoint_on_c35": {
+            "weights": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt",
+            "test_pck_at_0_10": 0.659,
+            "test_visible_pck_at_0_10": 0.694,
+            "test_pck_at_0_05": 0.37,
+            "test_visible_pck_at_0_05": 0.39,
+            "interpretation": "Context 0.35 improves over the context 0.20 row-preserving rebuild (0.609 PCK@0.10) but is still harder than the old metadata-poor perhand-hires cache."
+          },
+          "source_linked_audit_test": {
+            "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-currentbest-quality-audit-test.json",
+            "test_samples": 4405,
+            "all_pck_at_0_10": 0.6587,
+            "visible_pck_at_0_10": 0.6935,
+            "clean_pck_at_0_10": 0.8398,
+            "edge_pck_at_0_10": 0.3358,
+            "oob_pck_at_0_10": 0.2897,
+            "small_area_pck_at_0_10": 0.5876,
+            "low_gradient_pck_at_0_10": 0.4725,
+            "high_error_test_samples": 1154,
+            "clean_high_error_test_samples": 444,
+            "metadata_gap": false
+          },
+          "candidate_manifests": {
+            "test_top512": {
+              "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-relabel-candidates-test-top512.json",
+              "available": 1637,
+              "selected": 512,
+              "source": "handcrop-lm2 only in top512",
+              "recommended_actions": {
+                "rebuild_crop_with_more_context_or_mask_oob_keypoints": 363,
+                "manual_review_or_rerun_teacher_for_label_topology": 105,
+                "exclude_or_relabel_from_clearer_source_frame": 40,
+                "upscale_or_area_balance_small_hand_crop": 4
+              }
+            },
+            "train_top1024": {
+              "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-relabel-candidates-train-top1024.json",
+              "available": 10122,
+              "selected": 1024,
+              "sources": {
+                "handcrop-ac": 892,
+                "handcrop-lm2": 132
+              },
+              "recommended_actions": {
+                "rebuild_crop_with_more_context_or_mask_oob_keypoints": 797,
+                "manual_review_or_rerun_teacher_for_label_topology": 107,
+                "exclude_or_relabel_from_clearer_source_frame": 68,
+                "upscale_or_area_balance_small_hand_crop": 52
+              }
+            }
+          },
+          "targeted_relabel_smokes": {
+            "test_pop_top32": {
+              "out": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3ja-targeted-relabel-pop-test-top32",
+              "processed": 32,
+              "detected": 30,
+              "selected_detected": 30,
+              "current_student_pck_at_0_10_on_relabel_perhand": 0.03,
+              "interpretation": "The top held-out disagreements remain very hard under rerun teacher labels; this is diagnostic and not a gate metric."
+            },
+            "train_pop_top128": {
+              "out": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3ja-targeted-relabel-pop-train-top128",
+              "processed": 128,
+              "detected": 102,
+              "selected_detected": 102
+            },
+            "train_ac_top32_smoke": {
+              "out": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3ja-targeted-relabel-ac-train-top32",
+              "processed": 32,
+              "detected": 23,
+              "selected_detected": 23
+            },
+            "train_ac_top256": {
+              "out": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3ja-targeted-relabel-ac-train-top256",
+              "processed": 256,
+              "detected": 206,
+              "selected_detected": 206
+            }
+          },
+          "training_probes": {
+            "context20_qualityfilter_lr1e4": "stopped_no_artifact_after_epoch_6; validation stayed below initial 0.610",
+            "context35_qualityfilter_lr5e5": "stopped_no_artifact_after_epoch_6; validation stayed below initial 0.660",
+            "context35_augpop128_smoke_lr2e5": {
+              "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-augpop128-smoke-lr2e5.json",
+              "initial_validation_pck_at_0_10": 0.66,
+              "final_validation_pck_at_0_10": 0.656,
+              "test_pck_at_0_10": 0.656,
+              "selected": false
+            },
+            "context35_augpop128_ac256_smoke_lr1e5": {
+              "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-augpop128-ac256-smoke-lr1e5.json",
+              "initial_validation_pck_at_0_10": 0.66,
+              "final_validation_pck_at_0_10": 0.654,
+              "test_pck_at_0_10": 0.655,
+              "selected": false
+            },
+            "context35_replacepop128_ac256_smoke_lr1e5": {
+              "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-replacepop128-ac256-smoke-lr1e5.json",
+              "excluded_original_source_hands": 308,
+              "initial_validation_pck_at_0_10": 0.66,
+              "final_validation_pck_at_0_10": 0.654,
+              "test_pck_at_0_10": 0.654,
+              "selected": false
+            },
+            "context35_replacepop128_ac256_maskoob_smoke_lr1e5": {
+              "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-replacepop128-ac256-maskoob-smoke-lr1e5.json",
+              "initial_validation_pck_at_0_10": 0.66,
+              "final_validation_pck_at_0_10": 0.656,
+              "test_pck_at_0_10": 0.656,
+              "selected": false
+            }
+          },
+          "interpretation": "The row-preserving and targeted-relabel path now supports both PopSign and ASL Citizen, and replacement caches can remove original bad source hands. However, additive, replacement, and masked-OOB short adaptation probes all regressed below the warm-start baseline. The next useful step is stricter relabel acceptance and edge/OOB label policy, not simply adding more relabeled rows."
+        },
+        "selected_for_browser_export": false,
+        "interpretation": "This validates train-quality filtering as a useful lever and sets a new local per-hand best, but the model is still far below M3JA gates. The next repair should rebuild teacher/crop-cache quality and metadata rather than blindly extending optimizer time."
+      }
+    },
+    "onnx_export_and_parity": {
+      "export_dependency_check": "passed: onnx and onnxruntime are available in /Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "existing_manifest": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/onnx/manifest.json",
+      "region_onnx_max_abs_diff": 9.894371032714844e-06,
+      "landmark_onnx_max_abs_diff": 1.52587890625e-05,
+      "node_js_parity_rerun_status": "blocked",
+      "node_js_parity_blocker": "run_js_port.js expects output/onnx/recognizer-v4-w64.onnx, but the current ONNX folder contains recognizer-distill.onnx; initial run also needed NODE_PATH to reuse the web app onnxruntime-node install",
+      "prior_side_parity_summary": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/web-pilot/test/parity_summary.json",
+      "prior_side_parity_primary_top1_agreement": 1.0,
+      "prior_side_parity_primary_top5_order_agreement": 1.0,
+      "prior_side_parity_bilinear_top1_agreement": 0.6,
+      "interpretation": "area-resize browser parity is important; bilinear resize diverges badly"
+    }
+  },
+  "acceptance_gate_status": {
+    "hand_box_recall_iou_0_30_ge_0_98": "not_yet_measured_against_human_reviewed_gate_set",
+    "hand_box_recall_iou_0_50_ge_0_90": "not_yet_measured_against_human_reviewed_gate_set",
+    "two_hand_duplicate_collapse_le_0_02": "passed_on_current_84_frame_teacher_eval",
+    "two_hand_coverage_ge_0_98": "failed_current_eval_0_928571",
+    "landmark_pck_0_10_ge_0_90": "failed_current_best_0_8009",
+    "landmark_pck_0_05_ge_0_75": "failed_current_best_0_4646",
+    "handedness_or_track_swap_le_0_02": "not_yet_measured",
+    "browser_failure_frames_pass": "not_yet_passed_as_model_gate",
+    "live_browser_no_blocking_console_errors": "not_yet_rechecked_after_m3ja",
+    "no_pretrained_runtime_dependency": "passed_main_audits",
+    "perhand_refinement_candidate": "quality_filter_current_best_test_pck_0_10_0_7106_pck_0_05_0_4121; quality_cache_audit_clean_test_pck_0_8315_but_high_error_test_samples_704; still_not_gate_passing; teacher_crop_repair_and_row_metadata_needed",
+    "two_hand_coverage": {
+      "status": "failing",
+      "required": 0.98,
+      "current_best": 0.9642857142857143,
+      "n_real_twohand": 84,
+      "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.json"
+    },
+    "duplicate_collapse": {
+      "status": "passing_on_current_84_frame_eval_only",
+      "required_max": 0.02,
+      "current_best": 0.0,
+      "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.json"
+    }
+  },
+  "command_statuses": [
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool <side detector0-hands2, detector0-hand-landmarks-big2, detector0-grid-big2 receipts>",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -c 'import torch ...'",
+      "status": "failed_expected",
+      "summary": "system python has no torch; project venv is required"
+    },
+    {
+      "command": "/Users/kelly/Developer/asl-pilot/.venv/bin/python -c 'import torch ...'",
+      "status": "passed",
+      "summary": "torch 2.12.0, MPS available true"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_detector_grid_hands2.py",
+      "status": "passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_detector_grid_hands2.py --self-test",
+      "status": "passed",
+      "summary": "decode_hands suppresses overlapping duplicate peaks and keeps a distinct second hand"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_detector_grid_hands2.py --eval-only --weights output/detector0-hands2-receipt.pt --out output/m3ja-hands2-existing-eval.json --render output/m3ja-hands2-existing-eval.png --device mps",
+      "status": "passed",
+      "summary": "collapse 0.0, decoded_two_distinct 1.0, coverage 0.928571 on 84 real two-hand frames"
+    },
+    {
+      "command": "/Users/kelly/Developer/asl-pilot/.venv/bin/python /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/export_models_web.py --check-deps",
+      "status": "passed",
+      "summary": "onnx and onnxruntime are available"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hands_landmarks_heatmap.py",
+      "status": "passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hands_landmarks_heatmap.py --eval-only --weights output/detector0-hand-landmarks-merged-w64.pt --data .cache/handcrop-merged --out output/m3ja-landmarks-merged-w64-eval-pck010.json --pck 0.1 --device mps",
+      "status": "passed",
+      "summary": "test hand PCK@0.10 0.7782; validation hand PCK@0.10 0.6934"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hands_landmarks_heatmap.py --eval-only --weights output/detector0-hand-landmarks-merged-w64.pt --data .cache/handcrop-merged --out output/m3ja-landmarks-merged-w64-eval-pck005.json --pck 0.05 --device mps",
+      "status": "passed",
+      "summary": "test hand PCK@0.05 0.4242; validation hand PCK@0.05 0.3376"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hands_landmarks_heatmap.py --data .cache/handcrop-merged --init-weights output/detector0-hand-landmarks-merged-w64.pt --epochs 20 --batch 96 --lr 0.0005 --oversample-right 2 --width 64 --heatmap-g 32 --out output/m3ja-landmarks-merged-w64-finetune-e20.json --device mps",
+      "status": "interrupted",
+      "summary": "stopped after about 4 minutes; epoch 0 validation hand PCK 0.714 and no final artifact was written"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python <label hygiene audit for .cache/handcrop-merged>",
+      "status": "passed",
+      "summary": "11.56% of left-hand labels and 7.49% of right-hand labels had at least one out-of-bounds teacher keypoint"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hands_landmarks_heatmap.py --eval-only --weights output/detector0-hand-landmarks-merged-w64.pt --data .cache/handcrop-merged --out output/m3ja-landmarks-merged-w64-eval-visible-pck010.json --pck 0.1 --device mps",
+      "status": "passed",
+      "summary": "baseline visible test hand PCK@0.10 0.8056; validation visible hand PCK@0.10 0.7165"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hands_landmarks_heatmap.py --eval-only --weights output/detector0-hand-landmarks-merged-w64.pt --data .cache/handcrop-merged --out output/m3ja-landmarks-merged-w64-eval-visible-pck005.json --pck 0.05 --device mps",
+      "status": "passed",
+      "summary": "baseline visible test hand PCK@0.05 0.4466; validation visible hand PCK@0.05 0.3540"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hands_landmarks_heatmap.py --data .cache/handcrop-merged --init-weights output/detector0-hand-landmarks-merged-w64.pt --epochs 3 --eval-every 1 --batch 96 --lr 0.0005 --oversample-right 2 --mask-oob-keypoints --width 64 --heatmap-g 32 --out output/m3ja-landmarks-merged-w64-maskoob-e3.json --device mps",
+      "status": "passed_regressed",
+      "summary": "masked out-of-bounds-keypoint fine-tune regressed test hand PCK@0.10 to 0.750 and was not selected"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hands_landmarks_heatmap.py --data .cache/handcrop-merged --init-weights output/detector0-hand-landmarks-merged-w64.pt --epochs 3 --eval-every 1 --batch 96 --lr 0.0005 --oversample-right 2 --width 64 --heatmap-g 32 --out output/m3ja-landmarks-merged-w64-finetune-e3.json --device mps",
+      "status": "passed_improved",
+      "summary": "unmasked warm-start fine-tune improved test hand PCK@0.10 to 0.7976 and PCK@0.05 to 0.4580"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hands_landmarks_heatmap.py --data .cache/handcrop-merged --init-weights output/m3ja-landmarks-merged-w64-finetune-e3.pt --epochs 3 --eval-every 1 --batch 96 --lr 0.0001 --oversample-right 2 --width 64 --heatmap-g 32 --out output/m3ja-landmarks-merged-w64-finetune-e3-lr1e4-cont-e3.json --device mps",
+      "status": "passed_improved",
+      "summary": "lower-LR continuation improved test hand PCK@0.10 to 0.8009"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hands_landmarks_heatmap.py --eval-only --weights output/m3ja-landmarks-merged-w64-finetune-e3-lr1e4-cont-e3.pt --data .cache/handcrop-merged --out output/m3ja-landmarks-merged-w64-finetune-e3-lr1e4-cont-e3-eval-pck005.json --pck 0.05 --device mps",
+      "status": "passed_improved",
+      "summary": "best current checkpoint test hand PCK@0.05 0.4646"
+    },
+    {
+      "command": "node run_js_port.js --out m3ja-out_js.json --resize area",
+      "status": "blocked",
+      "summary": "without NODE_PATH, onnxruntime-node was not found"
+    },
+    {
+      "command": "NODE_PATH=/Users/kelly/Developer/asl-pilot-web/web/node_modules node run_js_port.js --out m3ja-out_js.json --resize area",
+      "status": "blocked",
+      "summary": "onnxruntime-node resolved, but output/onnx/recognizer-v4-w64.onnx is missing"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hands_landmarks_heatmap.py --data tools/detector0-annotator/.cache/handcrop-merged --weights tools/detector0-annotator/output/m3ja-landmarks-merged-w64-finetune-e3-lr1e4-cont-e3.pt --eval-only --pck 0.1 --out tools/detector0-annotator/output/m3ja-landmarks-best-after-heatmap-loss-patch-eval-pck010.json --device mps",
+      "status": "passed",
+      "summary": "compatibility check kept selected checkpoint at test hand PCK@0.10 0.801"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python <one-batch heatmap CE scale check>",
+      "status": "passed",
+      "summary": "all-point heatmap CE was too large on OOB labels; visible-only heatmap CE was comparable with a low weight"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hands_landmarks_heatmap.py --data tools/detector0-annotator/.cache/handcrop-merged --init-weights tools/detector0-annotator/output/m3ja-landmarks-merged-w64-finetune-e3-lr1e4-cont-e3.pt --epochs 4 --eval-every 1 --batch 96 --lr 0.00005 --oversample-right 2 --width 64 --heatmap-g 32 --heatmap-ce-weight 0.02 --heatmap-mask-oob-keypoints --out tools/detector0-annotator/output/m3ja-landmarks-merged-w64-heatce-vis-e4.json --device mps",
+      "status": "passed_not_selected",
+      "summary": "test hand PCK@0.10 0.801 but validation hand PCK@0.10 regressed to 0.7159"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hands_landmarks_heatmap.py --data tools/detector0-annotator/.cache/handcrop-merged --weights tools/detector0-annotator/output/m3ja-landmarks-merged-w64-heatce-vis-e4.pt --eval-only --pck 0.05 --out tools/detector0-annotator/output/m3ja-landmarks-merged-w64-heatce-vis-e4-eval-pck005.json --device mps",
+      "status": "passed_not_selected",
+      "summary": "tight test hand PCK@0.05 0.466; marginal and not validation-selected"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hands_landmarks_heatmap.py --data tools/detector0-annotator/.cache/handcrop-merged --weights tools/detector0-annotator/output/m3ja-landmarks-merged-w64-finetune-e3-lr1e4-cont-e3.pt --eval-only --pck 0.1 --error-topk 16 --error-report-out tools/detector0-annotator/output/m3ja-landmarks-best-error-report-test-top16.json --error-contact-sheet tools/detector0-annotator/output/m3ja-landmarks-best-error-report-test-top16.png --out tools/detector0-annotator/output/m3ja-landmarks-best-error-report-test-eval-pck010.json --device mps",
+      "status": "passed",
+      "summary": "wrote top-16 worst-sample JSON and contact sheet; visible right-hand PCK@0.10 0.811935, left 0.837343"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python <selected-checkpoint stratified hard-geometry error probe>",
+      "status": "passed",
+      "summary": "edge PCK@0.10 0.6637 vs nonedge 0.84; OOB 0.6309 vs inbounds 0.837; small-area <0.02 PCK 0.5695"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hands_landmarks_heatmap.py --data tools/detector0-annotator/.cache/handcrop-merged --init-weights tools/detector0-annotator/output/m3ja-landmarks-merged-w64-finetune-e3-lr1e4-cont-e3.pt --epochs 4 --eval-every 1 --batch 96 --lr 0.00005 --oversample-right 2 --oversample-hard-geometry 2 --hard-include-oob --width 64 --heatmap-g 32 --out tools/detector0-annotator/output/m3ja-landmarks-merged-w64-hardgeom-e4.json --device mps",
+      "status": "passed_not_selected",
+      "summary": "hard geometry frames 11302; test hand PCK@0.10 0.8022 but validation 0.7221, below selected 0.7226"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hands_landmarks_heatmap.py --data tools/detector0-annotator/.cache/handcrop-merged --weights tools/detector0-annotator/output/m3ja-landmarks-merged-w64-hardgeom-e4.pt --eval-only --pck 0.05 --out tools/detector0-annotator/output/m3ja-landmarks-merged-w64-hardgeom-e4-eval-pck005.json --device mps",
+      "status": "passed_not_selected",
+      "summary": "tight test hand PCK@0.05 0.467; marginal and not validation-selected"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hands_landmarks_heatmap.py --data tools/detector0-annotator/.cache/handcrop-merged --weights tools/detector0-annotator/output/m3ja-landmarks-merged-w64-finetune-e3-lr1e4-cont-e3.pt --eval-only --coord-mode normalized --pck 0.1 --out tools/detector0-annotator/output/m3ja-landmarks-best-eval-coord-normalized-pck010.json --device mps",
+      "status": "passed_regressed",
+      "summary": "normalized coord mapping lowered test hand PCK@0.10 to 0.788"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hands_landmarks_heatmap.py --data tools/detector0-annotator/.cache/handcrop-merged --weights tools/detector0-annotator/output/m3ja-landmarks-merged-w64-finetune-e3-lr1e4-cont-e3.pt --eval-only --coord-mode center --pck 0.1 --out tools/detector0-annotator/output/m3ja-landmarks-best-eval-coord-center-pck010.json --device mps",
+      "status": "passed_regressed",
+      "summary": "center coord mapping lowered test hand PCK@0.10 to 0.790"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_perhand_landmarks_heatmap.py",
+      "status": "passed",
+      "summary": "new per-hand refinement trainer compiles"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/perhand-hires --weights /Users/kelly/Developer/asl-pilot-annotator/output/m1-hand-perhand-hires.pt --eval-only --pck 0.1 --out tools/detector0-annotator/output/m3ja-perhand-hires-old-best-eval-pck010.json --device mps",
+      "status": "passed",
+      "summary": "old per-hand checkpoint baseline: test PCK@0.10 0.4383"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/perhand-hires --epochs 1 --max-train-batches 3 --batch 32 --eval-every 1 --width 32 --heatmap-g 32 --out tools/detector0-annotator/output/m3ja-perhand-smoke.json --device mps",
+      "status": "passed",
+      "summary": "tiny smoke wrote receipt and checkpoint; test PCK@0.10 0.145 after 3 train batches"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/perhand-hires --epochs 60 --batch 96 --eval-every 5 --lr 0.002 --width 64 --heatmap-g 32 --heatmap-ce-weight 0.05 --out tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60.json --device mps",
+      "status": "passed_improved",
+      "summary": "per-hand test PCK@0.10 improved to 0.6364; PCK@0.05 0.3169"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/perhand-hires --init-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60.pt --epochs 40 --batch 96 --eval-every 5 --lr 0.0005 --width 64 --heatmap-g 32 --heatmap-ce-weight 0.05 --out tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60-lr5e4-cont-e40.json --device mps",
+      "status": "passed_improved",
+      "summary": "per-hand test PCK@0.10 improved to 0.695; PCK@0.05 0.388"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/perhand-hires --init-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60-lr5e4-cont-e40.pt --epochs 30 --batch 96 --eval-every 5 --lr 0.0001 --width 64 --heatmap-g 32 --heatmap-ce-weight 0.05 --out tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60-lr5e4-cont-e40-lr1e4-cont-e30.json --device mps",
+      "status": "passed_improved",
+      "summary": "current best per-hand test PCK@0.10 0.7073; PCK@0.05 0.4056"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python <perhand best error report/contact sheet generation>",
+      "status": "passed",
+      "summary": "edge PCK@0.10 0.5388 vs nonedge 0.7209; OOB 0.5107 vs inbounds 0.7168"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/perhand-hires --init-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60-lr5e4-cont-e40-lr1e4-cont-e30.pt --epochs 30 --batch 96 --eval-every 5 --lr 0.00005 --width 64 --heatmap-g 32 --heatmap-ce-weight 0.05 --mask-oob-keypoints --oversample-hard-geometry 2 --hard-include-oob --affine-aug-prob 0.5 --affine-shift 0.08 --affine-scale-min 0.9 --affine-scale-max 1.12 --blur-prob 0.1 --noise-std 0.01 --out tools/detector0-annotator/output/m3ja-perhand-hires-w64-hardaug-maskoob-lr5e5-e30.json --device mps",
+      "status": "passed_not_selected",
+      "summary": "validation PCK@0.10 rose to 0.831 but held-out test PCK@0.10 slipped to 0.7041 and tight PCK@0.05 to 0.401; edge/OOB/tiny slices improved slightly but not enough to select"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/perhand-hires --weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-hardaug-maskoob-lr5e5-e30.pt --eval-only --pck 0.05 --width 64 --heatmap-g 32 --out tools/detector0-annotator/output/m3ja-perhand-hires-w64-hardaug-maskoob-lr5e5-e30-eval-pck005.json --device mps",
+      "status": "passed_not_selected",
+      "summary": "hard-augmentation checkpoint tight test PCK@0.05 0.401, below current best 0.4056"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/perhand-hires --weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-hardaug-maskoob-lr5e5-e30.pt --eval-only --pck 0.1 --width 64 --heatmap-g 32 --error-report-out tools/detector0-annotator/output/m3ja-perhand-hardaug-maskoob-error-report-test-top16.json --error-contact-sheet tools/detector0-annotator/output/m3ja-perhand-hardaug-maskoob-error-report-test-top16.png --error-topk 16 --out tools/detector0-annotator/output/m3ja-perhand-hires-w64-hardaug-maskoob-lr5e5-e30-eval-pck010-report.json --device mps",
+      "status": "passed_not_selected",
+      "summary": "hard-augmentation stratified report: edge 0.5449, OOB 0.5173, small-area 0.7008, but all-test 0.7041"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/perhand-hires --weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60-lr5e4-cont-e40-lr1e4-cont-e30.pt --eval-only --pck 0.1 --width 64 --heatmap-g 32 --error-report-out tools/detector0-annotator/output/m3ja-perhand-currentbest-error-report-test-top16.json --error-contact-sheet tools/detector0-annotator/output/m3ja-perhand-currentbest-error-report-test-top16.png --error-topk 16 --out tools/detector0-annotator/output/m3ja-perhand-currentbest-eval-pck010-report.json --device mps",
+      "status": "passed",
+      "summary": "current-best apples-to-apples stratified report retained all-test PCK@0.10 0.7073"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/perhand-hires --epochs 1 --max-train-batches 3 --batch 24 --eval-every 1 --lr 0.002 --width 64 --heatmap-g 64 --heatmap-ce-weight 0.05 --out tools/detector0-annotator/output/m3ja-perhand-g64-smoke.json --device mps",
+      "status": "passed",
+      "summary": "64x64 heatmap architecture smoke wrote receipt; test PCK@0.10 0.156 after 3 train batches"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/perhand-hires --epochs 80 --batch 64 --eval-every 10 --lr 0.002 --width 64 --heatmap-g 64 --heatmap-ce-weight 0.05 --out tools/detector0-annotator/output/m3ja-perhand-hires-w64-g64-e80.json --device mps",
+      "status": "stopped_no_artifact",
+      "summary": "stopped at epoch 30 because validation PCK@0.10 was 0.709, far below the current best validation 0.8247; no final receipt/checkpoint written"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/perhand-hires --init-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60-lr5e4-cont-e40-lr1e4-cont-e30.pt --epochs 1 --max-train-batches 3 --batch 32 --eval-every 1 --lr 0.00005 --width 64 --heatmap-g 32 --heatmap-ce-weight 0.05 --filter-train-quality --quality-exclude-oob --quality-min-gradient 0.012 --quality-min-contrast 0.10 --out tools/detector0-annotator/output/m3ja-perhand-qualityfilter-smoke.json --device mps",
+      "status": "passed",
+      "summary": "quality-filter smoke kept 8875/9664 train crops and nudged test PCK@0.10 to 0.710 after 3 train batches"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/perhand-hires --init-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-e60-lr5e4-cont-e40-lr1e4-cont-e30.pt --epochs 25 --batch 96 --eval-every 5 --lr 0.00005 --width 64 --heatmap-g 32 --heatmap-ce-weight 0.05 --filter-train-quality --quality-exclude-oob --quality-min-gradient 0.012 --quality-min-contrast 0.10 --out tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.json --device mps",
+      "status": "passed_selected",
+      "summary": "selected new per-hand local best: train filter kept 8875/9664 crops; test PCK@0.10 0.7106, visible 0.7128, mean error 0.0863"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/perhand-hires --weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --eval-only --pck 0.05 --width 64 --heatmap-g 32 --out tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25-eval-pck005.json --device mps",
+      "status": "passed_selected",
+      "summary": "selected quality-filter checkpoint tight test PCK@0.05 0.4121, visible 0.4139"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/perhand-hires --weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --eval-only --pck 0.1 --width 64 --heatmap-g 32 --error-report-out tools/detector0-annotator/output/m3ja-perhand-qualityfilter-error-report-test-top16.json --error-contact-sheet tools/detector0-annotator/output/m3ja-perhand-qualityfilter-error-report-test-top16.png --error-topk 16 --out tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25-eval-pck010-report.json --device mps",
+      "status": "passed_selected",
+      "summary": "quality-filter stratified report: all 0.7106, nonedge 0.7257, inbounds 0.721, but edge 0.5241, OOB 0.4945, small-area 0.681"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/perhand-hires --init-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --epochs 15 --batch 96 --eval-every 5 --lr 0.00002 --width 64 --heatmap-g 32 --heatmap-ce-weight 0.05 --filter-train-quality --quality-exclude-oob --quality-min-gradient 0.012 --quality-min-contrast 0.10 --mask-oob-keypoints --oversample-hard-geometry 2 --affine-aug-prob 0.35 --affine-shift 0.06 --affine-scale-min 0.95 --affine-scale-max 1.08 --blur-prob 0.05 --noise-std 0.005 --out tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-hardmild-lr2e5-e15.json --device mps",
+      "status": "passed_not_selected",
+      "summary": "mild hard augmentation after quality filtering regressed test PCK@0.10 to 0.7063 despite validation 0.8275"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/perhand-hires --weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-hardmild-lr2e5-e15.pt --eval-only --pck 0.05 --width 64 --heatmap-g 32 --out tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-hardmild-lr2e5-e15-eval-pck005.json --device mps",
+      "status": "passed_not_selected",
+      "summary": "mild hard-augmentation tight test PCK@0.05 0.406, below selected quality-filter 0.4121"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/perhand-hires --weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-hardmild-lr2e5-e15.pt --eval-only --pck 0.1 --width 64 --heatmap-g 32 --error-report-out tools/detector0-annotator/output/m3ja-perhand-qualityfilter-hardmild-error-report-test-top16.json --error-contact-sheet tools/detector0-annotator/output/m3ja-perhand-qualityfilter-hardmild-error-report-test-top16.png --error-topk 16 --out tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-hardmild-lr2e5-e15-eval-pck010-report.json --device mps",
+      "status": "passed_not_selected",
+      "summary": "mild hard-augmentation stratified report improved only small-area versus selected quality-filter and regressed all, edge, OOB, nonedge, and inbounds"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/analyze_perhand_quality.py tools/detector0-annotator/train_perhand_landmarks_heatmap.py",
+      "status": "passed",
+      "summary": "new per-hand quality/cache audit script compiles with the existing per-hand trainer"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/analyze_perhand_quality.py --data tools/detector0-annotator/.cache/perhand-hires --weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --split all --topk 32 --out tools/detector0-annotator/output/m3ja-perhand-quality-cache-audit.json --contact-sheet tools/detector0-annotator/output/m3ja-perhand-quality-cache-audit-top32.png --device mps",
+      "status": "passed",
+      "summary": "full-cache audit evaluated 14697 samples; all-cache PCK@0.10 0.8809, clean PCK 0.9302, high-error samples 825; includes train rows so it is diagnostic only"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/analyze_perhand_quality.py --data tools/detector0-annotator/.cache/perhand-hires --weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --split test --topk 32 --out tools/detector0-annotator/output/m3ja-perhand-quality-cache-audit-test.json --contact-sheet tools/detector0-annotator/output/m3ja-perhand-quality-cache-audit-test-top32.png --device mps",
+      "status": "passed",
+      "summary": "held-out test audit evaluated 3960 samples; all PCK 0.7106, clean 0.8315, edge 0.5241, OOB 0.4945, low-gradient 0.5077, low-contrast 0.35, high-error samples 704, clean-high-error samples 520"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/build_perhand_hires_cache.py tools/detector0-annotator/analyze_perhand_quality.py",
+      "status": "passed",
+      "summary": "row-preserving per-hand cache builder compiles"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/build_perhand_hires_cache.py --source tools/detector0-annotator/.cache/handcrop-lm2 --out tools/detector0-annotator/.cache/m3ja-perhand-rows-smoke --max-hands 96 --crop-px 128 --context 0.20 --min-side 0.10",
+      "status": "passed",
+      "summary": "wrote 96 row-preserving per-hand crops from 220 offline-teacher source rows; hands seen 96, skipped 0"
+    },
+    {
+      "command": "python3 -m json.tool tools/detector0-annotator/.cache/m3ja-perhand-rows-smoke/rows.json >/dev/null",
+      "status": "passed",
+      "summary": "row-preserving per-hand smoke metadata is valid JSON"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/build_perhand_hires_cache.py --source tools/detector0-annotator/.cache/handcrop-lm2 --source tools/detector0-annotator/.cache/handcrop-ac --out tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35 --crop-px 128 --context 0.35 --min-side 0.10",
+      "status": "passed",
+      "summary": "built full source-preserved context-0.35 per-hand cache: 30184 crops, 22234 train, 3545 validation, 4405 test, skipped 0"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/m3ja-perhand-rows-merged-c35 --weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --eval-only --pck 0.1 --width 64 --heatmap-g 32 --out tools/detector0-annotator/output/m3ja-perhand-rows-merged-c35-currentbest-eval-pck010.json --device mps",
+      "status": "passed",
+      "summary": "current selected checkpoint scored PCK@0.10 0.659 on context-0.35 row-preserving cache, better than 0.609 on context-0.20 but below old perhand-hires 0.7106"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/m3ja-perhand-rows-merged-c35 --weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --eval-only --pck 0.05 --width 64 --heatmap-g 32 --out tools/detector0-annotator/output/m3ja-perhand-rows-merged-c35-currentbest-eval-pck005.json --device mps",
+      "status": "passed",
+      "summary": "current selected checkpoint scored tight PCK@0.05 0.370 on context-0.35 row-preserving cache"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/analyze_perhand_quality.py --data tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35 --weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --split test --topk 64 --candidate-topk 512 --candidate-out tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-relabel-candidates-test-top512.json --out tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-currentbest-quality-audit-test.json --contact-sheet tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-currentbest-quality-audit-test-top64.png --device mps",
+      "status": "passed",
+      "summary": "source-linked held-out audit: all PCK@0.10 0.6587, clean 0.8398, edge 0.3358, OOB 0.2897, high-error 1154; wrote top512 candidate manifest"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/analyze_perhand_quality.py --data tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35 --weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --split train --topk 32 --candidate-topk 1024 --candidate-out tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-relabel-candidates-train-top1024.json --out tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-currentbest-quality-audit-train.json --device mps",
+      "status": "passed",
+      "summary": "source-linked train audit: train PCK@0.10 0.640, high-error 6171; wrote top1024 candidate manifest with 892 ASL Citizen and 132 PopSign rows"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .labelvenv/bin/python tools/detector0-annotator/targeted_relabel_candidates.py --candidates tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-relabel-candidates-test-top512.json --out tools/detector0-annotator/.cache/m3ja-targeted-relabel-pop-test-top32 --max-candidates 32 --crop-px 128 --mp-px 512 --expand-x 0.18 --expand-top 0.25 --expand-bottom 0.18 --min-detection-confidence 0.25",
+      "status": "passed",
+      "summary": "offline MediaPipe targeted relabel smoke on held-out PopSign candidates processed 32/32, detected 30, selected 30"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .labelvenv/bin/python tools/detector0-annotator/targeted_relabel_candidates.py --candidates tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-relabel-candidates-train-top1024.json --source-cache-contains handcrop-lm2 --out tools/detector0-annotator/.cache/m3ja-targeted-relabel-pop-train-top128 --max-candidates 128 --crop-px 128 --mp-px 512 --expand-x 0.18 --expand-top 0.25 --expand-bottom 0.18 --min-detection-confidence 0.25",
+      "status": "passed",
+      "summary": "offline MediaPipe targeted relabel pass on PopSign train candidates processed 128/128, detected 102, selected 102"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/build_perhand_hires_cache.py --source tools/detector0-annotator/.cache/handcrop-lm2 --source tools/detector0-annotator/.cache/handcrop-ac --source tools/detector0-annotator/.cache/m3ja-targeted-relabel-pop-train-top128 --out tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35-augpop128 --crop-px 128 --context 0.35 --min-side 0.10",
+      "status": "passed",
+      "summary": "built augmented source-preserved cache with 30291 per-hand crops, adding 107 targeted relabel train hands"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35-augpop128 --init-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --epochs 1 --max-train-batches 8 --batch 32 --eval-every 1 --lr 0.00002 --width 64 --heatmap-g 32 --heatmap-ce-weight 0.05 --filter-train-quality --quality-exclude-oob --quality-min-gradient 0.012 --quality-min-contrast 0.10 --out tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-augpop128-smoke-lr2e5.json --device mps",
+      "status": "passed_not_selected",
+      "summary": "augmented-cache smoke regressed validation from 0.660 to 0.656 and test PCK@0.10 to 0.656, so it was not selected"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .labelvenv/bin/python tools/detector0-annotator/targeted_relabel_candidates.py --candidates tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-relabel-candidates-train-top1024.json --source-cache-contains handcrop-ac --out tools/detector0-annotator/.cache/m3ja-targeted-relabel-ac-train-top32 --max-candidates 32 --crop-px 128 --mp-px 512 --expand-x 0.18 --expand-top 0.25 --expand-bottom 0.18 --min-detection-confidence 0.25",
+      "status": "passed",
+      "summary": "ASL Citizen targeted relabel smoke processed 32/32 train candidates, detected 23, selected 23"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .labelvenv/bin/python tools/detector0-annotator/targeted_relabel_candidates.py --candidates tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-relabel-candidates-train-top1024.json --source-cache-contains handcrop-ac --out tools/detector0-annotator/.cache/m3ja-targeted-relabel-ac-train-top256 --max-candidates 256 --crop-px 128 --mp-px 512 --expand-x 0.18 --expand-top 0.25 --expand-bottom 0.18 --min-detection-confidence 0.25",
+      "status": "passed",
+      "summary": "ASL Citizen targeted relabel pass processed 256/256 train candidates, detected 206, selected 206"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/build_perhand_hires_cache.py --source tools/detector0-annotator/.cache/handcrop-lm2 --source tools/detector0-annotator/.cache/handcrop-ac --source tools/detector0-annotator/.cache/m3ja-targeted-relabel-pop-train-top128 --source tools/detector0-annotator/.cache/m3ja-targeted-relabel-ac-train-top256 --out tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35-augpop128-ac256 --crop-px 128 --context 0.35 --min-side 0.10",
+      "status": "passed",
+      "summary": "built additive PopSign+ASL Citizen augmented cache with 30551 per-hand crops, including 367 targeted relabel train hands"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35-augpop128-ac256 --init-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --epochs 1 --max-train-batches 12 --batch 32 --eval-every 1 --lr 0.00001 --width 64 --heatmap-g 32 --heatmap-ce-weight 0.05 --filter-train-quality --quality-exclude-oob --quality-min-gradient 0.012 --quality-min-contrast 0.10 --out tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-augpop128-ac256-smoke-lr1e5.json --device mps",
+      "status": "passed_not_selected",
+      "summary": "additive PopSign+ASL Citizen smoke regressed validation from 0.660 to 0.654 and test PCK@0.10 to 0.655"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/build_perhand_hires_cache.py --source tools/detector0-annotator/.cache/handcrop-lm2 --source tools/detector0-annotator/.cache/handcrop-ac --source tools/detector0-annotator/.cache/m3ja-targeted-relabel-pop-train-top128 --source tools/detector0-annotator/.cache/m3ja-targeted-relabel-ac-train-top256 --exclude-relabel-source tools/detector0-annotator/.cache/m3ja-targeted-relabel-pop-train-top128 --exclude-relabel-source tools/detector0-annotator/.cache/m3ja-targeted-relabel-ac-train-top256 --out tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35-replacepop128-ac256 --crop-px 128 --context 0.35 --min-side 0.10",
+      "status": "passed",
+      "summary": "built replacement cache with 30243 crops; excluded 308 original source hands and inserted 367 targeted relabel hands"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35-replacepop128-ac256 --init-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --epochs 1 --max-train-batches 12 --batch 32 --eval-every 1 --lr 0.00001 --width 64 --heatmap-g 32 --heatmap-ce-weight 0.05 --filter-train-quality --quality-exclude-oob --quality-min-gradient 0.012 --quality-min-contrast 0.10 --out tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-replacepop128-ac256-smoke-lr1e5.json --device mps",
+      "status": "passed_not_selected",
+      "summary": "replacement-cache smoke regressed validation from 0.660 to 0.654 and test PCK@0.10 to 0.654"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35-replacepop128-ac256 --init-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --epochs 1 --max-train-batches 12 --batch 32 --eval-every 1 --lr 0.00001 --width 64 --heatmap-g 32 --heatmap-ce-weight 0.05 --mask-oob-keypoints --filter-train-quality --quality-min-gradient 0.012 --quality-min-contrast 0.10 --out tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-replacepop128-ac256-maskoob-smoke-lr1e5.json --device mps",
+      "status": "passed_not_selected",
+      "summary": "masked-OOB replacement-cache smoke regressed validation from 0.660 to 0.656 and test PCK@0.10 to 0.656"
+    }
+  ],
+  "continuation_2026_06_01_strict_labels_and_detector_decoder": {
+    "updated_at": "2026-06-01T22:57:27Z",
+    "status": "continued_not_gate_passing_no_promotion",
+    "changed_side_files": [
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_perhand_landmarks_heatmap.py",
+        "purpose": "Added middle-ground train quality filters for max OOB keypoints and minimum visible fraction, added warm-start-safe best checkpoint selection, and added optional BatchNorm freezing for tiny adaptation runs."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/targeted_relabel_candidates.py",
+        "purpose": "Added strict targeted relabel acceptance controls: require selected hand, write selected hand only, minimum selected visible fraction, maximum selected OOB keypoints, and maximum selected center distance."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_detector_grid_hands2.py",
+        "purpose": "Made real two-hand eval record decode NMS and coverage IoU settings; default decode NMS is now the measured 0.5 setting."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-web/web/src/lib/live-tracker.ts",
+        "purpose": "Changed live preview hand duplicate/NMS threshold from 0.3 to measured 0.5. This is a preview decoder setting only, not Detector 0 promotion."
+      }
+    ],
+    "commands_run": [
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_perhand_landmarks_heatmap.py",
+        "status": "passed",
+        "summary": "per-hand trainer compiles after visibility/OOB, safe warm-start, and freeze-BN additions"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python <synthetic filter unit check>",
+        "status": "passed",
+        "summary": "quality filter kept a row with two OOB keypoints and rejected a row with five OOB keypoints under --quality-max-oob-points 3 --quality-min-visible-frac 0.86"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35-replacepop128-ac256 --init-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --epochs 1 --max-train-batches 12 --batch 32 --eval-every 1 --lr 0.00001 --width 64 --heatmap-g 32 --heatmap-ce-weight 0.05 --mask-oob-keypoints --filter-train-quality --quality-max-oob-points 3 --quality-min-visible-frac 0.86 --quality-min-gradient 0.012 --quality-min-contrast 0.10 --out tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-replacepop128-ac256-midvisible-safe-smoke-lr1e5.json --device mps",
+        "status": "passed_not_selected",
+        "summary": "safe warm-start selection preserved initial validation PCK@0.10 0.6603 after the epoch regressed to 0.6517; written test PCK@0.10 stayed 0.6587"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35-replacepop128-ac256 --init-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --epochs 1 --max-train-batches 12 --batch 32 --eval-every 1 --lr 0.00001 --width 64 --heatmap-g 32 --heatmap-ce-weight 0.05 --mask-oob-keypoints --freeze-bn --filter-train-quality --quality-max-oob-points 3 --quality-min-visible-frac 0.86 --quality-min-gradient 0.012 --quality-min-contrast 0.10 --out tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-replacepop128-ac256-midvisible-freezebn-smoke-lr1e5.json --device mps",
+        "status": "passed_not_selected",
+        "summary": "freeze-BN reduced the one-epoch regression but did not beat initial validation; no new checkpoint selected"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 .labelvenv/bin/python tools/detector0-annotator/targeted_relabel_candidates.py --candidates tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-relabel-candidates-train-top1024.json --source-cache-contains handcrop-lm2 --out tools/detector0-annotator/.cache/m3ja-targeted-relabel-pop-train-top128-strict-v1 --max-candidates 128 --crop-px 128 --mp-px 512 --expand-x 0.18 --expand-top 0.25 --expand-bottom 0.18 --min-detection-confidence 0.25 --require-selected-hand --write-selected-only --min-selected-visible-frac 0.90 --max-selected-oob-points 2 --max-selected-center-dist 0.35",
+        "status": "passed",
+        "summary": "strict PopSign relabel processed 128, detected 102, selected 102, wrote 11; rejected 90 for visible/OOB policy"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 .labelvenv/bin/python tools/detector0-annotator/targeted_relabel_candidates.py --candidates tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-relabel-candidates-train-top1024.json --source-cache-contains handcrop-ac --out tools/detector0-annotator/.cache/m3ja-targeted-relabel-ac-train-top256-strict-v1 --max-candidates 256 --crop-px 128 --mp-px 512 --expand-x 0.18 --expand-top 0.25 --expand-bottom 0.18 --min-detection-confidence 0.25 --require-selected-hand --write-selected-only --min-selected-visible-frac 0.90 --max-selected-oob-points 2 --max-selected-center-dist 0.35",
+        "status": "passed",
+        "summary": "strict ASL Citizen relabel processed 256, detected 206, selected 206, wrote 25; rejected 180 for visible/OOB policy"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/build_perhand_hires_cache.py --source tools/detector0-annotator/.cache/handcrop-lm2 --source tools/detector0-annotator/.cache/handcrop-ac --source tools/detector0-annotator/.cache/m3ja-targeted-relabel-pop-train-top128-strict-v1 --source tools/detector0-annotator/.cache/m3ja-targeted-relabel-ac-train-top256-strict-v1 --exclude-relabel-source tools/detector0-annotator/.cache/m3ja-targeted-relabel-pop-train-top128-strict-v1 --exclude-relabel-source tools/detector0-annotator/.cache/m3ja-targeted-relabel-ac-train-top256-strict-v1 --out tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35-replacestrict-v1 --crop-px 128 --context 0.35 --min-side 0.10",
+        "status": "passed",
+        "summary": "strict replacement cache kept 30184 crops; excluded 36 original source hands and inserted 36 strict relabel hands"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35-replacestrict-v1 --init-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --epochs 1 --max-train-batches 12 --batch 32 --eval-every 1 --lr 0.00001 --width 64 --heatmap-g 32 --heatmap-ce-weight 0.05 --mask-oob-keypoints --freeze-bn --filter-train-quality --quality-max-oob-points 3 --quality-min-visible-frac 0.86 --quality-min-gradient 0.012 --quality-min-contrast 0.10 --out tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-replacestrict-v1-freezebn-smoke-lr1e5.json --device mps",
+        "status": "passed_not_promoted",
+        "summary": "strict-cache smoke improved validation PCK@0.10 0.6603 -> 0.6618 and test PCK@0.10 0.6587 -> 0.6607, but tight PCK@0.05 remained 0.371 and edge/OOB slices regressed slightly"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35-replacestrict-v1 --init-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --epochs 5 --max-train-batches 80 --batch 32 --eval-every 1 --lr 0.00001 --width 64 --heatmap-g 32 --heatmap-ce-weight 0.05 --mask-oob-keypoints --freeze-bn --filter-train-quality --quality-max-oob-points 3 --quality-min-visible-frac 0.86 --quality-min-gradient 0.012 --quality-min-contrast 0.10 --out tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-replacestrict-v1-freezebn-e5b80-lr1e5.json --device mps",
+        "status": "passed_not_selected",
+        "summary": "bounded continuation did not beat initial validation; safe selection wrote the initial checkpoint with test PCK@0.10 0.6587"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_detector_grid_hands2.py --self-test",
+        "status": "passed",
+        "summary": "decode_hands self-test still suppresses overlapping duplicate peaks and keeps a distinct second hand"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python <detector NMS sweep over 84 real two-hand frames>",
+        "status": "passed",
+        "summary": "decode NMS 0.5 improved coverage to 0.952381 with collapse 0.0; 0.52 and above reintroduced collapse"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_detector_grid_hands2.py --data tools/detector0-annotator/.cache/autolabel-twohand --real-data tools/detector0-annotator/.cache/autolabel-big --weights tools/detector0-annotator/output/detector0-hands2-receipt.pt --old-weights tools/detector0-annotator/output/detector0-grid-big2.pt --eval-only --decode-nms-iou 0.5 --coverage-iou 0.3 --out tools/detector0-annotator/output/m3ja-hands2-existing-eval-nms050.json --render tools/detector0-annotator/output/m3ja-hands2-existing-eval-nms050.png --device mps",
+        "status": "passed_improved_not_gate_passing",
+        "summary": "real two-hand coverage improved to 0.952381 with collapse 0.0 on 84 frames; still below 0.98 gate"
+      },
+      {
+        "command": "npm run lint -- src/lib/live-tracker.ts",
+        "status": "passed",
+        "summary": "scoped ESLint passed for the live tracker after changing preview HAND_NMS_IOU to 0.5"
+      }
+    ],
+    "landmark_result": {
+      "selected_for_promotion": false,
+      "strict_smoke_test_pck_010": 0.6607,
+      "strict_smoke_test_visible_pck_010": 0.6958,
+      "strict_smoke_test_pck_005": 0.371,
+      "strict_smoke_edge_pck_010": 0.3305,
+      "strict_smoke_oob_pck_010": 0.284,
+      "baseline_edge_pck_010": 0.3358,
+      "baseline_oob_pck_010": 0.2897,
+      "interpretation": "Stricter relabel acceptance removes noisy off-crop labels and gives a small clean/non-edge improvement, but it still fails the landmark gates and regresses edge/OOB slices."
+    },
+    "detector_decoder_result": {
+      "decode_nms_iou_selected_for_preview": 0.5,
+      "real_twohand_frames": 84,
+      "coverage_at_old_nms_030": 0.928571,
+      "coverage_at_nms_050": 0.952381,
+      "collapse_at_nms_050": 0.0,
+      "gate": {
+        "two_hand_coverage_min": 0.98,
+        "duplicate_collapse_max": 0.02
+      },
+      "gate_passing": false
+    }
+  },
+  "next_action": "continue_m3ja_reviewed_diagnostic_labels_or_coarse_to_fine_detector",
+  "next_action_reason": "labeled diagnostic harness exposes browser box IoU weakness hidden by visual score; next work should human-review/clean diagnostic labels or capture raw camera frames, add hard negatives, then use a coarse-to-fine detector or reviewed hard-label training lane while landmark and handedness gates remain open",
+  "continuation_2026_06_01_detector_failure_analysis_and_hardgeom_repair": {
+    "status": "continued_fail_closed_detector_improved_but_not_gate_passing",
+    "selected_detector_repair": {
+      "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.json",
+      "checkpoint": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.pt",
+      "receipt_sha256": "da93980ea95a6854355923ee305679758fce737cf8d026df47c7afdb11566a7f",
+      "checkpoint_sha256": "3ee33eda56c42e89ee67d73b7efdce7b0bd07577c2a74c7c925363fdfdff3d28",
+      "training_summary": {
+        "init_weights": "tools/detector0-annotator/output/detector0-hands2-receipt.pt",
+        "epochs": 40,
+        "lr": 0.0005,
+        "oversample_hard_geometry": 4,
+        "hard_geometry_train_rows": 693,
+        "initial_val_loss": 0.280284,
+        "best_val_loss": 0.271307
+      },
+      "real_twohand_eval": {
+        "n": 84,
+        "decode_nms_iou": 0.5,
+        "coverage_iou": 0.3,
+        "coverage": 0.9642857142857143,
+        "collapse_rate": 0.0,
+        "coverage_failure_count": 3,
+        "remaining_failures": [
+          {
+            "source_index": 12328,
+            "eval_position": 51,
+            "clip_id": "gtsignstudy4a.8032-all-2023_01_29_16_08_13.417-0",
+            "label_id": "all",
+            "video_frame_index": 0,
+            "pred_count": 2,
+            "pair_iou": 0.0,
+            "best_gt_iou": [
+              0.1937577724456787,
+              0.6651865243911743
+            ],
+            "pred_boxes": [
+              [
+                0.30645570158958435,
+                0.7204887270927429,
+                0.731188952922821,
+                0.9469758868217468
+              ],
+              [
+                0.16185219585895538,
+                0.5454829931259155,
+                0.4324791133403778,
+                0.7041640877723694
+              ]
+            ],
+            "gt_boxes": [
+              [
+                0.3646000027656555,
+                0.8234000205993652,
+                0.6614000201225281,
+                0.8862000107765198
+              ],
+              [
+                0.3305000066757202,
+                0.7271000146865845,
+                0.8359000086784363,
+                0.9204000234603882
+              ]
+            ]
+          },
+          {
+            "source_index": 12329,
+            "eval_position": 52,
+            "clip_id": "gtsignstudy4a.8032-all-2023_01_29_16_08_13.417-0",
+            "label_id": "all",
+            "video_frame_index": 9,
+            "pred_count": 2,
+            "pair_iou": 0.48888349533081055,
+            "best_gt_iou": [
+              0.2617816925048828,
+              0.7142293453216553
+            ],
+            "pred_boxes": [
+              [
+                0.405365526676178,
+                0.7683019638061523,
+                0.777213454246521,
+                0.9886894822120667
+              ],
+              [
+                0.30672696232795715,
+                0.7213603258132935,
+                0.731468677520752,
+                0.947559654712677
+              ]
+            ],
+            "gt_boxes": [
+              [
+                0.38190001249313354,
+                0.8216000199317932,
+                0.7026000022888184,
+                0.8952999711036682
+              ],
+              [
+                0.32269999384880066,
+                0.7254999876022339,
+                0.8291000127792358,
+                0.9279000163078308
+              ]
+            ]
+          },
+          {
+            "source_index": 12692,
+            "eval_position": 57,
+            "clip_id": "gtsignstudy4a.8032-bad-2023_01_26_15_22_17.285-0",
+            "label_id": "bad",
+            "video_frame_index": 39,
+            "pred_count": 2,
+            "pair_iou": 0.39252156019210815,
+            "best_gt_iou": [
+              0.05217578262090683,
+              0.7484166026115417
+            ],
+            "pred_boxes": [
+              [
+                0.4708971083164215,
+                0.6467041373252869,
+                0.8704783916473389,
+                0.7369250059127808
+              ],
+              [
+                0.6438897848129272,
+                0.6484752297401428,
+                0.9433871507644653,
+                0.7655013799667358
+              ]
+            ],
+            "gt_boxes": [
+              [
+                0.7325999736785889,
+                0.6980999708175659,
+                0.7850000262260437,
+                0.7329999804496765
+              ],
+              [
+                0.6460999846458435,
+                0.6546000242233276,
+                0.9588000178337097,
+                0.746399998664856
+              ]
+            ]
+          }
+        ]
+      },
+      "selection_boundary": "selected as detector improvement only; not Detector 0 promotion and not browser-ready"
+    },
+    "failure_analysis": {
+      "existing_checkpoint_analysis_receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-nms050-failure-analysis.json",
+      "existing_checkpoint_analysis_sha256": "343df159cdbe9822c89e1bd61ec57ac07c2dfe4dd1c364624ea9851ffa83d444",
+      "selected_checkpoint_analysis_receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050-analysis.json",
+      "selected_checkpoint_analysis_sha256": "2d27c7046abc6d0513f4f853d5574128b562091561c93a833aa888777385ee61",
+      "existing_failure_tag_counts": {
+        "flat_or_thin_hand": 3,
+        "overlapping_hands": 3,
+        "close_centers": 4,
+        "tiny_hand": 1,
+        "bottom_edge": 1,
+        "bottom_close_pair": 1
+      },
+      "selected_failure_tag_counts": {
+        "flat_or_thin_hand": 3,
+        "overlapping_hands": 2,
+        "close_centers": 3,
+        "tiny_hand": 1
+      },
+      "existing_topk_receipt_style_coverage": {
+        "2": 0.9523809523809523,
+        "3": 0.9642857142857143,
+        "4": 0.9642857142857143,
+        "5": 0.9642857142857143,
+        "6": 0.9642857142857143,
+        "8": 0.9642857142857143,
+        "10": 0.9642857142857143
+      },
+      "selected_topk_receipt_style_coverage": {
+        "2": 0.9642857142857143,
+        "3": 0.9642857142857143,
+        "4": 0.9642857142857143,
+        "5": 0.9642857142857143,
+        "6": 0.9642857142857143,
+        "8": 0.9642857142857143,
+        "10": 0.9642857142857143
+      },
+      "interpretation": "top-K/threshold decoder changes are exhausted for the selected single-hand-channel grid checkpoint"
+    },
+    "rejected_probes": [
+      {
+        "name": "focused_hard_tags_plus_hand_region_negative_weight",
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-hardgeom-os8-mintags2-neg4-e30-lr2e4-cont-nms050.json",
+        "receipt_sha256": "2ec84e6de3eba35aac870e78cd1c2250c4c4e4e34d8260e046fdda90eac83f51",
+        "coverage": 0.9642857142857143,
+        "collapse_rate": 0.0,
+        "reason_not_selected": "same coverage as selected checkpoint and worse IoU on remaining failed frames"
+      },
+      {
+        "name": "fine_grid_stride4_detector",
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-finegrid-os4-e60-lr5e4-cont-nms050.json",
+        "receipt_sha256": "c03721b68f25ad349396dd77118410551916f22e06cbce01ad4921ba6382db9e",
+        "coverage": 0.9523809523809523,
+        "collapse_rate": 0.0,
+        "reason_not_selected": "below selected coverage and introduced a new real-frame miss"
+      },
+      {
+        "name": "merged_big2_real_twohand_rows",
+        "cache": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3ja-hands2-twohand-plus-big2real-v1",
+        "cache_rows_json_sha256": "ec73aa7987ec2160fbd286fea34c08cdbd1eaa2676d42178d7a967a16a3409e5",
+        "cache_merge": {
+          "base_cache": "tools/detector0-annotator/.cache/autolabel-twohand",
+          "real_cache": "tools/detector0-annotator/.cache/autolabel-big2",
+          "base_rows": 15037,
+          "real_rows": 27286,
+          "added_real_twohand_rows": 176,
+          "skipped_duplicate_twohand_rows": 19,
+          "skipped_not_twohand_rows": 27091,
+          "added_by_split": {
+            "train": 59,
+            "validation": 73,
+            "test": 44
+          }
+        },
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-mergedbig2real-os4-e40-lr5e4-cont-nms050.json",
+        "receipt_sha256": "473e07b8c11eb6b0b8d4aea4485dfb8ee028798950f3e4b7a5913750a710aa2e",
+        "coverage": 0.9642857142857143,
+        "collapse_rate": 0.0,
+        "reason_not_selected": "held selected coverage without recovering another failure"
+      }
+    ],
+    "new_or_updated_side_tools": [
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/analyze_hands2_failure_modes.py",
+        "sha256": "65b75d84409dd92dfd0b79443f89b6c1efd7c79dc1987d08c75c5ffd579f3245",
+        "purpose": "failure taxonomy, top-K oracle, and train-analog contact sheet for two-hand detector misses"
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/build_hands2_real_aug_cache.py",
+        "sha256": "5c88e1e8bc82308ce13d13d7c161fdc1159bd1fff03516b34d80356672a66b9d",
+        "purpose": "merge non-duplicate real two-hand rows from a second autolabel cache without training on held-out failure clips"
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_detector_grid_hands2.py",
+        "sha256": "1e0ae29749e6e10889904bae6a2bde00f45f609db0ddbb25aa32dee16fb1c04e",
+        "purpose": "warm-start retention, hard-geometry oversampling, hand-region negative weighting, failure rendering, and opt-in fine-grid detector probes"
+      }
+    ],
+    "commands_run_summary": [
+      "py_compile and --self-test for analyze_hands2_failure_modes.py",
+      "analyze_hands2_failure_modes.py on existing and selected detector checkpoints",
+      "py_compile and --self-test for train_detector_grid_hands2.py after each behavior change",
+      "train_detector_grid_hands2.py hard-geometry continuation, focused negative-weight continuation, fine-grid eval/train probe, and merged-real-row continuation on local MPS",
+      "build_hands2_real_aug_cache.py merged autolabel-twohand with non-duplicate autolabel-big2 real two-hand rows",
+      "json.tool checks on generated JSON receipts"
+    ],
+    "commands_intentionally_not_run": [
+      "No Brev, remote, paid compute, or raw video upload",
+      "No Detector 0 promotion or model-card readiness change",
+      "No browser ONNX export/promotion because detector and landmark gates still fail"
+    ]
+  },
+  "continuation_2026_06_01_same_cell_multislot_detector_probe": {
+    "status": "diagnostic_not_selected_selected_detector_unchanged",
+    "code_change": {
+      "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_detector_grid_hands2.py",
+      "sha256": "299adea045e193f3e4903ec641d2f6aa6268437e7dd80d5b16ee3e3b898a9ace",
+      "summary": "added --hand-slots 2 target/model/decode path, same-cell target self-test, and one-slot-to-two-slot warm-start head adaptation"
+    },
+    "selected_detector_remains": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.json",
+    "why": "two-slot code removes same-cell overwrite representationally, but current supervision/objective did not improve real two-hand coverage beyond 0.964286",
+    "probes": [
+      {
+        "name": "slots2_adapted_zero_epoch_eval",
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-slots2-adapted-eval-nms050.json",
+        "receipt_sha256": "222cf6c1950ab1cd27ab2fd8a04e7af55cbb23d22d86f3c7879da5f2d747aab7",
+        "checkpoint": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-slots2-adapted-eval-nms050.pt",
+        "checkpoint_sha256": "1184fd6b3cf29c3d1781396214885dea18220d3b50f9fe45507317751a8633c9",
+        "metrics": {
+          "coverage": 0.9642857142857143,
+          "collapse_rate": 0.0,
+          "coverage_failure_count": 3,
+          "remaining_failures": [
+            {
+              "source_index": 12328,
+              "eval_position": 51,
+              "clip_id": "gtsignstudy4a.8032-all-2023_01_29_16_08_13.417-0",
+              "label_id": "all",
+              "video_frame_index": 0,
+              "pred_count": 2,
+              "pair_iou": 0.0,
+              "best_gt_iou": [
+                0.1937577724456787,
+                0.6651865243911743
+              ],
+              "pred_boxes": [
+                [
+                  0.30645570158958435,
+                  0.7204887270927429,
+                  0.731188952922821,
+                  0.9469758868217468
+                ],
+                [
+                  0.16185219585895538,
+                  0.5454829931259155,
+                  0.4324791133403778,
+                  0.7041640877723694
+                ]
+              ],
+              "gt_boxes": [
+                [
+                  0.3646000027656555,
+                  0.8234000205993652,
+                  0.6614000201225281,
+                  0.8862000107765198
+                ],
+                [
+                  0.3305000066757202,
+                  0.7271000146865845,
+                  0.8359000086784363,
+                  0.9204000234603882
+                ]
+              ]
+            },
+            {
+              "source_index": 12329,
+              "eval_position": 52,
+              "clip_id": "gtsignstudy4a.8032-all-2023_01_29_16_08_13.417-0",
+              "label_id": "all",
+              "video_frame_index": 9,
+              "pred_count": 2,
+              "pair_iou": 0.48888349533081055,
+              "best_gt_iou": [
+                0.2617816925048828,
+                0.7142293453216553
+              ],
+              "pred_boxes": [
+                [
+                  0.405365526676178,
+                  0.7683019638061523,
+                  0.777213454246521,
+                  0.9886894822120667
+                ],
+                [
+                  0.30672696232795715,
+                  0.7213603258132935,
+                  0.731468677520752,
+                  0.947559654712677
+                ]
+              ],
+              "gt_boxes": [
+                [
+                  0.38190001249313354,
+                  0.8216000199317932,
+                  0.7026000022888184,
+                  0.8952999711036682
+                ],
+                [
+                  0.32269999384880066,
+                  0.7254999876022339,
+                  0.8291000127792358,
+                  0.9279000163078308
+                ]
+              ]
+            },
+            {
+              "source_index": 12692,
+              "eval_position": 57,
+              "clip_id": "gtsignstudy4a.8032-bad-2023_01_26_15_22_17.285-0",
+              "label_id": "bad",
+              "video_frame_index": 39,
+              "pred_count": 2,
+              "pair_iou": 0.39252156019210815,
+              "best_gt_iou": [
+                0.05217578262090683,
+                0.7484166026115417
+              ],
+              "pred_boxes": [
+                [
+                  0.4708971083164215,
+                  0.6467041373252869,
+                  0.8704783916473389,
+                  0.7369250059127808
+                ],
+                [
+                  0.6438897848129272,
+                  0.6484752297401428,
+                  0.9433871507644653,
+                  0.7655013799667358
+                ]
+              ],
+              "gt_boxes": [
+                [
+                  0.7325999736785889,
+                  0.6980999708175659,
+                  0.7850000262260437,
+                  0.7329999804496765
+                ],
+                [
+                  0.6460999846458435,
+                  0.6546000242233276,
+                  0.9588000178337097,
+                  0.746399998664856
+                ]
+              ]
+            }
+          ],
+          "best_val_loss": 0.282392,
+          "initial_val_loss": 0.282392,
+          "hand_slots": 2
+        },
+        "result": "preserved selected coverage baseline; sanity check only"
+      },
+      {
+        "name": "slots2_os4_e60_lr5e4",
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-slots2-os4-e60-lr5e4-cont-nms050.json",
+        "receipt_sha256": "73b76deb827958ce1252cf161d6f54afbd7858440fdffb00612e1255905d9f90",
+        "checkpoint": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-slots2-os4-e60-lr5e4-cont-nms050.pt",
+        "checkpoint_sha256": "00266555ceec15c23bd666370616a34cfc90da64a597ce17b320c8efc9b26fc8",
+        "metrics": {
+          "coverage": 0.9404761904761905,
+          "collapse_rate": 0.0,
+          "coverage_failure_count": 5,
+          "remaining_failures": [
+            {
+              "source_index": 6579,
+              "eval_position": 32,
+              "clip_id": "4a.8013-aunt-2023_01_14_13_13_57.586-0",
+              "label_id": "aunt",
+              "video_frame_index": 0,
+              "pred_count": 2,
+              "pair_iou": 0.2820333242416382,
+              "best_gt_iou": [
+                0.208023339509964,
+                0.4255364239215851
+              ],
+              "pred_boxes": [
+                [
+                  0.3930562436580658,
+                  0.8945379257202148,
+                  0.8012331128120422,
+                  0.9999498128890991
+                ],
+                [
+                  0.22455279529094696,
+                  0.7777772545814514,
+                  0.7092283964157104,
+                  0.9991199374198914
+                ]
+              ],
+              "gt_boxes": [
+                [
+                  0.0697999969124794,
+                  0.7391999959945679,
+                  0.3781999945640564,
+                  0.9818999767303467
+                ],
+                [
+                  0.021800000220537186,
+                  0.7433000206947327,
+                  0.5551000237464905,
+                  0.9966999888420105
+                ]
+              ]
+            },
+            {
+              "source_index": 12328,
+              "eval_position": 51,
+              "clip_id": "gtsignstudy4a.8032-all-2023_01_29_16_08_13.417-0",
+              "label_id": "all",
+              "video_frame_index": 0,
+              "pred_count": 2,
+              "pair_iou": 0.2544938623905182,
+              "best_gt_iou": [
+                0.18997302651405334,
+                0.4998686611652374
+              ],
+              "pred_boxes": [
+                [
+                  0.38134700059890747,
+                  0.7569377422332764,
+                  0.7671383619308472,
+                  0.9941781759262085
+                ],
+                [
+                  0.4805174171924591,
+                  0.584888219833374,
+                  0.7995725870132446,
+                  0.8908003568649292
+                ]
+              ],
+              "gt_boxes": [
+                [
+                  0.3646000027656555,
+                  0.8234000205993652,
+                  0.6614000201225281,
+                  0.8862000107765198
+                ],
+                [
+                  0.3305000066757202,
+                  0.7271000146865845,
+                  0.8359000086784363,
+                  0.9204000234603882
+                ]
+              ]
+            },
+            {
+              "source_index": 12329,
+              "eval_position": 52,
+              "clip_id": "gtsignstudy4a.8032-all-2023_01_29_16_08_13.417-0",
+              "label_id": "all",
+              "video_frame_index": 9,
+              "pred_count": 2,
+              "pair_iou": 0.49059438705444336,
+              "best_gt_iou": [
+                0.2769721746444702,
+                0.7445929050445557
+              ],
+              "pred_boxes": [
+                [
+                  0.29374459385871887,
+                  0.7191534042358398,
+                  0.7449373006820679,
+                  0.9357786178588867
+                ],
+                [
+                  0.37559008598327637,
+                  0.7726395726203918,
+                  0.7675315141677856,
+                  0.990362286567688
+                ]
+              ],
+              "gt_boxes": [
+                [
+                  0.38190001249313354,
+                  0.8216000199317932,
+                  0.7026000022888184,
+                  0.8952999711036682
+                ],
+                [
+                  0.32269999384880066,
+                  0.7254999876022339,
+                  0.8291000127792358,
+                  0.9279000163078308
+                ]
+              ]
+            },
+            {
+              "source_index": 12692,
+              "eval_position": 57,
+              "clip_id": "gtsignstudy4a.8032-bad-2023_01_26_15_22_17.285-0",
+              "label_id": "bad",
+              "video_frame_index": 39,
+              "pred_count": 2,
+              "pair_iou": 0.3310801386833191,
+              "best_gt_iou": [
+                0.0509510412812233,
+                0.6815989017486572
+              ],
+              "pred_boxes": [
+                [
+                  0.47798532247543335,
+                  0.6413719058036804,
+                  0.8653122782707214,
+                  0.7340366244316101
+                ],
+                [
+                  0.6382114291191101,
+                  0.6493491530418396,
+                  0.9557801485061646,
+                  0.7798107266426086
+                ]
+              ],
+              "gt_boxes": [
+                [
+                  0.7325999736785889,
+                  0.6980999708175659,
+                  0.7850000262260437,
+                  0.7329999804496765
+                ],
+                [
+                  0.6460999846458435,
+                  0.6546000242233276,
+                  0.9588000178337097,
+                  0.746399998664856
+                ]
+              ]
+            },
+            {
+              "source_index": 16349,
+              "eval_position": 75,
+              "clip_id": "gtsignstudy4a.8032-orange-2023_01_27_17_21_21.111-0",
+              "label_id": "orange",
+              "video_frame_index": 0,
+              "pred_count": 2,
+              "pair_iou": 0.04577575623989105,
+              "best_gt_iou": [
+                0.2921431362628937,
+                0.3712320923805237
+              ],
+              "pred_boxes": [
+                [
+                  0.21660789847373962,
+                  0.5804719924926758,
+                  0.6834335327148438,
+                  0.8277425765991211
+                ],
+                [
+                  0.6267085671424866,
+                  0.478031188249588,
+                  0.9653046131134033,
+                  0.7372838258743286
+                ]
+              ],
+              "gt_boxes": [
+                [
+                  0.34950000047683716,
+                  0.714900016784668,
+                  0.6682000160217285,
+                  0.8518000245094299
+                ],
+                [
+                  0.3075000047683716,
+                  0.6804999709129333,
+                  0.7864000201225281,
+                  0.8664000034332275
+                ]
+              ]
+            }
+          ],
+          "best_val_loss": 0.268779,
+          "initial_val_loss": 0.282392,
+          "hand_slots": 2
+        },
+        "result": "not selected; coverage regressed despite validation-loss improvement"
+      },
+      {
+        "name": "slots2_os8_mintags2_e30_lr1e4",
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-slots2-os8-mintags2-e30-lr1e4-cont-nms050.json",
+        "receipt_sha256": "04cd9932aabfd2e8fdd1258dae6e441c942de3ecc7ad0461665892f97f49b423",
+        "checkpoint": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-slots2-os8-mintags2-e30-lr1e4-cont-nms050.pt",
+        "checkpoint_sha256": "9d8e909dde1dc1be8d0645b3eef905f908f52da4ea2b82ed792c77adf538d507",
+        "metrics": {
+          "coverage": 0.9642857142857143,
+          "collapse_rate": 0.0,
+          "coverage_failure_count": 3,
+          "remaining_failures": [
+            {
+              "source_index": 12328,
+              "eval_position": 51,
+              "clip_id": "gtsignstudy4a.8032-all-2023_01_29_16_08_13.417-0",
+              "label_id": "all",
+              "video_frame_index": 0,
+              "pred_count": 2,
+              "pair_iou": 0.0,
+              "best_gt_iou": [
+                0.19297616183757782,
+                0.7025826573371887
+              ],
+              "pred_boxes": [
+                [
+                  0.3043058514595032,
+                  0.727055549621582,
+                  0.7452514171600342,
+                  0.946099042892456
+                ],
+                [
+                  0.16704536974430084,
+                  0.5444391965866089,
+                  0.45614129304885864,
+                  0.714272141456604
+                ]
+              ],
+              "gt_boxes": [
+                [
+                  0.3646000027656555,
+                  0.8234000205993652,
+                  0.6614000201225281,
+                  0.8862000107765198
+                ],
+                [
+                  0.3305000066757202,
+                  0.7271000146865845,
+                  0.8359000086784363,
+                  0.9204000234603882
+                ]
+              ]
+            },
+            {
+              "source_index": 12329,
+              "eval_position": 52,
+              "clip_id": "gtsignstudy4a.8032-all-2023_01_29_16_08_13.417-0",
+              "label_id": "all",
+              "video_frame_index": 9,
+              "pred_count": 2,
+              "pair_iou": 0.49072301387786865,
+              "best_gt_iou": [
+                0.27583685517311096,
+                0.745090126991272
+              ],
+              "pred_boxes": [
+                [
+                  0.30028924345970154,
+                  0.7253241539001465,
+                  0.7479063868522644,
+                  0.9466530680656433
+                ],
+                [
+                  0.39783185720443726,
+                  0.7780275344848633,
+                  0.7723442912101746,
+                  0.9923190474510193
+                ]
+              ],
+              "gt_boxes": [
+                [
+                  0.38190001249313354,
+                  0.8216000199317932,
+                  0.7026000022888184,
+                  0.8952999711036682
+                ],
+                [
+                  0.32269999384880066,
+                  0.7254999876022339,
+                  0.8291000127792358,
+                  0.9279000163078308
+                ]
+              ]
+            },
+            {
+              "source_index": 12692,
+              "eval_position": 57,
+              "clip_id": "gtsignstudy4a.8032-bad-2023_01_26_15_22_17.285-0",
+              "label_id": "bad",
+              "video_frame_index": 39,
+              "pred_count": 2,
+              "pair_iou": 0.3683440685272217,
+              "best_gt_iou": [
+                0.045980434864759445,
+                0.6462876796722412
+              ],
+              "pred_boxes": [
+                [
+                  0.6503374576568604,
+                  0.6473070979118347,
+                  0.9524410367012024,
+                  0.7861258387565613
+                ],
+                [
+                  0.4787297546863556,
+                  0.6445186138153076,
+                  0.8768231272697449,
+                  0.7444238662719727
+                ]
+              ],
+              "gt_boxes": [
+                [
+                  0.7325999736785889,
+                  0.6980999708175659,
+                  0.7850000262260437,
+                  0.7329999804496765
+                ],
+                [
+                  0.6460999846458435,
+                  0.6546000242233276,
+                  0.9588000178337097,
+                  0.746399998664856
+                ]
+              ]
+            }
+          ],
+          "best_val_loss": 0.268142,
+          "initial_val_loss": 0.282392,
+          "hand_slots": 2
+        },
+        "result": "not selected; tied selected coverage without recovering another failure"
+      }
+    ],
+    "commands_run_summary": [
+      "py_compile train_detector_grid_hands2.py",
+      "train_detector_grid_hands2.py --self-test proving same-cell multi-slot targets",
+      "zero-epoch slots2 adapted eval at NMS 0.5",
+      "slots2 e60 lr5e-4 hard-geometry continuation on local MPS",
+      "slots2 e30 lr1e-4 focused hard-tag continuation on local MPS",
+      "json.tool checks on slots2 receipts"
+    ],
+    "commands_intentionally_not_run": [
+      "No Detector 0 promotion; two-slot probes did not beat selected detector",
+      "No browser export or runtime switch; handbox gate still fails and landmark gates still fail",
+      "No Brev/remote/paid compute and no raw video upload"
+    ]
+  },
+  "continuation_2026_06_01_diagnostic_frame_offline_labels_and_labeled_browser_score": {
+    "status": "diagnostic_evidence_added_not_training_promotion",
+    "labeler": {
+      "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/label_image_dir_mediapipe.py",
+      "sha256": "475e87449f1f4b79254d4ca9780a7cb81d077157f1f28bf8c4cf19c2150d388e",
+      "purpose": "offline MediaPipe labels for local diagnostic image folders; writes web-debug labels JSON and diagnostic cache"
+    },
+    "labels": {
+      "path": "/Users/kelly/Developer/asl-pilot/analysis/hand-tracking-recording-2026-06-01/mediapipe-offline-labels-focus-v1.json",
+      "sha256": "6ab364ff940b4ea2bdf505c3e0b498637192e691af9828b8447ac28fc6252c68",
+      "contact_sheet": "/Users/kelly/Developer/asl-pilot/analysis/hand-tracking-recording-2026-06-01/mediapipe-offline-labels-focus-v1.png",
+      "contact_sheet_sha256": "995420a1a99dae05529cec03180986ea21c20f5936a08238052d9532f2fcb331",
+      "stats": {
+        "frames": 14,
+        "present": {
+          "left_or_first_hand": 11,
+          "right_or_second_hand": 8,
+          "head_or_face": 14,
+          "upper_body_or_signing_space": 14
+        },
+        "no_hands": 2
+      },
+      "runtime_dependency": false,
+      "training_promotion_allowed": false,
+      "caveat": "source frames are screen recording frames with rendered overlays; use for diagnostic scoring and human review before training"
+    },
+    "diagnostic_cache": {
+      "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/m3ja-diagnostic-focus-mediapipe-v1",
+      "rows_sha256": "99b2e8d5ac00ddf1a2fd6300d1d0a0937a508a9a07fe9c2aaa906e1191583877",
+      "frames_sha256": "df8ec73dd16d86c1e4216bdd545603e6876d27c3a994e00bcc913ec94ef70f1b",
+      "split": "diagnostic"
+    },
+    "labeled_debug_harness": {
+      "summary": "/Users/kelly/Developer/asl-pilot/analysis/hand-tracking-recording-2026-06-01/fresh-debug-labeled-mediapipe-v1/summary.json",
+      "summary_sha256": "3189087df78ba1dc9600e50de979f1f029f798614de8bd7fe279ec5eed6b4584",
+      "frameCount": 14,
+      "averageScore": 100,
+      "labeledFrameCount": 12,
+      "meanBestIou": 0.4497818436805964,
+      "recallAt30": 0.75,
+      "recallAt50": 0.5,
+      "worst_labeled_frames": [
+        {
+          "file": "t_11_6s.jpg",
+          "expectedCount": 1,
+          "predictedCount": 1,
+          "meanBestIou": 0,
+          "recallAt30": 0,
+          "recallAt50": 0,
+          "softFlags": []
+        },
+        {
+          "file": "t_16_8s.jpg",
+          "expectedCount": 1,
+          "predictedCount": 2,
+          "meanBestIou": 0.11748566536242994,
+          "recallAt30": 0,
+          "recallAt50": 0,
+          "softFlags": [
+            "hand_1:coasted"
+          ]
+        },
+        {
+          "file": "t_12_7s.jpg",
+          "expectedCount": 2,
+          "predictedCount": 1,
+          "meanBestIou": 0.3509136590177307,
+          "recallAt30": 0.5,
+          "recallAt50": 0.5,
+          "softFlags": []
+        },
+        {
+          "file": "t_10_4s.jpg",
+          "expectedCount": 2,
+          "predictedCount": 2,
+          "meanBestIou": 0.38196754657185983,
+          "recallAt30": 0.5,
+          "recallAt50": 0.5,
+          "softFlags": [
+            "hand_0:coasted"
+          ]
+        },
+        {
+          "file": "t_1_8s.jpg",
+          "expectedCount": 1,
+          "predictedCount": 2,
+          "meanBestIou": 0.4707563739596979,
+          "recallAt30": 1,
+          "recallAt50": 0,
+          "softFlags": []
+        },
+        {
+          "file": "t_4_2s.jpg",
+          "expectedCount": 2,
+          "predictedCount": 2,
+          "meanBestIou": 0.5127827195774242,
+          "recallAt30": 1,
+          "recallAt50": 0.5,
+          "softFlags": []
+        }
+      ]
+    },
+    "commands_run_summary": [
+      "py_compile label_image_dir_mediapipe.py under .labelvenv",
+      "label_image_dir_mediapipe.py on analysis/hand-tracking-recording-2026-06-01/frames_focus",
+      "node scripts/debug-tracking-frames.mjs with --labels mediapipe-offline-labels-focus-v1.json",
+      "json.tool checks on generated labels/cache/debug summary"
+    ],
+    "commands_intentionally_not_run": [
+      "No training on diagnostic labels; screen-recording overlays make them review-needed",
+      "No raw frame upload",
+      "No browser model promotion"
+    ]
+  },
+  "continuation_2026_06_02_distinct_assignment_metric_and_detector_probe_rejection": {
+    "status": "stricter_metric_added_current_detector_family_not_gate_passing",
+    "summary": "Added distinct-assignment scoring because receipt-style coverage allowed one predicted box to cover both overlapping ground-truth hands, matching the user's duplicate-hand live failure. Existing high-coverage detector remains fail-closed under this stricter metric.",
+    "runtime_boundary": {
+      "mediapipe_runtime_dependency": false,
+      "raw_learner_video_uploaded": false,
+      "detector0_model_card_promoted": false,
+      "browser_runtime_switched": false,
+      "brev_or_paid_compute_used": false
+    },
+    "code_artifacts": [
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_detector_grid_hands2.py",
+        "sha256": "a335ba58ed09903261fdd815632e816cac76f0c9dd9198ad1b924a993d02fed5",
+        "purpose": "Adds distinct_assigned_coverage, assignment failure samples, slot target ordering, slot_top1 decode, slot diversity loss, select-final probe mode, and self-tests."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hand_box_refiner.py",
+        "sha256": "e978fb9d3bf179ce7907ea2a75a4b697481b1fd556855cc06528fefbd1f81ae4",
+        "purpose": "Adds eval-only selected-NMS comparisons for the coarse-to-fine hand-box refiner."
+      }
+    ],
+    "selected_detector_strict_eval": {
+      "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050-eval-distinct-v2.json",
+      "sha256": "a01ef42b29ac1079901ad891aa2d4dc0b67b3a3fce653e6590d9a19e2b474211",
+      "coverage": 0.9642857142857143,
+      "distinct_assigned_coverage": 0.42857142857142855,
+      "collapse_rate": 0.0,
+      "same_prediction_coverage_count": 45,
+      "distinct_assignment_failure_count": 48,
+      "interpretation": "The old coverage number is inflated for the duplicate-hand product failure; this checkpoint is not a true two-hand tracker."
+    },
+    "coarse_to_fine_refiner_eval": {
+      "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hand-box-refiner-cascade-e20-v1-eval-selected-v2.json",
+      "sha256": "de9aecbdb71dd527bd77556573a700c309d6a1736a7478cc699bdaf86de6f734",
+      "selected_coarse_nms_coverage": 0.9642857142857143,
+      "selected_coarse_nms_distinct_assigned_coverage": 0.42857142857142855,
+      "selected_refined_coverage": 0.6785714285714286,
+      "selected_refined_distinct_assigned_coverage": 0.2261904761904762,
+      "selected_refined_guarded_coverage": 0.7023809523809523,
+      "selected_refined_guarded_distinct_assigned_coverage": 0.20238095238095238,
+      "refined_topk_coverage": 0.9642857142857143,
+      "refined_topk_distinct_assigned_coverage": 0.2976190476190476,
+      "interpretation": "Refining already selected boxes regresses badly; top-K refiner ties old coverage but worsens true distinct assignment."
+    },
+    "rejected_detector_probes": [
+      {
+        "name": "two_slot_left_right_init",
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-slots2-leftRightInit-os4-e40-lr5e4-nms050-v1.json",
+        "sha256": "4f4b96b695626f96412b7c9ee2dcf806cf903f93c9b909ba1344290175e0166d",
+        "coverage": 0.9285714285714286,
+        "distinct_assigned_coverage": 0.40476190476190477,
+        "collapse_rate": 0.0,
+        "selected": false
+      },
+      {
+        "name": "area_ordered_slots_with_diversity_final",
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-slots2-areaAsc-slotTop1-div1-final-os4-e40-lr5e4-v3.json",
+        "sha256": "353cc1f5041f4089d4b3a3a568306c5f6ee8698871174cd6815d32633a221937",
+        "coverage": 0.5833333333333334,
+        "distinct_assigned_coverage": 0.5119047619047619,
+        "collapse_rate": 0.32142857142857145,
+        "selected": false
+      },
+      {
+        "name": "fine_grid_area_ordered_slots_with_diversity_final",
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-fine-slots2-areaAsc-slotTop1-div1-final-os4-e30-lr5e4-v1.json",
+        "sha256": "4f1f900f85b578eb735486dda92c5b3adb6cfb071b998f1d2a68839ea2199615",
+        "coverage": 0.6190476190476191,
+        "distinct_assigned_coverage": 0.5714285714285714,
+        "collapse_rate": 0.27380952380952384,
+        "selected": false
+      }
+    ],
+    "hybrid_diagnostic": {
+      "best_no_collapse_fine_hybrid": {
+        "coverage": 0.8690476190476191,
+        "distinct_assigned_coverage": 0.6666666666666666,
+        "collapse_rate": 0.0,
+        "switches": 60,
+        "threshold": "slot_min_prob >= 0.4 and slot_pair_iou <= 0.5"
+      },
+      "interpretation": "The separated slot branch has signal but is too inaccurate to ship or promote as a runtime cascade."
+    },
+    "commands_run_summary": [
+      "py_compile and --self-test for train_detector_grid_hands2.py and train_hand_box_refiner.py",
+      "train_hand_box_refiner.py --eval-only with existing e20 refiner weights",
+      "train_detector_grid_hands2.py --eval-only for selected hardgeom detector with distinct-assignment metric",
+      "train_detector_grid_hands2.py two-slot left/right-init bounded training probe",
+      "train_detector_grid_hands2.py area-ordered slot_top1 bounded probes with and without slot diversity",
+      "train_detector_grid_hands2.py fine-grid area-ordered slot_top1 bounded diversity probe",
+      "hybrid eval-only sweeps combining selected detector with diversity slot branches"
+    ],
+    "commands_intentionally_not_run": [
+      "No browser model export or detector0-card promotion because distinct-assignment and landmark gates fail",
+      "No training on screen-recording overlay diagnostic labels",
+      "No raw learner video upload",
+      "No Brev/remote/paid compute"
+    ],
+    "next_action": "Implement or train a detector whose objective directly optimizes two distinct assigned hand boxes, likely a set/Hungarian hand detector or a landmark-conditioned hand proposal head, then evaluate against both receipt-style coverage and distinct_assigned_coverage before any browser export."
+  },
+  "continuation_2026_06_02_set_detector_and_pair_selector_probes": {
+    "status": "new_objectives_tested_not_selected_candidate_pair_oracle_promising",
+    "summary": "A global two-query Hungarian/set detector was too weak, but a top-K oracle over the selected owned grid detector showed candidate-pair recall is much higher than top-2 ranking. Learned pair selectors did not generalize to the real 84-frame eval yet.",
+    "runtime_boundary": {
+      "mediapipe_runtime_dependency": false,
+      "raw_learner_video_uploaded": false,
+      "detector0_model_card_promoted": false,
+      "browser_runtime_switched": false,
+      "brev_or_paid_compute_used": false
+    },
+    "code_artifacts": [
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hand_set_detector.py",
+        "sha256": "de3591cb61c653cc7b79580f56cc762a979867cffcd3ebaf29cc835761e8146d",
+        "purpose": "Scratch two-query CNN/MLP hand set detector with Hungarian-style assignment loss and distinct-assignment eval."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hand_pair_selector.py",
+        "sha256": "e50b6ae08b2e318592b53b5267f7f67adf8d7661b015ccb7f5dfc546359173f4",
+        "purpose": "Scratch MLP selector over top-K owned-detector hand candidate pairs."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hand_pair_ranker.py",
+        "sha256": "902e23c7f7d538b62aeaf26d8ae8d379ae70e396ab473436bc7dc68afcf1c918",
+        "purpose": "Cached top-K candidate-pair ranker with listwise loss and optional per-feature z-score normalization."
+      }
+    ],
+    "rejected_set_detector_probe": {
+      "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hand-set-detector-bodyinit-os4-div02-e20-v2.json",
+      "sha256": "8f1a026dce1defb8bcd7494f687b2c2457190b1b41650a18ad95e87f4ecd43b9",
+      "real_coverage": 0.10714285714285714,
+      "real_distinct_assigned_coverage": 0.023809523809523808,
+      "real_collapse_rate": 0.42857142857142855,
+      "selected": false
+    },
+    "topk_oracle": {
+      "coarse_weights": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.pt",
+      "real_twohand_top10_distinct_assigned_coverage": 0.8333333333333334,
+      "real_twohand_top20_distinct_assigned_coverage": 0.9285714285714286,
+      "interpretation": "The selected detector usually contains a valid distinct hand pair in top-K candidates; ranking/selection is the immediate bottleneck."
+    },
+    "rejected_pair_selector_probes": [
+      {
+        "name": "synthetic_top10_train1200",
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hand-pair-selector-top10-train1200-e20-v2.json",
+        "sha256": "792ef140641041ab94d420fed73f0d9dec04cd65e6c082bafcef8996072359c7",
+        "real_coverage": 0.9285714285714286,
+        "real_distinct_assigned_coverage": 0.14285714285714285,
+        "real_collapse_rate": 0.0,
+        "real_oracle_distinct_assigned_coverage": 0.8333333333333334,
+        "selected": false
+      },
+      {
+        "name": "merged_real_top10_train2000",
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hand-pair-selector-mergedreal-top10-train2000-e20-v1.json",
+        "sha256": "00c8e70ac56f8ca6addc6f2210c92d790bb5aad3a59f3d4b6c76edb2af67dc4a",
+        "real_coverage": 0.9166666666666666,
+        "real_distinct_assigned_coverage": 0.11904761904761904,
+        "real_collapse_rate": 0.0,
+        "real_oracle_distinct_assigned_coverage": 0.8333333333333334,
+        "selected": false
+      }
+    ],
+    "listwise_pair_ranker_probes": [
+      {
+        "name": "top20_train2500_listwise_unnormalized",
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hand-pair-ranker-listwise-top20-train2500-e25-v1.json",
+        "sha256": "dd1da5f0709b77ba5a8d4726563677d0ec31e6cf28b478dfaba401e279d306dd",
+        "feature_normalization": "none beyond image-normalized box geometry and normalized rank indices",
+        "validation_distinct_assigned_coverage": 0.6858054226475279,
+        "test_distinct_assigned_coverage": 0.6788933789244638,
+        "real_coverage": 0.9642857142857143,
+        "real_distinct_assigned_coverage": 0.3333333333333333,
+        "real_collapse_rate": 0.0,
+        "real_oracle_distinct_assigned_coverage": 0.9285714285714286,
+        "selected": false
+      },
+      {
+        "name": "top20_train2500_listwise_zscore_normalized",
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hand-pair-ranker-listwise-top20-train2500-e25-norm-v1.json",
+        "sha256": "24eb5bebdf25963b8d4111aa3d047683a36253fe3fea37cc29e7e70b1c46c9bf",
+        "feature_normalization": "per-feature z-score normalization fitted on train valid candidate pairs and persisted with weights",
+        "validation_distinct_assigned_coverage": 0.7057416267942583,
+        "test_distinct_assigned_coverage": 0.6866645943425552,
+        "real_coverage": 0.9642857142857143,
+        "real_distinct_assigned_coverage": 0.4642857142857143,
+        "real_collapse_rate": 0.0,
+        "real_oracle_distinct_assigned_coverage": 0.9285714285714286,
+        "selected": false,
+        "interpretation": "Z-score normalization improves ranking but still leaves a large gap to the top-20 oracle; the next selector needs normalized hand-crop or pose evidence, not only box geometry."
+      }
+    ],
+    "commands_run_summary": [
+      "py_compile and --self-test for train_hand_set_detector.py",
+      "bounded MPS set-detector probe with body warm-start from selected owned grid detector",
+      "top-K oracle eval over selected owned grid detector candidates",
+      "py_compile and --self-test for train_hand_pair_selector.py",
+      "bounded top-10 pair-selector probes on synthetic and merged-real caches",
+      "py_compile and --self-test for train_hand_pair_ranker.py",
+      "bounded cached top-20 listwise ranker probes with and without per-feature z-score normalization"
+    ],
+    "commands_intentionally_not_run": [
+      "No browser export or detector0-card promotion because all new probes fail real distinct-assignment gates",
+      "No raw learner video upload",
+      "No Brev/remote/paid compute"
+    ],
+    "next_action": "Continue candidate-pair selection, but add normalized hand-crop or pose evidence rather than only box geometry: crop each top-K candidate, score handness/landmark plausibility with owned or offline-teacher-supervised features, train with hard negatives where one broad box covers both hands, and validate against the top20 oracle before any browser integration."
+  },
+  "continuation_2026_06_02_owned_landmark_crop_pose_pair_ranker": {
+    "status": "not_promoted_crop_pose_features_improve_distinct_assignment_but_gates_still_fail",
+    "summary": "Added owned per-hand landmark-student crop/pose features to the cached top-K pair ranker. The best tested crop/pose ranker improves real distinct assignment while preserving selected-detector coverage and collapse, but it remains far below the top-20 oracle and M3JA gates.",
+    "runtime_boundary": {
+      "mediapipe_runtime_dependency": false,
+      "offline_mediapipe_teacher_labels_only": true,
+      "owned_landmark_student_used_for_candidate_features": true,
+      "raw_learner_video_uploaded": false,
+      "detector0_model_card_promoted": false,
+      "browser_runtime_switched": false,
+      "brev_or_paid_compute_used": false
+    },
+    "code_artifacts": [
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hand_pair_ranker.py",
+        "sha256": "c02194dc96049fe7f84b28fae44f185431ea54f800b1eddbdaa32e63ec8f1ccf",
+        "purpose": "Cached top-K candidate-pair ranker with listwise loss, z-score feature normalization, and optional owned per-hand landmark crop/pose candidate features."
+      }
+    ],
+    "feature_source": {
+      "landmark_weights": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt",
+      "feature_summary": "For each candidate box, crop the frame, run the scratch per-hand heatmap student, and append crop-relative predicted landmarks, heatmap confidence/entropy summaries, pose-box geometry, and crop quality metrics.",
+      "runtime_dependency_allowed": true,
+      "pretrained_runtime_dependency": false
+    },
+    "baseline_for_comparison": {
+      "name": "top20_train2500_listwise_zscore_normalized_box_geometry_only",
+      "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hand-pair-ranker-listwise-top20-train2500-e25-norm-v1.json",
+      "real_coverage": 0.9642857142857143,
+      "real_distinct_assigned_coverage": 0.4642857142857143,
+      "real_collapse_rate": 0.0,
+      "real_oracle_distinct_assigned_coverage": 0.9285714285714286
+    },
+    "crop_pose_pair_ranker_probes": [
+      {
+        "name": "top4_train32_smoke",
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hand-pair-ranker-cropfeat-smoke-top4-train32-e1.json",
+        "sha256": "82d5ea3377afff1196b85726c36d58ae45408674d40a699e2ec7bd816bb2c97c",
+        "real_coverage": 0.6904761904761905,
+        "real_distinct_assigned_coverage": 0.32142857142857145,
+        "real_collapse_rate": 0.0,
+        "real_oracle_distinct_assigned_coverage": 0.6190476190476191,
+        "selected": false
+      },
+      {
+        "name": "top20_train2500_e10",
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hand-pair-ranker-cropfeat-top20-train2500-e10-v1.json",
+        "sha256": "3bed513b350b006a5aca66e8e72721e6d660362538ab3f5a478364ee9531ca1f",
+        "validation_distinct_assigned_coverage": 0.7368421052631579,
+        "test_distinct_assigned_coverage": 0.7270749145166304,
+        "real_coverage": 0.9642857142857143,
+        "real_distinct_assigned_coverage": 0.4642857142857143,
+        "real_collapse_rate": 0.0,
+        "selected": false
+      },
+      {
+        "name": "top20_train2500_e20_best_tradeoff",
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hand-pair-ranker-cropfeat-top20-train2500-e20-v1.json",
+        "sha256": "2dedd3db095ae4735c6a106916f0d8a6fdfe17bb4cde83f4a7e374f63f385e6f",
+        "validation_coverage": 0.7635566188197768,
+        "validation_distinct_assigned_coverage": 0.7460127591706539,
+        "test_coverage": 0.7485234690705627,
+        "test_distinct_assigned_coverage": 0.7342244327012745,
+        "real_coverage": 0.9642857142857143,
+        "real_distinct_assigned_coverage": 0.5238095238095238,
+        "real_collapse_rate": 0.0,
+        "real_oracle_distinct_assigned_coverage": 0.9285714285714286,
+        "selected_for_next_probe": true,
+        "promoted": false
+      },
+      {
+        "name": "top20_train2500_e25",
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hand-pair-ranker-cropfeat-top20-train2500-e25-v1.json",
+        "sha256": "76fb2b59d403f22cd9582cf6b3c2e4199dc2d88621c61a7e9a607a749adf0994",
+        "validation_distinct_assigned_coverage": 0.7523923444976076,
+        "test_distinct_assigned_coverage": 0.7385763133354056,
+        "real_coverage": 0.9404761904761905,
+        "real_distinct_assigned_coverage": 0.5238095238095238,
+        "real_collapse_rate": 0.0,
+        "selected": false
+      },
+      {
+        "name": "top20_train2500_e30_temp10_bce03",
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hand-pair-ranker-cropfeat-top20-train2500-e30-temp10-bce03-v1.json",
+        "sha256": "4a37f3625bc40d207535bf93cbfb3561288e3305650e4ead3c155947082fac19",
+        "validation_distinct_assigned_coverage": 0.7587719298245614,
+        "test_distinct_assigned_coverage": 0.7488343176872863,
+        "real_coverage": 0.9404761904761905,
+        "real_distinct_assigned_coverage": 0.4523809523809524,
+        "real_collapse_rate": 0.0,
+        "selected": false
+      },
+      {
+        "name": "top20_fulltrain_e20",
+        "receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3ja-hand-pair-ranker-cropfeat-top20-fulltrain-e20-v1.json",
+        "sha256": "40d7fb8a6d0c06a9228c91ae3d28f4ec94f3754e2085c72e0e7882d9ad9e107d",
+        "validation_distinct_assigned_coverage": 0.7456140350877193,
+        "test_distinct_assigned_coverage": 0.7339135840845509,
+        "real_coverage": 0.9404761904761905,
+        "real_distinct_assigned_coverage": 0.5238095238095238,
+        "real_collapse_rate": 0.0,
+        "selected": false
+      }
+    ],
+    "commands_run_summary": [
+      "py_compile and --self-test for train_hand_pair_ranker.py after adding crop/pose features",
+      "top4 crop/pose smoke with owned per-hand landmark student features",
+      "top20 crop/pose train2500 runs at e10/e20/e25",
+      "top20 crop/pose hyperparameter run with temperature 0.10 and BCE weight 0.30",
+      "top20 crop/pose full-train e20 run",
+      "metric and sha256 summaries for crop/pose ranker probes"
+    ],
+    "commands_intentionally_not_run": [
+      "No browser export or detector0-card promotion because real distinct-assignment, two-hand coverage, and landmark gates still fail",
+      "No raw learner video upload",
+      "No Brev/remote/paid compute"
+    ],
+    "next_action": "Keep the crop/pose feature path and add validation-selected checkpointing plus explicit handness/box-quality auxiliary targets, then evaluate whether the selector can approach the top20 oracle without reducing real coverage before any browser integration."
+  }
+}

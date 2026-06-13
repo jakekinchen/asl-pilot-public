@@ -1,0 +1,331 @@
+{
+  "schema_version": "asl-pilot-m3dq-metric-triage-no-remote/v1",
+  "created_at": "2026-05-28T11:46:34Z",
+  "mission": "M3DV - Region-grid TCN M3DQ metric triage no remote",
+  "active_prompt": "docs/model/return-to-form-region-grid-tcn-m3dq-metric-triage-no-remote-goal-loop-prompt.md",
+  "mode": "local_no_spend_no_training_metric_triage",
+  "local_checks": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "## compound-plan-m0...origin/compound-plan-m0 [ahead 128]"
+    },
+    {
+      "command": "git log -10 --oneline",
+      "status": "passed",
+      "head": "dd1f3df observer: CONTINUE - m3dq metric triage"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed",
+      "active_prompt": "docs/model/return-to-form-region-grid-tcn-m3dq-metric-triage-no-remote-goal-loop-prompt.md"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed",
+      "source_register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-region-grid-tcn-m3dq-brev-smoke-after-input-contract-fix-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool output/m3dq-high-signal-region-grid-tcn-brev/training-provenance.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool output/m3dq-high-signal-region-grid-tcn-brev/validation-report.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool output/m3dq-high-signal-region-grid-tcn-brev/prediction-sidecar.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "artifact_presence_and_hashes": [
+    {
+      "path": "output/m3dq-high-signal-region-grid-tcn-brev/model_state.pt",
+      "exists": true,
+      "sha256": "ca4c6f196afcf0365b5617e1d7356617fe312286192a714e3361c9bee635dde3",
+      "git_status": "ignored"
+    },
+    {
+      "path": "output/m3dq-high-signal-region-grid-tcn-brev/prediction-sidecar.json",
+      "exists": true,
+      "sha256": "62a33e98eba3d0995e787630ce7c501581309d2828b6209ca5761f57a64112a1",
+      "git_status": "ignored"
+    },
+    {
+      "path": "output/m3dq-high-signal-region-grid-tcn-brev/training-provenance.json",
+      "exists": true,
+      "sha256": "6940f418d7a3dd11498f76df379cb2f1c4588b4408697862cc4f095f77ab6435",
+      "git_status": "ignored"
+    },
+    {
+      "path": "output/m3dq-high-signal-region-grid-tcn-brev/validation-report.json",
+      "exists": true,
+      "sha256": "4b505ab4388fc56dea2a67b8639b7be647deb9730a710dd2522c882b55a2a802",
+      "git_status": "ignored"
+    }
+  ],
+  "source_and_split_summary": {
+    "dataset_source_mode": "approved_external_raw_video_source",
+    "source_id": "asl-citizen-school-assignment-raw-videos",
+    "labels": [
+      "black",
+      "hello",
+      "please",
+      "sad",
+      "table",
+      "uncle",
+      "white"
+    ],
+    "splits": {
+      "train": {
+        "clips": 84,
+        "label_count": 7,
+        "signer_count": 19
+      },
+      "validation": {
+        "clips": 27,
+        "label_count": 7,
+        "signer_count": 5
+      },
+      "test": {
+        "clips": 28,
+        "label_count": 7,
+        "signer_count": 7
+      }
+    },
+    "signer_overlap": {
+      "train_validation": 0,
+      "train_test": 0,
+      "validation_test": 0
+    }
+  },
+  "m3du_metric_summary": {
+    "training_status": "completed",
+    "epochs_completed": 12,
+    "train_movement": {
+      "epoch_1_train_accuracy": 0.11904761904761904,
+      "epoch_1_train_loss": 2.0468504428863525,
+      "epoch_12_train_accuracy": 0.4880952380952381,
+      "epoch_12_train_loss": 1.334383209546407,
+      "train_accuracy_delta": 0.36904761904761907,
+      "train_loss_delta": -0.7124672333399455
+    },
+    "held_out_movement": {
+      "best_validation_epoch": 3,
+      "best_validation_accuracy": 0.25925925925925924,
+      "best_validation_loss": 1.8670875319728144,
+      "epoch_12_validation_accuracy": 0.1111111111111111,
+      "epoch_12_validation_loss": 3.0377095452061407
+    },
+    "evaluation": {
+      "validation_top1_accuracy": 0.25925925925925924,
+      "validation_macro_f1": 0.15359477124183005,
+      "test_top1_accuracy": 0.17857142857142858,
+      "test_macro_f1": 0.09777777777777777,
+      "selected_threshold": 0.28,
+      "test_false_pass_rate": 0.03571428571428571,
+      "test_coverage_at_threshold": 0.07142857142857142,
+      "test_accepted_accuracy_at_threshold": 0.5
+    },
+    "targets": {
+      "top1_accuracy": 0.7,
+      "macro_f1": 0.65,
+      "false_pass_rate_below": 0.1,
+      "negative_challenge_false_pass_rate_below": 0.05
+    },
+    "pass_status": {
+      "top1_accuracy": false,
+      "macro_f1": false,
+      "false_pass_rate": true,
+      "negative_challenge_false_pass_rate": false,
+      "confidence_threshold": true
+    }
+  },
+  "per_label_and_error_evidence": {
+    "validation_per_class_recall": {
+      "black": 0.0,
+      "hello": 0.0,
+      "please": 0.25,
+      "sad": 0.0,
+      "table": 0.0,
+      "uncle": 1.0,
+      "white": 0.75
+    },
+    "test_per_class_recall": {
+      "black": 0.0,
+      "hello": 0.0,
+      "please": 0.0,
+      "sad": 0.0,
+      "table": 0.0,
+      "uncle": 0.5,
+      "white": 0.75
+    },
+    "validation_prediction_distribution": {
+      "please": 5,
+      "uncle": 9,
+      "white": 13
+    },
+    "test_prediction_distribution": {
+      "please": 1,
+      "sad": 1,
+      "uncle": 5,
+      "white": 21
+    },
+    "test_zero_recall_labels": [
+      "black",
+      "hello",
+      "please",
+      "sad",
+      "table"
+    ],
+    "test_accepted_predictions_at_threshold": {
+      "threshold": 0.28,
+      "accepted_count": 2,
+      "accepted_correct": 1,
+      "accepted_prediction_distribution": {
+        "uncle": 1,
+        "white": 1
+      }
+    },
+    "classification": "prediction_collapse_to_white_uncle_with_low_confidence_and_weak_held_out_generalization"
+  },
+  "prior_evidence_comparison": {
+    "m3aw": {
+      "source": "docs/validation/return-to-form-region-grid-tcn-local-smoke-v1.json",
+      "summary": "Capped local region-grid TCN preserved region identity but failed target metrics.",
+      "validation_top1_accuracy": 0.037037037037037035,
+      "test_top1_accuracy": 0.17857142857142858,
+      "test_macro_f1": 0.09166666666666666
+    },
+    "m3ax": {
+      "source": "docs/validation/return-to-form-region-grid-tcn-tiny-overfit-v1.json",
+      "summary": "Tiny deterministic seven-clip subset overfit succeeded, proving the model/input/training path can memorize when generalization pressure is removed.",
+      "subset_accuracy": 1.0,
+      "zero_recall_labels": []
+    },
+    "m3ah": {
+      "source": "docs/validation/return-to-form-overnight-tier0-cuda-recognizer-v1.json",
+      "summary": "Remote CUDA smoke fit train split better but remained below validation/test targets and was not promotable.",
+      "train_accuracy_epoch_8": 0.904,
+      "validation_top1_accuracy": 0.376,
+      "test_top1_accuracy": 0.47368421052631576,
+      "test_macro_f1": 0.4625908858166922,
+      "promotion_justified": false
+    },
+    "m3du": {
+      "source": "docs/validation/return-to-form-region-grid-tcn-m3dq-brev-smoke-after-input-contract-fix-v1.json",
+      "summary": "Corrected M3DQ remote command reached CUDA training and evaluation, but metrics remained weak and non-promotable."
+    },
+    "comparison_result": "M3DU improves over the capped M3AW validation score but repeats the same broad failure mode: tiny memorization is possible, yet disjoint held-out signer splits remain weak and predictions collapse to a small subset of labels."
+  },
+  "failure_classification": {
+    "train_movement": "present_but_incomplete_train_fit",
+    "held_out_generalization": "weak_near_chance_for_7_labels",
+    "false_pass_behavior": "nominal_false_pass_target_passes_only_with_very_low_coverage_and_low_confidence",
+    "negative_behavior": "negative_challenge_false_pass_target_not_satisfied_or_not_evaluated_as_promotable_evidence",
+    "input_contract_validity": "rgb_regions_grid_v1_contract_validated_139_of_139_no_rgb_frames_fallback",
+    "cuda_and_command_contract": "remote_cuda_training_and_evaluation_path_proven_after_m3dt_command_fix",
+    "data_split_source_concerns": "approved_source_and_manifest_counts_are_valid_but_train_validation_test_signer_sets_are disjoint and prior M3AY crop/split drift concerns remain plausible",
+    "product_readiness": "not_ready_fail_closed_not_promotable",
+    "overall": "model_path_is_operational_but_current_high_signal_region_grid_tcn_route_does_not_generalize_enough_for_promotion_or_more_blind_training"
+  },
+  "brev_read_only_provider_state": {
+    "command": "brev ls --json",
+    "status": "passed",
+    "workspaces": [
+      {
+        "name": "asl-pilot-rawframe-001",
+        "id": "2hl1hytty",
+        "status": "RUNNING",
+        "build_status": "COMPLETED",
+        "shell_status": "READY",
+        "health_status": "HEALTHY",
+        "instance_type": "massedcompute_A100_sxm4_80G_DGX",
+        "instance_kind": "gpu",
+        "gpu": "A100"
+      }
+    ],
+    "cost_control_blocker": true,
+    "lifecycle_commands_run": false
+  },
+  "pretrained_components": [],
+  "commands_intentionally_not_run": [
+    "brev exec",
+    "brev start",
+    "brev stop",
+    "brev stop --all",
+    "brev copy",
+    "bash scripts/brev_sync_repo.sh",
+    "training",
+    "evaluation rerun",
+    "export",
+    "model-card promotion",
+    "browser trained activation"
+  ],
+  "negative_authorizations": {
+    "brev_spend": false,
+    "remote_exec_sync_copy_or_lifecycle": false,
+    "training_or_fitting": false,
+    "evaluation_rerun": false,
+    "checkpoint_creation": false,
+    "broad_label_training": false,
+    "pretrained_detector_landmark_backbone_embedding_or_pseudolabel": false,
+    "source_import_or_source_register_change": false,
+    "manifest_tensor_vocabulary_or_crop_mutation": false,
+    "model_card_promotion": false,
+    "onnx_export": false,
+    "browser_activation": false,
+    "threshold_promotion": false,
+    "final_readiness_claim": false,
+    "positive_asl_correctness_claim": false,
+    "raw_learner_video_upload": false,
+    "push": false,
+    "amend_or_no_verify": false,
+    "force_add_ignored_output": false
+  },
+  "claim_boundary": {
+    "browser_product_status": "fail_closed_not_trained",
+    "model_card_changed": false,
+    "active_vocabulary_changed": false,
+    "supported_claim": "M3DU proves the corrected region-grid TCN command path can train and evaluate on CUDA, but the resulting artifact is weak and non-promotable.",
+    "unsupported_claims": [
+      "trained browser recognition",
+      "ASL correctness",
+      "final readiness",
+      "promotable model",
+      "fixed generalization"
+    ]
+  },
+  "changed_files": [
+    "docs/validation/return-to-form-region-grid-tcn-m3dq-metric-triage-no-remote-v1.json",
+    "docs/session-logs/484-mission-3dv-region-grid-tcn-m3dq-metric-triage-no-remote.md"
+  ],
+  "blockers": [
+    "M3DQ metrics are weak and not promotable.",
+    "Copied reports show prediction collapse to a small subset of labels, especially white and uncle.",
+    "The Brev provider still reports the existing worker RUNNING after M3DU default-off attempts; M3DV forbids further lifecycle commands."
+  ],
+  "next_actions": [
+    "stop_for_human_cost_control_review"
+  ]
+}

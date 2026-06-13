@@ -1,0 +1,134 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3ez-fail-closed-interactive-product-hardening/v1",
+  "mission": "M3EZ - Fail-closed interactive product hardening",
+  "status": "completed_local_fail_closed_practice_copy_slice",
+  "generated_at": "2026-05-28T21:08:30Z",
+  "generated_by": "Codex executor",
+  "active_prompt": "docs/model/return-to-form-m3ez-fail-closed-interactive-product-hardening-goal-loop-prompt.md",
+  "goal": "GOAL.md",
+  "slice": {
+    "id": "practice-no-model-action-copy",
+    "summary": "Adjusted the practice camera-ready action and pre-camera error copy so the current no-model state presents saved practice, not recognition submission.",
+    "scope": "local web UI copy only",
+    "recognition_claim_added": false
+  },
+  "m3ey_metric_gate_summary": {
+    "source_receipt": "docs/validation/return-to-form-m3ey-overnight-brev-lesson-model-completion-v1.json",
+    "status": "non_promotable",
+    "validation_top1": 0.19148936170212766,
+    "validation_macro_f1": 0.1723174603174603,
+    "test_top1": 0.17,
+    "test_macro_f1": 0.15166666666666667,
+    "diagnostic_negative_false_pass_rate": 0.4,
+    "validation_zero_recall_label_count": 15,
+    "test_zero_recall_label_count": 15,
+    "promotion_boundary": "M3EY output remains diagnostic-only and must not be exported, promoted, or activated for browser recognition."
+  },
+  "fail_closed_claim_surfaces": {
+    "before": {
+      "model_card_path": "web/public/model/model-card.json",
+      "model_card_status": "not_trained",
+      "active_vocabulary_claim_path": "docs/model/active-vocabulary-claim.json",
+      "active_labels": []
+    },
+    "after": {
+      "model_card_path": "web/public/model/model-card.json",
+      "model_card_status": "not_trained",
+      "active_vocabulary_claim_path": "docs/model/active-vocabulary-claim.json",
+      "active_labels": []
+    },
+    "runtime_effect": "With model-card status not_trained and activeLabels empty, the practice UI labels the ready action as Save practice and records attempts as practice history only."
+  },
+  "changed_files": [
+    {
+      "path": "web/src/components/PracticeApp.tsx",
+      "why": "Changed the ready action label from a generic submission phrase to a checker-aware label: Check attempt only when a trained active checker exists, otherwise Save practice. The camera-not-ready error now mirrors that state."
+    },
+    {
+      "path": "docs/validation/return-to-form-m3ez-fail-closed-interactive-product-hardening-v1.json",
+      "why": "Records the M3EZ receipt, M3EY non-promotion boundary, unchanged fail-closed claim surfaces, validations, forbidden actions, and next action."
+    },
+    {
+      "path": "docs/session-logs/556-mission-3ez-fail-closed-interactive-product-hardening.md",
+      "why": "Numbered executor session log for this reviewable slice."
+    }
+  ],
+  "validations": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "## compound-plan-m0...origin/compound-plan-m0 [ahead 209] with only the scoped PracticeApp change dirty before receipt/log write"
+    },
+    {
+      "command": "git log -10 --oneline --decorate",
+      "status": "passed",
+      "head": "64a9b0c observer: CONTINUE - m3ey product hardening handoff"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed",
+      "active_prompt": "docs/model/return-to-form-m3ez-fail-closed-interactive-product-hardening-goal-loop-prompt.md",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed",
+      "findings": []
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3ey-overnight-brev-lesson-model-completion-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "npm --prefix web run typecheck",
+      "status": "passed"
+    },
+    {
+      "command": "npm --prefix web run lint",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3ez-fail-closed-interactive-product-hardening-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "forbidden_actions_not_run": {
+    "brev_start_exec_sync_copy_or_spend": true,
+    "remote_work": true,
+    "training_or_evaluation_rerun": true,
+    "threshold_tuning": true,
+    "export_or_promotion": true,
+    "browser_recognition_activation": true,
+    "model_card_promotion": true,
+    "active_vocabulary_promotion": true,
+    "source_media_manifest_tensor_vocabulary_or_packet_mutation": true,
+    "package_install_or_dependency_mutation": true,
+    "generated_pseudo_pretrained_paths": true,
+    "raw_learner_video_or_frame_upload": true,
+    "duplicate_worker_delete_or_reset": true,
+    "push_amend_or_no_verify": true,
+    "model_state_pt_committed": true
+  },
+  "next_action": "continue_product_browser_validation_no_recognition"
+}

@@ -1,0 +1,3305 @@
+{
+  "schema_version": "asl-pilot-detector0-localization-packet/v1",
+  "status": "expanded_packet_ready_for_detector0_smoke",
+  "created_at": "2026-05-25T23:02:30Z",
+  "mission": "M3AE-Z",
+  "selected_labels": [
+    "please",
+    "table",
+    "dad",
+    "grandpa",
+    "hat"
+  ],
+  "coordinate_space": "normalized_full_frame_xyxy_top_left_origin",
+  "label_sources_allowed": [
+    "project_manual_box_label",
+    "manual_verified_from_fixed_crop_context"
+  ],
+  "source_hashes": {
+    "source_register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+    "source_coverage_sha256": "1ff7da89a51e62f9efbeb08cf6361784e160ed862ac579f9e40db332fa576378",
+    "crop_config_sha256": "dbc735dad34fa9df1174a40374037976f9c88d789012634b2b22743ae0802b29",
+    "pre_training_gates_sha256": "2cc000d3f90e9be236cf64768530bf9786fc61fe6605c774b9c1e8ab123d9d97",
+    "bootstrap_report_sha256": "bd17e32bc7d4adbd195d1a26173740163e314a54577a9d9245a38dce752331e5",
+    "train_manifest_sha256": "03ae563a5f2ef0d5b868f6c80f50acb64ae642e782cd541faa5c022d4d0af1de",
+    "validation_manifest_sha256": "23da15a80ce2eee1dab1a7e64c08e2aefcf5d7dd48263677fdc49d1efb0ad808",
+    "test_manifest_sha256": "b0c771b612ebb52beb375a98b4180ccd465aa642312a8c6c29d7ff225febd8ed",
+    "packet_expansion_design_sha256": "ef9b84fd891c6e69e91259f26059a7ce69f0b75f1e3f860673551eea2b3f2717",
+    "candidate_review_sha256": "1f132125dee5bbb0c4d57bd325ffcca04a2c6921abc434ac02ee93f69471c09e",
+    "table_second_hand_packet_mutation_receipt_sha256": "0f8d8c43fcce041694df132b327407b8dca5d11e22b89ecadca42ace5221ce82",
+    "expanded_packet_training_smoke_sha256": "baa2d2f958f50e299fb8d59e2ea2a0d081dd8995181da1719d60ead0c4971def",
+    "two_hand_union_schema_sha256": "4e0972b77304c09ffa3e4f5fee4c3b9f71c26f6efe2fe14a13eed82773892716",
+    "two_hand_union_margin_schema_revision_sha256": "d48998a5e661a06a106359a5fcaf24d0c0aac65919f83ebc846ec469e3cc58ab"
+  },
+  "target_schema": {
+    "target_ids": [
+      "left_or_first_hand",
+      "right_or_second_hand",
+      "head_or_face",
+      "upper_body_or_signing_space",
+      "table_two_hand_union_or_contact_region"
+    ],
+    "target_fields": [
+      "presence",
+      "center_xy_norm",
+      "box_xyxy_norm",
+      "visibility_confidence",
+      "occlusion_flag",
+      "truncation_flag"
+    ],
+    "excluded": [
+      "full_hand_landmarks",
+      "full_body_landmarks",
+      "full_face_landmarks",
+      "pretrained_detector_outputs",
+      "pretrained_generated_labels"
+    ]
+  },
+  "review_summary": {
+    "row_count": 32,
+    "counts_by_label": {
+      "dad": 3,
+      "grandpa": 3,
+      "hat": 3,
+      "please": 3,
+      "table": 20
+    },
+    "counts_by_split": {
+      "test": 10,
+      "train": 11,
+      "validation": 11
+    },
+    "counts_by_label_source": {
+      "manual_verified_from_fixed_crop_context": 32
+    },
+    "counts_by_review_status": {
+      "manual_corrected": 26,
+      "manual_verified": 6
+    },
+    "target_presence_counts": {
+      "left_or_first_hand": 32,
+      "right_or_second_hand": 20,
+      "head_or_face": 32,
+      "upper_body_or_signing_space": 32,
+      "table_two_hand_union_or_contact_region": 20
+    },
+    "table_right_or_second_hand_positive_counts_by_split": {
+      "test": 6,
+      "train": 7,
+      "validation": 7
+    },
+    "ready_for_detector_training": true,
+    "readiness_reason": "M3AE-AF applied bounded adaptive context-margin semantics to existing table_two_hand_union_or_contact_region targets. All current table rows now have resolved present union/contact targets with support train 7, validation 7, and test 6; this supports only the next local scratch union-target Detector 0 smoke and does not change final-promotion gates.",
+    "reviewed_row_count": 32,
+    "manual_verified_row_count": 6,
+    "corrected_row_count": 26,
+    "rejected_row_count": 0,
+    "table_two_hand_union_or_contact_region_positive_counts_by_split": {
+      "train": 7,
+      "validation": 7,
+      "test": 6
+    },
+    "table_two_hand_union_or_contact_region_unresolved_counts_by_split": {
+      "train": 0,
+      "validation": 0,
+      "test": 0
+    },
+    "table_two_hand_union_or_contact_region_unresolved_count": 0,
+    "table_two_hand_union_or_contact_region_absent_non_table_count": 12
+  },
+  "frame_rows": [
+    {
+      "row_id": "det0-v0-train-please-000076-f010",
+      "clip_id": "popsign-v1-train-please-000076",
+      "label_id": "please",
+      "split": "train",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "train",
+      "source_record_id": "popsign_v1_0/game/train/please/4a.7003-please-2022_12_16_20_37_37.252-0.mp4",
+      "source_video_sha256": "d7d566d2e561ac7c618721cc51b92fc5f54c6bb4dbde280ff32254d6cc7a83b0",
+      "signer_identity_hash": "7c01a9b7c2b20c7f1bb084d66ac6e7a2967d08a093077b9497d55131a1cd67bc",
+      "frame_index": 10,
+      "timestamp_sec": 0.833,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/train/popsign-v1-train-please-000076-regions.pt",
+      "frame_tensor_sha256": "32dadc44d38225766957f2804cc9f9f15b6033ca9da77259fe1ded5b32185fa3",
+      "tensor_digest_sha256": "270928e9ee1b983a55faa331dc82900c2712abf04ea2c4fbe5c61ab10e7e513d",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_verified_from_fixed_crop_context",
+      "annotator": "codex_executor_contact_sheet_visual_seed",
+      "reviewer": "codex_executor_visual_overlay_review",
+      "reviewed_at": "2026-05-25T23:23:41Z",
+      "review_status": "manual_verified",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.62
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.48,
+            0.68,
+            0.76
+          ],
+          "visibility_confidence": 0.6,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.27
+          ],
+          "box_xyxy_norm": [
+            0.3,
+            0.08,
+            0.7,
+            0.46
+          ],
+          "visibility_confidence": 0.75,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.7,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-N visual overlay review accepted the existing coarse bootstrap boxes against the packet tensor full_frame_reference frame and retained contact sheet. No pretrained detector, landmark, or generated label source was used. M3AE-AC added absent table_two_hand_union_or_contact_region because label_id=please is outside the table contact target scope; this is label-applicability bookkeeping, not negative evidence."
+    },
+    {
+      "row_id": "det0-v0-validation-please-000076-f005",
+      "clip_id": "popsign-v1-validation-please-000076",
+      "label_id": "please",
+      "split": "validation",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "val",
+      "source_record_id": "popsign_v1_0/game/val/please/4a.7002-please-2022_12_20_01_33_08.888-0.mp4",
+      "source_video_sha256": "9c3b970d390f500747af2e8994781f7ab92653c55550d27443a1cf0697460103",
+      "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+      "frame_index": 5,
+      "timestamp_sec": 0.417,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/validation/popsign-v1-validation-please-000076-regions.pt",
+      "frame_tensor_sha256": "ea4635add669b880f187be26baa8f3ef992e208e44f1366c35d3a1ea83e72a6d",
+      "tensor_digest_sha256": "7af4847f4cceee00667a0f2df8269f6e534d7b06766450faaff9c851d2053f2a",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_verified_from_fixed_crop_context",
+      "annotator": "codex_executor_contact_sheet_visual_seed",
+      "reviewer": "codex_executor_visual_overlay_review",
+      "reviewed_at": "2026-05-25T23:23:41Z",
+      "review_status": "manual_verified",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.49,
+            0.6
+          ],
+          "box_xyxy_norm": [
+            0.31,
+            0.47,
+            0.67,
+            0.74
+          ],
+          "visibility_confidence": 0.62,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.3,
+            0.06,
+            0.7,
+            0.44
+          ],
+          "visibility_confidence": 0.78,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-N visual overlay review accepted the existing coarse bootstrap boxes against the packet tensor full_frame_reference frame and retained contact sheet. No pretrained detector, landmark, or generated label source was used. M3AE-AC added absent table_two_hand_union_or_contact_region because label_id=please is outside the table contact target scope; this is label-applicability bookkeeping, not negative evidence."
+    },
+    {
+      "row_id": "det0-v0-test-please-000058-f010",
+      "clip_id": "popsign-v1-test-please-000058",
+      "label_id": "please",
+      "split": "test",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "test",
+      "source_record_id": "popsign_v1_0/game/test/please/gtsignstudy4a.8031-please-2023_01_24_20_40_04.129-0.mp4",
+      "source_video_sha256": "756d76b4b72fbf6be60d50909650fe1b16a097891e6eadd7a3193ccea683ec7f",
+      "signer_identity_hash": "e0940122312d361abda8019f5084ffd16eacdeaba32c7bb78ed08a50549015b2",
+      "frame_index": 10,
+      "timestamp_sec": 0.833,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/test/popsign-v1-test-please-000058-regions.pt",
+      "frame_tensor_sha256": "6d98d02ed2b57d1381db852ecda59e45db6fe0e44099b0ee047f63211bed22b4",
+      "tensor_digest_sha256": "3f1f2c7eb3bfef375ba695d5b048612b6d588b6460680443ef7d66d6e892773f",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_verified_from_fixed_crop_context",
+      "annotator": "codex_executor_contact_sheet_visual_seed",
+      "reviewer": "codex_executor_visual_overlay_review",
+      "reviewed_at": "2026-05-25T23:23:41Z",
+      "review_status": "manual_verified",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.44,
+            0.62
+          ],
+          "box_xyxy_norm": [
+            0.26,
+            0.48,
+            0.62,
+            0.76
+          ],
+          "visibility_confidence": 0.58,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.74,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.57
+          ],
+          "box_xyxy_norm": [
+            0.22,
+            0.08,
+            0.8,
+            0.98
+          ],
+          "visibility_confidence": 0.7,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-N visual overlay review accepted the existing coarse bootstrap boxes against the packet tensor full_frame_reference frame and retained contact sheet. No pretrained detector, landmark, or generated label source was used. M3AE-AC added absent table_two_hand_union_or_contact_region because label_id=please is outside the table contact target scope; this is label-applicability bookkeeping, not negative evidence."
+    },
+    {
+      "row_id": "det0-v0-train-table-000376-f010",
+      "clip_id": "popsign-v1-train-table-000376",
+      "label_id": "table",
+      "split": "train",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "train",
+      "source_record_id": "popsign_v1_0/game/train/table/4a.6001-table-2022_12_16_00_17_47.002-0.mp4",
+      "source_video_sha256": "50a41f6611044db2b8ce8f2e1e9cd32002f6812c1e82347c87661f5fb4ecd428",
+      "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+      "frame_index": 10,
+      "timestamp_sec": 0.833,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/train/popsign-v1-train-table-000376-regions.pt",
+      "frame_tensor_sha256": "22a4a8b0db326286320be86e0caf526d8dbec3761d8bb431d556224230c41035",
+      "tensor_digest_sha256": "202874507efbdec39c7788760749ec242852a1065d31acb04dfd3f2197d9e2f3",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_verified_from_fixed_crop_context",
+      "annotator": "codex_executor_contact_sheet_visual_seed",
+      "reviewer": "codex_executor_visual_overlay_review",
+      "reviewed_at": "2026-05-25T23:23:41Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.28,
+            0.69
+          ],
+          "box_xyxy_norm": [
+            0.02,
+            0.57,
+            0.54,
+            0.82
+          ],
+          "visibility_confidence": 0.64,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.6,
+            0.7
+          ],
+          "box_xyxy_norm": [
+            0.34,
+            0.58,
+            0.86,
+            0.82
+          ],
+          "visibility_confidence": 0.62,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.76,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.44,
+            0.695
+          ],
+          "box_xyxy_norm": [
+            0.015,
+            0.55,
+            0.865,
+            0.84
+          ],
+          "visibility_confidence": 0.57,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-N visual overlay review corrected target boxes against the packet tensor full_frame_reference frame and retained contact sheet. No pretrained detector, landmark, or generated label source was used. M3AE-AF derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes using the M3AE-AE bounded adaptive context-margin policy: effective_margin_x=0.005, effective_margin_y=0.02, revised_box=[0.015, 0.55, 0.865, 0.84]."
+    },
+    {
+      "row_id": "det0-v0-validation-table-000376-f005",
+      "clip_id": "popsign-v1-validation-table-000376",
+      "label_id": "table",
+      "split": "validation",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "val",
+      "source_record_id": "popsign_v1_0/game/val/table/4a.7002-table-2022_12_19_22_52_30.498-0.mp4",
+      "source_video_sha256": "5c5912fa6545d2199e08569f4cda0944f70ad3433d936985163ff783216db140",
+      "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+      "frame_index": 5,
+      "timestamp_sec": 0.417,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000376-regions.pt",
+      "frame_tensor_sha256": "0333582a01338a88bc818d7f45aa2f669d8acfed6c6876fa860d9ab8c01d50d7",
+      "tensor_digest_sha256": "073a35142dd72d09d3f1fbff91007526271be9dc661db2b821ce1bdadcb01b28",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_verified_from_fixed_crop_context",
+      "annotator": "codex_executor_contact_sheet_visual_seed",
+      "reviewer": "codex_executor_visual_overlay_review",
+      "reviewed_at": "2026-05-25T23:23:41Z",
+      "review_status": "manual_verified",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.34,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.16,
+            0.46,
+            0.52,
+            0.66
+          ],
+          "visibility_confidence": 0.58,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.62,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.44,
+            0.46,
+            0.8,
+            0.66
+          ],
+          "visibility_confidence": 0.58,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.78,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.48,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.14,
+            0.44,
+            0.82,
+            0.68
+          ],
+          "visibility_confidence": 0.53,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-N visual overlay review accepted the existing coarse bootstrap boxes against the packet tensor full_frame_reference frame and retained contact sheet. No pretrained detector, landmark, or generated label source was used. M3AE-AC derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes with a 0.02 normalized margin; no pretrained landmarks, detector outputs, generated pseudo-labels, new media, source expansion, training, export, or readiness claim was used."
+    },
+    {
+      "row_id": "det0-v0-test-table-000286-f005",
+      "clip_id": "popsign-v1-test-table-000286",
+      "label_id": "table",
+      "split": "test",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "test",
+      "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8031-table-2023_01_25_13_50_32.495-0.mp4",
+      "source_video_sha256": "ed9c9c091dda27c78b67895db5d729509340efc20c7fbe95d0900a5654d2460e",
+      "signer_identity_hash": "e0940122312d361abda8019f5084ffd16eacdeaba32c7bb78ed08a50549015b2",
+      "frame_index": 5,
+      "timestamp_sec": 0.417,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/test/popsign-v1-test-table-000286-regions.pt",
+      "frame_tensor_sha256": "e3bd3678a5b728cfa219254f6dad1047479e89f30a522a09405b456e2b3f2d70",
+      "tensor_digest_sha256": "e41ff5ebfd3a05fae95f034cefc49c0dd4c54714be4d4a072843ff1d2e687fa9",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_verified_from_fixed_crop_context",
+      "annotator": "codex_executor_contact_sheet_visual_seed",
+      "reviewer": "codex_executor_visual_overlay_review",
+      "reviewed_at": "2026-05-25T23:23:41Z",
+      "review_status": "manual_verified",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.34,
+            0.57
+          ],
+          "box_xyxy_norm": [
+            0.16,
+            0.47,
+            0.52,
+            0.68
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.62,
+            0.57
+          ],
+          "box_xyxy_norm": [
+            0.44,
+            0.47,
+            0.8,
+            0.68
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.74,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.57
+          ],
+          "box_xyxy_norm": [
+            0.22,
+            0.08,
+            0.8,
+            0.98
+          ],
+          "visibility_confidence": 0.7,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.48,
+            0.575
+          ],
+          "box_xyxy_norm": [
+            0.14,
+            0.45,
+            0.82,
+            0.7
+          ],
+          "visibility_confidence": 0.5,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-N visual overlay review accepted the existing coarse bootstrap boxes against the packet tensor full_frame_reference frame and retained contact sheet. No pretrained detector, landmark, or generated label source was used. M3AE-AC derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes with a 0.02 normalized margin; no pretrained landmarks, detector outputs, generated pseudo-labels, new media, source expansion, training, export, or readiness claim was used."
+    },
+    {
+      "row_id": "det0-v0-train-dad-000826-f010",
+      "clip_id": "popsign-v1-train-dad-000826",
+      "label_id": "dad",
+      "split": "train",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "train",
+      "source_record_id": "popsign_v1_0/game/train/dad/4a.6001-dad-2022_12_16_00_25_40.042-0.mp4",
+      "source_video_sha256": "90a24e2683b86ffc6d7cf0aec18b5892c09ac17d0467f5c8b021f2a7a520a544",
+      "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+      "frame_index": 10,
+      "timestamp_sec": 0.833,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/train/popsign-v1-train-dad-000826-regions.pt",
+      "frame_tensor_sha256": "b2bbf8085a902b2ad929bbac86bfd4d49150b7c1d569c7e56a8893bb633bee06",
+      "tensor_digest_sha256": "7bf0d9ee71ef3b6cbcbea1852536be44f83d4f37af3cabebe1253f2b7508b7b2",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_verified_from_fixed_crop_context",
+      "annotator": "codex_executor_contact_sheet_visual_seed",
+      "reviewer": "codex_executor_visual_overlay_review",
+      "reviewed_at": "2026-05-25T23:23:41Z",
+      "review_status": "manual_verified",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.24
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.1,
+            0.68,
+            0.38
+          ],
+          "visibility_confidence": 0.56,
+          "occlusion_flag": true,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.74,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.7,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-N visual overlay review accepted the existing coarse bootstrap boxes against the packet tensor full_frame_reference frame and retained contact sheet. No pretrained detector, landmark, or generated label source was used. M3AE-AC added absent table_two_hand_union_or_contact_region because label_id=dad is outside the table contact target scope; this is label-applicability bookkeeping, not negative evidence."
+    },
+    {
+      "row_id": "det0-v0-validation-dad-000826-f005",
+      "clip_id": "popsign-v1-validation-dad-000826",
+      "label_id": "dad",
+      "split": "validation",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "val",
+      "source_record_id": "popsign_v1_0/game/val/dad/4a.7002-dad-2022_12_22_01_53_46.646-0.mp4",
+      "source_video_sha256": "5139814fcb5f064571f913a96cdbebc910172a047c64a6a10107dfd7b3381c04",
+      "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+      "frame_index": 5,
+      "timestamp_sec": 0.417,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/validation/popsign-v1-validation-dad-000826-regions.pt",
+      "frame_tensor_sha256": "0b9ba18bf30df4e7a9cc3a0bf38bb0903e9f4fb475325d5ff5163ff27c2262eb",
+      "tensor_digest_sha256": "3e801e70e045989e820558642158c27f05a99b6cba1f7c8812755861f385e8f7",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_verified_from_fixed_crop_context",
+      "annotator": "codex_executor_contact_sheet_visual_seed",
+      "reviewer": "codex_executor_visual_overlay_review",
+      "reviewed_at": "2026-05-25T23:23:41Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.36,
+            0.21
+          ],
+          "box_xyxy_norm": [
+            0.14,
+            0,
+            0.58,
+            0.42
+          ],
+          "visibility_confidence": 0.66,
+          "occlusion_flag": false,
+          "truncation_flag": true
+        },
+        "right_or_second_hand": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.76,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-N visual overlay review corrected target boxes against the packet tensor full_frame_reference frame and retained contact sheet. No pretrained detector, landmark, or generated label source was used. M3AE-AC added absent table_two_hand_union_or_contact_region because label_id=dad is outside the table contact target scope; this is label-applicability bookkeeping, not negative evidence."
+    },
+    {
+      "row_id": "det0-v0-test-dad-000628-f005",
+      "clip_id": "popsign-v1-test-dad-000628",
+      "label_id": "dad",
+      "split": "test",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "test",
+      "source_record_id": "popsign_v1_0/game/test/dad/gtsignstudy4a.8032-dad-2023_01_25_17_19_45.298-0.mp4",
+      "source_video_sha256": "b7d889130de63af908000289c7e8549c8556ef0779df649eb055b64ce60f2cba",
+      "signer_identity_hash": "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25",
+      "frame_index": 5,
+      "timestamp_sec": 0.417,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/test/popsign-v1-test-dad-000628-regions.pt",
+      "frame_tensor_sha256": "17491b3e34bc79e10f3625184c3db96df4141b96f8ef8ab085d508504fb5d72c",
+      "tensor_digest_sha256": "08d9c658e3aa4d54076321204c7d6fcf37bfd2ada8996230ee2c77f697f4eb5d",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_verified_from_fixed_crop_context",
+      "annotator": "codex_executor_contact_sheet_visual_seed",
+      "reviewer": "codex_executor_visual_overlay_review",
+      "reviewed_at": "2026-05-25T23:23:41Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.36,
+            0.22
+          ],
+          "box_xyxy_norm": [
+            0.14,
+            0,
+            0.58,
+            0.44
+          ],
+          "visibility_confidence": 0.64,
+          "occlusion_flag": false,
+          "truncation_flag": true
+        },
+        "right_or_second_hand": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.57
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.7,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-N visual overlay review corrected target boxes against the packet tensor full_frame_reference frame and retained contact sheet. No pretrained detector, landmark, or generated label source was used. M3AE-AC added absent table_two_hand_union_or_contact_region because label_id=dad is outside the table contact target scope; this is label-applicability bookkeeping, not negative evidence."
+    },
+    {
+      "row_id": "det0-v0-train-grandpa-000951-f010",
+      "clip_id": "popsign-v1-train-grandpa-000951",
+      "label_id": "grandpa",
+      "split": "train",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "train",
+      "source_record_id": "popsign_v1_0/game/train/grandpa/4a.6001-grandpa-2023_01_04_22_16_58.202-0.mp4",
+      "source_video_sha256": "94c2192a1f460f1c0301cde5465cb78ee8cf82c15e7daa18c6878c73f6777edb",
+      "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+      "frame_index": 10,
+      "timestamp_sec": 0.833,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/train/popsign-v1-train-grandpa-000951-regions.pt",
+      "frame_tensor_sha256": "4e02571b24d5d0f2377271ae1df0e780a261f1355201fd9dabf743b7fc4f282d",
+      "tensor_digest_sha256": "c161a9dc4633581f17bf5657bac44cadabf25398855cbcfea8eebe4cc41e5a21",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_verified_from_fixed_crop_context",
+      "annotator": "codex_executor_contact_sheet_visual_seed",
+      "reviewer": "codex_executor_visual_overlay_review",
+      "reviewed_at": "2026-05-25T23:23:41Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.28,
+            0.35
+          ],
+          "box_xyxy_norm": [
+            0,
+            0.12,
+            0.56,
+            0.58
+          ],
+          "visibility_confidence": 0.62,
+          "occlusion_flag": true,
+          "truncation_flag": true
+        },
+        "right_or_second_hand": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.76,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-N visual overlay review corrected target boxes against the packet tensor full_frame_reference frame and retained contact sheet. No pretrained detector, landmark, or generated label source was used. M3AE-AC added absent table_two_hand_union_or_contact_region because label_id=grandpa is outside the table contact target scope; this is label-applicability bookkeeping, not negative evidence."
+    },
+    {
+      "row_id": "det0-v0-validation-grandpa-000952-f005",
+      "clip_id": "popsign-v1-validation-grandpa-000952",
+      "label_id": "grandpa",
+      "split": "validation",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "val",
+      "source_record_id": "popsign_v1_0/game/val/grandpa/4a.7002-grandpa-2022_12_19_23_35_52.624-0.mp4",
+      "source_video_sha256": "b34c8a557a26fc86f82c781d518b74303510ff63cf93d57c381b6b84e6c2c335",
+      "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+      "frame_index": 5,
+      "timestamp_sec": 0.417,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/validation/popsign-v1-validation-grandpa-000952-regions.pt",
+      "frame_tensor_sha256": "255450344b20fcff77980fdc4edf6b3709e001671b968f7f66f97648d77208d1",
+      "tensor_digest_sha256": "7c5885be5ae655b69d5c1cd78fd8b85598b40935cc5c16043c358ad9b3bf18af",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_verified_from_fixed_crop_context",
+      "annotator": "codex_executor_contact_sheet_visual_seed",
+      "reviewer": "codex_executor_visual_overlay_review",
+      "reviewed_at": "2026-05-25T23:23:41Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.3,
+            0.23
+          ],
+          "box_xyxy_norm": [
+            0.1,
+            0,
+            0.5,
+            0.46
+          ],
+          "visibility_confidence": 0.66,
+          "occlusion_flag": false,
+          "truncation_flag": true
+        },
+        "right_or_second_hand": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.76,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-N visual overlay review corrected target boxes against the packet tensor full_frame_reference frame and retained contact sheet. No pretrained detector, landmark, or generated label source was used. M3AE-AC added absent table_two_hand_union_or_contact_region because label_id=grandpa is outside the table contact target scope; this is label-applicability bookkeeping, not negative evidence."
+    },
+    {
+      "row_id": "det0-v0-test-grandpa-000723-f005",
+      "clip_id": "popsign-v1-test-grandpa-000723",
+      "label_id": "grandpa",
+      "split": "test",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "test",
+      "source_record_id": "popsign_v1_0/game/test/grandpa/gtsignstudy4a.8032-grandpa-2023_01_25_18_36_33.732-0.mp4",
+      "source_video_sha256": "9ab773f60e0eded1f91a9760ee7854a2889da551e0301075c22a4f0434f4fb7f",
+      "signer_identity_hash": "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25",
+      "frame_index": 5,
+      "timestamp_sec": 0.417,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/test/popsign-v1-test-grandpa-000723-regions.pt",
+      "frame_tensor_sha256": "962a3d0de57d621fd5746b44a932a04c206c10d1aab04c4c95f7d7d8ed969c9d",
+      "tensor_digest_sha256": "cd8512a1f94cae62652fbcd9a504eeeb962dceb90f6810dc32517b4504978ad9",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_verified_from_fixed_crop_context",
+      "annotator": "codex_executor_contact_sheet_visual_seed",
+      "reviewer": "codex_executor_visual_overlay_review",
+      "reviewed_at": "2026-05-25T23:23:41Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.28,
+            0.32
+          ],
+          "box_xyxy_norm": [
+            0.08,
+            0.08,
+            0.48,
+            0.56
+          ],
+          "visibility_confidence": 0.66,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.57
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.7,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-N visual overlay review corrected target boxes against the packet tensor full_frame_reference frame and retained contact sheet. No pretrained detector, landmark, or generated label source was used. M3AE-AC added absent table_two_hand_union_or_contact_region because label_id=grandpa is outside the table contact target scope; this is label-applicability bookkeeping, not negative evidence."
+    },
+    {
+      "row_id": "det0-v0-train-hat-001976-f010",
+      "clip_id": "popsign-v1-train-hat-001976",
+      "label_id": "hat",
+      "split": "train",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "train",
+      "source_record_id": "popsign_v1_0/game/train/hat/4a.6001-hat-2022_12_16_00_17_27.405-0.mp4",
+      "source_video_sha256": "5e18e30f8c6cd12a2a7509446b5716c7f93bfdb7ceac9393d14c7ad81f121484",
+      "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+      "frame_index": 10,
+      "timestamp_sec": 0.833,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/train/popsign-v1-train-hat-001976-regions.pt",
+      "frame_tensor_sha256": "66baceb8014d3315900727244ae85562f8cf4f676231e795dcd1e438edc1f5ba",
+      "tensor_digest_sha256": "5d4154581b03a5d707b81986fa72ee090551f15d598e2d4f00b60b194c54823a",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_verified_from_fixed_crop_context",
+      "annotator": "codex_executor_contact_sheet_visual_seed",
+      "reviewer": "codex_executor_visual_overlay_review",
+      "reviewed_at": "2026-05-25T23:23:41Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.44,
+            0.17
+          ],
+          "box_xyxy_norm": [
+            0.18,
+            0,
+            0.7,
+            0.34
+          ],
+          "visibility_confidence": 0.62,
+          "occlusion_flag": true,
+          "truncation_flag": true
+        },
+        "right_or_second_hand": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.74,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.7,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-N visual overlay review corrected target boxes against the packet tensor full_frame_reference frame and retained contact sheet. No pretrained detector, landmark, or generated label source was used. M3AE-AC added absent table_two_hand_union_or_contact_region because label_id=hat is outside the table contact target scope; this is label-applicability bookkeeping, not negative evidence."
+    },
+    {
+      "row_id": "det0-v0-validation-hat-001976-f005",
+      "clip_id": "popsign-v1-validation-hat-001976",
+      "label_id": "hat",
+      "split": "validation",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "val",
+      "source_record_id": "popsign_v1_0/game/val/hat/4a.7002-hat-2022_12_18_23_10_52.579-0.mp4",
+      "source_video_sha256": "4c3fc485b6bd8cf7f87e56880365b329a9839c5b9f29e824f451e8148f5f9789",
+      "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+      "frame_index": 5,
+      "timestamp_sec": 0.417,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/validation/popsign-v1-validation-hat-001976-regions.pt",
+      "frame_tensor_sha256": "522a52b729fca85053f46bea1e0c68029405820cfdeff6180d6396901a4f46ff",
+      "tensor_digest_sha256": "b83ce2175008cdcda33c478fb909bfd77689df0de971269f5616a6cc57226fff",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_verified_from_fixed_crop_context",
+      "annotator": "codex_executor_contact_sheet_visual_seed",
+      "reviewer": "codex_executor_visual_overlay_review",
+      "reviewed_at": "2026-05-25T23:23:41Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.42,
+            0.33
+          ],
+          "box_xyxy_norm": [
+            0.14,
+            0.16,
+            0.7,
+            0.5
+          ],
+          "visibility_confidence": 0.64,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.76,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-N visual overlay review corrected target boxes against the packet tensor full_frame_reference frame and retained contact sheet. No pretrained detector, landmark, or generated label source was used. M3AE-AC added absent table_two_hand_union_or_contact_region because label_id=hat is outside the table contact target scope; this is label-applicability bookkeeping, not negative evidence."
+    },
+    {
+      "row_id": "det0-v0-test-hat-001503-f010",
+      "clip_id": "popsign-v1-test-hat-001503",
+      "label_id": "hat",
+      "split": "test",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "test",
+      "source_record_id": "popsign_v1_0/game/test/hat/gtsignstudy4a.8032-hat-2023_01_25_21_11_53.095-1.mp4",
+      "source_video_sha256": "325bbb1df0f56e92e84e1c855d0158f72d7ab177712cdca5921a198a93666edf",
+      "signer_identity_hash": "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25",
+      "frame_index": 10,
+      "timestamp_sec": 0.833,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/test/popsign-v1-test-hat-001503-regions.pt",
+      "frame_tensor_sha256": "016e8dd4b2047864738fe8596ee7b34cc355b10eef5c7aebfd1f81e3059ff4ca",
+      "tensor_digest_sha256": "62537578f0baa21f8c1f4ffb7aed0a5aef2006d080b7c0c32c194f552d557002",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_verified_from_fixed_crop_context",
+      "annotator": "codex_executor_visual_overlay_replacement",
+      "reviewer": "codex_executor_visual_overlay_review",
+      "reviewed_at": "2026-05-25T23:43:31Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.48,
+            0.19
+          ],
+          "box_xyxy_norm": [
+            0.18,
+            0,
+            0.78,
+            0.38
+          ],
+          "visibility_confidence": 0.68,
+          "occlusion_flag": false,
+          "truncation_flag": true
+        },
+        "right_or_second_hand": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.35
+          ],
+          "box_xyxy_norm": [
+            0.28,
+            0.12,
+            0.72,
+            0.58
+          ],
+          "visibility_confidence": 0.76,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.51,
+            0.53
+          ],
+          "box_xyxy_norm": [
+            0.18,
+            0.08,
+            0.84,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": false,
+          "center_xy_norm": null,
+          "box_xyxy_norm": null,
+          "visibility_confidence": 0,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-O replaced rejected test hat row det0-v0-test-hat-001502-f005 with approved PopSign test clip 001503 frame 10 after retained hat contact-sheet review plus a temporary full_frame_reference overlay. No pretrained detector, landmark, pose, or generated label source was used. M3AE-AC added absent table_two_hand_union_or_contact_region because label_id=hat is outside the table contact target scope; this is label-applicability bookkeeping, not negative evidence."
+    },
+    {
+      "row_id": "det0-v0-train-table-000379-f008",
+      "clip_id": "popsign-v1-train-table-000379",
+      "label_id": "table",
+      "split": "train",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "train",
+      "source_record_id": "popsign_v1_0/game/train/table/4a.7003-table-2022_12_27_09_26_53.197-0.mp4",
+      "source_video_sha256": "930aadfca7ab769c7155bdb5aca35585edd4c295a322f93b9f7aaffecf0123b7",
+      "signer_identity_hash": "7c01a9b7c2b20c7f1bb084d66ac6e7a2967d08a093077b9497d55131a1cd67bc",
+      "frame_index": 8,
+      "timestamp_sec": 0.667,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/train/popsign-v1-train-table-000379-regions.pt",
+      "frame_tensor_sha256": "98f1f427ab617922bf0f51197c03979ba550ae387056c4c00dcb433ab641a129",
+      "tensor_digest_sha256": "a2d5cb39e25b9417620e8f3bddf3d1c4c4af7bc1c1d261dac4ac5412868ee0f3",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_corrected_from_m3ae_y_candidate_review",
+      "annotator": "codex_executor_candidate_packet_review",
+      "reviewer": "codex_executor_packet_mutation",
+      "reviewed_at": "2026-05-26T02:36:35Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.32,
+            0.57
+          ],
+          "box_xyxy_norm": [
+            0.12,
+            0.48,
+            0.52,
+            0.66
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.62,
+            0.58
+          ],
+          "box_xyxy_norm": [
+            0.42,
+            0.49,
+            0.82,
+            0.67
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.76,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.47,
+            0.575
+          ],
+          "box_xyxy_norm": [
+            0.1,
+            0.46,
+            0.84,
+            0.69
+          ],
+          "visibility_confidence": 0.5,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-Z packet mutation added accepted candidate cand-train-table-000379-f008 from the M3AE-Y candidate-review artifact. Left/right hand boxes come from that candidate review; head_or_face and upper_body_or_signing_space targets are copied from same-split table anchor det0-v0-train-table-000376-f010 as fixed-crop context. No pretrained detector, landmark, generated label, new source, training, ablation rerun, export, or readiness claim was used. M3AE-AC derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes with a 0.02 normalized margin; no pretrained landmarks, detector outputs, generated pseudo-labels, new media, source expansion, training, export, or readiness claim was used."
+    },
+    {
+      "row_id": "det0-v0-train-table-000386-f008",
+      "clip_id": "popsign-v1-train-table-000386",
+      "label_id": "table",
+      "split": "train",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "train",
+      "source_record_id": "popsign_v1_0/game/train/table/4a.8027-table-2023_01_12_13_05_43.195-0.mp4",
+      "source_video_sha256": "ae33e34ddc2e6ab5022f569eb78e3ae13fe9d1c37df05651e0288742e24fa7d7",
+      "signer_identity_hash": "44621e6a463f815358059025e7e5bc52a10856d5f4ec9c7ff63b47bf468a4a95",
+      "frame_index": 8,
+      "timestamp_sec": 0.667,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/train/popsign-v1-train-table-000386-regions.pt",
+      "frame_tensor_sha256": "6670e588f90dc7e50c7dfa7f42e2857fe0367509eff8347d039e4b4e7110d6f6",
+      "tensor_digest_sha256": "f1c0cd81b1eb98dcb2fd9732aad35cce7eb7bcfe19a5e65368751bacc32d8b87",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_corrected_from_m3ae_y_candidate_review",
+      "annotator": "codex_executor_candidate_packet_review",
+      "reviewer": "codex_executor_packet_mutation",
+      "reviewed_at": "2026-05-26T02:36:35Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.31,
+            0.6
+          ],
+          "box_xyxy_norm": [
+            0.1,
+            0.5,
+            0.52,
+            0.7
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.61,
+            0.6
+          ],
+          "box_xyxy_norm": [
+            0.4,
+            0.5,
+            0.82,
+            0.7
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.76,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.46,
+            0.6
+          ],
+          "box_xyxy_norm": [
+            0.08,
+            0.48,
+            0.84,
+            0.72
+          ],
+          "visibility_confidence": 0.5,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-Z packet mutation added accepted candidate cand-train-table-000386-f008 from the M3AE-Y candidate-review artifact. Left/right hand boxes come from that candidate review; head_or_face and upper_body_or_signing_space targets are copied from same-split table anchor det0-v0-train-table-000376-f010 as fixed-crop context. No pretrained detector, landmark, generated label, new source, training, ablation rerun, export, or readiness claim was used. M3AE-AC derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes with a 0.02 normalized margin; no pretrained landmarks, detector outputs, generated pseudo-labels, new media, source expansion, training, export, or readiness claim was used."
+    },
+    {
+      "row_id": "det0-v0-train-table-000391-f010",
+      "clip_id": "popsign-v1-train-table-000391",
+      "label_id": "table",
+      "split": "train",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "train",
+      "source_record_id": "popsign_v1_0/game/train/table/4a.8054-table-2023_02_10_23_22_08.360-0.mp4",
+      "source_video_sha256": "23b1ca6746f685c1861937e7a9dc9a9199c21310d8694b5e79c7c0d3a5cdef27",
+      "signer_identity_hash": "abc0cb7ba434779fb8887fd3ea3e91f33ab9618955dc3490ae87a330fd93a934",
+      "frame_index": 10,
+      "timestamp_sec": 0.833,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/train/popsign-v1-train-table-000391-regions.pt",
+      "frame_tensor_sha256": "df0d0754637182018c296165632beea1ee7a68974e61360c48c07ecdba5eec88",
+      "tensor_digest_sha256": "c0176010624fc5293ba988ae30bcb7de2ad62ae0f5006df1349ff2426703b51f",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_corrected_from_m3ae_y_candidate_review",
+      "annotator": "codex_executor_candidate_packet_review",
+      "reviewer": "codex_executor_packet_mutation",
+      "reviewed_at": "2026-05-26T02:36:35Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.325,
+            0.67
+          ],
+          "box_xyxy_norm": [
+            0.15,
+            0.58,
+            0.5,
+            0.76
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.6,
+            0.67
+          ],
+          "box_xyxy_norm": [
+            0.42,
+            0.58,
+            0.78,
+            0.76
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.76,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.465,
+            0.67
+          ],
+          "box_xyxy_norm": [
+            0.13,
+            0.56,
+            0.8,
+            0.78
+          ],
+          "visibility_confidence": 0.5,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-Z packet mutation added accepted candidate cand-train-table-000391-f010 from the M3AE-Y candidate-review artifact. Left/right hand boxes come from that candidate review; head_or_face and upper_body_or_signing_space targets are copied from same-split table anchor det0-v0-train-table-000376-f010 as fixed-crop context. No pretrained detector, landmark, generated label, new source, training, ablation rerun, export, or readiness claim was used. M3AE-AC derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes with a 0.02 normalized margin; no pretrained landmarks, detector outputs, generated pseudo-labels, new media, source expansion, training, export, or readiness claim was used."
+    },
+    {
+      "row_id": "det0-v0-train-table-000392-f008",
+      "clip_id": "popsign-v1-train-table-000392",
+      "label_id": "table",
+      "split": "train",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "train",
+      "source_record_id": "popsign_v1_0/game/train/table/4a.8902-table-2023_01_28_20_25_36.429-0.mp4",
+      "source_video_sha256": "2fc457b148191e67ffce59340ccf0e486621bb1906cd51027bab2b0e036478cd",
+      "signer_identity_hash": "e8bbaa928eea9108f1951bea43e7ee4ccaeddc447f289c3cb54452a3f768cfe2",
+      "frame_index": 8,
+      "timestamp_sec": 0.667,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/train/popsign-v1-train-table-000392-regions.pt",
+      "frame_tensor_sha256": "4f5add3b28dc914895b06459fdae6077f4e362e5f67af788a5c20290a57b4f6d",
+      "tensor_digest_sha256": "cd919efa871c0b51e49272ac4217ed4dbe4617a2edef9fb08fd16d6fc6fa1d3b",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_corrected_from_m3ae_y_candidate_review",
+      "annotator": "codex_executor_candidate_packet_review",
+      "reviewer": "codex_executor_packet_mutation",
+      "reviewed_at": "2026-05-26T02:36:35Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.35,
+            0.635
+          ],
+          "box_xyxy_norm": [
+            0.18,
+            0.55,
+            0.52,
+            0.72
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.61,
+            0.635
+          ],
+          "box_xyxy_norm": [
+            0.44,
+            0.55,
+            0.78,
+            0.72
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.76,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.48,
+            0.635
+          ],
+          "box_xyxy_norm": [
+            0.16,
+            0.53,
+            0.8,
+            0.74
+          ],
+          "visibility_confidence": 0.5,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-Z packet mutation added accepted candidate cand-train-table-000392-f008 from the M3AE-Y candidate-review artifact. Left/right hand boxes come from that candidate review; head_or_face and upper_body_or_signing_space targets are copied from same-split table anchor det0-v0-train-table-000376-f010 as fixed-crop context. No pretrained detector, landmark, generated label, new source, training, ablation rerun, export, or readiness claim was used. M3AE-AC derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes with a 0.02 normalized margin; no pretrained landmarks, detector outputs, generated pseudo-labels, new media, source expansion, training, export, or readiness claim was used."
+    },
+    {
+      "row_id": "det0-v0-train-table-000396-f008",
+      "clip_id": "popsign-v1-train-table-000396",
+      "label_id": "table",
+      "split": "train",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "train",
+      "source_record_id": "popsign_v1_0/game/train/table/gtsignstudy4a.7042-table-2023_01_27_10_03_20.667-0.mp4",
+      "source_video_sha256": "a85d638fde484ac24e34ded8c24a6e6a1ddf0b0e0db99dc29a02b975c1a1724b",
+      "signer_identity_hash": "d2fe031922f8146aa2014806244311a9fbf8e1e21d30e6effe10670b8e5afa4e",
+      "frame_index": 8,
+      "timestamp_sec": 0.667,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/train/popsign-v1-train-table-000396-regions.pt",
+      "frame_tensor_sha256": "97b2265269cf86c2fa7961faf8f1a326c95d3d2098a74c38cd02a34b0b73a3fb",
+      "tensor_digest_sha256": "0a5b9e5ce479fe1105c69652823be19bceffac85e8e06380c817365991725b8e",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_corrected_from_m3ae_y_candidate_review",
+      "annotator": "codex_executor_candidate_packet_review",
+      "reviewer": "codex_executor_packet_mutation",
+      "reviewed_at": "2026-05-26T02:36:35Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.37,
+            0.51
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.42,
+            0.54,
+            0.6
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.63,
+            0.51
+          ],
+          "box_xyxy_norm": [
+            0.46,
+            0.42,
+            0.8,
+            0.6
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.76,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.51
+          ],
+          "box_xyxy_norm": [
+            0.18,
+            0.4,
+            0.82,
+            0.62
+          ],
+          "visibility_confidence": 0.5,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-Z packet mutation added accepted candidate cand-train-table-000396-f008 from the M3AE-Y candidate-review artifact. Left/right hand boxes come from that candidate review; head_or_face and upper_body_or_signing_space targets are copied from same-split table anchor det0-v0-train-table-000376-f010 as fixed-crop context. No pretrained detector, landmark, generated label, new source, training, ablation rerun, export, or readiness claim was used. M3AE-AC derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes with a 0.02 normalized margin; no pretrained landmarks, detector outputs, generated pseudo-labels, new media, source expansion, training, export, or readiness claim was used."
+    },
+    {
+      "row_id": "det0-v0-train-table-000400-f008",
+      "clip_id": "popsign-v1-train-table-000400",
+      "label_id": "table",
+      "split": "train",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "train",
+      "source_record_id": "popsign_v1_0/game/train/table/gtsignstudy4a.8048-table-2023_01_27_15_14_30.216-0.mp4",
+      "source_video_sha256": "bd3f17b0f86abd7ef2c9b0f56eb788514e608a0ecb2b137978f5d69ec3c324d8",
+      "signer_identity_hash": "dfbc221302a2da2fa433035916d9b200bb7090083a544b69469a1aec7d836a87",
+      "frame_index": 8,
+      "timestamp_sec": 0.667,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/train/popsign-v1-train-table-000400-regions.pt",
+      "frame_tensor_sha256": "14e9995b4aeb93158c602e2ee036207b5b6000ce9f24f1339d972c1e1a8afbea",
+      "tensor_digest_sha256": "dd1cbfccc0ca2173912736ca9007bf7b533750eb745030d7cd8ae381c0be06c3",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_corrected_from_m3ae_y_candidate_review",
+      "annotator": "codex_executor_candidate_packet_review",
+      "reviewer": "codex_executor_packet_mutation",
+      "reviewed_at": "2026-05-26T02:36:35Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.32,
+            0.55
+          ],
+          "box_xyxy_norm": [
+            0.14,
+            0.46,
+            0.5,
+            0.64
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.6,
+            0.55
+          ],
+          "box_xyxy_norm": [
+            0.42,
+            0.46,
+            0.78,
+            0.64
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.76,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.46,
+            0.55
+          ],
+          "box_xyxy_norm": [
+            0.12,
+            0.44,
+            0.8,
+            0.66
+          ],
+          "visibility_confidence": 0.5,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-Z packet mutation added accepted candidate cand-train-table-000400-f008 from the M3AE-Y candidate-review artifact. Left/right hand boxes come from that candidate review; head_or_face and upper_body_or_signing_space targets are copied from same-split table anchor det0-v0-train-table-000376-f010 as fixed-crop context. No pretrained detector, landmark, generated label, new source, training, ablation rerun, export, or readiness claim was used. M3AE-AC derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes with a 0.02 normalized margin; no pretrained landmarks, detector outputs, generated pseudo-labels, new media, source expansion, training, export, or readiness claim was used."
+    },
+    {
+      "row_id": "det0-v0-validation-table-000379-f008",
+      "clip_id": "popsign-v1-validation-table-000379",
+      "label_id": "table",
+      "split": "validation",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "val",
+      "source_record_id": "popsign_v1_0/game/val/table/4a.8005-table-2022_12_15_16_59_45.185-0.mp4",
+      "source_video_sha256": "2f87c2f38f12ff23bbdb47b57d460845cef7980d8f40ad7e8bbfab12fa0fc102",
+      "signer_identity_hash": "cc50a89882a8ed4c0982ee9170fb302bc1bbbb5e94e893bce3b0632118cc0cf8",
+      "frame_index": 8,
+      "timestamp_sec": 0.667,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000379-regions.pt",
+      "frame_tensor_sha256": "2edb6d3ace5bcf43f14cca7263b0f139480cd9ff42459bb09b9f273550e3b4c9",
+      "tensor_digest_sha256": "ab5f95c147c00c0d545333f18173dc9fd3a3bd327f9a9faee6ca66ab41f7278a",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_corrected_from_m3ae_y_candidate_review",
+      "annotator": "codex_executor_candidate_packet_review",
+      "reviewer": "codex_executor_packet_mutation",
+      "reviewed_at": "2026-05-26T02:36:35Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.34,
+            0.55
+          ],
+          "box_xyxy_norm": [
+            0.16,
+            0.46,
+            0.52,
+            0.64
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.62,
+            0.55
+          ],
+          "box_xyxy_norm": [
+            0.44,
+            0.46,
+            0.8,
+            0.64
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.78,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.48,
+            0.55
+          ],
+          "box_xyxy_norm": [
+            0.14,
+            0.44,
+            0.82,
+            0.66
+          ],
+          "visibility_confidence": 0.5,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-Z packet mutation added accepted candidate cand-validation-table-000379-f008 from the M3AE-Y candidate-review artifact. Left/right hand boxes come from that candidate review; head_or_face and upper_body_or_signing_space targets are copied from same-split table anchor det0-v0-validation-table-000376-f005 as fixed-crop context. No pretrained detector, landmark, generated label, new source, training, ablation rerun, export, or readiness claim was used. M3AE-AC derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes with a 0.02 normalized margin; no pretrained landmarks, detector outputs, generated pseudo-labels, new media, source expansion, training, export, or readiness claim was used."
+    },
+    {
+      "row_id": "det0-v0-validation-table-000383-f010",
+      "clip_id": "popsign-v1-validation-table-000383",
+      "label_id": "table",
+      "split": "validation",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "val",
+      "source_record_id": "popsign_v1_0/game/val/table/4a.8013-table-2023_01_11_16_56_51.795-0.mp4",
+      "source_video_sha256": "140516cccc93acdeae853e422b884c6e85f2b920bac49a0aaf3cc3b73a1c7964",
+      "signer_identity_hash": "54ed19eb670a7fc395dbc28c6820b933d1eede5e2fcb97d9ea70c49c654682d8",
+      "frame_index": 10,
+      "timestamp_sec": 0.833,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000383-regions.pt",
+      "frame_tensor_sha256": "e0f8f078450999352c971a1a917239180b5edd7677a7673596f08f74f40095b1",
+      "tensor_digest_sha256": "fc67967a5408178b798e9f6b9b6b33c98c0a7e58e8cd84b6960be99c2cf7f17a",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_corrected_from_m3ae_y_candidate_review",
+      "annotator": "codex_executor_candidate_packet_review",
+      "reviewer": "codex_executor_packet_mutation",
+      "reviewed_at": "2026-05-26T02:36:35Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.35,
+            0.59
+          ],
+          "box_xyxy_norm": [
+            0.16,
+            0.5,
+            0.54,
+            0.68
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.63,
+            0.59
+          ],
+          "box_xyxy_norm": [
+            0.44,
+            0.5,
+            0.82,
+            0.68
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.78,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.49,
+            0.59
+          ],
+          "box_xyxy_norm": [
+            0.14,
+            0.48,
+            0.84,
+            0.7
+          ],
+          "visibility_confidence": 0.5,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-Z packet mutation added accepted candidate cand-validation-table-000383-f010 from the M3AE-Y candidate-review artifact. Left/right hand boxes come from that candidate review; head_or_face and upper_body_or_signing_space targets are copied from same-split table anchor det0-v0-validation-table-000376-f005 as fixed-crop context. No pretrained detector, landmark, generated label, new source, training, ablation rerun, export, or readiness claim was used. M3AE-AC derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes with a 0.02 normalized margin; no pretrained landmarks, detector outputs, generated pseudo-labels, new media, source expansion, training, export, or readiness claim was used."
+    },
+    {
+      "row_id": "det0-v0-validation-table-000385-f008",
+      "clip_id": "popsign-v1-validation-table-000385",
+      "label_id": "table",
+      "split": "validation",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "val",
+      "source_record_id": "popsign_v1_0/game/val/table/4a.8015-table-2023_01_28_01_59_16.096-0.mp4",
+      "source_video_sha256": "01a8b67e716a6235b7546bdc17cd85350514aa2713ca762e5844117247874950",
+      "signer_identity_hash": "fb6c9cc349eb6ba8c064cb7572615613c07e91211a75a97f3bc95bc91848d39a",
+      "frame_index": 8,
+      "timestamp_sec": 0.667,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000385-regions.pt",
+      "frame_tensor_sha256": "1bde07ea157d9bc597b3b5bb9b2bdd332145f1477fdedb7a2bfa74059b16e8f1",
+      "tensor_digest_sha256": "a80706534ff979e86b90c3aa8fb0c28470e2451c7a86c3a34531b35c7ca24d3d",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_corrected_from_m3ae_y_candidate_review",
+      "annotator": "codex_executor_candidate_packet_review",
+      "reviewer": "codex_executor_packet_mutation",
+      "reviewed_at": "2026-05-26T02:36:35Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.31,
+            0.57
+          ],
+          "box_xyxy_norm": [
+            0.1,
+            0.48,
+            0.52,
+            0.66
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.62,
+            0.57
+          ],
+          "box_xyxy_norm": [
+            0.42,
+            0.48,
+            0.82,
+            0.66
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.78,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.46,
+            0.57
+          ],
+          "box_xyxy_norm": [
+            0.08,
+            0.46,
+            0.84,
+            0.68
+          ],
+          "visibility_confidence": 0.5,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-Z packet mutation added accepted candidate cand-validation-table-000385-f008 from the M3AE-Y candidate-review artifact. Left/right hand boxes come from that candidate review; head_or_face and upper_body_or_signing_space targets are copied from same-split table anchor det0-v0-validation-table-000376-f005 as fixed-crop context. No pretrained detector, landmark, generated label, new source, training, ablation rerun, export, or readiness claim was used. M3AE-AC derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes with a 0.02 normalized margin; no pretrained landmarks, detector outputs, generated pseudo-labels, new media, source expansion, training, export, or readiness claim was used."
+    },
+    {
+      "row_id": "det0-v0-validation-table-000388-f008",
+      "clip_id": "popsign-v1-validation-table-000388",
+      "label_id": "table",
+      "split": "validation",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "val",
+      "source_record_id": "popsign_v1_0/game/val/table/4a.8018-table-2023_01_10_18_35_17.729-0.mp4",
+      "source_video_sha256": "f640ff70571ad469deaae25c8e8c5e69a251006a4f9b4b4e0fa9cc4ffe4495d7",
+      "signer_identity_hash": "96a654d6be5c2506b495f010339ce766ebd64a54096a79fe00b9bbc3ce1c280b",
+      "frame_index": 8,
+      "timestamp_sec": 0.667,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000388-regions.pt",
+      "frame_tensor_sha256": "414a9f343f27bb08832ea51f462ba1b3e88dc336679b39fdb8cfd4b52439a2e9",
+      "tensor_digest_sha256": "a0885f32bbd1835636615f5009aafc832c5218d0a6a26910d97e986502d94361",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_corrected_from_m3ae_y_candidate_review",
+      "annotator": "codex_executor_candidate_packet_review",
+      "reviewer": "codex_executor_packet_mutation",
+      "reviewed_at": "2026-05-26T02:36:35Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.37,
+            0.57
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.48,
+            0.54,
+            0.66
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.61,
+            0.57
+          ],
+          "box_xyxy_norm": [
+            0.44,
+            0.48,
+            0.78,
+            0.66
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.78,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.49,
+            0.57
+          ],
+          "box_xyxy_norm": [
+            0.18,
+            0.46,
+            0.8,
+            0.68
+          ],
+          "visibility_confidence": 0.5,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-Z packet mutation added accepted candidate cand-validation-table-000388-f008 from the M3AE-Y candidate-review artifact. Left/right hand boxes come from that candidate review; head_or_face and upper_body_or_signing_space targets are copied from same-split table anchor det0-v0-validation-table-000376-f005 as fixed-crop context. No pretrained detector, landmark, generated label, new source, training, ablation rerun, export, or readiness claim was used. M3AE-AC derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes with a 0.02 normalized margin; no pretrained landmarks, detector outputs, generated pseudo-labels, new media, source expansion, training, export, or readiness claim was used."
+    },
+    {
+      "row_id": "det0-v0-validation-table-000393-f008",
+      "clip_id": "popsign-v1-validation-table-000393",
+      "label_id": "table",
+      "split": "validation",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "val",
+      "source_record_id": "popsign_v1_0/game/val/table/4a.8025-table-2023_01_12_23_52_10.159-0.mp4",
+      "source_video_sha256": "bfee65c2b234c6dd867812eec89cba8703c7a58977eb6d4613fca988a9023398",
+      "signer_identity_hash": "30132f3fd3bc05eda5a491afa1802072649326f4a39e6a24ba7f2351b841f4a5",
+      "frame_index": 8,
+      "timestamp_sec": 0.667,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000393-regions.pt",
+      "frame_tensor_sha256": "932270232659dab4c37fce151b39ea596b78b19622802916dea52089eda06e61",
+      "tensor_digest_sha256": "20d1bbb92a65f84bcfd132568435ecb4b6f2f7e606f8f3d5cfd4d477df7d699d",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_corrected_from_m3ae_y_candidate_review",
+      "annotator": "codex_executor_candidate_packet_review",
+      "reviewer": "codex_executor_packet_mutation",
+      "reviewed_at": "2026-05-26T02:36:35Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.345,
+            0.61
+          ],
+          "box_xyxy_norm": [
+            0.15,
+            0.52,
+            0.54,
+            0.7
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.645,
+            0.61
+          ],
+          "box_xyxy_norm": [
+            0.45,
+            0.52,
+            0.84,
+            0.7
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.78,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.495,
+            0.61
+          ],
+          "box_xyxy_norm": [
+            0.13,
+            0.5,
+            0.86,
+            0.72
+          ],
+          "visibility_confidence": 0.5,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-Z packet mutation added accepted candidate cand-validation-table-000393-f008 from the M3AE-Y candidate-review artifact. Left/right hand boxes come from that candidate review; head_or_face and upper_body_or_signing_space targets are copied from same-split table anchor det0-v0-validation-table-000376-f005 as fixed-crop context. No pretrained detector, landmark, generated label, new source, training, ablation rerun, export, or readiness claim was used. M3AE-AC derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes with a 0.02 normalized margin; no pretrained landmarks, detector outputs, generated pseudo-labels, new media, source expansion, training, export, or readiness claim was used."
+    },
+    {
+      "row_id": "det0-v0-validation-table-000397-f008",
+      "clip_id": "popsign-v1-validation-table-000397",
+      "label_id": "table",
+      "split": "validation",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "val",
+      "source_record_id": "popsign_v1_0/game/val/table/4a.8051-table-2023_01_29_20_41_28.906-0.mp4",
+      "source_video_sha256": "c1ad9949a2d5e9415c585bd3b1a83c164773f2ce5d703a706f61ef548c65fc2c",
+      "signer_identity_hash": "d634581037b96d18388590532350e015fadb5d4e0891aa20e59c1731d7bfb9ee",
+      "frame_index": 8,
+      "timestamp_sec": 0.667,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000397-regions.pt",
+      "frame_tensor_sha256": "2351eca5272b6b264f99116c596ae3484e4c5239d6249ae8e1c383dee6448491",
+      "tensor_digest_sha256": "d1ec08775b1057062450026cfdb802cf14254da34ca03cefd26304258f7b97e2",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_corrected_from_m3ae_y_candidate_review",
+      "annotator": "codex_executor_candidate_packet_review",
+      "reviewer": "codex_executor_packet_mutation",
+      "reviewed_at": "2026-05-26T02:36:35Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.38,
+            0.61
+          ],
+          "box_xyxy_norm": [
+            0.22,
+            0.52,
+            0.54,
+            0.7
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.62,
+            0.61
+          ],
+          "box_xyxy_norm": [
+            0.46,
+            0.52,
+            0.78,
+            0.7
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.78,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.56
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.08,
+            0.82,
+            0.98
+          ],
+          "visibility_confidence": 0.72,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.61
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.5,
+            0.8,
+            0.72
+          ],
+          "visibility_confidence": 0.5,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-Z packet mutation added accepted candidate cand-validation-table-000397-f008 from the M3AE-Y candidate-review artifact. Left/right hand boxes come from that candidate review; head_or_face and upper_body_or_signing_space targets are copied from same-split table anchor det0-v0-validation-table-000376-f005 as fixed-crop context. No pretrained detector, landmark, generated label, new source, training, ablation rerun, export, or readiness claim was used. M3AE-AC derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes with a 0.02 normalized margin; no pretrained landmarks, detector outputs, generated pseudo-labels, new media, source expansion, training, export, or readiness claim was used."
+    },
+    {
+      "row_id": "det0-v0-test-table-000288-f008",
+      "clip_id": "popsign-v1-test-table-000288",
+      "label_id": "table",
+      "split": "test",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "test",
+      "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8032-table-2023_01_27_17_21_44.663-0.mp4",
+      "source_video_sha256": "15732cfc735d9502a7acb529d8d2d6e87d0a57658d72d9a3309b68a55aa44c9b",
+      "signer_identity_hash": "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25",
+      "frame_index": 8,
+      "timestamp_sec": 0.667,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/test/popsign-v1-test-table-000288-regions.pt",
+      "frame_tensor_sha256": "872eefcb3a18a24411bce0d34ac5ed22d1c331f92adfb33e495a67a3e4796fd1",
+      "tensor_digest_sha256": "9ac2c2d486fc8b0a00d45b0173e29a7f06593431fc2b07aec2fafa8a2b933848",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_corrected_from_m3ae_y_candidate_review",
+      "annotator": "codex_executor_candidate_packet_review",
+      "reviewer": "codex_executor_packet_mutation",
+      "reviewed_at": "2026-05-26T02:36:35Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.39,
+            0.55
+          ],
+          "box_xyxy_norm": [
+            0.24,
+            0.46,
+            0.54,
+            0.64
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.62,
+            0.55
+          ],
+          "box_xyxy_norm": [
+            0.46,
+            0.46,
+            0.78,
+            0.64
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.74,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.57
+          ],
+          "box_xyxy_norm": [
+            0.22,
+            0.08,
+            0.8,
+            0.98
+          ],
+          "visibility_confidence": 0.7,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.51,
+            0.55
+          ],
+          "box_xyxy_norm": [
+            0.22,
+            0.44,
+            0.8,
+            0.66
+          ],
+          "visibility_confidence": 0.5,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-Z packet mutation added accepted candidate cand-test-table-000288-f008 from the M3AE-Y candidate-review artifact. Left/right hand boxes come from that candidate review; head_or_face and upper_body_or_signing_space targets are copied from same-split table anchor det0-v0-test-table-000286-f005 as fixed-crop context. No pretrained detector, landmark, generated label, new source, training, ablation rerun, export, or readiness claim was used. M3AE-AC derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes with a 0.02 normalized margin; no pretrained landmarks, detector outputs, generated pseudo-labels, new media, source expansion, training, export, or readiness claim was used."
+    },
+    {
+      "row_id": "det0-v0-test-table-000290-f008",
+      "clip_id": "popsign-v1-test-table-000290",
+      "label_id": "table",
+      "split": "test",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "test",
+      "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8033-table-2023_01_28_23_51_45.129-0.mp4",
+      "source_video_sha256": "3b043a24b7c510e7eafb08624eecf7ec75f90d084197745cc9b24389fb8959c1",
+      "signer_identity_hash": "4027e4c04fcfc2940fe00c6d89cf00633df9a37b921346a77c9c4c2bd29e69fb",
+      "frame_index": 8,
+      "timestamp_sec": 0.667,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/test/popsign-v1-test-table-000290-regions.pt",
+      "frame_tensor_sha256": "af3a27c5c1567864c372ddd1cd9af3dfc93d4b78a44e4e05885cae477696668e",
+      "tensor_digest_sha256": "2d8d8d24f65483fe4e35562db2bf406f668899214d5b287f6e50d64f3dd1012f",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_corrected_from_m3ae_y_candidate_review",
+      "annotator": "codex_executor_candidate_packet_review",
+      "reviewer": "codex_executor_packet_mutation",
+      "reviewed_at": "2026-05-26T02:36:35Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.37,
+            0.53
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.44,
+            0.54,
+            0.62
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.64,
+            0.53
+          ],
+          "box_xyxy_norm": [
+            0.46,
+            0.44,
+            0.82,
+            0.62
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.74,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.57
+          ],
+          "box_xyxy_norm": [
+            0.22,
+            0.08,
+            0.8,
+            0.98
+          ],
+          "visibility_confidence": 0.7,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.51,
+            0.53
+          ],
+          "box_xyxy_norm": [
+            0.18,
+            0.42,
+            0.84,
+            0.64
+          ],
+          "visibility_confidence": 0.5,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-Z packet mutation added accepted candidate cand-test-table-000290-f008 from the M3AE-Y candidate-review artifact. Left/right hand boxes come from that candidate review; head_or_face and upper_body_or_signing_space targets are copied from same-split table anchor det0-v0-test-table-000286-f005 as fixed-crop context. No pretrained detector, landmark, generated label, new source, training, ablation rerun, export, or readiness claim was used. M3AE-AC derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes with a 0.02 normalized margin; no pretrained landmarks, detector outputs, generated pseudo-labels, new media, source expansion, training, export, or readiness claim was used."
+    },
+    {
+      "row_id": "det0-v0-test-table-000294-f008",
+      "clip_id": "popsign-v1-test-table-000294",
+      "label_id": "table",
+      "split": "test",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "test",
+      "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8035-table-2023_01_26_17_05_59.415-0.mp4",
+      "source_video_sha256": "26141058b597f68db7851846759bb297c8f8c28c0ada492e070b2fca4e1ce65b",
+      "signer_identity_hash": "0a4c034271536723f6b9253752108a6bba85a26dea7185e2c8c25eea2493b920",
+      "frame_index": 8,
+      "timestamp_sec": 0.667,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/test/popsign-v1-test-table-000294-regions.pt",
+      "frame_tensor_sha256": "e642500d9eaf5f1d0e67f707775722a2340318ed713e2ac2c68602ad21425d73",
+      "tensor_digest_sha256": "cbdb8f62c3760273812bc9580089f5fa0cd27efd8f7bcdb366e49e168eabcccf",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_corrected_from_m3ae_y_candidate_review",
+      "annotator": "codex_executor_candidate_packet_review",
+      "reviewer": "codex_executor_packet_mutation",
+      "reviewed_at": "2026-05-26T02:36:35Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.32,
+            0.59
+          ],
+          "box_xyxy_norm": [
+            0.12,
+            0.5,
+            0.52,
+            0.68
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.62,
+            0.59
+          ],
+          "box_xyxy_norm": [
+            0.42,
+            0.5,
+            0.82,
+            0.68
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.74,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.57
+          ],
+          "box_xyxy_norm": [
+            0.22,
+            0.08,
+            0.8,
+            0.98
+          ],
+          "visibility_confidence": 0.7,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.47,
+            0.59
+          ],
+          "box_xyxy_norm": [
+            0.1,
+            0.48,
+            0.84,
+            0.7
+          ],
+          "visibility_confidence": 0.5,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-Z packet mutation added accepted candidate cand-test-table-000294-f008 from the M3AE-Y candidate-review artifact. Left/right hand boxes come from that candidate review; head_or_face and upper_body_or_signing_space targets are copied from same-split table anchor det0-v0-test-table-000286-f005 as fixed-crop context. No pretrained detector, landmark, generated label, new source, training, ablation rerun, export, or readiness claim was used. M3AE-AC derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes with a 0.02 normalized margin; no pretrained landmarks, detector outputs, generated pseudo-labels, new media, source expansion, training, export, or readiness claim was used."
+    },
+    {
+      "row_id": "det0-v0-test-table-000297-f008",
+      "clip_id": "popsign-v1-test-table-000297",
+      "label_id": "table",
+      "split": "test",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "test",
+      "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8036-table-2023_01_25_19_21_54.801-1.mp4",
+      "source_video_sha256": "f943453199b72e39ed0a331da3d092022eb9ea56468ce9d3acdef1233ca70ba2",
+      "signer_identity_hash": "3660c753560b193daec1e61e3060fb0d2cab427ab3b6760f545fbc9f682c896b",
+      "frame_index": 8,
+      "timestamp_sec": 0.667,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/test/popsign-v1-test-table-000297-regions.pt",
+      "frame_tensor_sha256": "840ed1575a06f701d2abbd937e74ece15ca68e00324232a282843d5cf00b1877",
+      "tensor_digest_sha256": "19cc1e6b283c9e202dc6d3abc05b3115b3a5b07e49b47c3d2097ddcfdd781672",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_corrected_from_m3ae_y_candidate_review",
+      "annotator": "codex_executor_candidate_packet_review",
+      "reviewer": "codex_executor_packet_mutation",
+      "reviewed_at": "2026-05-26T02:36:35Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.43,
+            0.61
+          ],
+          "box_xyxy_norm": [
+            0.3,
+            0.52,
+            0.56,
+            0.7
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.63,
+            0.61
+          ],
+          "box_xyxy_norm": [
+            0.48,
+            0.52,
+            0.78,
+            0.7
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.74,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.57
+          ],
+          "box_xyxy_norm": [
+            0.22,
+            0.08,
+            0.8,
+            0.98
+          ],
+          "visibility_confidence": 0.7,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.54,
+            0.61
+          ],
+          "box_xyxy_norm": [
+            0.28,
+            0.5,
+            0.8,
+            0.72
+          ],
+          "visibility_confidence": 0.5,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-Z packet mutation added accepted candidate cand-test-table-000297-f008 from the M3AE-Y candidate-review artifact. Left/right hand boxes come from that candidate review; head_or_face and upper_body_or_signing_space targets are copied from same-split table anchor det0-v0-test-table-000286-f005 as fixed-crop context. No pretrained detector, landmark, generated label, new source, training, ablation rerun, export, or readiness claim was used. M3AE-AC derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes with a 0.02 normalized margin; no pretrained landmarks, detector outputs, generated pseudo-labels, new media, source expansion, training, export, or readiness claim was used."
+    },
+    {
+      "row_id": "det0-v0-test-table-000301-f008",
+      "clip_id": "popsign-v1-test-table-000301",
+      "label_id": "table",
+      "split": "test",
+      "source_id": "popsign-v1-original-videos",
+      "source_split": "test",
+      "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8037-table-2023_01_25_17_13_26.906-0.mp4",
+      "source_video_sha256": "4b58133a851b7fd21b3a475aa6d977d0c4455b7ed94f0e2f6a62c4eb4c7f549a",
+      "signer_identity_hash": "abb19b30e7af50c6cc238bd1d5ca897512d0c3a063d48bba12e78189ecfecdd0",
+      "frame_index": 8,
+      "timestamp_sec": 0.667,
+      "frame_tensor_path": "../../tensors/return-to-form-tier0/test/popsign-v1-test-table-000301-regions.pt",
+      "frame_tensor_sha256": "4ffeee0355b861344fa421614442276aca781e6e6438ae6353dbd43e3411a569",
+      "tensor_digest_sha256": "5082df3e2166aec169ac6759f7111500fc096811a0ba61a59811de36559a4c75",
+      "label_source": "manual_verified_from_fixed_crop_context",
+      "annotation_source": "manual_corrected_from_m3ae_y_candidate_review",
+      "annotator": "codex_executor_candidate_packet_review",
+      "reviewer": "codex_executor_packet_mutation",
+      "reviewed_at": "2026-05-26T02:36:35Z",
+      "review_status": "manual_corrected",
+      "targets": {
+        "left_or_first_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.36,
+            0.63
+          ],
+          "box_xyxy_norm": [
+            0.2,
+            0.54,
+            0.52,
+            0.72
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "right_or_second_hand": {
+          "presence": true,
+          "center_xy_norm": [
+            0.61,
+            0.63
+          ],
+          "box_xyxy_norm": [
+            0.44,
+            0.54,
+            0.78,
+            0.72
+          ],
+          "visibility_confidence": 0.55,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "head_or_face": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.25
+          ],
+          "box_xyxy_norm": [
+            0.32,
+            0.06,
+            0.68,
+            0.44
+          ],
+          "visibility_confidence": 0.74,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "upper_body_or_signing_space": {
+          "presence": true,
+          "center_xy_norm": [
+            0.5,
+            0.57
+          ],
+          "box_xyxy_norm": [
+            0.22,
+            0.08,
+            0.8,
+            0.98
+          ],
+          "visibility_confidence": 0.7,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        },
+        "table_two_hand_union_or_contact_region": {
+          "presence": true,
+          "center_xy_norm": [
+            0.49,
+            0.63
+          ],
+          "box_xyxy_norm": [
+            0.18,
+            0.52,
+            0.8,
+            0.74
+          ],
+          "visibility_confidence": 0.5,
+          "occlusion_flag": false,
+          "truncation_flag": false
+        }
+      },
+      "notes": "M3AE-Z packet mutation added accepted candidate cand-test-table-000301-f008 from the M3AE-Y candidate-review artifact. Left/right hand boxes come from that candidate review; head_or_face and upper_body_or_signing_space targets are copied from same-split table anchor det0-v0-test-table-000286-f005 as fixed-crop context. No pretrained detector, landmark, generated label, new source, training, ablation rerun, export, or readiness claim was used. M3AE-AC derived table_two_hand_union_or_contact_region from reviewed left_or_first_hand and right_or_second_hand boxes with a 0.02 normalized margin; no pretrained landmarks, detector outputs, generated pseudo-labels, new media, source expansion, training, export, or readiness claim was used."
+    }
+  ],
+  "banned_label_sources": [
+    "MediaPipe-generated labels",
+    "OpenPose-generated labels",
+    "YOLO-generated labels",
+    "RTMPose-generated labels",
+    "pretrained detector outputs",
+    "pretrained landmark outputs",
+    "unknown labels",
+    "unapproved datasets",
+    "synthetic clips or labels"
+  ],
+  "non_actions": [
+    "did_not_train_detector0",
+    "did_not_train_recognizer",
+    "did_not_run_crop_normalization_ablation",
+    "did_not_import_or_approve_sources",
+    "did_not_use_pretrained_detector_or_landmarks",
+    "did_not_export_onnx",
+    "did_not_promote_model_card",
+    "did_not_claim_final_readiness",
+    "did_not_weaken_final_gates",
+    "did_not_stop_brev",
+    "did_not_create_duplicate_brev_worker",
+    "did_not_push"
+  ]
+}

@@ -1,0 +1,384 @@
+{
+  "schema_version": "asl-pilot-detector0-hard-negative-manifest-contract/v1",
+  "mission": "M3IG - Detector 0 hard-negative manifest contract no Brev",
+  "created_at": "2026-05-30T03:44:02Z",
+  "status": "manifest_contract_only_not_materialized_not_training_ready",
+  "purpose": "Define the future validation-only Detector 0 hard-negative/no-hand manifest contract that may be materialized from already tracked approved negative challenge evidence in a later slice.",
+  "current_commit": "4f0aad9 observer: CONTINUE - m3if to m3ig manifest contract",
+  "active_prompt": "docs/model/return-to-form-m3ig-detector0-hard-negative-manifest-contract-no-brev-goal-loop-prompt.md",
+  "source_artifacts": {
+    "docs/model/return-to-form-detector0-hard-negative-source-review-v1.json": {
+      "sha256": "786ae4549cb037fed0a1c51c7ba5ce3d1c44c65a9e895121c031c7fbb6cae3ae",
+      "role": "M3IF hard-negative/no-hand source review"
+    },
+    "docs/validation/return-to-form-m3if-detector0-hard-negative-source-review-no-brev-v1.json": {
+      "sha256": "8a17060061bd7c4d59216fb24a5adc49280f1dd20823ef0b221ec228ed561707",
+      "role": "M3IF validation receipt"
+    },
+    "data/manifests/negative-challenge.json": {
+      "sha256": "b06c7990b9d0efbec908b8466064b87dd29bbf7c5d891e133c935c5c7ed02293",
+      "role": "existing validation-only negative challenge fixture"
+    },
+    "docs/review/online-negative-challenge-final-review.json": {
+      "sha256": "77dcd6843a5a62489150d5ee32501d11f5af360d31ef56c4eb3620109a82a28f",
+      "role": "final visual/source review approving selected negative challenge clips"
+    },
+    "docs/model/return-to-form-detector0-evaluation-gap-contract-v1.json": {
+      "sha256": "9876acfbcf970b1f877829f795612a3cd5d346b64e8272f701c837d9e8559670",
+      "role": "M3IE evaluation-gap contract"
+    },
+    "data/annotations/detector0/return-to-form-detector0-combined-training-packet-v1.json": {
+      "sha256": "59214b75e0f416ce8527e560a947c2201442d86ded2a80bcd0f4b62e418254e2",
+      "role": "M3ID positive-ish Detector 0 packet"
+    },
+    "docs/model/dataset-source-register.json": {
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+      "role": "source-rights register"
+    },
+    "docs/model/return-to-form-detector0-fixed-baseline-gate-contract-v1.json": {
+      "sha256": "92f4650a50b562b3055bb455fe9b5ae30ad639fe843b5efd834cd24925142423",
+      "role": "fixed-baseline beat-it gate"
+    },
+    "web/public/model/detector0-card.json": {
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "role": "Detector 0 fail-closed claim surface"
+    },
+    "web/public/model/browser-model-bundle.json": {
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9",
+      "role": "browser bundle fail-closed claim surface"
+    },
+    "web/public/model/model-card.json": {
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "role": "recognizer fail-closed model card"
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "role": "active vocabulary fail-closed claim surface"
+    }
+  },
+  "source_review_summary": {
+    "classification": "approved_sources_available_for_future_manifest_contract",
+    "approved_validation_only_sources_available": true,
+    "training_ready_hard_negative_rows_available": false,
+    "first_party_training_capable_route_available_after_consent": true,
+    "m3if_next_action": "continue_m3ig_detector0_hard_negative_manifest_contract_no_brev"
+  },
+  "existing_negative_challenge_fixture_boundary": {
+    "path": "data/manifests/negative-challenge.json",
+    "schema_version": "asl-pilot-negative-challenge-manifest/v1",
+    "dataset_id": "asl-pilot-negative-challenge-v0",
+    "dataset_source_mode": "approved_external_raw_video_source",
+    "clip_count": 25,
+    "counts_by_challenge_type": {
+      "empty_camera": 5,
+      "no_hands_visible": 5,
+      "low_light": 5,
+      "off_center": 5,
+      "non_target_asl_sign": 5
+    },
+    "counts_by_source_id": {
+      "wikimedia-commons-negative-challenge-videos": 12,
+      "cira-satellite-library-negative-challenge-videos": 8,
+      "asl-citizen-school-assignment-raw-videos": 5
+    },
+    "challenge_review": {
+      "path": "docs/review/online-negative-challenge-final-review.json",
+      "sha256": "77dcd6843a5a62489150d5ee32501d11f5af360d31ef56c4eb3620109a82a28f",
+      "status": "approved_for_manifest_import",
+      "reviewed_at": "2026-05-21T00:14:00.000Z"
+    },
+    "contractual_constraints": [
+      "M3IG does not mutate this fixture.",
+      "A future Detector 0 hard-negative manifest may reference this fixture by path, clip_id, source_id, challenge_type, source SHA-256, tensor hash, and final review hash.",
+      "A future materialization must preserve exact validation-only source scope and must not convert these clips into training rows.",
+      "Existing rawframe tensors may be used only as fixture identity/provenance unless a later Detector 0-specific fixture-generation contract authorizes another representation; they are not Detector 0 box labels.",
+      "No new media, clips, rows, labels, tensors, or source decisions are created by this contract."
+    ]
+  },
+  "validation_only_source_boundary": {
+    "external_negative_challenge_sources": [
+      "online-negative-challenge-mixed-wikimedia-cira-v1",
+      "wikimedia-commons-negative-challenge-videos",
+      "cira-satellite-library-negative-challenge-videos",
+      "asl-citizen-school-assignment-raw-videos when used through the exact selected mixed negative challenge files"
+    ],
+    "allowed_use": [
+      "validation-only hard-negative/no-hand challenge evidence",
+      "pilot evidence with retained source attribution and exact-file hashes",
+      "future false-trigger, false no-hand, and no-hand/absence evaluation contracts"
+    ],
+    "not_allowed": [
+      "model training rows",
+      "training loss inputs",
+      "claim expansion",
+      "browser activation",
+      "general source-family import beyond exact retained files",
+      "derived pose, landmark, embedding, detector, feature, pretrained, generated-label, pseudo-label, or teacher-model artifacts"
+    ]
+  },
+  "first_party_training_boundary": {
+    "training_capable_source_route": "first-party-browser-consent-capture",
+    "current_status": "route_approved_after_clip_level_consent_but_no_training_ready_hard_negative_rows_exist",
+    "required_before_training_use": [
+      "dataset signer registry record",
+      "clip-level consent record",
+      "dataset consent form version and hash",
+      "raw clip SHA-256 hash",
+      "clip-level visual review approval",
+      "project-authored expected absence labels or reviewed hard-negative target payloads",
+      "manifest contract that separates training rows from validation-only external fixtures"
+    ],
+    "this_contract_authorizes_training_rows": false
+  },
+  "future_materialized_manifest_contract": {
+    "expected_path": "data/annotations/detector0/return-to-form-detector0-hard-negative-validation-manifest-v1.json",
+    "schema_version": "asl-pilot-detector0-hard-negative-validation-manifest/v1",
+    "status": "future_materialized_validation_only_not_training_ready",
+    "allowed_negative_categories": [
+      "empty_camera",
+      "no_hands_visible",
+      "low_light",
+      "off_center",
+      "non_target_asl_sign"
+    ],
+    "split_use_semantics": {
+      "split": "negative_challenge",
+      "allowed_for_training": false,
+      "allowed_for_validation": true,
+      "allowed_for_pilot_submission_evidence": true,
+      "must_not_mix_with_m3id_train_validation_test_rows": true
+    },
+    "required_manifest_top_level_fields": [
+      "schema_version",
+      "mission",
+      "created_at",
+      "status",
+      "source_artifacts",
+      "validation_only_source_boundary",
+      "row_identity_policy",
+      "allowed_negative_categories",
+      "duplicate_conflict_validation",
+      "rows",
+      "readiness_classification",
+      "forbidden_action_proof",
+      "exactly_one_next_action"
+    ],
+    "required_row_identity_fields": [
+      "manifest_row_id",
+      "source_fixture_path",
+      "source_fixture_sha256",
+      "source_fixture_clip_id",
+      "source_id",
+      "source_record_id",
+      "source_page_url",
+      "source_file_url",
+      "source_license_short_name",
+      "source_author",
+      "source_credit",
+      "source_video_sha256",
+      "relative_video_path",
+      "relative_frame_tensor_path",
+      "frame_tensor_sha256",
+      "split",
+      "challenge_type",
+      "expected_outcome",
+      "allowed_for_training",
+      "allowed_for_validation",
+      "allowed_for_pilot_submission_evidence"
+    ],
+    "required_detector0_expected_output_fields": [
+      "expected_left_or_first_hand_presence",
+      "expected_right_or_second_hand_presence",
+      "expected_detector0_outcome",
+      "absence_or_false_trigger_semantics",
+      "review_status",
+      "reviewed_at",
+      "reviewer",
+      "visual_review_source_path",
+      "visual_review_source_sha256"
+    ],
+    "category_semantics": {
+      "empty_camera": {
+        "expected_left_or_first_hand_presence": false,
+        "expected_right_or_second_hand_presence": false,
+        "expected_detector0_outcome": "reject_no_hand",
+        "notes": "No prompted signer or hands should be present."
+      },
+      "no_hands_visible": {
+        "expected_left_or_first_hand_presence": false,
+        "expected_right_or_second_hand_presence": false,
+        "expected_detector0_outcome": "reject_no_hand",
+        "notes": "Human/person context may exist, but hands should not be visible."
+      },
+      "low_light": {
+        "expected_left_or_first_hand_presence": false,
+        "expected_right_or_second_hand_presence": false,
+        "expected_detector0_outcome": "reject_or_no_false_trigger_under_low_light",
+        "notes": "Use only rows whose final review and future manifest contract preserve expected reject semantics."
+      },
+      "off_center": {
+        "expected_left_or_first_hand_presence": false,
+        "expected_right_or_second_hand_presence": false,
+        "expected_detector0_outcome": "reject_or_no_false_trigger_off_center",
+        "notes": "Validation-only camera/framing challenge, not training data."
+      },
+      "non_target_asl_sign": {
+        "expected_left_or_first_hand_presence": "visible_hands_possible",
+        "expected_right_or_second_hand_presence": "visible_hands_possible",
+        "expected_detector0_outcome": "not_no_hand_absence; false_trigger_context_only",
+        "notes": "These rows are not no-hand absence rows. A future materialization must segregate them from strict no-hand false-trigger counts."
+      }
+    },
+    "source_provenance_requirements": [
+      "Preserve source register path and SHA-256.",
+      "Preserve exact source_id and source_license_decision from the existing fixture.",
+      "Preserve source page URL, original file URL, license short name, author, credit, local source video hash, and tensor hash.",
+      "Preserve final review path, hash, review status, reviewer, and reviewed_at fields.",
+      "Record that source scope is validation-only and exact-file scoped."
+    ],
+    "no_pretrained_no_generated_label_attestations": [
+      "No pretrained detector, landmark, feature, backbone, teacher-model, generated-label, or pseudo-label output may supply labels or target semantics.",
+      "Manual visual review and existing capture-condition expected reject fields are review evidence only.",
+      "Existing rawframe tensors are retained fixture inputs/provenance, not Detector 0 labels.",
+      "No future materialization may infer boxes or landmarks from pretrained tools."
+    ],
+    "duplicate_conflict_checks": [
+      "manifest_row_id must be unique",
+      "source_fixture_clip_id must be unique within the future manifest",
+      "source_video_sha256 plus frame_tensor_sha256 must be unique",
+      "challenge_type must match the existing fixture and final review",
+      "source_id must match the existing fixture and source register",
+      "allowed_for_training must be false for every external negative challenge row",
+      "rows must not duplicate any M3ID positive packet row id or clip id",
+      "non_target_asl_sign rows must not be counted as no-hand absence rows"
+    ]
+  },
+  "readiness_matrix": {
+    "hard_negative_manifest_materialization": {
+      "blocked": false,
+      "classification": "ready_for_future_local_materialization_contract_only",
+      "requirements_for_next_slice": [
+        "materialize a validation-only manifest from tracked fixture rows",
+        "preserve source/review/provenance hashes",
+        "set allowed_for_training false for every external row",
+        "separate no-hand absence categories from non-target ASL sign rows"
+      ]
+    },
+    "detector0_training": {
+      "blocked": true,
+      "classification": "not_training_ready",
+      "blocking_evidence_requirements": [
+        "first-party consented hard-negative clips or another source-register-approved training route",
+        "clip-level consent, hashes, and visual review",
+        "training manifest with approved hard-negative rows",
+        "no-pretrained/no-generated-label attestation"
+      ]
+    },
+    "detector0_evaluation": {
+      "blocked": true,
+      "classification": "not_evaluation_ready",
+      "blocking_evidence_requirements": [
+        "future hard-negative validation manifest materialized",
+        "trained scratch Detector 0 artifact",
+        "false-trigger and false no-hand evaluator receipt",
+        "held-out fixed-baseline beat-it comparison"
+      ]
+    },
+    "detector0_export": {
+      "blocked": true,
+      "classification": "not_export_ready",
+      "blocking_evidence_requirements": [
+        "learned left hand IoU > 0.4073",
+        "learned right hand IoU > 0.6476",
+        "negative challenge evaluation receipt",
+        "no-pretrained dependency proof"
+      ]
+    },
+    "browser_promotion": {
+      "blocked": true,
+      "classification": "not_browser_promotion_ready",
+      "blocking_evidence_requirements": [
+        "exported browser artifact",
+        "browser runtime/parity evidence",
+        "browser latency evidence",
+        "claim-surface promotion tooling output"
+      ]
+    },
+    "final_gates": {
+      "blocked": true,
+      "classification": "not_final_gate_ready",
+      "blocking_evidence_requirements": [
+        "Detector 0 metrics",
+        "negative challenge metrics",
+        "browser verification",
+        "unchanged privacy and no-pretrained constraints"
+      ]
+    },
+    "claim_expansion": {
+      "blocked": true,
+      "classification": "not_claim_expansion_ready",
+      "blocking_evidence_requirements": [
+        "promoted Detector 0 artifact",
+        "model-card and active vocabulary promotion receipts",
+        "supported-label evidence artifacts",
+        "passing final gates"
+      ]
+    }
+  },
+  "claim_surface_proof": {
+    "web/public/model/detector0-card.json": {
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null,
+      "runtime_gates": {
+        "detector0_tracking": false,
+        "box_driven_avatar": false,
+        "recognition_pass_fail": false
+      }
+    },
+    "web/public/model/browser-model-bundle.json": {
+      "recognition_enabled": false,
+      "detector0_tracking_enabled": false,
+      "box_driven_avatar_enabled": false,
+      "authored_avatar_demos_enabled": false
+    },
+    "web/public/model/model-card.json": {
+      "status": "not_trained",
+      "pretrained_components": []
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": [],
+      "evidenceArtifacts": []
+    },
+    "claim_language_allowed_by_this_contract": false
+  },
+  "forbidden_action_proof": {
+    "no_brev_lifecycle": true,
+    "no_remote_commands": true,
+    "no_paid_compute_started": true,
+    "no_source_or_media_import": true,
+    "no_manifest_row_creation": true,
+    "no_label_authoring_or_repair": true,
+    "no_generated_labels_or_pseudo_labels": true,
+    "no_tensor_generation_or_mutation": true,
+    "no_detector0_training": true,
+    "no_recognizer_training": true,
+    "no_export_or_promotion": true,
+    "no_browser_activation": true,
+    "no_final_gate_change": true,
+    "no_claim_expansion": true
+  },
+  "readiness_classification": {
+    "manifest_contract_written": true,
+    "future_validation_only_manifest_materialization_ready": true,
+    "detector0_training_ready": false,
+    "detector0_evaluation_ready": false,
+    "detector0_export_ready": false,
+    "browser_promotion_ready": false,
+    "final_gate_ready": false,
+    "claim_expansion_ready": false,
+    "reason": "This contract defines a future validation-only manifest from tracked evidence. It does not create manifest rows, import media, author labels, run training, produce metrics, export artifacts, promote browser behavior, change final gates, or expand claims."
+  },
+  "exactly_one_next_action": "continue_m3ih_detector0_hard_negative_manifest_materialization_no_brev"
+}

@@ -1,0 +1,1673 @@
+{
+  "schema_version": "asl-pilot-popsign-fresh5-bounded-local-train-all-after-optimizer-loss/v1",
+  "mission": "Mission 3CR - PopSign fresh5 bounded local train-all after optimizer/loss packet",
+  "status": "completed_failed_to_improve_m3cj_single_class_collapse",
+  "generated_at": "2026-05-28T03:09:30.338Z",
+  "active_prompt": "docs/model/return-to-form-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-goal-loop-prompt.md",
+  "input_artifacts": {
+    "goal": {
+      "path": "GOAL.md",
+      "sha256": "f37d43f61ed8558b06a1f170a36386483286be9c3c2dc8961d2a20211207814c"
+    },
+    "active_prompt": {
+      "path": "docs/model/return-to-form-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-goal-loop-prompt.md",
+      "sha256": "1876c2f2cfaa0a401558eb2886a34713ccdf9756b77c3193b23a0c62fc550474"
+    },
+    "m3cq_optimizer_loss_regularization": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-optimizer-loss-regularization-packet-v1.json",
+      "sha256": "961cbe1f017c87748e7eecc7118a810d392636827b32069c1d4ccc87ff9993ec"
+    },
+    "m3cp_training_distribution_sampler": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-training-distribution-sampler-packet-v1.json",
+      "sha256": "2263ff2b82567022599de69a18a32836a891642ab42c04da6853c56142746990"
+    },
+    "m3co_tensor_input_quality": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-tensor-input-quality-packet-v1.json",
+      "sha256": "cde3e5b03812513dab700deee5e9d75b75f55eac033a388fb42626c92c63a9dd"
+    },
+    "m3cn_label_source_quality": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-label-source-quality-review-packet-v1.json",
+      "sha256": "0ab2333edd0e45e0f951c141372226f55709ea32ec42e12406f7c66a366eb2c0"
+    },
+    "m3cj_local_train_eval_sanity": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-local-train-eval-sanity-v1.json",
+      "sha256": "2e39eae2eba0709b40a26d16c81a35586149048a543dce6ae7ad403284e561dc"
+    },
+    "m3ck_architecture_input_microprobe": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-architecture-input-microprobe-v1.json",
+      "sha256": "487be592b2e58b2ba05514d783d67b6cf1121513419d84c2104982aa112df08c"
+    },
+    "manifest_contract": {
+      "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/manifest-contract.json",
+      "sha256": "38e8e1b8663e0e360fd9b8284bad9a5f08dd7fa00d236ec50fecfb87c8c9ce4a"
+    },
+    "previous_m3cr_contract_fix_log": {
+      "path": "docs/session-logs/423-mission-3cr-popsign-fresh5-training-smoke-contract-fix.md",
+      "sha256": "fd812edf080b2498dda82980b9ed2a83f30eedbd7c4d137fa349bbdf308fc750"
+    },
+    "training_code": {
+      "path": "scripts/train_rawframe_model.py",
+      "sha256": "d2aef94118ea938428ffaa5833c68fa868da39a353d4c7f8d1212e0969b37b14"
+    },
+    "evaluation_code": {
+      "path": "scripts/evaluate_rawframe_model.py",
+      "sha256": "997442ccd9b52380336bf826bbd81e91261eeb1669a683d9b5eee141491a6c4c"
+    }
+  },
+  "predeclared_optimizer_schedule_hypothesis": {
+    "declared_before_training_command": true,
+    "summary": "Same repaired PopSign fresh5 split and scratch region-temporal late-fusion TCN, learning rate 0.003, 20 epochs, full 32 train/validation batches, no augmentation, weight decay 0.0, and explicit best-validation checkpoint selection.",
+    "reason": "M3CQ classified the five-epoch train-all as under-optimized while M3CK proved the architecture/input family can fit a tiny balanced subset after a longer schedule.",
+    "not_a_sweep": true
+  },
+  "training_run": {
+    "command": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/train_rawframe_model.py",
+      "--train-manifest",
+      "data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json",
+      "--validation-manifest",
+      "data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json",
+      "--test-manifest",
+      "data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json",
+      "--output-dir",
+      "output/m3cr-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-lr003-20ep-bestval",
+      "--model-id",
+      "asl-pilot-popsign-fresh5-m3cr-local-train-all-lr003-20ep-bestval",
+      "--architecture",
+      "scratch_region_temporal_late_fusion_tcn_contract_v1",
+      "--popsign-fresh5-training-smoke",
+      "--check-files",
+      "--frame-count",
+      "16",
+      "--image-size",
+      "96",
+      "--epochs",
+      "20",
+      "--batch-size",
+      "4",
+      "--learning-rate",
+      "0.003",
+      "--optimizer",
+      "adamw",
+      "--weight-decay",
+      "0.0",
+      "--training-augmentation",
+      "none",
+      "--checkpoint-selection",
+      "best_validation",
+      "--max-train-batches",
+      "32",
+      "--max-validation-batches",
+      "32",
+      "--num-workers",
+      "0"
+    ],
+    "output_dir": "output/m3cr-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-lr003-20ep-bestval",
+    "status": "completed",
+    "exit_code": 0,
+    "device": "mps",
+    "backend": "pytorch",
+    "python": "3.14.5",
+    "torch_version": "2.12.0",
+    "seed": 20260519,
+    "optimizer_settings": {
+      "architecture": "scratch_region_temporal_late_fusion_tcn_contract_v1",
+      "batch_size": 4,
+      "checkpoint_selection": "best_validation",
+      "epochs": 20,
+      "frame_count": 16,
+      "image_size": 96,
+      "label_smoothing": 0,
+      "learning_rate": 0.003,
+      "max_train_batches": 32,
+      "max_validation_batches": 32,
+      "num_workers": 0,
+      "optimizer": "adamw",
+      "preserve_region_axis": true,
+      "training_augmentation": "none",
+      "weight_decay": 0
+    },
+    "checkpoint_selection": {
+      "policy": "best_validation",
+      "selected_epoch": 18,
+      "selected_validation_metrics": {
+        "accuracy": 0.2,
+        "batches": 32,
+        "examples": 125,
+        "loss": 1.6108275547027588
+      }
+    },
+    "selected_epoch": 18,
+    "selected_validation_metrics": {
+      "accuracy": 0.2,
+      "batches": 32,
+      "examples": 125,
+      "loss": 1.6108275547027588
+    },
+    "final_epoch_metrics": {
+      "epoch": 20,
+      "train": {
+        "accuracy": 0.176,
+        "batches": 32,
+        "examples": 125,
+        "loss": 1.62223952960968
+      },
+      "validation": {
+        "accuracy": 0.2,
+        "batches": 32,
+        "examples": 125,
+        "loss": 1.6122596788406371
+      }
+    },
+    "training_history": [
+      {
+        "epoch": 1,
+        "train": {
+          "accuracy": 0.184,
+          "batches": 32,
+          "examples": 125,
+          "loss": 2.0535044298172
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.8911798267364501
+        }
+      },
+      {
+        "epoch": 2,
+        "train": {
+          "accuracy": 0.264,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.7150802440643311
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.73070023727417
+        }
+      },
+      {
+        "epoch": 3,
+        "train": {
+          "accuracy": 0.192,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.7214449996948242
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6978080024719238
+        }
+      },
+      {
+        "epoch": 4,
+        "train": {
+          "accuracy": 0.176,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6777543668746948
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.621299626350403
+        }
+      },
+      {
+        "epoch": 5,
+        "train": {
+          "accuracy": 0.232,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6619018030166626
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.7644664211273193
+        }
+      },
+      {
+        "epoch": 6,
+        "train": {
+          "accuracy": 0.176,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.7827358169555665
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6570651044845581
+        }
+      },
+      {
+        "epoch": 7,
+        "train": {
+          "accuracy": 0.168,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6556007385253906
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6149828233718873
+        }
+      },
+      {
+        "epoch": 8,
+        "train": {
+          "accuracy": 0.12,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6967256908416748
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.647170015335083
+        }
+      },
+      {
+        "epoch": 9,
+        "train": {
+          "accuracy": 0.16,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6540894508361816
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6240596981048585
+        }
+      },
+      {
+        "epoch": 10,
+        "train": {
+          "accuracy": 0.144,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6663217391967773
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6205929870605469
+        }
+      },
+      {
+        "epoch": 11,
+        "train": {
+          "accuracy": 0.136,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6654716262817382
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6293699741363525
+        }
+      },
+      {
+        "epoch": 12,
+        "train": {
+          "accuracy": 0.144,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6598779697418213
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6197604913711547
+        }
+      },
+      {
+        "epoch": 13,
+        "train": {
+          "accuracy": 0.168,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6295221748352051
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6141379270553589
+        }
+      },
+      {
+        "epoch": 14,
+        "train": {
+          "accuracy": 0.144,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6294750394821167
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.611254900932312
+        }
+      },
+      {
+        "epoch": 15,
+        "train": {
+          "accuracy": 0.16,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6341655521392822
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6123485517501832
+        }
+      },
+      {
+        "epoch": 16,
+        "train": {
+          "accuracy": 0.184,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6359817972183228
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.611782088279724
+        }
+      },
+      {
+        "epoch": 17,
+        "train": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.628657346725464
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.611008635520935
+        }
+      },
+      {
+        "epoch": 18,
+        "train": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6339832334518432
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6108275547027588
+        }
+      },
+      {
+        "epoch": 19,
+        "train": {
+          "accuracy": 0.176,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6279202671051025
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6122588024139404
+        }
+      },
+      {
+        "epoch": 20,
+        "train": {
+          "accuracy": 0.176,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.62223952960968
+        },
+        "validation": {
+          "accuracy": 0.2,
+          "batches": 32,
+          "examples": 125,
+          "loss": 1.6122596788406371
+        }
+      }
+    ],
+    "artifact_hashes": [
+      {
+        "path": "output/m3cr-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-lr003-20ep-bestval/model_state.pt",
+        "sha256": "6382be97a3215d7e4f18b1c26f1897dc9347fc99e6496079dbff47bb9b6bfb0d"
+      },
+      {
+        "path": "output/m3cr-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-lr003-20ep-bestval/training-provenance.json",
+        "sha256": "2c3af2885922f41965d8391db54a9bb9c5ec2cef4998abf6b12f4be06d579008"
+      },
+      {
+        "path": "output/m3cr-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-lr003-20ep-bestval/validation-report.json",
+        "sha256": "00ef303377951627e5ba7bee6912be506b7df750364105b397e2377c684a324b"
+      },
+      {
+        "path": "output/m3cr-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-lr003-20ep-bestval/prediction-sidecar.json",
+        "sha256": "fe22bbe860291692ddb0063741b2aa40bd3b52a7277f92d7f27246c55c9a0448"
+      }
+    ]
+  },
+  "evaluation_run": {
+    "command": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/evaluate_rawframe_model.py",
+      "--checkpoint",
+      "output/m3cr-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-lr003-20ep-bestval/model_state.pt",
+      "--training-provenance",
+      "output/m3cr-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-lr003-20ep-bestval/training-provenance.json",
+      "--train-manifest",
+      "data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json",
+      "--validation-manifest",
+      "data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json",
+      "--test-manifest",
+      "data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json",
+      "--output-report",
+      "output/m3cr-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-lr003-20ep-bestval/validation-report.json",
+      "--calibrated-provenance",
+      "output/m3cr-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-lr003-20ep-bestval/calibrated-provenance.json",
+      "--prediction-sidecar",
+      "output/m3cr-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-lr003-20ep-bestval/prediction-sidecar.json",
+      "--batch-size",
+      "4",
+      "--num-workers",
+      "0",
+      "--popsign-fresh5-training-smoke"
+    ],
+    "status": "popsign_fresh5_training_smoke_completed",
+    "exit_code": 0,
+    "output_report": {
+      "path": "output/m3cr-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-lr003-20ep-bestval/validation-report.json",
+      "sha256": "00ef303377951627e5ba7bee6912be506b7df750364105b397e2377c684a324b"
+    },
+    "prediction_sidecar": {
+      "path": "output/m3cr-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-lr003-20ep-bestval/prediction-sidecar.json",
+      "sha256": "fe22bbe860291692ddb0063741b2aa40bd3b52a7277f92d7f27246c55c9a0448"
+    },
+    "calibrated_provenance": null,
+    "calibrated_provenance_reason": "Not written because PopSign fresh5 smoke targets did not pass."
+  },
+  "metrics": {
+    "validation": {
+      "top1_accuracy": 0.2,
+      "macro_f1": 0.06666666666666668,
+      "confusion_matrix": {
+        "labels": [
+          "home",
+          "morning",
+          "pen",
+          "thank_you",
+          "who"
+        ],
+        "rows_true_columns_predicted": [
+          [
+            0,
+            25,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            25,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            25,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            25,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            25,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      "prediction_distribution": {
+        "morning": 125
+      },
+      "per_class": {
+        "home": {
+          "f1": 0,
+          "precision": 0,
+          "recall": 0,
+          "support": 25
+        },
+        "morning": {
+          "f1": 0.33333333333333337,
+          "precision": 0.2,
+          "recall": 1,
+          "support": 25
+        },
+        "pen": {
+          "f1": 0,
+          "precision": 0,
+          "recall": 0,
+          "support": 25
+        },
+        "thank_you": {
+          "f1": 0,
+          "precision": 0,
+          "recall": 0,
+          "support": 25
+        },
+        "who": {
+          "f1": 0,
+          "precision": 0,
+          "recall": 0,
+          "support": 25
+        }
+      },
+      "per_label_recall": {
+        "home": 0,
+        "morning": 1,
+        "pen": 0,
+        "thank_you": 0,
+        "who": 0
+      },
+      "zero_recall_labels": [
+        "home",
+        "pen",
+        "thank_you",
+        "who"
+      ]
+    },
+    "test": {
+      "top1_accuracy": 0.2,
+      "macro_f1": 0.06666666666666668,
+      "confusion_matrix": {
+        "labels": [
+          "home",
+          "morning",
+          "pen",
+          "thank_you",
+          "who"
+        ],
+        "rows_true_columns_predicted": [
+          [
+            0,
+            25,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            25,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            25,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            25,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            25,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      "prediction_distribution": {
+        "morning": 125
+      },
+      "per_class": {
+        "home": {
+          "f1": 0,
+          "precision": 0,
+          "recall": 0,
+          "support": 25
+        },
+        "morning": {
+          "f1": 0.33333333333333337,
+          "precision": 0.2,
+          "recall": 1,
+          "support": 25
+        },
+        "pen": {
+          "f1": 0,
+          "precision": 0,
+          "recall": 0,
+          "support": 25
+        },
+        "thank_you": {
+          "f1": 0,
+          "precision": 0,
+          "recall": 0,
+          "support": 25
+        },
+        "who": {
+          "f1": 0,
+          "precision": 0,
+          "recall": 0,
+          "support": 25
+        }
+      },
+      "per_label_recall": {
+        "home": 0,
+        "morning": 1,
+        "pen": 0,
+        "thank_you": 0,
+        "who": 0
+      },
+      "zero_recall_labels": [
+        "home",
+        "pen",
+        "thank_you",
+        "who"
+      ],
+      "threshold_metrics": {
+        "accepted_accuracy": 0,
+        "correct_pass_rate": 0,
+        "coverage": 0,
+        "false_accept_rate": 0,
+        "false_pass_rate": 0,
+        "threshold": 1
+      }
+    },
+    "threshold_calibration": {
+      "curve": [
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.01
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.02
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.03
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.04
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.05
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.06
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.07
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.08
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.09
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.1
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.11
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.12
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.13
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.14
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.15
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.16
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.17
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.18
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.19
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.2
+        },
+        {
+          "accepted_accuracy": 0.2,
+          "correct_pass_rate": 0.2,
+          "coverage": 1,
+          "false_accept_rate": 0.8,
+          "false_pass_rate": 0.8,
+          "threshold": 0.21
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.22
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.23
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.24
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.25
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.26
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.27
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.28
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.29
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.3
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.31
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.32
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.33
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.34
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.35
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.36
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.37
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.38
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.39
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.4
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.41
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.42
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.43
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.44
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.45
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.46
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.47
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.48
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.49
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.5
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.51
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.52
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.53
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.54
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.55
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.56
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.57
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.58
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.59
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.6
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.61
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.62
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.63
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.64
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.65
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.66
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.67
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.68
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.69
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.7
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.71
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.72
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.73
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.74
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.75
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.76
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.77
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.78
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.79
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.8
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.81
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.82
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.83
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.84
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.85
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.86
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.87
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.88
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.89
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.9
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.91
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.92
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.93
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.94
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.95
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.96
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.97
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.98
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 0.99
+        },
+        {
+          "accepted_accuracy": 0,
+          "correct_pass_rate": 0,
+          "coverage": 0,
+          "false_accept_rate": 0,
+          "false_pass_rate": 0,
+          "threshold": 1
+        }
+      ],
+      "selected_metrics": {
+        "accepted_accuracy": 0,
+        "correct_pass_rate": 0,
+        "coverage": 0,
+        "false_accept_rate": 0,
+        "false_pass_rate": 0,
+        "threshold": 1
+      },
+      "selected_threshold": 1,
+      "selection_rule": "maximize correct pass rate subject to validation false-pass rate below 0.1, then prefer lower false-pass rate and higher threshold"
+    },
+    "pass_status": {
+      "confidence_threshold": false,
+      "false_pass_rate": true,
+      "macro_f1": false,
+      "negative_challenge_false_pass_rate": false,
+      "top1_accuracy": false
+    },
+    "passes_targets": false
+  },
+  "m3cj_comparison": {
+    "baseline_test_top1": 0.2,
+    "observed_test_top1": 0.2,
+    "test_top1_exceeded": false,
+    "baseline_macro_f1": 0.06666666666666668,
+    "observed_macro_f1": 0.06666666666666668,
+    "macro_f1_exceeded": false,
+    "validation_prediction_distribution": {
+      "morning": 125
+    },
+    "test_prediction_distribution": {
+      "morning": 125
+    },
+    "validation_single_class_prediction_collapse": true,
+    "test_single_class_prediction_collapse": true,
+    "zero_recall_test_labels": [
+      "home",
+      "pen",
+      "thank_you",
+      "who"
+    ],
+    "validation_accuracy_history": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "flat_chance_validation_accuracy": true,
+    "pass_status": {
+      "exceeds_m3cj_test_top1": false,
+      "exceeds_m3cj_macro_f1": false,
+      "avoids_single_class_prediction_distribution": false,
+      "avoids_zero_recall_selected_labels": false,
+      "avoids_flat_chance_validation_accuracy": false,
+      "evaluator_targets_pass": false
+    },
+    "conclusion": "The post-contract 20-epoch LR 0.003 best-validation run did not beat M3CJ; it exactly matched test top-1 and macro F1, stayed flat at validation accuracy 0.2, and collapsed to predicting morning for every validation and test example."
+  },
+  "decision": {
+    "local_run_completed": true,
+    "local_contract_blocker_found": false,
+    "clear_local_signal_above_m3cj": false,
+    "compute_receipt_or_export_readiness_review_justified_now": false,
+    "no_training_result_diagnosis_justified_now": true,
+    "human_training_scope_budget_or_code_path_review_required_now": false,
+    "exactly_one_next_action": "continue_no_training_local_train_all_result_diagnosis",
+    "next_action_rationale": "The bounded local train-all completed but failed to improve over M3CJ and preserved single-class morning collapse. Before any further fitting or compute route, the next useful slice is no-training diagnosis of the completed local result."
+  },
+  "guardrails": {
+    "training_command_invoked": true,
+    "exactly_one_post_contract_train_all_command": true,
+    "sweep_or_broad_retry": false,
+    "second_post_contract_train_all_attempt": false,
+    "brev_command_run": false,
+    "brev_spend": false,
+    "brev_worker_lifecycle_changed": false,
+    "remote_command": false,
+    "source_register_mutation": false,
+    "source_import_or_media_download": false,
+    "manifest_mutation": false,
+    "tensor_mutation": false,
+    "pretrained_components": [],
+    "export": false,
+    "browser_activation": false,
+    "model_card_promotion": false,
+    "final_gate_change": false,
+    "unsupported_claim": false,
+    "push": false,
+    "local_artifacts_ignored_under_output_dir": "output/m3cr-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-lr003-20ep-bestval"
+  },
+  "commands_intentionally_not_run_after_result": [
+    "No second local train-all command was run.",
+    "No Brev command was run.",
+    "No export, browser activation, model-card promotion, or final claim update was run."
+  ],
+  "validation_commands": [
+    "git status --short --branch",
+    "git log -10 --oneline --decorate",
+    "node scripts/audit_loop_premise.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs --json",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "node scripts/audit_source_register.mjs",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-optimizer-loss-regularization-packet-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-training-distribution-sampler-packet-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-tensor-input-quality-packet-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-label-source-quality-review-packet-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-local-train-eval-sanity-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-architecture-input-microprobe-v1.json >/dev/null",
+    "python3 -m json.tool data/manifests/return-to-form-popsign-fresh5-repaired-v1/manifest-contract.json >/dev/null",
+    "python3 -m json.tool output/m3cr-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-lr003-20ep-bestval/training-provenance.json >/dev/null",
+    "python3 -m json.tool output/m3cr-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-lr003-20ep-bestval/validation-report.json >/dev/null",
+    "python3 -m json.tool output/m3cr-popsign-fresh5-bounded-local-train-all-after-optimizer-loss-lr003-20ep-bestval/prediction-sidecar.json >/dev/null",
+    "git diff --check",
+    "node scripts/audit_codex_pair_state.mjs --json"
+  ],
+  "exactly_one_next_action": "continue_no_training_local_train_all_result_diagnosis"
+}

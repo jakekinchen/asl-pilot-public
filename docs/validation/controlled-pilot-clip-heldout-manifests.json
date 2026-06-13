@@ -1,0 +1,208 @@
+{
+  "schema_version": "asl-pilot-controlled-pilot-clip-heldout-manifests/v1",
+  "status": "clip_heldout_manifests_ready_not_signer_disjoint_evidence",
+  "generated_at": "2026-05-25T18:17:06.158Z",
+  "generated_by": {
+    "tool": "node",
+    "command": [
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/Users/kelly/Developer/asl-pilot/scripts/export_controlled_pilot_clip_heldout_manifests.mjs",
+      "--write",
+      "--include-wlasl-academic-selected"
+    ],
+    "script": {
+      "path": "scripts/export_controlled_pilot_clip_heldout_manifests.mjs",
+      "exists": true,
+      "sha256": "0be7a788edf572940bc8e18084b1efcc875d0a93eaf852d55dd4a4bce343dd82"
+    }
+  },
+  "decision_boundary": {
+    "imports_media": false,
+    "creates_or_modifies_clips": false,
+    "changes_source_register": false,
+    "trains_weights": false,
+    "promotes_model_card": false,
+    "claims_signer_disjoint_evidence": false
+  },
+  "include_wlasl_academic_selected": true,
+  "source_manifests": {
+    "train": {
+      "path": "data/manifests/train.json",
+      "exists": true,
+      "sha256": "19233cf4ec3af189fe4584a9f8b6fa978c0481bfe1023443cab111053069c9eb"
+    },
+    "validation": {
+      "path": "data/manifests/validation.json",
+      "exists": true,
+      "sha256": "ba3c35f2da2c9949e171dbb42de11227bb305c37bc59761d90bce2d06c11409f"
+    },
+    "test": {
+      "path": "data/manifests/test.json",
+      "exists": true,
+      "sha256": "519af64185793399262f4287e443f16546f4323fdbca9645b3525fdedffc4723"
+    }
+  },
+  "source_register": {
+    "path": "docs/model/dataset-source-register.json",
+    "exists": true,
+    "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+  },
+  "wlasl_academic_selected_manifests": {
+    "train": {
+      "path": "data/manifests/diagnostics/wlasl-academic-selected/train.json",
+      "exists": true,
+      "sha256": "17c658f05f778b9ceeb2a9330b5bdd63b50ba74918c692201c8c989e7c83e69e"
+    },
+    "validation": {
+      "path": "data/manifests/diagnostics/wlasl-academic-selected/validation.json",
+      "exists": true,
+      "sha256": "fd1273ce8ee104ed1de35e88f47fa679c16609de82f41f369b50342bd9e6cda3"
+    },
+    "test": {
+      "path": "data/manifests/diagnostics/wlasl-academic-selected/test.json",
+      "exists": true,
+      "sha256": "7b31e50169923c0cc63633ca835e84cac59843b1f22510b120962de492f6a991"
+    }
+  },
+  "output_manifests": {
+    "train": {
+      "path": "data/manifests/controlled-pilot-clip-heldout/train.json",
+      "exists": true,
+      "sha256": "557883e8971f730d4d8e8f5b97f30ff7f744b89075f5ee59361473ea3d8e9955",
+      "label_count": 95,
+      "clip_count": 3933,
+      "min_clips_per_label": 41,
+      "source_split_counts": {
+        "test": 1073,
+        "val": 1423,
+        "train": 1437
+      },
+      "source_id_counts": {
+        "popsign-v1-original-videos": 3895,
+        "wlasl-school-assignment-raw-videos": 38
+      }
+    },
+    "validation": {
+      "path": "data/manifests/controlled-pilot-clip-heldout/validation.json",
+      "exists": true,
+      "sha256": "b8395a7b54376cfeaf038012269ec914b9a50c9d149846cd8c9579d160e2ccb2",
+      "label_count": 95,
+      "clip_count": 1267,
+      "min_clips_per_label": 13,
+      "source_split_counts": {
+        "val": 464,
+        "test": 323,
+        "train": 480
+      },
+      "source_id_counts": {
+        "popsign-v1-original-videos": 1235,
+        "wlasl-school-assignment-raw-videos": 32
+      }
+    },
+    "test": {
+      "path": "data/manifests/controlled-pilot-clip-heldout/test.json",
+      "exists": true,
+      "sha256": "34bcfa2a29be337223fad6f16fbed53f52c124634f0b8cf456adfd125e80e055",
+      "label_count": 95,
+      "clip_count": 1455,
+      "min_clips_per_label": 15,
+      "source_split_counts": {
+        "train": 555,
+        "val": 489,
+        "test": 411
+      },
+      "source_id_counts": {
+        "popsign-v1-original-videos": 1425,
+        "wlasl-school-assignment-raw-videos": 30
+      }
+    }
+  },
+  "label_count": 95,
+  "split_policy": {
+    "type": "controlled_clip_heldout_not_signer_disjoint",
+    "source": "approved PopSign v1 train/validation/test clips pooled by label and deterministically repartitioned at clip level, optionally augmented with WLASL academic selected raw clips for overlapping labels",
+    "train_fraction": 0.6,
+    "validation_fraction": 0.2,
+    "test_fraction": 0.2,
+    "limitation": "This is a controlled-pilot fallback split. It does not prove signer-disjoint generalization."
+  },
+  "signer_overlap": [
+    {
+      "splits": [
+        "train",
+        "validation"
+      ],
+      "overlap_count": 46,
+      "sample_signer_identity_hashes": [
+        "011bf948349592747506599333e34ba11de2a969b51e99890dbf5f552ac4d209",
+        "028c32e46a320bf6aefbcc698ec2c68f32168c32b01e359db9225d3f9e50522d",
+        "0a4c034271536723f6b9253752108a6bba85a26dea7185e2c8c25eea2493b920",
+        "23afa7fd27999c7f8d65e30542bf66098e7ed7351c3d6a92b6e856ea00fa490e",
+        "25e2a7cb4ea13002c98f7f91d8e3a6c6acf9669b59115ea3e2efd29c199af481",
+        "27276bcbef84091a71d51eefa64efd320cd1ee6ec759d6e3c5351b4c59781553",
+        "30132f3fd3bc05eda5a491afa1802072649326f4a39e6a24ba7f2351b841f4a5",
+        "3660c753560b193daec1e61e3060fb0d2cab427ab3b6760f545fbc9f682c896b",
+        "391ee50587a25f5d3240faa6a3f4f6ad3368b5ce0541b7a3f4242de1d3afa343",
+        "3a995a2cdfb711ce172cb951cf94fcfffc7647c81733570068d3352f8c4abf9b"
+      ]
+    },
+    {
+      "splits": [
+        "train",
+        "test"
+      ],
+      "overlap_count": 47,
+      "sample_signer_identity_hashes": [
+        "011bf948349592747506599333e34ba11de2a969b51e99890dbf5f552ac4d209",
+        "028c32e46a320bf6aefbcc698ec2c68f32168c32b01e359db9225d3f9e50522d",
+        "0a4c034271536723f6b9253752108a6bba85a26dea7185e2c8c25eea2493b920",
+        "23afa7fd27999c7f8d65e30542bf66098e7ed7351c3d6a92b6e856ea00fa490e",
+        "25e2a7cb4ea13002c98f7f91d8e3a6c6acf9669b59115ea3e2efd29c199af481",
+        "27276bcbef84091a71d51eefa64efd320cd1ee6ec759d6e3c5351b4c59781553",
+        "30132f3fd3bc05eda5a491afa1802072649326f4a39e6a24ba7f2351b841f4a5",
+        "3660c753560b193daec1e61e3060fb0d2cab427ab3b6760f545fbc9f682c896b",
+        "391ee50587a25f5d3240faa6a3f4f6ad3368b5ce0541b7a3f4242de1d3afa343",
+        "3a995a2cdfb711ce172cb951cf94fcfffc7647c81733570068d3352f8c4abf9b"
+      ]
+    },
+    {
+      "splits": [
+        "validation",
+        "test"
+      ],
+      "overlap_count": 46,
+      "sample_signer_identity_hashes": [
+        "011bf948349592747506599333e34ba11de2a969b51e99890dbf5f552ac4d209",
+        "028c32e46a320bf6aefbcc698ec2c68f32168c32b01e359db9225d3f9e50522d",
+        "0a4c034271536723f6b9253752108a6bba85a26dea7185e2c8c25eea2493b920",
+        "23afa7fd27999c7f8d65e30542bf66098e7ed7351c3d6a92b6e856ea00fa490e",
+        "25e2a7cb4ea13002c98f7f91d8e3a6c6acf9669b59115ea3e2efd29c199af481",
+        "27276bcbef84091a71d51eefa64efd320cd1ee6ec759d6e3c5351b4c59781553",
+        "30132f3fd3bc05eda5a491afa1802072649326f4a39e6a24ba7f2351b841f4a5",
+        "3660c753560b193daec1e61e3060fb0d2cab427ab3b6760f545fbc9f682c896b",
+        "391ee50587a25f5d3240faa6a3f4f6ad3368b5ce0541b7a3f4242de1d3afa343",
+        "3a995a2cdfb711ce172cb951cf94fcfffc7647c81733570068d3352f8c4abf9b"
+      ]
+    }
+  ],
+  "training_path": {
+    "command": [
+      "python3",
+      "scripts/train_rawframe_model.py",
+      "--controlled-clip-heldout",
+      "--check-files",
+      "--train-manifest",
+      "data/manifests/controlled-pilot-clip-heldout/train.json",
+      "--validation-manifest",
+      "data/manifests/controlled-pilot-clip-heldout/validation.json",
+      "--test-manifest",
+      "data/manifests/controlled-pilot-clip-heldout/test.json",
+      "--output-dir",
+      "artifacts/rawframe-model-clip-heldout",
+      "--architecture",
+      "factorized_3d_cnn_spatiotemporal"
+    ],
+    "evidence_mode": "controlled_clip_heldout",
+    "limitation": "Candidate can support the controlled pilot only if trained/evaluated metrics pass and docs state the split is not signer-disjoint."
+  }
+}

@@ -1,0 +1,266 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3ic-detector0-combined-packet-training-contract-no-brev/v1",
+  "mission": "M3IC - Detector 0 combined packet training contract no Brev",
+  "role": "Codex executor",
+  "created_at": "2026-05-30T02:39:11Z",
+  "status": "completed_contract_written_not_training_ready",
+  "head_at_start": "ef9adb7 mission-3ib: ingest reviewed detector0 overlays",
+  "active_prompt": "docs/model/return-to-form-m3ic-detector0-combined-packet-training-contract-no-brev-goal-loop-prompt.md",
+  "slice": "local/no-remote/no-Brev/no-paid-compute/no-training Detector 0 combined-packet training contract",
+  "files_changed": [
+    "docs/model/return-to-form-detector0-combined-packet-training-contract-v1.json",
+    "docs/validation/return-to-form-m3ic-detector0-combined-packet-training-contract-no-brev-v1.json",
+    "docs/session-logs/780-mission-3ic-detector0-combined-packet-training-contract-no-brev.md"
+  ],
+  "contract": {
+    "path": "docs/model/return-to-form-detector0-combined-packet-training-contract-v1.json",
+    "sha256": "a4c21f0a4ccbf60ce4304d42f4ccee5d48a5a8140f2078afd43cc4770fa9fdfd",
+    "included_future_training_evaluation_rows": 49,
+    "excluded_blocker_rows": 1,
+    "status": "contract_written_not_training_ready",
+    "ready_for_combined_packet_materialization": true,
+    "ready_for_training": false,
+    "ready_for_evaluation": false,
+    "ready_for_browser_promotion": false
+  },
+  "source_artifacts": {
+    "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json": {
+      "sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d",
+      "included_row_count": 32
+    },
+    "data/annotations/detector0/return-to-form-targeted-annotation-workbench-ingestion-v1.json": {
+      "sha256": "91d9f32cdaef7c58f123f487cc8749769fc30f702f2be65a11142ab8d6120d02",
+      "included_row_count": 17,
+      "blocked_row_count": 1
+    },
+    "docs/validation/return-to-form-m3ib-detector0-reviewed-manual-overlay-ingestion-no-brev-v1.json": {
+      "sha256": "ac994b94f6f33023bec684f4af317134911315cdc8f4fb537dedf8fce84a763c"
+    },
+    "docs/model/return-to-form-detector0-fixed-baseline-gate-contract-v1.json": {
+      "sha256": "92f4650a50b562b3055bb455fe9b5ae30ad639fe843b5efd834cd24925142423"
+    }
+  },
+  "combined_counts": {
+    "by_artifact": {
+      "tier0_v0": 32,
+      "supplemental_m3ib": 17
+    },
+    "by_split": {
+      "train": 17,
+      "validation": 16,
+      "test": 16
+    },
+    "by_label": {
+      "dad": 3,
+      "grandpa": 3,
+      "hat": 3,
+      "please": 3,
+      "table": 37
+    },
+    "by_source": {
+      "popsign-v1-original-videos": 49
+    },
+    "learned_hand_target_payloads": {
+      "left_or_first_hand_present": 49,
+      "right_or_second_hand_present": 37,
+      "right_or_second_hand_absent": 12
+    },
+    "fixed_anchor_payloads": {
+      "head_or_face_present": 32,
+      "head_or_face_missing_from_supplemental_rows": 17,
+      "upper_body_or_signing_space_present": 32,
+      "upper_body_or_signing_space_missing_from_supplemental_rows": 17
+    },
+    "diagnostic_only_payloads": {
+      "table_two_hand_union_or_contact_region_present": 37,
+      "table_two_hand_union_or_contact_region_absent": 12
+    }
+  },
+  "blocked_row_preserved": {
+    "row_id": "det0-exp1-validation-table-000376-f004",
+    "review_status": "blocked_insufficient_visual_evidence",
+    "reason": "insufficient_visual_evidence",
+    "future_use_policy": "excluded from training/evaluation target labels until later reviewed visual-evidence repair"
+  },
+  "target_policy": {
+    "learned_targets": [
+      "left_or_first_hand",
+      "right_or_second_hand"
+    ],
+    "fixed_anchor_targets": [
+      "head_or_face",
+      "upper_body_or_signing_space"
+    ],
+    "diagnostic_only_targets": [
+      "table_two_hand_union_or_contact_region"
+    ],
+    "fixed_baseline_beat_it_gate": {
+      "left_or_first_hand_iou_must_exceed": 0.4073,
+      "right_or_second_hand_iou_must_exceed": 0.6476
+    }
+  },
+  "remaining_promotion_gaps": [
+    "hard_negative_no_hand_rows",
+    "empty_camera_rows",
+    "low_light_rows",
+    "temporal_jitter_metrics",
+    "recall_at_iou_0_30",
+    "recall_at_iou_0_50",
+    "false_no_hand_rate",
+    "false_trigger_rate",
+    "browser_latency"
+  ],
+  "claim_surface_proof": {
+    "claim_surfaces_mutated": false,
+    "web/public/model/detector0-card.json": {
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null
+    },
+    "web/public/model/browser-model-bundle.json": {
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9",
+      "recognition_enabled": false,
+      "detector0_tracking_enabled": false,
+      "box_driven_avatar_enabled": false
+    },
+    "web/public/model/model-card.json": {
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "status": "not_trained"
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "activeLabels": []
+    }
+  },
+  "brev_default_off_inventory": {
+    "command": "brev ls --json",
+    "status": "passed",
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ]
+  },
+  "pair_state_note": {
+    "command": "node scripts/audit_codex_pair_state.mjs --json",
+    "status": "warning",
+    "warning": "recorded executor session is older than HEAD; verify whether the latest commit came from the intended executor thread",
+    "processes": {
+      "executor": [],
+      "observer": [],
+      "supervisor": [
+        "bash scripts/run_codex_pair_cycle.sh --once"
+      ]
+    }
+  },
+  "commands_run": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed"
+    },
+    {
+      "command": "git log -14 --oneline --decorate",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_detector0_manifest_contract.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node --test scripts/ingest_detector0_reviewed_manual_overlays.test.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/ingest_detector0_reviewed_manual_overlays.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-targeted-annotation-workbench-ingestion-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3ib-detector0-reviewed-manual-overlay-ingestion-no-brev-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/return-to-form-detector0-combined-packet-training-contract-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3ic-detector0-combined-packet-training-contract-no-brev-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "brev ls --json",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "commands_intentionally_not_run": [
+    "Detector 0 training",
+    "recognizer training",
+    "Brev start/stop/sync/exec/copy",
+    "remote commands",
+    "source/media import",
+    "tensor mutation",
+    "model-card promotion",
+    "browser activation",
+    "final-gate change",
+    "claim expansion"
+  ],
+  "forbidden_action_proof": {
+    "no_brev_lifecycle": true,
+    "no_remote_commands": true,
+    "no_training": true,
+    "no_source_or_media_import": true,
+    "no_tensor_mutation": true,
+    "no_export_or_promotion": true,
+    "no_browser_activation": true,
+    "no_final_gate_change": true,
+    "no_claim_expansion": true
+  },
+  "readiness_classification": {
+    "m3ic_acceptance_satisfied": true,
+    "detector0_training_ready": false,
+    "browser_promotion_ready": false,
+    "claim_expansion_ready": false,
+    "reason": "The contract states combined row inclusion, blocker exclusion, split/source identity preservation, target policy, fixed-baseline beat-it thresholds, and fail-closed claim proof; it does not provide hard-negative/no-hand rows, evaluation metrics, browser latency, or baseline-beating held-out hand IoU."
+  },
+  "exactly_one_next_action": "continue_m3id_detector0_combined_packet_materialization_no_brev"
+}

@@ -1,0 +1,190 @@
+{
+  "schema_version": "asl-pilot-lesson-page-smoke/v1",
+  "status": "passed",
+  "tested_at": "2026-05-29T13:57:07.403Z",
+  "app_url": "http://127.0.0.1:63990",
+  "browser": {
+    "automation": "playwright",
+    "browser_name": "chromium",
+    "fake_media": true
+  },
+  "checks": [
+    {
+      "id": "unauthenticated_lesson_gate",
+      "label": "Unauthenticated lesson route stays account-gated before camera controls",
+      "status": "passed",
+      "evidence": {
+        "sign_in_copy_visible": true,
+        "practice_workspace_link_visible": true,
+        "start_camera_button_count": 0,
+        "save_sample_button_count": 0
+      },
+      "blockers": []
+    },
+    {
+      "id": "practice_links_to_lesson",
+      "label": "Practice workspace links to the lesson studio",
+      "status": "passed",
+      "evidence": {
+        "lesson_link_visible": true
+      },
+      "blockers": []
+    },
+    {
+      "id": "authenticated_lesson_ui",
+      "label": "Authenticated lesson page shows Tier 0 prompt, inactive gates, camera controls, and avatar controls",
+      "status": "passed",
+      "evidence": {
+        "prompt_visible": true,
+        "model_inactive_visible": true,
+        "detector_inactive_visible": true,
+        "learn_only_visible": true,
+        "start_camera_visible": true,
+        "timing_scaffold_visible": true
+      },
+      "blockers": []
+    },
+    {
+      "id": "lesson_prompt_study_flow",
+      "label": "Lesson prompt study flow exposes Study, Preview, and Sample guidance without recognition claims",
+      "status": "passed",
+      "evidence": {
+        "study_flow_visible": true,
+        "study_button_visible": true,
+        "preview_button_visible": true,
+        "sample_button_visible": true,
+        "study_title_visible": true,
+        "study_copy_visible": true,
+        "preview_copy_visible": true,
+        "sample_copy_visible": true
+      },
+      "blockers": []
+    },
+    {
+      "id": "robot_three_canvas",
+      "label": "Robot viewport renders a nonblank Three.js canvas with stable avatar attributes",
+      "status": "passed",
+      "evidence": {
+        "canvas_present": true,
+        "width": 380,
+        "height": 475,
+        "non_blank_pixels": 825
+      },
+      "blockers": []
+    },
+    {
+      "id": "fail_closed_claims_absent",
+      "label": "Not-trained lesson page does not render unsupported tracking or recognition claims",
+      "status": "passed",
+      "evidence": {
+        "banned_claim_patterns_seen": []
+      },
+      "blockers": []
+    },
+    {
+      "id": "camera_local_sample",
+      "label": "Lesson camera saves only fail-closed metadata and no raw media payload",
+      "status": "passed",
+      "evidence": {
+        "payload_present": true,
+        "payload_keys": [
+          "confidence",
+          "durationMs",
+          "frameCount",
+          "hint",
+          "modelId",
+          "modelStatus",
+          "passed",
+          "predictedId",
+          "reason",
+          "vocabularyId"
+        ],
+        "raw_payload_keys": [],
+        "passed": false,
+        "model_status": "not_trained",
+        "confidence": 0,
+        "frame_count": 16
+      },
+      "blockers": []
+    },
+    {
+      "id": "avatar_demo_mode",
+      "label": "Robot exposes timing scaffold mode without detector tracking",
+      "status": "passed",
+      "evidence": {
+        "data_avatar_mode": "demo"
+      },
+      "blockers": []
+    }
+  ],
+  "source_files": [
+    {
+      "path": "web/src/app/lesson/page.tsx",
+      "sha256": "00913971f559bc6fcf9ca107af0fe7dcb1468489842438e8922530c354d1c8bf"
+    },
+    {
+      "path": "web/src/components/CameraViewport.tsx",
+      "sha256": "25804d6d3da47eaf0b4666e4fbf68e821d8e96c74e968044d30dcdb846e82327"
+    },
+    {
+      "path": "web/src/components/LessonApp.tsx",
+      "sha256": "17005c69d0fe2b9518ba0ffaa9106ec093309f8a5bcc87160886960f5c87e41f"
+    },
+    {
+      "path": "web/src/components/RobotMannequin3D.tsx",
+      "sha256": "be56010bdd0cf0ba3d7d02ba8b7050b8ac8b437aa46067a7bd329fc1de592587"
+    },
+    {
+      "path": "web/src/lib/avatar-motion.ts",
+      "sha256": "52a6acd63103d84487c3d30ff849ae65199c0b472c74fd0737076c0ddd73be07"
+    },
+    {
+      "path": "web/src/lib/detector0-types.ts",
+      "sha256": "f0ccbe9061cbf591e0fb79cbfd8933716d79fb202de7abd6d8c9e59dd83d518a"
+    },
+    {
+      "path": "web/src/lib/detector0-engine.ts",
+      "sha256": "a1f4e7a3a52657c5ed9933fb465427c0441c5321e68b338c6f8b1c0fc65d67e0"
+    },
+    {
+      "path": "web/src/lib/model-bundle.ts",
+      "sha256": "68e0035fbb81ddd53a4970f54091057dd5b0144441604f8464906e6f5cc34bee"
+    },
+    {
+      "path": "web/src/lib/use-camera-capture.ts",
+      "sha256": "5e04cbab9b410493c261ceb099f3db2ca74f1c05b3ed0662e8bb138fd87f2c19"
+    },
+    {
+      "path": "web/public/model/detector0-card.json",
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929"
+    },
+    {
+      "path": "web/public/model/browser-model-bundle.json",
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9"
+    }
+  ],
+  "blockers": [],
+  "server": {
+    "mode": "next_start",
+    "build_id_sha256": "7d182bfe72c86b581618f084d842c96f69c376c59a430d0d9fe095d7c5c36ac3",
+    "command": "ASL_PILOT_AUTH_PROVIDER=local ASL_PILOT_STORE_PATH=/var/folders/hm/6gd6d81d5wbfmk6j51dx894c0000gn/T/asl-pilot-lesson-smoke-N5IM2P/store.json ENABLE_DATASET_COLLECTION=false NEXT_PUBLIC_ENABLE_DATASET_COLLECTION=false npm --prefix web run start -- --hostname 127.0.0.1 --port 63990",
+    "isolated_store": {
+      "env_var": "ASL_PILOT_STORE_PATH",
+      "path": "/var/folders/hm/6gd6d81d5wbfmk6j51dx894c0000gn/T/asl-pilot-lesson-smoke-N5IM2P/store.json",
+      "existed_after_smoke": true,
+      "removed_after_run": true
+    },
+    "stdout_tail": [
+      "> web@0.1.0 start",
+      "> next start --hostname 127.0.0.1 --port 63990",
+      "",
+      "▲ Next.js 16.2.6",
+      "- Local:         http://127.0.0.1:63990",
+      "- Network:       http://127.0.0.1:63990",
+      "✓ Ready in 78ms"
+    ],
+    "stderr_tail": [
+      ""
+    ]
+  }
+}

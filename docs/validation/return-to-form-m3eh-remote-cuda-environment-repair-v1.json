@@ -1,0 +1,397 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3eh-remote-cuda-environment-repair/v1",
+  "mission": "M3EH-R - Remote CUDA environment repair",
+  "status": "action_selected",
+  "checked_at": "2026-05-28T16:08:07Z",
+  "active_prompt": "docs/model/return-to-form-m3eh-remote-cuda-environment-repair-no-training-goal-loop-prompt.md",
+  "outcome": {
+    "classification": "remote_cuda_repaired_and_dry_runs_passed",
+    "reason": "The existing stopped L40S worker was restarted, synced, repaired with a CUDA 12.6 PyTorch wheel compatible with the observed 565.57.01 driver, proved CUDA from the repo venv, ran both required remote dry-runs, and was stopped again.",
+    "next_action": "continue_m3ei_popsign_fresh5_bounded_brev_fit"
+  },
+  "next_action": {
+    "id": "continue_m3ei_popsign_fresh5_bounded_brev_fit",
+    "reason": "M3EI is bounded to one PopSign Fresh5 source-approved scratch fit after CUDA, repo/data sync, and remote dry-run contracts are proven. It tests whether the repaired CUDA environment and small Fresh5 scratch architecture can produce useful training/evaluation evidence, not product readiness, broad-label training, source expansion, export, or promotion.",
+    "preauthored_prompt": {
+      "path": "docs/model/return-to-form-m3ei-popsign-fresh5-bounded-brev-fit-goal-loop-prompt.md",
+      "sha256": "97738b00a7e883896ab05ec9f3fe997463478e91b264eb524ea581977ae2be5c"
+    }
+  },
+  "source_artifacts": {
+    "goal": {
+      "path": "GOAL.md",
+      "sha256": "36185b53100ee156822a775c2a91459d66f89c76ac31aafa56d3b5ca21d4640a"
+    },
+    "active_prompt": {
+      "path": "docs/model/return-to-form-m3eh-remote-cuda-environment-repair-no-training-goal-loop-prompt.md",
+      "sha256": "19bf7fc4a80b46f02cf90201c03e577825782f545e72f237b36145fa99810b4b"
+    },
+    "return_to_form_plan": {
+      "path": "docs/model/return-to-form-plan.md",
+      "sha256": "cf22181c406ff0e97703de074f6f69f6c14409f49d2d6d29e8a13a89a62c1062"
+    },
+    "requirements": {
+      "path": "requirements.txt",
+      "sha256": "f01e6fc468f195ddd8f5c1d7331cc5ca1dd6861b5aa892aef2360bb001d4cb4a"
+    },
+    "brev_sync_script": {
+      "path": "scripts/brev_sync_repo.sh",
+      "sha256": "f296fb9bce618c335993ef64a110c39ea84fabfc7f2159daad8690124006aa4f"
+    },
+    "train_script": {
+      "path": "scripts/train_rawframe_model.py",
+      "sha256": "bf8f23d5c80fcc456632eeaf5fa8e748cfe6fd1cafc6250200fca5e5f0067d7d"
+    },
+    "evaluate_script": {
+      "path": "scripts/evaluate_rawframe_model.py",
+      "sha256": "dfd23c55e09a360f15acb4d432c816508e1ebf536339892c0dded28d20ffbf5c"
+    },
+    "m3eh_preflight_receipt": {
+      "path": "docs/validation/return-to-form-m3eh-bounded-brev-relaunch-preflight-v1.json",
+      "sha256": "a1810549f5822c7ff956f4ed40e86df5caed0ab1d50c254867cdf12d4da027ab"
+    }
+  },
+  "local_validation": {
+    "git_head_before_slice": "9eea7a5 skills: harden gpt pro web text entry",
+    "branch_status": "## compound-plan-m0...origin/compound-plan-m0 [ahead 167]",
+    "audits": [
+      {
+        "command": "node scripts/audit_loop_premise.mjs --json",
+        "status": "passed",
+        "checked_at": "2026-05-28T15:59:25.103Z"
+      },
+      {
+        "command": "node scripts/audit_return_to_form_plan.mjs --json",
+        "status": "passed",
+        "checked_at": "2026-05-28T15:59:25.106Z"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_deps.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_source_register.mjs",
+        "status": "passed",
+        "source_count": 12
+      },
+      {
+        "command": "python3 -m json.tool docs/validation/return-to-form-m3eh-bounded-brev-relaunch-preflight-v1.json >/dev/null",
+        "status": "passed"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+        "status": "passed"
+      }
+    ]
+  },
+  "brev": {
+    "approval_state": "authorized_for_remote_cuda_environment_repair_no_training",
+    "workspace_name": "asl-pilot-m3eh-l40s-001",
+    "workspace_id": "3d58wpy9o",
+    "expected_type": "l40s-48gb.1x",
+    "expected_provider": "crusoe",
+    "max_wall_time_after_start_minutes": 45,
+    "max_spend_usd": 8,
+    "timed_training_commands_allowed": 0,
+    "new_workers_allowed": 0,
+    "initial_state": {
+      "command": "brev ls --json",
+      "state": {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    },
+    "lifecycle_events": [
+      {
+        "event": "start",
+        "command": "brev start asl-pilot-m3eh-l40s-001",
+        "status": "succeeded",
+        "output_summary": "Brev reported that the existing instance was ready."
+      },
+      {
+        "event": "immediate_post_start_state",
+        "command": "brev ls --json",
+        "status": "observed",
+        "state": {
+          "name": "asl-pilot-m3eh-l40s-001",
+          "id": "3d58wpy9o",
+          "status": "UNHEALTHY",
+          "build_status": "COMPLETED",
+          "shell_status": "READY",
+          "health_status": "UNHEALTHY",
+          "instance_type": "l40s-48gb.1x",
+          "instance_kind": "gpu",
+          "gpu": "L40S"
+        }
+      },
+      {
+        "event": "post_start_settled_state",
+        "command": "sleep 30 && brev ls --json",
+        "status": "observed_running_healthy",
+        "state": {
+          "name": "asl-pilot-m3eh-l40s-001",
+          "id": "3d58wpy9o",
+          "status": "RUNNING",
+          "build_status": "COMPLETED",
+          "shell_status": "READY",
+          "health_status": "HEALTHY",
+          "instance_type": "l40s-48gb.1x",
+          "instance_kind": "gpu",
+          "gpu": "L40S"
+        }
+      },
+      {
+        "event": "stop",
+        "command": "brev stop asl-pilot-m3eh-l40s-001",
+        "status": "succeeded",
+        "output_summary": "Command returned the workspace name."
+      },
+      {
+        "event": "immediate_post_stop_state",
+        "command": "brev ls --json",
+        "status": "observed_running_during_stop_propagation",
+        "state": {
+          "name": "asl-pilot-m3eh-l40s-001",
+          "id": "3d58wpy9o",
+          "status": "RUNNING",
+          "build_status": "COMPLETED",
+          "shell_status": "READY",
+          "health_status": "HEALTHY",
+          "instance_type": "l40s-48gb.1x",
+          "instance_kind": "gpu",
+          "gpu": "L40S"
+        }
+      },
+      {
+        "event": "final_post_stop_state",
+        "command": "sleep 30 && brev ls --json",
+        "status": "observed_stopped",
+        "state": {
+          "name": "asl-pilot-m3eh-l40s-001",
+          "id": "3d58wpy9o",
+          "status": "STOPPED",
+          "build_status": "COMPLETED",
+          "shell_status": "NOT READY",
+          "health_status": "HEALTHY",
+          "instance_type": "l40s-48gb.1x",
+          "instance_kind": "gpu",
+          "gpu": "L40S"
+        }
+      }
+    ],
+    "sync": {
+      "first_attempt": {
+        "command": "bash scripts/brev_sync_repo.sh asl-pilot-m3eh-l40s-001",
+        "status": "failed_transient_ssh_timeout",
+        "error": "ssh: connect to host 204.52.27.130 port 22: Operation timed out"
+      },
+      "readiness_probe": {
+        "command": "brev exec asl-pilot-m3eh-l40s-001 \"printf 'm3eh-r-exec-ready\\n'\"",
+        "status": "passed",
+        "output": "m3eh-r-exec-ready"
+      },
+      "second_attempt": {
+        "command": "bash scripts/brev_sync_repo.sh asl-pilot-m3eh-l40s-001",
+        "status": "passed",
+        "remote_path": "/home/ubuntu/asl-pilot",
+        "repo_tree": {
+          "files_transferred": 2029,
+          "bytes_sent": 207401,
+          "total_size": 49305547,
+          "speedup": 225.91
+        },
+        "data_allowlist_summaries": {
+          "data/annotations": {
+            "files": 3,
+            "bytes_sent": 196,
+            "total_size": 122950
+          },
+          "data/active-module": {
+            "files": 3,
+            "bytes_sent": 203,
+            "total_size": 28110
+          },
+          "data/manifests": {
+            "files": 216,
+            "bytes_sent": 17993,
+            "total_size": 260932061
+          },
+          "data/tensors": {
+            "files": 22489,
+            "bytes_sent": 2017553,
+            "total_size": 11904856434
+          },
+          "data/external/popsign-v1/raw": {
+            "files": 7410,
+            "bytes_sent": 739014,
+            "total_size": 36474006315
+          },
+          "data/external/asl-citizen/raw": {
+            "files": 1336,
+            "bytes_sent": 100519,
+            "total_size": 558914511
+          },
+          "data/external/cira-asl-citizen-negative-challenge/raw": {
+            "files": 16,
+            "bytes_sent": 1399,
+            "total_size": 105174195
+          },
+          "data/external/wikimedia-commons-negative-challenge/raw": {
+            "files": 40,
+            "bytes_sent": 3991,
+            "total_size": 453909579
+          }
+        }
+      }
+    },
+    "cuda_repair": {
+      "command": "brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && .venv/bin/python -m pip install --force-reinstall --no-cache-dir --index-url https://download.pytorch.org/whl/cu126 'torch==2.12.0+cu126' && .venv/bin/python -m pip install --force-reinstall --no-cache-dir onnx==1.21.0 onnxscript==0.7.0\"",
+      "status": "passed",
+      "repo_dependency_files_mutated": false,
+      "installed_torch": "2.12.0+cu126",
+      "onnx_packages_restored": [
+        "onnx==1.21.0",
+        "onnxscript==0.7.0"
+      ]
+    },
+    "cuda_proof": {
+      "prompt_command": {
+        "status": "passed",
+        "result": {
+          "cuda_available": true,
+          "device_count": 1,
+          "device_name": "NVIDIA L40S",
+          "torch": "2.12.0+cu126"
+        }
+      },
+      "driver_build_command": {
+        "status": "passed",
+        "result": {
+          "cuda_available": true,
+          "device_count": 1,
+          "device_name": "NVIDIA L40S",
+          "nvidia_smi": "NVIDIA L40S, 565.57.01, 46068 MiB",
+          "torch": "2.12.0+cu126",
+          "torch_cuda": "12.6"
+        }
+      }
+    },
+    "remote_dry_runs": [
+      {
+        "id": "popsign_fresh5_motion_region_token_temporal",
+        "command_summary": "scripts/train_rawframe_model.py with return-to-form-popsign-fresh5-repaired-v1 manifests, scratch_motion_region_token_temporal_contract_v1, --dry-run, --popsign-fresh5-training-smoke",
+        "status": "passed",
+        "training_status": "dry_run_only",
+        "output_dir": "output/m3eh-popsign-fresh5-motion-region-token-temporal-brev-fit",
+        "model_id": "m3eh-popsign-fresh5-motion-region-token-brev-preflight",
+        "clip_counts": {
+          "train": 125,
+          "validation": 125,
+          "test": 125
+        },
+        "labels": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "pretrained_components": []
+      },
+      {
+        "id": "high_signal_region_grid_tcn",
+        "command_summary": "scripts/train_rawframe_model.py with lesson/high-signal-region-grid manifests, true_temporal_convnet_region_grid, --dry-run, --region-grid-tcn-training-smoke, --require-input-contract rgb_regions_grid_v1",
+        "status": "passed",
+        "training_status": "dry_run_only",
+        "output_dir": "output/m3eh-high-signal-region-grid-tcn-brev",
+        "model_id": "m3eh-high-signal-region-grid-tcn-brev-preflight",
+        "clip_counts": {
+          "train": 84,
+          "validation": 27,
+          "test": 28
+        },
+        "input_contract_report": {
+          "status": "passed",
+          "required_contract": "rgb_regions_grid_v1",
+          "total_clip_count": 139,
+          "total_observed_counts": {
+            "rgb_regions_grid_v1": 139
+          },
+          "examples": [
+            {
+              "consumed_key": "rgb_regions",
+              "derived_input_name": "rgb_regions_grid_v1",
+              "fallback_to_rgb_frames": false,
+              "consumed_shape": [
+                16,
+                192,
+                288,
+                3
+              ]
+            }
+          ]
+        },
+        "labels": [
+          "table",
+          "please",
+          "black",
+          "hello",
+          "uncle",
+          "white",
+          "sad"
+        ],
+        "pretrained_components": []
+      }
+    ]
+  },
+  "commands_intentionally_not_run": [
+    "No timed training or fitting command was run.",
+    "No checkpoint/model artifact generation, evaluation, ONNX export, model-card promotion, browser activation, product runtime change, or final-readiness check was run.",
+    "No repo dependency file was mutated to persist the remote CUDA compatibility repair.",
+    "No broad 75/80/95/100-label run was run.",
+    "No source import, media download, source-register mutation, manifest mutation, tracked tensor mutation, vocabulary mutation, packet-row mutation, SemLex media use, generated-label path, or raw learner video upload was run.",
+    "No duplicate worker was created; no worker delete or reset command was run.",
+    "No push, amend, or no-verify commit command was run."
+  ],
+  "negative_authorizations": {
+    "timed_training_or_fitting": false,
+    "checkpoint_or_model_artifact": false,
+    "evaluation": false,
+    "onnx_export": false,
+    "model_card_promotion": false,
+    "browser_activation": false,
+    "product_runtime_change": false,
+    "final_readiness_claim": false,
+    "asl_correctness_claim": false,
+    "raw_learner_video_upload": false,
+    "new_worker": false,
+    "worker_delete_or_reset": false,
+    "source_import_or_media_download": false,
+    "source_register_manifest_tensor_vocab_packet_mutation": false,
+    "generated_pseudo_labels": false,
+    "pretrained_detector_landmark_backbone_embedding_feature_extractor_teacher_logits": false
+  },
+  "boundary_evidence": {
+    "pretrained_components": [],
+    "no_pretrained_audit_status": "passed",
+    "source_register_audit_status": "passed",
+    "artifact_copyback": "none",
+    "remote_dry_runs_only": true,
+    "worker_final_state": "STOPPED"
+  },
+  "changed_files": [
+    "docs/validation/return-to-form-m3eh-remote-cuda-environment-repair-v1.json",
+    "docs/session-logs/515-mission-3eh-r-remote-cuda-environment-repair.md"
+  ]
+}

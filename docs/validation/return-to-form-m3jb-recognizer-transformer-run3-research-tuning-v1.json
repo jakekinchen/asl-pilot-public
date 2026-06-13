@@ -1,0 +1,293 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-run3-research-tuning/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_run3_research_guided_tuning_no_brev",
+  "recorded_at_utc": "2026-06-03T21:12:53Z",
+  "head_before_slice": "d984cd5 record(m3jb): capture recognizer run3 scheduler fulltrain",
+  "status": "completed_research_tuning_no_brev_no_training",
+  "inputs": {
+    "run3_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run3-scheduler-brev-v1.json",
+    "run3_copied_receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run3-scheduler-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.json",
+    "prior_run2_research_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run2-research-tuning-v1.json",
+    "prior_run2_research_response": "artifacts/research/m3jb-recognizer-transformer-run2-tuning-920/response.md",
+    "trainer_source": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_recognizer_distill.py",
+    "transformer_source": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/seq_transformer.py"
+  },
+  "run3_summary": {
+    "student_arch": "transformer",
+    "full_data_no_limit_flags": true,
+    "epochs": 240,
+    "batch": 128,
+    "lr": 0.0005,
+    "lr_scheduler": "cosine",
+    "warmup_steps": 500,
+    "min_lr": 0.00005,
+    "d_model": 256,
+    "n_layers": 6,
+    "n_heads": 8,
+    "dropout": 0.0,
+    "alpha": 0.55,
+    "temperature": 3.0,
+    "jitter_std": 0.02,
+    "frame_drop": 0.1,
+    "train_clips": 7011,
+    "monitor_clips": 955,
+    "test_clips": 2369,
+    "classes": 95,
+    "sequence_length": 20,
+    "feature_dim": 90,
+    "teacher_covered_train": 2668,
+    "teacher_covered_total": 4560,
+    "optimizer_steps": 13200,
+    "expected_optimizer_steps": 13200,
+    "steps_per_epoch": 55,
+    "test_top1": 0.2984,
+    "test_top5": 0.6036,
+    "verification_recall_at_far10": 0.7316,
+    "monitor_best_top1": 0.378,
+    "monitor_best_top1_epoch": 184,
+    "monitor_best_top5": 0.6628,
+    "monitor_best_top5_epoch": 170,
+    "final_loss": 0.0754,
+    "decision": "improved_vs_run2_and_gru_recall_baseline_but_rejected_fail_closed_below_primary_gate"
+  },
+  "run3_learning_curve_summary": {
+    "history_epochs": 240,
+    "epoch_0": {
+      "loss": 8.5728,
+      "monitor_top1": 0.0147,
+      "monitor_top5": 0.0785,
+      "lr_first": 0.000001,
+      "lr_last": 0.000055
+    },
+    "epoch_16": {
+      "loss": 2.8981,
+      "monitor_top1": 0.2974,
+      "monitor_top5": 0.6188
+    },
+    "epoch_104": {
+      "loss": 0.2226,
+      "monitor_top1": 0.3435,
+      "monitor_top5": 0.622
+    },
+    "epoch_183": {
+      "loss": 0.0945,
+      "monitor_top1": 0.3623,
+      "monitor_top5": 0.6482
+    },
+    "epoch_239": {
+      "loss": 0.0754,
+      "monitor_top1": 0.3654,
+      "monitor_top5": 0.6503,
+      "lr_first": 0.0000500201,
+      "lr_last": 0.00005
+    },
+    "last10_monitor_top1": [
+      0.3602,
+      0.3644,
+      0.3623,
+      0.3623,
+      0.3749,
+      0.356,
+      0.3592,
+      0.3675,
+      0.355,
+      0.3654
+    ]
+  },
+  "baseline_and_deltas": {
+    "gru_receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/recognizer-distill.json",
+    "gru_test_top1": 0.232,
+    "gru_test_top5": 0.567,
+    "gru_verification_recall_at_far10_approx": 0.7,
+    "run2_test_top1": 0.2609,
+    "run2_test_top5": 0.5635,
+    "run2_verification_recall_at_far10": 0.686,
+    "gate_verification_recall_at_far10": 0.85,
+    "delta_vs_run2_verification_recall_at_far10": 0.0456,
+    "delta_vs_gru_verification_recall_at_far10_approx": 0.0316,
+    "gap_to_gate_verification_recall_at_far10": 0.1184
+  },
+  "trainer_surface": {
+    "source_inspected": true,
+    "existing_flags": [
+      "--student-arch",
+      "--epochs",
+      "--batch",
+      "--lr",
+      "--lr-scheduler",
+      "--warmup-steps",
+      "--min-lr",
+      "--student-hidden",
+      "--d-model",
+      "--n-layers",
+      "--n-heads",
+      "--dropout",
+      "--alpha",
+      "--temperature",
+      "--jitter-std",
+      "--frame-drop",
+      "--device",
+      "--seed",
+      "--limit-train",
+      "--limit-monitor",
+      "--limit-test",
+      "--limit-teacher-train",
+      "--limit-teacher-monitor",
+      "--eval-train",
+      "--diagnostics",
+      "--no-save",
+      "--no-save-model",
+      "--out"
+    ],
+    "existing_model_behavior": "SeqTransformer uses a learned CLS token, sinusoidal position encoding, src_key_padding_mask from lengths, and a normalized CLS head.",
+    "alpha_semantics_verified": "Teacher-covered examples use alpha * CE + (1 - alpha) * KD; uncovered examples use CE only.",
+    "missing_for_selected_next_slice": [
+      "seq-len or cache-root CLI support for T=32 student cache selection/generation",
+      "cache manifest/validator proving T=32 shape, class map, split counts, teacher coverage, and finite features",
+      "dry-run-forward or equivalent no-optimizer one-batch forward/loss check",
+      "receipt fields tying a future paid run4 command to the exact T=32 cache"
+    ]
+  },
+  "research_escalation": {
+    "required_by_goal": true,
+    "gpt_pro_web_attempt": {
+      "attempted": true,
+      "status": "blocked_no_session_owned_iab_backend",
+      "evidence": "Browser setup through browser-client listed an empty browser list; selecting iab failed with 'Browser is not available: iab'."
+    },
+    "fallback": {
+      "used": true,
+      "route": "openai-api-research",
+      "model_requested": "gpt-5.5",
+      "calls": [
+        {
+          "kind": "initial",
+          "response_id": "resp_094a4bec0c49b901006a209838a95c8190b589131d97c225bf",
+          "status": "completed",
+          "model_returned": "gpt-5.5-2026-04-23",
+          "total_tokens": 9860,
+          "reasoning_tokens": 4334,
+          "prompt_path": "artifacts/research/m3jb-recognizer-transformer-run3-tuning-923/prompt.md",
+          "request_path": "artifacts/research/m3jb-recognizer-transformer-run3-tuning-923/request.json",
+          "raw_response_path": "artifacts/research/m3jb-recognizer-transformer-run3-tuning-923/raw.json",
+          "response_path": "artifacts/research/m3jb-recognizer-transformer-run3-tuning-923/response.md"
+        }
+      ],
+      "artifacts_sha256": {
+        "prompt_md": "8c1d5ad44672d67acab88e27ad99f9835b17a81521f282f68c8d884d74eda5c3",
+        "request_json": "b40ef0f2e5fe1e9c10bc8373e53f6ec7ad825bb687dc38d6690870293ac91257",
+        "raw_json": "d972819cab0cb5493aaf37c0988c017d41bd15da5428f06de8cf9fa72bca3d2f",
+        "response_md": "a1fb410b16fcbfc5729ab74e43ffb04c0b4a9d5a5735989df39c07988931d34b"
+      }
+    },
+    "advisory_not_authority": true
+  },
+  "research_conclusion": {
+    "diagnosis": [
+      "The optimizer/update-density repair worked: run3 improved top-1, top-5, and verification recall versus run2.",
+      "Run3 now looks more representation/generalization-limited than optimization-limited because train loss fell to 0.0754 while monitor top-1 plateaued near 0.35-0.37.",
+      "The fixed T=20 student cache is the most suspicious small bottleneck after optimizer repair.",
+      "Distillation alpha/temperature, pooling, ranking losses, and model scaling remain plausible later levers but are larger or more confounded than a T=32 representation preflight."
+    ],
+    "selected_next_action": "m3jb_recognizer_transformer_t32_cache_loader_preflight_no_brev",
+    "recommendation": "Implement and locally validate T=32 cache/loader support before any paid run4; keep run3 hyperparameters unchanged for the future run4 except for the audited T=32 cache.",
+    "next_preflight_requirements": [
+      "Add or expose T=32 cache generation/selection with an auditable manifest.",
+      "Prove seq_len 32, feature_dim 90, classes 95, train 7011, monitor 955, test 2369, teacher-covered train 2668, teacher-covered total 4560, and class-map compatibility.",
+      "Validate loader batches shaped [B, 32, 90], labels in [0, 94], finite features/losses, and length/mask behavior.",
+      "Run a no-optimizer forward/loss dry run with the run3 Transformer shape and no checkpoint/browser/export writes.",
+      "Preserve the existing T=20 default path and fail-closed runtime boundary."
+    ],
+    "run4_recipe_if_preflight_passes": {
+      "student_arch": "transformer",
+      "device": "cuda",
+      "sequence_length": 32,
+      "full_data_no_limit_flags": true,
+      "epochs": 240,
+      "batch": 128,
+      "lr": 0.0005,
+      "lr_scheduler": "cosine",
+      "warmup_steps": 500,
+      "min_lr": 0.00005,
+      "d_model": 256,
+      "n_layers": 6,
+      "n_heads": 8,
+      "dropout": 0.0,
+      "alpha": 0.55,
+      "temperature": 3.0,
+      "jitter_std": 0.02,
+      "frame_drop": 0.1,
+      "seed": 1,
+      "expected_change_vs_run3": "Only the audited T=32 student cache/window changes; alpha, temperature, pooling, objective, capacity, batch, epochs, and scheduler stay fixed."
+    },
+    "paid_run4_kill_conditions": [
+      "Kill immediately on wrong split counts, wrong class count, wrong feature dimension, wrong teacher coverage, NaN/Inf features or losses, labels out of range, or changed CE/KD uncovered-example semantics.",
+      "Kill if CUDA OOM would require silently changing batch/model/seq_len; report instead.",
+      "Kill by epoch 20 if monitor_top1 < 0.15 or monitor_top5 < 0.35.",
+      "Kill by epoch 40 if best monitor_top1 < 0.25 or best monitor_top5 < 0.52.",
+      "Kill by epoch 100 if best monitor_top1 < 0.32 and best monitor_top5 < 0.61.",
+      "Kill by epoch 160 if best monitor_top1 < 0.36 and best monitor_top5 < 0.64.",
+      "At completion, run the fixed final test once; if verification recall@FAR10 < 0.85, mark fail-closed and do not promote browser/runtime artifacts."
+    ],
+    "do_not_do_next": [
+      "Do not launch Brev run4 before the T=32 cache/loader preflight passes.",
+      "Do not bundle T=32 with pooling, contrastive/ranking/focal losses, alpha/temperature tuning, label smoothing, class-balanced sampling, capacity increases, or longer epochs.",
+      "Do not move to T=40 before seeing whether T=32 helps.",
+      "Do not change final gates, add pretrained runtime dependencies, upload raw learner video, or promote browser/runtime artifacts."
+    ]
+  },
+  "brev_visibility": {
+    "checked_before_research": true,
+    "command": "brev ls --json",
+    "workspaces": {
+      "asl-pilot-m3jb-pairrank-l40s-001": {
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY"
+      },
+      "asl-pilot-m3eh-l40s-001": {
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY"
+      }
+    }
+  },
+  "boundaries": {
+    "brev_used": false,
+    "brev_lifecycle_or_exec": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "pushed_to_remote": false
+  },
+  "validation": [
+    "node scripts/audit_loop_premise.mjs --json",
+    "brev ls --json",
+    "Browser route attempted through browser-client; no iab backend available",
+    "test -f /Users/kelly/.codex/secrets/openai-api.env && grep -q '^OPENAI_API_KEY=sk-' /Users/kelly/.codex/secrets/openai-api.env",
+    "python3 -m json.tool artifacts/research/m3jb-recognizer-transformer-run3-tuning-923/request.json",
+    "python3 -m json.tool artifacts/research/m3jb-recognizer-transformer-run3-tuning-923/raw.json",
+    "python3 -m json.tool docs/validation/return-to-form-m3jb-recognizer-transformer-run3-research-tuning-v1.json",
+    "node --check scripts/audit_m3jb_hand_state_tracker.mjs",
+    "node scripts/audit_m3jb_hand_state_tracker.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs",
+    "node scripts/audit_source_register.mjs",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "node scripts/audit_no_raw_video_upload.mjs",
+    "git diff --check"
+  ],
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_t32_cache_loader_preflight_no_brev",
+    "description": "Implement and locally validate T=32 recognizer cache/loader support with no Brev/training/checkpoint output before any paid run4."
+  }
+}

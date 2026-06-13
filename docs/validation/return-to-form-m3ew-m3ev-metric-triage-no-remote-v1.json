@@ -1,0 +1,335 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3ew-m3ev-metric-triage-no-remote/v1",
+  "mission": "M3EW - M3EV metric triage no remote",
+  "status": "completed_metric_triage_no_remote",
+  "generated_at": "2026-05-28T19:53:31Z",
+  "generated_by": "Codex executor",
+  "active_prompt": "docs/model/return-to-form-m3ew-m3ev-metric-triage-no-remote-goal-loop-prompt.md",
+  "goal": "GOAL.md",
+  "m3ev_summary": {
+    "commit": "4bffeb8",
+    "receipt": "docs/validation/return-to-form-m3ev-bounded-brev-tcn-training-smoke-after-m3eu-command-fix-v1.json",
+    "session_log": "docs/session-logs/544-mission-3ev-bounded-brev-tcn-training-smoke-after-m3eu-command-fix.md",
+    "status": "completed_training_eval_copyback_weak_metrics",
+    "training_completed": true,
+    "evaluation_completed_failed_targets": true,
+    "copyback_completed": true,
+    "timed_training_commands_run": 1,
+    "timed_training_command_omitted_require_input_contract": true,
+    "final_brev_state": "STOPPED / COMPLETED / NOT READY / HEALTHY"
+  },
+  "local_checks": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "## compound-plan-m0...origin/compound-plan-m0 [ahead 197]"
+    },
+    {
+      "command": "git log -10 --oneline --decorate",
+      "status": "passed",
+      "summary": "HEAD 5c7567a observer: CONTINUE - m3ev metric triage handoff"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed",
+      "active_prompt": "docs/model/return-to-form-m3ew-m3ev-metric-triage-no-remote-goal-loop-prompt.md",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed",
+      "register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed",
+      "findings": []
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3ev-bounded-brev-tcn-training-smoke-after-m3eu-command-fix-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "bash -n scripts/brev_sync_repo.sh",
+      "status": "passed"
+    },
+    {
+      "command": "brev ls --json",
+      "status": "passed_read_only",
+      "worker": {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      },
+      "stop_action_needed": false
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "fail_closed_claim_surfaces": {
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "status": "not_trained",
+      "active_labels": []
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "activeLabels": []
+    },
+    "claim_status": "fail_closed_unchanged"
+  },
+  "copied_artifacts": {
+    "local_output_dir": "output/m3er-high-signal-region-grid-tcn-brev",
+    "available": true,
+    "ignored_by_git": true,
+    "files": {
+      "model_state.pt": {
+        "path": "output/m3er-high-signal-region-grid-tcn-brev/model_state.pt",
+        "sha256": "b216bc68ec53f219159cab62bd9ee76269211daf862b4993ded4555e3e4bc4a1",
+        "json_validated": false
+      },
+      "training-provenance.json": {
+        "path": "output/m3er-high-signal-region-grid-tcn-brev/training-provenance.json",
+        "sha256": "05008d94fc6ccaa9f3a7525fc88728b607592df9df41594f2003451ad62cec17",
+        "json_validated": true
+      },
+      "validation-report.json": {
+        "path": "output/m3er-high-signal-region-grid-tcn-brev/validation-report.json",
+        "sha256": "3775da939c37ddeffe1d126272affa94147d3d6330e1d5169ff57eb4fe1cc9ea",
+        "json_validated": true
+      },
+      "prediction-sidecar.json": {
+        "path": "output/m3er-high-signal-region-grid-tcn-brev/prediction-sidecar.json",
+        "sha256": "193488572f69d098ba7c90aa87daaa9768157690d1d8bf10f158942e70985068",
+        "json_validated": true
+      }
+    },
+    "artifact_accounting_consistent_with_m3ev_receipt": true,
+    "committed_model_artifacts": false
+  },
+  "train_history_summary": {
+    "training_status": "completed",
+    "pretrained_components": [],
+    "input_contract_evidence": {
+      "preserve_region_axis": true,
+      "region_axis_contract": "rgb_regions preserved as T,R,H,W,C by the loader, prepared as T,R,C,H,W, and batched as B,T,R,C,H,W before the selected region-preserving model"
+    },
+    "history_count": 12,
+    "selected_epoch": 3,
+    "selected_validation_metrics": {
+      "accuracy": 0.2222222222222222,
+      "loss": 1.8677446930496782,
+      "examples": 27,
+      "batches": 4
+    },
+    "first_epoch": {
+      "train_accuracy": 0.13095238095238096,
+      "train_loss": 2.047328517550514,
+      "validation_accuracy": 0.18518518518518517,
+      "validation_loss": 1.946233210740266
+    },
+    "last_epoch": {
+      "train_accuracy": 0.42857142857142855,
+      "train_loss": 1.3765565440768288,
+      "validation_accuracy": 0.18518518518518517,
+      "validation_loss": 2.0555195896713823
+    },
+    "overfit_generalization_assessment": "The training loss moved and train accuracy improved only to 0.4286 on 84 examples, while validation stayed near chance/weak. This is not a clean overfit or generalization success."
+  },
+  "metric_triage": {
+    "validation": {
+      "top1_accuracy": 0.2222222222222222,
+      "macro_f1": 0.13796992481203008,
+      "examples": 27,
+      "predicted_counts": {
+        "black": 0,
+        "hello": 4,
+        "please": 0,
+        "sad": 1,
+        "table": 0,
+        "uncle": 7,
+        "white": 15
+      },
+      "zero_recall_labels": [
+        "black",
+        "please",
+        "sad",
+        "table"
+      ]
+    },
+    "test": {
+      "top1_accuracy": 0.17857142857142858,
+      "macro_f1": 0.11591836734693879,
+      "examples": 28,
+      "selected_threshold": 0.36,
+      "threshold_coverage": 0,
+      "threshold_false_pass_rate": 0,
+      "predicted_counts": {
+        "black": 0,
+        "hello": 1,
+        "please": 0,
+        "sad": 3,
+        "table": 0,
+        "uncle": 3,
+        "white": 21
+      },
+      "zero_recall_labels": [
+        "black",
+        "hello",
+        "please",
+        "table"
+      ]
+    },
+    "pass_status": {
+      "confidence_threshold": true,
+      "false_pass_rate": true,
+      "macro_f1": false,
+      "negative_challenge_false_pass_rate": false,
+      "top1_accuracy": false
+    },
+    "targets": {
+      "top1_accuracy": 0.7,
+      "macro_f1": 0.65,
+      "false_pass_rate_below": 0.1,
+      "negative_challenge_false_pass_rate_below": 0.05
+    },
+    "promotable": false,
+    "browser_or_product_claim_supported": false
+  },
+  "prior_evidence_comparison": {
+    "m3em_tiny2": {
+      "receipt": "docs/validation/return-to-form-m3em-tiny2-heldout-noncollapse-probe-v1.json",
+      "train_accuracy": 1,
+      "heldout_accuracy": 0.5,
+      "heldout_macro_f1": 0.3333333333333333,
+      "heldout_prediction_counts": {
+        "hello": 8,
+        "table": 0
+      },
+      "heldout_zero_recall_labels": [
+        "table"
+      ],
+      "interpretation": "Tiny2 could memorize train examples but collapsed on held-out validation at chance, so command mechanics alone are not enough."
+    },
+    "m3en_detector0_source_region": {
+      "receipt": "docs/validation/return-to-form-m3en-detector0-source-region-receipts-v1.json",
+      "blocker": "annotation_target_scope_not_command_mechanics",
+      "objectness_training_supportable_now": false,
+      "target_presence_equivalent_to_label_id_table": true,
+      "materialized_region_input_signal": "not clear enough to justify another training-style retry without strategy review",
+      "interpretation": "Candidate source/region evidence exists, but current Detector 0/objectness framing is table-confounded and not supportable as a general objectness route."
+    },
+    "m3eo_detector0_reconciliation": {
+      "receipt": "docs/validation/return-to-form-m3eo-overnight-detector0-brev-unblock-v1.json",
+      "independent_hand_objectness": "not_supportable_now",
+      "general_objectness": "not_supportable_now",
+      "fixed_region_accounting": "diagnostic_accounting_only_not_runtime_detector_or_product_authority",
+      "target_specific_two_hand_union_or_contact": "diagnostic_work_only",
+      "heldout_behavior": "failing and must be treated as design/remediation evidence"
+    }
+  },
+  "blocker_classification": {
+    "artifact_accounting_or_copyback_inconsistency": false,
+    "evaluation_report_contract_issue": false,
+    "source_split_label_separability_limitation": true,
+    "region_grid_representation_limitation": true,
+    "architecture_or_training_budget_limitation": true,
+    "repeated_weak_learnability_without_clear_local_repair": true,
+    "specific_local_no_training_contract_repair_evident": false,
+    "summary": "The copied artifacts are consistent and the JSON/report contracts are usable. The failure is weak learnability: low train fit, weak held-out metrics, prediction concentration on white, and repeated collapse/zero-recall patterns that align with M3EM/M3EN/M3EO limitations rather than a local command or report bug."
+  },
+  "no_local_repair_decision": {
+    "source_code_repair_evident": false,
+    "evaluation_contract_repair_evident": false,
+    "input_contract_repair_evident": false,
+    "another_training_style_slice_justified_without_research_or_human_review": false,
+    "reason": "M3EV preserved the region-grid input axis, completed train/eval/copyback, and produced consistent metrics. Any next ML move would change architecture, representation, training budget, or source strategy after repeated weak learnability."
+  },
+  "forbidden_actions_run": {
+    "brev_start_exec_sync_copy": false,
+    "remote_dry_run_or_training": false,
+    "local_training_or_fitting": false,
+    "evaluation_rerun": false,
+    "checkpoint_creation": false,
+    "export": false,
+    "promotion": false,
+    "browser_activation": false,
+    "product_runtime_mutation": false,
+    "source_data_dependency_mutation": false,
+    "final_readiness_claim": false
+  },
+  "pretrained_components": [],
+  "negative_authorizations": [
+    "no Brev start",
+    "no Brev exec",
+    "no Brev sync",
+    "no Brev copy",
+    "no remote dry-run",
+    "no remote training",
+    "no package install",
+    "no worker lifecycle command except emergency stop if read-only state unexpectedly reports RUNNING",
+    "no local or remote training command",
+    "no fitting",
+    "no backward pass",
+    "no optimizer work",
+    "no epoch training",
+    "no checkpoint creation",
+    "no evaluation rerun",
+    "no threshold promotion",
+    "no export",
+    "no model-card promotion",
+    "no browser recognition activation",
+    "no product-runtime mutation",
+    "no final-readiness claim",
+    "no ASL-correctness claim",
+    "no broad 75/80/95-label work",
+    "no label expansion",
+    "no architecture search",
+    "no hyperparameter sweep",
+    "no Detector 0 training",
+    "no source/media import",
+    "no source-register mutation",
+    "no manifest/tensor/vocabulary/packet mutation",
+    "no dependency-file mutation",
+    "no pretrained detector/landmark/backbone/embedding/feature extractor/teacher path",
+    "no pseudo-labels",
+    "no generated labels",
+    "do not stage or commit ignored model artifacts under output/",
+    "no push",
+    "no amend",
+    "no no-verify",
+    "no duplicate worker",
+    "no worker delete/reset"
+  ],
+  "changed_files": [
+    "docs/validation/return-to-form-m3ew-m3ev-metric-triage-no-remote-v1.json",
+    "docs/session-logs/546-mission-3ew-m3ev-metric-triage-no-remote.md"
+  ],
+  "next_action": "continue_openai_or_gpt_pro_research",
+  "next_action_reason": "M3EV is a repeated weak learnability result with no local contract repair. Any further ML move would change architecture, input representation, training budget, or source strategy, so the next step should route through OpenAI/GPT strategy research before more training-style work or spend."
+}

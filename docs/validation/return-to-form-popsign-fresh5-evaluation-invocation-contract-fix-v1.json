@@ -1,0 +1,139 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3ci-evaluation-invocation-contract-fix/v1",
+  "status": "passed",
+  "created_at": "2026-05-27T23:30:00Z",
+  "current_commit": "43e7b91",
+  "active_prompt": "docs/model/return-to-form-popsign-fresh5-evaluation-invocation-contract-fix-goal-loop-prompt.md",
+  "mission": "M3CI",
+  "objective": "Make scripts/evaluate_rawframe_model.py accept the bounded PopSign fresh5 repaired-manifest evidence mode that scripts/train_rawframe_model.py already accepts, without training or spending compute.",
+  "m3ch_blocker": {
+    "receipt": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-training-compute-receipt-refresh-v1.json",
+      "sha256": "de787091f01da9065e6128dd87cac4dcfc5a17d91c0c9e1aebbc67c43e9146bb"
+    },
+    "selected_next_action": "continue_evaluation_invocation_contract_fix_no_training",
+    "summary": "M3CH proved the PopSign fresh5 training dry-run accepts scratch_region_temporal_late_fusion_tcn_contract_v1, preserves B,T,R,C,H,W, and creates no artifacts, but evaluation rejected the same evidence mode at argparse.",
+    "pre_fix_rejection": "evaluate_rawframe_model.py: error: unrecognized arguments: --popsign-fresh5-training-smoke"
+  },
+  "references": {
+    "m3cg_training_invocation_contract": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-training-invocation-contract-fix-v1.json",
+      "sha256": "7aa8ef8de313c14930777633ba5e92291771f31cbc583b3d57ac17955596fa41"
+    },
+    "m3ce_architecture_scaffold_contract": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-architecture-scaffold-contract-v1.json",
+      "sha256": "0ed5a1fa1e5ea178cf666723f7c2a645e567890b98be63001259149de7cba378"
+    },
+    "manifest_contract": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/manifest-contract.json"
+  },
+  "files_inspected": [
+    {
+      "path": "GOAL.md",
+      "reason": "Confirmed Mission 3CI active prompt and no-training/no-spend boundaries."
+    },
+    {
+      "path": "docs/model/return-to-form-popsign-fresh5-evaluation-invocation-contract-fix-goal-loop-prompt.md",
+      "reason": "Followed M3CI acceptance criteria and hard boundaries."
+    },
+    {
+      "path": "docs/validation/return-to-form-popsign-fresh5-training-compute-receipt-refresh-v1.json",
+      "reason": "Confirmed the M3CH evaluation blocker and selected next action."
+    },
+    {
+      "path": "scripts/evaluate_rawframe_model.py",
+      "reason": "Located evaluation flag, evidence-mode, manifest, finality, challenge, decode-provenance, and region-axis gates."
+    },
+    {
+      "path": "scripts/train_rawframe_model.py",
+      "reason": "Reused POPSIGN_FRESH5_REPAIRED_LABEL_IDS and validate_manifest(..., allow_popsign_fresh5_label_set=True)."
+    }
+  ],
+  "files_changed": [
+    {
+      "path": "scripts/evaluate_rawframe_model.py",
+      "symbols": [
+        "parse_args",
+        "evaluation_evidence_mode",
+        "generated_by",
+        "required_negative_challenge_types",
+        "validate_finality",
+        "validate_evaluation_manifest",
+        "main"
+      ],
+      "summary": "Added --popsign-fresh5-training-smoke, emits popsign_fresh5_training_smoke, validates repaired PopSign fresh5 manifests, skips inappropriate challenge/decode gates for this bounded smoke mode, preserves region-axis tensors, and records non-final report metadata."
+    }
+  ],
+  "implementation": {
+    "new_cli_flag": "--popsign-fresh5-training-smoke",
+    "evaluation_evidence_mode": "popsign_fresh5_training_smoke",
+    "training_provenance_evidence_mode_required": "popsign_fresh5_training_smoke",
+    "manifest_validation": "validate_manifest(manifest_path, expected_split, True, False, False, False, False, True)",
+    "challenge_manifest_policy": "not required for PopSign fresh5 training smoke",
+    "decode_provenance_policy": "not required for PopSign fresh5 training smoke",
+    "region_axis_policy": "preserve_region_axis = true for PopSign fresh5 training smoke",
+    "report_finality": "popsign_fresh5_training_smoke_not_final_or_lesson_evidence",
+    "report_status": "popsign_fresh5_training_smoke_completed"
+  },
+  "proof_commands": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/evaluate_rawframe_model.py",
+      "exit_code": 0,
+      "result": "evaluation script compiles after the contract fix"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/evaluate_rawframe_model.py --help | rg -n \"popsign|region-grid|training-smoke\"",
+      "exit_code": 0,
+      "output_excerpt": [
+        "16:                                  [--reduced-real-data-training-smoke]",
+        "17:                                  [--region-grid-tcn-training-smoke]",
+        "18:                                  [--popsign-fresh5-training-smoke]",
+        "86:  --popsign-fresh5-training-smoke"
+      ],
+      "result": "help output lists the new PopSign fresh5 evaluation flag"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint output/m3cf-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-local-sanity/model_state.pt --training-provenance output/m3cf-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-local-sanity/training-provenance.json --train-manifest data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json --validation-manifest data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json --test-manifest data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json --output-report output/m3cf-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-local-sanity/validation-report.json --calibrated-provenance output/m3cf-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-local-sanity/calibrated-provenance.json --batch-size 4 --num-workers 0 --popsign-fresh5-training-smoke",
+      "exit_code": 2,
+      "stderr_excerpt": "Evaluation failed: checkpoint does not exist: output/m3cf-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-local-sanity/model_state.pt",
+      "result": "probe no longer fails at argparse, challenge-manifest requirement, full final label count, decode provenance, or flattened tensor policy; it reaches the expected missing-checkpoint blocker because no training has run"
+    },
+    {
+      "command": "test ! -e output/m3cf-popsign-fresh5-scratch-region-temporal-late-fusion-tcn-local-sanity && echo no-output-dir",
+      "exit_code": 0,
+      "output": "no-output-dir",
+      "result": "proof probe created no output report, calibrated provenance, checkpoint, tensor, manifest, or output directory"
+    }
+  ],
+  "guard_proof": {
+    "final_evaluation_guards": "unchanged except for the dedicated PopSign fresh5 smoke branch; final, lesson, controlled-pilot, controlled-clip-heldout, reduced-real-data, and region-grid gates remain distinct",
+    "no_pretrained_guard": "validate_finality still requires random initialization and pretrained_components == []",
+    "label_scope_guard": "PopSign fresh5 mode requires exactly len(POPSIGN_FRESH5_REPAIRED_LABEL_IDS) labels and records non-final smoke status",
+    "provenance_guard": "PopSign fresh5 mode requires training provenance evidence_mode popsign_fresh5_training_smoke before real checkpoint evaluation",
+    "region_axis_guard": "PopSign fresh5 mode sets preserve_region_axis and rejects provenance that does not preserve the region axis",
+    "challenge_guard": "challenge-manifest omission is scoped to this bounded smoke mode and does not change final/lesson/controlled challenge requirements"
+  },
+  "side_effects": {
+    "training_run": false,
+    "optimizer_constructed_for_fitting": false,
+    "backward_called": false,
+    "checkpoint_created": false,
+    "brev_exec_or_sync_or_lifecycle": false,
+    "source_register_changed": false,
+    "media_imported": false,
+    "manifest_mutated": false,
+    "tensor_mutated": false,
+    "export_or_browser_activation": false,
+    "model_card_or_final_claim_promoted": false,
+    "final_gate_changed": false,
+    "push": false
+  },
+  "result": {
+    "parser_compatible": true,
+    "challenge_manifest_compatible": true,
+    "manifest_validation_compatible": true,
+    "decode_provenance_compatible": true,
+    "region_axis_preserved": true,
+    "expected_blocker": "checkpoint does not exist because no training/fitting run has been authorized or executed"
+  },
+  "selected_next_action": "continue_compute_receipt_refresh_after_evaluation_contract_fix"
+}

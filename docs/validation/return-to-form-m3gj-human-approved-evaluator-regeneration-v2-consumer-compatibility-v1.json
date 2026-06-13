@@ -1,0 +1,313 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3gj-human-approved-evaluator-regeneration-v2-consumer-compatibility/v1",
+  "mission": "Mission 3GJ - human-approved evaluator regeneration and v2 consumer compatibility",
+  "status": "completed_local_no_remote_no_training_evaluator_regeneration_with_v2_consumer_compatibility",
+  "generated_at": "2026-05-29T08:09:56Z",
+  "current_commit": "627bd46 supervisor: unpark m3gj evaluator regeneration",
+  "active_prompt": "docs/model/return-to-form-m3gj-human-approved-evaluator-regeneration-v2-consumer-compatibility-goal-loop-prompt.md",
+  "user_approval_summary": {
+    "source": "GOAL.md current mission and active M3GJ prompt",
+    "summary": "The latest supervising-user instruction approved continuing beyond the M3GI stop gate, including the previously approved local M3GB evaluator output regeneration exactly once. It also records approval context for a later bounded Brev completion route, but M3GJ itself remains local-only and does not authorize any Brev lifecycle or remote command.",
+    "m3gj_scope": "patch local prediction-sidecar consumers for v1/v2 compatibility and run the approved local evaluator regeneration once against the copied-back M3GB checkpoint"
+  },
+  "commands_run": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed_clean_at_start",
+      "summary": "compound-plan-m0 was ahead of origin/compound-plan-m0 by 299 commits with no dirty files before edits."
+    },
+    {
+      "command": "git log -14 --oneline --decorate",
+      "status": "passed",
+      "summary": "HEAD was 627bd46 supervisor: unpark m3gj evaluator regeneration."
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool over M3GI/M3GH receipts and fail-closed claim surfaces",
+      "status": "passed"
+    },
+    {
+      "command": "brev ls --json",
+      "status": "passed_read_only_stopped"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "pre-patch v2 fixture checks for both consumers",
+      "status": "failed_as_expected",
+      "summary": "Both consumers rejected asl-pilot-rawframe-prediction-sidecar/v2 before the patch."
+    },
+    {
+      "command": "node --check scripts/analyze_rawframe_lesson_open_set.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node --check scripts/analyze_controlled_pilot_thresholds.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/analyze_rawframe_lesson_open_set.mjs --prediction-sidecar artifacts/rawframe-model-diagnostics/lesson-open-set-full95/prediction-sidecar.json",
+      "status": "passed_v1_compatibility",
+      "summary": "Existing v1 lesson open-set sidecar was accepted; diagnostic status remained lesson_open_set_diagnostic_failed."
+    },
+    {
+      "command": "node scripts/analyze_controlled_pilot_thresholds.mjs --input artifacts/rawframe-model/controlled-pilot-prediction-sidecar.json",
+      "status": "completed_v1_compatibility_exit_1_expected_for_incomplete_thresholds",
+      "summary": "Existing v1 controlled-pilot sidecar reached threshold analysis and reported incomplete_per_label_thresholds_from_controlled_pilot_evidence."
+    },
+    {
+      "command": "node scripts/analyze_rawframe_lesson_open_set.mjs --prediction-sidecar output/m3gj-v2-consumer-fixtures/lesson-sidecar-v2.json",
+      "status": "passed_v2_schema_acceptance",
+      "summary": "Temporary ignored fixture changed only schema_version and sidecar_contract on the existing lesson sidecar; the consumer reached diagnostic computation."
+    },
+    {
+      "command": "node scripts/analyze_controlled_pilot_thresholds.mjs --input output/m3gj-v2-consumer-fixtures/controlled-sidecar-v2.json",
+      "status": "completed_v2_schema_acceptance_exit_1_expected_for_incomplete_thresholds",
+      "summary": "Temporary ignored fixture changed only schema_version and sidecar_contract on the existing controlled-pilot sidecar; the consumer reached threshold analysis."
+    },
+    {
+      "command": "v2 missing-label fixture checks for both consumers",
+      "status": "failed_closed_as_expected",
+      "summary": "Lesson failed on validation.examples[0].true_label; controlled-pilot failed on test.examples[0].true_label."
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint output/m3gb-high-signal-region-grid-tcn-brev/model_state.pt --training-provenance output/m3gb-high-signal-region-grid-tcn-brev/training-provenance.json --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-report output/m3gb-high-signal-region-grid-tcn-brev/validation-report.json --calibrated-provenance output/m3gb-high-signal-region-grid-tcn-brev/calibrated-provenance.json --prediction-sidecar output/m3gb-high-signal-region-grid-tcn-brev/prediction-sidecar.json --batch-size 8 --num-workers 0 --region-grid-tcn-training-smoke",
+      "status": "completed_once_exit_1_expected_targets_failed",
+      "summary": "The evaluator wrote regenerated ignored diagnostic JSON, reported region_grid_tcn_training_smoke_completed, and kept passes_targets false. A wrapper attempted to assign zsh's readonly status variable while recording the exit code after the evaluator completed; the evaluator code path and stdout indicate the expected nonzero exit for failed targets."
+    },
+    {
+      "command": "python3 -m json.tool output/m3gb-high-signal-region-grid-tcn-brev/validation-report.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool output/m3gb-high-signal-region-grid-tcn-brev/prediction-sidecar.json >/dev/null",
+      "status": "passed"
+    }
+  ],
+  "read_only_brev_default_off_state": {
+    "command": "brev ls --json",
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ],
+    "brev_lifecycle_commands_run_this_mission": [],
+    "remote_commands_run_this_mission": [],
+    "default_off_preserved": true,
+    "spend_status": "no_spend_read_only_status_check_only"
+  },
+  "files_changed": [
+    "scripts/analyze_rawframe_lesson_open_set.mjs",
+    "scripts/analyze_controlled_pilot_thresholds.mjs",
+    "docs/validation/return-to-form-m3gj-human-approved-evaluator-regeneration-v2-consumer-compatibility-v1.json",
+    "docs/session-logs/633-mission-3gj-human-approved-evaluator-regeneration-v2-consumer-compatibility.md"
+  ],
+  "consumer_compatibility_patch": {
+    "summary": "Both local sidecar consumers now accept asl-pilot-rawframe-prediction-sidecar/v1 and asl-pilot-rawframe-prediction-sidecar/v2. V2 sidecars must include sidecar_contract.version asl-pilot-rawframe-prediction-sidecar-contract/v2. Validation/test rows must retain string true_label, string predicted_label, and finite numeric confidence; negative-challenge rows, when present, must retain string predicted_label and finite numeric confidence.",
+    "patched_consumers": [
+      "scripts/analyze_rawframe_lesson_open_set.mjs",
+      "scripts/analyze_controlled_pilot_thresholds.mjs"
+    ],
+    "temporary_fixture_policy": {
+      "paths": [
+        "output/m3gj-v2-consumer-fixtures/lesson-sidecar-v2.json",
+        "output/m3gj-v2-consumer-fixtures/controlled-sidecar-v2.json"
+      ],
+      "evidence_status": "temporary_ignored_schema_acceptance_fixtures_not_model_evidence",
+      "tracked": false,
+      "removed_after_validation": true
+    },
+    "v1_checks": [
+      {
+        "consumer": "scripts/analyze_rawframe_lesson_open_set.mjs",
+        "input": "artifacts/rawframe-model-diagnostics/lesson-open-set-full95/prediction-sidecar.json",
+        "result": "accepted_v1_and_reached_lesson_open_set_diagnostic"
+      },
+      {
+        "consumer": "scripts/analyze_controlled_pilot_thresholds.mjs",
+        "input": "artifacts/rawframe-model/controlled-pilot-prediction-sidecar.json",
+        "result": "accepted_v1_and_reached_threshold_analysis"
+      }
+    ],
+    "v2_checks": [
+      {
+        "consumer": "scripts/analyze_rawframe_lesson_open_set.mjs",
+        "input": "temporary v2 fixture from existing lesson sidecar",
+        "result": "accepted_v2_and_reached_lesson_open_set_diagnostic"
+      },
+      {
+        "consumer": "scripts/analyze_controlled_pilot_thresholds.mjs",
+        "input": "temporary v2 fixture from existing controlled-pilot sidecar",
+        "result": "accepted_v2_and_reached_threshold_analysis"
+      }
+    ],
+    "fail_closed_field_checks": [
+      "lesson v2 missing true_label fixture failed with prediction sidecar validation.examples[0].true_label must be a string",
+      "controlled-pilot v2 missing true_label fixture failed with test.examples[0].true_label must be a string"
+    ]
+  },
+  "copied_back_output_hashes": {
+    "pre_regeneration": {
+      "model_state.pt": "63b8ad3621e1117b7248455af220a8ec1ad552d491d8d1b7ebe3b969d31ac600",
+      "training-provenance.json": "16a76df276831437e3e6020ec0c05c399b0ffaca1dbcd70f749090143fab4f99",
+      "validation-report.json": "d9a08ae412b071e1a009501f3e996841ed558366030dddd5b412f5d0f5a53202",
+      "prediction-sidecar.json": "cabfdeb0c28f5ba8bcc95fbf0d310817a046512de13383515cf8a485b812494a"
+    },
+    "post_regeneration": {
+      "model_state.pt": "63b8ad3621e1117b7248455af220a8ec1ad552d491d8d1b7ebe3b969d31ac600",
+      "training-provenance.json": "16a76df276831437e3e6020ec0c05c399b0ffaca1dbcd70f749090143fab4f99",
+      "validation-report.json": "35065aec48798d02e7d887398cd1634a4b50a1c70f455098161fbb584fb847de",
+      "prediction-sidecar.json": "733fb93cf1e79b81cfe8c4c21835db98f0ffdc1e6464f59662103ff688c29e48",
+      "calibrated-provenance.json": null
+    },
+    "tracked_status": "All copied-back output files are ignored by .gitignore:27 output/ and are not tracked."
+  },
+  "evaluator_regeneration": {
+    "ran_exactly_once": true,
+    "checkpoint": "output/m3gb-high-signal-region-grid-tcn-brev/model_state.pt",
+    "stdout_summary": {
+      "status": "region_grid_tcn_training_smoke_completed",
+      "output_report": "output/m3gb-high-signal-region-grid-tcn-brev/validation-report.json",
+      "output_report_sha256": "35065aec48798d02e7d887398cd1634a4b50a1c70f455098161fbb584fb847de",
+      "calibrated_provenance": null,
+      "selected_threshold": 0.49,
+      "test_top1_accuracy": 0.25,
+      "test_macro_f1": 0.15634920634920638,
+      "test_false_pass_rate": 0.0,
+      "negative_challenge_false_pass_rate": null,
+      "passes_targets": false
+    },
+    "stderr_summary": "empty",
+    "nonzero_reason": "Targets still fail: top1_accuracy, macro_f1, and negative_challenge_false_pass_rate pass-status fields are false. This is diagnostic-only evidence and was not retried.",
+    "rerun_count": 0
+  },
+  "regenerated_sidecar_and_report_status": {
+    "validation_report": {
+      "path": "output/m3gb-high-signal-region-grid-tcn-brev/validation-report.json",
+      "json_valid": true,
+      "schema_version": "asl-pilot-validation-report/v1",
+      "status": "region_grid_tcn_training_smoke_completed",
+      "evidence_mode": "region_grid_tcn_training_smoke",
+      "finality": "region_grid_tcn_training_smoke_not_final_or_lesson_evidence",
+      "prediction_sidecar": {
+        "path": "output/m3gb-high-signal-region-grid-tcn-brev/prediction-sidecar.json",
+        "schema_version": "asl-pilot-rawframe-prediction-sidecar/v2",
+        "contract_version": "asl-pilot-rawframe-prediction-sidecar-contract/v2"
+      }
+    },
+    "prediction_sidecar": {
+      "path": "output/m3gb-high-signal-region-grid-tcn-brev/prediction-sidecar.json",
+      "json_valid": true,
+      "schema_version": "asl-pilot-rawframe-prediction-sidecar/v2",
+      "sidecar_contract_version": "asl-pilot-rawframe-prediction-sidecar-contract/v2",
+      "validation_examples": 27,
+      "test_examples": 28,
+      "has_probability_by_label": true,
+      "has_true_label_probability": true,
+      "has_manifest_path_hash_row_index_fields": true,
+      "has_tensor_path_hash_fields": true,
+      "missing_required_fields": {
+        "validation": [],
+        "test": []
+      }
+    }
+  },
+  "current_metrics_summary": {
+    "validation": {
+      "examples": 27,
+      "top1_accuracy": 0.37037037037037035,
+      "macro_f1": 0.3320964749536178
+    },
+    "test": {
+      "examples": 28,
+      "top1_accuracy": 0.25,
+      "macro_f1": 0.15634920634920638,
+      "false_pass_rate": 0.0
+    },
+    "threshold_calibration": {
+      "selected_threshold": 0.49,
+      "selected_correct_pass_rate": 0.07407407407407407,
+      "selected_false_pass_rate": 0.037037037037037035
+    },
+    "pass_status": {
+      "confidence_threshold": true,
+      "false_pass_rate": true,
+      "macro_f1": false,
+      "negative_challenge_false_pass_rate": false,
+      "top1_accuracy": false
+    },
+    "claim_interpretation": "diagnostic_only_failed_generalization_signal_not_final_model_evidence"
+  },
+  "fail_closed_claim_surface_status": {
+    "web/public/model/model-card.json": {
+      "status": "not_trained"
+    },
+    "web/public/model/detector0-card.json": {
+      "status": "not_trained",
+      "browser_artifact": null
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": []
+    },
+    "web/public/model/claim-matrix.json": {
+      "status": "no_active_claim_rawframe_not_trained"
+    },
+    "docs/validation/final-claim-matrix.json": {
+      "status": "no_active_claim_rawframe_not_trained"
+    },
+    "claim_surfaces_changed": false
+  },
+  "forbidden_action_proof": {
+    "brev_lifecycle_or_remote_command": false,
+    "training_or_fitting": false,
+    "second_evaluator_attempt": false,
+    "broad_label_run": false,
+    "detector0_training": false,
+    "source_media_import": false,
+    "raw_video_inspection_or_upload": false,
+    "manifest_tensor_vocabulary_mutation": false,
+    "dependency_mutation": false,
+    "model_card_promotion": false,
+    "onnx_export": false,
+    "browser_recognition_activation": false,
+    "threshold_promotion": false,
+    "final_readiness_claim": false,
+    "positive_asl_correctness_claim": false,
+    "product_runtime_mutation": false,
+    "push": false,
+    "amend": false,
+    "no_verify": false
+  },
+  "pretrained_components": [],
+  "next_action": "continue_m3gk_bounded_brev_completion_route_after_regenerated_evidence"
+}

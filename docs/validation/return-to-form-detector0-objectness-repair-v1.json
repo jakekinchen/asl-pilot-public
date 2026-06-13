@@ -1,0 +1,3241 @@
+{
+  "active_prompt": "docs/model/return-to-form-detector0-objectness-repair-goal-loop-prompt.md",
+  "checked_at": "2026-05-28T12:31:22Z",
+  "claim_boundary": {
+    "active_labels": [],
+    "detector0_status": "not_promoted",
+    "hand_landmark_source_approval": "not_granted",
+    "model_card_status": "not_trained",
+    "product_claim": "unchanged_fail_closed",
+    "what_this_receipt_does_not_claim": [
+      "No Detector 0 browser artifact is promoted.",
+      "No crop-normalization ablation is approved.",
+      "No source import or hand-landmark route is approved.",
+      "No final readiness or ASL correctness claim is active."
+    ]
+  },
+  "command": "/Users/kelly/Developer/asl-pilot/.venv/bin/python scripts/run_return_to_form_detector0_objectness_repair.py",
+  "commands_intentionally_not_run": [
+    "No Brev command, remote compute, source import, media download, or source-register mutation.",
+    "No manifest, tensor, vocabulary, model-card, browser runtime, export, promotion, or final-gate mutation.",
+    "No hand-landmark detector training and no recognizer retraining."
+  ],
+  "commands_run": [
+    "git status --short --branch",
+    "git log -10 --oneline --decorate",
+    "node scripts/audit_loop_premise.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs --json",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "node scripts/audit_source_register.mjs",
+    "python3 -m json.tool docs/validation/return-to-form-tier0-detector0-parallel-heldout-recall-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-hand-landmark-source-feasibility-v1.json >/dev/null",
+    "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+    "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/run_return_to_form_tier0_detector0_parallel_heldout_recall.py",
+    "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/run_return_to_form_detector0_objectness_repair.py",
+    "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/run_return_to_form_detector0_objectness_repair.py"
+  ],
+  "comparison_to_parallel_heldout_receipt": {
+    "new_diagnostic_addition": "This M3DY receipt adds explicit packet presence-vs-label confounding diagnostics and row-level false-positive/false-negative summaries under both fixed and validation-selected thresholds.",
+    "path": "docs/validation/return-to-form-tier0-detector0-parallel-heldout-recall-v1.json",
+    "prior_next_action": {
+      "description": "Fix Detector 0 presence/objectness formulation locally with no Brev before any crop-normalization ablation.",
+      "id": "fix_detector0_presence_objectness_formulation_no_brev"
+    },
+    "prior_outcome": {
+      "classification": "target_objectness_formulation_deficiency_remains",
+      "credible_variants": [],
+      "next_action": "fix_detector0_presence_objectness_formulation_no_brev",
+      "reason": "The variants either keep held-out positives below negatives/ranking gates or require a diagnostic threshold with too much split-specific behavior. The next useful no-Brev action is to fix the presence/objectness formulation before crop-normalization ablation."
+    }
+  },
+  "experiment_bounds": {
+    "batching": "full 11-row train split batch",
+    "device": "cpu",
+    "epochs_per_variant": 300,
+    "local_only": true,
+    "max_variants_allowed": 3,
+    "no_brev": true,
+    "no_export": true,
+    "no_pretrained": true,
+    "no_promotion": true,
+    "no_runtime_change": true,
+    "no_source_import": true,
+    "packet_rows": 32,
+    "variant_count": 3,
+    "variant_ids": [
+      "v2_reproduction_target_cell_audit",
+      "v3_low_hard_negative_max_map",
+      "v3_separated_global_presence"
+    ]
+  },
+  "false_positive_false_negative_rows": {
+    "v2_reproduction_target_cell_audit": {
+      "fixed_threshold": {
+        "test": {
+          "false_negative_count": 6,
+          "false_negative_rows": [
+            {
+              "clip_id": "popsign-v1-test-table-000286",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.004942983388900757,
+              "predicted_present": false,
+              "presence_score": 0.004942983388900757,
+              "row_id": "det0-v0-test-table-000286-f005",
+              "selected_cell_box_iou_if_present": 0.7557129263877869,
+              "selected_cell_yx": [
+                8,
+                6
+              ],
+              "signer_identity_hash": "e0940122312d361abda8019f5084ffd16eacdeaba32c7bb78ed08a50549015b2",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8031-table-2023_01_25_13_50_32.495-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.6808669567108154,
+              "target_cell_yx_if_present": [
+                6,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-test-table-000288",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.004753728862851858,
+              "predicted_present": false,
+              "presence_score": 0.004753728862851858,
+              "row_id": "det0-v0-test-table-000288-f008",
+              "selected_cell_box_iou_if_present": 0.41437745094299316,
+              "selected_cell_yx": [
+                7,
+                6
+              ],
+              "signer_identity_hash": "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8032-table-2023_01_27_17_21_44.663-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.5687668323516846,
+              "target_cell_yx_if_present": [
+                6,
+                6
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-test-table-000290",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.2851216197013855,
+              "predicted_present": false,
+              "presence_score": 0.2851216197013855,
+              "row_id": "det0-v0-test-table-000290-f008",
+              "selected_cell_box_iou_if_present": 0.6994376182556152,
+              "selected_cell_yx": [
+                7,
+                5
+              ],
+              "signer_identity_hash": "4027e4c04fcfc2940fe00c6d89cf00633df9a37b921346a77c9c4c2bd29e69fb",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8033-table-2023_01_28_23_51_45.129-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.5396116375923157,
+              "target_cell_yx_if_present": [
+                6,
+                6
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-test-table-000294",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.016716033220291138,
+              "predicted_present": false,
+              "presence_score": 0.016716033220291138,
+              "row_id": "det0-v0-test-table-000294-f008",
+              "selected_cell_box_iou_if_present": 0.8906400203704834,
+              "selected_cell_yx": [
+                7,
+                9
+              ],
+              "signer_identity_hash": "0a4c034271536723f6b9253752108a6bba85a26dea7185e2c8c25eea2493b920",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8035-table-2023_01_26_17_05_59.415-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.8898089528083801,
+              "target_cell_yx_if_present": [
+                7,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-test-table-000297",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.006964012980461121,
+              "predicted_present": false,
+              "presence_score": 0.006964012980461121,
+              "row_id": "det0-v0-test-table-000297-f008",
+              "selected_cell_box_iou_if_present": 0.6313923597335815,
+              "selected_cell_yx": [
+                8,
+                6
+              ],
+              "signer_identity_hash": "3660c753560b193daec1e61e3060fb0d2cab427ab3b6760f545fbc9f682c896b",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8036-table-2023_01_25_19_21_54.801-1.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.6925801038742065,
+              "target_cell_yx_if_present": [
+                7,
+                6
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-test-table-000301",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.005233503878116608,
+              "predicted_present": false,
+              "presence_score": 0.005233503878116608,
+              "row_id": "det0-v0-test-table-000301-f008",
+              "selected_cell_box_iou_if_present": 0.733313798904419,
+              "selected_cell_yx": [
+                7,
+                5
+              ],
+              "signer_identity_hash": "abb19b30e7af50c6cc238bd1d5ca897512d0c3a063d48bba12e78189ecfecdd0",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8037-table-2023_01_25_17_13_26.906-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.733313798904419,
+              "target_cell_yx_if_present": [
+                7,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            }
+          ],
+          "false_positive_count": 0,
+          "false_positive_rows": [],
+          "threshold": 0.5,
+          "true_negative_count": 4,
+          "true_positive_count": 0
+        },
+        "train": {
+          "false_negative_count": 0,
+          "false_negative_rows": [],
+          "false_positive_count": 0,
+          "false_positive_rows": [],
+          "threshold": 0.5,
+          "true_negative_count": 4,
+          "true_positive_count": 7
+        },
+        "validation": {
+          "false_negative_count": 7,
+          "false_negative_rows": [
+            {
+              "clip_id": "popsign-v1-validation-table-000376",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.1880764216184616,
+              "predicted_present": false,
+              "presence_score": 0.1880764216184616,
+              "row_id": "det0-v0-validation-table-000376-f005",
+              "selected_cell_box_iou_if_present": 0.5017895102500916,
+              "selected_cell_yx": [
+                6,
+                4
+              ],
+              "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+              "source_record_id": "popsign_v1_0/game/val/table/4a.7002-table-2022_12_19_22_52_30.498-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": 0.6295050978660583,
+              "target_cell_yx_if_present": [
+                6,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-validation-table-000379",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.06988344341516495,
+              "predicted_present": false,
+              "presence_score": 0.06988344341516495,
+              "row_id": "det0-v0-validation-table-000379-f008",
+              "selected_cell_box_iou_if_present": 0.40392786264419556,
+              "selected_cell_yx": [
+                2,
+                4
+              ],
+              "signer_identity_hash": "cc50a89882a8ed4c0982ee9170fb302bc1bbbb5e94e893bce3b0632118cc0cf8",
+              "source_record_id": "popsign_v1_0/game/val/table/4a.8005-table-2022_12_15_16_59_45.185-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": 0.6097499132156372,
+              "target_cell_yx_if_present": [
+                6,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-validation-table-000383",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.02550429478287697,
+              "predicted_present": false,
+              "presence_score": 0.02550429478287697,
+              "row_id": "det0-v0-validation-table-000383-f010",
+              "selected_cell_box_iou_if_present": 0.5709863901138306,
+              "selected_cell_yx": [
+                6,
+                5
+              ],
+              "signer_identity_hash": "54ed19eb670a7fc395dbc28c6820b933d1eede5e2fcb97d9ea70c49c654682d8",
+              "source_record_id": "popsign_v1_0/game/val/table/4a.8013-table-2023_01_11_16_56_51.795-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": 0.8182483315467834,
+              "target_cell_yx_if_present": [
+                7,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-validation-table-000385",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.010342705994844437,
+              "predicted_present": false,
+              "presence_score": 0.010342705994844437,
+              "row_id": "det0-v0-validation-table-000385-f008",
+              "selected_cell_box_iou_if_present": 0.5968525409698486,
+              "selected_cell_yx": [
+                6,
+                5
+              ],
+              "signer_identity_hash": "fb6c9cc349eb6ba8c064cb7572615613c07e91211a75a97f3bc95bc91848d39a",
+              "source_record_id": "popsign_v1_0/game/val/table/4a.8015-table-2023_01_28_01_59_16.096-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": 0.5968525409698486,
+              "target_cell_yx_if_present": [
+                6,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-validation-table-000388",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.006535579450428486,
+              "predicted_present": false,
+              "presence_score": 0.006535579450428486,
+              "row_id": "det0-v0-validation-table-000388-f008",
+              "selected_cell_box_iou_if_present": 0.5975539088249207,
+              "selected_cell_yx": [
+                7,
+                11
+              ],
+              "signer_identity_hash": "96a654d6be5c2506b495f010339ce766ebd64a54096a79fe00b9bbc3ce1c280b",
+              "source_record_id": "popsign_v1_0/game/val/table/4a.8018-table-2023_01_10_18_35_17.729-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": 0.7435236573219299,
+              "target_cell_yx_if_present": [
+                6,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-validation-table-000393",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.020905595272779465,
+              "predicted_present": false,
+              "presence_score": 0.020905595272779465,
+              "row_id": "det0-v0-validation-table-000393-f008",
+              "selected_cell_box_iou_if_present": 0.7063797116279602,
+              "selected_cell_yx": [
+                7,
+                6
+              ],
+              "signer_identity_hash": "30132f3fd3bc05eda5a491afa1802072649326f4a39e6a24ba7f2351b841f4a5",
+              "source_record_id": "popsign_v1_0/game/val/table/4a.8025-table-2023_01_12_23_52_10.159-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": 0.7247378826141357,
+              "target_cell_yx_if_present": [
+                7,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-validation-table-000397",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.010841614566743374,
+              "predicted_present": false,
+              "presence_score": 0.010841614566743374,
+              "row_id": "det0-v0-validation-table-000397-f008",
+              "selected_cell_box_iou_if_present": 0.6019060611724854,
+              "selected_cell_yx": [
+                11,
+                7
+              ],
+              "signer_identity_hash": "d634581037b96d18388590532350e015fadb5d4e0891aa20e59c1731d7bfb9ee",
+              "source_record_id": "popsign_v1_0/game/val/table/4a.8051-table-2023_01_29_20_41_28.906-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": 0.6955414414405823,
+              "target_cell_yx_if_present": [
+                7,
+                6
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            }
+          ],
+          "false_positive_count": 0,
+          "false_positive_rows": [],
+          "threshold": 0.5,
+          "true_negative_count": 4,
+          "true_positive_count": 0
+        }
+      },
+      "presence_score_source": "max_map_objectness",
+      "validation_selected_threshold": {
+        "test": {
+          "false_negative_count": 3,
+          "false_negative_rows": [
+            {
+              "clip_id": "popsign-v1-test-table-000286",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.004942983388900757,
+              "predicted_present": false,
+              "presence_score": 0.004942983388900757,
+              "row_id": "det0-v0-test-table-000286-f005",
+              "selected_cell_box_iou_if_present": 0.7557129263877869,
+              "selected_cell_yx": [
+                8,
+                6
+              ],
+              "signer_identity_hash": "e0940122312d361abda8019f5084ffd16eacdeaba32c7bb78ed08a50549015b2",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8031-table-2023_01_25_13_50_32.495-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.6808669567108154,
+              "target_cell_yx_if_present": [
+                6,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.006535579450428486
+            },
+            {
+              "clip_id": "popsign-v1-test-table-000288",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.004753728862851858,
+              "predicted_present": false,
+              "presence_score": 0.004753728862851858,
+              "row_id": "det0-v0-test-table-000288-f008",
+              "selected_cell_box_iou_if_present": 0.41437745094299316,
+              "selected_cell_yx": [
+                7,
+                6
+              ],
+              "signer_identity_hash": "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8032-table-2023_01_27_17_21_44.663-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.5687668323516846,
+              "target_cell_yx_if_present": [
+                6,
+                6
+              ],
+              "target_present": true,
+              "threshold": 0.006535579450428486
+            },
+            {
+              "clip_id": "popsign-v1-test-table-000301",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.005233503878116608,
+              "predicted_present": false,
+              "presence_score": 0.005233503878116608,
+              "row_id": "det0-v0-test-table-000301-f008",
+              "selected_cell_box_iou_if_present": 0.733313798904419,
+              "selected_cell_yx": [
+                7,
+                5
+              ],
+              "signer_identity_hash": "abb19b30e7af50c6cc238bd1d5ca897512d0c3a063d48bba12e78189ecfecdd0",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8037-table-2023_01_25_17_13_26.906-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.733313798904419,
+              "target_cell_yx_if_present": [
+                7,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.006535579450428486
+            }
+          ],
+          "false_positive_count": 1,
+          "false_positive_rows": [
+            {
+              "clip_id": "popsign-v1-test-dad-000628",
+              "global_presence_score": null,
+              "label_id": "dad",
+              "max_map_objectness_score": 0.04359525814652443,
+              "predicted_present": true,
+              "presence_score": 0.04359525814652443,
+              "row_id": "det0-v0-test-dad-000628-f005",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                6,
+                5
+              ],
+              "signer_identity_hash": "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25",
+              "source_record_id": "popsign_v1_0/game/test/dad/gtsignstudy4a.8032-dad-2023_01_25_17_19_45.298-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.006535579450428486
+            }
+          ],
+          "threshold": 0.006535579450428486,
+          "true_negative_count": 3,
+          "true_positive_count": 3
+        },
+        "train": {
+          "false_negative_count": 0,
+          "false_negative_rows": [],
+          "false_positive_count": 0,
+          "false_positive_rows": [],
+          "threshold": 0.006535579450428486,
+          "true_negative_count": 4,
+          "true_positive_count": 7
+        },
+        "validation": {
+          "false_negative_count": 0,
+          "false_negative_rows": [],
+          "false_positive_count": 3,
+          "false_positive_rows": [
+            {
+              "clip_id": "popsign-v1-validation-please-000076",
+              "global_presence_score": null,
+              "label_id": "please",
+              "max_map_objectness_score": 0.03107677772641182,
+              "predicted_present": true,
+              "presence_score": 0.03107677772641182,
+              "row_id": "det0-v0-validation-please-000076-f005",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                6,
+                4
+              ],
+              "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+              "source_record_id": "popsign_v1_0/game/val/please/4a.7002-please-2022_12_20_01_33_08.888-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.006535579450428486
+            },
+            {
+              "clip_id": "popsign-v1-validation-dad-000826",
+              "global_presence_score": null,
+              "label_id": "dad",
+              "max_map_objectness_score": 0.007679337169975042,
+              "predicted_present": true,
+              "presence_score": 0.007679337169975042,
+              "row_id": "det0-v0-validation-dad-000826-f005",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                6,
+                3
+              ],
+              "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+              "source_record_id": "popsign_v1_0/game/val/dad/4a.7002-dad-2022_12_22_01_53_46.646-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.006535579450428486
+            },
+            {
+              "clip_id": "popsign-v1-validation-grandpa-000952",
+              "global_presence_score": null,
+              "label_id": "grandpa",
+              "max_map_objectness_score": 0.05804261937737465,
+              "predicted_present": true,
+              "presence_score": 0.05804261937737465,
+              "row_id": "det0-v0-validation-grandpa-000952-f005",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                6,
+                3
+              ],
+              "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+              "source_record_id": "popsign_v1_0/game/val/grandpa/4a.7002-grandpa-2022_12_19_23_35_52.624-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.006535579450428486
+            }
+          ],
+          "threshold": 0.006535579450428486,
+          "true_negative_count": 1,
+          "true_positive_count": 7
+        }
+      },
+      "variant_id": "v2_reproduction_target_cell_audit"
+    },
+    "v3_low_hard_negative_max_map": {
+      "fixed_threshold": {
+        "test": {
+          "false_negative_count": 6,
+          "false_negative_rows": [
+            {
+              "clip_id": "popsign-v1-test-table-000286",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.016276881098747253,
+              "predicted_present": false,
+              "presence_score": 0.016276881098747253,
+              "row_id": "det0-v0-test-table-000286-f005",
+              "selected_cell_box_iou_if_present": 0.8162117600440979,
+              "selected_cell_yx": [
+                8,
+                6
+              ],
+              "signer_identity_hash": "e0940122312d361abda8019f5084ffd16eacdeaba32c7bb78ed08a50549015b2",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8031-table-2023_01_25_13_50_32.495-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.7436718344688416,
+              "target_cell_yx_if_present": [
+                6,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-test-table-000288",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.029625892639160156,
+              "predicted_present": false,
+              "presence_score": 0.029625892639160156,
+              "row_id": "det0-v0-test-table-000288-f008",
+              "selected_cell_box_iou_if_present": 0.4295252561569214,
+              "selected_cell_yx": [
+                7,
+                6
+              ],
+              "signer_identity_hash": "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8032-table-2023_01_27_17_21_44.663-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.5952434539794922,
+              "target_cell_yx_if_present": [
+                6,
+                6
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-test-table-000290",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.2044176608324051,
+              "predicted_present": false,
+              "presence_score": 0.2044176608324051,
+              "row_id": "det0-v0-test-table-000290-f008",
+              "selected_cell_box_iou_if_present": 0.6941773891448975,
+              "selected_cell_yx": [
+                7,
+                5
+              ],
+              "signer_identity_hash": "4027e4c04fcfc2940fe00c6d89cf00633df9a37b921346a77c9c4c2bd29e69fb",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8033-table-2023_01_28_23_51_45.129-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.5668736100196838,
+              "target_cell_yx_if_present": [
+                6,
+                6
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-test-table-000294",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.06999190151691437,
+              "predicted_present": false,
+              "presence_score": 0.06999190151691437,
+              "row_id": "det0-v0-test-table-000294-f008",
+              "selected_cell_box_iou_if_present": 0.8206655383110046,
+              "selected_cell_yx": [
+                7,
+                9
+              ],
+              "signer_identity_hash": "0a4c034271536723f6b9253752108a6bba85a26dea7185e2c8c25eea2493b920",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8035-table-2023_01_26_17_05_59.415-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.8869156241416931,
+              "target_cell_yx_if_present": [
+                7,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-test-table-000297",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.01554714422672987,
+              "predicted_present": false,
+              "presence_score": 0.01554714422672987,
+              "row_id": "det0-v0-test-table-000297-f008",
+              "selected_cell_box_iou_if_present": 0.6344510316848755,
+              "selected_cell_yx": [
+                8,
+                6
+              ],
+              "signer_identity_hash": "3660c753560b193daec1e61e3060fb0d2cab427ab3b6760f545fbc9f682c896b",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8036-table-2023_01_25_19_21_54.801-1.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.6929683089256287,
+              "target_cell_yx_if_present": [
+                7,
+                6
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-test-table-000301",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.016576681286096573,
+              "predicted_present": false,
+              "presence_score": 0.016576681286096573,
+              "row_id": "det0-v0-test-table-000301-f008",
+              "selected_cell_box_iou_if_present": 0.7170792818069458,
+              "selected_cell_yx": [
+                7,
+                5
+              ],
+              "signer_identity_hash": "abb19b30e7af50c6cc238bd1d5ca897512d0c3a063d48bba12e78189ecfecdd0",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8037-table-2023_01_25_17_13_26.906-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.7170792818069458,
+              "target_cell_yx_if_present": [
+                7,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            }
+          ],
+          "false_positive_count": 0,
+          "false_positive_rows": [],
+          "threshold": 0.5,
+          "true_negative_count": 4,
+          "true_positive_count": 0
+        },
+        "train": {
+          "false_negative_count": 0,
+          "false_negative_rows": [],
+          "false_positive_count": 0,
+          "false_positive_rows": [],
+          "threshold": 0.5,
+          "true_negative_count": 4,
+          "true_positive_count": 7
+        },
+        "validation": {
+          "false_negative_count": 7,
+          "false_negative_rows": [
+            {
+              "clip_id": "popsign-v1-validation-table-000376",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.13737471401691437,
+              "predicted_present": false,
+              "presence_score": 0.13737471401691437,
+              "row_id": "det0-v0-validation-table-000376-f005",
+              "selected_cell_box_iou_if_present": 0.48537778854370117,
+              "selected_cell_yx": [
+                6,
+                4
+              ],
+              "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+              "source_record_id": "popsign_v1_0/game/val/table/4a.7002-table-2022_12_19_22_52_30.498-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": 0.6453185677528381,
+              "target_cell_yx_if_present": [
+                6,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-validation-table-000379",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.16409163177013397,
+              "predicted_present": false,
+              "presence_score": 0.16409163177013397,
+              "row_id": "det0-v0-validation-table-000379-f008",
+              "selected_cell_box_iou_if_present": 0.40438777208328247,
+              "selected_cell_yx": [
+                2,
+                4
+              ],
+              "signer_identity_hash": "cc50a89882a8ed4c0982ee9170fb302bc1bbbb5e94e893bce3b0632118cc0cf8",
+              "source_record_id": "popsign_v1_0/game/val/table/4a.8005-table-2022_12_15_16_59_45.185-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": 0.6116083264350891,
+              "target_cell_yx_if_present": [
+                6,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-validation-table-000383",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.12574972212314606,
+              "predicted_present": false,
+              "presence_score": 0.12574972212314606,
+              "row_id": "det0-v0-validation-table-000383-f010",
+              "selected_cell_box_iou_if_present": 0.4640035927295685,
+              "selected_cell_yx": [
+                8,
+                6
+              ],
+              "signer_identity_hash": "54ed19eb670a7fc395dbc28c6820b933d1eede5e2fcb97d9ea70c49c654682d8",
+              "source_record_id": "popsign_v1_0/game/val/table/4a.8013-table-2023_01_11_16_56_51.795-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": 0.7674250602722168,
+              "target_cell_yx_if_present": [
+                7,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-validation-table-000385",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.030109282582998276,
+              "predicted_present": false,
+              "presence_score": 0.030109282582998276,
+              "row_id": "det0-v0-validation-table-000385-f008",
+              "selected_cell_box_iou_if_present": 0.5206718444824219,
+              "selected_cell_yx": [
+                6,
+                5
+              ],
+              "signer_identity_hash": "fb6c9cc349eb6ba8c064cb7572615613c07e91211a75a97f3bc95bc91848d39a",
+              "source_record_id": "popsign_v1_0/game/val/table/4a.8015-table-2023_01_28_01_59_16.096-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": 0.5206718444824219,
+              "target_cell_yx_if_present": [
+                6,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-validation-table-000388",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.021651877090334892,
+              "predicted_present": false,
+              "presence_score": 0.021651877090334892,
+              "row_id": "det0-v0-validation-table-000388-f008",
+              "selected_cell_box_iou_if_present": 0.6038379073143005,
+              "selected_cell_yx": [
+                7,
+                11
+              ],
+              "signer_identity_hash": "96a654d6be5c2506b495f010339ce766ebd64a54096a79fe00b9bbc3ce1c280b",
+              "source_record_id": "popsign_v1_0/game/val/table/4a.8018-table-2023_01_10_18_35_17.729-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": 0.714844822883606,
+              "target_cell_yx_if_present": [
+                6,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-validation-table-000393",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.12556038796901703,
+              "predicted_present": false,
+              "presence_score": 0.12556038796901703,
+              "row_id": "det0-v0-validation-table-000393-f008",
+              "selected_cell_box_iou_if_present": 0.6771482229232788,
+              "selected_cell_yx": [
+                7,
+                6
+              ],
+              "signer_identity_hash": "30132f3fd3bc05eda5a491afa1802072649326f4a39e6a24ba7f2351b841f4a5",
+              "source_record_id": "popsign_v1_0/game/val/table/4a.8025-table-2023_01_12_23_52_10.159-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": 0.7430881857872009,
+              "target_cell_yx_if_present": [
+                7,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-validation-table-000397",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.055811092257499695,
+              "predicted_present": false,
+              "presence_score": 0.055811092257499695,
+              "row_id": "det0-v0-validation-table-000397-f008",
+              "selected_cell_box_iou_if_present": 0.47031369805336,
+              "selected_cell_yx": [
+                11,
+                7
+              ],
+              "signer_identity_hash": "d634581037b96d18388590532350e015fadb5d4e0891aa20e59c1731d7bfb9ee",
+              "source_record_id": "popsign_v1_0/game/val/table/4a.8051-table-2023_01_29_20_41_28.906-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": 0.6817591190338135,
+              "target_cell_yx_if_present": [
+                7,
+                6
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            }
+          ],
+          "false_positive_count": 0,
+          "false_positive_rows": [],
+          "threshold": 0.5,
+          "true_negative_count": 4,
+          "true_positive_count": 0
+        }
+      },
+      "presence_score_source": "max_map_objectness",
+      "validation_selected_threshold": {
+        "test": {
+          "false_negative_count": 3,
+          "false_negative_rows": [
+            {
+              "clip_id": "popsign-v1-test-table-000286",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.016276881098747253,
+              "predicted_present": false,
+              "presence_score": 0.016276881098747253,
+              "row_id": "det0-v0-test-table-000286-f005",
+              "selected_cell_box_iou_if_present": 0.8162117600440979,
+              "selected_cell_yx": [
+                8,
+                6
+              ],
+              "signer_identity_hash": "e0940122312d361abda8019f5084ffd16eacdeaba32c7bb78ed08a50549015b2",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8031-table-2023_01_25_13_50_32.495-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.7436718344688416,
+              "target_cell_yx_if_present": [
+                6,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.021651877090334892
+            },
+            {
+              "clip_id": "popsign-v1-test-table-000297",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.01554714422672987,
+              "predicted_present": false,
+              "presence_score": 0.01554714422672987,
+              "row_id": "det0-v0-test-table-000297-f008",
+              "selected_cell_box_iou_if_present": 0.6344510316848755,
+              "selected_cell_yx": [
+                8,
+                6
+              ],
+              "signer_identity_hash": "3660c753560b193daec1e61e3060fb0d2cab427ab3b6760f545fbc9f682c896b",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8036-table-2023_01_25_19_21_54.801-1.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.6929683089256287,
+              "target_cell_yx_if_present": [
+                7,
+                6
+              ],
+              "target_present": true,
+              "threshold": 0.021651877090334892
+            },
+            {
+              "clip_id": "popsign-v1-test-table-000301",
+              "global_presence_score": null,
+              "label_id": "table",
+              "max_map_objectness_score": 0.016576681286096573,
+              "predicted_present": false,
+              "presence_score": 0.016576681286096573,
+              "row_id": "det0-v0-test-table-000301-f008",
+              "selected_cell_box_iou_if_present": 0.7170792818069458,
+              "selected_cell_yx": [
+                7,
+                5
+              ],
+              "signer_identity_hash": "abb19b30e7af50c6cc238bd1d5ca897512d0c3a063d48bba12e78189ecfecdd0",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8037-table-2023_01_25_17_13_26.906-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.7170792818069458,
+              "target_cell_yx_if_present": [
+                7,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.021651877090334892
+            }
+          ],
+          "false_positive_count": 2,
+          "false_positive_rows": [
+            {
+              "clip_id": "popsign-v1-test-please-000058",
+              "global_presence_score": null,
+              "label_id": "please",
+              "max_map_objectness_score": 0.021801313385367393,
+              "predicted_present": true,
+              "presence_score": 0.021801313385367393,
+              "row_id": "det0-v0-test-please-000058-f010",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                5,
+                5
+              ],
+              "signer_identity_hash": "e0940122312d361abda8019f5084ffd16eacdeaba32c7bb78ed08a50549015b2",
+              "source_record_id": "popsign_v1_0/game/test/please/gtsignstudy4a.8031-please-2023_01_24_20_40_04.129-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.021651877090334892
+            },
+            {
+              "clip_id": "popsign-v1-test-dad-000628",
+              "global_presence_score": null,
+              "label_id": "dad",
+              "max_map_objectness_score": 0.07193150371313095,
+              "predicted_present": true,
+              "presence_score": 0.07193150371313095,
+              "row_id": "det0-v0-test-dad-000628-f005",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                6,
+                5
+              ],
+              "signer_identity_hash": "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25",
+              "source_record_id": "popsign_v1_0/game/test/dad/gtsignstudy4a.8032-dad-2023_01_25_17_19_45.298-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.021651877090334892
+            }
+          ],
+          "threshold": 0.021651877090334892,
+          "true_negative_count": 2,
+          "true_positive_count": 3
+        },
+        "train": {
+          "false_negative_count": 0,
+          "false_negative_rows": [],
+          "false_positive_count": 0,
+          "false_positive_rows": [],
+          "threshold": 0.021651877090334892,
+          "true_negative_count": 4,
+          "true_positive_count": 7
+        },
+        "validation": {
+          "false_negative_count": 0,
+          "false_negative_rows": [],
+          "false_positive_count": 3,
+          "false_positive_rows": [
+            {
+              "clip_id": "popsign-v1-validation-please-000076",
+              "global_presence_score": null,
+              "label_id": "please",
+              "max_map_objectness_score": 0.05046553537249565,
+              "predicted_present": true,
+              "presence_score": 0.05046553537249565,
+              "row_id": "det0-v0-validation-please-000076-f005",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                6,
+                4
+              ],
+              "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+              "source_record_id": "popsign_v1_0/game/val/please/4a.7002-please-2022_12_20_01_33_08.888-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.021651877090334892
+            },
+            {
+              "clip_id": "popsign-v1-validation-dad-000826",
+              "global_presence_score": null,
+              "label_id": "dad",
+              "max_map_objectness_score": 0.02506372146308422,
+              "predicted_present": true,
+              "presence_score": 0.02506372146308422,
+              "row_id": "det0-v0-validation-dad-000826-f005",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                6,
+                3
+              ],
+              "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+              "source_record_id": "popsign_v1_0/game/val/dad/4a.7002-dad-2022_12_22_01_53_46.646-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.021651877090334892
+            },
+            {
+              "clip_id": "popsign-v1-validation-grandpa-000952",
+              "global_presence_score": null,
+              "label_id": "grandpa",
+              "max_map_objectness_score": 0.08293403685092926,
+              "predicted_present": true,
+              "presence_score": 0.08293403685092926,
+              "row_id": "det0-v0-validation-grandpa-000952-f005",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                6,
+                3
+              ],
+              "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+              "source_record_id": "popsign_v1_0/game/val/grandpa/4a.7002-grandpa-2022_12_19_23_35_52.624-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.021651877090334892
+            }
+          ],
+          "threshold": 0.021651877090334892,
+          "true_negative_count": 1,
+          "true_positive_count": 7
+        }
+      },
+      "variant_id": "v3_low_hard_negative_max_map"
+    },
+    "v3_separated_global_presence": {
+      "fixed_threshold": {
+        "test": {
+          "false_negative_count": 3,
+          "false_negative_rows": [
+            {
+              "clip_id": "popsign-v1-test-table-000288",
+              "global_presence_score": 0.002083035185933113,
+              "label_id": "table",
+              "max_map_objectness_score": 0.005124757066369057,
+              "predicted_present": false,
+              "presence_score": 0.002083035185933113,
+              "row_id": "det0-v0-test-table-000288-f008",
+              "selected_cell_box_iou_if_present": 0.5665194392204285,
+              "selected_cell_yx": [
+                7,
+                6
+              ],
+              "signer_identity_hash": "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8032-table-2023_01_27_17_21_44.663-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.5966163277626038,
+              "target_cell_yx_if_present": [
+                6,
+                6
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-test-table-000297",
+              "global_presence_score": 0.03041938692331314,
+              "label_id": "table",
+              "max_map_objectness_score": 0.035544030368328094,
+              "predicted_present": false,
+              "presence_score": 0.03041938692331314,
+              "row_id": "det0-v0-test-table-000297-f008",
+              "selected_cell_box_iou_if_present": 0.5882506370544434,
+              "selected_cell_yx": [
+                9,
+                9
+              ],
+              "signer_identity_hash": "3660c753560b193daec1e61e3060fb0d2cab427ab3b6760f545fbc9f682c896b",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8036-table-2023_01_25_19_21_54.801-1.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.5768207311630249,
+              "target_cell_yx_if_present": [
+                7,
+                6
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-test-table-000301",
+              "global_presence_score": 0.4333252012729645,
+              "label_id": "table",
+              "max_map_objectness_score": 0.1428011953830719,
+              "predicted_present": false,
+              "presence_score": 0.4333252012729645,
+              "row_id": "det0-v0-test-table-000301-f008",
+              "selected_cell_box_iou_if_present": 0.5984546542167664,
+              "selected_cell_yx": [
+                9,
+                5
+              ],
+              "signer_identity_hash": "abb19b30e7af50c6cc238bd1d5ca897512d0c3a063d48bba12e78189ecfecdd0",
+              "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8037-table-2023_01_25_17_13_26.906-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": 0.6355191469192505,
+              "target_cell_yx_if_present": [
+                7,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            }
+          ],
+          "false_positive_count": 2,
+          "false_positive_rows": [
+            {
+              "clip_id": "popsign-v1-test-please-000058",
+              "global_presence_score": 0.9958431124687195,
+              "label_id": "please",
+              "max_map_objectness_score": 0.15570266544818878,
+              "predicted_present": true,
+              "presence_score": 0.9958431124687195,
+              "row_id": "det0-v0-test-please-000058-f010",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                10,
+                7
+              ],
+              "signer_identity_hash": "e0940122312d361abda8019f5084ffd16eacdeaba32c7bb78ed08a50549015b2",
+              "source_record_id": "popsign_v1_0/game/test/please/gtsignstudy4a.8031-please-2023_01_24_20_40_04.129-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-test-dad-000628",
+              "global_presence_score": 0.9189954400062561,
+              "label_id": "dad",
+              "max_map_objectness_score": 0.0521918386220932,
+              "predicted_present": true,
+              "presence_score": 0.9189954400062561,
+              "row_id": "det0-v0-test-dad-000628-f005",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                6,
+                5
+              ],
+              "signer_identity_hash": "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25",
+              "source_record_id": "popsign_v1_0/game/test/dad/gtsignstudy4a.8032-dad-2023_01_25_17_19_45.298-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.5
+            }
+          ],
+          "threshold": 0.5,
+          "true_negative_count": 2,
+          "true_positive_count": 3
+        },
+        "train": {
+          "false_negative_count": 0,
+          "false_negative_rows": [],
+          "false_positive_count": 0,
+          "false_positive_rows": [],
+          "threshold": 0.5,
+          "true_negative_count": 4,
+          "true_positive_count": 7
+        },
+        "validation": {
+          "false_negative_count": 1,
+          "false_negative_rows": [
+            {
+              "clip_id": "popsign-v1-validation-table-000388",
+              "global_presence_score": 0.0020636976696550846,
+              "label_id": "table",
+              "max_map_objectness_score": 0.005556510761380196,
+              "predicted_present": false,
+              "presence_score": 0.0020636976696550846,
+              "row_id": "det0-v0-validation-table-000388-f008",
+              "selected_cell_box_iou_if_present": 0.7632279992103577,
+              "selected_cell_yx": [
+                8,
+                4
+              ],
+              "signer_identity_hash": "96a654d6be5c2506b495f010339ce766ebd64a54096a79fe00b9bbc3ce1c280b",
+              "source_record_id": "popsign_v1_0/game/val/table/4a.8018-table-2023_01_10_18_35_17.729-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": 0.7516518831253052,
+              "target_cell_yx_if_present": [
+                6,
+                5
+              ],
+              "target_present": true,
+              "threshold": 0.5
+            }
+          ],
+          "false_positive_count": 4,
+          "false_positive_rows": [
+            {
+              "clip_id": "popsign-v1-validation-please-000076",
+              "global_presence_score": 0.9992949962615967,
+              "label_id": "please",
+              "max_map_objectness_score": 0.16559940576553345,
+              "predicted_present": true,
+              "presence_score": 0.9992949962615967,
+              "row_id": "det0-v0-validation-please-000076-f005",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                10,
+                5
+              ],
+              "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+              "source_record_id": "popsign_v1_0/game/val/please/4a.7002-please-2022_12_20_01_33_08.888-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-validation-dad-000826",
+              "global_presence_score": 0.9990923404693604,
+              "label_id": "dad",
+              "max_map_objectness_score": 0.13846856355667114,
+              "predicted_present": true,
+              "presence_score": 0.9990923404693604,
+              "row_id": "det0-v0-validation-dad-000826-f005",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                6,
+                3
+              ],
+              "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+              "source_record_id": "popsign_v1_0/game/val/dad/4a.7002-dad-2022_12_22_01_53_46.646-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-validation-grandpa-000952",
+              "global_presence_score": 0.9992387294769287,
+              "label_id": "grandpa",
+              "max_map_objectness_score": 0.14409539103507996,
+              "predicted_present": true,
+              "presence_score": 0.9992387294769287,
+              "row_id": "det0-v0-validation-grandpa-000952-f005",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                6,
+                3
+              ],
+              "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+              "source_record_id": "popsign_v1_0/game/val/grandpa/4a.7002-grandpa-2022_12_19_23_35_52.624-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.5
+            },
+            {
+              "clip_id": "popsign-v1-validation-hat-001976",
+              "global_presence_score": 0.9980804920196533,
+              "label_id": "hat",
+              "max_map_objectness_score": 0.054876022040843964,
+              "predicted_present": true,
+              "presence_score": 0.9980804920196533,
+              "row_id": "det0-v0-validation-hat-001976-f005",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                3,
+                6
+              ],
+              "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+              "source_record_id": "popsign_v1_0/game/val/hat/4a.7002-hat-2022_12_18_23_10_52.579-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.5
+            }
+          ],
+          "threshold": 0.5,
+          "true_negative_count": 0,
+          "true_positive_count": 6
+        }
+      },
+      "presence_score_source": "global_presence_head",
+      "validation_selected_threshold": {
+        "test": {
+          "false_negative_count": 0,
+          "false_negative_rows": [],
+          "false_positive_count": 4,
+          "false_positive_rows": [
+            {
+              "clip_id": "popsign-v1-test-please-000058",
+              "global_presence_score": 0.9958431124687195,
+              "label_id": "please",
+              "max_map_objectness_score": 0.15570266544818878,
+              "predicted_present": true,
+              "presence_score": 0.9958431124687195,
+              "row_id": "det0-v0-test-please-000058-f010",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                10,
+                7
+              ],
+              "signer_identity_hash": "e0940122312d361abda8019f5084ffd16eacdeaba32c7bb78ed08a50549015b2",
+              "source_record_id": "popsign_v1_0/game/test/please/gtsignstudy4a.8031-please-2023_01_24_20_40_04.129-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.0
+            },
+            {
+              "clip_id": "popsign-v1-test-dad-000628",
+              "global_presence_score": 0.9189954400062561,
+              "label_id": "dad",
+              "max_map_objectness_score": 0.0521918386220932,
+              "predicted_present": true,
+              "presence_score": 0.9189954400062561,
+              "row_id": "det0-v0-test-dad-000628-f005",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                6,
+                5
+              ],
+              "signer_identity_hash": "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25",
+              "source_record_id": "popsign_v1_0/game/test/dad/gtsignstudy4a.8032-dad-2023_01_25_17_19_45.298-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.0
+            },
+            {
+              "clip_id": "popsign-v1-test-grandpa-000723",
+              "global_presence_score": 0.43001997470855713,
+              "label_id": "grandpa",
+              "max_map_objectness_score": 0.153795525431633,
+              "predicted_present": true,
+              "presence_score": 0.43001997470855713,
+              "row_id": "det0-v0-test-grandpa-000723-f005",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                6,
+                4
+              ],
+              "signer_identity_hash": "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25",
+              "source_record_id": "popsign_v1_0/game/test/grandpa/gtsignstudy4a.8032-grandpa-2023_01_25_18_36_33.732-0.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.0
+            },
+            {
+              "clip_id": "popsign-v1-test-hat-001503",
+              "global_presence_score": 0.0015394468791782856,
+              "label_id": "hat",
+              "max_map_objectness_score": 0.004119607619941235,
+              "predicted_present": true,
+              "presence_score": 0.0015394468791782856,
+              "row_id": "det0-v0-test-hat-001503-f010",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                1,
+                3
+              ],
+              "signer_identity_hash": "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25",
+              "source_record_id": "popsign_v1_0/game/test/hat/gtsignstudy4a.8032-hat-2023_01_25_21_11_53.095-1.mp4",
+              "split": "test",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.0
+            }
+          ],
+          "threshold": 0.0,
+          "true_negative_count": 0,
+          "true_positive_count": 6
+        },
+        "train": {
+          "false_negative_count": 0,
+          "false_negative_rows": [],
+          "false_positive_count": 4,
+          "false_positive_rows": [
+            {
+              "clip_id": "popsign-v1-train-please-000076",
+              "global_presence_score": 0.0018039252609014511,
+              "label_id": "please",
+              "max_map_objectness_score": 0.003024911507964134,
+              "predicted_present": true,
+              "presence_score": 0.0018039252609014511,
+              "row_id": "det0-v0-train-please-000076-f010",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                8,
+                7
+              ],
+              "signer_identity_hash": "7c01a9b7c2b20c7f1bb084d66ac6e7a2967d08a093077b9497d55131a1cd67bc",
+              "source_record_id": "popsign_v1_0/game/train/please/4a.7003-please-2022_12_16_20_37_37.252-0.mp4",
+              "split": "train",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.0
+            },
+            {
+              "clip_id": "popsign-v1-train-dad-000826",
+              "global_presence_score": 0.0009504755144007504,
+              "label_id": "dad",
+              "max_map_objectness_score": 0.0016525867395102978,
+              "predicted_present": true,
+              "presence_score": 0.0009504755144007504,
+              "row_id": "det0-v0-train-dad-000826-f010",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                11,
+                0
+              ],
+              "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+              "source_record_id": "popsign_v1_0/game/train/dad/4a.6001-dad-2022_12_16_00_25_40.042-0.mp4",
+              "split": "train",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.0
+            },
+            {
+              "clip_id": "popsign-v1-train-grandpa-000951",
+              "global_presence_score": 0.0014374712482094765,
+              "label_id": "grandpa",
+              "max_map_objectness_score": 0.0018202420324087143,
+              "predicted_present": true,
+              "presence_score": 0.0014374712482094765,
+              "row_id": "det0-v0-train-grandpa-000951-f010",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                0,
+                11
+              ],
+              "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+              "source_record_id": "popsign_v1_0/game/train/grandpa/4a.6001-grandpa-2023_01_04_22_16_58.202-0.mp4",
+              "split": "train",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.0
+            },
+            {
+              "clip_id": "popsign-v1-train-hat-001976",
+              "global_presence_score": 0.0018358302768319845,
+              "label_id": "hat",
+              "max_map_objectness_score": 0.002345432061702013,
+              "predicted_present": true,
+              "presence_score": 0.0018358302768319845,
+              "row_id": "det0-v0-train-hat-001976-f010",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                8,
+                9
+              ],
+              "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+              "source_record_id": "popsign_v1_0/game/train/hat/4a.6001-hat-2022_12_16_00_17_27.405-0.mp4",
+              "split": "train",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.0
+            }
+          ],
+          "threshold": 0.0,
+          "true_negative_count": 0,
+          "true_positive_count": 7
+        },
+        "validation": {
+          "false_negative_count": 0,
+          "false_negative_rows": [],
+          "false_positive_count": 4,
+          "false_positive_rows": [
+            {
+              "clip_id": "popsign-v1-validation-please-000076",
+              "global_presence_score": 0.9992949962615967,
+              "label_id": "please",
+              "max_map_objectness_score": 0.16559940576553345,
+              "predicted_present": true,
+              "presence_score": 0.9992949962615967,
+              "row_id": "det0-v0-validation-please-000076-f005",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                10,
+                5
+              ],
+              "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+              "source_record_id": "popsign_v1_0/game/val/please/4a.7002-please-2022_12_20_01_33_08.888-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.0
+            },
+            {
+              "clip_id": "popsign-v1-validation-dad-000826",
+              "global_presence_score": 0.9990923404693604,
+              "label_id": "dad",
+              "max_map_objectness_score": 0.13846856355667114,
+              "predicted_present": true,
+              "presence_score": 0.9990923404693604,
+              "row_id": "det0-v0-validation-dad-000826-f005",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                6,
+                3
+              ],
+              "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+              "source_record_id": "popsign_v1_0/game/val/dad/4a.7002-dad-2022_12_22_01_53_46.646-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.0
+            },
+            {
+              "clip_id": "popsign-v1-validation-grandpa-000952",
+              "global_presence_score": 0.9992387294769287,
+              "label_id": "grandpa",
+              "max_map_objectness_score": 0.14409539103507996,
+              "predicted_present": true,
+              "presence_score": 0.9992387294769287,
+              "row_id": "det0-v0-validation-grandpa-000952-f005",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                6,
+                3
+              ],
+              "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+              "source_record_id": "popsign_v1_0/game/val/grandpa/4a.7002-grandpa-2022_12_19_23_35_52.624-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.0
+            },
+            {
+              "clip_id": "popsign-v1-validation-hat-001976",
+              "global_presence_score": 0.9980804920196533,
+              "label_id": "hat",
+              "max_map_objectness_score": 0.054876022040843964,
+              "predicted_present": true,
+              "presence_score": 0.9980804920196533,
+              "row_id": "det0-v0-validation-hat-001976-f005",
+              "selected_cell_box_iou_if_present": null,
+              "selected_cell_yx": [
+                3,
+                6
+              ],
+              "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+              "source_record_id": "popsign_v1_0/game/val/hat/4a.7002-hat-2022_12_18_23_10_52.579-0.mp4",
+              "split": "validation",
+              "target_cell_box_iou_if_present": null,
+              "target_cell_yx_if_present": null,
+              "target_present": false,
+              "threshold": 0.0
+            }
+          ],
+          "threshold": 0.0,
+          "true_negative_count": 0,
+          "true_positive_count": 7
+        }
+      },
+      "variant_id": "v3_separated_global_presence"
+    }
+  },
+  "files_changed": [
+    "scripts/run_return_to_form_detector0_objectness_repair.py",
+    "docs/validation/return-to-form-detector0-objectness-repair-v1.json",
+    "docs/session-logs/491-mission-3dy-detector0-objectness-repair.md"
+  ],
+  "files_symbols_inspected": {
+    "active_prompt": {
+      "path": "docs/model/return-to-form-detector0-objectness-repair-goal-loop-prompt.md",
+      "sha256": "1950c68111c3e67d13f1398bacef4ef806c7b40cd3598d65da832fb36b208332"
+    },
+    "goal": {
+      "path": "GOAL.md",
+      "sha256": "404154e74e47b80c28f5d4a25d6c3d36fd5172cf43afa69f6600ab7cc3675a7a"
+    },
+    "m3dx_source_feasibility_receipt": {
+      "path": "docs/validation/return-to-form-hand-landmark-source-feasibility-v1.json",
+      "sha256": "46a85cce96ac5fc7e882789df9033669a97c443a37d27a18e8dfd9e0fd1f4515"
+    },
+    "new_runner": {
+      "path": "scripts/run_return_to_form_detector0_objectness_repair.py",
+      "sha256": "6ec4f098c5deb9c70a5374ae32c07496cede307d6e7443e84e6acd3673484ac3"
+    },
+    "old_runner": {
+      "path": "scripts/run_return_to_form_tier0_detector0_parallel_heldout_recall.py",
+      "sha256": "288811dc9d25dc88785561b1fdc75e25644af496d046494f93e837413195ac33"
+    },
+    "packet": {
+      "path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d"
+    },
+    "prior_parallel_heldout_receipt": {
+      "path": "docs/validation/return-to-form-tier0-detector0-parallel-heldout-recall-v1.json",
+      "sha256": "1b04a5d720230f5a1adf82a15aae2f985238c81a395b121880e74b77f7a8199b"
+    },
+    "return_to_form_plan": {
+      "path": "docs/model/return-to-form-plan.md",
+      "sha256": "292ac1d6aea845e25b934a08c055b3cfd2b287d55783b4b53257316c34f4f4e4"
+    }
+  },
+  "heldout_score_distributions": {
+    "v2_reproduction_target_cell_audit": {
+      "test": {
+        "max_map_objectness": {
+          "fixed_threshold": {
+            "f1": null,
+            "false_negative_count": 6,
+            "false_positive_count": 0,
+            "precision": null,
+            "presence_accuracy": 0.4,
+            "recall": 0.0,
+            "threshold": 0.5,
+            "true_negative_count": 4,
+            "true_positive_count": 0
+          },
+          "negative_distribution": {
+            "count": 4,
+            "max": 0.04359525814652443,
+            "mean": 0.014390769763849676,
+            "median": 0.00526454159989953,
+            "min": 0.0034387377090752125,
+            "p25": 0.004030899959616363,
+            "p75": 0.015624411404132843
+          },
+          "positive_distribution": {
+            "count": 6,
+            "max": 0.2851216197013855,
+            "mean": 0.05395531367200116,
+            "median": 0.006098758429288864,
+            "min": 0.004753728862851858,
+            "p25": 0.0050156135112047195,
+            "p75": 0.014278028160333633
+          },
+          "score_key": "max_map_objectness_score",
+          "threshold_free": {
+            "auroc": {
+              "reason": null,
+              "value": 0.6666666666666666
+            },
+            "average_precision": {
+              "reason": null,
+              "value": 0.7579365079365079
+            }
+          }
+        },
+        "presence_score": {
+          "fixed_threshold": {
+            "f1": null,
+            "false_negative_count": 6,
+            "false_positive_count": 0,
+            "precision": null,
+            "presence_accuracy": 0.4,
+            "recall": 0.0,
+            "threshold": 0.5,
+            "true_negative_count": 4,
+            "true_positive_count": 0
+          },
+          "negative_distribution": {
+            "count": 4,
+            "max": 0.04359525814652443,
+            "mean": 0.014390769763849676,
+            "median": 0.00526454159989953,
+            "min": 0.0034387377090752125,
+            "p25": 0.004030899959616363,
+            "p75": 0.015624411404132843
+          },
+          "positive_distribution": {
+            "count": 6,
+            "max": 0.2851216197013855,
+            "mean": 0.05395531367200116,
+            "median": 0.006098758429288864,
+            "min": 0.004753728862851858,
+            "p25": 0.0050156135112047195,
+            "p75": 0.014278028160333633
+          },
+          "score_key": "presence_score",
+          "threshold_free": {
+            "auroc": {
+              "reason": null,
+              "value": 0.6666666666666666
+            },
+            "average_precision": {
+              "reason": null,
+              "value": 0.7579365079365079
+            }
+          },
+          "validation_selected_threshold": {
+            "f1": 0.6,
+            "false_negative_count": 3,
+            "false_positive_count": 1,
+            "precision": 0.75,
+            "presence_accuracy": 0.6,
+            "recall": 0.5,
+            "threshold": 0.006535579450428486,
+            "true_negative_count": 3,
+            "true_positive_count": 3
+          }
+        },
+        "target_cell_objectness_present_only": {
+          "note": "target cell is only defined for present rows and is diagnostic, not a runtime presence score",
+          "positive_distribution": {
+            "count": 6,
+            "max": 0.005233503878116608,
+            "mean": 0.0013854432763764635,
+            "median": 0.0007530963339377195,
+            "min": 5.774953751824796e-05,
+            "p25": 0.000525370123796165,
+            "p75": 0.0009875882242340595
+          },
+          "score_key": "target_cell_objectness_score"
+        }
+      },
+      "validation": {
+        "max_map_objectness": {
+          "fixed_threshold": {
+            "f1": null,
+            "false_negative_count": 7,
+            "false_positive_count": 0,
+            "precision": null,
+            "presence_accuracy": 0.36363636363636365,
+            "recall": 0.0,
+            "threshold": 0.5,
+            "true_negative_count": 4,
+            "true_positive_count": 0
+          },
+          "negative_distribution": {
+            "count": 4,
+            "max": 0.05804261937737465,
+            "mean": 0.02487805241253227,
+            "median": 0.01937805744819343,
+            "min": 0.002713475376367569,
+            "p25": 0.006437871721573174,
+            "p75": 0.03781823813915253
+          },
+          "positive_distribution": {
+            "count": 7,
+            "max": 0.1880764216184616,
+            "mean": 0.04744137930018561,
+            "median": 0.020905595272779465,
+            "min": 0.006535579450428486,
+            "p25": 0.010592160280793905,
+            "p75": 0.04769386909902096
+          },
+          "score_key": "max_map_objectness_score",
+          "threshold_free": {
+            "auroc": {
+              "reason": null,
+              "value": 0.6071428571428571
+            },
+            "average_precision": {
+              "reason": null,
+              "value": 0.7758503401360545
+            }
+          }
+        },
+        "presence_score": {
+          "fixed_threshold": {
+            "f1": null,
+            "false_negative_count": 7,
+            "false_positive_count": 0,
+            "precision": null,
+            "presence_accuracy": 0.36363636363636365,
+            "recall": 0.0,
+            "threshold": 0.5,
+            "true_negative_count": 4,
+            "true_positive_count": 0
+          },
+          "negative_distribution": {
+            "count": 4,
+            "max": 0.05804261937737465,
+            "mean": 0.02487805241253227,
+            "median": 0.01937805744819343,
+            "min": 0.002713475376367569,
+            "p25": 0.006437871721573174,
+            "p75": 0.03781823813915253
+          },
+          "positive_distribution": {
+            "count": 7,
+            "max": 0.1880764216184616,
+            "mean": 0.04744137930018561,
+            "median": 0.020905595272779465,
+            "min": 0.006535579450428486,
+            "p25": 0.010592160280793905,
+            "p75": 0.04769386909902096
+          },
+          "score_key": "presence_score",
+          "threshold_free": {
+            "auroc": {
+              "reason": null,
+              "value": 0.6071428571428571
+            },
+            "average_precision": {
+              "reason": null,
+              "value": 0.7758503401360545
+            }
+          },
+          "validation_selected_threshold": {
+            "f1": 0.8235294117647058,
+            "false_negative_count": 0,
+            "false_positive_count": 3,
+            "precision": 0.7,
+            "presence_accuracy": 0.7272727272727273,
+            "recall": 1.0,
+            "threshold": 0.006535579450428486,
+            "true_negative_count": 1,
+            "true_positive_count": 7
+          }
+        },
+        "target_cell_objectness_present_only": {
+          "note": "target cell is only defined for present rows and is diagnostic, not a runtime presence score",
+          "positive_distribution": {
+            "count": 7,
+            "max": 0.011721107177436352,
+            "mean": 0.004440538546727372,
+            "median": 0.00200888654217124,
+            "min": 8.955866360338405e-05,
+            "p25": 0.000793680468632374,
+            "p75": 0.007838428253307939
+          },
+          "score_key": "target_cell_objectness_score"
+        }
+      }
+    },
+    "v3_low_hard_negative_max_map": {
+      "test": {
+        "max_map_objectness": {
+          "fixed_threshold": {
+            "f1": null,
+            "false_negative_count": 6,
+            "false_positive_count": 0,
+            "precision": null,
+            "presence_accuracy": 0.4,
+            "recall": 0.0,
+            "threshold": 0.5,
+            "true_negative_count": 4,
+            "true_positive_count": 0
+          },
+          "negative_distribution": {
+            "count": 4,
+            "max": 0.07193150371313095,
+            "mean": 0.03097696672193706,
+            "median": 0.019470524042844772,
+            "min": 0.013035315088927746,
+            "p25": 0.01611362979747355,
+            "p75": 0.03433386096730828
+          },
+          "positive_distribution": {
+            "count": 6,
+            "max": 0.2044176608324051,
+            "mean": 0.058739360266675554,
+            "median": 0.023101286962628365,
+            "min": 0.01554714422672987,
+            "p25": 0.016351831145584583,
+            "p75": 0.059900399297475815
+          },
+          "score_key": "max_map_objectness_score",
+          "threshold_free": {
+            "auroc": {
+              "reason": null,
+              "value": 0.5416666666666666
+            },
+            "average_precision": {
+              "reason": null,
+              "value": 0.7132936507936508
+            }
+          }
+        },
+        "presence_score": {
+          "fixed_threshold": {
+            "f1": null,
+            "false_negative_count": 6,
+            "false_positive_count": 0,
+            "precision": null,
+            "presence_accuracy": 0.4,
+            "recall": 0.0,
+            "threshold": 0.5,
+            "true_negative_count": 4,
+            "true_positive_count": 0
+          },
+          "negative_distribution": {
+            "count": 4,
+            "max": 0.07193150371313095,
+            "mean": 0.03097696672193706,
+            "median": 0.019470524042844772,
+            "min": 0.013035315088927746,
+            "p25": 0.01611362979747355,
+            "p75": 0.03433386096730828
+          },
+          "positive_distribution": {
+            "count": 6,
+            "max": 0.2044176608324051,
+            "mean": 0.058739360266675554,
+            "median": 0.023101286962628365,
+            "min": 0.01554714422672987,
+            "p25": 0.016351831145584583,
+            "p75": 0.059900399297475815
+          },
+          "score_key": "presence_score",
+          "threshold_free": {
+            "auroc": {
+              "reason": null,
+              "value": 0.5416666666666666
+            },
+            "average_precision": {
+              "reason": null,
+              "value": 0.7132936507936508
+            }
+          },
+          "validation_selected_threshold": {
+            "f1": 0.5454545454545454,
+            "false_negative_count": 3,
+            "false_positive_count": 2,
+            "precision": 0.6,
+            "presence_accuracy": 0.5,
+            "recall": 0.5,
+            "threshold": 0.021651877090334892,
+            "true_negative_count": 2,
+            "true_positive_count": 3
+          }
+        },
+        "target_cell_objectness_present_only": {
+          "note": "target cell is only defined for present rows and is diagnostic, not a runtime presence score",
+          "positive_distribution": {
+            "count": 6,
+            "max": 0.016576681286096573,
+            "mean": 0.005992112623061985,
+            "median": 0.0034742403076961637,
+            "min": 0.000545692048035562,
+            "p25": 0.0023717108997516334,
+            "p75": 0.008276775595732033
+          },
+          "score_key": "target_cell_objectness_score"
+        }
+      },
+      "validation": {
+        "max_map_objectness": {
+          "fixed_threshold": {
+            "f1": null,
+            "false_negative_count": 7,
+            "false_positive_count": 0,
+            "precision": null,
+            "presence_accuracy": 0.36363636363636365,
+            "recall": 0.0,
+            "threshold": 0.5,
+            "true_negative_count": 4,
+            "true_positive_count": 0
+          },
+          "negative_distribution": {
+            "count": 4,
+            "max": 0.08293403685092926,
+            "mean": 0.04459424642845988,
+            "median": 0.037764628417789936,
+            "min": 0.0199136920273304,
+            "p25": 0.023776214104145765,
+            "p75": 0.058582660742104053
+          },
+          "positive_distribution": {
+            "count": 7,
+            "max": 0.16409163177013397,
+            "mean": 0.09433552968714919,
+            "median": 0.12556038796901703,
+            "min": 0.021651877090334892,
+            "p25": 0.042960187420248985,
+            "p75": 0.1315622180700302
+          },
+          "score_key": "max_map_objectness_score",
+          "threshold_free": {
+            "auroc": {
+              "reason": null,
+              "value": 0.7857142857142857
+            },
+            "average_precision": {
+              "reason": null,
+              "value": 0.8976190476190476
+            }
+          }
+        },
+        "presence_score": {
+          "fixed_threshold": {
+            "f1": null,
+            "false_negative_count": 7,
+            "false_positive_count": 0,
+            "precision": null,
+            "presence_accuracy": 0.36363636363636365,
+            "recall": 0.0,
+            "threshold": 0.5,
+            "true_negative_count": 4,
+            "true_positive_count": 0
+          },
+          "negative_distribution": {
+            "count": 4,
+            "max": 0.08293403685092926,
+            "mean": 0.04459424642845988,
+            "median": 0.037764628417789936,
+            "min": 0.0199136920273304,
+            "p25": 0.023776214104145765,
+            "p75": 0.058582660742104053
+          },
+          "positive_distribution": {
+            "count": 7,
+            "max": 0.16409163177013397,
+            "mean": 0.09433552968714919,
+            "median": 0.12556038796901703,
+            "min": 0.021651877090334892,
+            "p25": 0.042960187420248985,
+            "p75": 0.1315622180700302
+          },
+          "score_key": "presence_score",
+          "threshold_free": {
+            "auroc": {
+              "reason": null,
+              "value": 0.7857142857142857
+            },
+            "average_precision": {
+              "reason": null,
+              "value": 0.8976190476190476
+            }
+          },
+          "validation_selected_threshold": {
+            "f1": 0.8235294117647058,
+            "false_negative_count": 0,
+            "false_positive_count": 3,
+            "precision": 0.7,
+            "presence_accuracy": 0.7272727272727273,
+            "recall": 1.0,
+            "threshold": 0.021651877090334892,
+            "true_negative_count": 1,
+            "true_positive_count": 7
+          }
+        },
+        "target_cell_objectness_present_only": {
+          "note": "target cell is only defined for present rows and is diagnostic, not a runtime presence score",
+          "positive_distribution": {
+            "count": 7,
+            "max": 0.06781668215990067,
+            "mean": 0.020291691196949353,
+            "median": 0.016248777508735657,
+            "min": 0.0004653126234188676,
+            "p25": 0.0038590063340961933,
+            "p75": 0.02489652670919895
+          },
+          "score_key": "target_cell_objectness_score"
+        }
+      }
+    },
+    "v3_separated_global_presence": {
+      "test": {
+        "max_map_objectness": {
+          "fixed_threshold": {
+            "f1": null,
+            "false_negative_count": 6,
+            "false_positive_count": 0,
+            "precision": null,
+            "presence_accuracy": 0.4,
+            "recall": 0.0,
+            "threshold": 0.5,
+            "true_negative_count": 4,
+            "true_positive_count": 0
+          },
+          "negative_distribution": {
+            "count": 4,
+            "max": 0.15570266544818878,
+            "mean": 0.09145240928046405,
+            "median": 0.1029936820268631,
+            "min": 0.004119607619941235,
+            "p25": 0.04017378087155521,
+            "p75": 0.15427231043577194
+          },
+          "positive_distribution": {
+            "count": 6,
+            "max": 0.42395564913749695,
+            "mean": 0.1864549471065402,
+            "median": 0.11918745934963226,
+            "min": 0.005124757066369057,
+            "p25": 0.05055145360529423,
+            "p75": 0.3474980443716049
+          },
+          "score_key": "max_map_objectness_score",
+          "threshold_free": {
+            "auroc": {
+              "reason": null,
+              "value": 0.5833333333333334
+            },
+            "average_precision": {
+              "reason": null,
+              "value": 0.7597222222222223
+            }
+          }
+        },
+        "presence_score": {
+          "fixed_threshold": {
+            "f1": 0.5454545454545454,
+            "false_negative_count": 3,
+            "false_positive_count": 2,
+            "precision": 0.6,
+            "presence_accuracy": 0.5,
+            "recall": 0.5,
+            "threshold": 0.5,
+            "true_negative_count": 2,
+            "true_positive_count": 3
+          },
+          "negative_distribution": {
+            "count": 4,
+            "max": 0.9958431124687195,
+            "mean": 0.5865994935156778,
+            "median": 0.6745077073574066,
+            "min": 0.0015394468791782856,
+            "p25": 0.3228998427512124,
+            "p75": 0.938207358121872
+          },
+          "positive_distribution": {
+            "count": 6,
+            "max": 0.9991477727890015,
+            "mean": 0.5649096633618077,
+            "median": 0.6794019192457199,
+            "min": 0.002083035185933113,
+            "p25": 0.13114584051072598,
+            "p75": 0.9806226193904877
+          },
+          "score_key": "presence_score",
+          "threshold_free": {
+            "auroc": {
+              "reason": null,
+              "value": 0.625
+            },
+            "average_precision": {
+              "reason": null,
+              "value": 0.7847222222222222
+            }
+          },
+          "validation_selected_threshold": {
+            "f1": 0.7499999999999999,
+            "false_negative_count": 0,
+            "false_positive_count": 4,
+            "precision": 0.6,
+            "presence_accuracy": 0.6,
+            "recall": 1.0,
+            "threshold": 0.0,
+            "true_negative_count": 0,
+            "true_positive_count": 6
+          }
+        },
+        "target_cell_objectness_present_only": {
+          "note": "target cell is only defined for present rows and is diagnostic, not a runtime presence score",
+          "positive_distribution": {
+            "count": 6,
+            "max": 0.10082900524139404,
+            "mean": 0.03041602938901633,
+            "median": 0.008906506467610598,
+            "min": 0.0005256662843748927,
+            "p25": 0.0029463321261573583,
+            "p75": 0.04900329001247883
+          },
+          "score_key": "target_cell_objectness_score"
+        }
+      },
+      "validation": {
+        "max_map_objectness": {
+          "fixed_threshold": {
+            "f1": null,
+            "false_negative_count": 7,
+            "false_positive_count": 0,
+            "precision": null,
+            "presence_accuracy": 0.36363636363636365,
+            "recall": 0.0,
+            "threshold": 0.5,
+            "true_negative_count": 4,
+            "true_positive_count": 0
+          },
+          "negative_distribution": {
+            "count": 4,
+            "max": 0.16559940576553345,
+            "mean": 0.12575984559953213,
+            "median": 0.14128197729587555,
+            "min": 0.054876022040843964,
+            "p25": 0.11757042817771435,
+            "p75": 0.14947139471769333
+          },
+          "positive_distribution": {
+            "count": 7,
+            "max": 0.23570892214775085,
+            "mean": 0.1496057002139943,
+            "median": 0.1440993845462799,
+            "min": 0.005556510761380196,
+            "p25": 0.11216390877962112,
+            "p75": 0.21877363324165344
+          },
+          "score_key": "max_map_objectness_score",
+          "threshold_free": {
+            "auroc": {
+              "reason": null,
+              "value": 0.6071428571428571
+            },
+            "average_precision": {
+              "reason": null,
+              "value": 0.8182900432900434
+            }
+          }
+        },
+        "presence_score": {
+          "fixed_threshold": {
+            "f1": 0.7058823529411764,
+            "false_negative_count": 1,
+            "false_positive_count": 4,
+            "precision": 0.6,
+            "presence_accuracy": 0.5454545454545454,
+            "recall": 0.8571428571428571,
+            "threshold": 0.5,
+            "true_negative_count": 0,
+            "true_positive_count": 6
+          },
+          "negative_distribution": {
+            "count": 4,
+            "max": 0.9992949962615967,
+            "mean": 0.9989266395568848,
+            "median": 0.9991655349731445,
+            "min": 0.9980804920196533,
+            "p25": 0.9988393783569336,
+            "p75": 0.9992527961730957
+          },
+          "positive_distribution": {
+            "count": 7,
+            "max": 0.9992702603340149,
+            "mean": 0.8546483014444155,
+            "median": 0.9965600371360779,
+            "min": 0.0020636976696550846,
+            "p25": 0.9937055110931396,
+            "p75": 0.9986165463924408
+          },
+          "score_key": "presence_score",
+          "threshold_free": {
+            "auroc": {
+              "reason": null,
+              "value": 0.21428571428571427
+            },
+            "average_precision": {
+              "reason": null,
+              "value": 0.5553081838796123
+            }
+          },
+          "validation_selected_threshold": {
+            "f1": 0.7777777777777778,
+            "false_negative_count": 0,
+            "false_positive_count": 4,
+            "precision": 0.6363636363636364,
+            "presence_accuracy": 0.6363636363636364,
+            "recall": 1.0,
+            "threshold": 0.0,
+            "true_negative_count": 0,
+            "true_positive_count": 7
+          }
+        },
+        "target_cell_objectness_present_only": {
+          "note": "target cell is only defined for present rows and is diagnostic, not a runtime presence score",
+          "positive_distribution": {
+            "count": 7,
+            "max": 0.15843600034713745,
+            "mean": 0.07301536508436714,
+            "median": 0.06048622354865074,
+            "min": 0.0003742612898349762,
+            "p25": 0.018728170078247786,
+            "p75": 0.12717736512422562
+          },
+          "score_key": "target_cell_objectness_score"
+        }
+      }
+    }
+  },
+  "mission": "M3DY - Detector 0 objectness repair",
+  "next_action": {
+    "id": "continue_detector0_annotation_or_packet_support_no_brev",
+    "reason": "Every target-present row is label_id=table and every target-absent row is a different label, with no within-label present/absent contrast. More objectness formulations can still be tried, but this packet cannot prove class-invariant presence without additional approved packet support."
+  },
+  "no_brev_no_pretrained_no_import_proof": {
+    "active_label_promotion": false,
+    "brev_commands_run": [],
+    "browser_or_product_runtime_change": false,
+    "final_gate_weakening": false,
+    "final_readiness_claim": false,
+    "generated_pseudo_labels_used": false,
+    "manifest_mutation": false,
+    "model_artifact_saved": false,
+    "model_card_promotion": false,
+    "onnx_export": false,
+    "packet_mutation": false,
+    "pretrained_backbone_or_embedding_used": false,
+    "pretrained_detector_or_landmark_used": false,
+    "remote_compute_used": false,
+    "source_import_or_approval_change": false,
+    "tensor_mutation": false
+  },
+  "outcome": {
+    "classification": "packet_presence_label_confounding_blocks_general_objectness_claim",
+    "next_action": "continue_detector0_annotation_or_packet_support_no_brev",
+    "reason": "Every target-present row is label_id=table and every target-absent row is a different label, with no within-label present/absent contrast. More objectness formulations can still be tried, but this packet cannot prove class-invariant presence without additional approved packet support."
+  },
+  "packet_and_split_evidence": {
+    "label_counts_by_split": {
+      "test": {
+        "dad": 1,
+        "grandpa": 1,
+        "hat": 1,
+        "please": 1,
+        "table": 6
+      },
+      "train": {
+        "dad": 1,
+        "grandpa": 1,
+        "hat": 1,
+        "please": 1,
+        "table": 7
+      },
+      "validation": {
+        "dad": 1,
+        "grandpa": 1,
+        "hat": 1,
+        "please": 1,
+        "table": 7
+      }
+    },
+    "objectness_support_diagnostics": {
+      "diagnosis": "packet_presence_is_label_confounded",
+      "global_absent_labels": [
+        "dad",
+        "grandpa",
+        "hat",
+        "please"
+      ],
+      "global_counts_by_label": {
+        "dad": {
+          "absent": 3,
+          "present": 0
+        },
+        "grandpa": {
+          "absent": 3,
+          "present": 0
+        },
+        "hat": {
+          "absent": 3,
+          "present": 0
+        },
+        "please": {
+          "absent": 3,
+          "present": 0
+        },
+        "table": {
+          "absent": 0,
+          "present": 20
+        }
+      },
+      "global_labels_with_both_present_and_absent": [],
+      "global_present_labels": [
+        "table"
+      ],
+      "has_global_within_label_presence_contrast": false,
+      "implication": "The current packet can test whether a tiny model memorizes table-vs-other-label cues, but it cannot by itself prove class-invariant Detector 0 objectness.",
+      "split_summaries": {
+        "test": {
+          "absent_labels": [
+            "dad",
+            "grandpa",
+            "hat",
+            "please"
+          ],
+          "counts_by_label": {
+            "dad": {
+              "absent": 1,
+              "present": 0
+            },
+            "grandpa": {
+              "absent": 1,
+              "present": 0
+            },
+            "hat": {
+              "absent": 1,
+              "present": 0
+            },
+            "please": {
+              "absent": 1,
+              "present": 0
+            },
+            "table": {
+              "absent": 0,
+              "present": 6
+            }
+          },
+          "has_within_label_presence_contrast": false,
+          "labels_with_both_present_and_absent": [],
+          "present_labels": [
+            "table"
+          ],
+          "sample_count": 10
+        },
+        "train": {
+          "absent_labels": [
+            "dad",
+            "grandpa",
+            "hat",
+            "please"
+          ],
+          "counts_by_label": {
+            "dad": {
+              "absent": 1,
+              "present": 0
+            },
+            "grandpa": {
+              "absent": 1,
+              "present": 0
+            },
+            "hat": {
+              "absent": 1,
+              "present": 0
+            },
+            "please": {
+              "absent": 1,
+              "present": 0
+            },
+            "table": {
+              "absent": 0,
+              "present": 7
+            }
+          },
+          "has_within_label_presence_contrast": false,
+          "labels_with_both_present_and_absent": [],
+          "present_labels": [
+            "table"
+          ],
+          "sample_count": 11
+        },
+        "validation": {
+          "absent_labels": [
+            "dad",
+            "grandpa",
+            "hat",
+            "please"
+          ],
+          "counts_by_label": {
+            "dad": {
+              "absent": 1,
+              "present": 0
+            },
+            "grandpa": {
+              "absent": 1,
+              "present": 0
+            },
+            "hat": {
+              "absent": 1,
+              "present": 0
+            },
+            "please": {
+              "absent": 1,
+              "present": 0
+            },
+            "table": {
+              "absent": 0,
+              "present": 7
+            }
+          },
+          "has_within_label_presence_contrast": false,
+          "labels_with_both_present_and_absent": [],
+          "present_labels": [
+            "table"
+          ],
+          "sample_count": 11
+        }
+      },
+      "target_presence_equivalent_to_label_id_table": true
+    },
+    "packet": {
+      "path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d"
+    },
+    "source_ids": [
+      "popsign-v1-original-videos"
+    ],
+    "split_counts": {
+      "test": 10,
+      "train": 11,
+      "validation": 11
+    },
+    "split_distribution": {
+      "test": {
+        "label_counts": {
+          "dad": 1,
+          "grandpa": 1,
+          "hat": 1,
+          "please": 1,
+          "table": 6
+        },
+        "negative_count": 4,
+        "positive_count": 6,
+        "sample_count": 10,
+        "signer_count": 6,
+        "signer_row_counts": {
+          "0a4c034271536723f6b9253752108a6bba85a26dea7185e2c8c25eea2493b920": 1,
+          "3660c753560b193daec1e61e3060fb0d2cab427ab3b6760f545fbc9f682c896b": 1,
+          "4027e4c04fcfc2940fe00c6d89cf00633df9a37b921346a77c9c4c2bd29e69fb": 1,
+          "abb19b30e7af50c6cc238bd1d5ca897512d0c3a063d48bba12e78189ecfecdd0": 1,
+          "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25": 4,
+          "e0940122312d361abda8019f5084ffd16eacdeaba32c7bb78ed08a50549015b2": 2
+        },
+        "source_record_prefix_counts": {
+          "popsign_v1_0": 10
+        }
+      },
+      "train": {
+        "label_counts": {
+          "dad": 1,
+          "grandpa": 1,
+          "hat": 1,
+          "please": 1,
+          "table": 7
+        },
+        "negative_count": 4,
+        "positive_count": 7,
+        "sample_count": 11,
+        "signer_count": 7,
+        "signer_row_counts": {
+          "44621e6a463f815358059025e7e5bc52a10856d5f4ec9c7ff63b47bf468a4a95": 1,
+          "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0": 4,
+          "7c01a9b7c2b20c7f1bb084d66ac6e7a2967d08a093077b9497d55131a1cd67bc": 2,
+          "abc0cb7ba434779fb8887fd3ea3e91f33ab9618955dc3490ae87a330fd93a934": 1,
+          "d2fe031922f8146aa2014806244311a9fbf8e1e21d30e6effe10670b8e5afa4e": 1,
+          "dfbc221302a2da2fa433035916d9b200bb7090083a544b69469a1aec7d836a87": 1,
+          "e8bbaa928eea9108f1951bea43e7ee4ccaeddc447f289c3cb54452a3f768cfe2": 1
+        },
+        "source_record_prefix_counts": {
+          "popsign_v1_0": 11
+        }
+      },
+      "validation": {
+        "label_counts": {
+          "dad": 1,
+          "grandpa": 1,
+          "hat": 1,
+          "please": 1,
+          "table": 7
+        },
+        "negative_count": 4,
+        "positive_count": 7,
+        "sample_count": 11,
+        "signer_count": 7,
+        "signer_row_counts": {
+          "30132f3fd3bc05eda5a491afa1802072649326f4a39e6a24ba7f2351b841f4a5": 1,
+          "54ed19eb670a7fc395dbc28c6820b933d1eede5e2fcb97d9ea70c49c654682d8": 1,
+          "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22": 5,
+          "96a654d6be5c2506b495f010339ce766ebd64a54096a79fe00b9bbc3ce1c280b": 1,
+          "cc50a89882a8ed4c0982ee9170fb302bc1bbbb5e94e893bce3b0632118cc0cf8": 1,
+          "d634581037b96d18388590532350e015fadb5d4e0891aa20e59c1731d7bfb9ee": 1,
+          "fb6c9cc349eb6ba8c064cb7572615613c07e91211a75a97f3bc95bc91848d39a": 1
+        },
+        "source_record_prefix_counts": {
+          "popsign_v1_0": 11
+        }
+      }
+    },
+    "target_id": "table_two_hand_union_or_contact_region",
+    "union_target_support_by_split": {
+      "test": 6,
+      "train": 7,
+      "validation": 7
+    }
+  },
+  "presence_versus_box_quality": {
+    "box_quality_separate_from_presence": {
+      "v2_reproduction_target_cell_audit": {
+        "test": {
+          "median_constant_box_mae": 0.03791666682809591,
+          "median_constant_box_mean_iou": 0.677533894777298,
+          "present_support": 6,
+          "selected_cell_box_mae": 0.03624871590485176,
+          "selected_cell_box_mean_iou": 0.6874790290991465,
+          "target_cell_box_mae": 0.037258491230507694,
+          "target_cell_box_mean_iou": 0.6841580470403036
+        },
+        "train": {
+          "median_constant_box_mae": 0.041071421067629545,
+          "median_constant_box_mean_iou": 0.6165504029818943,
+          "present_support": 7,
+          "selected_cell_box_mae": 0.0015357083175331354,
+          "selected_cell_box_mean_iou": 0.9822187338556562,
+          "target_cell_box_mae": 0.0015357083175331354,
+          "target_cell_box_mean_iou": 0.9822187338556562
+        },
+        "validation": {
+          "median_constant_box_mae": 0.02607142978480884,
+          "median_constant_box_mean_iou": 0.7486294167382377,
+          "present_support": 7,
+          "selected_cell_box_mae": 0.04699942176895482,
+          "selected_cell_box_mean_iou": 0.5684851408004761,
+          "target_cell_box_mae": 0.033921297905700545,
+          "target_cell_box_mean_iou": 0.6883084092821393
+        }
+      },
+      "v3_low_hard_negative_max_map": {
+        "test": {
+          "median_constant_box_mae": 0.03791666682809591,
+          "median_constant_box_mean_iou": 0.677533894777298,
+          "present_support": 6,
+          "selected_cell_box_mae": 0.03507367024819056,
+          "selected_cell_box_mean_iou": 0.6853517095247904,
+          "target_cell_box_mae": 0.03465639582524697,
+          "target_cell_box_mean_iou": 0.7004586855570475
+        },
+        "train": {
+          "median_constant_box_mae": 0.041071421067629545,
+          "median_constant_box_mean_iou": 0.6165504029818943,
+          "present_support": 7,
+          "selected_cell_box_mae": 0.0019782193204654114,
+          "selected_cell_box_mean_iou": 0.9745363422802517,
+          "target_cell_box_mae": 0.0019782193204654114,
+          "target_cell_box_mean_iou": 0.9745363422802517
+        },
+        "validation": {
+          "median_constant_box_mae": 0.02607142978480884,
+          "median_constant_box_mean_iou": 0.7486294167382377,
+          "present_support": 7,
+          "selected_cell_box_mae": 0.05444923362561634,
+          "selected_cell_box_mean_iou": 0.5179629751614162,
+          "target_cell_box_mae": 0.03482923497046743,
+          "target_cell_box_mean_iou": 0.6692451323781695
+        }
+      },
+      "v3_separated_global_presence": {
+        "test": {
+          "median_constant_box_mae": 0.03791666682809591,
+          "median_constant_box_mean_iou": 0.677533894777298,
+          "present_support": 6,
+          "selected_cell_box_mae": 0.03745605144649744,
+          "selected_cell_box_mean_iou": 0.6946127613385519,
+          "target_cell_box_mae": 0.043450912150243916,
+          "target_cell_box_mean_iou": 0.6262697676817576
+        },
+        "train": {
+          "median_constant_box_mae": 0.041071421067629545,
+          "median_constant_box_mean_iou": 0.6165504029818943,
+          "present_support": 7,
+          "selected_cell_box_mae": 0.0017616046659116233,
+          "selected_cell_box_mean_iou": 0.9764484677995954,
+          "target_cell_box_mae": 0.0017616046659116233,
+          "target_cell_box_mean_iou": 0.9764484677995954
+        },
+        "validation": {
+          "median_constant_box_mae": 0.02607142978480884,
+          "median_constant_box_mean_iou": 0.7486294167382377,
+          "present_support": 7,
+          "selected_cell_box_mae": 0.024897733703255653,
+          "selected_cell_box_mean_iou": 0.7875139117240906,
+          "target_cell_box_mae": 0.030458750469344004,
+          "target_cell_box_mean_iou": 0.7237087658473423
+        }
+      }
+    },
+    "interpretation": "Box MAE/IoU can look acceptable on present rows while presence remains unreliable; therefore crop-normalization ablation should not proceed from box metrics alone."
+  },
+  "schema_version": "asl-pilot-return-to-form-detector0-objectness-repair/v1",
+  "status": "action_selected",
+  "train_loss_movement": {
+    "v2_reproduction_target_cell_audit": {
+      "loss_movement": {
+        "best_recorded_train_loss": 0.004997065290808678,
+        "final_train_loss": 0.004997065290808678,
+        "initial_train_loss": 6.227915287017822,
+        "loss_drop_fraction_from_initial_to_best_recorded": 0.9991976343510605
+      },
+      "recorded_history_points": 18
+    },
+    "v3_low_hard_negative_max_map": {
+      "loss_movement": {
+        "best_recorded_train_loss": 0.004320228938013315,
+        "final_train_loss": 0.006875693332403898,
+        "initial_train_loss": 6.2212700843811035,
+        "loss_drop_fraction_from_initial_to_best_recorded": 0.9993055712291193
+      },
+      "recorded_history_points": 18
+    },
+    "v3_separated_global_presence": {
+      "loss_movement": {
+        "best_recorded_train_loss": 0.007646170910447836,
+        "final_train_loss": 0.007646170910447836,
+        "initial_train_loss": 3.624840497970581,
+        "loss_drop_fraction_from_initial_to_best_recorded": 0.99789061865902
+      },
+      "recorded_history_points": 18
+    }
+  },
+  "variant_summaries": [
+    {
+      "box_quality": {
+        "test": {
+          "median_constant_box_mae": 0.03791666682809591,
+          "median_constant_box_mean_iou": 0.677533894777298,
+          "present_support": 6,
+          "selected_cell_box_mae": 0.03624871590485176,
+          "selected_cell_box_mean_iou": 0.6874790290991465,
+          "target_cell_box_mae": 0.037258491230507694,
+          "target_cell_box_mean_iou": 0.6841580470403036
+        },
+        "train": {
+          "median_constant_box_mae": 0.041071421067629545,
+          "median_constant_box_mean_iou": 0.6165504029818943,
+          "present_support": 7,
+          "selected_cell_box_mae": 0.0015357083175331354,
+          "selected_cell_box_mean_iou": 0.9822187338556562,
+          "target_cell_box_mae": 0.0015357083175331354,
+          "target_cell_box_mean_iou": 0.9822187338556562
+        },
+        "validation": {
+          "median_constant_box_mae": 0.02607142978480884,
+          "median_constant_box_mean_iou": 0.7486294167382377,
+          "present_support": 7,
+          "selected_cell_box_mae": 0.04699942176895482,
+          "selected_cell_box_mean_iou": 0.5684851408004761,
+          "target_cell_box_mae": 0.033921297905700545,
+          "target_cell_box_mean_iou": 0.6883084092821393
+        }
+      },
+      "fixed_threshold_presence": {
+        "test": {
+          "f1": null,
+          "false_negative_count": 6,
+          "false_positive_count": 0,
+          "precision": null,
+          "presence_accuracy": 0.4,
+          "recall": 0.0,
+          "threshold": 0.5,
+          "true_negative_count": 4,
+          "true_positive_count": 0
+        },
+        "train": {
+          "f1": 1.0,
+          "false_negative_count": 0,
+          "false_positive_count": 0,
+          "precision": 1.0,
+          "presence_accuracy": 1.0,
+          "recall": 1.0,
+          "threshold": 0.5,
+          "true_negative_count": 4,
+          "true_positive_count": 7
+        },
+        "validation": {
+          "f1": null,
+          "false_negative_count": 7,
+          "false_positive_count": 0,
+          "precision": null,
+          "presence_accuracy": 0.36363636363636365,
+          "recall": 0.0,
+          "threshold": 0.5,
+          "true_negative_count": 4,
+          "true_positive_count": 0
+        }
+      },
+      "presence_score_source": "max_map_objectness",
+      "threshold_free": {
+        "test": {
+          "auroc": {
+            "reason": null,
+            "value": 0.6666666666666666
+          },
+          "average_precision": {
+            "reason": null,
+            "value": 0.7579365079365079
+          }
+        },
+        "train": {
+          "auroc": {
+            "reason": null,
+            "value": 1.0
+          },
+          "average_precision": {
+            "reason": null,
+            "value": 1.0
+          }
+        },
+        "validation": {
+          "auroc": {
+            "reason": null,
+            "value": 0.6071428571428571
+          },
+          "average_precision": {
+            "reason": null,
+            "value": 0.7758503401360545
+          }
+        }
+      },
+      "validation_selected_threshold_presence": {
+        "test": {
+          "f1": 0.6,
+          "false_negative_count": 3,
+          "false_positive_count": 1,
+          "precision": 0.75,
+          "presence_accuracy": 0.6,
+          "recall": 0.5,
+          "threshold": 0.006535579450428486,
+          "true_negative_count": 3,
+          "true_positive_count": 3
+        },
+        "train": {
+          "f1": 1.0,
+          "false_negative_count": 0,
+          "false_positive_count": 0,
+          "precision": 1.0,
+          "presence_accuracy": 1.0,
+          "recall": 1.0,
+          "threshold": 0.006535579450428486,
+          "true_negative_count": 4,
+          "true_positive_count": 7
+        },
+        "validation": {
+          "f1": 0.8235294117647058,
+          "false_negative_count": 0,
+          "false_positive_count": 3,
+          "precision": 0.7,
+          "presence_accuracy": 0.7272727272727273,
+          "recall": 1.0,
+          "threshold": 0.006535579450428486,
+          "true_negative_count": 1,
+          "true_positive_count": 7
+        }
+      },
+      "variant_id": "v2_reproduction_target_cell_audit"
+    },
+    {
+      "box_quality": {
+        "test": {
+          "median_constant_box_mae": 0.03791666682809591,
+          "median_constant_box_mean_iou": 0.677533894777298,
+          "present_support": 6,
+          "selected_cell_box_mae": 0.03507367024819056,
+          "selected_cell_box_mean_iou": 0.6853517095247904,
+          "target_cell_box_mae": 0.03465639582524697,
+          "target_cell_box_mean_iou": 0.7004586855570475
+        },
+        "train": {
+          "median_constant_box_mae": 0.041071421067629545,
+          "median_constant_box_mean_iou": 0.6165504029818943,
+          "present_support": 7,
+          "selected_cell_box_mae": 0.0019782193204654114,
+          "selected_cell_box_mean_iou": 0.9745363422802517,
+          "target_cell_box_mae": 0.0019782193204654114,
+          "target_cell_box_mean_iou": 0.9745363422802517
+        },
+        "validation": {
+          "median_constant_box_mae": 0.02607142978480884,
+          "median_constant_box_mean_iou": 0.7486294167382377,
+          "present_support": 7,
+          "selected_cell_box_mae": 0.05444923362561634,
+          "selected_cell_box_mean_iou": 0.5179629751614162,
+          "target_cell_box_mae": 0.03482923497046743,
+          "target_cell_box_mean_iou": 0.6692451323781695
+        }
+      },
+      "fixed_threshold_presence": {
+        "test": {
+          "f1": null,
+          "false_negative_count": 6,
+          "false_positive_count": 0,
+          "precision": null,
+          "presence_accuracy": 0.4,
+          "recall": 0.0,
+          "threshold": 0.5,
+          "true_negative_count": 4,
+          "true_positive_count": 0
+        },
+        "train": {
+          "f1": 1.0,
+          "false_negative_count": 0,
+          "false_positive_count": 0,
+          "precision": 1.0,
+          "presence_accuracy": 1.0,
+          "recall": 1.0,
+          "threshold": 0.5,
+          "true_negative_count": 4,
+          "true_positive_count": 7
+        },
+        "validation": {
+          "f1": null,
+          "false_negative_count": 7,
+          "false_positive_count": 0,
+          "precision": null,
+          "presence_accuracy": 0.36363636363636365,
+          "recall": 0.0,
+          "threshold": 0.5,
+          "true_negative_count": 4,
+          "true_positive_count": 0
+        }
+      },
+      "presence_score_source": "max_map_objectness",
+      "threshold_free": {
+        "test": {
+          "auroc": {
+            "reason": null,
+            "value": 0.5416666666666666
+          },
+          "average_precision": {
+            "reason": null,
+            "value": 0.7132936507936508
+          }
+        },
+        "train": {
+          "auroc": {
+            "reason": null,
+            "value": 1.0
+          },
+          "average_precision": {
+            "reason": null,
+            "value": 1.0
+          }
+        },
+        "validation": {
+          "auroc": {
+            "reason": null,
+            "value": 0.7857142857142857
+          },
+          "average_precision": {
+            "reason": null,
+            "value": 0.8976190476190476
+          }
+        }
+      },
+      "validation_selected_threshold_presence": {
+        "test": {
+          "f1": 0.5454545454545454,
+          "false_negative_count": 3,
+          "false_positive_count": 2,
+          "precision": 0.6,
+          "presence_accuracy": 0.5,
+          "recall": 0.5,
+          "threshold": 0.021651877090334892,
+          "true_negative_count": 2,
+          "true_positive_count": 3
+        },
+        "train": {
+          "f1": 1.0,
+          "false_negative_count": 0,
+          "false_positive_count": 0,
+          "precision": 1.0,
+          "presence_accuracy": 1.0,
+          "recall": 1.0,
+          "threshold": 0.021651877090334892,
+          "true_negative_count": 4,
+          "true_positive_count": 7
+        },
+        "validation": {
+          "f1": 0.8235294117647058,
+          "false_negative_count": 0,
+          "false_positive_count": 3,
+          "precision": 0.7,
+          "presence_accuracy": 0.7272727272727273,
+          "recall": 1.0,
+          "threshold": 0.021651877090334892,
+          "true_negative_count": 1,
+          "true_positive_count": 7
+        }
+      },
+      "variant_id": "v3_low_hard_negative_max_map"
+    },
+    {
+      "box_quality": {
+        "test": {
+          "median_constant_box_mae": 0.03791666682809591,
+          "median_constant_box_mean_iou": 0.677533894777298,
+          "present_support": 6,
+          "selected_cell_box_mae": 0.03745605144649744,
+          "selected_cell_box_mean_iou": 0.6946127613385519,
+          "target_cell_box_mae": 0.043450912150243916,
+          "target_cell_box_mean_iou": 0.6262697676817576
+        },
+        "train": {
+          "median_constant_box_mae": 0.041071421067629545,
+          "median_constant_box_mean_iou": 0.6165504029818943,
+          "present_support": 7,
+          "selected_cell_box_mae": 0.0017616046659116233,
+          "selected_cell_box_mean_iou": 0.9764484677995954,
+          "target_cell_box_mae": 0.0017616046659116233,
+          "target_cell_box_mean_iou": 0.9764484677995954
+        },
+        "validation": {
+          "median_constant_box_mae": 0.02607142978480884,
+          "median_constant_box_mean_iou": 0.7486294167382377,
+          "present_support": 7,
+          "selected_cell_box_mae": 0.024897733703255653,
+          "selected_cell_box_mean_iou": 0.7875139117240906,
+          "target_cell_box_mae": 0.030458750469344004,
+          "target_cell_box_mean_iou": 0.7237087658473423
+        }
+      },
+      "fixed_threshold_presence": {
+        "test": {
+          "f1": 0.5454545454545454,
+          "false_negative_count": 3,
+          "false_positive_count": 2,
+          "precision": 0.6,
+          "presence_accuracy": 0.5,
+          "recall": 0.5,
+          "threshold": 0.5,
+          "true_negative_count": 2,
+          "true_positive_count": 3
+        },
+        "train": {
+          "f1": 1.0,
+          "false_negative_count": 0,
+          "false_positive_count": 0,
+          "precision": 1.0,
+          "presence_accuracy": 1.0,
+          "recall": 1.0,
+          "threshold": 0.5,
+          "true_negative_count": 4,
+          "true_positive_count": 7
+        },
+        "validation": {
+          "f1": 0.7058823529411764,
+          "false_negative_count": 1,
+          "false_positive_count": 4,
+          "precision": 0.6,
+          "presence_accuracy": 0.5454545454545454,
+          "recall": 0.8571428571428571,
+          "threshold": 0.5,
+          "true_negative_count": 0,
+          "true_positive_count": 6
+        }
+      },
+      "presence_score_source": "global_presence_head",
+      "threshold_free": {
+        "test": {
+          "auroc": {
+            "reason": null,
+            "value": 0.625
+          },
+          "average_precision": {
+            "reason": null,
+            "value": 0.7847222222222222
+          }
+        },
+        "train": {
+          "auroc": {
+            "reason": null,
+            "value": 1.0
+          },
+          "average_precision": {
+            "reason": null,
+            "value": 1.0
+          }
+        },
+        "validation": {
+          "auroc": {
+            "reason": null,
+            "value": 0.21428571428571427
+          },
+          "average_precision": {
+            "reason": null,
+            "value": 0.5553081838796123
+          }
+        }
+      },
+      "validation_selected_threshold_presence": {
+        "test": {
+          "f1": 0.7499999999999999,
+          "false_negative_count": 0,
+          "false_positive_count": 4,
+          "precision": 0.6,
+          "presence_accuracy": 0.6,
+          "recall": 1.0,
+          "threshold": 0.0,
+          "true_negative_count": 0,
+          "true_positive_count": 6
+        },
+        "train": {
+          "f1": 0.7777777777777778,
+          "false_negative_count": 0,
+          "false_positive_count": 4,
+          "precision": 0.6363636363636364,
+          "presence_accuracy": 0.6363636363636364,
+          "recall": 1.0,
+          "threshold": 0.0,
+          "true_negative_count": 0,
+          "true_positive_count": 7
+        },
+        "validation": {
+          "f1": 0.7777777777777778,
+          "false_negative_count": 0,
+          "false_positive_count": 4,
+          "precision": 0.6363636363636364,
+          "presence_accuracy": 0.6363636363636364,
+          "recall": 1.0,
+          "threshold": 0.0,
+          "true_negative_count": 0,
+          "true_positive_count": 7
+        }
+      },
+      "variant_id": "v3_separated_global_presence"
+    }
+  ]
+}

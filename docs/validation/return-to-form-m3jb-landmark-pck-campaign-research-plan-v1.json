@@ -1,0 +1,154 @@
+{
+  "schema_version": "asl-pilot-m3jb-landmark-pck-campaign-research-plan/v1",
+  "receipt_id": "return-to-form-m3jb-landmark-pck-campaign-research-plan-v1",
+  "mission": "M3JB - Hierarchical hand-state tracker",
+  "status": "completed_research_plan_no_brev_no_training",
+  "checked_at": "2026-06-03T12:45:00Z",
+  "source_of_truth": {
+    "goal": "GOAL.md",
+    "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+    "cache_rebuild_eval_receipt": "docs/validation/return-to-form-m3jb-landmark-cache-rebuild-eval-v1.json",
+    "rejected_retrain_run_receipt": "docs/validation/return-to-form-m3jb-landmark-retrain-brev-run-v1.json",
+    "regression_pivot_receipt": "docs/validation/return-to-form-m3jb-landmark-retrain-regression-pivot-v1.json"
+  },
+  "research_escalation": {
+    "required_by_goal": true,
+    "gpt_pro_web_attempt": {
+      "attempted": true,
+      "status": "blocked_browser_iab_unavailable",
+      "evidence": "Node REPL browser bootstrap returned: Browser is not available: iab"
+    },
+    "fallback": {
+      "used": true,
+      "route": "openai-api-research",
+      "model_requested": "gpt-5.5",
+      "model_returned": "gpt-5.5-2026-04-23",
+      "response_id": "resp_0aabca6ab2768c71006a201845c3d0819392589cbc403f1aee",
+      "prompt_path": "artifacts/research/m3jb-landmark-pck-campaign-905/prompt.md",
+      "request_path": "artifacts/research/m3jb-landmark-pck-campaign-905/request.json",
+      "raw_response_path": "artifacts/research/m3jb-landmark-pck-campaign-905/raw.json",
+      "response_path": "artifacts/research/m3jb-landmark-pck-campaign-905/response.md",
+      "prompt_sha256": "d17b7daab9717933b713b843ec70016d8760811357d31857467de40960d128de",
+      "request_sha256": "897d2269f594ab5a0bda6b825cf1ebb87064706c412cca4e291ea8cda9551527",
+      "raw_response_sha256": "f4105a90ca041ec8521232648d40c9a9a4929bd9b7bb29492b1802aaaac13a68",
+      "response_sha256": "b567e6bbc2be0ff83a7940f97d56847862daae821061cdb39a6c4ad7cc638357",
+      "response_chars": 16349
+    },
+    "advisory_not_authority": true
+  },
+  "evidence_summary": {
+    "rebuilt_cache_rows": 30120,
+    "splits": {
+      "train": 22202,
+      "validation": 3545,
+      "test": 4373
+    },
+    "running_best": {
+      "test_pck_010": 0.6633,
+      "test_pck_005": 0.3722,
+      "validation_pck_010": 0.6603,
+      "validation_pck_005": 0.363
+    },
+    "rejected_w64_quality_filtered_retrain": {
+      "test_pck_010": 0.6484,
+      "test_pck_005": 0.3651,
+      "validation_pck_010": 0.5998,
+      "validation_pck_005": 0.3,
+      "quality_filter_removed": 6553,
+      "quality_filter_removed_fraction": 0.295154
+    }
+  },
+  "research_guidance_summary": {
+    "selected_first_experiment": "w96_heatmap48_full_train_no_destructive_quality_filter",
+    "rationale": [
+      "Higher input/detail and finer heatmap grid directly target PCK@0.05 and distal-keypoint precision.",
+      "Omitting --filter-train-quality removes the train/eval mismatch introduced by deleting 29.5% of training crops while validation/test stayed full-scope.",
+      "w96/g48 is cheaper and less risky than jumping straight to w128/g64 under the $50 campaign cap."
+    ],
+    "deferred_experiments": [
+      "w128_heatmap64_full_train_precision_escalation",
+      "w96_heatmap48_integral_or_dsnt_variant_if_code_surface_exists",
+      "best_resolution_with_weak_keypoint_weighting_and_mild_augmentation_after_baseline"
+    ],
+    "not_supported_without_code_change_now": [
+      "explicit DSNT/integral-head CLI switch; current trainer already decodes via soft-argmax but does not expose alternate head/loss flags",
+      "per-keypoint loss weighting flags"
+    ]
+  },
+  "selected_first_run": {
+    "next_action": "m3jb_landmark_pck_run1_w96_g48_fulltrain_brev_ok",
+    "experiment_id": "m3jb-perhand-pckcampaign-w96-g48-fulltrain-e100-lr5e4-brev-v1",
+    "worker": {
+      "preferred_name": "asl-pilot-m3eh-l40s-001",
+      "preferred_id": "3d58wpy9o",
+      "equivalent_healthy_nvidia_worker_allowed_by_goal": true
+    },
+    "command_shape": {
+      "training": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1 --epochs 100 --batch 256 --eval-batch 1024 --lr 5e-4 --device cuda --seed 0 --pck 0.10 --sigma 2.0 --heatmap-g 48 --width 96 --heatmap-ce-weight 0.05 --eval-every 5 --out tools/detector0-annotator/output/m3jb-perhand-pckcampaign-w96-g48-fulltrain-e100-lr5e4-brev-v1.json\"",
+      "eval_pck_010": "timeout 3600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --eval-only --data tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1 --weights tools/detector0-annotator/output/m3jb-perhand-pckcampaign-w96-g48-fulltrain-e100-lr5e4-brev-v1.pt --out tools/detector0-annotator/output/m3jb-perhand-pckcampaign-w96-g48-fulltrain-e100-lr5e4-brev-v1-eval-pck010.json --pck 0.10 --device cuda --eval-batch 1024\"",
+      "eval_pck_005": "timeout 3600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --eval-only --data tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1 --weights tools/detector0-annotator/output/m3jb-perhand-pckcampaign-w96-g48-fulltrain-e100-lr5e4-brev-v1.pt --out tools/detector0-annotator/output/m3jb-perhand-pckcampaign-w96-g48-fulltrain-e100-lr5e4-brev-v1-eval-pck005.json --pck 0.05 --device cuda --eval-batch 1024\""
+    },
+    "trainer_flags_verified_locally": {
+      "width": true,
+      "heatmap_g": true,
+      "sigma": true,
+      "eval_every": true,
+      "filter_train_quality_is_opt_in": true,
+      "no_destructive_quality_filter_by_omitting_filter_flag": true,
+      "max_train_batches_not_used": true
+    },
+    "hyperparameters": {
+      "width": 96,
+      "heatmap_grid": 48,
+      "sigma": 2,
+      "epochs": 100,
+      "batch": 256,
+      "eval_batch": 1024,
+      "lr": 0.0005,
+      "seed": 0,
+      "pck_train_selection_threshold": 0.1,
+      "heatmap_ce_weight": 0.05,
+      "train_quality_filter": false,
+      "max_train_batches": null,
+      "device": "cuda"
+    },
+    "planned_outputs": {
+      "training_receipt": "tools/detector0-annotator/output/m3jb-perhand-pckcampaign-w96-g48-fulltrain-e100-lr5e4-brev-v1.json",
+      "weights": "tools/detector0-annotator/output/m3jb-perhand-pckcampaign-w96-g48-fulltrain-e100-lr5e4-brev-v1.pt",
+      "eval_pck010": "tools/detector0-annotator/output/m3jb-perhand-pckcampaign-w96-g48-fulltrain-e100-lr5e4-brev-v1-eval-pck010.json",
+      "eval_pck005": "tools/detector0-annotator/output/m3jb-perhand-pckcampaign-w96-g48-fulltrain-e100-lr5e4-brev-v1-eval-pck005.json"
+    },
+    "success_signals": {
+      "clear_win": "test PCK@0.10 > 0.6633 and test PCK@0.05 > 0.3722",
+      "strong_partial_win": "test PCK@0.05 improves by at least +0.010 absolute and test PCK@0.10 regresses by no more than -0.003",
+      "minimum_continue_signal": "validation PCK@0.10 >= 0.6603 and validation PCK@0.05 >= 0.3630 with weak-keypoint stability"
+    },
+    "kill_conditions": [
+      "Stop/report if epoch >= 30 and validation PCK@0.10 remains < 0.640 and validation PCK@0.05 remains < 0.345 with no upward trend for 10 epochs.",
+      "Stop/report if validation remains near the failed retrain region (about 0.600 / 0.300) after meaningful training.",
+      "Stop/report if the $50 campaign cap is reached or if 3 consecutive research-guided experiments fail to beat the running-best PCK."
+    ]
+  },
+  "prompt_alignment": {
+    "active_prompt_was_stale_at_turn_start": true,
+    "this_slice_updates_active_prompt_to_record_campaign_approval": true,
+    "reason_no_brev_this_slice": "latest user guardrail requires both GOAL.md and the active prompt to explicitly record current human Brev approval; GOAL.md did, but the active prompt still had the old no-Brev preflight wording at turn start"
+  },
+  "runtime_boundary": {
+    "local_repo_edits": true,
+    "gpt_pro_web_attempted": true,
+    "openai_api_fallback_used": true,
+    "brev_used": false,
+    "brev_exec_or_copy": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward": false,
+    "checkpoint_written": false,
+    "browser_artifact_promoted": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false
+  },
+  "claim_boundary": "This receipt records the required research escalation and selects a locally supported first experiment command. It does not spend Brev money, launch training, write checkpoints, copy remote artifacts, improve PCK, pass landmark gates, promote browser artifacts, or change final gates.",
+  "next_action": "m3jb_landmark_pck_run1_w96_g48_fulltrain_brev_ok"
+}

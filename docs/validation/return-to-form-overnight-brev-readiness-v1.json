@@ -1,0 +1,67 @@
+{
+  "schema_version": "asl-pilot-return-to-form-overnight-brev-readiness/v1",
+  "status": "ready_for_bounded_remote_work",
+  "mission": "M3AH overnight completion",
+  "checked_at": "2026-05-27T03:46:00Z",
+  "human_approval": {
+    "approved": true,
+    "source": "latest user instruction in active Codex thread",
+    "budget_ceiling_usd": 250,
+    "budget_note": "User described an existing 100 USD Brev balance plus up to 150 USD additional compute for the overnight push.",
+    "deadline_local": "2026-05-27 04:00 America/Chicago"
+  },
+  "workspace": {
+    "name": "asl-pilot-rawframe-001",
+    "id": "2hl1hytty",
+    "status": "RUNNING",
+    "build_status": "COMPLETED",
+    "shell_status": "READY",
+    "health_status": "HEALTHY",
+    "instance_type": "massedcompute_A100_sxm4_80G_DGX",
+    "instance_kind": "gpu",
+    "gpu": "A100"
+  },
+  "remote_probe": {
+    "remote_repo_path": "/home/shadeform/asl-pilot",
+    "remote_repo_present": true,
+    "remote_repo_size": "48G",
+    "filesystem_free": "862G",
+    "system_python_torch": "missing",
+    "project_venv_python": "/home/shadeform/asl-pilot/.venv/bin/python",
+    "project_venv_torch": "2.12.0+cu130",
+    "cuda_available": true,
+    "cuda_device_count": 1,
+    "cuda_device_name": "NVIDIA A100-SXM4-80GB",
+    "cuda_tensor_smoke": "passed",
+    "nvidia_smi_before_probe": {
+      "name": "NVIDIA A100-SXM4-80GB",
+      "memory_used": "0 MiB",
+      "memory_total": "81920 MiB",
+      "utilization": "0 %"
+    }
+  },
+  "sync_policy": {
+    "script": "scripts/brev_sync_repo.sh",
+    "activation_fix": "The training data allowlist now includes data/annotations so Detector 0 packets are synced to the worker.",
+    "must_sync_before_remote_training": true
+  },
+  "compute_controls": {
+    "use_existing_worker_first": true,
+    "create_duplicate_worker": false,
+    "before_each_run_requires": [
+      "brev ls --json",
+      "planned command",
+      "expected metric signal",
+      "max runtime",
+      "max spend",
+      "kill condition"
+    ],
+    "teardown_requires": [
+      "copy back artifacts or record no-artifact reason",
+      "brev stop asl-pilot-rawframe-001",
+      "sleep and verify with brev ls --json"
+    ],
+    "delete_or_reset_requires_explicit_user_approval": true
+  },
+  "next_action": "sync_current_repo_and_run_remote_preflight"
+}

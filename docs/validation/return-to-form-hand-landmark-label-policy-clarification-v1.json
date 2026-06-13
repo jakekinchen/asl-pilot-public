@@ -1,0 +1,90 @@
+{
+  "schema_version": "asl-pilot-hand-landmark-label-policy-clarification/v1",
+  "created_at": "2026-05-28T13:26:00Z",
+  "status": "completed",
+  "scope": "policy_clarification_no_training_no_import",
+  "user_clarification": {
+    "summary": "MediaPipe-generated hand landmark labels may be acceptable as a backup training-label source if human/manual sources are insufficient, provided MediaPipe is not used in browser runtime.",
+    "runtime_boundary": "MediaPipe/OpenPose/YOLO/pretrained landmark systems remain disallowed as browser/runtime dependencies, feature extractors, model weights, or product authority.",
+    "training_label_boundary": "Generated labels are not equivalent to manual labels, but may be reviewed as explicitly approved offline weak supervision."
+  },
+  "openai_api_research": {
+    "skill": "openai-api-research",
+    "model": "gpt-5.5-pro-2026-04-23",
+    "first_response_id": "resp_0d20f7f966efd5e8006a1840e251048190b21136b6926abfea",
+    "first_response_status": "incomplete_max_output_tokens_no_text",
+    "second_response_summary": [
+      "The claim that no human-annotated public hand-landmark dataset exists is not supported.",
+      "CMU HandDB, InterHand2.6M H partitions, and FreiHAND are higher-ranked candidates than MediaPipe-generated labels.",
+      "MediaPipe-generated labels should be offline fallback or augmentation only, with provenance disclosed and no MediaPipe runtime dependency.",
+      "Validation should prefer held-out human/manual labels and should not validate solely against MediaPipe-labeled data."
+    ]
+  },
+  "source_ranking": [
+    {
+      "rank": 1,
+      "source": "CMU Panoptic HandDB manual partition",
+      "classification": "manual_candidate",
+      "reason": "Official page separates manual train/test hand keypoint annotations from synthetic and multiview-bootstrapped partitions."
+    },
+    {
+      "rank": 2,
+      "source": "InterHand2.6M H partitions",
+      "classification": "human_annotation_candidate",
+      "reason": "Official page separates H, M, and H+M partitions and provides keypoint/bbox/validity annotation schemas."
+    },
+    {
+      "rank": 3,
+      "source": "FreiHAND",
+      "classification": "human_in_loop_candidate",
+      "reason": "Large official dataset with 21 hand keypoints and research-only terms; human-in-loop/optimization provenance needs review."
+    },
+    {
+      "rank": 4,
+      "source": "Ultralytics hand-keypoints",
+      "classification": "generated_label_fallback_only",
+      "reason": "Official docs state labels were generated using Google MediaPipe."
+    }
+  ],
+  "policy": {
+    "preferred_order": [
+      "manual labels",
+      "policy-cleared human-in-loop labels",
+      "offline generated-label weak supervision after documented insufficiency"
+    ],
+    "generated_label_fallback_conditions": [
+      "Manual and human-in-loop sources have been reviewed first and documented as insufficient for the exact training need.",
+      "The user explicitly approves the source, license posture, partitions, import/storage envelope, and generated-label provenance.",
+      "The student model starts from random initialization.",
+      "No MediaPipe/OpenPose/YOLO/pretrained landmark system is used in browser runtime, active feature extraction, model weights, or product authority.",
+      "Validation uses held-out manual/human labels where available and does not rely solely on generated-label agreement.",
+      "Receipts and manifests label the supervision as generated or weak_supervision, not manual."
+    ],
+    "not_authorized_by_this_receipt": [
+      "source import",
+      "media download",
+      "source-register approval mutation",
+      "manifest or tensor mutation",
+      "training",
+      "browser runtime change",
+      "model-card promotion",
+      "final readiness claim"
+    ]
+  },
+  "sources": [
+    "http://domedb.perception.cs.cmu.edu/handdb.html",
+    "https://lmb.informatik.uni-freiburg.de/resources/datasets/FreihandDataset.en.html",
+    "https://lmb.informatik.uni-freiburg.de/projects/freihand/",
+    "https://mks0601.github.io/InterHand2.6M/",
+    "https://docs.ultralytics.com/datasets/pose/hand-keypoints/",
+    "https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker"
+  ],
+  "files_changed": [
+    "ARCHITECTURE.md",
+    "GOAL.md",
+    "docs/model/return-to-form-hand-landmark-source-feasibility-goal-loop-prompt.md",
+    "docs/validation/return-to-form-hand-landmark-label-policy-clarification-v1.json",
+    "docs/session-logs/501-supervisor-hand-landmark-label-policy-clarification.md"
+  ],
+  "next_action": "continue_current_m3ec_without_generated_labels"
+}

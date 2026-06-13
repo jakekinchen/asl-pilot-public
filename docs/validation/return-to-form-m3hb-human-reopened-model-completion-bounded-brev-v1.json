@@ -1,0 +1,394 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3hb-human-reopened-model-completion-bounded-brev/v1",
+  "mission": "Mission 3HB - human-reopened model completion and bounded Brev route",
+  "status": "completed_local_contract_patch_and_passing_popsign25_dry_run_no_brev_spend",
+  "generated_at": "2026-05-29T14:08:08Z",
+  "generated_by": "Codex executor",
+  "current_commit_before_slice_commit": "8c309bb supervisor: redirect m3hb bounded model route",
+  "active_prompt": "docs/model/return-to-form-m3hb-human-reopened-model-completion-bounded-brev-goal-loop-prompt.md",
+  "pair_state_note": {
+    "audit_command": "node scripts/audit_codex_pair_state.mjs",
+    "status": "warning",
+    "warning": "recorded executor session is older than HEAD; this API turn proceeded as the fresh executor turn from current filesystem state",
+    "live_executor_processes": 0,
+    "live_observer_processes": 0
+  },
+  "user_approval_summary": {
+    "source": "GOAL.md current mission and active M3HB prompt",
+    "summary": "The supervising user corrected the M3HA fail-closed-only redirect and authorized continuing the full project goal with bounded Brev usage, intentional compute, research/backtracking when approaches fail, and deliberate dataset/vocabulary choices.",
+    "brev_spend_authorized_by_current_files": true,
+    "brev_spend_used_in_this_slice": false
+  },
+  "compute_envelope": {
+    "project_budget_context_usd": 250,
+    "mission_expected_additional_spend_cap_usd": 25,
+    "price_guard_max_usd_per_hour": 5,
+    "preferred_worker": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o"
+    },
+    "non_dry_run_training_command_limit": 1,
+    "evaluator_command_limit": 1,
+    "copyback_command_limit": 1,
+    "delete_workers_allowed": false
+  },
+  "commands_run": [
+    {
+      "command": "git log -1 --oneline",
+      "exit_status": 0,
+      "duration_seconds_approx": 1,
+      "important_output": "8c309bb supervisor: redirect m3hb bounded model route"
+    },
+    {
+      "command": "git status --short",
+      "exit_status": 0,
+      "duration_seconds_approx": 1,
+      "important_output": "clean at turn start"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_status": 0,
+      "duration_seconds_approx": 1,
+      "important_output": "status passed; blockers []"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_status": 0,
+      "duration_seconds_approx": 1,
+      "important_output": "status passed; active prompt is M3HB"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "exit_status": 0,
+      "duration_seconds_approx": 1,
+      "important_output": "status passed; source_count 12"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_status": 0,
+      "duration_seconds_approx": 1,
+      "important_output": "No banned pretrained-CV dependencies or source imports found."
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_status": 0,
+      "duration_seconds_approx": 1,
+      "important_output": "status passed; findings []"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3ha-human-review-decision-v1.json >/dev/null",
+      "exit_status": 0,
+      "duration_seconds_approx": 1
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3gz-reduced4-logit-collapse-triage-no-training-no-brev-v1.json >/dev/null",
+      "exit_status": 0,
+      "duration_seconds_approx": 1
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3gl-brev-provider-recovery-and-completion-route-v1.json >/dev/null",
+      "exit_status": 0,
+      "duration_seconds_approx": 1
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3fm-popsign-label-ladder-metric-triage-no-training-v1.json >/dev/null",
+      "exit_status": 0,
+      "duration_seconds_approx": 1
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3fs-detector0-strict-gate-metric-triage-no-brev-v1.json >/dev/null",
+      "exit_status": 0,
+      "duration_seconds_approx": 1
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "exit_status": 0,
+      "duration_seconds_approx": 1
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/detector0-card.json >/dev/null",
+      "exit_status": 0,
+      "duration_seconds_approx": 1
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "exit_status": 0,
+      "duration_seconds_approx": 1
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "exit_status": 0,
+      "duration_seconds_approx": 1
+    },
+    {
+      "command": "brev ls --json",
+      "exit_status": 0,
+      "duration_seconds_approx": 2,
+      "important_output": "asl-pilot-m3eh-l40s-001 / 3d58wpy9o was STOPPED / COMPLETED / NOT READY / HEALTHY"
+    },
+    {
+      "command": "git diff --check",
+      "exit_status": 0,
+      "duration_seconds_approx": 1
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py ... --output-dir output/m3hb-popsign25-bounded-brev-contract ... --popsign-label-ladder-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1",
+      "exit_status": 2,
+      "duration_seconds_approx": 5,
+      "important_output": "required input contract rgb_regions_grid_v1 not satisfied; observed counts {\"rgb_frames_fallback\": 1725}",
+      "classification": "deliberate_region_input_probe_not_selected_training_command"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py ... --output-dir output/m3hb-popsign25-bounded-brev-contract ... --popsign-label-ladder-training-smoke --dry-run",
+      "exit_status": 0,
+      "duration_seconds_approx": 2,
+      "important_output": "training_status dry_run_only; label_count 25; split clips 625/625/475; pretrained_components []"
+    },
+    {
+      "command": "test ! -e output/m3hb-popsign25-bounded-brev-contract",
+      "exit_status": 0,
+      "duration_seconds_approx": 1,
+      "important_output": "dry-run did not create the selected output directory"
+    },
+    {
+      "command": "brev search --stoppable --min-vram 40 --sort price --json",
+      "exit_status": 0,
+      "duration_seconds_approx": 2,
+      "important_output": "cheapest eligible L40S entry: crusoe l40s-48gb.1x at 1.74 USD/hour"
+    }
+  ],
+  "route_selection": {
+    "selected_route": "popsign_25_or_50_bounded_brev_contract",
+    "selected_label_count": 25,
+    "rationale": "The active prompt prefers a stronger PopSign 25/50-label bounded Brev contract when source/manifests are clean and the blocker is a scoped training guard or output namespace. The 25-label PopSign manifests are approved diagnostic raw-video manifests, and the existing guard only accepted the spent M3FF output namespace before this patch.",
+    "rejected_routes": [
+      {
+        "route": "detector0_crop_normalized_contract",
+        "reason": "Not selected for this slice because the smallest immediate blocker was the PopSign label-ladder output namespace. The rgb_regions_grid_v1 probe confirms region-grid materialization remains separate from the current PopSign 25 raw-frame manifest contract."
+      },
+      {
+        "route": "high_signal_region_grid_tcn_contract_repair",
+        "reason": "M3GL/M3GZ weak metrics do not identify a new single contract bug that would justify another high-signal region-grid retry in this slice."
+      },
+      {
+        "route": "interactive_fail_closed_product_slice",
+        "reason": "Session 670 retained product-smoke evidence and the supervising user redirected away from M3HA fail-closed-only work toward model completion."
+      },
+      {
+        "route": "research_escalation",
+        "reason": "A concrete local contract patch and dry-run existed, so research was not required for this slice."
+      }
+    ]
+  },
+  "local_output_guard_patch": {
+    "changed": true,
+    "file": "scripts/train_rawframe_model.py",
+    "summary": "Added output/m3hb-popsign25-bounded-brev-contract to the PopSign label-ladder training-smoke output allowlist and updated the guard message to list accepted namespaces.",
+    "pre_patch_red_check": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py ... --output-dir output/m3hb-popsign25-bounded-brev-contract ... --popsign-label-ladder-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1",
+      "exit_status": 2,
+      "stderr_excerpt": "PopSign label-ladder training smoke requires --output-dir output/m3ff-popsign-label-ladder-local-sanity"
+    },
+    "forbidden_policy_changes": false,
+    "final_gate_changes": false
+  },
+  "local_dry_run": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/diagnostics/popsign-label-ladder/025-labels/train.json --validation-manifest data/manifests/diagnostics/popsign-label-ladder/025-labels/validation.json --test-manifest data/manifests/diagnostics/popsign-label-ladder/025-labels/test.json --output-dir output/m3hb-popsign25-bounded-brev-contract --model-id m3hb-popsign25-bounded-brev-contract --seed 20260529 --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 0 --epochs 1 --batch-size 4 --learning-rate 0.001 --training-augmentation none --checkpoint-selection best_validation --max-train-batches 16 --max-validation-batches 16 --popsign-label-ladder-training-smoke --dry-run",
+    "exit_status": 0,
+    "training_status": "dry_run_only",
+    "output_dir": "output/m3hb-popsign25-bounded-brev-contract",
+    "output_dir_absent_after_dry_run": true,
+    "model_id": "m3hb-popsign25-bounded-brev-contract",
+    "architecture": "true_temporal_convnet_region_grid",
+    "evidence_mode": "popsign_label_ladder_training_smoke",
+    "hyperparameters": {
+      "seed": 20260529,
+      "epochs": 1,
+      "batch_size": 4,
+      "max_train_batches": 16,
+      "max_validation_batches": 16,
+      "frame_count": 16,
+      "image_size": 96,
+      "num_workers": 0,
+      "learning_rate": 0.001,
+      "training_augmentation": "none",
+      "checkpoint_selection": "best_validation",
+      "preserve_region_axis": false
+    },
+    "pretrained_components": []
+  },
+  "region_input_probe": {
+    "command": "same selected dry-run plus --require-input-contract rgb_regions_grid_v1",
+    "exit_status": 2,
+    "observed_counts": {
+      "rgb_frames_fallback": 1725
+    },
+    "interpretation": "The PopSign 25 label-ladder manifests currently bind raw-frame tensors, not rgb_regions_grid_v1 region-grid tensors. This blocks treating the route as crop-normalized evidence without a separate materialization contract, but it does not block the selected raw-frame PopSign 25 dry-run."
+  },
+  "brev_state": {
+    "commands_run": [
+      "brev ls --json",
+      "brev search --stoppable --min-vram 40 --sort price --json"
+    ],
+    "lifecycle_or_remote_commands_run": false,
+    "copyback_commands_run": false,
+    "spend_incurred_usd": 0,
+    "selected_worker": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "status": "STOPPED",
+      "build_status": "COMPLETED",
+      "shell_status": "NOT READY",
+      "health_status": "HEALTHY",
+      "instance_type": "l40s-48gb.1x",
+      "instance_kind": "gpu",
+      "gpu": "L40S"
+    },
+    "duplicate_running_asl_pilot_workers": false,
+    "price_evidence": {
+      "command": "brev search --stoppable --min-vram 40 --sort price --json",
+      "cheapest_eligible": {
+        "type": "l40s-48gb.1x",
+        "cloud": "crusoe",
+        "provider": "crusoe",
+        "gpu_name": "L40S",
+        "gpu_count": 1,
+        "total_vram_gb": 48,
+        "price_per_hour": 1.74,
+        "stoppable": true
+      },
+      "price_guard_passed": true
+    },
+    "process_cuda_sync_output_absence_proof": "not_run_because_no_brev_start_exec_sync_training_or_copy_command_ran",
+    "final_stop_default_off_proof": {
+      "stop_command_run": false,
+      "reason": "Worker was already STOPPED and no lifecycle or remote command ran in this slice.",
+      "verified_state_from_brev_ls": "STOPPED / COMPLETED / NOT READY / HEALTHY"
+    }
+  },
+  "source_manifests_labels_used": {
+    "source_id": "popsign-v1-original-videos",
+    "dataset_source_mode": "approved_external_raw_video_source",
+    "source_license_decision": "approved_popsign_v1_original_videos_2026_05_20",
+    "source_license_review_status": "approved_cc_by_4_raw_video_with_attribution",
+    "manifests": [
+      {
+        "split": "train",
+        "path": "data/manifests/diagnostics/popsign-label-ladder/025-labels/train.json",
+        "sha256": "b9b7ecd2da7ef39f1493fa1bb6d8f2b394735dd23c4c40ca7cf830a18cd0e5a6",
+        "clip_count": 625,
+        "label_count": 25
+      },
+      {
+        "split": "validation",
+        "path": "data/manifests/diagnostics/popsign-label-ladder/025-labels/validation.json",
+        "sha256": "328f55272f7b7bedc5e3987024679642807fce4b40f18ac18030c8aef42cc53e",
+        "clip_count": 625,
+        "label_count": 25
+      },
+      {
+        "split": "test",
+        "path": "data/manifests/diagnostics/popsign-label-ladder/025-labels/test.json",
+        "sha256": "83ecacb0922496c7ef142e49f7aa19719809235cc8e72b0843717cd58aeb1f51",
+        "clip_count": 475,
+        "label_count": 25
+      }
+    ],
+    "labels": [
+      "thank_you",
+      "please",
+      "like",
+      "table",
+      "bed",
+      "night",
+      "yesterday",
+      "now",
+      "time",
+      "dad",
+      "uncle",
+      "grandma",
+      "grandpa",
+      "man",
+      "person",
+      "happy",
+      "hungry",
+      "white",
+      "fish",
+      "hat",
+      "all",
+      "find",
+      "listen",
+      "say",
+      "open"
+    ],
+    "limitations": [
+      "PopSign label-ladder manifests lack vocabulary_review and remain diagnostic only.",
+      "This dry-run is not final, lesson, product, browser, promotion, calibration, or ASL correctness evidence.",
+      "No negative-challenge calibration is included."
+    ]
+  },
+  "claim_surface_proof": {
+    "web_public_model_card": {
+      "path": "web/public/model/model-card.json",
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "status": "not_trained"
+    },
+    "detector0_card": {
+      "path": "web/public/model/detector0-card.json",
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "status": "not_trained"
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": []
+    },
+    "claim_matrix": {
+      "path": "web/public/model/claim-matrix.json",
+      "sha256": "5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf"
+    },
+    "final_claim_matrix": {
+      "path": "docs/validation/final-claim-matrix.json",
+      "sha256": "5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf"
+    },
+    "claim_surfaces_changed": false
+  },
+  "changed_files": [
+    "scripts/train_rawframe_model.py",
+    "docs/validation/return-to-form-m3hb-human-reopened-model-completion-bounded-brev-v1.json",
+    "docs/session-logs/671-mission-3hb-human-reopened-model-completion-bounded-brev.md"
+  ],
+  "changed_file_hashes": [
+    {
+      "path": "scripts/train_rawframe_model.py",
+      "sha256": "66303860db79421cb9d5facf5785eb04b3534e9518ca3cfd2c59e9c7996a449b"
+    },
+    {
+      "path": "docs/session-logs/671-mission-3hb-human-reopened-model-completion-bounded-brev.md",
+      "sha256": "6ab6b9ba7c22b1f550e29a09e2231e37ce13461647aab80c50c1625f5d31dba1"
+    },
+    {
+      "path": "docs/validation/return-to-form-m3hb-human-reopened-model-completion-bounded-brev-v1.json",
+      "sha256": "self_hash_not_embedded"
+    }
+  ],
+  "forbidden_action_proof": {
+    "push": false,
+    "brev_start_reset_exec_sync_copy_stop": false,
+    "paid_training_command": false,
+    "evaluator_command": false,
+    "remote_command": false,
+    "new_dataset_or_media_import": false,
+    "source_register_rights_mutation": false,
+    "manifest_tensor_or_vocabulary_mutation": false,
+    "export_or_onnx_or_quantization": false,
+    "model_card_or_claim_promotion": false,
+    "browser_recognition_activation": false,
+    "final_gate_change": false,
+    "pretrained_or_generated_label_path": false,
+    "raw_learner_video_upload": false
+  },
+  "pretrained_components": [],
+  "exactly_one_next_action": "continue_m3hc_bounded_popsign_brev_training_or_eval"
+}

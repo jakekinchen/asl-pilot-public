@@ -1,0 +1,235 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3fb-popsign-source-register-manifest-repair/v1",
+  "mission": "M3FB - PopSign source-register manifest repair",
+  "status": "completed_local_no_training_manifest_hash_repair",
+  "generated_at": "2026-05-28T21:31:27Z",
+  "generated_by": "Codex executor",
+  "active_prompt": "docs/model/return-to-form-m3fb-popsign-source-register-manifest-repair-goal-loop-prompt.md",
+  "goal": "GOAL.md",
+  "start_head": "3503e9a observer: CONTINUE - m3fa popsign manifest repair handoff",
+  "current_source_register": {
+    "path": "docs/model/dataset-source-register.json",
+    "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+    "audit_status": "passed"
+  },
+  "stale_manifest_hash_evidence": {
+    "stale_sha256": "692bda5f3f891462ab066539c4bcb8a0cc55a6358ed03972299b8742c6515b1f",
+    "before_repair_matches_in_label_ladder_manifests": 15,
+    "example_path": "data/manifests/diagnostics/popsign-label-ladder/095-labels/train.json",
+    "source": "pre-write rg check against data/manifests/diagnostics/popsign-label-ladder"
+  },
+  "repair": {
+    "runner": "scripts/export_popsign_label_ladder_manifests.mjs",
+    "dry_run_status": "passed",
+    "write_status": "passed",
+    "output_summary": {
+      "path": "docs/validation/popsign-label-ladder-manifests.json",
+      "sha256": "47f71c76008d92b3b5b303f02db8822cad56cdc1007ad9b854a5471a66069579"
+    },
+    "diagnostic_manifest_root": {
+      "path": "data/manifests/diagnostics/popsign-label-ladder",
+      "tracking": "ignored_by_gitignore_data_manifests",
+      "note": "The exporter refreshed the local ignored diagnostic manifests; the tracked summary records their new hashes."
+    },
+    "ladder_sizes": [
+      5,
+      10,
+      25,
+      50,
+      95
+    ]
+  },
+  "post_repair_source_register_check": {
+    "status": "passed",
+    "checked_manifest_count": 15,
+    "matches_current_source_register_count": 15,
+    "stale_hash_matches_after_repair": 0,
+    "current_hash_matches_after_repair": 15,
+    "manifest_counts": [
+      {
+        "label_count": 5,
+        "train_clips": 125,
+        "validation_clips": 125,
+        "test_clips": 95
+      },
+      {
+        "label_count": 10,
+        "train_clips": 250,
+        "validation_clips": 250,
+        "test_clips": 190
+      },
+      {
+        "label_count": 25,
+        "train_clips": 625,
+        "validation_clips": 625,
+        "test_clips": 475
+      },
+      {
+        "label_count": 50,
+        "train_clips": 1250,
+        "validation_clips": 1250,
+        "test_clips": 950
+      },
+      {
+        "label_count": 95,
+        "train_clips": 2375,
+        "validation_clips": 2375,
+        "test_clips": 1805
+      }
+    ]
+  },
+  "fail_closed_claim_surfaces": {
+    "before": {
+      "model_card_path": "web/public/model/model-card.json",
+      "model_card_status": "not_trained",
+      "active_vocabulary_claim_path": "docs/model/active-vocabulary-claim.json",
+      "active_labels": []
+    },
+    "after": {
+      "model_card_path": "web/public/model/model-card.json",
+      "model_card_status": "not_trained",
+      "active_vocabulary_claim_path": "docs/model/active-vocabulary-claim.json",
+      "active_labels": []
+    }
+  },
+  "changed_files": [
+    {
+      "path": "docs/validation/popsign-label-ladder-manifests.json",
+      "why": "Tracked summary refreshed by the existing exporter with current input hashes and new hashes for the regenerated diagnostic label-ladder manifests."
+    },
+    {
+      "path": "data/manifests/diagnostics/popsign-label-ladder/{005,010,025,050,095}-labels/{train,validation,test}.json",
+      "tracking": "ignored_by_gitignore_data_manifests",
+      "why": "Local diagnostic manifest outputs were regenerated so source_register.sha256 binds to the current dataset source register. These files remain ignored by repository policy; their hashes are recorded in the tracked summary."
+    },
+    {
+      "path": "docs/validation/return-to-form-m3fb-popsign-source-register-manifest-repair-v1.json",
+      "why": "Records the M3FB receipt, stale/current hash evidence, validations, forbidden actions, and next action."
+    },
+    {
+      "path": "docs/session-logs/560-mission-3fb-popsign-source-register-manifest-repair.md",
+      "why": "Numbered executor session log for this reviewable slice."
+    }
+  ],
+  "validations": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "## compound-plan-m0...origin/compound-plan-m0 [ahead 214]"
+    },
+    {
+      "command": "git log -10 --oneline --decorate",
+      "status": "passed",
+      "head": "3503e9a observer: CONTINUE - m3fa popsign manifest repair handoff"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed",
+      "active_prompt": "docs/model/return-to-form-m3fb-popsign-source-register-manifest-repair-goal-loop-prompt.md",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed",
+      "register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed",
+      "findings": []
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3fa-product-browser-validation-no-recognition-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/export_popsign_label_ladder_manifests.mjs > /tmp/asl-pilot-m3fb-popsign-label-ladder-dry-run.json",
+      "status": "passed",
+      "dry_run_status": "dry_run",
+      "ladder_count": 5
+    },
+    {
+      "command": "python3 -m json.tool /tmp/asl-pilot-m3fb-popsign-label-ladder-dry-run.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/export_popsign_label_ladder_manifests.mjs --write > /tmp/asl-pilot-m3fb-popsign-label-ladder-write.json",
+      "status": "passed",
+      "write_status": "written",
+      "ladder_count": 5
+    },
+    {
+      "command": "python3 -m json.tool /tmp/asl-pilot-m3fb-popsign-label-ladder-write.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/popsign-label-ladder-manifests.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "find data/manifests/diagnostics/popsign-label-ladder -name '*.json' -print0 | xargs -0 -n 1 python3 -m json.tool >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "structured node check for all refreshed label-ladder source_register.sha256 values",
+      "status": "passed",
+      "checked_manifest_count": 15,
+      "blockers": []
+    },
+    {
+      "command": "rg stale source-register hash after repair",
+      "status": "passed_no_matches",
+      "exit_status": 1
+    },
+    {
+      "command": "rg current source-register hash after repair | wc -l",
+      "status": "passed",
+      "matches": 15
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3fb-popsign-source-register-manifest-repair-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "forbidden_actions_not_run": {
+    "brev_start_exec_sync_copy_or_spend": true,
+    "remote_work": true,
+    "training_or_evaluation_rerun": true,
+    "threshold_tuning": true,
+    "export_or_promotion": true,
+    "browser_recognition_activation": true,
+    "model_card_promotion": true,
+    "active_vocabulary_promotion": true,
+    "source_register_edit": true,
+    "new_source_or_media_import": true,
+    "tensor_vocabulary_or_packet_mutation": true,
+    "package_install_or_dependency_mutation": true,
+    "generated_pseudo_pretrained_paths": true,
+    "raw_learner_video_or_frame_upload": true,
+    "duplicate_worker_delete_or_reset": true,
+    "push_amend_or_no_verify": true
+  },
+  "next_action": "continue_popsign_label_ladder_local_dry_run_no_training"
+}

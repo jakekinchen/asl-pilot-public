@@ -1,0 +1,1426 @@
+{
+  "schema_version": "asl-pilot-rawframe-model-failure-analysis/v1",
+  "status": "candidate_failed_analyzed",
+  "checked_at": "2026-05-25T16:23:48.652Z",
+  "generated_by": {
+    "tool": "node",
+    "command": [
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/Users/kelly/Developer/asl-pilot/scripts/analyze_rawframe_model_failure.mjs",
+      "--report",
+      "artifacts/rawframe-model/validation-report-smoke-nochallenge.json",
+      "--training-provenance",
+      "artifacts/rawframe-model/training-provenance.json",
+      "--write"
+    ],
+    "script": {
+      "path": "scripts/analyze_rawframe_model_failure.mjs",
+      "sha256": "2adea91e3f7ff3c29254b28a61b0ae3435f54ee8ca60beb4c50b086ec6c55d39"
+    }
+  },
+  "inputs": {
+    "validation_report": {
+      "path": "artifacts/rawframe-model/validation-report-smoke-nochallenge.json",
+      "sha256": "b8fe9b75eebc2528406dc70fffd04dc2ec2c7ab32837cb55d29dbf2545da94ca"
+    },
+    "training_provenance": {
+      "path": "artifacts/rawframe-model/training-provenance.json",
+      "sha256": "b82eb9eb5b7fcb5b5e9ce1f43de38e7de0a8e06b0c165c7e018a44476a77c6cb"
+    }
+  },
+  "model": {
+    "architecture": "compact_3d_cnn_spatiotemporal_clip_norm",
+    "label_count": 95,
+    "runtime_device": "mps",
+    "initialization": "random",
+    "pretrained_components": []
+  },
+  "target_status": {
+    "report_status": "smoke_only",
+    "failed_targets": [
+      "false_pass_rate",
+      "macro_f1",
+      "top1_accuracy"
+    ],
+    "targets": {
+      "false_pass_rate_below": 0.1,
+      "macro_f1": 0.65,
+      "negative_challenge_false_pass_rate_below": 0.05,
+      "negative_challenge_min_clips_per_required_type": 5,
+      "negative_challenge_required_types": [
+        "casual_non_asl_gesture",
+        "counting",
+        "empty_camera",
+        "fingerspelling_like_motion",
+        "hand_clap",
+        "hands_cropped_out",
+        "idle_hands",
+        "low_light",
+        "mouth_touch",
+        "no_hands_visible",
+        "non_target_asl_sign",
+        "off_center",
+        "partial_sign",
+        "thumbs_up",
+        "waving",
+        "wrong_location",
+        "wrong_palm_orientation"
+      ],
+      "top1_accuracy": 0.7
+    },
+    "pass_status": {
+      "confidence_threshold": true,
+      "false_pass_rate": false,
+      "macro_f1": false,
+      "negative_challenge_false_pass_rate": true,
+      "top1_accuracy": false
+    }
+  },
+  "training_dynamics": {
+    "epoch_count": 50,
+    "selected_epoch": 33,
+    "selected_validation_accuracy": 0.06989473684210526,
+    "best_train_accuracy": {
+      "epoch": 50,
+      "accuracy": 0.9103157894736842,
+      "loss": 1.3771402509588944
+    },
+    "best_validation_accuracy": {
+      "epoch": 33,
+      "accuracy": 0.06989473684210526,
+      "loss": 4.425772977126272
+    },
+    "final_epoch": {
+      "epoch": 50,
+      "train_accuracy": 0.9103157894736842,
+      "train_loss": 1.3771402509588944,
+      "validation_accuracy": 0.06273684210526316,
+      "validation_loss": 4.89836054239775
+    },
+    "final_train_minus_selected_validation_accuracy": 0.840421052631579,
+    "test_accuracy_minus_chance": 0.05761772853185596
+  },
+  "manifest_summary": [
+    {
+      "split": "train",
+      "path": "data/manifests/train.json",
+      "sha256": "19233cf4ec3af189fe4584a9f8b6fa978c0481bfe1023443cab111053069c9eb",
+      "dataset_source_mode": "approved_external_raw_video_source",
+      "clip_count": 2375,
+      "label_count": 95,
+      "signer_count": 31,
+      "min_clips_per_label": 25,
+      "max_clips_per_label": 25
+    },
+    {
+      "split": "validation",
+      "path": "data/manifests/validation.json",
+      "sha256": "ba3c35f2da2c9949e171dbb42de11227bb305c37bc59761d90bce2d06c11409f",
+      "dataset_source_mode": "approved_external_raw_video_source",
+      "clip_count": 2375,
+      "label_count": 95,
+      "signer_count": 8,
+      "min_clips_per_label": 25,
+      "max_clips_per_label": 25
+    },
+    {
+      "split": "test",
+      "path": "data/manifests/test.json",
+      "sha256": "519af64185793399262f4287e443f16546f4323fdbca9645b3525fdedffc4723",
+      "dataset_source_mode": "approved_external_raw_video_source",
+      "clip_count": 1805,
+      "label_count": 95,
+      "signer_count": 8,
+      "min_clips_per_label": 19,
+      "max_clips_per_label": 19
+    }
+  ],
+  "signer_overlap": [
+    {
+      "left_split": "train",
+      "right_split": "validation",
+      "overlap_count": 0
+    },
+    {
+      "left_split": "train",
+      "right_split": "test",
+      "overlap_count": 0
+    },
+    {
+      "left_split": "validation",
+      "right_split": "test",
+      "overlap_count": 0
+    }
+  ],
+  "signer_generalization": {
+    "validation": {
+      "split": "validation",
+      "available": true,
+      "signer_count": 8,
+      "zero_correct_signer_count": 0,
+      "lowest_accuracy_signers": [
+        {
+          "signer_id": "popsign-signer-cc50a89882a8ed4c",
+          "examples": 275,
+          "correct": 8,
+          "accuracy": 0.02909090909090909,
+          "label_count": 78,
+          "mean_confidence": 0.16656008458950303,
+          "max_confidence": 0.6010434627532959,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-96a654d6be5c2506",
+          "examples": 220,
+          "correct": 9,
+          "accuracy": 0.04090909090909091,
+          "label_count": 66,
+          "mean_confidence": 0.12825741220942952,
+          "max_confidence": 0.46585845947265625,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-93953b2725a6d073",
+          "examples": 274,
+          "correct": 12,
+          "accuracy": 0.043795620437956206,
+          "label_count": 79,
+          "mean_confidence": 0.13418643331549462,
+          "max_confidence": 0.7317920923233032,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-d634581037b96d18",
+          "examples": 354,
+          "correct": 24,
+          "accuracy": 0.06779661016949153,
+          "label_count": 84,
+          "mean_confidence": 0.10562097204396617,
+          "max_confidence": 0.5600128769874573,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-fb6c9cc349eb6ba8",
+          "examples": 396,
+          "correct": 29,
+          "accuracy": 0.07323232323232323,
+          "label_count": 93,
+          "mean_confidence": 0.1260007930957157,
+          "max_confidence": 0.5631862878799438,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-30132f3fd3bc05ed",
+          "examples": 267,
+          "correct": 20,
+          "accuracy": 0.0749063670411985,
+          "label_count": 78,
+          "mean_confidence": 0.165690716635087,
+          "max_confidence": 0.5951114296913147,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-54ed19eb670a7fc3",
+          "examples": 266,
+          "correct": 20,
+          "accuracy": 0.07518796992481203,
+          "label_count": 81,
+          "mean_confidence": 0.19684331088249846,
+          "max_confidence": 0.9668796062469482,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-e4b4850de1ac3de8",
+          "examples": 323,
+          "correct": 44,
+          "accuracy": 0.13622291021671826,
+          "label_count": 84,
+          "mean_confidence": 0.09218581049088907,
+          "max_confidence": 0.4484986364841461,
+          "zero_correct": false
+        }
+      ],
+      "highest_accuracy_signers": [
+        {
+          "signer_id": "popsign-signer-e4b4850de1ac3de8",
+          "examples": 323,
+          "correct": 44,
+          "accuracy": 0.13622291021671826,
+          "label_count": 84,
+          "mean_confidence": 0.09218581049088907,
+          "max_confidence": 0.4484986364841461,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-54ed19eb670a7fc3",
+          "examples": 266,
+          "correct": 20,
+          "accuracy": 0.07518796992481203,
+          "label_count": 81,
+          "mean_confidence": 0.19684331088249846,
+          "max_confidence": 0.9668796062469482,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-30132f3fd3bc05ed",
+          "examples": 267,
+          "correct": 20,
+          "accuracy": 0.0749063670411985,
+          "label_count": 78,
+          "mean_confidence": 0.165690716635087,
+          "max_confidence": 0.5951114296913147,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-fb6c9cc349eb6ba8",
+          "examples": 396,
+          "correct": 29,
+          "accuracy": 0.07323232323232323,
+          "label_count": 93,
+          "mean_confidence": 0.1260007930957157,
+          "max_confidence": 0.5631862878799438,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-d634581037b96d18",
+          "examples": 354,
+          "correct": 24,
+          "accuracy": 0.06779661016949153,
+          "label_count": 84,
+          "mean_confidence": 0.10562097204396617,
+          "max_confidence": 0.5600128769874573,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-93953b2725a6d073",
+          "examples": 274,
+          "correct": 12,
+          "accuracy": 0.043795620437956206,
+          "label_count": 79,
+          "mean_confidence": 0.13418643331549462,
+          "max_confidence": 0.7317920923233032,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-96a654d6be5c2506",
+          "examples": 220,
+          "correct": 9,
+          "accuracy": 0.04090909090909091,
+          "label_count": 66,
+          "mean_confidence": 0.12825741220942952,
+          "max_confidence": 0.46585845947265625,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-cc50a89882a8ed4c",
+          "examples": 275,
+          "correct": 8,
+          "accuracy": 0.02909090909090909,
+          "label_count": 78,
+          "mean_confidence": 0.16656008458950303,
+          "max_confidence": 0.6010434627532959,
+          "zero_correct": false
+        }
+      ]
+    },
+    "test": {
+      "split": "test",
+      "available": true,
+      "signer_count": 8,
+      "zero_correct_signer_count": 0,
+      "lowest_accuracy_signers": [
+        {
+          "signer_id": "popsign-signer-e0940122312d361a",
+          "examples": 221,
+          "correct": 9,
+          "accuracy": 0.04072398190045249,
+          "label_count": 69,
+          "mean_confidence": 0.14926556846742176,
+          "max_confidence": 0.8133478760719299,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-0a4c034271536723",
+          "examples": 298,
+          "correct": 13,
+          "accuracy": 0.0436241610738255,
+          "label_count": 81,
+          "mean_confidence": 0.3052607977500298,
+          "max_confidence": 0.9477035999298096,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-dea2b45d14f9aa79",
+          "examples": 296,
+          "correct": 18,
+          "accuracy": 0.060810810810810814,
+          "label_count": 86,
+          "mean_confidence": 0.15559785563901468,
+          "max_confidence": 0.8887796401977539,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-abb19b30e7af50c6",
+          "examples": 294,
+          "correct": 18,
+          "accuracy": 0.061224489795918366,
+          "label_count": 81,
+          "mean_confidence": 0.14495080608088953,
+          "max_confidence": 0.6698856949806213,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-f2225747b02727cc",
+          "examples": 118,
+          "correct": 8,
+          "accuracy": 0.06779661016949153,
+          "label_count": 45,
+          "mean_confidence": 0.17496397797712834,
+          "max_confidence": 0.7626292705535889,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-3660c753560b193d",
+          "examples": 273,
+          "correct": 22,
+          "accuracy": 0.08058608058608059,
+          "label_count": 81,
+          "mean_confidence": 0.1947413506634506,
+          "max_confidence": 0.723574161529541,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-4027e4c04fcfc294",
+          "examples": 298,
+          "correct": 32,
+          "accuracy": 0.10738255033557047,
+          "label_count": 83,
+          "mean_confidence": 0.1829168339253672,
+          "max_confidence": 0.8968797922134399,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-87eb8dfc14c85f7d",
+          "examples": 7,
+          "correct": 3,
+          "accuracy": 0.42857142857142855,
+          "label_count": 2,
+          "mean_confidence": 0.09626118572694915,
+          "max_confidence": 0.1884790062904358,
+          "zero_correct": false
+        }
+      ],
+      "highest_accuracy_signers": [
+        {
+          "signer_id": "popsign-signer-87eb8dfc14c85f7d",
+          "examples": 7,
+          "correct": 3,
+          "accuracy": 0.42857142857142855,
+          "label_count": 2,
+          "mean_confidence": 0.09626118572694915,
+          "max_confidence": 0.1884790062904358,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-4027e4c04fcfc294",
+          "examples": 298,
+          "correct": 32,
+          "accuracy": 0.10738255033557047,
+          "label_count": 83,
+          "mean_confidence": 0.1829168339253672,
+          "max_confidence": 0.8968797922134399,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-3660c753560b193d",
+          "examples": 273,
+          "correct": 22,
+          "accuracy": 0.08058608058608059,
+          "label_count": 81,
+          "mean_confidence": 0.1947413506634506,
+          "max_confidence": 0.723574161529541,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-f2225747b02727cc",
+          "examples": 118,
+          "correct": 8,
+          "accuracy": 0.06779661016949153,
+          "label_count": 45,
+          "mean_confidence": 0.17496397797712834,
+          "max_confidence": 0.7626292705535889,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-abb19b30e7af50c6",
+          "examples": 294,
+          "correct": 18,
+          "accuracy": 0.061224489795918366,
+          "label_count": 81,
+          "mean_confidence": 0.14495080608088953,
+          "max_confidence": 0.6698856949806213,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-dea2b45d14f9aa79",
+          "examples": 296,
+          "correct": 18,
+          "accuracy": 0.060810810810810814,
+          "label_count": 86,
+          "mean_confidence": 0.15559785563901468,
+          "max_confidence": 0.8887796401977539,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-0a4c034271536723",
+          "examples": 298,
+          "correct": 13,
+          "accuracy": 0.0436241610738255,
+          "label_count": 81,
+          "mean_confidence": 0.3052607977500298,
+          "max_confidence": 0.9477035999298096,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-e0940122312d361a",
+          "examples": 221,
+          "correct": 9,
+          "accuracy": 0.04072398190045249,
+          "label_count": 69,
+          "mean_confidence": 0.14926556846742176,
+          "max_confidence": 0.8133478760719299,
+          "zero_correct": false
+        }
+      ]
+    }
+  },
+  "validation_summary": {
+    "split": "validation",
+    "examples": 2375,
+    "top1_accuracy": 0.06989473684210526,
+    "macro_f1": 0.06234419828999084,
+    "predicted_label_coverage": {
+      "predicted_nonzero_count": 91,
+      "total_labels": 95,
+      "zero_prediction_labels": [
+        "carrot",
+        "look",
+        "no",
+        "yellow"
+      ]
+    },
+    "recall_coverage": {
+      "labels_with_nonzero_recall": 61,
+      "total_labels": 95,
+      "zero_recall_labels": [
+        "apple",
+        "bed",
+        "before",
+        "bird",
+        "black",
+        "boy",
+        "bye",
+        "can",
+        "carrot",
+        "child",
+        "drink",
+        "find",
+        "food",
+        "have",
+        "later",
+        "listen",
+        "look",
+        "make",
+        "mom",
+        "night",
+        "no",
+        "now",
+        "pen",
+        "pencil",
+        "read",
+        "say",
+        "see",
+        "sick",
+        "tv",
+        "water",
+        "where",
+        "who",
+        "yellow",
+        "yes"
+      ]
+    },
+    "top_predicted_labels": [
+      {
+        "label": "please",
+        "predicted_count": 156
+      },
+      {
+        "label": "milk",
+        "predicted_count": 112
+      },
+      {
+        "label": "after",
+        "predicted_count": 97
+      },
+      {
+        "label": "aunt",
+        "predicted_count": 74
+      },
+      {
+        "label": "room",
+        "predicted_count": 67
+      },
+      {
+        "label": "home",
+        "predicted_count": 66
+      },
+      {
+        "label": "uncle",
+        "predicted_count": 66
+      },
+      {
+        "label": "every",
+        "predicted_count": 55
+      },
+      {
+        "label": "fine",
+        "predicted_count": 54
+      },
+      {
+        "label": "animal",
+        "predicted_count": 52
+      },
+      {
+        "label": "girl",
+        "predicted_count": 52
+      },
+      {
+        "label": "orange",
+        "predicted_count": 51
+      },
+      {
+        "label": "cat",
+        "predicted_count": 48
+      },
+      {
+        "label": "go",
+        "predicted_count": 47
+      },
+      {
+        "label": "where",
+        "predicted_count": 46
+      }
+    ],
+    "top_recall_labels": [
+      {
+        "label": "please",
+        "support": 25,
+        "correct": 10,
+        "recall": 0.4,
+        "f1": 0.11049723756906077,
+        "precision": 0.0641025641025641
+      },
+      {
+        "label": "uncle",
+        "support": 25,
+        "correct": 10,
+        "recall": 0.4,
+        "f1": 0.21978021978021978,
+        "precision": 0.15151515151515152
+      },
+      {
+        "label": "hungry",
+        "support": 25,
+        "correct": 8,
+        "recall": 0.32,
+        "f1": 0.24242424242424243,
+        "precision": 0.1951219512195122
+      },
+      {
+        "label": "horse",
+        "support": 25,
+        "correct": 6,
+        "recall": 0.24,
+        "f1": 0.2264150943396226,
+        "precision": 0.21428571428571427
+      },
+      {
+        "label": "brother",
+        "support": 25,
+        "correct": 5,
+        "recall": 0.2,
+        "f1": 0.17857142857142855,
+        "precision": 0.16129032258064516
+      },
+      {
+        "label": "table",
+        "support": 25,
+        "correct": 5,
+        "recall": 0.2,
+        "f1": 0.17241379310344826,
+        "precision": 0.15151515151515152
+      },
+      {
+        "label": "thirsty",
+        "support": 25,
+        "correct": 5,
+        "recall": 0.2,
+        "f1": 0.1639344262295082,
+        "precision": 0.1388888888888889
+      },
+      {
+        "label": "car",
+        "support": 25,
+        "correct": 4,
+        "recall": 0.16,
+        "f1": 0.21621621621621623,
+        "precision": 0.3333333333333333
+      },
+      {
+        "label": "fine",
+        "support": 25,
+        "correct": 4,
+        "recall": 0.16,
+        "f1": 0.10126582278481013,
+        "precision": 0.07407407407407407
+      },
+      {
+        "label": "fish",
+        "support": 25,
+        "correct": 4,
+        "recall": 0.16,
+        "f1": 0.1702127659574468,
+        "precision": 0.18181818181818182
+      },
+      {
+        "label": "go",
+        "support": 25,
+        "correct": 4,
+        "recall": 0.16,
+        "f1": 0.11111111111111112,
+        "precision": 0.0851063829787234
+      },
+      {
+        "label": "grandma",
+        "support": 25,
+        "correct": 4,
+        "recall": 0.16,
+        "f1": 0.1568627450980392,
+        "precision": 0.15384615384615385
+      },
+      {
+        "label": "home",
+        "support": 25,
+        "correct": 4,
+        "recall": 0.16,
+        "f1": 0.0879120879120879,
+        "precision": 0.06060606060606061
+      },
+      {
+        "label": "person",
+        "support": 25,
+        "correct": 4,
+        "recall": 0.16,
+        "f1": 0.2222222222222222,
+        "precision": 0.36363636363636365
+      },
+      {
+        "label": "think",
+        "support": 25,
+        "correct": 4,
+        "recall": 0.16,
+        "f1": 0.2105263157894737,
+        "precision": 0.3076923076923077
+      }
+    ],
+    "lowest_nonzero_recall_labels": [
+      {
+        "label": "airplane",
+        "support": 25,
+        "correct": 1,
+        "recall": 0.04,
+        "f1": 0.03508771929824561,
+        "precision": 0.03125
+      },
+      {
+        "label": "another",
+        "support": 25,
+        "correct": 1,
+        "recall": 0.04,
+        "f1": 0.058823529411764705,
+        "precision": 0.1111111111111111
+      },
+      {
+        "label": "blue",
+        "support": 25,
+        "correct": 1,
+        "recall": 0.04,
+        "f1": 0.05128205128205128,
+        "precision": 0.07142857142857142
+      },
+      {
+        "label": "book",
+        "support": 25,
+        "correct": 1,
+        "recall": 0.04,
+        "f1": 0.06451612903225806,
+        "precision": 0.16666666666666666
+      },
+      {
+        "label": "brown",
+        "support": 25,
+        "correct": 1,
+        "recall": 0.04,
+        "f1": 0.044444444444444446,
+        "precision": 0.05
+      },
+      {
+        "label": "call_on_phone",
+        "support": 25,
+        "correct": 1,
+        "recall": 0.04,
+        "f1": 0.05,
+        "precision": 0.06666666666666667
+      },
+      {
+        "label": "chair",
+        "support": 25,
+        "correct": 1,
+        "recall": 0.04,
+        "f1": 0.0425531914893617,
+        "precision": 0.045454545454545456
+      },
+      {
+        "label": "dad",
+        "support": 25,
+        "correct": 1,
+        "recall": 0.04,
+        "f1": 0.058823529411764705,
+        "precision": 0.1111111111111111
+      },
+      {
+        "label": "dog",
+        "support": 25,
+        "correct": 1,
+        "recall": 0.04,
+        "f1": 0.029411764705882356,
+        "precision": 0.023255813953488372
+      },
+      {
+        "label": "every",
+        "support": 25,
+        "correct": 1,
+        "recall": 0.04,
+        "f1": 0.024999999999999998,
+        "precision": 0.01818181818181818
+      },
+      {
+        "label": "frog",
+        "support": 25,
+        "correct": 1,
+        "recall": 0.04,
+        "f1": 0.03773584905660378,
+        "precision": 0.03571428571428571
+      },
+      {
+        "label": "grandpa",
+        "support": 25,
+        "correct": 1,
+        "recall": 0.04,
+        "f1": 0.06060606060606061,
+        "precision": 0.125
+      },
+      {
+        "label": "hello",
+        "support": 25,
+        "correct": 1,
+        "recall": 0.04,
+        "f1": 0.06896551724137932,
+        "precision": 0.25
+      },
+      {
+        "label": "not",
+        "support": 25,
+        "correct": 1,
+        "recall": 0.04,
+        "f1": 0.03333333333333333,
+        "precision": 0.02857142857142857
+      },
+      {
+        "label": "red",
+        "support": 25,
+        "correct": 1,
+        "recall": 0.04,
+        "f1": 0.043478260869565216,
+        "precision": 0.047619047619047616
+      }
+    ],
+    "top_confusions": [
+      {
+        "true_label": "yesterday",
+        "predicted_label": "home",
+        "count": 10
+      },
+      {
+        "true_label": "table",
+        "predicted_label": "please",
+        "count": 9
+      },
+      {
+        "true_label": "fish",
+        "predicted_label": "after",
+        "count": 7
+      },
+      {
+        "true_label": "happy",
+        "predicted_label": "please",
+        "count": 7
+      },
+      {
+        "true_label": "like",
+        "predicted_label": "please",
+        "count": 7
+      },
+      {
+        "true_label": "read",
+        "predicted_label": "please",
+        "count": 7
+      },
+      {
+        "true_label": "think",
+        "predicted_label": "milk",
+        "count": 7
+      },
+      {
+        "true_label": "man",
+        "predicted_label": "brother",
+        "count": 6
+      },
+      {
+        "true_label": "sick",
+        "predicted_label": "uncle",
+        "count": 6
+      },
+      {
+        "true_label": "white",
+        "predicted_label": "like",
+        "count": 6
+      },
+      {
+        "true_label": "animal",
+        "predicted_label": "aunt",
+        "count": 5
+      },
+      {
+        "true_label": "animal",
+        "predicted_label": "please",
+        "count": 5
+      },
+      {
+        "true_label": "apple",
+        "predicted_label": "milk",
+        "count": 5
+      },
+      {
+        "true_label": "bird",
+        "predicted_label": "orange",
+        "count": 5
+      },
+      {
+        "true_label": "car",
+        "predicted_label": "animal",
+        "count": 5
+      }
+    ]
+  },
+  "test_summary": {
+    "split": "test",
+    "examples": 1805,
+    "top1_accuracy": 0.06814404432132964,
+    "macro_f1": 0.05540080788433053,
+    "predicted_label_coverage": {
+      "predicted_nonzero_count": 88,
+      "total_labels": 95,
+      "zero_prediction_labels": [
+        "bed",
+        "can",
+        "have",
+        "later",
+        "make",
+        "time",
+        "yellow"
+      ]
+    },
+    "recall_coverage": {
+      "labels_with_nonzero_recall": 45,
+      "total_labels": 95,
+      "zero_recall_labels": [
+        "airplane",
+        "another",
+        "apple",
+        "bed",
+        "before",
+        "bird",
+        "blue",
+        "book",
+        "boy",
+        "brother",
+        "brown",
+        "bye",
+        "call_on_phone",
+        "can",
+        "cat",
+        "cereal",
+        "chair",
+        "child",
+        "dog",
+        "find",
+        "go",
+        "have",
+        "home",
+        "hot",
+        "later",
+        "listen",
+        "look",
+        "mad",
+        "make",
+        "milk",
+        "mom",
+        "morning",
+        "no",
+        "now",
+        "pen",
+        "person",
+        "read",
+        "sad",
+        "say",
+        "see",
+        "shoe",
+        "talk",
+        "time",
+        "tomorrow",
+        "tv",
+        "white",
+        "who",
+        "why",
+        "yellow",
+        "yes"
+      ]
+    },
+    "top_predicted_labels": [
+      {
+        "label": "after",
+        "predicted_count": 178
+      },
+      {
+        "label": "grandpa",
+        "predicted_count": 120
+      },
+      {
+        "label": "please",
+        "predicted_count": 110
+      },
+      {
+        "label": "aunt",
+        "predicted_count": 106
+      },
+      {
+        "label": "where",
+        "predicted_count": 103
+      },
+      {
+        "label": "uncle",
+        "predicted_count": 83
+      },
+      {
+        "label": "girl",
+        "predicted_count": 69
+      },
+      {
+        "label": "every",
+        "predicted_count": 49
+      },
+      {
+        "label": "open",
+        "predicted_count": 49
+      },
+      {
+        "label": "horse",
+        "predicted_count": 46
+      },
+      {
+        "label": "orange",
+        "predicted_count": 33
+      },
+      {
+        "label": "airplane",
+        "predicted_count": 32
+      },
+      {
+        "label": "car",
+        "predicted_count": 32
+      },
+      {
+        "label": "bad",
+        "predicted_count": 31
+      },
+      {
+        "label": "hungry",
+        "predicted_count": 30
+      }
+    ],
+    "top_recall_labels": [
+      {
+        "label": "please",
+        "support": 19,
+        "correct": 11,
+        "recall": 0.5789473684210527,
+        "f1": 0.17054263565891475,
+        "precision": 0.1
+      },
+      {
+        "label": "grandpa",
+        "support": 19,
+        "correct": 8,
+        "recall": 0.42105263157894735,
+        "f1": 0.11510791366906474,
+        "precision": 0.06666666666666667
+      },
+      {
+        "label": "uncle",
+        "support": 19,
+        "correct": 8,
+        "recall": 0.42105263157894735,
+        "f1": 0.15686274509803924,
+        "precision": 0.0963855421686747
+      },
+      {
+        "label": "hungry",
+        "support": 19,
+        "correct": 7,
+        "recall": 0.3684210526315789,
+        "f1": 0.2857142857142857,
+        "precision": 0.23333333333333334
+      },
+      {
+        "label": "table",
+        "support": 19,
+        "correct": 7,
+        "recall": 0.3684210526315789,
+        "f1": 0.35,
+        "precision": 0.3333333333333333
+      },
+      {
+        "label": "girl",
+        "support": 19,
+        "correct": 5,
+        "recall": 0.2631578947368421,
+        "f1": 0.11363636363636365,
+        "precision": 0.07246376811594203
+      },
+      {
+        "label": "hat",
+        "support": 19,
+        "correct": 5,
+        "recall": 0.2631578947368421,
+        "f1": 0.24390243902439024,
+        "precision": 0.22727272727272727
+      },
+      {
+        "label": "horse",
+        "support": 19,
+        "correct": 5,
+        "recall": 0.2631578947368421,
+        "f1": 0.15384615384615385,
+        "precision": 0.10869565217391304
+      },
+      {
+        "label": "car",
+        "support": 19,
+        "correct": 4,
+        "recall": 0.21052631578947367,
+        "f1": 0.1568627450980392,
+        "precision": 0.125
+      },
+      {
+        "label": "after",
+        "support": 19,
+        "correct": 3,
+        "recall": 0.15789473684210525,
+        "f1": 0.030456852791878174,
+        "precision": 0.016853932584269662
+      },
+      {
+        "label": "bad",
+        "support": 19,
+        "correct": 3,
+        "recall": 0.15789473684210525,
+        "f1": 0.12000000000000001,
+        "precision": 0.0967741935483871
+      },
+      {
+        "label": "every",
+        "support": 19,
+        "correct": 3,
+        "recall": 0.15789473684210525,
+        "f1": 0.08823529411764705,
+        "precision": 0.061224489795918366
+      },
+      {
+        "label": "fish",
+        "support": 19,
+        "correct": 3,
+        "recall": 0.15789473684210525,
+        "f1": 0.23999999999999996,
+        "precision": 0.5
+      },
+      {
+        "label": "like",
+        "support": 19,
+        "correct": 3,
+        "recall": 0.15789473684210525,
+        "f1": 0.14634146341463414,
+        "precision": 0.13636363636363635
+      },
+      {
+        "label": "man",
+        "support": 19,
+        "correct": 3,
+        "recall": 0.15789473684210525,
+        "f1": 0.21428571428571427,
+        "precision": 0.3333333333333333
+      }
+    ],
+    "lowest_nonzero_recall_labels": [
+      {
+        "label": "animal",
+        "support": 19,
+        "correct": 1,
+        "recall": 0.05263157894736842,
+        "f1": 0.07407407407407407,
+        "precision": 0.125
+      },
+      {
+        "label": "any",
+        "support": 19,
+        "correct": 1,
+        "recall": 0.05263157894736842,
+        "f1": 0.09090909090909091,
+        "precision": 0.3333333333333333
+      },
+      {
+        "label": "black",
+        "support": 19,
+        "correct": 1,
+        "recall": 0.05263157894736842,
+        "f1": 0.08695652173913043,
+        "precision": 0.25
+      },
+      {
+        "label": "carrot",
+        "support": 19,
+        "correct": 1,
+        "recall": 0.05263157894736842,
+        "f1": 0.1,
+        "precision": 1
+      },
+      {
+        "label": "dad",
+        "support": 19,
+        "correct": 1,
+        "recall": 0.05263157894736842,
+        "f1": 0.06896551724137931,
+        "precision": 0.1
+      },
+      {
+        "label": "drink",
+        "support": 19,
+        "correct": 1,
+        "recall": 0.05263157894736842,
+        "f1": 0.06896551724137931,
+        "precision": 0.1
+      },
+      {
+        "label": "food",
+        "support": 19,
+        "correct": 1,
+        "recall": 0.05263157894736842,
+        "f1": 0.08695652173913043,
+        "precision": 0.25
+      },
+      {
+        "label": "frog",
+        "support": 19,
+        "correct": 1,
+        "recall": 0.05263157894736842,
+        "f1": 0.1,
+        "precision": 1
+      },
+      {
+        "label": "give",
+        "support": 19,
+        "correct": 1,
+        "recall": 0.05263157894736842,
+        "f1": 0.058823529411764705,
+        "precision": 0.06666666666666667
+      },
+      {
+        "label": "grandma",
+        "support": 19,
+        "correct": 1,
+        "recall": 0.05263157894736842,
+        "f1": 0.07142857142857142,
+        "precision": 0.1111111111111111
+      },
+      {
+        "label": "green",
+        "support": 19,
+        "correct": 1,
+        "recall": 0.05263157894736842,
+        "f1": 0.0625,
+        "precision": 0.07692307692307693
+      },
+      {
+        "label": "hello",
+        "support": 19,
+        "correct": 1,
+        "recall": 0.05263157894736842,
+        "f1": 0.09090909090909091,
+        "precision": 0.3333333333333333
+      },
+      {
+        "label": "night",
+        "support": 19,
+        "correct": 1,
+        "recall": 0.05263157894736842,
+        "f1": 0.06896551724137931,
+        "precision": 0.1
+      },
+      {
+        "label": "not",
+        "support": 19,
+        "correct": 1,
+        "recall": 0.05263157894736842,
+        "f1": 0.05555555555555555,
+        "precision": 0.058823529411764705
+      },
+      {
+        "label": "red",
+        "support": 19,
+        "correct": 1,
+        "recall": 0.05263157894736842,
+        "f1": 0.08,
+        "precision": 0.16666666666666666
+      }
+    ],
+    "top_confusions": [
+      {
+        "true_label": "room",
+        "predicted_label": "after",
+        "count": 11
+      },
+      {
+        "true_label": "hot",
+        "predicted_label": "after",
+        "count": 8
+      },
+      {
+        "true_label": "chair",
+        "predicted_label": "please",
+        "count": 7
+      },
+      {
+        "true_label": "find",
+        "predicted_label": "grandpa",
+        "count": 7
+      },
+      {
+        "true_label": "happy",
+        "predicted_label": "aunt",
+        "count": 7
+      },
+      {
+        "true_label": "give",
+        "predicted_label": "grandpa",
+        "count": 6
+      },
+      {
+        "true_label": "man",
+        "predicted_label": "brother",
+        "count": 6
+      },
+      {
+        "true_label": "pencil",
+        "predicted_label": "after",
+        "count": 6
+      },
+      {
+        "true_label": "where",
+        "predicted_label": "aunt",
+        "count": 6
+      },
+      {
+        "true_label": "yellow",
+        "predicted_label": "where",
+        "count": 6
+      },
+      {
+        "true_label": "yes",
+        "predicted_label": "aunt",
+        "count": 6
+      },
+      {
+        "true_label": "bed",
+        "predicted_label": "after",
+        "count": 5
+      },
+      {
+        "true_label": "before",
+        "predicted_label": "grandpa",
+        "count": 5
+      },
+      {
+        "true_label": "brother",
+        "predicted_label": "open",
+        "count": 5
+      },
+      {
+        "true_label": "cat",
+        "predicted_label": "uncle",
+        "count": 5
+      }
+    ]
+  },
+  "threshold_summary": {
+    "selected_threshold": 0.23,
+    "validation_selected_metrics": {
+      "accepted_accuracy": 0.15357142857142858,
+      "correct_pass_rate": 0.018105263157894735,
+      "coverage": 0.11789473684210526,
+      "false_accept_rate": 0.8464285714285714,
+      "false_pass_rate": 0.09978947368421053,
+      "threshold": 0.23
+    },
+    "test_threshold_metrics": {
+      "accepted_accuracy": 0.11777777777777777,
+      "correct_pass_rate": 0.029362880886426593,
+      "coverage": 0.24930747922437674,
+      "false_accept_rate": 0.8822222222222222,
+      "false_pass_rate": 0.21994459833795013,
+      "threshold": 0.23
+    },
+    "negative_challenge_metrics": null
+  },
+  "interpretation": [
+    "The selected checkpoint does not meet final model quality gates.",
+    "The final training epoch memorized the training split far more than it generalized to signer-disjoint validation/test splits.",
+    "Many held-out labels have zero recall, so additional approved signer/source diversity is more likely to matter than another small hyperparameter rerun.",
+    "ONNX/browser final export should remain fail-closed until a later validation report reaches candidate_final_validation_passed."
+  ],
+  "next_evidence_needed": [
+    "approved additional raw-video training data or consented first-party collection",
+    "metadata/source-register approval before any NVIDIA or other online source import",
+    "new training and evaluation report with substantially higher held-out top-1 and macro-F1",
+    "negative challenge false-pass rate below the final target"
+  ]
+}

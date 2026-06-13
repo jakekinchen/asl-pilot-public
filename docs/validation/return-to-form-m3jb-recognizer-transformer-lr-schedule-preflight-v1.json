@@ -1,0 +1,320 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-lr-schedule-preflight/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_lr_schedule_preflight_no_brev",
+  "recorded_at_utc": "2026-06-03T20:30:21Z",
+  "head_before_slice": "3846ad0c0fd27c6ec73c42856c8c8738da443ec4",
+  "status": "passed_scheduler_preflight_no_brev_no_checkpoint",
+  "source_of_truth": {
+    "run2_research_tuning_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run2-research-tuning-v1.json",
+    "selected_run3_recipe": "Transformer d256/l6/h8, batch 128, epochs 240, lr 5e-4, warmup 500, cosine min lr 5e-5, dropout 0.0, alpha 0.55, temperature 3.0, jitter 0.02, frame-drop 0.10, full data with no limit flags"
+  },
+  "side_worktree": {
+    "path": "/Users/kelly/Developer/asl-pilot-annotator",
+    "branch": "annotator-tool",
+    "commit_before": "3f9d3f0fa4b74d9d6e01622a063da22d9fc6ff3c",
+    "code_commit": "8a780aef462e616d365319a1ef577f9d93395979",
+    "trainer_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_recognizer_distill.py",
+    "trainer_sha256": "bfa4ed698da20561e3b3005f56467edec42161f0269e3fc57535c7701b392898",
+    "diagnostics_test_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/test_recognizer_distill_diagnostics.py",
+    "diagnostics_test_sha256": "6f9a4b282f1ee33d84174a4db17cfb1a902252fc751a96e4253b896e3a3e5942",
+    "seq_transformer_sha256": "0d57f8b567d4b5f801164ef3e5b8ca34406cffed05f37c138290674906923eea",
+    "verification_sha256": "f77659fa62300eb67f3eefc1b6a79fd9944d52a566f09fbec0cee33cc9914b29"
+  },
+  "implementation": {
+    "scheduler_flags_added": [
+      "--lr-scheduler",
+      "--warmup-steps",
+      "--min-lr"
+    ],
+    "supported_schedulers": [
+      "none",
+      "cosine"
+    ],
+    "fixed_lr_default_preserved": true,
+    "zero_epoch_preflight_preserved": true,
+    "receipt_fields_added": [
+      "expected_optimizer_steps",
+      "steps_per_epoch",
+      "lr_scheduler",
+      "history[].lr_first",
+      "history[].lr_last"
+    ],
+    "pretrained_dependencies_added": false,
+    "runtime_dependency_added": false
+  },
+  "local_preflight": {
+    "red_test": {
+      "command": "cd /Users/kelly/Developer/asl-pilot-annotator && PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/test_recognizer_distill_diagnostics.py",
+      "status": "failed_as_expected_before_implementation",
+      "failure": "ImportError: cannot import name 'learning_rate_for_step'"
+    },
+    "focused_unit_test": {
+      "command": "cd /Users/kelly/Developer/asl-pilot-annotator && PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/test_recognizer_distill_diagnostics.py",
+      "status": "passed",
+      "output": "recognizer distill diagnostics: all tests passed"
+    },
+    "syntax_check": {
+      "command": "cd /Users/kelly/Developer/asl-pilot-annotator && PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_recognizer_distill.py tools/detector0-annotator/test_recognizer_distill_diagnostics.py tools/detector0-annotator/seq_transformer.py",
+      "status": "passed"
+    },
+    "help_surface": {
+      "command": "cd /Users/kelly/Developer/asl-pilot-annotator && PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_recognizer_distill.py --help | rg -- '--lr-scheduler|--warmup-steps|--min-lr|--no-save-model|--diagnostics|--eval-train'",
+      "status": "passed",
+      "flags_observed": [
+        "--lr-scheduler {none,cosine}",
+        "--warmup-steps WARMUP_STEPS",
+        "--min-lr MIN_LR",
+        "--eval-train",
+        "--diagnostics",
+        "--no-save-model"
+      ]
+    },
+    "seq_transformer_self_test": {
+      "command": "cd /Users/kelly/Developer/asl-pilot-annotator && PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/seq_transformer.py",
+      "status": "passed",
+      "output": "seq_transformer: self-test passed (shape + padding invariance)"
+    },
+    "zero_epoch_load_check": {
+      "command": "cd /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator && env PYTORCH_ENABLE_MPS_FALLBACK=1 PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python train_recognizer_distill.py --student-arch transformer --device mps --epochs 0 --batch 4 --limit-train 4 --limit-monitor 4 --limit-test 4 --no-save",
+      "status": "passed",
+      "counts": {
+        "train_clips": 4,
+        "monitor_clips": 4,
+        "test_clips": 4,
+        "teacher_covered_train": 2
+      },
+      "checkpoint_or_receipt_written": false
+    },
+    "tiny_overfit": {
+      "receipt_path": "docs/validation/m3jb-recognizer-scheduler-preflight-tiny-overfit-v1.json",
+      "receipt_sha256": "3e112f563b3b291cb60d4f32a2308f4baa310eddd5b14f7aaade3042192c8ff2",
+      "command": "cd /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator && env PYTORCH_ENABLE_MPS_FALLBACK=1 PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python train_recognizer_distill.py --student-arch transformer --device mps --epochs 120 --batch 16 --lr 5e-4 --lr-scheduler cosine --warmup-steps 10 --min-lr 5e-5 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --alpha 1.0 --jitter-std 0 --frame-drop 0 --limit-train 32 --limit-monitor 32 --limit-test 32 --eval-train --diagnostics --no-save-model --out /Users/kelly/Developer/asl-pilot/docs/validation/m3jb-recognizer-scheduler-preflight-tiny-overfit-v1.json",
+      "status": "passed_overfit_no_save",
+      "device": "mps",
+      "counts": {
+        "train_clips": 32,
+        "monitor_clips": 32,
+        "test_clips": 32,
+        "classes": 95,
+        "teacher_covered_train": 12,
+        "teacher_covered_total": 4560
+      },
+      "optimizer_steps": 240,
+      "expected_optimizer_steps": 240,
+      "steps_per_epoch": 2,
+      "lr_scheduler": {
+        "name": "cosine",
+        "base_lr": 0.0005,
+        "warmup_steps": 10,
+        "min_lr": 0.00005
+      },
+      "lr_trace": {
+        "first_epoch_lr_first": 0.00005,
+        "first_epoch_lr_last": 0.0001,
+        "last_epoch_lr_first": 0.000050021,
+        "last_epoch_lr_last": 0.00005
+      },
+      "metrics": {
+        "history_best_train_top1": 1.0,
+        "history_final_train_top1": 1.0,
+        "final_loss": 0.0075,
+        "test_top1": 0.0,
+        "test_top5": 0.0312,
+        "verification_recall_at_far10": 0.2167
+      },
+      "no_save_model": true,
+      "checkpoint_written": false
+    },
+    "full_data_smoke": {
+      "receipt_path": "docs/validation/m3jb-recognizer-scheduler-preflight-full-data-smoke-v1.json",
+      "receipt_sha256": "f2b43dd723ea054632c4b43129a6e2bba65ee444cb1262d9886ec563e3d42569",
+      "command": "cd /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator && env PYTORCH_ENABLE_MPS_FALLBACK=1 PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python train_recognizer_distill.py --student-arch transformer --device mps --epochs 1 --batch 128 --lr 5e-4 --lr-scheduler cosine --warmup-steps 1 --min-lr 5e-5 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --no-save-model --out /Users/kelly/Developer/asl-pilot/docs/validation/m3jb-recognizer-scheduler-preflight-full-data-smoke-v1.json",
+      "status": "passed_full_data_no_save",
+      "device": "mps",
+      "full_data_no_limit_flags": true,
+      "counts": {
+        "train_clips": 7011,
+        "monitor_clips": 955,
+        "test_clips": 2369,
+        "classes": 95,
+        "teacher_covered_train": 2668,
+        "teacher_covered_total": 4560
+      },
+      "optimizer_steps": 55,
+      "expected_optimizer_steps": 55,
+      "steps_per_epoch": 55,
+      "lr_scheduler": {
+        "name": "cosine",
+        "base_lr": 0.0005,
+        "warmup_steps": 1,
+        "min_lr": 0.00005
+      },
+      "lr_trace": {
+        "first_epoch_lr_first": 0.0005,
+        "first_epoch_lr_last": 0.00005
+      },
+      "metrics": {
+        "loss": 8.5753,
+        "monitor_top1": 0.0188,
+        "test_top1": 0.008,
+        "test_top5": 0.0502,
+        "verification_recall_at_far10": 0.1194
+      },
+      "no_save_model": true,
+      "checkpoint_written": false
+    }
+  },
+  "run3_envelope": {
+    "next_action": "m3jb_recognizer_transformer_run3_scheduler_fulltrain_brev_ok",
+    "human_brev_approval_source": "GOAL.md and active prompt recognizer campaign approval, user 2026-06-03: we have infinite Brev compute, don't artificially handicap yourself if more compute would help",
+    "worker": "asl-pilot-m3eh-l40s-001 / 3d58wpy9o or any healthy equivalent NVIDIA worker",
+    "max_outer_runtime_seconds": 21600,
+    "training_timeout_seconds": 20000,
+    "full_data_no_limit_flags": true,
+    "expected_optimizer_steps": 13200,
+    "command_shape": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_recognizer_distill.py --student-arch transformer --device cuda --epochs 240 --batch 128 --lr 5e-4 --lr-scheduler cosine --warmup-steps 500 --min-lr 5e-5 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --out tools/detector0-annotator/output/m3jb-recognizer-transformer-run3-scheduler-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.json\"",
+    "preflight_required_before_launch": [
+      "read-only brev ls --json",
+      "SSH/CUDA/process preflight on a healthy NVIDIA worker",
+      "sync and hash-verify trainer sha256 bfa4ed698da20561e3b3005f56467edec42161f0269e3fc57535c7701b392898 plus recognizer support files",
+      "remote help or tiny no-save scheduler check proves scheduler flags are present",
+      "kill before training if counts, scheduler fields, or command shape differ"
+    ],
+    "kill_conditions": [
+      "Kill immediately on NaNs, broken eval, wrong dataset counts, wrong scheduler trace, or accidental limit flags.",
+      "Kill by about 40 epochs / 2200 steps if monitor top-1 remains near chance, <= 0.05.",
+      "At run2-equivalent steps, about 105 epochs / 5800 steps, stop if clearly behind run2: top-1 < 0.23 and recall@FAR10 < 0.62.",
+      "After about 160 epochs / 8800 steps, stop if validation or verification signal is flat below about 0.70 with no upward trend.",
+      "Otherwise run to 240 epochs, copy back receipt/checkpoint, then stop the worker."
+    ],
+    "teardown": "Copy back .json and .pt artifacts if produced, then stop the worker and verify STOPPED / NOT READY before ending the slice."
+  },
+  "runtime_boundary": {
+    "brev_used": false,
+    "brev_lifecycle_or_exec": false,
+    "local_training_smokes": true,
+    "checkpoint_written": false,
+    "browser_artifact_promoted": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "push": false
+  },
+  "validation": [
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/test_recognizer_distill_diagnostics.py",
+      "status": "passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_recognizer_distill.py tools/detector0-annotator/test_recognizer_distill_diagnostics.py tools/detector0-annotator/seq_transformer.py",
+      "status": "passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_recognizer_distill.py --help | rg -- '--lr-scheduler|--warmup-steps|--min-lr|--no-save-model|--diagnostics|--eval-train'",
+      "status": "passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/seq_transformer.py",
+      "status": "passed"
+    },
+    {
+      "command": "env PYTORCH_ENABLE_MPS_FALLBACK=1 PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python train_recognizer_distill.py --student-arch transformer --device mps --epochs 0 --batch 4 --limit-train 4 --limit-monitor 4 --limit-test 4 --no-save",
+      "status": "passed"
+    },
+    {
+      "command": "env PYTORCH_ENABLE_MPS_FALLBACK=1 PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python train_recognizer_distill.py --student-arch transformer --device mps --epochs 120 --batch 16 --lr 5e-4 --lr-scheduler cosine --warmup-steps 10 --min-lr 5e-5 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --alpha 1.0 --jitter-std 0 --frame-drop 0 --limit-train 32 --limit-monitor 32 --limit-test 32 --eval-train --diagnostics --no-save-model --out /Users/kelly/Developer/asl-pilot/docs/validation/m3jb-recognizer-scheduler-preflight-tiny-overfit-v1.json",
+      "status": "passed"
+    },
+    {
+      "command": "env PYTORCH_ENABLE_MPS_FALLBACK=1 PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python train_recognizer_distill.py --student-arch transformer --device mps --epochs 1 --batch 128 --lr 5e-4 --lr-scheduler cosine --warmup-steps 1 --min-lr 5e-5 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --no-save-model --out /Users/kelly/Developer/asl-pilot/docs/validation/m3jb-recognizer-scheduler-preflight-full-data-smoke-v1.json",
+      "status": "passed"
+    },
+    {
+      "command": "find docs/validation -maxdepth 1 ( -name 'm3jb-recognizer-scheduler-preflight-*.pt' -o -name 'm3jb-recognizer-scheduler-preflight-*.pth' ) -print",
+      "status": "passed_no_output"
+    }
+  ],
+  "final_validation": {
+    "json_receipts": [
+      {
+        "command": "python3 -m json.tool docs/validation/return-to-form-m3jb-recognizer-transformer-lr-schedule-preflight-v1.json",
+        "status": "passed"
+      },
+      {
+        "command": "python3 -m json.tool docs/validation/m3jb-recognizer-scheduler-preflight-tiny-overfit-v1.json",
+        "status": "passed"
+      },
+      {
+        "command": "python3 -m json.tool docs/validation/m3jb-recognizer-scheduler-preflight-full-data-smoke-v1.json",
+        "status": "passed"
+      }
+    ],
+    "repo_audits": [
+      {
+        "command": "node --check scripts/audit_m3jb_hand_state_tracker.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_m3jb_hand_state_tracker.mjs --json",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_loop_premise.mjs --json",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_return_to_form_plan.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_source_register.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_deps.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_raw_video_upload.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "git diff --check",
+        "status": "passed"
+      }
+    ],
+    "final_brev_visibility": {
+      "command": "brev ls --json",
+      "status": "passed_read_only",
+      "workspaces": [
+        {
+          "name": "asl-pilot-m3jb-pairrank-l40s-001",
+          "id": "h15cj91es",
+          "status": "STOPPED",
+          "shell_status": "NOT READY",
+          "health_status": "UNHEALTHY",
+          "gpu": "L40S"
+        },
+        {
+          "name": "asl-pilot-m3eh-l40s-001",
+          "id": "3d58wpy9o",
+          "status": "STOPPED",
+          "shell_status": "NOT READY",
+          "health_status": "HEALTHY",
+          "gpu": "L40S"
+        }
+      ]
+    }
+  },
+  "next_action": "m3jb_recognizer_transformer_run3_scheduler_fulltrain_brev_ok"
+}

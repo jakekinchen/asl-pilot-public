@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASL Guided Practice Pilot</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17212b;
+      --muted: #596778;
+      --line: #d9e0e8;
+      --panel: #f7f9fb;
+      --accent: #0d6efd;
+      --accept: #12805c;
+      --reject: #b42318;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: #ffffff;
+    }
+
+    main {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 24px 0 32px;
+    }
+
+    header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.2;
+      font-weight: 720;
+      letter-spacing: 0;
+    }
+
+    .status {
+      min-height: 24px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: right;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .stage {
+      border: 1px solid var(--line);
+      background: #0b1117;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #0b1117;
+    }
+
+    video,
+    #overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    #overlay {
+      pointer-events: none;
+    }
+
+    .controls {
+      display: grid;
+      gap: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: var(--panel);
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    label {
+      display: grid;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    select,
+    input,
+    button {
+      min-height: 38px;
+      border-radius: 7px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--ink);
+      font: inherit;
+    }
+
+    select,
+    input {
+      width: 100%;
+      padding: 7px 9px;
+    }
+
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-weight: 690;
+    }
+
+    button.primary {
+      color: #ffffff;
+      border-color: var(--accent);
+      background: var(--accent);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: .58;
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .result {
+      min-height: 110px;
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+    }
+
+    .verdict {
+      font-size: 22px;
+      line-height: 1.1;
+      font-weight: 760;
+    }
+
+    .verdict.accept {
+      color: var(--accept);
+    }
+
+    .verdict.reject {
+      color: var(--reject);
+    }
+
+    .metric {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .topk {
+      display: grid;
+      gap: 6px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .topk li {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 7px 8px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #ffffff;
+      font-size: 14px;
+    }
+
+    @media (max-width: 860px) {
+      header,
+      .workspace {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .status {
+        text-align: left;
+      }
+
+      .controls {
+        grid-row: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>ASL Guided Practice Pilot</h1>
+      <div id="status" class="status">Idle</div>
+    </header>
+
+    <section class="workspace" aria-label="Practice workspace">
+      <div class="stage">
+        <div class="video-wrap">
+          <video id="video" playsinline muted></video>
+          <canvas id="overlay"></canvas>
+        </div>
+      </div>
+
+      <aside class="controls">
+        <label>
+          Target
+          <select id="target"></select>
+        </label>
+
+        <div class="row">
+          <label>
+            Tau
+            <input id="tau" type="number" min="0" max="1" step="0.00001" value="0.00353">
+          </label>
+          <label>
+            Frames
+            <input id="frames" type="number" min="16" max="20" step="1" value="20">
+          </label>
+        </div>
+
+        <div class="row">
+          <label>
+            Presence
+            <input id="presence" type="number" min="0" max="1" step="0.05" value="0.5">
+          </label>
+          <label>
+            Model path
+            <input id="modelBase" type="text" value="../output/onnx/">
+          </label>
+        </div>
+
+        <div class="button-row">
+          <button id="camera">Camera</button>
+          <button id="models">Models</button>
+        </div>
+        <div class="button-row">
+          <button id="random">Random</button>
+          <button id="capture" class="primary" disabled>Capture</button>
+        </div>
+
+        <div class="result" aria-live="polite">
+          <div id="verdict" class="verdict">Ready</div>
+          <div id="targetProb" class="metric">Target probability: -</div>
+          <ul id="topk" class="topk"></ul>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+  <script defer src="./pipeline.js"></script>
+</body>
+</html>

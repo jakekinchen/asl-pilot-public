@@ -1,0 +1,513 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3ek-tiny2-tiny3-gated-proof-preparation/v1",
+  "created_at": "2026-05-28T16:27:09Z",
+  "mission": "M3EK - Tiny2/Tiny3 gated proof preparation",
+  "status": "completed_no_spend_no_training_preparation",
+  "active_prompt": "docs/model/return-to-form-m3ek-tiny2-tiny3-gated-proof-preparation-goal-loop-prompt.md",
+  "source_artifacts": {
+    "goal": {
+      "path": "GOAL.md",
+      "sha256": "8b5baebf046ed57dcda7bda93af1fef713f1eda75cda145254d9c50d91365c21"
+    },
+    "active_prompt": {
+      "path": "docs/model/return-to-form-m3ek-tiny2-tiny3-gated-proof-preparation-goal-loop-prompt.md",
+      "sha256": "395f2f330dd8865fe22e6d684496492c1e8e91db4486b10ce8aa921dbc1ae193"
+    },
+    "return_to_form_plan": {
+      "path": "docs/model/return-to-form-plan.md",
+      "sha256": "0078bbe190950d470e24c74bd6cd8cbb96d1a3c169b3fd67f9bb3c29c28360c7"
+    },
+    "dataset_source_register": {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    "m3ej_strategy_receipt": {
+      "path": "docs/validation/return-to-form-m3ej-pro-strategy-steering-v1.json",
+      "sha256": "6553ae23ea453b55190bfd2218b088273583f6db22e1761dbd248aaed22d1fb6"
+    },
+    "asl_citizen_high_signal_selection": {
+      "path": "docs/validation/return-to-form-asl-citizen-high-signal-module-selection-v1.json",
+      "sha256": "42f30aa69b1682906ff1bca86341639b44b4dbba0d5b71a593debef7f695ba5c"
+    },
+    "claim_surfaces": {
+      "model_card": {
+        "path": "web/public/model/model-card.json",
+        "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a"
+      },
+      "active_vocabulary_claim": {
+        "path": "docs/model/active-vocabulary-claim.json",
+        "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546"
+      }
+    }
+  },
+  "validation": {
+    "repo_state_before_slice": {
+      "branch_status": "## compound-plan-m0...origin/compound-plan-m0 [ahead 170]",
+      "head": "6dbdc68 supervisor: activate m3ek tiny proof prep"
+    },
+    "checks": [
+      {
+        "command": "node scripts/audit_loop_premise.mjs --json",
+        "status": "passed",
+        "checked_at": "2026-05-28T16:26:56.060Z"
+      },
+      {
+        "command": "node scripts/audit_return_to_form_plan.mjs --json",
+        "status": "passed",
+        "checked_at": "2026-05-28T16:26:56.069Z"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_deps.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+        "status": "passed",
+        "checked_at": "2026-05-28T16:26:56.162Z"
+      },
+      {
+        "command": "node scripts/audit_source_register.mjs",
+        "status": "passed",
+        "source_count": 12,
+        "checked_at": "2026-05-28T16:26:56.064Z"
+      },
+      {
+        "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+        "status": "passed"
+      },
+      {
+        "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+        "status": "passed"
+      }
+    ]
+  },
+  "claim_surface": {
+    "model_card_status": "not_trained",
+    "active_labels": [],
+    "browser_recognition": "inactive_fail_closed",
+    "claim_surface_mutated": false,
+    "allowed_claim": "Fail-closed guided practice only; no automated ASL correctness grading, active recognition label, final readiness, or trained-model claim."
+  },
+  "candidate_inventory": {
+    "selection_basis": "Existing approved manifests and receipts only; no source import, media download, manifest mutation, tensor mutation, training, evaluation rerun, or ASL form adjudication occurred in M3EK.",
+    "source_groups": [
+      {
+        "group_id": "asl_citizen_high_signal_region_grid",
+        "source_id": "asl-citizen-school-assignment-raw-videos",
+        "source_license_review_status": "approved_noncommercial_school_assignment_raw_video_only",
+        "decision_id": "approved_asl_citizen_school_assignment_raw_videos_2026_05_21",
+        "allowed_for_model_training": true,
+        "restrictions_summary": "Approved only for the user's noncommercial school assignment as local raw-RGB training/validation data; raw videos, modified videos, extracted frames, and local mirrors must not be redistributed; pretrained, pose, landmark, and feature artifacts are disallowed.",
+        "manifest_paths": {
+          "train": {
+            "path": "data/manifests/lesson/high-signal-region-grid/train.json",
+            "sha256": "101455329ae04ad06a2c3fd4ca26a29c04ae945bb7925bee373cf3229594fc3d"
+          },
+          "validation": {
+            "path": "data/manifests/lesson/high-signal-region-grid/validation.json",
+            "sha256": "16a4a64a8fd48a1384c4cfd2e01dddcaa45fb3b1f0588af9ec66f96668cc3a53"
+          },
+          "test": {
+            "path": "data/manifests/lesson/high-signal-region-grid/test.json",
+            "sha256": "5a315d49438242febb410287c4ff235ae8cd269a5aba5c3cf550950bae0359f8"
+          }
+        },
+        "split_totals": {
+          "train": 84,
+          "validation": 27,
+          "test": 28
+        },
+        "labels": [
+          {
+            "label_id": "table",
+            "clip_counts": {
+              "train": 12,
+              "validation": 4,
+              "test": 4
+            },
+            "signer_counts": {
+              "train": 11,
+              "validation": 4,
+              "test": 4
+            },
+            "previous_high_signal_metrics": {
+              "validation_recall": 1.0,
+              "validation_f1": 0.8,
+              "test_recall": 1.0,
+              "test_f1": 0.6153846153846153
+            },
+            "visual_separability_hypothesis": "strongest prior high-signal label; two-hand/tabletop signing-space evidence makes it deliberately different from a one-hand face-adjacent greeting label.",
+            "known_near_confusions": [
+              "orange",
+              "white",
+              "read"
+            ],
+            "face_or_body_relative_context_dependency": "body_relative_two_hand_context",
+            "selection_status": "selected_tiny2",
+            "selection_rationale": "Best prior signer-disjoint validation/test recall in the approved ASL Citizen high-signal receipt and visually distinct from hello."
+          },
+          {
+            "label_id": "hello",
+            "clip_counts": {
+              "train": 12,
+              "validation": 4,
+              "test": 4
+            },
+            "signer_counts": {
+              "train": 12,
+              "validation": 4,
+              "test": 4
+            },
+            "previous_high_signal_metrics": {
+              "validation_recall": 0.25,
+              "validation_f1": 0.28571428571428575,
+              "test_recall": 0.25,
+              "test_f1": 0.22222222222222224
+            },
+            "visual_separability_hypothesis": "one-hand face/head-adjacent greeting motion is deliberately different from table's two-hand signing-space/contact shape; no high-confidence confusions were recorded in the high-signal selection receipt.",
+            "known_near_confusions": [],
+            "face_or_body_relative_context_dependency": "face_or_head_relative_context",
+            "selection_status": "selected_tiny2",
+            "selection_rationale": "Keeps the first proof deliberately tiny while pairing the strongest table signal with a visually different label that has no recorded high-confidence confusion in the prior receipt."
+          },
+          {
+            "label_id": "black",
+            "clip_counts": {
+              "train": 12,
+              "validation": 4,
+              "test": 4
+            },
+            "signer_counts": {
+              "train": 12,
+              "validation": 4,
+              "test": 4
+            },
+            "previous_high_signal_metrics": {
+              "validation_recall": 0.25,
+              "validation_f1": 0.28571428571428575,
+              "test_recall": 0.25,
+              "test_f1": 0.3333333333333333
+            },
+            "visual_separability_hypothesis": "letter/color sign with repo hint metadata and only one recorded high-confidence confusion, but it shares head/face-relative context with hello.",
+            "known_near_confusions": [
+              "think"
+            ],
+            "face_or_body_relative_context_dependency": "face_or_head_relative_context",
+            "selection_status": "reserve_tiny3_extension",
+            "selection_rationale": "Use only after Tiny2 gates pass; do not start with it because adding a second face-relative label weakens the first proof's separability."
+          },
+          {
+            "label_id": "please",
+            "clip_counts": {
+              "train": 12,
+              "validation": 4,
+              "test": 4
+            },
+            "signer_counts": {
+              "train": 12,
+              "validation": 4,
+              "test": 4
+            },
+            "known_near_confusions": [
+              "white"
+            ],
+            "face_or_body_relative_context_dependency": "body_relative_chest_context",
+            "selection_status": "rejected_for_initial_tiny2",
+            "selection_rationale": "Prior receipt records repeated please/white confusions; not the strictest first signal proof."
+          },
+          {
+            "label_id": "white",
+            "clip_counts": {
+              "train": 12,
+              "validation": 4,
+              "test": 4
+            },
+            "signer_counts": {
+              "train": 11,
+              "validation": 3,
+              "test": 4
+            },
+            "known_near_confusions": [
+              "please",
+              "table",
+              "frog"
+            ],
+            "face_or_body_relative_context_dependency": "face_or_body_relative_context",
+            "selection_status": "rejected_for_initial_tiny2",
+            "selection_rationale": "Prior receipt records the highest confusion count among the selected high-signal labels and mutual confusion with please."
+          },
+          {
+            "label_id": "sad",
+            "clip_counts": {
+              "train": 12,
+              "validation": 4,
+              "test": 4
+            },
+            "signer_counts": {
+              "train": 12,
+              "validation": 4,
+              "test": 4
+            },
+            "known_near_confusions": [
+              "sick",
+              "brother",
+              "thank_you"
+            ],
+            "face_or_body_relative_context_dependency": "face_expression_or_face_relative_context",
+            "selection_status": "rejected_for_initial_tiny2",
+            "selection_rationale": "Face/expression context and several near-confusions make it less suitable for the first strict recognizer signal proof."
+          },
+          {
+            "label_id": "uncle",
+            "clip_counts": {
+              "train": 12,
+              "validation": 3,
+              "test": 4
+            },
+            "signer_counts": {
+              "train": 10,
+              "validation": 3,
+              "test": 4
+            },
+            "known_near_confusions": [
+              "read"
+            ],
+            "face_or_body_relative_context_dependency": "face_or_head_relative_context",
+            "selection_status": "rejected_for_initial_tiny2",
+            "selection_rationale": "Lower validation support and face/head-relative context overlap make it less clean than table plus hello."
+          }
+        ]
+      },
+      {
+        "group_id": "popsign_fresh5_repaired_region_grid",
+        "source_id": "popsign-v1-original-videos",
+        "source_license_review_status": "approved_cc_by_4_raw_video_with_attribution",
+        "decision_id": "approved_popsign_v1_original_videos_2026_05_20",
+        "allowed_for_model_training": true,
+        "restrictions_summary": "Use only original game-category raw video archives; cite/attribute PopSign ASL v1.0 under CC BY 4.0; preview videos and derived pose/landmark/feature/pretrained artifacts are disallowed; source split boundaries must be preserved.",
+        "manifest_paths": {
+          "train": {
+            "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json",
+            "sha256": "f84b8eec2ee3b5f29118518caf42b64636f231acd39864ad0363729c96365a16"
+          },
+          "validation": {
+            "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json",
+            "sha256": "090b40ec70775e96fb81450feb6a5e9960f93175dfda4c2ae9087b0b970cb04a"
+          },
+          "test": {
+            "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json",
+            "sha256": "07a67651bcd38c6cff90d433ad2e18f84d905291ebb90760665c03678b75592c"
+          }
+        },
+        "split_totals": {
+          "train": 125,
+          "validation": 125,
+          "test": 125
+        },
+        "labels": [
+          {
+            "label_id": "thank_you",
+            "clip_counts": {
+              "train": 25,
+              "validation": 25,
+              "test": 25
+            },
+            "signer_counts": {
+              "train": 18,
+              "validation": 8,
+              "test": 8
+            },
+            "face_or_body_relative_context_dependency": "face_or_head_relative_context",
+            "selection_status": "not_selected_m3ek",
+            "selection_rationale": "Part of the demoted broad Fresh5 route and previously implicated in overprediction/collapse risk."
+          },
+          {
+            "label_id": "pen",
+            "clip_counts": {
+              "train": 25,
+              "validation": 25,
+              "test": 25
+            },
+            "signer_counts": {
+              "train": 14,
+              "validation": 6,
+              "test": 8
+            },
+            "face_or_body_relative_context_dependency": "object_or_handshape_context",
+            "selection_status": "not_selected_m3ek",
+            "selection_rationale": "Part of the demoted broad Fresh5 route and previously weak in Fresh5 failure evidence."
+          },
+          {
+            "label_id": "home",
+            "clip_counts": {
+              "train": 25,
+              "validation": 25,
+              "test": 25
+            },
+            "signer_counts": {
+              "train": 18,
+              "validation": 8,
+              "test": 7
+            },
+            "face_or_body_relative_context_dependency": "face_or_body_relative_context",
+            "selection_status": "not_selected_m3ek",
+            "selection_rationale": "Approved source support exists, but selecting this would keep the next step too close to the old Fresh5 path."
+          },
+          {
+            "label_id": "who",
+            "clip_counts": {
+              "train": 25,
+              "validation": 25,
+              "test": 25
+            },
+            "signer_counts": {
+              "train": 18,
+              "validation": 8,
+              "test": 8
+            },
+            "face_or_body_relative_context_dependency": "face_or_head_relative_context",
+            "selection_status": "not_selected_m3ek",
+            "selection_rationale": "Approved source support exists, but this proof deliberately avoids a broad or renamed Fresh5 continuation."
+          },
+          {
+            "label_id": "morning",
+            "clip_counts": {
+              "train": 25,
+              "validation": 25,
+              "test": 25
+            },
+            "signer_counts": {
+              "train": 15,
+              "validation": 7,
+              "test": 8
+            },
+            "face_or_body_relative_context_dependency": "body_relative_context",
+            "selection_status": "not_selected_m3ek",
+            "selection_rationale": "Approved source support exists, but M3EJ demoted the broad Fresh5 fit path and requires a stricter new tiny premise."
+          }
+        ],
+        "group_selection_status": "rejected_for_initial_tiny2",
+        "group_selection_rationale": "PopSign Fresh5 has stronger per-label counts, but using it as the first M3EK proof would risk rebranding the demoted broad Fresh5 lane. Keep it as historical/source-approved context unless a future prompt proves a different tiny premise."
+      }
+    ]
+  },
+  "selected_label_set": {
+    "mode": "tiny2_first_tiny3_gated_extension",
+    "selected_tiny2_labels": [
+      "table",
+      "hello"
+    ],
+    "reserve_tiny3_extension": [
+      "black"
+    ],
+    "source_id": "asl-citizen-school-assignment-raw-videos",
+    "input_contract": "rgb_regions_grid_v1",
+    "manifest_family": "data/manifests/lesson/high-signal-region-grid",
+    "selection_rationale": "Start with exactly two ASL Citizen high-signal labels: table has the strongest prior signer-disjoint signal, while hello is visually different and had no high-confidence confusion record. Black is reserved as a third label only after Tiny2 gates pass because it overlaps with hello on head/face-relative context.",
+    "explicit_rejections": [
+      "Do not use the old broad PopSign Fresh5 fit path as M3EK authorization.",
+      "Do not include please and white in the first proof because prior evidence records mutual high-confidence confusion.",
+      "Do not add sad or uncle until the first Tiny2 proof establishes non-collapsed learnability."
+    ]
+  },
+  "entry_gates_before_future_training": [
+    {
+      "gate": "source_and_license",
+      "requirement": "Every active label must come from an approved source-register decision and must preserve the source split policy and no-redistribution restrictions."
+    },
+    {
+      "gate": "claim_surface_fail_closed",
+      "requirement": "web/public/model/model-card.json remains status=not_trained, docs/model/active-vocabulary-claim.json keeps activeLabels=[], and browser recognition remains inactive."
+    },
+    {
+      "gate": "label_scope",
+      "requirement": "Future local proof may use only table and hello unless a prompt explicitly upgrades to the black Tiny3 extension after Tiny2 passes."
+    },
+    {
+      "gate": "split_policy",
+      "requirement": "Use the existing ASL Citizen official train/validation/test split policy and record signer counts before any fitting."
+    },
+    {
+      "gate": "one_batch_overfit",
+      "requirement": "Real-label one-batch local proof must reach train accuracy >= 0.95 on the fixed batch and show loss movement below the random-label baseline for K labels."
+    },
+    {
+      "gate": "label_shuffle_negative_control",
+      "requirement": "A deterministic label-shuffle control must fail held-out gates: validation/test accuracy and macro-F1 must remain at or below chance + 0.10, and it must not mimic the real-label loss/accuracy trajectory on held-out data."
+    },
+    {
+      "gate": "class_collapse_detector",
+      "requirement": "Abort if any predicted class exceeds 0.70 of validation/test predictions, if any selected label has zero recall after apparent train fit, or if confidence is concentrated on one class."
+    },
+    {
+      "gate": "open_set_and_hard_negative_plan",
+      "requirement": "Before Brev or promotion discussion, evaluate selected labels against existing approved validation-only negative sources or withheld non-selected labels without importing new media."
+    },
+    {
+      "gate": "browser_export_parity_instrumentation",
+      "requirement": "Before export or browser activation, define Python/browser fixture parity for logits/probabilities, preprocessing, label order, latency, and bundle-size checks."
+    }
+  ],
+  "abort_gates": [
+    "Any Brev command, remote lifecycle action, or paid compute attempt in M3EK.",
+    "Any source import, media download, source-register mutation, manifest mutation, tensor mutation, vocabulary mutation, or packet-row mutation.",
+    "Any training/fitting/evaluation rerun in M3EK, or any future fitting command that is not explicitly authorized by a later prompt.",
+    "One-batch real-label proof fails to reach train accuracy >= 0.95 within the future prompt's local budget.",
+    "Label-shuffle control passes held-out gates or suggests leakage.",
+    "Validation/test predictions collapse with a dominant class fraction > 0.70.",
+    "Low false-pass is achieved only by refusing almost everything.",
+    "Any claim surface changes from fail-closed not_trained/inactive before promotion receipts exist."
+  ],
+  "promotion_gates": [
+    "No promotion is allowed from M3EK or from a one-batch proof alone.",
+    "Promotion discussion requires a later Tiny2/Tiny3 signer-independent validation and test macro-F1 >= 0.80.",
+    "Per-label correct-pass rate must be >= 0.60 for every selected label.",
+    "Pass precision must be >= 0.97 and hard-negative false-pass rate must be <= 0.02.",
+    "No selected label may have zero recall or a collapsed predicted-class distribution.",
+    "Python/browser parity, latency, bundle-size, model-card, active-label, and browser smoke receipts must name the exact promoted labels.",
+    "Any model-card or browser activation change requires a separate prompt and receipt."
+  ],
+  "future_brev_spend_evidence_required": [
+    "M3EH-R or successor infrastructure proof remains green and stopped/default-off.",
+    "Tiny2 source/licensing and split receipt remains valid.",
+    "Local real-label one-batch overfit passes.",
+    "Label-shuffle held-out control fails as expected.",
+    "Predictions are non-collapsed on held-out Tiny2/Tiny3 data.",
+    "Open-set/hard-negative plan exists and uses approved validation-only sources or existing withheld labels.",
+    "Browser parity instrumentation is defined before export or activation.",
+    "The proposed run tests this new tiny separability premise rather than repeating M3DU/M3EF or broad Fresh5 evidence."
+  ],
+  "negative_authorizations": {
+    "brev_command_or_spend": false,
+    "training_or_fitting": false,
+    "evaluation_rerun": false,
+    "checkpoint_or_model_artifact": false,
+    "onnx_export": false,
+    "browser_activation": false,
+    "product_runtime_change": false,
+    "model_card_promotion": false,
+    "active_label_promotion": false,
+    "asl_correctness_claim": false,
+    "final_readiness_claim": false,
+    "source_import_or_source_register_mutation": false,
+    "media_download": false,
+    "manifest_tensor_vocabulary_or_packet_mutation": false,
+    "generated_labels_or_pseudo_labels": false,
+    "pretrained_dependency": false,
+    "broad_label_expansion": false,
+    "push": false,
+    "amend_or_no_verify": false
+  },
+  "commands_intentionally_not_run": [
+    "No Brev command was run.",
+    "No training, fitting, optimizer, backward, evaluation rerun, checkpoint, model artifact, or export command was run.",
+    "No source import, source-register mutation, media download, manifest/tensor/vocabulary/packet-row mutation, or label expansion was run.",
+    "No browser activation, model-card promotion, active-label promotion, product runtime change, final-readiness claim, or ASL-correctness claim was made.",
+    "No push, amend, or no-verify command was run."
+  ],
+  "changed_files": [
+    "docs/validation/return-to-form-m3ek-tiny2-tiny3-gated-proof-preparation-v1.json",
+    "docs/session-logs/519-mission-3ek-tiny-proof-preparation.md"
+  ],
+  "next_action": "continue_tiny2_one_batch_overfit_and_shuffle_control_no_brev"
+}

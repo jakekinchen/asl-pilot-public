@@ -1,0 +1,356 @@
+{
+  "boundaries": {
+    "ablation_rerun": false,
+    "brev_compute": false,
+    "brev_stop": false,
+    "brev_sync_or_training": false,
+    "broad_run_redirect": false,
+    "controlled_clip_heldout_evaluation": false,
+    "detector0_training": false,
+    "duplicate_brev_worker": false,
+    "final_gate_weakening": false,
+    "final_readiness_claim": false,
+    "label_expansion": false,
+    "model_card_promotion": false,
+    "onnx_export": false,
+    "packet_mutation": false,
+    "pretrained_detector_or_landmark_use": false,
+    "push": false,
+    "recognizer_training": false,
+    "source_approval": false,
+    "unapproved_media_import": false
+  },
+  "brev_no_spend_boundary": {
+    "checked": true,
+    "command": "brev ls --json",
+    "compute_used": false,
+    "manual_stop_command": "brev stop asl-pilot-rawframe-001",
+    "manual_stop_command_run": false,
+    "remote_training_used": false,
+    "status": {
+      "workspaces": [
+        {
+          "build_status": "COMPLETED",
+          "gpu": "A100",
+          "health_status": "HEALTHY",
+          "id": "2hl1hytty",
+          "instance_kind": "gpu",
+          "instance_type": "massedcompute_A100_sxm4_80G_DGX",
+          "name": "asl-pilot-rawframe-001",
+          "shell_status": "READY",
+          "status": "RUNNING"
+        }
+      ]
+    },
+    "sync_or_training_used": false
+  },
+  "checked_at": "2026-05-26T00:55:00Z",
+  "diagnostic_method": {
+    "description": "Read-only comparison of retained M3AE-S fallback accounting against the verified Detector 0 packet target-presence distribution.",
+    "read_only": true,
+    "training_or_ablation_commands_run": false
+  },
+  "fallback_accounting": {
+    "all_target_decisions": 22080,
+    "failed_gate": {
+      "criteria": {
+        "fallback_rate_overall_max": 0.4,
+        "fallback_rate_per_target_max": 0.6
+      },
+      "status": "failed"
+    },
+    "fallback_count_total": 4477,
+    "fallback_counts_by_label": {
+      "dad": {
+        "fallback_count": 943,
+        "fallback_rate": 0.8541666666666666,
+        "frames": 1104
+      },
+      "grandpa": {
+        "fallback_count": 817,
+        "fallback_rate": 0.740036231884058,
+        "frames": 1104
+      },
+      "hat": {
+        "fallback_count": 888,
+        "fallback_rate": 0.8043478260869565,
+        "frames": 1104
+      },
+      "please": {
+        "fallback_count": 901,
+        "fallback_rate": 0.8161231884057971,
+        "frames": 1104
+      },
+      "table": {
+        "fallback_count": 928,
+        "fallback_rate": 0.8405797101449275,
+        "frames": 1104
+      }
+    },
+    "fallback_counts_by_reason": {
+      "below_presence_threshold": 4477
+    },
+    "fallback_counts_by_split": {
+      "test": {
+        "fallback_count": 1368,
+        "fallback_rate": 0.9,
+        "frames": 1520
+      },
+      "train": {
+        "fallback_count": 1766,
+        "fallback_rate": 0.883,
+        "frames": 2000
+      },
+      "validation": {
+        "fallback_count": 1343,
+        "fallback_rate": 0.6715,
+        "frames": 2000
+      }
+    },
+    "fallback_counts_by_target": {
+      "head_or_face": 0,
+      "left_or_first_hand": 0,
+      "right_or_second_hand": 4477,
+      "upper_body_or_signing_space": 0
+    },
+    "fallback_counts_by_target_and_reason": [
+      {
+        "count": 4477,
+        "reason": "below_presence_threshold",
+        "target_id": "right_or_second_hand"
+      }
+    ],
+    "fallback_rate_overall": 0.20276268115942028,
+    "fallback_rates_by_target": {
+      "head_or_face": 0.0,
+      "left_or_first_hand": 0.0,
+      "right_or_second_hand": 0.8110507246376811,
+      "upper_body_or_signing_space": 0.0
+    },
+    "generated_tensor_count": 345,
+    "right_or_second_hand_decisions": 5520,
+    "right_or_second_hand_fallback_count": 4477,
+    "right_or_second_hand_fallback_rate": 0.8110507246376811,
+    "transform_integrity_status": "passed"
+  },
+  "final_promotion_blocker_separation": {
+    "final_gate_weakening": false,
+    "full_17_type_negative_challenge_gate": "unchanged and separate from this read-only triage",
+    "model_card_promotion": false,
+    "no_zero_accepted_true_class_assessed": false,
+    "onnx_export": false,
+    "threshold_selected": false,
+    "tier0_hard_negative_far_assessed": false
+  },
+  "mission": "M3AE-T Detector 0 data/target remediation triage",
+  "next_action": {
+    "description": "Revise the crop-normalization optional-target fallback policy before any rerun, so verified absent second-hand targets are not counted as transform failures while real missed present targets remain reportable.",
+    "id": "crop_normalization_optional_target_policy_revision"
+  },
+  "no_pretrained_provenance": {
+    "allowed_source_ids": [
+      "popsign-v1-original-videos"
+    ],
+    "generated_pseudo_labels": false,
+    "label_expansion": false,
+    "pretrained_backbones_or_embeddings": false,
+    "pretrained_detector_outputs": false,
+    "pretrained_landmarks": false,
+    "source_expansion": false,
+    "unapproved_media_import": false
+  },
+  "output": {
+    "path": "docs/validation/return-to-form-tier0-detector0-data-target-remediation-v1.json"
+  },
+  "packet_target_support": {
+    "right_or_second_hand": {
+      "absent_count": 12,
+      "absent_rate": 0.8,
+      "by_label": {
+        "dad": {
+          "absent": 3,
+          "present": 0,
+          "rows": [
+            "det0-v0-train-dad-000826-f010",
+            "det0-v0-validation-dad-000826-f005",
+            "det0-v0-test-dad-000628-f005"
+          ],
+          "total": 3
+        },
+        "grandpa": {
+          "absent": 3,
+          "present": 0,
+          "rows": [
+            "det0-v0-train-grandpa-000951-f010",
+            "det0-v0-validation-grandpa-000952-f005",
+            "det0-v0-test-grandpa-000723-f005"
+          ],
+          "total": 3
+        },
+        "hat": {
+          "absent": 3,
+          "present": 0,
+          "rows": [
+            "det0-v0-train-hat-001976-f010",
+            "det0-v0-validation-hat-001976-f005",
+            "det0-v0-test-hat-001503-f010"
+          ],
+          "total": 3
+        },
+        "please": {
+          "absent": 3,
+          "present": 0,
+          "rows": [
+            "det0-v0-train-please-000076-f010",
+            "det0-v0-validation-please-000076-f005",
+            "det0-v0-test-please-000058-f010"
+          ],
+          "total": 3
+        },
+        "table": {
+          "absent": 0,
+          "present": 3,
+          "rows": [
+            "det0-v0-train-table-000376-f010",
+            "det0-v0-validation-table-000376-f005",
+            "det0-v0-test-table-000286-f005"
+          ],
+          "total": 3
+        }
+      },
+      "by_split": {
+        "test": {
+          "absent": 4,
+          "present": 1,
+          "total": 5
+        },
+        "train": {
+          "absent": 4,
+          "present": 1,
+          "total": 5
+        },
+        "validation": {
+          "absent": 4,
+          "present": 1,
+          "total": 5
+        }
+      },
+      "present_count": 3,
+      "present_rate": 0.2,
+      "present_rows_are_all_label": "table",
+      "total_rows": 15
+    },
+    "target_presence_summary": {
+      "head_or_face": {
+        "absent": 0,
+        "present": 15,
+        "present_rate": 1.0,
+        "total": 15
+      },
+      "left_or_first_hand": {
+        "absent": 0,
+        "present": 15,
+        "present_rate": 1.0,
+        "total": 15
+      },
+      "right_or_second_hand": {
+        "absent": 12,
+        "present": 3,
+        "present_rate": 0.2,
+        "total": 15
+      },
+      "upper_body_or_signing_space": {
+        "absent": 0,
+        "present": 15,
+        "present_rate": 1.0,
+        "total": 15
+      }
+    }
+  },
+  "root_cause_classification": {
+    "classification": "optional_second_hand_target_policy_mismatch",
+    "confidence": "high",
+    "evidence": [
+      "M3AE-S transform integrity passed with 345 generated tensors, no shape mismatches, and source_id=popsign-v1-original-videos.",
+      "All M3AE-S fallback instances are right_or_second_hand with reason=below_presence_threshold; no other target fell back.",
+      "The verified packet marks right_or_second_hand present in only 3 of 15 rows, all for the table label.",
+      "The packet's verified absent rate for right_or_second_hand is 0.8, which is already above the M3AE-Q per-target fallback cap of 0.6.",
+      "The observed right_or_second_hand fallback rate is 0.8110507246376811, closely matching the verified optional-target absent rate rather than a broad transform/source failure."
+    ],
+    "not_classified_as": {
+      "absence_of_bounded_path": false,
+      "broad_source_distribution_failure": false,
+      "packet_mutation_required_in_this_slice": false,
+      "pretrained_or_source_violation": false,
+      "transform_accounting_bug": false
+    },
+    "secondary_risk": "The right/second-hand positive support is sparse and present only on table rows, so a later policy-aware run should still report missed present-target fallback separately from verified absent-target fallback."
+  },
+  "schema_version": "asl-pilot-return-to-form-tier0-detector0-data-target-remediation/v1",
+  "selected_labels": [
+    "dad",
+    "grandpa",
+    "hat",
+    "please",
+    "table"
+  ],
+  "source_artifacts": {
+    "crop_config": {
+      "path": "docs/model/return-to-form-fixed-crop-config.json",
+      "sha256": "dbc735dad34fa9df1174a40374037976f9c88d789012634b2b22743ae0802b29"
+    },
+    "decode_dataloader": {
+      "path": "docs/validation/return-to-form-tier0-decode-dataloader.json",
+      "sha256": "d64c0b46500075d94207ef2197a6f6d8f1570cf548da8b08ca16dc520ba386c2"
+    },
+    "detector0_packet": {
+      "path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "sha256": "ecbd0a53d46cdcc302cbc6c2cb5bb2c7f2049abda0e24328fe82c68118c48f34"
+    },
+    "m3ae_l_bootstrap": {
+      "path": "docs/validation/return-to-form-tier0-detector0-crop-normalization-bootstrap.json",
+      "sha256": "bd17e32bc7d4adbd195d1a26173740163e314a54577a9d9245a38dce752331e5"
+    },
+    "m3ae_p_detector0_smoke": {
+      "path": "docs/validation/return-to-form-tier0-detector0-training-smoke-v1.json",
+      "sha256": "ba8871964ba24bae88935bcad24c132af90dcd8d607bef04df54f56ebdd3b611"
+    },
+    "m3ae_q_design": {
+      "path": "docs/validation/return-to-form-tier0-crop-normalization-ablation-design-v1.md",
+      "sha256": "5658eec611b40459ff6473dad1338a718572c40cb297a6f704563f8f657d1316"
+    },
+    "m3ae_s_smoke": {
+      "path": "docs/validation/return-to-form-tier0-crop-normalization-ablation-smoke-v1.json",
+      "sha256": "b3c86cc08a82bdbe8ca212c26f8bc0287514ca559ad7beac0f9f41c8e21b20a7"
+    },
+    "pre_training_gates": {
+      "path": "docs/validation/return-to-form-tier0-gates.json",
+      "sha256": "2cc000d3f90e9be236cf64768530bf9786fc61fe6605c774b9c1e8ab123d9d97"
+    },
+    "source_coverage": {
+      "path": "docs/research/return-to-form-tier0-source-coverage.json",
+      "sha256": "1ff7da89a51e62f9efbeb08cf6361784e160ed862ac579f9e40db332fa576378"
+    },
+    "source_register": {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    "tensor_contract": {
+      "path": "docs/validation/return-to-form-tier0-tensor-contract.json",
+      "sha256": "0f2ea12cf9a6517bafb67876ba4b0e4951ce821b61b27a740d45f6d1e36b3cd3"
+    },
+    "test_manifest": {
+      "path": "data/manifests/return-to-form-tier0/test.json",
+      "sha256": "b0c771b612ebb52beb375a98b4180ccd465aa642312a8c6c29d7ff225febd8ed"
+    },
+    "train_manifest": {
+      "path": "data/manifests/return-to-form-tier0/train.json",
+      "sha256": "03ae563a5f2ef0d5b868f6c80f50acb64ae642e782cd541faa5c022d4d0af1de"
+    },
+    "validation_manifest": {
+      "path": "data/manifests/return-to-form-tier0/validation.json",
+      "sha256": "23da15a80ce2eee1dab1a7e64c08e2aefcf5d7dd48263677fdc49d1efb0ad808"
+    }
+  },
+  "status": "action_selected"
+}

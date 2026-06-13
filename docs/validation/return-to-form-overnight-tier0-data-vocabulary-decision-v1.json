@@ -1,0 +1,187 @@
+{
+  "schema_version": "asl-pilot-return-to-form-overnight-tier0-data-vocabulary-decision/v1",
+  "status": "action_selected",
+  "mission": "M3AH overnight completion",
+  "checked_at": "2026-05-27T04:16:38Z",
+  "decision": {
+    "selected_option": "stop_with_reduced_claim",
+    "next_action": "stop_for_human_data_source_scope_decision",
+    "requires_human_decision": true,
+    "summary": "Keep the current Tier 0 labels as reduced-demo lesson vocabulary, but do not run another automatic recognizer or Detector 0 training job from this PopSign-only evidence. The next useful step is a human data/source scope decision: reauthorize first-party collection, approve a specific source/phonology artifact path, or accept the reduced learn-only claim."
+  },
+  "source_artifacts": {
+    "m3ah_cuda_recognizer": {
+      "path": "docs/validation/return-to-form-overnight-tier0-cuda-recognizer-v1.json",
+      "sha256": "516bc7b293f9c0e07fcda17625d3bf11a0ed8a29955ec19bd1f46978d7124546"
+    },
+    "m3ae_k_label_split_remediation": {
+      "path": "docs/validation/return-to-form-tier0-label-split-remediation.json",
+      "sha256": "2fa1ea2b45f374c26c6dff91fa4805234025d1d1911a1f33ab937596663402ba"
+    },
+    "m3ae_j_microprobe_config_smoke": {
+      "path": "docs/validation/return-to-form-tier0-microprobe-config-smoke.json",
+      "sha256": "f83977b53910dbb51e71e6175048565b1643ac9699ad89f24ee2c989e3df98f4"
+    },
+    "tier0_source_coverage": {
+      "path": "docs/research/return-to-form-tier0-source-coverage.json",
+      "sha256": "1ff7da89a51e62f9efbeb08cf6361784e160ed862ac579f9e40db332fa576378"
+    },
+    "source_register": {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    "reduced_product_claim": {
+      "path": "docs/validation/return-to-form-reduced-product-claim-v1.md",
+      "sha256": "717144bf12f3916546aa73bcb7cb7d5eeb1abf518561822c005c36922a4551b4"
+    },
+    "human_demo_review": {
+      "path": "docs/validation/return-to-form-human-demo-review-v1.md",
+      "sha256": "23362a2ad0288b4e4e4c4c2fde01feb96f374bf1174d730861ca5eb1388b8b83"
+    }
+  },
+  "current_tier0_vocabulary": {
+    "labels": [
+      "please",
+      "table",
+      "dad",
+      "grandpa",
+      "hat"
+    ],
+    "current_role": "reduced_demo_lesson_vocabulary",
+    "promotion_role": "not_promotable_as_recognizer_evidence",
+    "reason": "The set remains useful for the honest learn-only demo and for explaining the current model boundary, but repeated train-fit versus held-out failures do not justify model-card, browser, threshold, or final-readiness promotion."
+  },
+  "evidence_summary": {
+    "m3ae_j_crop_identity_smoke": {
+      "train_top1": 1.0,
+      "train_macro_recall": 1.0,
+      "validation_top1": 0.216,
+      "validation_macro_recall": 0.21600000000000003,
+      "test_top1": 0.2736842105263158,
+      "test_macro_recall": 0.27368421052631575,
+      "selected_next_action": "label_or_split_remediation"
+    },
+    "m3ae_k_split_diagnostic": {
+      "blocker_id": "source_signer_distribution_gap",
+      "confidence": "medium",
+      "no_clip_source_record_signer_or_tensor_overlap": true,
+      "label_set_remediation_ruled_down": "Label fragility is visible, but zero-recall labels rotate across validation and test rather than isolating one unusable label.",
+      "input_adapter_remediation_ruled_down": true
+    },
+    "m3ah_cuda_full_split_recognizer": {
+      "train_accuracy_epoch_8": 0.904,
+      "best_validation_accuracy": 0.376,
+      "validation_top1": 0.376,
+      "validation_macro_f1": 0.3698995884278546,
+      "test_top1": 0.47368421052631576,
+      "test_macro_f1": 0.4625908858166922,
+      "test_false_pass_rate_at_threshold_0_74": 0.10526315789473684,
+      "negative_challenge_evaluated": false,
+      "promotion_justified": false
+    }
+  },
+  "decision_matrix": {
+    "reselect_cleaner_popsign_tier0": {
+      "selected": false,
+      "why": "The current failure is not isolated to one unusable label. M3AE-K found a source/signer distribution gap with no split leakage, and the M3AH CUDA run still underperformed after uncapping train and validation batches. A blind five-label reselection risks another training loop without new data or a stronger source rationale.",
+      "required_before_reconsidering": [
+        "source-register-safe label candidate evidence",
+        "vocabulary overlap or phonology/reranking artifact",
+        "explicit gate that prevents another broad trial-and-error training loop"
+      ]
+    },
+    "add_source_reviewed_phonology_or_reranking_support": {
+      "selected": false,
+      "why": "This remains a plausible analysis-only next path, but the source register does not currently approve ASL-LEX/SemLex video use, and GOAL.md requires source-register evidence plus a vocabulary-overlap artifact before using phonology/reranking to change training choices.",
+      "allowed_later_without_media_import": [
+        "write a source-register-safe ASL-LEX/SemLex vocabulary-overlap artifact",
+        "use database/metadata fields only if the source register explicitly permits that exact use",
+        "do not save or use sign reference videos without explicit approval"
+      ]
+    },
+    "collect_first_party_clips": {
+      "selected": false,
+      "why": "First-party collection is the cleanest way to control signer, capture, and vocabulary distribution, but it requires explicit human consent/capture work and cannot be performed autonomously in this slice.",
+      "required_before_reconsidering": [
+        "human reauthorization of first-party browser-capture data",
+        "signed/recorded consent and clip-level review evidence",
+        "collection readiness audits before manifest export"
+      ]
+    },
+    "stop_with_reduced_claim": {
+      "selected": true,
+      "why": "The reduced learn-only product claim is already documented and honest, while the current ML lane has not produced promotable held-out metrics. Continuing automatically would require either human data collection, a source approval/overlap decision, or another speculative training loop."
+    }
+  },
+  "source_register_compatibility": {
+    "popsign_v1_original_videos": {
+      "source_id": "popsign-v1-original-videos",
+      "allowed_for_model_training": true,
+      "allowed_for_validation": true,
+      "decision_id": "approved_popsign_v1_original_videos_2026_05_20",
+      "current_decision": "retain for reduced demo and evidence context; do not run another blind PopSign-only training job"
+    },
+    "asl_lex": {
+      "source_id": "asl-lex",
+      "allowed_for_model_training": false,
+      "allowed_for_validation": false,
+      "decision_id": "blocked_asl_lex_2026_05_19",
+      "current_decision": "candidate-only for future source-register-safe phonology/vocabulary overlap work; no video use"
+    },
+    "asl_citizen_school_assignment_raw_videos": {
+      "source_id": "asl-citizen-school-assignment-raw-videos",
+      "allowed_for_model_training": true,
+      "allowed_for_validation": true,
+      "decision_id": "approved_asl_citizen_school_assignment_raw_videos_2026_05_21",
+      "current_decision": "not selected in this slice; would need an exact vocabulary-overlap/import artifact and no pretrained/pose-derived artifacts"
+    },
+    "wlasl_school_assignment_raw_videos": {
+      "source_id": "wlasl-school-assignment-raw-videos",
+      "allowed_for_model_training": true,
+      "allowed_for_validation": true,
+      "decision_id": "approved_wlasl_school_assignment_raw_videos_2026_05_21",
+      "current_decision": "not selected in this slice; would need current URL availability, exact vocabulary overlap, and raw-video-only import evidence"
+    },
+    "first_party_browser_consent_capture": {
+      "source_id": "first-party-browser-consent-capture",
+      "allowed_for_model_training": true,
+      "allowed_for_validation": true,
+      "decision_id": "first_party_consent_required_v1",
+      "current_decision": "best controlled-data option if the human reauthorizes collection and consent/review gates are completed"
+    }
+  },
+  "boundaries": {
+    "training_jobs_run": 0,
+    "brev_compute_used": false,
+    "media_imported": false,
+    "source_approval_changed": false,
+    "vocabulary_scope_changed": false,
+    "final_gate_changed": false,
+    "model_card_promoted": false,
+    "onnx_exported": false,
+    "browser_model_promoted": false,
+    "push": false
+  },
+  "brev_status": {
+    "checked_in_this_slice": true,
+    "latest_brev_ls_status": "RUNNING",
+    "active_training_processes": "none",
+    "jupyter_process_present": true,
+    "stop_attempts": [
+      {
+        "command": "brev stop asl-pilot-rawframe-001",
+        "result": "failed_context_deadline_exceeded"
+      },
+      {
+        "command": "brev stop 2hl1hytty",
+        "result": "returned_without_error_but_workspace_still_RUNNING"
+      },
+      {
+        "command": "brev stop --all",
+        "result": "returned_without_error_but_workspace_still_RUNNING"
+      }
+    ],
+    "blocker": "Brev still reports asl-pilot-rawframe-001 / 2hl1hytty as RUNNING after the documented stop attempts. Do not delete or reset the worker without explicit human approval."
+  },
+  "next_action": "stop_for_human_data_source_scope_decision"
+}

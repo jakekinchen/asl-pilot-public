@@ -1,0 +1,149 @@
+{
+  "schema_version": "asl-pilot-m3jb-landmark-pck-research-refresh/v1",
+  "receipt_id": "return-to-form-m3jb-landmark-pck-research-refresh-after-run3-v1",
+  "mission": "M3JB - Hierarchical hand-state tracker",
+  "status": "completed_research_refresh_no_brev_no_training",
+  "checked_at": "2026-06-03T16:07:50Z",
+  "source_of_truth": {
+    "goal": "GOAL.md",
+    "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+    "previous_research_plan_receipt": "docs/validation/return-to-form-m3jb-landmark-pck-campaign-research-plan-v1.json",
+    "running_best_receipt": "docs/validation/return-to-form-m3jb-landmark-pck-campaign-run2-w128-g64-fulltrain-brev-v1.json",
+    "no_clear_win_receipt": "docs/validation/return-to-form-m3jb-landmark-pck-campaign-run3-w128-g64-hardgeomaug-fulltrain-brev-v1.json"
+  },
+  "research_escalation": {
+    "required_by_goal": true,
+    "action_token": "m3jb_landmark_pck_research_refresh_after_run3_no_brev",
+    "gpt_pro_web_attempt": {
+      "attempted": true,
+      "status": "blocked_browser_iab_unavailable",
+      "evidence": "Browser setup returned: Browser is not available: iab"
+    },
+    "fallback": {
+      "used": true,
+      "route": "openai-api-research",
+      "model_requested": "gpt-5.5",
+      "model_returned": "gpt-5.5-2026-04-23",
+      "response_id": "resp_03185a1ec1ad6094006a205096ba5c8196ae23a0276688fdb5",
+      "prompt_path": "artifacts/research/m3jb-landmark-pck-refresh-909/prompt.md",
+      "request_path": "artifacts/research/m3jb-landmark-pck-refresh-909/request.json",
+      "raw_response_path": "artifacts/research/m3jb-landmark-pck-refresh-909/raw.json",
+      "response_path": "artifacts/research/m3jb-landmark-pck-refresh-909/response.md",
+      "prompt_sha256": "8d1f4224d05db46177aba26008d25f2a4d328526700404e0b828f0fa674aa34d",
+      "request_sha256": "365cdb15372855b060ff2ef3b01d40c72a16ca26254c56146b1a221122a5216c",
+      "raw_response_sha256": "46b7ab1ffcc70f64297c77ae8fd5bd28571f1fb3aafc45795284030f61150625",
+      "response_sha256": "81e4d5cf970584fe217d31d725c1830ea31a046d5b83801ff1b9e0e760f24162",
+      "response_chars": 16791
+    },
+    "advisory_not_authority": true
+  },
+  "evidence_summary": {
+    "cache": "tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1",
+    "cache_rows": 30120,
+    "splits": {
+      "train": 22202,
+      "validation": 3545,
+      "test": 4373
+    },
+    "running_best_run2": {
+      "receipt": "docs/validation/return-to-form-m3jb-landmark-pck-campaign-run2-w128-g64-fulltrain-brev-v1.json",
+      "width": 128,
+      "heatmap_grid": 64,
+      "test_pck_010": 0.7496,
+      "test_pck_005": 0.4867,
+      "validation_pck_010": 0.7098
+    },
+    "no_clear_win_run3": {
+      "receipt": "docs/validation/return-to-form-m3jb-landmark-pck-campaign-run3-w128-g64-hardgeomaug-fulltrain-brev-v1.json",
+      "width": 128,
+      "heatmap_grid": 64,
+      "added_hard_geometry_oversampling": true,
+      "added_mild_augmentation": true,
+      "test_pck_010": 0.734,
+      "test_pck_005": 0.4506,
+      "validation_pck_010": 0.6951,
+      "delta_vs_run2_pck_010": -0.0156,
+      "delta_vs_run2_pck_005": -0.0361
+    },
+    "landmark_gates": {
+      "pck_010": 0.9,
+      "pck_005": 0.75
+    },
+    "consecutive_research_guided_failures_since_last_running_best": 1
+  },
+  "research_guidance_summary": {
+    "recommended_next_highest_impact_lever": "scratch residual U-Net / lightweight hourglass heatmap architecture at the same 128 input / 64 heatmap operating point",
+    "requires_local_code_changes_before_brev": true,
+    "recommended_local_pre_brev_action": "implement a scratch residual multi-scale heatmap model variant preserving the 5-channel input, 21x64x64 heatmap output, soft-argmax decode, existing loss/eval surface, and browser-compatible primitive ops",
+    "selected_next_action": "m3jb_landmark_pck_resunet_architecture_preflight_no_brev",
+    "candidate_paid_run_after_preflight": "m3jb_landmark_pck_run4_resunet_g64_fulltrain_brev_ok",
+    "run4_should_change_only": [
+      "model_architecture"
+    ],
+    "run4_should_preserve_from_run2": {
+      "width": 128,
+      "heatmap_grid": 64,
+      "sigma": 2,
+      "epochs": 100,
+      "batch": 128,
+      "eval_batch": 512,
+      "lr": 0.0005,
+      "train_quality_filter": false,
+      "oversample_hard_geometry": 0,
+      "affine_aug_prob": 0,
+      "blur_prob": 0,
+      "noise_std": 0
+    },
+    "success_signal": "held-out test PCK@0.10 > 0.749600 and PCK@0.05 > 0.486700",
+    "failure_signal": "if held-out test does not beat run2 on both metrics, count it as the second consecutive research-guided failure since run2 and do not auto-chain another paid run",
+    "paid_run_kill_condition": "do not start Brev until local model forward/loss/decode/eval receipt checks pass; during Brev, if validation PCK@0.10 has never matched run2 validation PCK@0.10 0.709800 by about epoch 70, mark likely failed, save best checkpoint/logs, and do not launch a follow-up",
+    "backups_ranked": [
+      "more/better teacher-labeled crop data or targeted relabels after architecture test",
+      "heatmap plus coordinate loss / integral soft-argmax objective after explicit code authorization",
+      "per-keypoint weighting only after per-keypoint diagnostics",
+      "augmentation redesign only after diagnostics because run3 augmentation regressed",
+      "plain larger width/grid sweep deferred as less targeted and browser-heavier"
+    ],
+    "rejected_next_steps": [
+      "immediate Brev run before local architecture code and receipts are ready",
+      "rerun old w64/g32 quality-filtered recipe",
+      "rerun run2 unchanged",
+      "rerun run3 hard-geometry augmentation mixture",
+      "delete more frame-edge/OOB rows as primary lever",
+      "pretrained runtime dependency",
+      "browser promotion before gates pass",
+      "final gate changes",
+      "raw learner video upload",
+      "DSNT/alternate-head or per-keypoint weighting as immediate next lever"
+    ]
+  },
+  "next_action_scope": {
+    "next_action": "m3jb_landmark_pck_resunet_architecture_preflight_no_brev",
+    "local_only": true,
+    "brev_allowed_in_next_action": false,
+    "expected_work": [
+      "add local scratch architecture variant and CLI/config flag if needed",
+      "run local forward/loss/decode/eval smoke without full training",
+      "extend receipt/audit surface for candidate architecture readiness",
+      "prepare but do not launch a run4 Brev plan only after local smoke passes"
+    ]
+  },
+  "runtime_boundary": {
+    "local_repo_edits": true,
+    "gpt_pro_web_attempted": true,
+    "openai_api_fallback_used": true,
+    "brev_used": false,
+    "brev_exec_or_copy": false,
+    "brev_lifecycle_action": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward": false,
+    "checkpoint_written": false,
+    "browser_artifact_promoted": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false
+  },
+  "claim_boundary": "This receipt records a no-Brev research refresh after run3. It selects a local scratch residual heatmap architecture preflight before any further paid experiment. It does not implement the architecture, run training, improve PCK, pass landmark gates, promote browser artifacts, or change final gates.",
+  "next_action": "m3jb_landmark_pck_resunet_architecture_preflight_no_brev"
+}

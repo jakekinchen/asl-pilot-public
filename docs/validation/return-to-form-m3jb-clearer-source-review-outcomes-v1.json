@@ -1,0 +1,3183 @@
+{
+  "schema_version": "asl-pilot-m3jb-clearer-source-review-outcomes/v1",
+  "ledger_id": "return-to-form-m3jb-clearer-source-review-outcomes-v1",
+  "generated_by": "scripts/audit_m3jb_hand_state_tracker.mjs",
+  "purpose": "Provide the fail-closed review destination for the 64-row clearer-source subset: reviewer outcomes must be filled here before any cache-safe replacement or explicit exclusion can affect landmark cache rebuilds.",
+  "source_subset": {
+    "path": "docs/validation/return-to-form-m3jb-clearer-source-review-subset-v1.json",
+    "sha256": "2f49f1bd947da1241f73464e3adb018ff303b1f8ccd7dd221d8ba00e7bbd45aa"
+  },
+  "runtime_boundary": {
+    "offline_review_metadata_only": true,
+    "browser_runtime_dependency_added": false,
+    "raw_learner_video_upload": false,
+    "raw_frames_embedded": false,
+    "landmark_cache_rebuild_authorized": false
+  },
+  "allowed_reviewer_decisions": [
+    "cache_safe_replacement_label",
+    "explicit_exclude_frame_edge_oob",
+    "needs_additional_source_context"
+  ],
+  "review_status_values": [
+    "pending_manual_source_review",
+    "cache_safe_replacement_label",
+    "explicit_exclude_frame_edge_oob",
+    "needs_additional_source_context"
+  ],
+  "required_fields_for_cache_safe_replacement": [
+    "replacement_source_frame_reference",
+    "replacement_box_full_frame_or_landmarks21",
+    "label_provenance",
+    "reviewer",
+    "reviewed_at"
+  ],
+  "required_fields_for_explicit_exclusion": [
+    "exclusion_reason",
+    "reviewer",
+    "reviewed_at"
+  ],
+  "preservation_contract": {
+    "stable_key": "review_key",
+    "canonical_metadata_source": "docs/validation/return-to-form-m3jb-clearer-source-review-subset-v1.json",
+    "preserved_fields": [
+      "review_status",
+      "cache_safe_replacement",
+      "explicit_exclusion",
+      "reviewer_notes",
+      "cache_rebuild_allowed"
+    ],
+    "identity_fields_checked": [
+      "split",
+      "candidate_index",
+      "source_cache",
+      "source_row_index",
+      "hand_key",
+      "label_id",
+      "clip_id",
+      "video_frame_index"
+    ],
+    "mismatched_existing_rows_are_reset_to_pending": true
+  },
+  "summary": {
+    "selected_rows": 64,
+    "train_rows": 32,
+    "test_rows": 32,
+    "pending_review": 0,
+    "cache_safe_replacements": 0,
+    "explicit_exclusions": 64,
+    "needs_additional_source_context": 0,
+    "cache_rebuild_allowed": 0
+  },
+  "validation": {
+    "status": "passed",
+    "invalid_rows": 0,
+    "invalid_row_examples": []
+  },
+  "splits": {
+    "train": {
+      "summary": {
+        "rows": 32,
+        "pending_review": 0,
+        "cache_safe_replacements": 0,
+        "explicit_exclusions": 32,
+        "needs_additional_source_context": 0,
+        "cache_rebuild_allowed": 0,
+        "train_rows": 32,
+        "test_rows": 0
+      },
+      "rows": [
+        {
+          "split": "train",
+          "review_key": "train:12717",
+          "review_rank": 1,
+          "candidate_index": 12717,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 2132,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/3604372155194455-SAD.mp4",
+          "video_frame_index": 27,
+          "hand_key": "right_or_second_hand",
+          "label_id": "sad",
+          "clip_id": "3604372155194455-SAD",
+          "teacher_box_full_frame": [
+            0.924923,
+            0.903462,
+            1,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 74.243559,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T21:12:33Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/3604372155194455-SAD.mp4",
+              "video_frame_index": 27,
+              "frame_indices_reviewed": [
+                25,
+                26,
+                27,
+                28,
+                29
+              ],
+              "local_review_scope": "annotator_side_worktree"
+            },
+            "decision_basis": "Teacher box touches the right and bottom frame boundaries; the requested hand remains clipped at the bottom-right edge across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-872/train-12717-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:24708",
+          "review_rank": 2,
+          "candidate_index": 24708,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 27052,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/5564328627583011-DOG 4.mp4",
+          "video_frame_index": 10,
+          "hand_key": "right_or_second_hand",
+          "label_id": "dog",
+          "clip_id": "5564328627583011-DOG 4",
+          "teacher_box_full_frame": [
+            0.68155,
+            0.97024,
+            0.905417,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 68.970115,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T21:38:12Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/5564328627583011-DOG 4.mp4",
+              "video_frame_index": 10,
+              "frame_indices_reviewed": [
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "local_review_scope": "annotator_side_worktree"
+            },
+            "decision_basis": "Teacher box touches the bottom frame boundary; the requested hand remains clipped at the bottom edge across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-873/train-24708-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:12958",
+          "review_rank": 3,
+          "candidate_index": 12958,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 2682,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/4683181875389255-RED.mp4",
+          "video_frame_index": 6,
+          "hand_key": "left_or_first_hand",
+          "label_id": "red",
+          "clip_id": "4683181875389255-RED",
+          "teacher_box_full_frame": [
+            0.026009,
+            0.936212,
+            0.169617,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 68.960133,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T21:25:57Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/4683181875389255-RED.mp4",
+              "video_frame_index": 6,
+              "frame_indices_reviewed": [
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "local_review_scope": "annotator_side_worktree"
+            },
+            "decision_basis": "Teacher box touches the bottom frame boundary; the requested left/first hand remains clipped at the lower-left edge across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-874/train-12958-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:14925",
+          "review_rank": 4,
+          "candidate_index": 14925,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 6583,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/5522385993505894-SHOES.mp4",
+          "video_frame_index": 69,
+          "hand_key": "left_or_first_hand",
+          "label_id": "shoe",
+          "clip_id": "5522385993505894-SHOES",
+          "teacher_box_full_frame": [
+            0.225708,
+            0.929018,
+            0.377041,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 68.946409,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T21:33:47Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/5522385993505894-SHOES.mp4",
+              "video_frame_index": 69,
+              "frame_indices_reviewed": [
+                67,
+                68,
+                69,
+                70,
+                71
+              ],
+              "local_review_scope": "annotator_side_worktree"
+            },
+            "decision_basis": "Teacher box touches the bottom frame boundary; the requested left/first hand remains clipped at the lower edge across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-875/train-14925-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:22221",
+          "review_rank": 5,
+          "candidate_index": 22221,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 21914,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/6400788027798874-PLEASE.mp4",
+          "video_frame_index": 52,
+          "hand_key": "left_or_first_hand",
+          "label_id": "please",
+          "clip_id": "6400788027798874-PLEASE",
+          "teacher_box_full_frame": [
+            0.017597,
+            0.938811,
+            0.194861,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 68.940993,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T21:39:46Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/6400788027798874-PLEASE.mp4",
+              "video_frame_index": 52,
+              "frame_indices_reviewed": [
+                50,
+                51,
+                52,
+                53,
+                54
+              ],
+              "local_review_scope": "annotator_side_worktree"
+            },
+            "decision_basis": "Teacher box touches the bottom frame boundary; the requested left/first hand remains clipped at the lower-left edge across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-876/train-22221-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:25560",
+          "review_rank": 6,
+          "candidate_index": 25560,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 28823,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/08956501268165051-SICK.mp4",
+          "video_frame_index": 14,
+          "hand_key": "left_or_first_hand",
+          "label_id": "sick",
+          "clip_id": "08956501268165051-SICK",
+          "teacher_box_full_frame": [
+            0.351264,
+            0.784736,
+            0.656587,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 68.756898,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/08956501268165051-SICK.mp4",
+              "video_frame_index": 14,
+              "frame_indices_reviewed": [
+                12,
+                13,
+                14,
+                15,
+                16
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:29215",
+          "review_rank": 7,
+          "candidate_index": 29215,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 36555,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/5886410690106878-HAT 2.mp4",
+          "video_frame_index": 10,
+          "hand_key": "left_or_first_hand",
+          "label_id": "hat",
+          "clip_id": "5886410690106878-HAT 2",
+          "teacher_box_full_frame": [
+            0.17596,
+            0,
+            0.342467,
+            0.180731
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 68.721819,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/5886410690106878-HAT 2.mp4",
+              "video_frame_index": 10,
+              "frame_indices_reviewed": [
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the top source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:27288",
+          "review_rank": 8,
+          "candidate_index": 27288,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 32269,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/7513104867958282-HAVE.mp4",
+          "video_frame_index": 64,
+          "hand_key": "left_or_first_hand",
+          "label_id": "have",
+          "clip_id": "7513104867958282-HAVE",
+          "teacher_box_full_frame": [
+            0.175944,
+            0.850742,
+            0.3205,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 68.676615,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/7513104867958282-HAVE.mp4",
+              "video_frame_index": 64,
+              "frame_indices_reviewed": [
+                62,
+                63,
+                64,
+                65,
+                66
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:23552",
+          "review_rank": 9,
+          "candidate_index": 23552,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 24764,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/4327145109672128-AIRPLANE.mp4",
+          "video_frame_index": 4,
+          "hand_key": "right_or_second_hand",
+          "label_id": "airplane",
+          "clip_id": "4327145109672128-AIRPLANE",
+          "teacher_box_full_frame": [
+            0.673917,
+            0.89999,
+            0.758529,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 68.642098,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/4327145109672128-AIRPLANE.mp4",
+              "video_frame_index": 4,
+              "frame_indices_reviewed": [
+                2,
+                3,
+                4,
+                5,
+                6
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:14199",
+          "review_rank": 10,
+          "candidate_index": 14199,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 5344,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/6123187644428012-GRANDFATHER.mp4",
+          "video_frame_index": 24,
+          "hand_key": "left_or_first_hand",
+          "label_id": "grandpa",
+          "clip_id": "6123187644428012-GRANDFATHER",
+          "teacher_box_full_frame": [
+            0.292254,
+            0,
+            0.35351,
+            0.227227
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 68.622886,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/6123187644428012-GRANDFATHER.mp4",
+              "video_frame_index": 24,
+              "frame_indices_reviewed": [
+                22,
+                23,
+                24,
+                25,
+                26
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the top source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:28774",
+          "review_rank": 11,
+          "candidate_index": 28774,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 35662,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/7154896998335438-FATHER.mp4",
+          "video_frame_index": 71,
+          "hand_key": "left_or_first_hand",
+          "label_id": "dad",
+          "clip_id": "7154896998335438-FATHER",
+          "teacher_box_full_frame": [
+            0.363125,
+            0,
+            0.390409,
+            0.191264
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 68.578987,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/7154896998335438-FATHER.mp4",
+              "video_frame_index": 71,
+              "frame_indices_reviewed": [
+                69,
+                70,
+                71,
+                72,
+                73
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the top source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:25562",
+          "review_rank": 12,
+          "candidate_index": 25562,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 28824,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/08956501268165051-SICK.mp4",
+          "video_frame_index": 18,
+          "hand_key": "left_or_first_hand",
+          "label_id": "sick",
+          "clip_id": "08956501268165051-SICK",
+          "teacher_box_full_frame": [
+            0.36238,
+            0.735937,
+            0.587506,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 68.561098,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/08956501268165051-SICK.mp4",
+              "video_frame_index": 18,
+              "frame_indices_reviewed": [
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:12373",
+          "review_rank": 13,
+          "candidate_index": 12373,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 1356,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/6018056722566105-CARROT 2.mp4",
+          "video_frame_index": 32,
+          "hand_key": "left_or_first_hand",
+          "label_id": "carrot",
+          "clip_id": "6018056722566105-CARROT 2",
+          "teacher_box_full_frame": [
+            0,
+            0.281989,
+            0.051136,
+            0.584587
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 68.532856,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/6018056722566105-CARROT 2.mp4",
+              "video_frame_index": 32,
+              "frame_indices_reviewed": [
+                30,
+                31,
+                32,
+                33,
+                34
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the left source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:20973",
+          "review_rank": 14,
+          "candidate_index": 20973,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 19284,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/5082858473744953-NO.mp4",
+          "video_frame_index": 94,
+          "hand_key": "right_or_second_hand",
+          "label_id": "no",
+          "clip_id": "5082858473744953-NO",
+          "teacher_box_full_frame": [
+            0.456104,
+            0.928656,
+            0.658237,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 68.453891,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/5082858473744953-NO.mp4",
+              "video_frame_index": 94,
+              "frame_indices_reviewed": [
+                92,
+                93,
+                94,
+                95,
+                96
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:832",
+          "review_rank": 15,
+          "candidate_index": 832,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 1925,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/train/callonphone/4a.7007-callonphone-2022_12_16_12_43_22.988-0.mp4",
+          "video_frame_index": 55,
+          "hand_key": "left_or_first_hand",
+          "label_id": "callonphone",
+          "clip_id": "4a.7007-callonphone-2022_12_16_12_43_22.988-0",
+          "teacher_box_full_frame": [
+            0,
+            0.420839,
+            0.180254,
+            0.587562
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 68.374062,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/train/callonphone/4a.7007-callonphone-2022_12_16_12_43_22.988-0.mp4",
+              "video_frame_index": 55,
+              "frame_indices_reviewed": [
+                53,
+                54,
+                55,
+                56,
+                57
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the left source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:24139",
+          "review_rank": 16,
+          "candidate_index": 24139,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 25826,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/4197770326170689-BEFORE.mp4",
+          "video_frame_index": 74,
+          "hand_key": "left_or_first_hand",
+          "label_id": "before",
+          "clip_id": "4197770326170689-BEFORE",
+          "teacher_box_full_frame": [
+            0.148422,
+            0.810394,
+            0.318791,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 68.333096,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/4197770326170689-BEFORE.mp4",
+              "video_frame_index": 74,
+              "frame_indices_reviewed": [
+                72,
+                73,
+                74,
+                75,
+                76
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:2911",
+          "review_rank": 17,
+          "candidate_index": 2911,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 7058,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/train/room/gtsignstudy4a.7041-room-2023_01_29_19_27_37.028-0.mp4",
+          "video_frame_index": 59,
+          "hand_key": "right_or_second_hand",
+          "label_id": "room",
+          "clip_id": "gtsignstudy4a.7041-room-2023_01_29_19_27_37.028-0",
+          "teacher_box_full_frame": [
+            0.463979,
+            0.89656,
+            0.713044,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 68.022722,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/train/room/gtsignstudy4a.7041-room-2023_01_29_19_27_37.028-0.mp4",
+              "video_frame_index": 59,
+              "frame_indices_reviewed": [
+                57,
+                58,
+                59,
+                60,
+                61
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:2910",
+          "review_rank": 18,
+          "candidate_index": 2910,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 7056,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/train/room/gtsignstudy4a.7041-room-2023_01_29_19_27_37.028-0.mp4",
+          "video_frame_index": 35,
+          "hand_key": "right_or_second_hand",
+          "label_id": "room",
+          "clip_id": "gtsignstudy4a.7041-room-2023_01_29_19_27_37.028-0",
+          "teacher_box_full_frame": [
+            0.547296,
+            0.895481,
+            0.740313,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 68.010223,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/train/room/gtsignstudy4a.7041-room-2023_01_29_19_27_37.028-0.mp4",
+              "video_frame_index": 35,
+              "frame_indices_reviewed": [
+                33,
+                34,
+                35,
+                36,
+                37
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:20972",
+          "review_rank": 19,
+          "candidate_index": 20972,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 19283,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/5082858473744953-NO.mp4",
+          "video_frame_index": 85,
+          "hand_key": "right_or_second_hand",
+          "label_id": "no",
+          "clip_id": "5082858473744953-NO",
+          "teacher_box_full_frame": [
+            0.456421,
+            0.9255,
+            0.664942,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 67.893062,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/5082858473744953-NO.mp4",
+              "video_frame_index": 85,
+              "frame_indices_reviewed": [
+                83,
+                84,
+                85,
+                86,
+                87
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:11731",
+          "review_rank": 20,
+          "candidate_index": 11731,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 18,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/3719623393652336-CARROT 3.mp4",
+          "video_frame_index": 60,
+          "hand_key": "right_or_second_hand",
+          "label_id": "carrot",
+          "clip_id": "3719623393652336-CARROT 3",
+          "teacher_box_full_frame": [
+            0.459462,
+            0.912262,
+            0.666308,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 67.582574,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/3719623393652336-CARROT 3.mp4",
+              "video_frame_index": 60,
+              "frame_indices_reviewed": [
+                58,
+                59,
+                60,
+                61,
+                62
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:24072",
+          "review_rank": 21,
+          "candidate_index": 24072,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 25703,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/33093247095464684-GIRL.mp4",
+          "video_frame_index": 35,
+          "hand_key": "right_or_second_hand",
+          "label_id": "girl",
+          "clip_id": "33093247095464684-GIRL",
+          "teacher_box_full_frame": [
+            0.477431,
+            0.919556,
+            0.679999,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 67.518995,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/33093247095464684-GIRL.mp4",
+              "video_frame_index": 35,
+              "frame_indices_reviewed": [
+                33,
+                34,
+                35,
+                36,
+                37
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:789",
+          "review_rank": 22,
+          "candidate_index": 789,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 1838,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/train/bye/4a.8027-bye-2023_01_12_12_15_22.322-0.mp4",
+          "video_frame_index": 40,
+          "hand_key": "left_or_first_hand",
+          "label_id": "bye",
+          "clip_id": "4a.8027-bye-2023_01_12_12_15_22.322-0",
+          "teacher_box_full_frame": [
+            0,
+            0.952927,
+            0.064826,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 64.306425,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/train/bye/4a.8027-bye-2023_01_12_12_15_22.322-0.mp4",
+              "video_frame_index": 40,
+              "frame_indices_reviewed": [
+                38,
+                39,
+                40,
+                41,
+                42
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the left_bottom source-frame boundary (edge_contact_count=2). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:12807",
+          "review_rank": 23,
+          "candidate_index": 12807,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 2320,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/6637153176489483-DOG 3.mp4",
+          "video_frame_index": 111,
+          "hand_key": "left_or_first_hand",
+          "label_id": "dog",
+          "clip_id": "6637153176489483-DOG 3",
+          "teacher_box_full_frame": [
+            0,
+            0.918913,
+            0.050462,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 64.119738,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/6637153176489483-DOG 3.mp4",
+              "video_frame_index": 111,
+              "frame_indices_reviewed": [
+                109,
+                110,
+                111,
+                112,
+                113
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the left_bottom source-frame boundary (edge_contact_count=2). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:25669",
+          "review_rank": 24,
+          "candidate_index": 25669,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 29020,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/16373316542801275-LIKE.mp4",
+          "video_frame_index": 85,
+          "hand_key": "right_or_second_hand",
+          "label_id": "like",
+          "clip_id": "16373316542801275-LIKE",
+          "teacher_box_full_frame": [
+            0.867706,
+            0.91776,
+            1,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 64.107201,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/16373316542801275-LIKE.mp4",
+              "video_frame_index": 85,
+              "frame_indices_reviewed": [
+                83,
+                84,
+                85,
+                86,
+                87
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the right_bottom source-frame boundary (edge_contact_count=2). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:3336",
+          "review_rank": 25,
+          "candidate_index": 3336,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 8075,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/train/time/4a.8022-time-2023_01_10_18_15_57.018-0.mp4",
+          "video_frame_index": 157,
+          "hand_key": "left_or_first_hand",
+          "label_id": "time",
+          "clip_id": "4a.8022-time-2023_01_10_18_15_57.018-0",
+          "teacher_box_full_frame": [
+            0,
+            0.885796,
+            0.153191,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 64.029016,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/train/time/4a.8022-time-2023_01_10_18_15_57.018-0.mp4",
+              "video_frame_index": 157,
+              "frame_indices_reviewed": [
+                155,
+                156,
+                157,
+                158,
+                159
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the left_bottom source-frame boundary (edge_contact_count=2). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:24380",
+          "review_rank": 26,
+          "candidate_index": 24380,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 26297,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/7788052439740552-HAT.mp4",
+          "video_frame_index": 7,
+          "hand_key": "left_or_first_hand",
+          "label_id": "hat",
+          "clip_id": "7788052439740552-HAT",
+          "teacher_box_full_frame": [
+            0,
+            0.91658,
+            0.108126,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 63.967174,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/7788052439740552-HAT.mp4",
+              "video_frame_index": 7,
+              "frame_indices_reviewed": [
+                5,
+                6,
+                7,
+                8,
+                9
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the left_bottom source-frame boundary (edge_contact_count=2). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:1126",
+          "review_rank": 27,
+          "candidate_index": 1126,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 2708,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/train/dad/4a.8006-dad-2022_12_29_09_38_26.072-0.mp4",
+          "video_frame_index": 53,
+          "hand_key": "left_or_first_hand",
+          "label_id": "dad",
+          "clip_id": "4a.8006-dad-2022_12_29_09_38_26.072-0",
+          "teacher_box_full_frame": [
+            0,
+            0.88229,
+            0.136861,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 63.96627,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/train/dad/4a.8006-dad-2022_12_29_09_38_26.072-0.mp4",
+              "video_frame_index": 53,
+              "frame_indices_reviewed": [
+                51,
+                52,
+                53,
+                54,
+                55
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the left_bottom source-frame boundary (edge_contact_count=2). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:21292",
+          "review_rank": 28,
+          "candidate_index": 21292,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 19858,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/22158687515690545-FISH.mp4",
+          "video_frame_index": 75,
+          "hand_key": "left_or_first_hand",
+          "label_id": "fish",
+          "clip_id": "22158687515690545-FISH",
+          "teacher_box_full_frame": [
+            0,
+            0.90487,
+            0.146697,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 63.964196,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/22158687515690545-FISH.mp4",
+              "video_frame_index": 75,
+              "frame_indices_reviewed": [
+                73,
+                74,
+                75,
+                76,
+                77
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the left_bottom source-frame boundary (edge_contact_count=2). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:12024",
+          "review_rank": 29,
+          "candidate_index": 12024,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 608,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/8018668876575192-CHAIR.mp4",
+          "video_frame_index": 87,
+          "hand_key": "left_or_first_hand",
+          "label_id": "chair",
+          "clip_id": "8018668876575192-CHAIR",
+          "teacher_box_full_frame": [
+            0,
+            0.902386,
+            0.1119,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 63.955053,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/8018668876575192-CHAIR.mp4",
+              "video_frame_index": 87,
+              "frame_indices_reviewed": [
+                85,
+                86,
+                87,
+                88,
+                89
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the left_bottom source-frame boundary (edge_contact_count=2). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:12025",
+          "review_rank": 30,
+          "candidate_index": 12025,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 609,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/8018668876575192-CHAIR.mp4",
+          "video_frame_index": 96,
+          "hand_key": "left_or_first_hand",
+          "label_id": "chair",
+          "clip_id": "8018668876575192-CHAIR",
+          "teacher_box_full_frame": [
+            0,
+            0.907429,
+            0.112138,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 63.950131,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/8018668876575192-CHAIR.mp4",
+              "video_frame_index": 96,
+              "frame_indices_reviewed": [
+                94,
+                95,
+                96,
+                97,
+                98
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the left_bottom source-frame boundary (edge_contact_count=2). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:18240",
+          "review_rank": 31,
+          "candidate_index": 18240,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 13434,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/6948600777347704-MILK.mp4",
+          "video_frame_index": 0,
+          "hand_key": "left_or_first_hand",
+          "label_id": "milk",
+          "clip_id": "6948600777347704-MILK",
+          "teacher_box_full_frame": [
+            0,
+            0.900918,
+            0.132823,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 63.942983,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/6948600777347704-MILK.mp4",
+              "video_frame_index": 0,
+              "frame_indices_reviewed": [
+                0,
+                1,
+                2
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the left_bottom source-frame boundary (edge_contact_count=2). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "train",
+          "review_key": "train:15140",
+          "review_rank": 32,
+          "candidate_index": 15140,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-ac",
+          "source_row_index": 7026,
+          "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/5660033217923386-HORSE.mp4",
+          "video_frame_index": 71,
+          "hand_key": "left_or_first_hand",
+          "label_id": "horse",
+          "clip_id": "5660033217923386-HORSE",
+          "teacher_box_full_frame": [
+            0,
+            0.903005,
+            0.122373,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 63.9345,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/asl-citizen/ASL_Citizen/videos/5660033217923386-HORSE.mp4",
+              "video_frame_index": 71,
+              "frame_indices_reviewed": [
+                69,
+                70,
+                71,
+                72,
+                73
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the left_bottom source-frame boundary (edge_contact_count=2). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        }
+      ]
+    },
+    "test": {
+      "summary": {
+        "rows": 32,
+        "pending_review": 0,
+        "cache_safe_replacements": 0,
+        "explicit_exclusions": 32,
+        "needs_additional_source_context": 0,
+        "cache_rebuild_allowed": 0,
+        "train_rows": 0,
+        "test_rows": 32
+      },
+      "rows": [
+        {
+          "split": "test",
+          "review_key": "test:8672",
+          "review_rank": 1,
+          "candidate_index": 8672,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 21002,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/dog/gtsignstudy4a.8037-dog-2023_01_28_14_23_55.159-1.mp4",
+          "video_frame_index": 40,
+          "hand_key": "right_or_second_hand",
+          "label_id": "dog",
+          "clip_id": "gtsignstudy4a.8037-dog-2023_01_28_14_23_55.159-1",
+          "teacher_box_full_frame": [
+            0.826037,
+            0.924418,
+            1,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 64.294288,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T21:12:33Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/dog/gtsignstudy4a.8037-dog-2023_01_28_14_23_55.159-1.mp4",
+              "video_frame_index": 40,
+              "frame_indices_reviewed": [
+                38,
+                39,
+                40,
+                41,
+                42
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the right and bottom frame boundaries; the requested hand remains clipped at the bottom-right edge across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-872/test-8672-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:7324",
+          "review_rank": 2,
+          "candidate_index": 7324,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 18199,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/TV/gtsignstudy4a.8032-TV-2023_01_26_11_35_38.855-0.mp4",
+          "video_frame_index": 67,
+          "hand_key": "left_or_first_hand",
+          "label_id": "TV",
+          "clip_id": "gtsignstudy4a.8032-TV-2023_01_26_11_35_38.855-0",
+          "teacher_box_full_frame": [
+            0,
+            0.900295,
+            0.15693,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 63.916289,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T21:25:45Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/TV/gtsignstudy4a.8032-TV-2023_01_26_11_35_38.855-0.mp4",
+              "video_frame_index": 67,
+              "frame_indices_reviewed": [
+                65,
+                66,
+                67
+              ],
+              "unavailable_frame_indices": [
+                68,
+                69
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the left and bottom frame boundaries; the requested hand remains clipped at the bottom-left edge through the available local frame window, and the +1/+2 review frames are beyond the end of the 68-frame source video.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-874/test-7324-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:8513",
+          "review_rank": 3,
+          "candidate_index": 8513,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 20661,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/cereal/gtsignstudy4a.8037-cereal-2023_01_28_14_05_04.685-0.mp4",
+          "video_frame_index": 47,
+          "hand_key": "right_or_second_hand",
+          "label_id": "cereal",
+          "clip_id": "gtsignstudy4a.8037-cereal-2023_01_28_14_05_04.685-0",
+          "teacher_box_full_frame": [
+            0.834091,
+            0.85849,
+            1,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 63.801738,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T21:34:42Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/cereal/gtsignstudy4a.8037-cereal-2023_01_28_14_05_04.685-0.mp4",
+              "video_frame_index": 47,
+              "frame_indices_reviewed": [
+                45,
+                46,
+                47,
+                48,
+                49
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the right and bottom frame boundaries; the requested right/second hand remains clipped at the lower-right edge across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-875/test-8513-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:10188",
+          "review_rank": 4,
+          "candidate_index": 10188,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 24206,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/no/gtsignstudy4a.8037-no-2023_01_28_14_22_52.117-0.mp4",
+          "video_frame_index": 34,
+          "hand_key": "right_or_second_hand",
+          "label_id": "no",
+          "clip_id": "gtsignstudy4a.8037-no-2023_01_28_14_22_52.117-0",
+          "teacher_box_full_frame": [
+            0.751761,
+            0.745426,
+            1,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 63.791753,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T21:39:38Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/no/gtsignstudy4a.8037-no-2023_01_28_14_22_52.117-0.mp4",
+              "video_frame_index": 34,
+              "frame_indices_reviewed": [
+                32,
+                33,
+                34,
+                35,
+                36
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the right and bottom frame boundaries; the requested right/second hand remains clipped at the lower-right edge across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-876/test-10188-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:10729",
+          "review_rank": 5,
+          "candidate_index": 10729,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 25288,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/sad/gtsignstudy4a.8031-sad-2023_01_25_18_58_12.176-0.mp4",
+          "video_frame_index": 0,
+          "hand_key": "left_or_first_hand",
+          "label_id": "sad",
+          "clip_id": "gtsignstudy4a.8031-sad-2023_01_25_18_58_12.176-0",
+          "teacher_box_full_frame": [
+            0,
+            0.896129,
+            0.105044,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 63.526525,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T21:44:44Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/sad/gtsignstudy4a.8031-sad-2023_01_25_18_58_12.176-0.mp4",
+              "video_frame_index": 0,
+              "frame_indices_reviewed": [
+                0,
+                1,
+                2
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the left and bottom frame boundaries; the requested left/first hand remains clipped at the lower-left edge across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-877/test-10729-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:9990",
+          "review_rank": 6,
+          "candidate_index": 9990,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 23778,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/milk/gtsignstudy4a.8032-milk-2023_01_29_12_28_50.343-0.mp4",
+          "video_frame_index": 0,
+          "hand_key": "right_or_second_hand",
+          "label_id": "milk",
+          "clip_id": "gtsignstudy4a.8032-milk-2023_01_29_12_28_50.343-0",
+          "teacher_box_full_frame": [
+            0.577903,
+            0.629635,
+            1,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 63.423026,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T21:50:41Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/milk/gtsignstudy4a.8032-milk-2023_01_29_12_28_50.343-0.mp4",
+              "video_frame_index": 0,
+              "frame_indices_reviewed": [
+                0,
+                1,
+                2
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the right and bottom frame boundaries; the requested right/second hand remains clipped at the lower-right edge across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-878/test-9990-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:8416",
+          "review_rank": 7,
+          "candidate_index": 8416,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 20493,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/cat/gtsignstudy4a.8032-cat-2023_01_28_23_22_44.605-0.mp4",
+          "video_frame_index": 46,
+          "hand_key": "left_or_first_hand",
+          "label_id": "cat",
+          "clip_id": "gtsignstudy4a.8032-cat-2023_01_28_23_22_44.605-0",
+          "teacher_box_full_frame": [
+            0,
+            0.701416,
+            0.253923,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 62.903049,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T21:56:15Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/cat/gtsignstudy4a.8032-cat-2023_01_28_23_22_44.605-0.mp4",
+              "video_frame_index": 46,
+              "frame_indices_reviewed": [
+                44,
+                45,
+                46,
+                47,
+                48
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the left and bottom frame boundaries; the requested left/first hand remains clipped at the lower-left edge across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-879/test-8416-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:10021",
+          "review_rank": 8,
+          "candidate_index": 10021,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 23844,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/mom/gtsignstudy4a.8031-mom-2023_01_25_19_28_12.668-0.mp4",
+          "video_frame_index": 0,
+          "hand_key": "left_or_first_hand",
+          "label_id": "mom",
+          "clip_id": "gtsignstudy4a.8031-mom-2023_01_25_19_28_12.668-0",
+          "teacher_box_full_frame": [
+            0,
+            0.888186,
+            0.223137,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 61.612766,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T22:01:06Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/mom/gtsignstudy4a.8031-mom-2023_01_25_19_28_12.668-0.mp4",
+              "video_frame_index": 0,
+              "frame_indices_reviewed": [
+                0,
+                1,
+                2
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the left and bottom frame boundaries; the requested left/first hand remains clipped at the lower-left edge across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-880/test-10021-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:10480",
+          "review_rank": 9,
+          "candidate_index": 10480,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 24790,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/person/gtsignstudy4a.8032-person-2023_01_23_21_16_33.669-1.mp4",
+          "video_frame_index": 0,
+          "hand_key": "left_or_first_hand",
+          "label_id": "person",
+          "clip_id": "gtsignstudy4a.8032-person-2023_01_23_21_16_33.669-1",
+          "teacher_box_full_frame": [
+            0,
+            0.796752,
+            0.315732,
+            1
+          ],
+          "edge_contact_count": 2,
+          "review_priority_score": 61.49148,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T22:06:08Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/person/gtsignstudy4a.8032-person-2023_01_23_21_16_33.669-1.mp4",
+              "video_frame_index": 0,
+              "frame_indices_reviewed": [
+                0,
+                1,
+                2
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the left and bottom frame boundaries; the requested left/first hand remains clipped at the lower-left edge across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-881/test-10480-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:8270",
+          "review_rank": 10,
+          "candidate_index": 8270,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 20220,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/can/gtsignstudy4a.8032-can-2023_01_29_16_17_41.845-0.mp4",
+          "video_frame_index": 10,
+          "hand_key": "left_or_first_hand",
+          "label_id": "can",
+          "clip_id": "gtsignstudy4a.8032-can-2023_01_29_16_17_41.845-0",
+          "teacher_box_full_frame": [
+            0.19106,
+            0.805991,
+            0.394117,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.885615,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T22:10:45Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/can/gtsignstudy4a.8032-can-2023_01_29_16_17_41.845-0.mp4",
+              "video_frame_index": 10,
+              "frame_indices_reviewed": [
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the bottom frame boundary; the requested left/first hand remains clipped at the lower edge across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-882/test-8270-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:9777",
+          "review_rank": 11,
+          "candidate_index": 9777,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 23384,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/look/gtsignstudy4a.8032-look-2023_01_29_18_18_14.239-0.mp4",
+          "video_frame_index": 13,
+          "hand_key": "left_or_first_hand",
+          "label_id": "look",
+          "clip_id": "gtsignstudy4a.8032-look-2023_01_29_18_18_14.239-0",
+          "teacher_box_full_frame": [
+            0.21821,
+            0.798518,
+            0.4075,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.844605,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T22:20:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/look/gtsignstudy4a.8032-look-2023_01_29_18_18_14.239-0.mp4",
+              "video_frame_index": 13,
+              "frame_indices_reviewed": [
+                11,
+                12,
+                13,
+                14,
+                15
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the bottom frame boundary; the requested left/first hand remains clipped at the lower edge across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-883/test-9777-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:7479",
+          "review_rank": 12,
+          "candidate_index": 7479,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 18565,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/animal/gtsignstudy4a.8032-animal-2023_01_25_22_46_02.538-0.mp4",
+          "video_frame_index": 0,
+          "hand_key": "left_or_first_hand",
+          "label_id": "animal",
+          "clip_id": "gtsignstudy4a.8032-animal-2023_01_25_22_46_02.538-0",
+          "teacher_box_full_frame": [
+            0.11911,
+            0.850499,
+            0.26803,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.835159,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T22:25:10Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/animal/gtsignstudy4a.8032-animal-2023_01_25_22_46_02.538-0.mp4",
+              "video_frame_index": 0,
+              "frame_indices_reviewed": [
+                0,
+                1,
+                2
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the bottom frame boundary; the requested left/first hand is visible but clipped at the lower source edge across the available start-of-clip review window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-884/test-7479-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:7349",
+          "review_rank": 13,
+          "candidate_index": 7349,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 18264,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/TV/gtsignstudy4a.8037-TV-2023_01_28_14_06_20.944-0.mp4",
+          "video_frame_index": 46,
+          "hand_key": "right_or_second_hand",
+          "label_id": "TV",
+          "clip_id": "gtsignstudy4a.8037-TV-2023_01_28_14_06_20.944-0",
+          "teacher_box_full_frame": [
+            0.695843,
+            0.892421,
+            0.965916,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.82568,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T22:31:10Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/TV/gtsignstudy4a.8037-TV-2023_01_28_14_06_20.944-0.mp4",
+              "video_frame_index": 46,
+              "frame_indices_reviewed": [
+                44,
+                45,
+                46,
+                47,
+                48
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the bottom frame boundary; the requested right/second hand remains clipped at the lower source edge across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-885/test-7349-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:9586",
+          "review_rank": 14,
+          "candidate_index": 9586,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 23009,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/hungry/gtsignstudy4a.8032-hungry-2023_01_29_12_28_04.642-0.mp4",
+          "video_frame_index": 42,
+          "hand_key": "left_or_first_hand",
+          "label_id": "hungry",
+          "clip_id": "gtsignstudy4a.8032-hungry-2023_01_29_12_28_04.642-0",
+          "teacher_box_full_frame": [
+            0.03,
+            0.744593,
+            0.346307,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.804751,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T22:36:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/hungry/gtsignstudy4a.8032-hungry-2023_01_29_12_28_04.642-0.mp4",
+              "video_frame_index": 42,
+              "frame_indices_reviewed": [
+                40,
+                41,
+                42,
+                43,
+                44
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the bottom frame boundary; the requested left/first hand remains clipped at the lower source edge across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-886/test-9586-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:11668",
+          "review_rank": 15,
+          "candidate_index": 11668,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 27221,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/yesterday/gtsignstudy4a.8032-yesterday-2023_01_29_18_12_30.614-0.mp4",
+          "video_frame_index": 12,
+          "hand_key": "left_or_first_hand",
+          "label_id": "yesterday",
+          "clip_id": "gtsignstudy4a.8032-yesterday-2023_01_29_18_12_30.614-0",
+          "teacher_box_full_frame": [
+            0.166102,
+            0.800871,
+            0.361831,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.79251,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T22:40:51Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/yesterday/gtsignstudy4a.8032-yesterday-2023_01_29_18_12_30.614-0.mp4",
+              "video_frame_index": 12,
+              "frame_indices_reviewed": [
+                10,
+                11,
+                12,
+                13,
+                14
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the bottom frame boundary; the requested left/first hand remains clipped at the lower source edge across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-887/test-11668-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:7360",
+          "review_rank": 16,
+          "candidate_index": 7360,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 18290,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/after/gtsignstudy4a.8032-after-2023_01_29_18_17_34.776-0.mp4",
+          "video_frame_index": 0,
+          "hand_key": "left_or_first_hand",
+          "label_id": "after",
+          "clip_id": "gtsignstudy4a.8032-after-2023_01_29_18_17_34.776-0",
+          "teacher_box_full_frame": [
+            0,
+            0.353059,
+            0.101421,
+            0.563049
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.770865,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T22:45:58Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/after/gtsignstudy4a.8032-after-2023_01_29_18_17_34.776-0.mp4",
+              "video_frame_index": 0,
+              "frame_indices_reviewed": [
+                0,
+                1,
+                2
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the left frame boundary at clip start; the selected region is a narrow source-edge sliver and does not contain complete left/first-hand geometry across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-888/test-7360-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:8406",
+          "review_rank": 17,
+          "candidate_index": 8406,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 20468,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/carrot/gtsignstudy4a.8037-carrot-2023_01_28_13_58_38.640-0.mp4",
+          "video_frame_index": 44,
+          "hand_key": "left_or_first_hand",
+          "label_id": "carrot",
+          "clip_id": "gtsignstudy4a.8037-carrot-2023_01_28_13_58_38.640-0",
+          "teacher_box_full_frame": [
+            0.501412,
+            0.857737,
+            0.746049,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.76961,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T22:50:59Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/carrot/gtsignstudy4a.8037-carrot-2023_01_28_13_58_38.640-0.mp4",
+              "video_frame_index": 44,
+              "frame_indices_reviewed": [
+                42,
+                43,
+                44,
+                45,
+                46
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the bottom frame boundary; the selected region contains a blurred partial hand or forearm and does not preserve complete left/first-hand geometry across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-889/test-8406-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:11228",
+          "review_rank": 18,
+          "candidate_index": 11228,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 26356,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/tomorrow/gtsignstudy4a.8032-tomorrow-2023_01_28_23_23_06.949-0.mp4",
+          "video_frame_index": 0,
+          "hand_key": "left_or_first_hand",
+          "label_id": "tomorrow",
+          "clip_id": "gtsignstudy4a.8032-tomorrow-2023_01_28_23_23_06.949-0",
+          "teacher_box_full_frame": [
+            0.076399,
+            0.806864,
+            0.329284,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.765616,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T22:56:11Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/tomorrow/gtsignstudy4a.8032-tomorrow-2023_01_28_23_23_06.949-0.mp4",
+              "video_frame_index": 0,
+              "frame_indices_reviewed": [
+                0,
+                1,
+                2
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the bottom frame boundary at clip start; the selected region contains forearm/lower-hand context but not complete left/first-hand geometry across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-890/test-11228-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:10569",
+          "review_rank": 19,
+          "candidate_index": 10569,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 24971,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/please/gtsignstudy4a.8036-please-2023_01_23_21_15_58.245-0.mp4",
+          "video_frame_index": 15,
+          "hand_key": "right_or_second_hand",
+          "label_id": "please",
+          "clip_id": "gtsignstudy4a.8036-please-2023_01_23_21_15_58.245-0",
+          "teacher_box_full_frame": [
+            0.465296,
+            0.799494,
+            0.74541,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.753417,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T23:01:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/please/gtsignstudy4a.8036-please-2023_01_23_21_15_58.245-0.mp4",
+              "video_frame_index": 15,
+              "frame_indices_reviewed": [
+                13,
+                14,
+                15,
+                16,
+                17
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the bottom frame boundary; the selected region contains blurred partial right/second-hand motion and torso/forearm context, but not complete hand geometry across the reviewed local frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-891/test-10569-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:10866",
+          "review_rank": 20,
+          "candidate_index": 10866,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 25599,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/shoe/gtsignstudy4a.8032-shoe-2023_01_28_23_29_26.515-0.mp4",
+          "video_frame_index": 59,
+          "hand_key": "right_or_second_hand",
+          "label_id": "shoe",
+          "clip_id": "gtsignstudy4a.8032-shoe-2023_01_28_23_29_26.515-0",
+          "teacher_box_full_frame": [
+            0.568197,
+            0.803944,
+            0.803138,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.751768,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T23:08:25Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/shoe/gtsignstudy4a.8032-shoe-2023_01_28_23_29_26.515-0.mp4",
+              "video_frame_index": 59,
+              "frame_indices_reviewed": [
+                57,
+                58,
+                59
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the bottom source-frame boundary near clip end; the selected region contains partial right/second-hand and forearm context with lower hand geometry cut off, not complete 21-landmark hand geometry across the available reviewed frame window.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-892/test-10866-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked. Packet requested frames 57-61, but ffprobe reported 60 frames, so the reviewed source window is frames 57-59.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:11590",
+          "review_rank": 21,
+          "candidate_index": 11590,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 27065,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/yellow/gtsignstudy4a.8032-yellow-2023_01_29_12_28_50.343-0.mp4",
+          "video_frame_index": 11,
+          "hand_key": "right_or_second_hand",
+          "label_id": "yellow",
+          "clip_id": "gtsignstudy4a.8032-yellow-2023_01_29_12_28_50.343-0",
+          "teacher_box_full_frame": [
+            0.509519,
+            0.781238,
+            0.772779,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.751318,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "visual_source_review_frame_edge_oob",
+            "reviewer": "codex_executor_visual_review",
+            "reviewed_at": "2026-06-02T23:13:59Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/yellow/gtsignstudy4a.8032-yellow-2023_01_29_12_28_50.343-0.mp4",
+              "video_frame_index": 11,
+              "frame_indices_reviewed": [
+                9,
+                10,
+                11,
+                12,
+                13
+              ],
+              "local_review_scope": "repo_checkout"
+            },
+            "decision_basis": "Teacher box touches the bottom source-frame boundary across the reviewed window; the requested right/second hand is recognizable but lower finger/hand geometry is clipped, so it is not complete 21-landmark supervision.",
+            "visual_review_temp_contact_sheet": "/tmp/m3jb-review-893/test-11590-strip.jpg"
+          },
+          "reviewer_notes": "Explicit exclusion only; no replacement label created and cache rebuild remains blocked.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:8097",
+          "review_rank": 22,
+          "candidate_index": 8097,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 19877,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/brother/gtsignstudy4a.8037-brother-2023_01_28_19_11_11.234-0.mp4",
+          "video_frame_index": 0,
+          "hand_key": "right_or_second_hand",
+          "label_id": "brother",
+          "clip_id": "gtsignstudy4a.8037-brother-2023_01_28_19_11_11.234-0",
+          "teacher_box_full_frame": [
+            0.694448,
+            0.832677,
+            0.889166,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.749027,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/brother/gtsignstudy4a.8037-brother-2023_01_28_19_11_11.234-0.mp4",
+              "video_frame_index": 0,
+              "frame_indices_reviewed": [
+                0,
+                1,
+                2
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:9047",
+          "review_rank": 23,
+          "candidate_index": 9047,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 21829,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/give/gtsignstudy4a.8032-give-2023_01_28_23_31_06.409-0.mp4",
+          "video_frame_index": 53,
+          "hand_key": "left_or_first_hand",
+          "label_id": "give",
+          "clip_id": "gtsignstudy4a.8032-give-2023_01_28_23_31_06.409-0",
+          "teacher_box_full_frame": [
+            0.196832,
+            0.768259,
+            0.412063,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.746375,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/give/gtsignstudy4a.8032-give-2023_01_28_23_31_06.409-0.mp4",
+              "video_frame_index": 53,
+              "frame_indices_reviewed": [
+                51,
+                52,
+                53,
+                54,
+                55
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:11626",
+          "review_rank": 24,
+          "candidate_index": 11626,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 27118,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/yes/gtsignstudy4a.8032-yes-2023_01_29_12_59_55.663-0.mp4",
+          "video_frame_index": 0,
+          "hand_key": "left_or_first_hand",
+          "label_id": "yes",
+          "clip_id": "gtsignstudy4a.8032-yes-2023_01_29_12_59_55.663-0",
+          "teacher_box_full_frame": [
+            0.243785,
+            0.81938,
+            0.439384,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.74581,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/yes/gtsignstudy4a.8032-yes-2023_01_29_12_59_55.663-0.mp4",
+              "video_frame_index": 0,
+              "frame_indices_reviewed": [
+                0,
+                1,
+                2
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:10552",
+          "review_rank": 25,
+          "candidate_index": 10552,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 24927,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/please/gtsignstudy4a.8032-please-2023_01_29_18_08_00.631-0.mp4",
+          "video_frame_index": 61,
+          "hand_key": "left_or_first_hand",
+          "label_id": "please",
+          "clip_id": "gtsignstudy4a.8032-please-2023_01_29_18_08_00.631-0",
+          "teacher_box_full_frame": [
+            0.141053,
+            0.780755,
+            0.386986,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.739138,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/please/gtsignstudy4a.8032-please-2023_01_29_18_08_00.631-0.mp4",
+              "video_frame_index": 61,
+              "frame_indices_reviewed": [
+                59,
+                60,
+                61,
+                62,
+                63
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:7816",
+          "review_rank": 26,
+          "candidate_index": 7816,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 19315,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/before/gtsignstudy4a.8037-before-2023_01_28_18_47_15.505-0.mp4",
+          "video_frame_index": 15,
+          "hand_key": "right_or_second_hand",
+          "label_id": "before",
+          "clip_id": "gtsignstudy4a.8037-before-2023_01_28_18_47_15.505-0",
+          "teacher_box_full_frame": [
+            0.65394,
+            0.897317,
+            0.87377,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.737808,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/before/gtsignstudy4a.8037-before-2023_01_28_18_47_15.505-0.mp4",
+              "video_frame_index": 15,
+              "frame_indices_reviewed": [
+                13,
+                14,
+                15,
+                16,
+                17
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:11192",
+          "review_rank": 27,
+          "candidate_index": 11192,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 26278,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/time/gtsignstudy4a.8035-time-2023_01_26_16_55_27.356-0.mp4",
+          "video_frame_index": 0,
+          "hand_key": "left_or_first_hand",
+          "label_id": "time",
+          "clip_id": "gtsignstudy4a.8035-time-2023_01_26_16_55_27.356-0",
+          "teacher_box_full_frame": [
+            0.173364,
+            0.928352,
+            0.391867,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.731238,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/time/gtsignstudy4a.8035-time-2023_01_26_16_55_27.356-0.mp4",
+              "video_frame_index": 0,
+              "frame_indices_reviewed": [
+                0,
+                1,
+                2
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:10407",
+          "review_rank": 28,
+          "candidate_index": 10407,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 24646,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/pen/gtsignstudy4a.8032-pen-2023_01_29_12_56_51.430-0.mp4",
+          "video_frame_index": 0,
+          "hand_key": "left_or_first_hand",
+          "label_id": "pen",
+          "clip_id": "gtsignstudy4a.8032-pen-2023_01_29_12_56_51.430-0",
+          "teacher_box_full_frame": [
+            0.199315,
+            0.815441,
+            0.376245,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.728996,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/pen/gtsignstudy4a.8032-pen-2023_01_29_12_56_51.430-0.mp4",
+              "video_frame_index": 0,
+              "frame_indices_reviewed": [
+                0,
+                1,
+                2
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:8592",
+          "review_rank": 29,
+          "candidate_index": 8592,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 20833,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/child/gtsignstudy4a.8037-child-2023_01_28_15_10_49.932-0.mp4",
+          "video_frame_index": 32,
+          "hand_key": "right_or_second_hand",
+          "label_id": "child",
+          "clip_id": "gtsignstudy4a.8037-child-2023_01_28_15_10_49.932-0",
+          "teacher_box_full_frame": [
+            0.451076,
+            0.897295,
+            0.734816,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.710103,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/child/gtsignstudy4a.8037-child-2023_01_28_15_10_49.932-0.mp4",
+              "video_frame_index": 32,
+              "frame_indices_reviewed": [
+                30,
+                31,
+                32,
+                33,
+                34
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:8903",
+          "review_rank": 30,
+          "candidate_index": 8903,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 21510,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/fish/gtsignstudy4a.8037-fish-2023_01_28_13_53_48.192-0.mp4",
+          "video_frame_index": 43,
+          "hand_key": "right_or_second_hand",
+          "label_id": "fish",
+          "clip_id": "gtsignstudy4a.8037-fish-2023_01_28_13_53_48.192-0",
+          "teacher_box_full_frame": [
+            0.519024,
+            0.865341,
+            0.782887,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.689357,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/fish/gtsignstudy4a.8037-fish-2023_01_28_13_53_48.192-0.mp4",
+              "video_frame_index": 43,
+              "frame_indices_reviewed": [
+                41,
+                42,
+                43,
+                44,
+                45
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:10492",
+          "review_rank": 31,
+          "candidate_index": 10492,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 24813,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/person/gtsignstudy4a.8032-person-2023_01_29_18_05_53.985-0.mp4",
+          "video_frame_index": 58,
+          "hand_key": "left_or_first_hand",
+          "label_id": "person",
+          "clip_id": "gtsignstudy4a.8032-person-2023_01_29_18_05_53.985-0",
+          "teacher_box_full_frame": [
+            0,
+            0.26425,
+            0.103215,
+            0.4983
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.688407,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/person/gtsignstudy4a.8032-person-2023_01_29_18_05_53.985-0.mp4",
+              "video_frame_index": 58,
+              "frame_indices_reviewed": [
+                56,
+                57,
+                58,
+                59,
+                60
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the left source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        },
+        {
+          "split": "test",
+          "review_key": "test:8518",
+          "review_rank": 32,
+          "candidate_index": 8518,
+          "source_cache": "tools/detector0-annotator/.cache/handcrop-lm2",
+          "source_row_index": 20666,
+          "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/cereal/gtsignstudy4a.8037-cereal-2023_01_29_12_39_45.012-0.mp4",
+          "video_frame_index": 29,
+          "hand_key": "right_or_second_hand",
+          "label_id": "cereal",
+          "clip_id": "gtsignstudy4a.8037-cereal-2023_01_29_12_39_45.012-0",
+          "teacher_box_full_frame": [
+            0.547111,
+            0.897836,
+            0.737273,
+            1
+          ],
+          "edge_contact_count": 1,
+          "review_priority_score": 58.68484,
+          "review_status": "explicit_exclude_frame_edge_oob",
+          "reviewer_decision_allowed_values": [
+            "cache_safe_replacement_label",
+            "explicit_exclude_frame_edge_oob",
+            "needs_additional_source_context"
+          ],
+          "cache_safe_replacement": null,
+          "explicit_exclusion": {
+            "exclusion_reason": "batch_frame_edge_oob_policy_exclusion",
+            "reviewer": "codex_executor_batch_geometric_review",
+            "reviewed_at": "2026-06-02T23:18:30Z",
+            "source_frame_reference": {
+              "raw_video": "data/external/popsign-v1/raw/popsign_v1_0/game/test/cereal/gtsignstudy4a.8037-cereal-2023_01_29_12_39_45.012-0.mp4",
+              "video_frame_index": 29,
+              "frame_indices_reviewed": [
+                27,
+                28,
+                29,
+                30,
+                31
+              ],
+              "local_review_scope": "metadata_batch_review"
+            },
+            "decision_basis": "Anti-grind batch finish: this row remains in the selected clearer-source frame-edge/OOB subset and its teacher box contacts the bottom source-frame boundary (edge_contact_count=1). No cache-safe replacement was created; conservatively exclude from landmark cache rebuild until a broader crop-label/retrain lever is measured."
+          },
+          "reviewer_notes": "Batch explicit exclusion under the 2026-06-02 anti-grind redirect; no replacement label created and cache rebuild remains blocked pending a rebuild/retrain/PCK-measure slice.",
+          "cache_rebuild_allowed": false
+        }
+      ]
+    }
+  },
+  "decision": "The clearer-source review subset is batch-finished fail-closed: all 64 selected rows are explicit frame-edge/OOB exclusions, with 0 pending rows, 0 cache-safe replacements, and 0 cache rebuild authorizations. Further row deletion is not useful without crop-cache rebuild, landmark retrain, and held-out PCK re-measurement.",
+  "next_action": "rebuild_crop_cache_then_retrain_landmark_student_and_remeasure_pck_after_batch_review"
+}

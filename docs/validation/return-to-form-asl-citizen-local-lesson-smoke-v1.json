@@ -1,0 +1,147 @@
+{
+  "schema_version": "asl-pilot-asl-citizen-local-lesson-smoke/v1",
+  "status": "blocked_missing_frame_tensors",
+  "mission": "Mission 3AK ASL Citizen local lesson smoke",
+  "checked_at": "2026-05-27T05:20:40Z",
+  "goal": "Run one strictly local no-spend one-epoch ASL Citizen lesson-milestone training smoke before any Brev spend or longer training proposal.",
+  "source_scope": {
+    "source_id": "asl-citizen-school-assignment-raw-videos",
+    "dataset_source_mode": "approved_external_raw_video_source",
+    "label_count": 25,
+    "selected_clip_count": 494,
+    "raw_media_redistribution": "not_performed"
+  },
+  "inputs": {
+    "train_manifest": {
+      "path": "data/manifests/lesson/rawframe-milestone/train.json",
+      "sha256": "aa9f41ecc0dbc0c2e28cebe55551086f1b09d0690afb369dc2887cb6e4d0060a",
+      "clip_count": 300,
+      "participant_count": 29,
+      "min_clips_per_label": 12
+    },
+    "validation_manifest": {
+      "path": "data/manifests/lesson/rawframe-milestone/validation.json",
+      "sha256": "9b95b23e3e6007bccff4fd15537445054844450abdf98489f661a424c867438f",
+      "clip_count": 94,
+      "participant_count": 5,
+      "min_clips_per_label": 3
+    },
+    "test_manifest": {
+      "path": "data/manifests/lesson/rawframe-milestone/test.json",
+      "sha256": "eb22b2d6787a1c8c0b75b7b99e75e52510d188f161c54d45620b8f865047567b",
+      "clip_count": 100,
+      "participant_count": 7,
+      "min_clips_per_label": 4
+    },
+    "lesson_manifest_receipt": {
+      "path": "docs/validation/return-to-form-asl-citizen-lesson-milestone-manifests-v1.json"
+    },
+    "vocabulary_review_evidence": {
+      "path": "docs/validation/asl-citizen-selected-vocabulary-review-evidence.json",
+      "sha256": "7a7f892906a1fa23c36d3418c513fd21527426251cd98ca3089fe4941742902f"
+    },
+    "local_ml_environment": {
+      "path": "docs/validation/local-ml-environment.json",
+      "sha256": "1760c0cc50f652102094e98fe3b4e6aa2a41774118f5626b29b866afc6e05b90",
+      "status": "passed_after_refresh",
+      "python": "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "torch_version": "2.12.0",
+      "mps_available": true
+    }
+  },
+  "requested_training_shape": {
+    "model_id": "asl-pilot-asl-citizen-lesson-local-smoke-v1",
+    "architecture": "motion_2d_temporal_cnn",
+    "evidence_mode": "lesson_milestone",
+    "epochs": 1,
+    "batch_size": 4,
+    "frame_count": 12,
+    "image_size": 96,
+    "learning_rate": 0.001,
+    "pretrained_components": []
+  },
+  "commands": [
+    {
+      "purpose": "Required prompt command with ambient python3.",
+      "command": "python3 scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/rawframe-milestone/train.json --validation-manifest data/manifests/lesson/rawframe-milestone/validation.json --test-manifest data/manifests/lesson/rawframe-milestone/test.json --output-dir artifacts/rawframe-lesson-milestone --model-id asl-pilot-asl-citizen-lesson-local-smoke-v1 --architecture motion_2d_temporal_cnn --lesson-milestone --check-files --epochs 1 --batch-size 4 --frame-count 12 --image-size 96 --learning-rate 0.001",
+      "exit_code": 2,
+      "log_path": "/tmp/asl-pilot-m3ak-local-lesson-smoke.log",
+      "log_sha256": "81511e3f5bbfe94ec5c639ca5d8a3ada7958d6e1441b2d9d236cd61b210f58e5",
+      "result": "blocked_before_training_environment",
+      "stderr_summary": "Ambient python3 lacked required torch, onnx, and onnxscript packages and could not satisfy the retained local ML/GPU environment receipt."
+    },
+    {
+      "purpose": "Refresh stale retained local ML/GPU receipt using the repo-local verified interpreter.",
+      "command": "./.venv/bin/python scripts/audit_local_ml_environment.py --write-report",
+      "exit_code": 0,
+      "result": "passed",
+      "written_report": "docs/validation/local-ml-environment.json",
+      "written_report_sha256": "1760c0cc50f652102094e98fe3b4e6aa2a41774118f5626b29b866afc6e05b90"
+    },
+    {
+      "purpose": "Same training script arguments through the interpreter required by the current local ML/GPU receipt.",
+      "command": "./.venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/rawframe-milestone/train.json --validation-manifest data/manifests/lesson/rawframe-milestone/validation.json --test-manifest data/manifests/lesson/rawframe-milestone/test.json --output-dir artifacts/rawframe-lesson-milestone --model-id asl-pilot-asl-citizen-lesson-local-smoke-v1 --architecture motion_2d_temporal_cnn --lesson-milestone --check-files --epochs 1 --batch-size 4 --frame-count 12 --image-size 96 --learning-rate 0.001",
+      "exit_code": 3,
+      "log_path": "/tmp/asl-pilot-m3ak-local-lesson-smoke-venv.log",
+      "log_sha256": "2c813fd593a4d2ef78dfabb1ac1f7e4727538842b8982fb95dd365763bdf4b71",
+      "result": "blocked_before_epoch",
+      "stderr_summary": "data/manifests/lesson/rawframe-milestone/train.json: clips[0] is missing relative_frame_tensor_path; training requires pre-decoded raw RGB frame tensors. Run --dry-run to validate manifests only."
+    }
+  ],
+  "training_result": {
+    "training_status": "not_started",
+    "epoch_count_completed": 0,
+    "metrics": null,
+    "training_device": null,
+    "device_note": "The refreshed local environment receipt reports PyTorch 2.12.0 with MPS available, but training did not reach device execution because manifest tensor references were missing.",
+    "blocker": {
+      "type": "data_tensor_manifest_blocker",
+      "message": "The strict ASL Citizen lesson manifests reference approved raw videos but do not yet include relative_frame_tensor_path, frame_tensor_sha256, or replayable decode provenance fields required by scripts/train_rawframe_model.py.",
+      "first_observed_clip": {
+        "manifest": "data/manifests/lesson/rawframe-milestone/train.json",
+        "index": 0,
+        "label_id": "brother",
+        "relative_video_path": "../../../external/asl-citizen/raw/selected/brother/train/22666524686508982-BROTHER.mp4",
+        "relative_frame_tensor_path": null
+      }
+    }
+  },
+  "outputs": {
+    "output_dir": "artifacts/rawframe-lesson-milestone",
+    "training_provenance": {
+      "path": "artifacts/rawframe-lesson-milestone/training-provenance.json",
+      "exists": false
+    },
+    "model_state": {
+      "path": "artifacts/rawframe-lesson-milestone/model_state.pt",
+      "exists": false,
+      "committed": false
+    },
+    "onnx_model": {
+      "exists": false
+    },
+    "model_card_edit": false,
+    "threshold_selection": false,
+    "browser_promotion": false
+  },
+  "boundaries": {
+    "brev_command_run": false,
+    "brev_compute_used": false,
+    "source_imported": false,
+    "source_approval_changed": false,
+    "generated_pseudo_labels": false,
+    "pretrained_detector_landmark_backbone_used": false,
+    "onnx_exported": false,
+    "model_card_promoted": false,
+    "threshold_promoted": false,
+    "final_readiness_claim_made": false,
+    "broad_75_95_label_run": false,
+    "pushed": false
+  },
+  "interpretation": {
+    "smoke_completed": false,
+    "promotion_justified": false,
+    "failure_class": "local_data_tensor_preparation_missing",
+    "smallest_bounded_next_action": "Prepare a strictly local no-spend tensor materialization receipt for the approved ASL Citizen lesson manifests before retrying the one-epoch training smoke."
+  }
+}

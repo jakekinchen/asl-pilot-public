@@ -1,0 +1,1728 @@
+{
+  "schema_version": "asl-pilot-hybrid-cnn-template-verifier-diagnostic/v1",
+  "status": "diagnostic_failed",
+  "finality": "diagnostic_not_final_model_evidence",
+  "created_at": "2026-05-21T18:54:26.648Z",
+  "generated_by": {
+    "script": {
+      "path": "scripts/analyze_hybrid_cnn_template_verifier.mjs",
+      "sha256": "deaf78ad55f2727e4ca554589c4b11ab4d56c6c677d088d2ce99027e17c5a054"
+    },
+    "command": [
+      "/Users/kelly/Developer/asl-pilot/scripts/analyze_hybrid_cnn_template_verifier.mjs",
+      "--output",
+      "docs/validation/hybrid-cnn-template-verifier-diagnostic.json",
+      "--write"
+    ]
+  },
+  "inputs": {
+    "cnn_sidecar": {
+      "path": "artifacts/rawframe-model/controlled-pilot-prediction-sidecar.json",
+      "sha256": "48290bc18664c60ace2fb9ef42ff6f009432953327c316156fee0e719f35a649"
+    },
+    "template_sidecar": {
+      "path": "artifacts/rawframe-model-diagnostics/template-verifier-controlled-95-f16-k3-relaxed-20260521T190000Z/prediction-sidecar.json",
+      "sha256": "98b5e44ece3aa475e67aa0acdddd6f041a1bc1a915c0c2bd6d6d14b3e66729bc"
+    }
+  },
+  "method": {
+    "name": "cnn_top_label_confidence_and_template_prompt_score_gate",
+    "threshold_selection_split": "validation",
+    "min_accepted_precision": 0.9,
+    "max_validation_false_pass_rate": 0.1,
+    "pass_rule": "For prompted label L, pass only when CNN top prediction is L, CNN confidence >= per-label CNN threshold, and template score[L] >= per-label template threshold."
+  },
+  "labels": [
+    "hello",
+    "bye",
+    "thank_you",
+    "please",
+    "yes",
+    "no",
+    "like",
+    "not",
+    "have",
+    "can",
+    "go",
+    "book",
+    "pen",
+    "pencil",
+    "read",
+    "table",
+    "chair",
+    "room",
+    "home",
+    "bed",
+    "who",
+    "where",
+    "why",
+    "morning",
+    "night",
+    "tomorrow",
+    "yesterday",
+    "now",
+    "time",
+    "after",
+    "before",
+    "later",
+    "mom",
+    "dad",
+    "brother",
+    "aunt",
+    "uncle",
+    "grandma",
+    "grandpa",
+    "boy",
+    "girl",
+    "child",
+    "man",
+    "person",
+    "happy",
+    "sad",
+    "sick",
+    "fine",
+    "mad",
+    "bad",
+    "hot",
+    "hungry",
+    "thirsty",
+    "food",
+    "drink",
+    "water",
+    "milk",
+    "apple",
+    "carrot",
+    "cereal",
+    "red",
+    "blue",
+    "green",
+    "yellow",
+    "black",
+    "white",
+    "orange",
+    "brown",
+    "animal",
+    "cat",
+    "dog",
+    "bird",
+    "fish",
+    "frog",
+    "horse",
+    "car",
+    "airplane",
+    "tv",
+    "call_on_phone",
+    "hat",
+    "shoe",
+    "all",
+    "another",
+    "any",
+    "every",
+    "make",
+    "find",
+    "give",
+    "see",
+    "look",
+    "listen",
+    "talk",
+    "say",
+    "think",
+    "open"
+  ],
+  "thresholds": {
+    "hello": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "bye": {
+      "cnn_threshold": 0.02385454997420311,
+      "template_threshold": 1.000001
+    },
+    "thank_you": {
+      "cnn_threshold": 0.07054820656776428,
+      "template_threshold": 0.12861649692058563
+    },
+    "please": {
+      "cnn_threshold": 0.19648419320583344,
+      "template_threshold": 0.1018994078040123
+    },
+    "yes": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "no": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "like": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "not": {
+      "cnn_threshold": 0.03527815639972687,
+      "template_threshold": 1.000001
+    },
+    "have": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "can": {
+      "cnn_threshold": 0.03477710112929344,
+      "template_threshold": 0.170796200633049
+    },
+    "go": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "book": {
+      "cnn_threshold": 0.06940420717000961,
+      "template_threshold": 0.043415311723947525
+    },
+    "pen": {
+      "cnn_threshold": 0.047790031880140305,
+      "template_threshold": 1.000001
+    },
+    "pencil": {
+      "cnn_threshold": 0.05367090553045273,
+      "template_threshold": 0.06531543284654617
+    },
+    "read": {
+      "cnn_threshold": 0.04249703884124756,
+      "template_threshold": 0.17361684143543243
+    },
+    "table": {
+      "cnn_threshold": 0.1340976506471634,
+      "template_threshold": 0.2073591947555542
+    },
+    "chair": {
+      "cnn_threshold": 0.029667038470506668,
+      "template_threshold": 0.20879244804382324
+    },
+    "room": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "home": {
+      "cnn_threshold": 0.04976346716284752,
+      "template_threshold": 0.1398448348045349
+    },
+    "bed": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "who": {
+      "cnn_threshold": 0.07049456238746643,
+      "template_threshold": 0.0838717445731163
+    },
+    "where": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "why": {
+      "cnn_threshold": 0.08152362704277039,
+      "template_threshold": 0.04782957211136818
+    },
+    "morning": {
+      "cnn_threshold": 0.08373487740755081,
+      "template_threshold": 0.1518203169107437
+    },
+    "night": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "tomorrow": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "yesterday": {
+      "cnn_threshold": 0.04513648524880409,
+      "template_threshold": 0.1030690148472786
+    },
+    "now": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "time": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "after": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "before": {
+      "cnn_threshold": 0.04722447693347931,
+      "template_threshold": 0.06092166528105736
+    },
+    "later": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "mom": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "dad": {
+      "cnn_threshold": 0.14840839803218842,
+      "template_threshold": 0.05713869631290436
+    },
+    "brother": {
+      "cnn_threshold": 0.03012208454310894,
+      "template_threshold": 0.26725223660469055
+    },
+    "aunt": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "uncle": {
+      "cnn_threshold": 0.04431438446044922,
+      "template_threshold": 1.000001
+    },
+    "grandma": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "grandpa": {
+      "cnn_threshold": 0.04211064800620079,
+      "template_threshold": 0.19911645352840424
+    },
+    "boy": {
+      "cnn_threshold": 0.09474106132984161,
+      "template_threshold": 0.18244248628616333
+    },
+    "girl": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "child": {
+      "cnn_threshold": 0.03183639422059059,
+      "template_threshold": 0.186118483543396
+    },
+    "man": {
+      "cnn_threshold": 0.1624976545572281,
+      "template_threshold": 0.10921400785446167
+    },
+    "person": {
+      "cnn_threshold": 0.08386453986167908,
+      "template_threshold": 0.16548393666744232
+    },
+    "happy": {
+      "cnn_threshold": 0.05214835703372955,
+      "template_threshold": 1.000001
+    },
+    "sad": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "sick": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "fine": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "mad": {
+      "cnn_threshold": 0.06158032640814781,
+      "template_threshold": 0.07244192063808441
+    },
+    "bad": {
+      "cnn_threshold": 0.06791092455387115,
+      "template_threshold": 0.12096354365348816
+    },
+    "hot": {
+      "cnn_threshold": 0.028409047052264214,
+      "template_threshold": 1.000001
+    },
+    "hungry": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "thirsty": {
+      "cnn_threshold": 0.1423136442899704,
+      "template_threshold": 0.025936735793948174
+    },
+    "food": {
+      "cnn_threshold": 0.04410712793469429,
+      "template_threshold": 1.000001
+    },
+    "drink": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "water": {
+      "cnn_threshold": 0.08411508053541183,
+      "template_threshold": 0.07327532768249512
+    },
+    "milk": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "apple": {
+      "cnn_threshold": 0.08411461114883423,
+      "template_threshold": 0.07786408066749573
+    },
+    "carrot": {
+      "cnn_threshold": 0.041446465998888016,
+      "template_threshold": 0.05857517197728157
+    },
+    "cereal": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "red": {
+      "cnn_threshold": 0.07686950266361237,
+      "template_threshold": 0.24098092317581177
+    },
+    "blue": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "green": {
+      "cnn_threshold": 0.0414121113717556,
+      "template_threshold": 0.10060307383537292
+    },
+    "yellow": {
+      "cnn_threshold": 0.04193645343184471,
+      "template_threshold": 0.08111846446990967
+    },
+    "black": {
+      "cnn_threshold": 0.05352766811847687,
+      "template_threshold": 0.09555373340845108
+    },
+    "white": {
+      "cnn_threshold": 0.13538828492164612,
+      "template_threshold": 0.020696565508842468
+    },
+    "orange": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "brown": {
+      "cnn_threshold": 0.04000398889183998,
+      "template_threshold": 1.000001
+    },
+    "animal": {
+      "cnn_threshold": 0.029786687344312668,
+      "template_threshold": 1.000001
+    },
+    "cat": {
+      "cnn_threshold": 0.04754111170768738,
+      "template_threshold": 0.1443295031785965
+    },
+    "dog": {
+      "cnn_threshold": 0.036115892231464386,
+      "template_threshold": 0.24275588989257812
+    },
+    "bird": {
+      "cnn_threshold": 0.0966656357049942,
+      "template_threshold": 0.11076434701681137
+    },
+    "fish": {
+      "cnn_threshold": 0.04624808207154274,
+      "template_threshold": 0.15198028087615967
+    },
+    "frog": {
+      "cnn_threshold": 0.0815122202038765,
+      "template_threshold": 0.21611440181732178
+    },
+    "horse": {
+      "cnn_threshold": 0.05735592544078827,
+      "template_threshold": 0.1992151290178299
+    },
+    "car": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "airplane": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "tv": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "call_on_phone": {
+      "cnn_threshold": 0.038524407893419266,
+      "template_threshold": 0.17859524488449097
+    },
+    "hat": {
+      "cnn_threshold": 0.0906372219324112,
+      "template_threshold": 0.08831017464399338
+    },
+    "shoe": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "all": {
+      "cnn_threshold": 0.08049619197845459,
+      "template_threshold": 0.13132329285144806
+    },
+    "another": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "any": {
+      "cnn_threshold": 0.047104425728321075,
+      "template_threshold": 0.16065721213817596
+    },
+    "every": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "make": {
+      "cnn_threshold": 0.05627329647541046,
+      "template_threshold": 0.1865168809890747
+    },
+    "find": {
+      "cnn_threshold": 0.02590354159474373,
+      "template_threshold": 0.1393466740846634
+    },
+    "give": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "see": {
+      "cnn_threshold": 0.026224948465824127,
+      "template_threshold": 0.2270447462797165
+    },
+    "look": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "listen": {
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001
+    },
+    "talk": {
+      "cnn_threshold": 0.03851541504263878,
+      "template_threshold": 0.19555294513702393
+    },
+    "say": {
+      "cnn_threshold": 0.12484822422266006,
+      "template_threshold": 0.13514770567417145
+    },
+    "think": {
+      "cnn_threshold": 0.05722735822200775,
+      "template_threshold": 1.000001
+    },
+    "open": {
+      "cnn_threshold": 0.03648974746465683,
+      "template_threshold": 0.19700987637043
+    }
+  },
+  "threshold_diagnostics": {
+    "hello": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "bye": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 8,
+      "cnn_threshold": 0.02385454997420311,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "thank_you": {
+      "positive_candidate_count": 2,
+      "negative_candidate_count": 64,
+      "cnn_threshold": 0.07054820656776428,
+      "template_threshold": 0.12861649692058563,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "please": {
+      "positive_candidate_count": 17,
+      "negative_candidate_count": 220,
+      "cnn_threshold": 0.19648419320583344,
+      "template_threshold": 0.1018994078040123,
+      "true_accept_count": 2,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0.11764705882352941,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "yes": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "no": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "like": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "not": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 1,
+      "cnn_threshold": 0.03527815639972687,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "have": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "can": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 8,
+      "cnn_threshold": 0.03477710112929344,
+      "template_threshold": 0.170796200633049,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "go": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "book": {
+      "positive_candidate_count": 1,
+      "negative_candidate_count": 24,
+      "cnn_threshold": 0.06940420717000961,
+      "template_threshold": 0.043415311723947525,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "pen": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 1,
+      "cnn_threshold": 0.047790031880140305,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "pencil": {
+      "positive_candidate_count": 2,
+      "negative_candidate_count": 57,
+      "cnn_threshold": 0.05367090553045273,
+      "template_threshold": 0.06531543284654617,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "read": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 2,
+      "cnn_threshold": 0.04249703884124756,
+      "template_threshold": 0.17361684143543243,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "table": {
+      "positive_candidate_count": 6,
+      "negative_candidate_count": 118,
+      "cnn_threshold": 0.1340976506471634,
+      "template_threshold": 0.2073591947555542,
+      "true_accept_count": 1,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0.16666666666666666,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "chair": {
+      "positive_candidate_count": 2,
+      "negative_candidate_count": 53,
+      "cnn_threshold": 0.029667038470506668,
+      "template_threshold": 0.20879244804382324,
+      "true_accept_count": 1,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0.5,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "room": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "home": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 3,
+      "cnn_threshold": 0.04976346716284752,
+      "template_threshold": 0.1398448348045349,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "bed": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "who": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 20,
+      "cnn_threshold": 0.07049456238746643,
+      "template_threshold": 0.0838717445731163,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "where": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "why": {
+      "positive_candidate_count": 1,
+      "negative_candidate_count": 54,
+      "cnn_threshold": 0.08152362704277039,
+      "template_threshold": 0.04782957211136818,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "morning": {
+      "positive_candidate_count": 1,
+      "negative_candidate_count": 28,
+      "cnn_threshold": 0.08373487740755081,
+      "template_threshold": 0.1518203169107437,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "night": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "tomorrow": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "yesterday": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 17,
+      "cnn_threshold": 0.04513648524880409,
+      "template_threshold": 0.1030690148472786,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "now": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "time": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "after": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "before": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 16,
+      "cnn_threshold": 0.04722447693347931,
+      "template_threshold": 0.06092166528105736,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "later": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "mom": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "dad": {
+      "positive_candidate_count": 1,
+      "negative_candidate_count": 11,
+      "cnn_threshold": 0.14840839803218842,
+      "template_threshold": 0.05713869631290436,
+      "true_accept_count": 1,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 1,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "brother": {
+      "positive_candidate_count": 1,
+      "negative_candidate_count": 10,
+      "cnn_threshold": 0.03012208454310894,
+      "template_threshold": 0.26725223660469055,
+      "true_accept_count": 1,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 1,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "aunt": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "uncle": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 1,
+      "cnn_threshold": 0.04431438446044922,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "grandma": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "grandpa": {
+      "positive_candidate_count": 2,
+      "negative_candidate_count": 4,
+      "cnn_threshold": 0.04211064800620079,
+      "template_threshold": 0.19911645352840424,
+      "true_accept_count": 1,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0.5,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "boy": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 3,
+      "cnn_threshold": 0.09474106132984161,
+      "template_threshold": 0.18244248628616333,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "girl": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "child": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 10,
+      "cnn_threshold": 0.03183639422059059,
+      "template_threshold": 0.186118483543396,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "man": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 3,
+      "cnn_threshold": 0.1624976545572281,
+      "template_threshold": 0.10921400785446167,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "person": {
+      "positive_candidate_count": 3,
+      "negative_candidate_count": 110,
+      "cnn_threshold": 0.08386453986167908,
+      "template_threshold": 0.16548393666744232,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "happy": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 1,
+      "cnn_threshold": 0.05214835703372955,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "sad": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "sick": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "fine": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "mad": {
+      "positive_candidate_count": 5,
+      "negative_candidate_count": 21,
+      "cnn_threshold": 0.06158032640814781,
+      "template_threshold": 0.07244192063808441,
+      "true_accept_count": 1,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0.2,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "bad": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 11,
+      "cnn_threshold": 0.06791092455387115,
+      "template_threshold": 0.12096354365348816,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "hot": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 1,
+      "cnn_threshold": 0.028409047052264214,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "hungry": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "thirsty": {
+      "positive_candidate_count": 10,
+      "negative_candidate_count": 259,
+      "cnn_threshold": 0.1423136442899704,
+      "template_threshold": 0.025936735793948174,
+      "true_accept_count": 1,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0.1,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "food": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 3,
+      "cnn_threshold": 0.04410712793469429,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "drink": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "water": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 18,
+      "cnn_threshold": 0.08411508053541183,
+      "template_threshold": 0.07327532768249512,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "milk": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "apple": {
+      "positive_candidate_count": 2,
+      "negative_candidate_count": 132,
+      "cnn_threshold": 0.08411461114883423,
+      "template_threshold": 0.07786408066749573,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "carrot": {
+      "positive_candidate_count": 1,
+      "negative_candidate_count": 34,
+      "cnn_threshold": 0.041446465998888016,
+      "template_threshold": 0.05857517197728157,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "cereal": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "red": {
+      "positive_candidate_count": 3,
+      "negative_candidate_count": 169,
+      "cnn_threshold": 0.07686950266361237,
+      "template_threshold": 0.24098092317581177,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "blue": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "green": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 3,
+      "cnn_threshold": 0.0414121113717556,
+      "template_threshold": 0.10060307383537292,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "yellow": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 7,
+      "cnn_threshold": 0.04193645343184471,
+      "template_threshold": 0.08111846446990967,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "black": {
+      "positive_candidate_count": 1,
+      "negative_candidate_count": 1,
+      "cnn_threshold": 0.05352766811847687,
+      "template_threshold": 0.09555373340845108,
+      "true_accept_count": 1,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 1,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "white": {
+      "positive_candidate_count": 6,
+      "negative_candidate_count": 144,
+      "cnn_threshold": 0.13538828492164612,
+      "template_threshold": 0.020696565508842468,
+      "true_accept_count": 1,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0.16666666666666666,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "orange": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "brown": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 1,
+      "cnn_threshold": 0.04000398889183998,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "animal": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 1,
+      "cnn_threshold": 0.029786687344312668,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "cat": {
+      "positive_candidate_count": 1,
+      "negative_candidate_count": 28,
+      "cnn_threshold": 0.04754111170768738,
+      "template_threshold": 0.1443295031785965,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "dog": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 11,
+      "cnn_threshold": 0.036115892231464386,
+      "template_threshold": 0.24275588989257812,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "bird": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 62,
+      "cnn_threshold": 0.0966656357049942,
+      "template_threshold": 0.11076434701681137,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "fish": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 12,
+      "cnn_threshold": 0.04624808207154274,
+      "template_threshold": 0.15198028087615967,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "frog": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 17,
+      "cnn_threshold": 0.0815122202038765,
+      "template_threshold": 0.21611440181732178,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "horse": {
+      "positive_candidate_count": 2,
+      "negative_candidate_count": 23,
+      "cnn_threshold": 0.05735592544078827,
+      "template_threshold": 0.1992151290178299,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "car": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "airplane": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "tv": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "call_on_phone": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 2,
+      "cnn_threshold": 0.038524407893419266,
+      "template_threshold": 0.17859524488449097,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "hat": {
+      "positive_candidate_count": 1,
+      "negative_candidate_count": 37,
+      "cnn_threshold": 0.0906372219324112,
+      "template_threshold": 0.08831017464399338,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "shoe": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "all": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 6,
+      "cnn_threshold": 0.08049619197845459,
+      "template_threshold": 0.13132329285144806,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "another": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "any": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 3,
+      "cnn_threshold": 0.047104425728321075,
+      "template_threshold": 0.16065721213817596,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "every": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "make": {
+      "positive_candidate_count": 1,
+      "negative_candidate_count": 11,
+      "cnn_threshold": 0.05627329647541046,
+      "template_threshold": 0.1865168809890747,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "find": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 5,
+      "cnn_threshold": 0.02590354159474373,
+      "template_threshold": 0.1393466740846634,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "give": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "see": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 7,
+      "cnn_threshold": 0.026224948465824127,
+      "template_threshold": 0.2270447462797165,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "look": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "listen": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 0,
+      "cnn_threshold": 1.000001,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "talk": {
+      "positive_candidate_count": 1,
+      "negative_candidate_count": 32,
+      "cnn_threshold": 0.03851541504263878,
+      "template_threshold": 0.19555294513702393,
+      "true_accept_count": 1,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 1,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "say": {
+      "positive_candidate_count": 9,
+      "negative_candidate_count": 315,
+      "cnn_threshold": 0.12484822422266006,
+      "template_threshold": 0.13514770567417145,
+      "true_accept_count": 1,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0.1111111111111111,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "think": {
+      "positive_candidate_count": 0,
+      "negative_candidate_count": 1,
+      "cnn_threshold": 0.05722735822200775,
+      "template_threshold": 1.000001,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    },
+    "open": {
+      "positive_candidate_count": 2,
+      "negative_candidate_count": 67,
+      "cnn_threshold": 0.03648974746465683,
+      "template_threshold": 0.19700987637043,
+      "true_accept_count": 0,
+      "false_accept_count": 0,
+      "accepted_precision": 1,
+      "true_accept_rate": 0,
+      "false_pass_rate": 0,
+      "eligible": true
+    }
+  },
+  "validation": {
+    "classification": {
+      "examples": 2375,
+      "top1_accuracy": 0.03536842105263158,
+      "note": "Top-1 remains the CNN closed-set prediction; hybrid gating only affects prompt-conditioned pass/fail acceptance."
+    },
+    "prompt_acceptance": {
+      "examples": 2375,
+      "true_prompt_count": 2375,
+      "true_accept_count": 13,
+      "true_accept_rate": 0.0054736842105263155,
+      "wrong_prompt_count": 223250,
+      "wrong_prompt_false_accept_count": 0,
+      "wrong_prompt_false_pass_rate": 0,
+      "accepted_precision": 1,
+      "accepted_label_count": 12
+    }
+  },
+  "test": {
+    "classification": {
+      "examples": 1805,
+      "top1_accuracy": 0.05263157894736842,
+      "note": "Top-1 remains the CNN closed-set prediction; hybrid gating only affects prompt-conditioned pass/fail acceptance."
+    },
+    "prompt_acceptance": {
+      "examples": 1805,
+      "true_prompt_count": 1805,
+      "true_accept_count": 4,
+      "true_accept_rate": 0.00221606648199446,
+      "wrong_prompt_count": 169670,
+      "wrong_prompt_false_accept_count": 39,
+      "wrong_prompt_false_pass_rate": 0.0002298579595685743,
+      "accepted_precision": 0.09302325581395349,
+      "accepted_label_count": 16
+    }
+  },
+  "negative_challenge": {
+    "examples": 20,
+    "false_pass_count": 2,
+    "false_pass_rate": 0.1,
+    "by_type": {
+      "empty_camera": {
+        "examples": 5,
+        "false_pass_count": 0,
+        "false_pass_rate": 0
+      },
+      "low_light": {
+        "examples": 5,
+        "false_pass_count": 2,
+        "false_pass_rate": 0.4
+      },
+      "no_hands_visible": {
+        "examples": 5,
+        "false_pass_count": 0,
+        "false_pass_rate": 0
+      },
+      "off_center": {
+        "examples": 5,
+        "false_pass_count": 0,
+        "false_pass_rate": 0
+      }
+    }
+  },
+  "pass_status": {
+    "accepted_precision": false,
+    "false_pass_rate": true,
+    "negative_challenge_false_pass_rate": false,
+    "true_accept_rate": false
+  },
+  "blockers": [
+    "Hybrid gating preserves rejection behavior but accepts too few true prompted attempts for a usable pilot."
+  ]
+}

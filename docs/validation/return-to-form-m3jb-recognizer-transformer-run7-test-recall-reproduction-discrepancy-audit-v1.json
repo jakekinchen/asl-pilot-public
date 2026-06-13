@@ -1,0 +1,163 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-run7-test-recall-reproduction-discrepancy-audit/v1",
+  "status": "completed_resolved_no_brev_no_training",
+  "slice": "m3jb_recognizer_transformer_run7_test_recall_reproduction_discrepancy_audit_no_brev",
+  "completed_at": "2026-06-04",
+  "inputs": {
+    "run7_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run7-ovr-bce-hardneg-brev-v1.json",
+    "run7_fulltrain_receipt_sha256": "2de0cf08a576fa48034df16fafcc123ab93913b9c04cd4d02b3baa7af02e34cc",
+    "run7_side_json_artifact": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run7-ovr-bce-hardneg-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-ovrbce003-brev-v1.json",
+    "run7_side_json_artifact_sha256": "96284551566c67c40ed05eedb0861fd5b3a9136259cdd60e094bfa28835123dd",
+    "run7_side_checkpoint": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run7-ovr-bce-hardneg-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-ovrbce003-brev-v1.pt",
+    "run7_side_checkpoint_sha256": "7efd0ed90870ddfcd6ad84cf04a59910dd67a19374b7833a34b18eaa710330d0",
+    "paired_calibration_summary_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run6-vs-run7-paired-calibration-audit-v1.json",
+    "paired_calibration_summary_receipt_sha256": "9a05bf7f7260694ee011cc6b37aa4799fa5b0f64a7a132ec1461d984f9346747",
+    "paired_calibration_detailed_receipt": "docs/validation/m3jb-recognizer-run6-vs-run7-paired-calibration-audit-v1.json",
+    "paired_calibration_detailed_receipt_sha256": "01b44dfa17f6d0539af459702ae9f39cdcf5737a2748ce1771904eca3e99e1b4",
+    "side_worktree_commit_with_recompute_diagnostic": "bfd1e783"
+  },
+  "provenance_checks": {
+    "run7_top_level_rounded_test_recall": 0.7759,
+    "run7_original_cuda_exact_test_recall": 0.7759113573407201,
+    "run7_original_cuda_monitor_selected_checkpoint_recall": 0.8275977981037635,
+    "run7_checkpoint_selection_metric": "monitor_verification_recall_far10",
+    "run7_checkpoint_selection_best_epoch": 24,
+    "run7_checkpoint_selection_best_score": 0.8275977981037635,
+    "run7_saved_checkpoint_hash_matches_fulltrain_receipt": true,
+    "run7_json_hash_matches_fulltrain_receipt": true,
+    "run7_terminal_log_line_was_rounded_to_3_decimals": "=== VERIFICATION recall@FAR10 (test, runtime landmarks): 0.776 ==="
+  },
+  "local_recompute": {
+    "device": "cpu",
+    "diagnostic": "paired_verification_calibration_audit",
+    "run7_seed": 1337,
+    "heldout_test_split_checked_same_for_all_run_seeds": true,
+    "computed_test_verification_recall_at_far10": 0.7750692520775622,
+    "diff_from_prompt_rounded_target_0_7759": 0.0008307479224378689,
+    "diff_from_original_cuda_exact": 0.0008421052631579,
+    "monitor_selected_checkpoint_recomputed": 0.8275977981037635,
+    "monitor_selected_checkpoint_diff_from_original_cuda": 0.0
+  },
+  "class_level_delta": {
+    "classes_compared": 95,
+    "classes_with_different_recall": 2,
+    "classes_with_equal_recall": 93,
+    "sum_recall_delta_local_minus_cuda": -0.08,
+    "mean_recall_delta_local_minus_cuda": -0.0008421052631579,
+    "two_single_positive_flips_explain_full_mean_delta": true,
+    "differing_classes": [
+      {
+        "class_index": 63,
+        "label": "not",
+        "positive_count": 25,
+        "negative_count": 2344,
+        "cuda_recall_at_far10": 0.64,
+        "local_recall_at_far10": 0.6,
+        "recall_delta_local_minus_cuda": -0.04,
+        "cuda_far10_threshold": 0.0011695291846990587,
+        "local_far10_threshold": 0.0011781279114075015,
+        "threshold_delta_local_minus_cuda": 0.0000085987267084428,
+        "cuda_positive_below_threshold": 9,
+        "local_positive_below_threshold": 10,
+        "cuda_negative_at_or_above_threshold": 235,
+        "local_negative_at_or_above_threshold": 235
+      },
+      {
+        "class_index": 76,
+        "label": "see",
+        "positive_count": 25,
+        "negative_count": 2344,
+        "cuda_recall_at_far10": 0.96,
+        "local_recall_at_far10": 0.92,
+        "recall_delta_local_minus_cuda": -0.04,
+        "cuda_far10_threshold": 0.0001804139363230211,
+        "local_far10_threshold": 0.00018169175309594725,
+        "threshold_delta_local_minus_cuda": 0.00000127781677292615,
+        "cuda_positive_below_threshold": 1,
+        "local_positive_below_threshold": 2,
+        "cuda_negative_at_or_above_threshold": 235,
+        "local_negative_at_or_above_threshold": 235
+      }
+    ]
+  },
+  "resolution": {
+    "determination": "resolved_as_device_numeric_boundary_sensitivity",
+    "split_error": false,
+    "checkpoint_copyback_error": false,
+    "receipt_rounding_only_error": false,
+    "evaluator_formula_error": false,
+    "original_cuda_receipt_authoritative_for_run7_test_recall": true,
+    "authoritative_run7_test_recall_at_far10": 0.7759113573407201,
+    "authoritative_run7_test_recall_at_far10_rounded": 0.7759,
+    "paired_calibration_damage_conclusion_still_supported": true,
+    "paired_calibration_damage_summary": {
+      "run7_minus_run6_monitor_delta": 0.010671265743794844,
+      "run7_minus_run6_same_heldout_test_delta_using_local_recompute": -0.028786703601108243,
+      "test_classes_regressed_gt_0_05": 33,
+      "regressed_classes_with_positive_p25_or_p50_margin_damage": 32
+    },
+    "rationale": "The exact original CUDA JSON records 0.7759113573407201. Local CPU replay from the copied checkpoint differs only in classes 'not' and 'see', where a slightly higher local FAR10 threshold moves one positive below threshold in each class; all counts and the monitor selected-checkpoint score match."
+  },
+  "decision": {
+    "discrepancy_resolved": true,
+    "paid_run8_launched": false,
+    "paid_run8_authorized_by_this_slice": false,
+    "final_gate_changed": false,
+    "prompt_target_changed": false,
+    "reason": "This slice resolves the run7 reproduction discrepancy as a local CPU-vs-original CUDA threshold-boundary effect, but it does not launch paid compute or change final gates."
+  },
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_run8_ovr_bce_w001_preflight_no_brev",
+    "reason": "Before any paid run8 launch, record and validate a no-Brev preflight for the run8 OVR-BCE weight 0.01 recipe now that the discrepancy is resolved and calibration damage remains confirmed.",
+    "boundaries": {
+      "brev_spend": false,
+      "brev_lifecycle_or_exec": false,
+      "training_run": false,
+      "optimizer_or_backward_step": false,
+      "checkpoint_written": false,
+      "runtime_export": false,
+      "browser_promotion": false,
+      "raw_learner_video_upload": false,
+      "pretrained_runtime_dependency_added": false,
+      "final_gate_changed": false,
+      "prompt_target_changed": false
+    }
+  },
+  "commands": [
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "cwd": "/Users/kelly/Developer/asl-pilot",
+      "status": "passed"
+    },
+    {
+      "command": "timeout 60 brev ls --json",
+      "cwd": "/Users/kelly/Developer/asl-pilot",
+      "status": "passed_read_only_visibility"
+    },
+    {
+      "command": "jq '{exact_test:.verification.test.mean_recall_at_far10, top_level:.verification_recall_at_far10, checkpoint_selection, monitor_selected_checkpoint:.verification.monitor_selected_checkpoint.mean_recall_at_far10}' /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run7-ovr-bce-hardneg-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-ovrbce003-brev-v1.json",
+      "cwd": "/Users/kelly/Developer/asl-pilot",
+      "status": "passed"
+    },
+    {
+      "command": "/Users/kelly/Developer/asl-pilot/.venv/bin/python - <<'PY' ... compare original CUDA per-class recall against paired-audit local run7 recompute ... PY",
+      "cwd": "/Users/kelly/Developer/asl-pilot",
+      "status": "passed"
+    }
+  ],
+  "boundaries": {
+    "brev_used": false,
+    "brev_lifecycle_or_exec": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "runtime_export": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "prompt_target_changed": false,
+    "push": false
+  }
+}

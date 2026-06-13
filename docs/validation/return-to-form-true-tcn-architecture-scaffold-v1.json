@@ -1,0 +1,679 @@
+{
+  "active_prompt": "docs/model/return-to-form-true-tcn-architecture-scaffold-goal-loop-prompt.md",
+  "architecture": {
+    "input_contract": "rgb_regions_grid_v1",
+    "input_shape_after_loader": [
+      2,
+      16,
+      3,
+      96,
+      96
+    ],
+    "model_constructor": "scripts/train_rawframe_model.py::build_model",
+    "name": "true_temporal_convnet_region_grid",
+    "pretrained_components": [],
+    "random_initialization": true
+  },
+  "boundaries": {
+    "brev_checked": false,
+    "detector_or_landmark_revival": false,
+    "final_gate_change": false,
+    "generated_labels": false,
+    "loss_or_backward": false,
+    "model_card_or_browser_claim_change": false,
+    "onnx_export": false,
+    "optimizer_step": false,
+    "paid_compute": false,
+    "push": false,
+    "source_import": false,
+    "training_run": false
+  },
+  "bounded_smoke_hypothesis": {
+    "hypothesis": "A capped no-spend local smoke can test whether the true TemporalConvNet scaffold fits the materialized rgb_regions_grid_v1 high-signal module better than the existing motion_2d_temporal_cnn path, without export or promotion claims.",
+    "must_precede_training": [
+      "rerun dry-run/check-files input-contract validation for rgb_regions_grid_v1",
+      "cap epochs, batches, runtime, and output directory in the next prompt",
+      "record train-sanity and held-out metrics as non-promotional evidence only"
+    ],
+    "next_action": "run_capped_local_region_grid_tcn_smoke"
+  },
+  "changed_files": [
+    {
+      "changes": [
+        "added true_temporal_convnet_region_grid architecture option",
+        "added residual causal dilated TemporalConvNet blocks",
+        "kept existing motion_2d_temporal_cnn and rgb_frames fallback paths intact"
+      ],
+      "path": "scripts/train_rawframe_model.py",
+      "sha256": "5029de6a301a755c3b52c515dab81b5fb49a4d394f74b39371df50c706abdff6"
+    },
+    {
+      "changes": [
+        "adds compile-only no-grad true TCN scaffold proof",
+        "writes this tracked M3AV receipt"
+      ],
+      "path": "scripts/compile_true_tcn_architecture.py",
+      "sha256": "d6ce42fe153845ffd08cecb8f59db427cf072663f246414b0b365b30abbe3c05"
+    },
+    {
+      "changes": [
+        "records architecture scaffold, no-training compile evidence, input-contract proof, and next action"
+      ],
+      "path": "docs/validation/return-to-form-true-tcn-architecture-scaffold-v1.json"
+    }
+  ],
+  "compile_evidence": {
+    "architecture": "true_temporal_convnet_region_grid",
+    "backward_called": false,
+    "frame_count": 16,
+    "image_size": 96,
+    "input_batch_shape": [
+      2,
+      16,
+      3,
+      96,
+      96
+    ],
+    "label_count": 7,
+    "logits_shape": [
+      2,
+      7
+    ],
+    "loss_computed": false,
+    "mode": "eval_no_grad_forward_only",
+    "model_class": "TrueTemporalConvNetRawFrameClassifier",
+    "model_constructor": "scripts/train_rawframe_model.py::build_model",
+    "optimizer_created": false,
+    "state_dict_digest": {
+      "algorithm": "canonical_state_dict_sha256_v1",
+      "parameter_count": 1294321,
+      "sha256": "17c989fb609217cd7e6194cf76a16498535da8015185537db597aa1478bda475"
+    },
+    "status": "passed",
+    "temporal_convnet": {
+      "causal": true,
+      "channels": [
+        192,
+        192,
+        224,
+        256
+      ],
+      "dilations": [
+        1,
+        2,
+        4
+      ],
+      "kernel_size": 3,
+      "pooling": "adaptive_avg_pool_1d"
+    },
+    "torch_version": "2.12.0",
+    "training_step_run": false
+  },
+  "exactly_one_next_action": "run_capped_local_region_grid_tcn_smoke",
+  "generated_at": "2026-05-27T10:18:11Z",
+  "generated_by": {
+    "command": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/compile_true_tcn_architecture.py",
+      "--write"
+    ],
+    "script": {
+      "path": "scripts/compile_true_tcn_architecture.py",
+      "sha256": "d6ce42fe153845ffd08cecb8f59db427cf072663f246414b0b365b30abbe3c05"
+    }
+  },
+  "input_contract_validation": {
+    "allowed_contracts": [
+      "rgb_regions_grid_v1",
+      "rgb_frames_fallback"
+    ],
+    "required_contract": "rgb_regions_grid_v1",
+    "schema_version": "asl-pilot-input-contract-audit/v1",
+    "source": "scripts/train_rawframe_model.py::validate_required_input_contracts",
+    "splits": {
+      "test": {
+        "clip_count": 28,
+        "examples": {
+          "rgb_regions_grid_v1": {
+            "clip_id": "asl-citizen-test-white-23222004944717023-white",
+            "label_id": "white",
+            "observed_contract": "rgb_regions_grid_v1",
+            "payload_keys": [
+              "crop_config",
+              "region_axis",
+              "region_ids",
+              "rgb_frames",
+              "rgb_frames_region_id",
+              "rgb_regions",
+              "schema_version"
+            ],
+            "payload_type": "dict",
+            "region_ids": [
+              "viewer_left_hand_context",
+              "viewer_right_hand_context",
+              "upper_body_signing_space",
+              "head_context",
+              "full_frame_reference"
+            ],
+            "rgb_frames_present": true,
+            "rgb_frames_shape": [
+              16,
+              96,
+              96,
+              3
+            ],
+            "rgb_regions_present": true,
+            "rgb_regions_shape": [
+              16,
+              5,
+              96,
+              96,
+              3
+            ],
+            "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/test/asl-citizen-test-white-23222004944717023-white-regions.pt",
+            "training_loader": {
+              "consumed_key": "rgb_regions",
+              "consumed_shape": [
+                16,
+                192,
+                288,
+                3
+              ],
+              "derived_input_name": "rgb_regions_grid_v1",
+              "fallback_to_rgb_frames": false
+            }
+          }
+        },
+        "manifest_path": "/Users/kelly/Developer/asl-pilot/data/manifests/lesson/high-signal-region-grid/test.json",
+        "manifest_sha256": "5a315d49438242febb410287c4ff235ae8cd269a5aba5c3cf550950bae0359f8",
+        "observed_counts": {
+          "rgb_regions_grid_v1": 28
+        }
+      },
+      "train": {
+        "clip_count": 84,
+        "examples": {
+          "rgb_regions_grid_v1": {
+            "clip_id": "asl-citizen-train-white-10848457531453715-white",
+            "label_id": "white",
+            "observed_contract": "rgb_regions_grid_v1",
+            "payload_keys": [
+              "crop_config",
+              "region_axis",
+              "region_ids",
+              "rgb_frames",
+              "rgb_frames_region_id",
+              "rgb_regions",
+              "schema_version"
+            ],
+            "payload_type": "dict",
+            "region_ids": [
+              "viewer_left_hand_context",
+              "viewer_right_hand_context",
+              "upper_body_signing_space",
+              "head_context",
+              "full_frame_reference"
+            ],
+            "rgb_frames_present": true,
+            "rgb_frames_shape": [
+              16,
+              96,
+              96,
+              3
+            ],
+            "rgb_regions_present": true,
+            "rgb_regions_shape": [
+              16,
+              5,
+              96,
+              96,
+              3
+            ],
+            "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/train/asl-citizen-train-white-10848457531453715-white-regions.pt",
+            "training_loader": {
+              "consumed_key": "rgb_regions",
+              "consumed_shape": [
+                16,
+                192,
+                288,
+                3
+              ],
+              "derived_input_name": "rgb_regions_grid_v1",
+              "fallback_to_rgb_frames": false
+            }
+          }
+        },
+        "manifest_path": "/Users/kelly/Developer/asl-pilot/data/manifests/lesson/high-signal-region-grid/train.json",
+        "manifest_sha256": "101455329ae04ad06a2c3fd4ca26a29c04ae945bb7925bee373cf3229594fc3d",
+        "observed_counts": {
+          "rgb_regions_grid_v1": 84
+        }
+      },
+      "validation": {
+        "clip_count": 27,
+        "examples": {
+          "rgb_regions_grid_v1": {
+            "clip_id": "asl-citizen-validation-white-21947947473280904-white",
+            "label_id": "white",
+            "observed_contract": "rgb_regions_grid_v1",
+            "payload_keys": [
+              "crop_config",
+              "region_axis",
+              "region_ids",
+              "rgb_frames",
+              "rgb_frames_region_id",
+              "rgb_regions",
+              "schema_version"
+            ],
+            "payload_type": "dict",
+            "region_ids": [
+              "viewer_left_hand_context",
+              "viewer_right_hand_context",
+              "upper_body_signing_space",
+              "head_context",
+              "full_frame_reference"
+            ],
+            "rgb_frames_present": true,
+            "rgb_frames_shape": [
+              16,
+              96,
+              96,
+              3
+            ],
+            "rgb_regions_present": true,
+            "rgb_regions_shape": [
+              16,
+              5,
+              96,
+              96,
+              3
+            ],
+            "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/validation/asl-citizen-validation-white-21947947473280904-white-regions.pt",
+            "training_loader": {
+              "consumed_key": "rgb_regions",
+              "consumed_shape": [
+                16,
+                192,
+                288,
+                3
+              ],
+              "derived_input_name": "rgb_regions_grid_v1",
+              "fallback_to_rgb_frames": false
+            }
+          }
+        },
+        "manifest_path": "/Users/kelly/Developer/asl-pilot/data/manifests/lesson/high-signal-region-grid/validation.json",
+        "manifest_sha256": "16a4a64a8fd48a1384c4cfd2e01dddcaa45fb3b1f0588af9ec66f96668cc3a53",
+        "observed_counts": {
+          "rgb_regions_grid_v1": 27
+        }
+      }
+    },
+    "status": "passed",
+    "total_clip_count": 139,
+    "total_observed_counts": {
+      "rgb_regions_grid_v1": 139
+    }
+  },
+  "manifests": [
+    {
+      "clip_count": 84,
+      "collection_plan": null,
+      "consent_form": null,
+      "dataset_id": "asl-pilot-asl-citizen-high-signal-module-v0",
+      "dataset_source_mode": "approved_external_raw_video_source",
+      "external_dataset_import": {
+        "source_audit": {
+          "path": "docs/research/asl-citizen-academic-source-review.md",
+          "sha256": "f8295c8f498cc5ed3925b833ec51aa7799c4365118f69f0a57993ea27a538d94"
+        },
+        "source_id": "asl-citizen-school-assignment-raw-videos"
+      },
+      "label_clip_counts": {
+        "black": 12,
+        "hello": 12,
+        "please": 12,
+        "sad": 12,
+        "table": 12,
+        "uncle": 12,
+        "white": 12
+      },
+      "label_count": 7,
+      "label_ids": [
+        "black",
+        "hello",
+        "please",
+        "sad",
+        "table",
+        "uncle",
+        "white"
+      ],
+      "min_clips_per_label_per_split": 3,
+      "path": "/Users/kelly/Developer/asl-pilot/data/manifests/lesson/high-signal-region-grid/train.json",
+      "reduced_real_data_module_evidence": {
+        "finality": "reduced_module_manifest_not_training_or_model_promotion",
+        "parent_manifest": {
+          "path": "data/manifests/lesson/rawframe-milestone/train.json",
+          "sha256": "27b2a7c8dc00bd972c41e12dc3b3aa4ccac673c44e000ab5368e1679973ed395",
+          "split": "train"
+        },
+        "schema_version": "asl-pilot-asl-citizen-high-signal-module-manifest/v1",
+        "selected_labels": [
+          "table",
+          "please",
+          "black",
+          "hello",
+          "uncle",
+          "white",
+          "sad"
+        ],
+        "selection": {
+          "path": "docs/validation/return-to-form-asl-citizen-high-signal-module-selection-v1.json",
+          "sha256": "42f30aa69b1682906ff1bca86341639b44b4dbba0d5b71a593debef7f695ba5c"
+        },
+        "source_id": "asl-citizen-school-assignment-raw-videos"
+      },
+      "sha256": "101455329ae04ad06a2c3fd4ca26a29c04ae945bb7925bee373cf3229594fc3d",
+      "signer_ids": [
+        "0e9e58e04c96d801aed9a8c580ff6b753cee93135db0c70e8dcd1122ae21604c",
+        "11a57816e9f041572d1d3946997dfaa88a9aede821b9d11ac9653eae11201a60",
+        "1209053c9c3a278a9a45d622678b007f0b64a002ad7730057c817d4bd45e02ff",
+        "1843b1a8d29ff76ca0d84ebae6386475e0735af2b9fe8ef37c3f43f39f2525e0",
+        "27c1301d6e81b9c6d7ca023d0ce1f6a845c3f2cfae08dcf6db090b771072c847",
+        "32160c4eebb2ae0b25a26465bda96fd8e51b8255770422111b9491076269cc4e",
+        "5cd8255e6111ef4049b619975c4c9f3894c2babe968fbddc47822d3a8a8f0a86",
+        "6ade48a6a90dca1f31d2bffa1ac39ed0b1e9934839f01d4c294af78fcaa3f01d",
+        "6de1a48dc570cf9b1ee0f55ca9315f204fb0487f4e6b9e1753be8ee1586b2356",
+        "7f4134200a87a79c2f39ef33dc2041b59acfaa1fdb8405b478f3d7b84409b648",
+        "930e450da5078ffefe9ae52534a943cfe75a8782f941f849e2c8e24de3ba3a6c",
+        "959d9c167b02a0a079419da3cb1a5e3dd2f8f5474005973cddff9b30801df426",
+        "9f4f8c62606a8cb65be2ef217fd28ff8948853c31e5256a03d949f81f38cb819",
+        "a3f0967053f5b76b263eb58d7e036b8b3f19d0062cc6e2138673f2781fa311b6",
+        "bcacc0d075eae2b83ec8e5a58e20e91fa5ea74a8e727899105d97a257eba9feb",
+        "d0deed0ee888d447cc7916e6d29d101b78b47c2c93c5f2382fef26e52a4e0f77",
+        "e4c9a0df3466b6e1fa3eb0ea8c96351ff035ee27947a937259dd328cc13eb73f",
+        "fbbf3e2db09d2414b951adbda202d17dbd3851cc8db707e5e2da97e5e1fa014a",
+        "fe12dc543ae9d3ce01f0c3b1795136f9c8b6a069cd062d40cd16c5c548395794"
+      ],
+      "source_register": {
+        "path": "docs/model/dataset-source-register.json",
+        "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+      },
+      "split": "train",
+      "supplemental_external_dataset_imports": null,
+      "vocabulary_review": {
+        "evidence": {
+          "path": "docs/validation/return-to-form-asl-citizen-high-signal-module-vocabulary-review-evidence-v1.json",
+          "sha256": "68859b4d764f734d41841884ef7e7a1d449942c87a11820949f49c1fdd5d2dc3"
+        },
+        "status": "source_curated",
+        "vocabulary_source": {
+          "item_count": 7,
+          "path": "docs/validation/return-to-form-asl-citizen-high-signal-module-selection-v1.json",
+          "sha256": "42f30aa69b1682906ff1bca86341639b44b4dbba0d5b71a593debef7f695ba5c"
+        }
+      }
+    },
+    {
+      "clip_count": 27,
+      "collection_plan": null,
+      "consent_form": null,
+      "dataset_id": "asl-pilot-asl-citizen-high-signal-module-v0",
+      "dataset_source_mode": "approved_external_raw_video_source",
+      "external_dataset_import": {
+        "source_audit": {
+          "path": "docs/research/asl-citizen-academic-source-review.md",
+          "sha256": "f8295c8f498cc5ed3925b833ec51aa7799c4365118f69f0a57993ea27a538d94"
+        },
+        "source_id": "asl-citizen-school-assignment-raw-videos"
+      },
+      "label_clip_counts": {
+        "black": 4,
+        "hello": 4,
+        "please": 4,
+        "sad": 4,
+        "table": 4,
+        "uncle": 3,
+        "white": 4
+      },
+      "label_count": 7,
+      "label_ids": [
+        "black",
+        "hello",
+        "please",
+        "sad",
+        "table",
+        "uncle",
+        "white"
+      ],
+      "min_clips_per_label_per_split": 3,
+      "path": "/Users/kelly/Developer/asl-pilot/data/manifests/lesson/high-signal-region-grid/validation.json",
+      "reduced_real_data_module_evidence": {
+        "finality": "reduced_module_manifest_not_training_or_model_promotion",
+        "parent_manifest": {
+          "path": "data/manifests/lesson/rawframe-milestone/validation.json",
+          "sha256": "396a5671edd74eed3e36d108663a8a7aae351e0e1c5617a3d307b810aad290c1",
+          "split": "validation"
+        },
+        "schema_version": "asl-pilot-asl-citizen-high-signal-module-manifest/v1",
+        "selected_labels": [
+          "table",
+          "please",
+          "black",
+          "hello",
+          "uncle",
+          "white",
+          "sad"
+        ],
+        "selection": {
+          "path": "docs/validation/return-to-form-asl-citizen-high-signal-module-selection-v1.json",
+          "sha256": "42f30aa69b1682906ff1bca86341639b44b4dbba0d5b71a593debef7f695ba5c"
+        },
+        "source_id": "asl-citizen-school-assignment-raw-videos"
+      },
+      "sha256": "16a4a64a8fd48a1384c4cfd2e01dddcaa45fb3b1f0588af9ec66f96668cc3a53",
+      "signer_ids": [
+        "806b9453de0abc577692cedf9acb927d488fa3643c29c366f160ea96d37dae40",
+        "a904f30f26387b2d35f030ff332e2bc04a83ed0f40a29adea312bbff74a349e5",
+        "b97f163b45de13f80c035fa3556537befdb849bce853f605994b6945aca2e30b",
+        "c9dcc482bb5080f6147e7819dd5e4395de27356db6309e9fe098ebe81430a376",
+        "cf3b8d5993e503a68a6c49fb859b726f7f2e8ee292cf9bba309ee6fb8cb0cea6"
+      ],
+      "source_register": {
+        "path": "docs/model/dataset-source-register.json",
+        "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+      },
+      "split": "validation",
+      "supplemental_external_dataset_imports": null,
+      "vocabulary_review": {
+        "evidence": {
+          "path": "docs/validation/return-to-form-asl-citizen-high-signal-module-vocabulary-review-evidence-v1.json",
+          "sha256": "68859b4d764f734d41841884ef7e7a1d449942c87a11820949f49c1fdd5d2dc3"
+        },
+        "status": "source_curated",
+        "vocabulary_source": {
+          "item_count": 7,
+          "path": "docs/validation/return-to-form-asl-citizen-high-signal-module-selection-v1.json",
+          "sha256": "42f30aa69b1682906ff1bca86341639b44b4dbba0d5b71a593debef7f695ba5c"
+        }
+      }
+    },
+    {
+      "clip_count": 28,
+      "collection_plan": null,
+      "consent_form": null,
+      "dataset_id": "asl-pilot-asl-citizen-high-signal-module-v0",
+      "dataset_source_mode": "approved_external_raw_video_source",
+      "external_dataset_import": {
+        "source_audit": {
+          "path": "docs/research/asl-citizen-academic-source-review.md",
+          "sha256": "f8295c8f498cc5ed3925b833ec51aa7799c4365118f69f0a57993ea27a538d94"
+        },
+        "source_id": "asl-citizen-school-assignment-raw-videos"
+      },
+      "label_clip_counts": {
+        "black": 4,
+        "hello": 4,
+        "please": 4,
+        "sad": 4,
+        "table": 4,
+        "uncle": 4,
+        "white": 4
+      },
+      "label_count": 7,
+      "label_ids": [
+        "black",
+        "hello",
+        "please",
+        "sad",
+        "table",
+        "uncle",
+        "white"
+      ],
+      "min_clips_per_label_per_split": 3,
+      "path": "/Users/kelly/Developer/asl-pilot/data/manifests/lesson/high-signal-region-grid/test.json",
+      "reduced_real_data_module_evidence": {
+        "finality": "reduced_module_manifest_not_training_or_model_promotion",
+        "parent_manifest": {
+          "path": "data/manifests/lesson/rawframe-milestone/test.json",
+          "sha256": "08c1111f5f699f8b2c42b283850f4f421ae5f277fc6921ed00cc80a4df86fa64",
+          "split": "test"
+        },
+        "schema_version": "asl-pilot-asl-citizen-high-signal-module-manifest/v1",
+        "selected_labels": [
+          "table",
+          "please",
+          "black",
+          "hello",
+          "uncle",
+          "white",
+          "sad"
+        ],
+        "selection": {
+          "path": "docs/validation/return-to-form-asl-citizen-high-signal-module-selection-v1.json",
+          "sha256": "42f30aa69b1682906ff1bca86341639b44b4dbba0d5b71a593debef7f695ba5c"
+        },
+        "source_id": "asl-citizen-school-assignment-raw-videos"
+      },
+      "sha256": "5a315d49438242febb410287c4ff235ae8cd269a5aba5c3cf550950bae0359f8",
+      "signer_ids": [
+        "30abbe4078ba75755b3814a7ca152818616fb6e3789db78825ec69311d6a8204",
+        "35948ec2cb2e2757d47b2eeea0d1faa23d76214d09f6b8d09e7e7ac98d1be1bf",
+        "3a20b015d8426ef4489dcdb80d5754234a62bb2dda394c45fc0a9cb016040fb5",
+        "80a51d48b467d2d485bf0ff56c33f86958943ec146b9c5f4203e3079179dfc09",
+        "850353a28e1d7c48ea64d8e68246615c28934c0e5c829bff84d674d4d66a4dba",
+        "c21929bee793d9d5e23536c06deafa49e79454bfd9cbeed165398b25c9611593",
+        "f0f13a6e64173f4e5139934b42a5e53d149268518b76fd66c0067f5f1f918558"
+      ],
+      "source_register": {
+        "path": "docs/model/dataset-source-register.json",
+        "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+      },
+      "split": "test",
+      "supplemental_external_dataset_imports": null,
+      "vocabulary_review": {
+        "evidence": {
+          "path": "docs/validation/return-to-form-asl-citizen-high-signal-module-vocabulary-review-evidence-v1.json",
+          "sha256": "68859b4d764f734d41841884ef7e7a1d449942c87a11820949f49c1fdd5d2dc3"
+        },
+        "status": "source_curated",
+        "vocabulary_source": {
+          "item_count": 7,
+          "path": "docs/validation/return-to-form-asl-citizen-high-signal-module-selection-v1.json",
+          "sha256": "42f30aa69b1682906ff1bca86341639b44b4dbba0d5b71a593debef7f695ba5c"
+        }
+      }
+    }
+  ],
+  "mission": "M3AV",
+  "next_action_rationale": "The true TemporalConvNet architecture compiles on generated high-signal region-grid inputs, and the dry-run input-contract guard still observes rgb_regions_grid_v1 for all selected clips.",
+  "schema_version": "asl-pilot-true-tcn-architecture-scaffold/v1",
+  "status": "passed",
+  "training_dry_run_validation": {
+    "architecture": "true_temporal_convnet_region_grid",
+    "command": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/train_rawframe_model.py",
+      "--train-manifest",
+      "data/manifests/lesson/high-signal-region-grid/train.json",
+      "--validation-manifest",
+      "data/manifests/lesson/high-signal-region-grid/validation.json",
+      "--test-manifest",
+      "data/manifests/lesson/high-signal-region-grid/test.json",
+      "--output-dir",
+      "artifacts/rawframe-high-signal-module",
+      "--model-id",
+      "asl-pilot-asl-citizen-high-signal-true-tcn-compile-v1",
+      "--architecture",
+      "true_temporal_convnet_region_grid",
+      "--check-files",
+      "--frame-count",
+      "16",
+      "--image-size",
+      "96",
+      "--reduced-real-data-module",
+      "--dry-run",
+      "--require-input-contract",
+      "rgb_regions_grid_v1"
+    ],
+    "exit_code": 0,
+    "required_contract": "rgb_regions_grid_v1",
+    "status": "passed",
+    "stderr": "",
+    "stdout_sha256": "cf3c591f8fcf93dd5b3dd920de20bb405bf9ba34114c7a1a7fe0981d6ff28355",
+    "total_clip_count": 139,
+    "total_observed_counts": {
+      "rgb_regions_grid_v1": 139
+    },
+    "training_status": "dry_run_only"
+  },
+  "validation_commands": [
+    {
+      "command": [
+        "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+        "scripts/compile_true_tcn_architecture.py",
+        "--write"
+      ],
+      "exit_code": 0,
+      "result": "compiled true TCN architecture with one eval/no-grad forward pass and wrote receipt"
+    },
+    {
+      "architecture": "true_temporal_convnet_region_grid",
+      "command": [
+        "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+        "scripts/train_rawframe_model.py",
+        "--train-manifest",
+        "data/manifests/lesson/high-signal-region-grid/train.json",
+        "--validation-manifest",
+        "data/manifests/lesson/high-signal-region-grid/validation.json",
+        "--test-manifest",
+        "data/manifests/lesson/high-signal-region-grid/test.json",
+        "--output-dir",
+        "artifacts/rawframe-high-signal-module",
+        "--model-id",
+        "asl-pilot-asl-citizen-high-signal-true-tcn-compile-v1",
+        "--architecture",
+        "true_temporal_convnet_region_grid",
+        "--check-files",
+        "--frame-count",
+        "16",
+        "--image-size",
+        "96",
+        "--reduced-real-data-module",
+        "--dry-run",
+        "--require-input-contract",
+        "rgb_regions_grid_v1"
+      ],
+      "exit_code": 0,
+      "required_contract": "rgb_regions_grid_v1",
+      "status": "passed",
+      "stderr": "",
+      "stdout_sha256": "cf3c591f8fcf93dd5b3dd920de20bb405bf9ba34114c7a1a7fe0981d6ff28355",
+      "total_clip_count": 139,
+      "total_observed_counts": {
+        "rgb_regions_grid_v1": 139
+      },
+      "training_status": "dry_run_only"
+    }
+  ]
+}

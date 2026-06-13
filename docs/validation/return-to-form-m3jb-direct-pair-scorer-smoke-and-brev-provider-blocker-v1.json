@@ -1,0 +1,284 @@
+{
+  "schema_version": "asl-pilot-m3jb-direct-pair-scorer-smoke-and-brev-provider-blocker/v1",
+  "status": "direct_pair_scorer_full_scope_brev_completed_fail_closed_not_gate_passing",
+  "checked_at": "2026-06-02T06:35:41Z",
+  "mission": "M3JB - Hierarchical hand-state tracker",
+  "purpose": "After pair-rank and pair-margin candidate-head repairs failed to improve real two-hand distinct assignment, prove the direct pair-scorer training path locally, run it uncapped on Brev/CUDA, and record the fail-closed result without local-runtime downscoping.",
+  "code": {
+    "path": "tools/detector0-annotator/train_hand_pair_ranker.py",
+    "sha256": "52eb749a2a7ac1c339bfe5f7676c0ef8d00dac419292711d8c9e5686b7eb0f41",
+    "summary": "Existing direct PairRanker path supports subproposal candidates, target-temperature scoring, auxiliary BCE, box-quality target weighting, slot-margin target weighting, hard-negative penalties, validation selection, and fulltrain mode with --max-train-rows 0."
+  },
+  "local_smoke": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --train-subproposal-candidates --topk 40 --subproposal-source-topk 4 --subproposal-max-topk 16 --max-train-rows 32 --epochs 1 --batch-groups 16 --select-by-validation --eval-every 1 --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --candidate-feature-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --device mps --landmark-device mps --ranker-device cpu --target-temperature 0.05 --aux-bce-weight 0.3 --box-quality-target-weight 0.5 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 1.0 --hard-negative-bce-weight 3.0 --out tools/detector0-annotator/output/m3jb-hand-pair-ranker-directpair-croppose-top40-src4-aug16-train32-e1-smoke-v1.json",
+    "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+    "exit_status": 0,
+    "scope_guard": "Diagnostic smoke only: --max-train-rows 32, source topk 4, subproposal max topk 16, epochs 1. This is not gate evidence and must not replace the full-scope Brev run.",
+    "artifacts": {
+      "receipt": {
+        "path": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-directpair-croppose-top40-src4-aug16-train32-e1-smoke-v1.json",
+        "sha256": "d80e103d30b6f9a25d18e9dd9f8fdd905203a98178a56dcd5c6426149f13661a"
+      },
+      "weights": {
+        "path": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-directpair-croppose-top40-src4-aug16-train32-e1-smoke-v1.pt",
+        "sha256": "88f6be0952b2a1e2f565449f80f87da252d1e3848185804a6152d17933232962"
+      }
+    },
+    "pair_counts": {
+      "train": {
+        "groups": 32,
+        "pairs": 3840,
+        "positive_pairs": 934,
+        "hard_negative_pairs": 13
+      },
+      "validation": {
+        "groups": 2508,
+        "pairs": 300960,
+        "positive_pairs": 36634,
+        "hard_negative_pairs": 390
+      },
+      "test": {
+        "groups": 3217,
+        "pairs": 386040,
+        "positive_pairs": 46180,
+        "hard_negative_pairs": 620
+      },
+      "real_twohand": {
+        "groups": 84,
+        "pairs": 10080,
+        "positive_pairs": 2317,
+        "hard_negative_pairs": 520
+      }
+    },
+    "metrics": {
+      "validation_selected": {
+        "epoch": 0,
+        "selection_score": 0.46670653907496007,
+        "coverage": 0.42025518341307816,
+        "distinct_assigned_coverage": 0.4094896331738437,
+        "collapse_rate": 0.04784688995215311
+      },
+      "real_twohand_selected": {
+        "n": 84,
+        "coverage": 0.75,
+        "distinct_assigned_coverage": 0.4523809523809524,
+        "collapse_rate": 0.09523809523809523,
+        "coverage_failure_count": 21
+      },
+      "real_twohand_oracle": {
+        "n": 84,
+        "coverage": 0.9880952380952381,
+        "distinct_assigned_coverage": 0.9880952380952381,
+        "collapse_rate": 0.0,
+        "coverage_failure_count": 1
+      }
+    }
+  },
+  "intended_full_scope_brev_run": {
+    "status": "historical_provider_blocker_recovered_on_next_turn",
+    "worker": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "instance_type": "l40s-48gb.1x"
+    },
+    "command": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd \\$HOME/asl-pilot && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --train-subproposal-candidates --topk 40 --subproposal-source-topk 8 --subproposal-max-topk 24 --max-train-rows 0 --epochs 36 --batch-groups 512 --select-by-validation --eval-every 3 --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --candidate-feature-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --device cuda --landmark-device cuda --ranker-device cuda --target-temperature 0.05 --aux-bce-weight 0.3 --box-quality-target-weight 0.5 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 1.0 --hard-negative-bce-weight 3.0 --out tools/detector0-annotator/output/m3jb-hand-pair-ranker-directpair-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.json\"",
+    "critical_scope_guard": "--max-train-rows 0, source topk 8, subproposal max topk 24, epochs 36, CUDA devices. Do not replace this with capped local training or a smaller final dataset.",
+    "provider_blocker": {
+      "kind": "brev_ssh_timeout",
+      "first_probe": {
+        "command": "timeout 420s brev exec asl-pilot-m3eh-l40s-001 \"cd \\$HOME/asl-pilot && echo remote_home=\\$HOME && nvidia-smi --query-gpu=name,memory.total,memory.used,utilization.gpu --format=csv,noheader && ps -eo pid,etime,pcpu,pmem,args | egrep 'python|torch|train|screen|tmux|jupyter' | grep -v egrep || true && .venv/bin/python - <<'PY'\nimport torch\nprint('torch', torch.__version__)\nprint('cuda_available', torch.cuda.is_available())\nprint('cuda_device_count', torch.cuda.device_count())\nprint('cuda_device_name', torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'none')\nPY\"",
+        "result": "terminated_local_probe_after_repeated_waiting_for_ssh_connection_to_be_available",
+        "observed_error": "ssh: connect to host 204.52.25.121 port 22: Operation timed out"
+      },
+      "second_probe": {
+        "command": "timeout 90s brev exec asl-pilot-m3eh-l40s-001 \"cd \\$HOME/asl-pilot && echo remote_home=\\$HOME && hostname && nvidia-smi --query-gpu=name,memory.total,memory.used,utilization.gpu --format=csv,noheader\"",
+        "exit_status": 124,
+        "result": "timeout_after_repeated_waiting_for_ssh_connection_to_be_available",
+        "observed_error": "ssh: connect to host 204.52.24.209 port 22: Operation timed out"
+      },
+      "interpretation": "The blocker is provider SSH readiness/health, not local compute limits and not a reason to downsize full-scope training."
+    }
+  },
+  "full_scope_brev_run": {
+    "status": "completed_fail_closed_not_gate_passing",
+    "worker": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "instance_type": "l40s-48gb.1x",
+      "safety_probe": {
+        "result": "passed_after_initial_ssh_wait",
+        "gpu": "NVIDIA L40S",
+        "memory_total_mib": 46068,
+        "memory_used_mib_before_run": 1,
+        "cuda_available": true,
+        "cuda_device_count": 1,
+        "cuda_device_name": "NVIDIA L40S",
+        "active_training_process_before_run": false
+      }
+    },
+    "remote_validation": {
+      "script_sha256": "52eb749a2a7ac1c339bfe5f7676c0ef8d00dac419292711d8c9e5686b7eb0f41",
+      "commands": [
+        "sha256sum tools/detector0-annotator/train_hand_pair_ranker.py",
+        "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile tools/detector0-annotator/train_hand_pair_ranker.py",
+        "PYTHONDONTWRITEBYTECODE=1 /home/ubuntu/asl-pilot/.venv/bin/python train_hand_pair_ranker.py --self-test"
+      ],
+      "result": "passed"
+    },
+    "command": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd \\$HOME/asl-pilot && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --train-subproposal-candidates --topk 40 --subproposal-source-topk 8 --subproposal-max-topk 24 --max-train-rows 0 --epochs 36 --batch-groups 512 --select-by-validation --eval-every 3 --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --candidate-feature-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --device cuda --landmark-device cuda --ranker-device cuda --target-temperature 0.05 --aux-bce-weight 0.3 --box-quality-target-weight 0.5 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 1.0 --hard-negative-bce-weight 3.0 --out tools/detector0-annotator/output/m3jb-hand-pair-ranker-directpair-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.json\"",
+    "critical_scope_guard": "--max-train-rows 0; the run used all 2535 train groups, source topk 8, subproposal max topk 24, 36 epochs, and CUDA.",
+    "artifacts": {
+      "receipt": {
+        "path": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-directpair-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.json",
+        "sha256": "2c2ea97b8990a54193ab7db7514357508ed345e55f61a211b6ae3c433a3e615b"
+      },
+      "weights": {
+        "path": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-directpair-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.pt",
+        "sha256": "ad8820268c905b037f9080fe787340a8b8a2daf224c4cceb25da22b7ce078a3f"
+      }
+    },
+    "metrics": {
+      "train_groups": 2535,
+      "train_pairs": 699660,
+      "train_positive_pairs": 172499,
+      "train_hard_negative_pairs": 764,
+      "validation_selected": {
+        "epoch": 35,
+        "selection_score": 0.8148923444976077,
+        "coverage": 0.6598883572567783,
+        "distinct_assigned_coverage": 0.65311004784689,
+        "collapse_rate": 0.003189792663476874
+      },
+      "test_selected": {
+        "n": 3217,
+        "coverage": 0.6347528753497047,
+        "distinct_assigned_coverage": 0.6248057196145477,
+        "collapse_rate": 0.004041032017407522
+      },
+      "real_twohand_selected": {
+        "n": 84,
+        "coverage": 0.9285714285714286,
+        "distinct_assigned_coverage": 0.6904761904761905,
+        "collapse_rate": 0.011904761904761904,
+        "coverage_failure_count": 6,
+        "distinct_assignment_failure_count": 26,
+        "same_prediction_coverage_count": 20,
+        "decoded_two_distinct": 0.9880952380952381
+      },
+      "real_twohand_oracle": {
+        "n": 84,
+        "coverage": 0.9880952380952381,
+        "distinct_assigned_coverage": 0.9880952380952381,
+        "collapse_rate": 0.0,
+        "coverage_failure_count": 1,
+        "distinct_assignment_failure_count": 1
+      },
+      "comparison_to_pairmargin_full_scope": {
+        "coverage_delta": 0.023809523809523725,
+        "distinct_assigned_coverage_delta": 0.22619047619047616,
+        "collapse_rate_delta": -0.03571428571428571
+      }
+    }
+  },
+  "brev_cleanup": {
+    "commands": [
+      {
+        "command": "brev stop asl-pilot-m3eh-l40s-001",
+        "exit_status": 0,
+        "summary": "stopped retained worker after full direct pair-scorer copyback"
+      },
+      {
+        "command": "brev delete sl9whvp53",
+        "exit_status": 0,
+        "summary": "deleted failed fresh Nebius worker created during provider recovery attempt"
+      },
+      {
+        "command": "sleep 30 && brev ls --json",
+        "exit_status": 0,
+        "summary": "failed fresh worker no longer listed; both remaining observed L40S workers ended STOPPED"
+      }
+    ],
+    "final_observed_workers": [
+      {
+        "name": "asl-pilot-m3jb-pairrank-l40s-001",
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "build_status": "",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "gpu": "L40S"
+      },
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "gpu": "L40S"
+      }
+    ]
+  },
+  "runtime_boundary": {
+    "local_smoke_training_run": true,
+    "full_scope_training_run": true,
+    "checkpoint_written": true,
+    "browser_exported": false,
+    "model_card_promoted": false,
+    "mediapipe_runtime_dependency": false,
+    "raw_learner_video_uploaded": false,
+    "brev_lifecycle_used": true,
+    "all_observed_brev_workers_stopped": true
+  },
+  "selection": {
+    "gate_status": "not_gate_passing_direct_pair_scorer_rejected",
+    "required_distinct_assigned_coverage": 0.98,
+    "real_twohand_selected_distinct_assigned_coverage": 0.6904761904761905,
+    "real_twohand_selected_coverage": 0.9285714285714286,
+    "real_twohand_selected_collapse_rate": 0.011904761904761904,
+    "real_twohand_oracle_distinct_assigned_coverage": 0.9880952380952381,
+    "reason": "The uncapped direct pair scorer is materially better than the pair-margin candidate-head repair, but real two-hand distinct assignment is still 0.690476 against the 0.98 gate while the oracle remains 0.988095. The checkpoint remains research evidence only and is not promoted."
+  },
+  "failure_analysis": {
+    "source": "real_twohand.selected.distinct_assignment_failures_sample from the full-scope direct pair-scorer receipt",
+    "distinct_assignment_failure_count": 26,
+    "coverage_failure_count": 6,
+    "sample_count": 26,
+    "tag_counts": {
+      "gt_pair_overlap_high": 23,
+      "coverage_failure": 6,
+      "selected_low_iou_to_gt": 5,
+      "selected_pair_overlap_high": 1,
+      "no_distinct_gt_assignment": 1,
+      "tiny_gt_hand": 1
+    },
+    "top_failure_labels": {
+      "bird": 2,
+      "talk": 2,
+      "fish": 2,
+      "all": 2,
+      "cat": 1,
+      "hungry": 1,
+      "grandma": 1,
+      "green": 1,
+      "like": 1,
+      "water": 1,
+      "after": 1,
+      "any": 1,
+      "aunt": 1,
+      "bad": 1,
+      "brown": 1,
+      "girl": 1,
+      "later": 1,
+      "morning": 1,
+      "orange": 1,
+      "person": 1,
+      "table": 1,
+      "where": 1
+    },
+    "interpretation": "The rejected direct pair scorer mostly fails on high-overlap GT hand pairs rather than selected-pair collapse. The next repair should target overlap-aware two-slot assignment/head behavior and separately handle the six coverage failures, including tiny-hand row 12692."
+  },
+  "next_action": "continue_m3jb_overlap_aware_assignment_head_repair_after_directpair_failure_audit"
+}

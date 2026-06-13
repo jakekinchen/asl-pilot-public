@@ -1,0 +1,100 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-low-lr-fulltrain-brev-preflight-blocker/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_low_lr_fulltrain_brev_ok",
+  "recorded_at_utc": "2026-06-03T19:36:13Z",
+  "head_before_slice": "c90ed31 record(m3jb): isolate recognizer transformer lr failure",
+  "status": "blocked_before_training_retained_worker_unhealthy",
+  "approval": {
+    "source": "GOAL.md and active prompt",
+    "summary": "Recognizer campaign records current 2026-06-03 user approval for unconstrained Brev/NVIDIA compute and retained worker asl-pilot-m3eh-l40s-001 / 3d58wpy9o or an equivalent healthy NVIDIA worker.",
+    "used_for": [
+      "brev start asl-pilot-m3eh-l40s-001",
+      "attempted SSH/CUDA preflight",
+      "worker stop/teardown after unhealthy state"
+    ]
+  },
+  "target_run": {
+    "token": "m3jb_recognizer_transformer_low_lr_fulltrain_brev_ok",
+    "planned_worker": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "gpu": "L40S",
+      "instance_type": "l40s-48gb.1x"
+    },
+    "planned_command": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_recognizer_distill.py --student-arch transformer --device cuda --epochs 200 --batch 256 --lr 5e-4 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --out tools/detector0-annotator/output/m3jb-recognizer-transformer-run2-lowlr-fulltrain-e200-lr5e4-brev-v1.json\"",
+    "executed": false
+  },
+  "preflight": {
+    "initial_brev_ls": {
+      "retained_worker_status": "STOPPED",
+      "retained_worker_shell_status": "NOT READY",
+      "retained_worker_health_status": "HEALTHY"
+    },
+    "start_attempt_1": {
+      "command": "brev start asl-pilot-m3eh-l40s-001",
+      "result": "returned ready banner, but subsequent remote exec could not establish SSH"
+    },
+    "ssh_cuda_preflight": {
+      "command": "timeout 180s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && (ps -eo pid,etime,pcpu,pmem,args | egrep 'python|torch|train|screen|tmux' | grep -v egrep || true) && .venv/bin/python - <<'PY' ... PY\"",
+      "result": "ssh connect timed out and the Brev CLI waited for SSH availability until the local process was terminated",
+      "remote_command_completed": false,
+      "cuda_verified": false,
+      "conflicting_training_process_check_completed": false
+    },
+    "post_failed_exec_brev_ls": {
+      "retained_worker_status": "UNHEALTHY",
+      "retained_worker_shell_status": "READY",
+      "retained_worker_health_status": "UNHEALTHY"
+    },
+    "teardown_after_unhealthy": {
+      "commands": [
+        "brev stop asl-pilot-m3eh-l40s-001",
+        "brev stop 3d58wpy9o",
+        "brev stop --all"
+      ],
+      "settled_state_after_wait": {
+        "retained_worker_status": "STOPPED",
+        "retained_worker_shell_status": "NOT READY",
+        "retained_worker_health_status": "UNHEALTHY"
+      }
+    },
+    "start_attempt_2": {
+      "command": "brev start asl-pilot-m3eh-l40s-001",
+      "result": "local Brev CLI stayed in an 'instance is stopped' loop; local command was terminated",
+      "final_brev_ls": {
+        "retained_worker_status": "STOPPED",
+        "retained_worker_shell_status": "NOT READY",
+        "retained_worker_health_status": "UNHEALTHY"
+      }
+    }
+  },
+  "artifacts": {
+    "synced_to_remote": [],
+    "copied_back": []
+  },
+  "runtime_boundary": {
+    "brev_lifecycle_used": true,
+    "brev_exec_or_copy_completed": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward": false,
+    "checkpoint_written": false,
+    "browser_artifact_promoted": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "push": false
+  },
+  "decision": "Do not launch the low-LR full-scope run until Brev reports a healthy worker and a remote SSH/CUDA/process preflight succeeds.",
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_low_lr_fulltrain_brev_retry_after_worker_health_ok",
+    "summary": "Retry the same low-LR full-scope CUDA run only after a healthy worker is available. If the retained worker remains unhealthy, use an already healthy equivalent NVIDIA worker under the recorded approval or ask the human before creating, deleting, or resetting infrastructure."
+  },
+  "validation": [
+    "node scripts/audit_loop_premise.mjs --json passed before the slice",
+    "final brev ls --json showed retained worker STOPPED / NOT READY / UNHEALTHY",
+    "no training artifacts were produced"
+  ]
+}

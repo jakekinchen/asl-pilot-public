@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+#
+# scripts/pre-commit.sample — sample git pre-commit hook for the ASL Pilot
+# repo. Runs `bash scripts/preflight.sh --fast` before allowing a commit so
+# stale evidence, broken audits, or lint/typecheck regressions are caught
+# locally instead of after-the-fact.
+#
+# This file is a sample only. To install:
+#
+#   cp scripts/pre-commit.sample .git/hooks/pre-commit
+#   chmod +x .git/hooks/pre-commit
+#
+# Or symlink so future updates to the sample propagate automatically:
+#
+#   ln -sf ../../scripts/pre-commit.sample .git/hooks/pre-commit
+#
+# To bypass (e.g. an emergency commit where the audit chain is intentionally
+# broken AND there's a written reason for it):
+#
+#   git commit --no-verify ...
+#
+# Per CLAUDE.md hard rules, --no-verify should be a deliberate decision with
+# justification in the commit body — not the default escape hatch.
+#
+# The --fast mode skips the slow tail (web build + browser ONNX wiring smoke,
+# ~7 s combined). To run the full chain on every commit, replace --fast with
+# nothing — but be aware the heavy smokes can add 10-30 s per commit.
+
+set -uo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
+
+if ! bash scripts/preflight.sh --fast; then
+  echo ""
+  echo "pre-commit: preflight failed. Fix the failing check or commit with --no-verify (deliberately)."
+  exit 1
+fi

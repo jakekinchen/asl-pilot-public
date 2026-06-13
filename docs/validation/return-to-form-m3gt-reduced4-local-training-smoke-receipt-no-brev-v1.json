@@ -1,0 +1,451 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3gt-reduced4-local-training-smoke-receipt-no-brev/v1",
+  "mission": "Mission 3GT - reduced4 local training smoke receipt no Brev",
+  "status": "completed_local_no_remote_no_brev_no_training_future_smoke_command_receipt",
+  "generated_at": "2026-05-29T11:35:21Z",
+  "current_commit_before_slice_commit": "71e8473 observer: CONTINUE - m3gs m3gt receipt handoff",
+  "active_prompt": "docs/model/return-to-form-m3gt-reduced4-local-training-smoke-receipt-no-brev-goal-loop-prompt.md",
+  "pretrained_components": [],
+  "commands_run": {
+    "freshness_and_source_of_truth": [
+      "pwd && git log -1 --oneline && git status --short",
+      "sed -n '1,220p' GOAL.md",
+      "sed -n '1,220p' .agents/skills/asl-pilot-codex-pair/SKILL.md",
+      "sed -n '1,260p' docs/model/return-to-form-m3gt-reduced4-local-training-smoke-receipt-no-brev-goal-loop-prompt.md",
+      "sed -n '1,260p' docs/runbooks/codex-goal-loop.md",
+      "sed -n '1,260p' docs/runbooks/observer-runbook-codex.md",
+      "sed -n '1,260p' docs/model/return-to-form-plan.md",
+      "sed -n '1,240p' .agents/skills/asl-pilot-ml-receipt/SKILL.md",
+      "sed -n '1,220p' AGENTS.md",
+      "sed -n '1,220p' docs/session-logs/654-observer-continue-m3gs-m3gt-receipt-handoff.md"
+    ],
+    "required_baseline_checks": [
+      "git status --short --branch",
+      "git log -12 --oneline --decorate",
+      "node scripts/audit_loop_premise.mjs --json",
+      "node scripts/audit_return_to_form_plan.mjs --json",
+      "node scripts/audit_source_register.mjs",
+      "node scripts/audit_no_pretrained_deps.mjs",
+      "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "python3 -m json.tool docs/validation/return-to-form-m3gs-reduced4-trainability-result-triage-no-brev-v1.json >/dev/null",
+      "python3 -m json.tool docs/validation/return-to-form-m3gr-local-dataloader-or-micro-overfit-preflight-no-brev-v1.json >/dev/null",
+      "python3 -m json.tool docs/validation/return-to-form-m3gq-source-vocab-input-repair-no-brev-v1.json >/dev/null",
+      "python3 -m json.tool data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json >/dev/null",
+      "python3 -m json.tool data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json >/dev/null",
+      "python3 -m json.tool data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json >/dev/null",
+      "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "brev ls --json",
+      "git diff --check"
+    ],
+    "m3gr_ignored_output_checks": [
+      "find output/m3gr-reduced4-local-micro-overfit-preflight -maxdepth 1 -type f -name '*.json' -print",
+      "python3 -m json.tool output/m3gr-reduced4-local-micro-overfit-preflight/selected-subset.json >/dev/null",
+      "python3 -m json.tool output/m3gr-reduced4-local-micro-overfit-preflight/tiny-overfit-provenance.json >/dev/null",
+      "shasum -a 256 output/m3gr-reduced4-local-micro-overfit-preflight/selected-subset.json output/m3gr-reduced4-local-micro-overfit-preflight/tiny-overfit-provenance.json",
+      "git check-ignore -v output/m3gr-reduced4-local-micro-overfit-preflight/selected-subset.json output/m3gr-reduced4-local-micro-overfit-preflight/tiny-overfit-provenance.json output/m3gr-reduced4-local-micro-overfit-preflight/model_state.pt"
+    ],
+    "receipt_evidence_reads": [
+      "jq reads of M3GS, M3GR, and M3GQ receipts",
+      "sed reads of docs/session-logs/653-mission-3gs-reduced4-trainability-result-triage-no-brev.md",
+      "sed and rg reads of scripts/train_rawframe_model.py",
+      "sed and rg reads of scripts/evaluate_rawframe_model.py",
+      "sed reads of scripts/run_m3gr_reduced4_micro_overfit_preflight.py",
+      "jq reads of web/public/model/model-card.json, docs/model/active-vocabulary-claim.json, web/public/model/detector0-card.json, web/public/model/claim-matrix.json, and docs/validation/final-claim-matrix.json",
+      "shasum -a 256 over reduced4 manifests and fail-closed claim surfaces",
+      "rg reads of CLAUDE.md, ARCHITECTURE.md, and DECISIONS.md for binding no-pretrained, Brev, and claim boundaries"
+    ],
+    "intentionally_not_run": [
+      "training, fitting, optimizer/backward, local training smoke, or micro-overfit rerun",
+      "checkpoint evaluator rerun, validation/test readiness evaluation, export, promotion, browser activation, or browser/product smoke",
+      "Brev lifecycle, remote, sync, copy, exec, stop, start, worker creation, or spend commands",
+      "source/media import, raw media inspection, raw learner video upload, source-register rights mutation, manifest mutation, tensor mutation, crop mutation, or label expansion",
+      "OpenAI API, GPT-Pro, Hugging Face, web research, or other research calls",
+      "final-gate change or claim-surface mutation",
+      "pretrained detector, landmark, backbone, feature, embedding, model, generated-label, or pseudo-label shortcut"
+    ],
+    "post_write_validation": [
+      "python3 -m json.tool docs/validation/return-to-form-m3gt-reduced4-local-training-smoke-receipt-no-brev-v1.json >/dev/null",
+      "git diff --check",
+      "node scripts/audit_loop_premise.mjs --json",
+      "node scripts/audit_return_to_form_plan.mjs --json",
+      "node scripts/audit_no_pretrained_deps.mjs",
+      "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "node scripts/audit_source_register.mjs",
+      "git status --short"
+    ]
+  },
+  "command_results_summary": {
+    "git_status_short_branch": "## compound-plan-m0...origin/compound-plan-m0 [ahead 321]",
+    "worktree_before_edits": "clean",
+    "audit_loop_premise": "passed",
+    "audit_return_to_form_plan": "passed; active prompt is docs/model/return-to-form-m3gt-reduced4-local-training-smoke-receipt-no-brev-goal-loop-prompt.md",
+    "audit_source_register": "passed",
+    "audit_no_pretrained_deps": "passed",
+    "audit_no_pretrained_artifact_json": "passed",
+    "json_tool_checks": "passed for required M3GS, M3GR, M3GQ, reduced4 manifest, and fail-closed claim JSON files",
+    "git_diff_check_before_writes": "passed",
+    "post_write_validation": "passed for new receipt JSON, git diff --check, loop premise audit, return-to-form plan audit, source-register audit, no-pretrained dependency audit, and no-pretrained artifact JSON audit",
+    "m3gr_ignored_output_json_validation": "passed for selected-subset.json and tiny-overfit-provenance.json"
+  },
+  "read_only_brev_default_off_state": {
+    "command": "brev ls --json",
+    "state": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "status": "STOPPED",
+      "build_status": "COMPLETED",
+      "shell_status": "NOT READY",
+      "health_status": "HEALTHY",
+      "instance_type": "l40s-48gb.1x",
+      "instance_kind": "gpu",
+      "gpu": "L40S"
+    },
+    "interpretation": "read-only visibility only; no Brev lifecycle, remote, sync, copy, exec, stop, start, or spend command was run"
+  },
+  "m3gs_selected_next_action": {
+    "source_receipt": "docs/validation/return-to-form-m3gs-reduced4-trainability-result-triage-no-brev-v1.json",
+    "source_session_log": "docs/session-logs/653-mission-3gs-reduced4-trainability-result-triage-no-brev.md",
+    "exactly_one_next_action": "continue_m3gt_reduced4_local_training_smoke_receipt_no_brev",
+    "summary": "M3GS interpreted M3GR as local input wiring and tiny same-subset train-fit evidence only, not validation/test quality, threshold readiness, export eligibility, promotion, browser activation, final readiness, or broad training authorization."
+  },
+  "m3gq_reduced4_evidence_summary": {
+    "source_receipt": "docs/validation/return-to-form-m3gq-source-vocab-input-repair-no-brev-v1.json",
+    "source_session_log": "docs/session-logs/649-mission-3gq-source-vocab-input-repair-no-brev.md",
+    "selected_route": "reduced_existing_vocab_contract",
+    "source_id": "asl-citizen-school-assignment-raw-videos",
+    "license_review_status": "approved_noncommercial_school_assignment_raw_video_only",
+    "input_contract": "rgb_regions_grid_v1",
+    "labels": [
+      "hello",
+      "uncle",
+      "white",
+      "sad"
+    ],
+    "region_order": [
+      "viewer_left_hand_context",
+      "viewer_right_hand_context",
+      "upper_body_signing_space",
+      "head_context",
+      "full_frame_reference"
+    ],
+    "splits": {
+      "train": {
+        "path": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json",
+        "sha256": "aab52f670b9dbf6d219521a8ebf84d1af1a798ec5f1c8a54cbe126222ffe0f11",
+        "clip_count": 48,
+        "label_counts": {
+          "hello": 12,
+          "sad": 12,
+          "uncle": 12,
+          "white": 12
+        },
+        "signer_count": 18
+      },
+      "validation": {
+        "path": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json",
+        "sha256": "03f4d1e391146ab98bbb1aea9936396b82a09cbb09d5e783b6a147292140f13b",
+        "clip_count": 15,
+        "label_counts": {
+          "hello": 4,
+          "sad": 4,
+          "uncle": 3,
+          "white": 4
+        },
+        "signer_count": 5
+      },
+      "test": {
+        "path": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json",
+        "sha256": "c02486e4a50cb2894e8e1bf9ac848871368702371311c9b62b519ac8ce9b6920",
+        "clip_count": 16,
+        "label_counts": {
+          "hello": 4,
+          "sad": 4,
+          "uncle": 4,
+          "white": 4
+        },
+        "signer_count": 7
+      }
+    },
+    "total_clip_count": 79,
+    "tensors_reused_without_mutation": true,
+    "dry_run_input_contract_observed_counts": {
+      "rgb_regions_grid_v1": 79
+    }
+  },
+  "m3gr_train_fit_evidence_summary": {
+    "source_receipt": "docs/validation/return-to-form-m3gr-local-dataloader-or-micro-overfit-preflight-no-brev-v1.json",
+    "source_session_log": "docs/session-logs/651-mission-3gr-local-dataloader-or-micro-overfit-preflight-no-brev.md",
+    "helper_script": "scripts/run_m3gr_reduced4_micro_overfit_preflight.py",
+    "dataloader_input_contract": {
+      "status": "passed",
+      "raw_rgb_regions_shape": [
+        16,
+        5,
+        96,
+        96,
+        3
+      ],
+      "prepared_model_input_axis": "T,R,C,H,W",
+      "batched_model_input_axis": "B,T,R,C,H,W",
+      "region_axis_preserved_until": "TrueTemporalConvNetRawFrameClassifier.region_attention",
+      "rgb_frames_fallback_used": false
+    },
+    "tiny_same_subset_fit": {
+      "status": "succeeded_train_fit_only",
+      "subset": "one deterministic train clip per reduced4 label",
+      "clip_count": 4,
+      "epochs": 120,
+      "batch_size": 4,
+      "learning_rate": 0.003,
+      "runtime_device": "mps",
+      "elapsed_seconds": 4.381503084092401,
+      "final_same_subset_accuracy": 1.0,
+      "zero_recall_labels": [],
+      "interpretation": "train-fit connectivity only; not held-out quality, threshold readiness, export, promotion, browser activation, final readiness, or broad training viability"
+    },
+    "ignored_outputs_present_locally": [
+      {
+        "path": "output/m3gr-reduced4-local-micro-overfit-preflight/selected-subset.json",
+        "sha256": "fa4f9e16e60230299fe17c85004e62db13f97eeb624f9eeb6afdd657330bb58b",
+        "json_tool_validation": "passed",
+        "ignored_by": ".gitignore:27:output/"
+      },
+      {
+        "path": "output/m3gr-reduced4-local-micro-overfit-preflight/tiny-overfit-provenance.json",
+        "sha256": "31234b929eab8bc0f084ecd695d7b9caab025c41ff33883b7ca58ec4b240984b",
+        "json_tool_validation": "passed",
+        "ignored_by": ".gitignore:27:output/"
+      },
+      {
+        "path": "output/m3gr-reduced4-local-micro-overfit-preflight/model_state.pt",
+        "sha256": "5030212e24dcbf4da58110726de2bcf795da5e47387bdd472e2a49a9b06dbfed",
+        "json_tool_validation": "not_json",
+        "ignored_by": ".gitignore:27:output/"
+      }
+    ]
+  },
+  "files_inspected_to_draft_future_command": [
+    "docs/model/return-to-form-m3gt-reduced4-local-training-smoke-receipt-no-brev-goal-loop-prompt.md",
+    "docs/model/return-to-form-plan.md",
+    "docs/validation/return-to-form-m3gs-reduced4-trainability-result-triage-no-brev-v1.json",
+    "docs/session-logs/653-mission-3gs-reduced4-trainability-result-triage-no-brev.md",
+    "docs/session-logs/654-observer-continue-m3gs-m3gt-receipt-handoff.md",
+    "docs/validation/return-to-form-m3gr-local-dataloader-or-micro-overfit-preflight-no-brev-v1.json",
+    "docs/validation/return-to-form-m3gq-source-vocab-input-repair-no-brev-v1.json",
+    "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json",
+    "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json",
+    "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json",
+    "scripts/train_rawframe_model.py",
+    "scripts/evaluate_rawframe_model.py",
+    "scripts/run_m3gr_reduced4_micro_overfit_preflight.py",
+    "output/m3gr-reduced4-local-micro-overfit-preflight/selected-subset.json",
+    "output/m3gr-reduced4-local-micro-overfit-preflight/tiny-overfit-provenance.json",
+    "web/public/model/model-card.json",
+    "docs/model/active-vocabulary-claim.json",
+    "web/public/model/detector0-card.json",
+    "web/public/model/claim-matrix.json",
+    "docs/validation/final-claim-matrix.json"
+  ],
+  "command_surface_findings": {
+    "train_rawframe_model_region_grid_flag": {
+      "finding": "The existing --region-grid-tcn-training-smoke path preserves the rgb_regions axis, but validate_training_invocation currently pins it to data/manifests/lesson/high-signal-region-grid/{train,validation,test}.json and older output namespaces, not the M3GQ reduced4 paths.",
+      "implication": "Do not run a direct reduced4 --region-grid-tcn-training-smoke command until a future M3GU guard or wrapper explicitly accepts the M3GQ reduced4 manifests and output namespace."
+    },
+    "generic_small_label_smoke": {
+      "finding": "The generic smoke path can be selected by --allow-small-label-set or batch caps, but training_evidence_mode(args) then reports smoke and preserve_region_axis is false.",
+      "implication": "Generic small-label smoke is not an acceptable reduced4 command because it can fall back away from region-axis-preserving rgb_regions authority."
+    },
+    "evaluate_rawframe_model_region_grid_flag": {
+      "finding": "The existing --region-grid-tcn-training-smoke evaluator path preserves the region axis but currently expects 5-10 labels in finality checks; the M3GQ reduced4 contract has 4 labels.",
+      "implication": "A future held-out reduced4 smoke must use an explicit reduced4 diagnostic evaluator guard or fail closed before interpretation."
+    },
+    "m3gr_helper": {
+      "finding": "scripts/run_m3gr_reduced4_micro_overfit_preflight.py safely enforces reduced4 train-manifest and output-dir constraints for the tiny same-subset preflight only.",
+      "implication": "It is useful as a guard pattern, but it must not be reused as a held-out train/validation/test smoke without a new receipt and code path."
+    }
+  },
+  "future_local_smoke_command_plan": {
+    "contract_status": "planned_not_run_current_surface_requires_future_m3gu_reduced4_guard",
+    "scope": "local/no-remote/no-Brev diagnostic-only reduced4 train/validation/test smoke on existing M3GQ manifests",
+    "max_spend_usd": 0,
+    "required_device": "local Mac Studio MPS or equivalent local PyTorch GPU; CPU fallback is a kill condition for interpretation",
+    "candidate_preflight_command_existing_no_training": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json --output-dir output/m3gu-reduced4-contract-dry-run --model-id asl-pilot-m3gu-reduced4-contract-v1 --architecture true_temporal_convnet_region_grid --check-files --dry-run --allow-small-label-set --require-input-contract rgb_regions_grid_v1 --frame-count 16 --image-size 96 --num-workers 0",
+    "candidate_training_command_template_after_guard_exists": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/run_m3gu_reduced4_local_training_smoke.py --train-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json --output-dir output/m3gu-reduced4-local-training-smoke --model-id asl-pilot-m3gu-reduced4-local-training-smoke-v1 --architecture true_temporal_convnet_region_grid --seed 20260529 --epochs 3 --batch-size 4 --learning-rate 0.003 --optimizer adamw --weight-decay 0.0 --label-smoothing 0.0 --frame-count 16 --image-size 96 --training-augmentation none --checkpoint-selection best_validation --num-workers 0 --max-train-batches 12 --max-validation-batches 4 --check-files --require-input-contract rgb_regions_grid_v1 --fail-if-output-exists",
+    "candidate_evaluation_command_template_after_guard_exists": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint output/m3gu-reduced4-local-training-smoke/model_state.pt --training-provenance output/m3gu-reduced4-local-training-smoke/training-provenance.json --train-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json --output-report output/m3gu-reduced4-local-training-smoke/validation-report.json --prediction-sidecar output/m3gu-reduced4-local-training-smoke/prediction-sidecar.json --batch-size 4 --num-workers 0 --reduced4-region-grid-tcn-training-smoke",
+    "guard_prerequisites_before_any_fitting": [
+      "The future M3GU command surface must explicitly accept only the three M3GQ reduced4 manifest paths and hashes recorded in this receipt.",
+      "The future M3GU command surface must require output/m3gu-reduced4-local-training-smoke and must fail if the output directory or any expected output file already exists.",
+      "The future M3GU command surface must preserve the rgb_regions region axis through B,T,R,C,H,W and record rgb_frames_fallback_used=false in provenance.",
+      "The future M3GU command surface must emit pretrained_components=[] and random initialization evidence.",
+      "The future M3GU evaluator/report path must understand a four-label reduced4 diagnostic smoke without weakening final or lesson evidence gates.",
+      "If any guard cannot be satisfied with a small scoped change, M3GU must not fit; route to continue_m3gu_reduced4_data_or_split_diagnosis_no_training or human review."
+    ],
+    "manifest_paths": {
+      "train": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json",
+      "validation": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json",
+      "test": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json"
+    },
+    "input_representation": {
+      "required_contract": "rgb_regions_grid_v1",
+      "raw_shape": [
+        16,
+        5,
+        96,
+        96,
+        3
+      ],
+      "model_axis": "B,T,R,C,H,W",
+      "region_axis_must_be_preserved": true,
+      "rgb_frames_fallback_allowed": false
+    },
+    "label_vocabulary": [
+      "hello",
+      "sad",
+      "uncle",
+      "white"
+    ],
+    "model_family": {
+      "architecture": "true_temporal_convnet_region_grid",
+      "initialization": "random",
+      "weights": "scratch_only",
+      "pretrained_components": []
+    },
+    "caps": {
+      "single_seed_only": 20260529,
+      "max_runtime_minutes_total": 20,
+      "max_epochs": 3,
+      "max_train_examples_per_epoch": 48,
+      "max_validation_examples_per_epoch": 15,
+      "test_examples": 16,
+      "batch_size": 4,
+      "max_train_batches": 12,
+      "max_validation_batches": 4,
+      "num_workers": 0,
+      "training_augmentation": "none",
+      "checkpoint_selection": "best_validation",
+      "max_output_files": [
+        "model_state.pt",
+        "training-provenance.json",
+        "validation-report.json",
+        "prediction-sidecar.json"
+      ]
+    },
+    "output_namespace": {
+      "directory": "output/m3gu-reduced4-local-training-smoke",
+      "tracked": false,
+      "ignored_by": ".gitignore:27:output/",
+      "must_not_write": [
+        "artifacts/rawframe-model",
+        "web/public/model",
+        "docs/model/active-vocabulary-claim.json",
+        "docs/validation/final-claim-matrix.json"
+      ]
+    },
+    "pre_run_absence_and_freshness_guards": [
+      "git status --short must be clean except the active M3GU scoped edits before fitting.",
+      "GOAL.md must point at an M3GU prompt that explicitly authorizes the local/no-Brev reduced4 smoke.",
+      "python3 -m json.tool must pass for all three reduced4 manifests and fail-closed claim JSON files.",
+      "Manifest hashes must equal aab52f670b9dbf6d219521a8ebf84d1af1a798ec5f1c8a54cbe126222ffe0f11, 03f4d1e391146ab98bbb1aea9936396b82a09cbb09d5e783b6a147292140f13b, and c02486e4a50cb2894e8e1bf9ac848871368702371311c9b62b519ac8ce9b6920.",
+      "Claim-surface hashes must equal 00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a, a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546, 78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929, and 5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf.",
+      "output/m3gu-reduced4-local-training-smoke must not exist; if it exists, stop for explicit cleanup approval.",
+      "brev ls --json must remain read-only/default-off; any requirement for Brev is a stop condition.",
+      "The no-training input-contract preflight command must pass immediately before fitting."
+    ],
+    "kill_conditions": [
+      "Any Brev lifecycle, remote, sync, copy, exec, stop, start, worker creation, or spend command is required.",
+      "The command resolves to CPU, a non-local remote device, or a device whose environment receipt is stale for the future prompt's requirements.",
+      "Any manifest path, hash, dataset_id, source_id, label set, split count, tensor hash, or source-register license status differs from the recorded M3GQ evidence.",
+      "The training path uses generic smoke mode with preserve_region_axis=false, records rgb_frames_fallback_used=true, or omits region-axis evidence.",
+      "The evaluation/report path cannot read the same reduced4 region-grid evidence mode without weakening final or lesson gates.",
+      "Output namespace is not exactly output/m3gu-reduced4-local-training-smoke or output files already exist before the run.",
+      "Any output writes under artifacts/rawframe-model, web/public/model, claim matrices, model-card, or active-vocabulary claim surfaces.",
+      "Any pretrained_components entry is non-empty or any pretrained detector, landmark, backbone, feature, embedding, model, generated-label, or pseudo-label dependency appears.",
+      "Runtime exceeds 20 minutes total, an epoch exceeds 6 minutes, or logs stop progressing for more than 2 minutes.",
+      "Train or validation loss is NaN, infinite, or missing.",
+      "After epoch 2, train accuracy remains at or below random-chance baseline 0.25 and train loss has not decreased from epoch 1.",
+      "Validation/test report omits top-1, macro-F1, per-label recall, zero-recall labels, and confusion matrix fields.",
+      "Fail-closed claim surface status changes before, during, or after the run."
+    ],
+    "expected_diagnostic_signals_before_run": [
+      "training history with train loss and train accuracy for every capped epoch",
+      "validation loss and validation top-1 during training",
+      "post-training validation top-1 and macro-F1",
+      "post-training test top-1 and macro-F1",
+      "per-label precision, recall, F1, and support for hello, sad, uncle, and white",
+      "zero-recall labels for validation and test",
+      "validation and test confusion matrices",
+      "prediction sidecar or equivalent per-example diagnostic scores if available",
+      "negative or false-pass fields recorded as absent_not_evidence if no reduced4 negative challenge manifest is available",
+      "selected checkpoint epoch and whether it was chosen by best_validation",
+      "provenance fields proving random initialization, preserved region axis, and pretrained_components=[]"
+    ]
+  },
+  "planned_success_failure_interpretation_before_run": {
+    "distinction_from_m3gr": "M3GR proved deterministic four-clip same-subset train-fit only. The future M3GU smoke would be the first reduced4 train/validation/test held-out diagnostic signal, still capped and local.",
+    "success_floor_for_train_sanity": "Train loss decreases from epoch 1 and train top-1 rises above random chance; stronger train fit is useful but not required for promotion because this is diagnostic.",
+    "heldout_signal_interpretation": "Validation/test top-1 or macro-F1 above chance with non-empty per-label recall is a candidate signal for the next diagnostic step only. It does not authorize export, model-card promotion, browser activation, final readiness, active vocabulary claim expansion, or broader training.",
+    "zero_recall_interpretation": "Any validation or test zero-recall label routes to reduced4 data/split/input diagnosis before another training-style retry.",
+    "near_chance_or_regression_interpretation": "Validation/test near chance, rotating zero-recall labels, or worse behavior than prior seven-label context routes to data/split diagnosis or strategy escalation, not another seed-only retry.",
+    "missing_negative_challenge_interpretation": "Absence of negative/false-pass evidence must be recorded as a gap; threshold readiness remains unproven.",
+    "command_surface_failure_interpretation": "If the future reduced4 region-preserving train/eval guard cannot be satisfied, do not fit and choose the no-training data/split diagnosis route.",
+    "promotion_boundary": "No single local reduced4 smoke result may promote a model, edit claim surfaces, activate browser recognition, change final gates, or claim ASL correctness."
+  },
+  "claim_surface_status": {
+    "fail_closed_unchanged": true,
+    "web_public_model_model_card": {
+      "path": "web/public/model/model-card.json",
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "status": "not_trained",
+      "model_id": "asl-pilot-rawframe-v0"
+    },
+    "docs_model_active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": [],
+      "evidenceArtifacts": []
+    },
+    "web_public_model_detector0_card": {
+      "path": "web/public/model/detector0-card.json",
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null
+    },
+    "web_public_model_claim_matrix": {
+      "path": "web/public/model/claim-matrix.json",
+      "sha256": "5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf",
+      "status": "no_active_claim_rawframe_not_trained"
+    },
+    "docs_validation_final_claim_matrix": {
+      "path": "docs/validation/final-claim-matrix.json",
+      "sha256": "5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf",
+      "status": "no_active_claim_rawframe_not_trained"
+    }
+  },
+  "forbidden_action_proof": {
+    "brev_lifecycle_remote_sync_copy_exec_stop_start_or_spend": false,
+    "training_or_fitting_or_micro_overfit_rerun": false,
+    "checkpoint_evaluator_rerun": false,
+    "validation_or_test_readiness_evaluation": false,
+    "export": false,
+    "browser_activation": false,
+    "browser_or_product_smoke": false,
+    "source_import": false,
+    "source_register_rights_mutation": false,
+    "raw_learner_video_upload": false,
+    "raw_media_inspection": false,
+    "manifest_tensor_crop_or_label_mutation": false,
+    "claim_expansion": false,
+    "model_card_promotion": false,
+    "final_gate_change": false,
+    "research_api_or_gpt_pro_call": false,
+    "pretrained_detector_landmark_backbone_feature_model_or_generated_label_shortcut": false
+  },
+  "changed_files": [
+    "docs/validation/return-to-form-m3gt-reduced4-local-training-smoke-receipt-no-brev-v1.json",
+    "docs/session-logs/655-mission-3gt-reduced4-local-training-smoke-receipt-no-brev.md"
+  ],
+  "exactly_one_next_action": "continue_m3gu_reduced4_local_training_smoke_no_brev"
+}

@@ -1,0 +1,266 @@
+{
+  "schema_version": "asl-pilot-region-grid-tcn-5d-augmentation-diagnosis/v1",
+  "status": "completed_local_5d_augmentation_fix",
+  "mission": "M3DP",
+  "active_prompt": "docs/model/return-to-form-region-grid-tcn-5d-augmentation-diagnosis-goal-loop-prompt.md",
+  "generated_at": "2026-05-28T09:57:45Z",
+  "generated_by": "codex_executor",
+  "local_head_before_receipt": {
+    "commit": "198d2fa",
+    "subject": "observer: REDIRECT - tcn 5d augmentation diagnosis",
+    "branch": "compound-plan-m0",
+    "ahead_of_origin": 113
+  },
+  "authorization": {
+    "brev_spend_authorized": false,
+    "local_no_spend_only": true,
+    "forbidden_actions_confirmed": [
+      "brev exec",
+      "brev sync",
+      "brev training",
+      "brev copy",
+      "brev lifecycle command",
+      "model fitting",
+      "backward pass",
+      "optimizer step",
+      "epoch training",
+      "checkpoint write",
+      "evaluation",
+      "artifact promotion",
+      "browser activation"
+    ]
+  },
+  "source_hashes": {
+    "GOAL.md": "3e0447c829757eb78f3b55bc29ce851497754522abd28adf4e5796ea7bcae364",
+    "docs/model/return-to-form-region-grid-tcn-5d-augmentation-diagnosis-goal-loop-prompt.md": "d9b1c6a04a6b486aa474f7159d7dd4ef5326ee22852c71f73a6fae1c9a3fdf1f",
+    "docs/validation/return-to-form-region-grid-tcn-brev-smoke-after-guard-fix-v1.json": "56354e58b4908718cc5f1018ab82783bdf026a32cb858c57f64bfdfa9141d493",
+    "docs/validation/return-to-form-region-grid-tcn-brev-guard-fix-v1.json": "09801682f8e708e4d96324faac06a9d91933aac68ec3fc9a9a8f0bf9211393ce",
+    "scripts/train_rawframe_model.py": "edcc2477fb5211c9cc67f0cf1236d7eafc02b0d0ddfd8e80e8c3ab644bd78fbe",
+    "scripts/evaluate_rawframe_model.py": "dfd23c55e09a360f15acb4d432c816508e1ebf536339892c0dded28d20ffbf5c"
+  },
+  "local_checks": [
+    {
+      "command": "git status --short --branch",
+      "exit_code": 0,
+      "status": "passed",
+      "summary": "branch compound-plan-m0 ahead 113 before receipt/log, with scripts/train_rawframe_model.py modified for this slice"
+    },
+    {
+      "command": "git log -8 --oneline",
+      "exit_code": 0,
+      "status": "passed",
+      "latest": "198d2fa observer: REDIRECT - tcn 5d augmentation diagnosis"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_code": 0,
+      "status": "passed",
+      "checked_at": "2026-05-28T09:56:36.310Z"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_code": 0,
+      "status": "passed",
+      "checked_at": "2026-05-28T09:56:36.325Z"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_code": 0,
+      "status": "passed",
+      "checked_at": "2026-05-28T09:56:36.399Z"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "exit_code": 0,
+      "status": "passed",
+      "register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-region-grid-tcn-brev-smoke-after-guard-fix-v1.json >/dev/null",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-region-grid-tcn-brev-guard-fix-v1.json >/dev/null",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "exit_code": 0,
+      "status": "passed"
+    }
+  ],
+  "m3do_failure_classification": {
+    "receipt": "docs/validation/return-to-form-region-grid-tcn-brev-smoke-after-guard-fix-v1.json",
+    "status": "training_failed_no_artifacts",
+    "exception": "NotImplementedError",
+    "message": "Padding size 4 is not supported for 5D input tensor.",
+    "root_cause": "region-grid training preserves tensors as T,R,C,H,W, but augment_raw_rgb_frames_mild passed a 4-value H/W replicate pad tuple. PyTorch non-constant padding for 5D tensors requires a 6-value tuple for the last three dimensions.",
+    "source_locations": [
+      "scripts/train_rawframe_model.py:3226 RawFrameClipDataset.__getitem__ calls augment_raw_rgb_frames_mild",
+      "scripts/train_rawframe_model.py:3402 prior implementation called torch.nn.functional.pad(frames, (pad, pad, pad, pad), mode=\"replicate\")"
+    ],
+    "not_provider_or_cuda": true,
+    "artifacts_created_by_m3do": []
+  },
+  "pre_patch_reproduction": {
+    "command": "PYTHONPATH=scripts PYTHONDONTWRITEBYTECODE=1 .venv/bin/python - <<'PY' ... augment_raw_rgb_frames_mild(torch, torch.ones((16, 5, 3, 96, 96)), 96) ... PY",
+    "exit_code": 1,
+    "status": "failed_as_expected",
+    "exception": "NotImplementedError",
+    "message": "Padding size 4 is not supported for 5D input tensor."
+  },
+  "source_change": {
+    "file": "scripts/train_rawframe_model.py",
+    "status": "patched",
+    "summary": "Added spatial_replicate_pad_for_augmentation and routed mild augmentation through it. The helper keeps 4D input padding as (pad,pad,pad,pad) and uses (pad,pad,pad,pad,0,0) for 5D T,R,C,H,W inputs so only H/W are spatially padded while the region axis and channel axis are preserved.",
+    "line_refs_after_patch": [
+      "scripts/train_rawframe_model.py:3399 spatial_replicate_pad_for_augmentation",
+      "scripts/train_rawframe_model.py:3415 augment_raw_rgb_frames_mild uses the helper"
+    ],
+    "policy_downselect": "not_required",
+    "preserves_region_axis_semantics": true,
+    "pretrained_components": []
+  },
+  "post_patch_augmentation_proof": {
+    "command": "PYTHONPATH=scripts PYTHONDONTWRITEBYTECODE=1 .venv/bin/python - <<'PY' ... augment_raw_rgb_frames_mild(torch, torch.ones((16, 5, 3, 96, 96)), 96) ... PY",
+    "exit_code": 0,
+    "status": "passed",
+    "shape": [
+      16,
+      5,
+      3,
+      96,
+      96
+    ],
+    "min": 1.0,
+    "max": 1.0
+  },
+  "dry_run_compatibility": {
+    "m3aw_capped_local_smoke": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3aw-region-grid-tcn-local-smoke --model-id asl-pilot-asl-citizen-high-signal-region-grid-tcn-smoke-v1 --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 0 --epochs 2 --batch-size 4 --max-train-batches 12 --max-validation-batches 8 --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1",
+      "exit_code": 0,
+      "status": "passed",
+      "training_status": "dry_run_only",
+      "training_augmentation": "none",
+      "checkpoint_selection": "final",
+      "input_contract_status": "passed",
+      "total_clip_count": 139,
+      "observed_counts": {
+        "rgb_regions_grid_v1": 139
+      }
+    },
+    "m3dm_high_signal_full_split_dry_run": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3dm-high-signal-region-grid-tcn-brev --model-id m3dm-high-signal-region-grid-tcn-brev --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1",
+      "exit_code": 0,
+      "status": "passed",
+      "training_status": "dry_run_only",
+      "training_augmentation": "mild",
+      "checkpoint_selection": "best_validation",
+      "input_contract_status": "passed",
+      "total_clip_count": 139,
+      "observed_counts": {
+        "rgb_regions_grid_v1": 139
+      }
+    }
+  },
+  "local_no_fit_one_batch_preflight": {
+    "command": "PYTHONPATH=scripts PYTHONDONTWRITEBYTECODE=1 .venv/bin/python - <<'PY' ... RawFrameClipDataset(... training_augmentation=\"mild\", preserve_region_axis=True); DataLoader(... batch_size=8, num_workers=0); next(iter(loader)) ... PY",
+    "exit_code": 0,
+    "status": "passed",
+    "preflight": "no_fit_one_batch_region_grid_mild_augmentation",
+    "manifest_paths": [
+      "data/manifests/lesson/high-signal-region-grid/train.json",
+      "data/manifests/lesson/high-signal-region-grid/validation.json",
+      "data/manifests/lesson/high-signal-region-grid/test.json"
+    ],
+    "train_dataset_examples": 84,
+    "batch_shape": [
+      8,
+      16,
+      5,
+      3,
+      96,
+      96
+    ],
+    "labels_shape": [
+      8
+    ],
+    "dtype": "torch.float32",
+    "value_range": {
+      "min": 0.0,
+      "max": 1.0
+    },
+    "training_augmentation": "mild",
+    "preserve_region_axis": true,
+    "num_workers": 0,
+    "no_fit": true,
+    "optimizer_constructed": false,
+    "backward_run": false,
+    "checkpoint_written": false,
+    "evaluation_run": false
+  },
+  "brev_provider_state": {
+    "checked": true,
+    "command": "brev ls --json",
+    "exit_code": 0,
+    "workspaces": [
+      {
+        "name": "asl-pilot-rawframe-001",
+        "id": "2hl1hytty",
+        "status": "RUNNING",
+        "build_status": "COMPLETED",
+        "shell_status": "READY",
+        "health_status": "HEALTHY",
+        "instance_type": "massedcompute_A100_sxm4_80G_DGX",
+        "instance_kind": "gpu",
+        "gpu": "A100"
+      }
+    ],
+    "lifecycle_action_run": false,
+    "note": "M3DP allowed read-only provider visibility only. No Brev exec, sync, training, copy, stop, delete, reset, or lifecycle command was run."
+  },
+  "boundaries": {
+    "no_brev_exec_sync_training_copy_or_lifecycle": true,
+    "no_model_fitting": true,
+    "no_backward_pass": true,
+    "no_optimizer_step": true,
+    "no_epoch_training": true,
+    "no_checkpoint_creation_or_update": true,
+    "no_evaluation": true,
+    "no_copyback": true,
+    "no_broad_75_80_95_label_training": true,
+    "no_pretrained_detector_landmark_backbone_embedding_pseudo_label_or_generated_label": true,
+    "no_source_import": true,
+    "no_source_register_approval_change": true,
+    "no_manifest_mutation": true,
+    "no_tensor_mutation": true,
+    "no_vocabulary_expansion": true,
+    "no_model_card_promotion": true,
+    "no_onnx_export": true,
+    "no_browser_trained_activation": true,
+    "no_threshold_promotion": true,
+    "no_final_readiness_claim": true,
+    "no_positive_asl_correctness_claim": true,
+    "no_raw_learner_video_upload": true,
+    "no_push": true,
+    "no_amend": true,
+    "no_no_verify": true,
+    "no_duplicate_worker": true,
+    "no_worker_delete_or_reset": true
+  },
+  "changed_files": [
+    "scripts/train_rawframe_model.py",
+    "docs/validation/return-to-form-region-grid-tcn-5d-augmentation-diagnosis-v1.json",
+    "docs/session-logs/471-mission-3dp-region-grid-tcn-5d-augmentation-diagnosis.md"
+  ],
+  "conclusion": "M3DP locally reproduced the M3DO 5D mild-augmentation failure, patched the spatial replicate padding path to support both 4D T,C,H,W and 5D T,R,C,H,W tensors, preserved M3AW and M3DM dry-run contracts, and proved a no-fit one-batch high-signal region-grid DataLoader path with mild augmentation. No remote compute, fitting, evaluation, artifact promotion, or final claim occurred.",
+  "exactly_one_next_action": "continue_bounded_brev_tcn_smoke_after_5d_augmentation_fix",
+  "next_action_rationale": "The local 5D augmentation blocker is repaired and the next useful reviewable slice is a fresh bounded remote smoke prompt/receipt if the observer and human-approved compute guardrails authorize it. The still-RUNNING provider state remains a cost-control fact to handle in the next steering step, not a source-repair blocker for M3DP."
+}

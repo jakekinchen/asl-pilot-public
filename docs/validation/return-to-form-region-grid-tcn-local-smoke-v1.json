@@ -1,0 +1,188 @@
+{
+  "schema_version": "asl-pilot-region-grid-tcn-local-smoke/v1",
+  "status": "completed_smoke_target_failed",
+  "mission": "M3AW",
+  "active_prompt": "docs/model/return-to-form-region-grid-tcn-local-smoke-goal-loop-prompt.md",
+  "generated_at": "2026-05-27T10:45:21Z",
+  "changed_files": [
+    {
+      "path": "scripts/train_rawframe_model.py",
+      "sha256": "e53706a2116510bf8ef9dedb9b502ccdef095c5f7ce10537ea52881c4abc16ee",
+      "changes": [
+        "added the region_grid_tcn_training_smoke invocation policy with exact M3AW manifests, output root, caps, and architecture",
+        "added a region-axis-preserving loader/dataset path from raw rgb_regions T,R,H,W,C to prepared T,R,C,H,W tensors",
+        "updated true_temporal_convnet_region_grid to accept B,T,R,C,H,W input and pool per-region frame encodings through learned region attention"
+      ]
+    },
+    {
+      "path": "scripts/evaluate_rawframe_model.py",
+      "sha256": "889609cca9139a2f3d9a096eebd5aeba45e6eec3cf66af2adb0e72162d45666d",
+      "changes": [
+        "added region_grid_tcn_training_smoke evaluation mode",
+        "evaluated the checkpoint with the same region-axis-preserving dataset input path",
+        "kept region-grid smoke reports non-final and non-calibration evidence"
+      ]
+    }
+  ],
+  "commands": {
+    "policy_audits": [
+      {
+        "command": "node scripts/audit_loop_premise.mjs --json",
+        "exit_code": 0,
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_return_to_form_plan.mjs --json",
+        "exit_code": 0,
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_deps.mjs",
+        "exit_code": 0,
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+        "exit_code": 0,
+        "status": "passed"
+      }
+    ],
+    "compile": {
+      "command": "./.venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py scripts/compile_true_tcn_architecture.py",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    "dry_run_input_contract": {
+      "command": "./.venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3aw-region-grid-tcn-local-smoke --model-id asl-pilot-asl-citizen-high-signal-region-grid-tcn-smoke-v1 --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 0 --epochs 2 --batch-size 4 --max-train-batches 12 --max-validation-batches 8 --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    "training_smoke": {
+      "command": "./.venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3aw-region-grid-tcn-local-smoke --model-id asl-pilot-asl-citizen-high-signal-region-grid-tcn-smoke-v1 --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 0 --epochs 2 --batch-size 4 --max-train-batches 12 --max-validation-batches 8 --region-grid-tcn-training-smoke",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    "evaluation": {
+      "command": "./.venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint output/m3aw-region-grid-tcn-local-smoke/model_state.pt --training-provenance output/m3aw-region-grid-tcn-local-smoke/training-provenance.json --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-report output/m3aw-region-grid-tcn-local-smoke/validation-report.json --calibrated-provenance output/m3aw-region-grid-tcn-local-smoke/calibrated-provenance.json --prediction-sidecar output/m3aw-region-grid-tcn-local-smoke/prediction-sidecar.json --batch-size 4 --num-workers 0 --region-grid-tcn-training-smoke",
+      "exit_code": 1,
+      "status": "report_written_targets_failed"
+    },
+    "artifact_json": {
+      "command": "python3 -m json.tool output/m3aw-region-grid-tcn-local-smoke/training-provenance.json >/dev/null && python3 -m json.tool output/m3aw-region-grid-tcn-local-smoke/validation-report.json >/dev/null && python3 -m json.tool output/m3aw-region-grid-tcn-local-smoke/prediction-sidecar.json >/dev/null",
+      "exit_code": 0,
+      "status": "passed"
+    }
+  },
+  "input_contract": {
+    "required_contract": "rgb_regions_grid_v1",
+    "dry_run_status": "passed",
+    "total_clip_count": 139,
+    "observed_counts": {
+      "rgb_regions_grid_v1": 139
+    },
+    "raw_rgb_regions_shape": [
+      16,
+      5,
+      96,
+      96,
+      3
+    ],
+    "prepared_model_input_shape": [
+      16,
+      5,
+      3,
+      96,
+      96
+    ],
+    "prepared_model_input_axis": "T,R,C,H,W",
+    "batched_model_input_shape": [
+      2,
+      16,
+      5,
+      3,
+      96,
+      96
+    ],
+    "batched_model_input_axis": "B,T,R,C,H,W",
+    "region_axis_preserved_until": "TrueTemporalConvNetRawFrameClassifier.region_attention",
+    "no_mosaic_training_path": true
+  },
+  "smoke_caps_runtime": {
+    "device": "mps",
+    "epochs": 2,
+    "batch_size": 4,
+    "frame_count": 16,
+    "image_size": 96,
+    "num_workers": 0,
+    "max_train_batches": 12,
+    "max_validation_batches": 8,
+    "train_examples_per_epoch": 48,
+    "validation_examples_per_epoch": 27
+  },
+  "training_metrics": {
+    "epoch_1": {
+      "train_loss": 2.2257297535737357,
+      "train_accuracy": 0.08333333333333333,
+      "validation_loss": 1.9568433540838737,
+      "validation_accuracy": 0.14814814814814814
+    },
+    "epoch_2": {
+      "train_loss": 2.102002183596293,
+      "train_accuracy": 0.020833333333333332,
+      "validation_loss": 1.9836245907677545,
+      "validation_accuracy": 0.037037037037037035
+    },
+    "movement_summary": {
+      "train_loss_delta_epoch2_minus_epoch1": -0.1237275699774425,
+      "train_accuracy_delta_epoch2_minus_epoch1": -0.0625,
+      "validation_accuracy_delta_epoch2_minus_epoch1": -0.1111111111111111
+    }
+  },
+  "evaluation_metrics": {
+    "status": "region_grid_tcn_training_smoke_completed",
+    "validation_top1_accuracy": 0.037037037037037035,
+    "validation_macro_f1": 0.015037593984962407,
+    "test_top1_accuracy": 0.17857142857142858,
+    "test_macro_f1": 0.09166666666666666,
+    "selected_threshold": 0.23,
+    "test_false_pass_rate_at_selected_threshold": 0.03571428571428571,
+    "pass_status": {
+      "top1_accuracy": false,
+      "macro_f1": false,
+      "false_pass_rate": true,
+      "negative_challenge_false_pass_rate": false,
+      "confidence_threshold": true
+    }
+  },
+  "output_artifacts": [
+    {
+      "path": "output/m3aw-region-grid-tcn-local-smoke/model_state.pt",
+      "sha256": "c4d1293ab04f8623cdc3c008d27d285707e58d9b82435776d5139273f98e01cb"
+    },
+    {
+      "path": "output/m3aw-region-grid-tcn-local-smoke/training-provenance.json",
+      "sha256": "fb31a0034954647f7c9b2300f96c128f7f8b4d2f21f9567a9c700265aa5825c1"
+    },
+    {
+      "path": "output/m3aw-region-grid-tcn-local-smoke/validation-report.json",
+      "sha256": "4747f634acb32812ed3c3600cf84b0d32967ea48450f5218b292561b1c10e9e4"
+    },
+    {
+      "path": "output/m3aw-region-grid-tcn-local-smoke/prediction-sidecar.json",
+      "sha256": "4dfd629ea0e440574497c2488e72622b764b6beb244f83dcba3943a8bdaea12c"
+    }
+  ],
+  "guardrails": {
+    "initialization": "random",
+    "pretrained_components": [],
+    "brev_used": false,
+    "external_media_imported": false,
+    "model_exported": false,
+    "model_promoted": false,
+    "browser_or_final_claims_changed": false,
+    "final_gates_changed": false,
+    "decode_replay_policy": "The generated region-grid smoke mode verifies manifest source policy and tensor hashes with --check-files, but does not require rawframe decode replay because these generated tensors carry asl-pilot-return-to-form-high-signal-region-grid-provenance/v1 rather than the base rawframe decode schema. Final, lesson, controlled, and reduced-real-data gates remain unchanged."
+  },
+  "conclusion": "The M3AW smoke completed with a region-axis-preserving true TemporalConvNet input path, but it did not meet validation or test target metrics. This artifact is a capped local diagnostic only and is not promotion, calibration, browser, lesson milestone, or final model evidence.",
+  "exactly_one_next_action": "stop_for_local_tcn_smoke_review"
+}

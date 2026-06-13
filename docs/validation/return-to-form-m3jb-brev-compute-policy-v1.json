@@ -1,0 +1,68 @@
+{
+  "schema_version": "asl-pilot-m3jb-brev-compute-policy/v1",
+  "receipt_id": "return-to-form-m3jb-brev-compute-policy-v1",
+  "status": "accepted",
+  "recorded_at": "2026-06-02",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "authorization_source": {
+    "type": "user_instruction",
+    "date": "2026-06-02",
+    "summary": "The user clarified that Brev/NVIDIA compute is effectively unconstrained and available through the CLI for this model lane; future loops should not choose smaller batches, row caps, shorter final schedules, or smaller datasets merely to fit local-device runtime."
+  },
+  "policy": {
+    "brev_nvidia_compute_authorized": true,
+    "do_not_downsize_for_local_runtime": true,
+    "local_smoke_runs_allowed": true,
+    "full_scope_evidence_should_use_brev_when_local_runtime_would_force_reduction": true,
+    "compute_is_not_the_limiting_constraint": true,
+    "small_local_runs_are_not_gate_evidence": true
+  },
+  "rules": [
+    "Use local Mac/MPS for smoke tests, dataloader checks, receipt plumbing, quick loss-movement proof, export checks, and audits.",
+    "Do not cap rows, shrink datasets, use tiny or smaller batches, or shorten a final candidate training/evaluation run merely because the local Mac would be slow.",
+    "When full-scope model-candidate training, hard-negative mining, large-batch training, ablation grids, or gate evidence would be artificially reduced locally, route the run to Brev/NVIDIA compute through the CLI.",
+    "Record exact Brev commands, instance/run identity, artifacts, copyback paths, metrics, stop/cleanup outcome, and source/provenance state in the existing receipt chain.",
+    "Keep the browser/runtime lane fail-closed until gates pass; compute authorization does not authorize model-card promotion, browser export, raw learner video upload, or pretrained runtime dependencies."
+  ],
+  "boundaries": {
+    "no_pretrained_runtime_dependency": true,
+    "no_raw_learner_video_upload": true,
+    "browser_artifacts_default_off_until_gates_pass": true,
+    "existing_audit_chain_remains_validation_surface": true,
+    "brev_lifecycle_commands_require_receipts": true
+  },
+  "recorded_in": [
+    "GOAL.md",
+    "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+    "ARCHITECTURE.md#arch-gpu-execution",
+    "scripts/audit_m3jb_hand_state_tracker.mjs"
+  ],
+  "commands_run": [
+    {
+      "cwd": "/Users/kelly/Developer/asl-pilot",
+      "command": "node scripts/audit_m3jb_hand_state_tracker.mjs --write-receipt --json >/tmp/asl-pilot-audit-m3jb.json && jq '{status,next_action,current_state:{compute_policy:.current_state.compute_policy}}' /tmp/asl-pilot-audit-m3jb.json",
+      "result": "passed: canonical M3JB audit records accepted Brev compute policy and remains fail-closed/not gate-passing"
+    },
+    {
+      "cwd": "/Users/kelly/Developer/asl-pilot",
+      "command": "node scripts/audit_m3jb_hand_state_tracker.mjs --json >/tmp/asl-pilot-audit-m3jb-check.json && node scripts/audit_loop_premise.mjs --json >/tmp/asl-pilot-audit-loop.json && node scripts/audit_return_to_form_plan.mjs --json >/tmp/asl-pilot-audit-plan.json",
+      "result": "passed"
+    },
+    {
+      "cwd": "/Users/kelly/Developer/asl-pilot",
+      "command": "node scripts/audit_source_register.mjs && node scripts/audit_no_pretrained_deps.mjs && node scripts/audit_no_pretrained_artifact_json.mjs",
+      "result": "passed"
+    },
+    {
+      "cwd": "/Users/kelly/Developer/asl-pilot",
+      "command": "jq empty docs/validation/return-to-form-m3jb-brev-compute-policy-v1.json docs/validation/return-to-form-m3jb-hierarchical-hand-state-tracker-v1.json",
+      "result": "passed"
+    },
+    {
+      "cwd": "/Users/kelly/Developer/asl-pilot",
+      "command": "rg -n \"Brev compute authorization|Do not downsize|Do not reduce final training/evaluation scope|do_not_downsize_for_local_runtime|compute_policy\" GOAL.md docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md ARCHITECTURE.md docs/validation/return-to-form-m3jb-brev-compute-policy-v1.json scripts/audit_m3jb_hand_state_tracker.mjs",
+      "result": "passed: policy terms found in durable prompt, GOAL, architecture, receipt, and audit"
+    }
+  ],
+  "next_action": "continue_m3jb_coverage_tinyhand_and_overlap_slot_repair_after_assignmenthead_rejection"
+}

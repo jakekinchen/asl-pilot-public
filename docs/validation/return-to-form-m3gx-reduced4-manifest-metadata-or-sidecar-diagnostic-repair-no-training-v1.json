@@ -1,0 +1,280 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3gx-reduced4-diagnostic-contract-repair-no-training/v1",
+  "mission": "Mission 3GX - reduced4 manifest metadata or sidecar diagnostic repair no training",
+  "status": "completed",
+  "generated_at": "2026-05-29T12:58:57Z",
+  "current_commit_before_slice_commit": {
+    "hash": "9b62d34",
+    "subject": "supervisor: tighten m3gx diagnostic handoff guard"
+  },
+  "active_prompt": "docs/model/return-to-form-m3gx-reduced4-manifest-metadata-or-sidecar-diagnostic-repair-no-training-goal-loop-prompt.md",
+  "freshness_guard": {
+    "started_from_filesystem_state": true,
+    "initial_head_observed": "9d1f6b8 observer: CONTINUE - m3gw m3gx diagnostic handoff",
+    "newer_supervisor_commit_observed_during_slice": "9b62d34 supervisor: tighten m3gx diagnostic handoff guard",
+    "newer_commit_re_read_before_receipt": true,
+    "newer_commit_preserved": true,
+    "worktree_before_receipt_files": [
+      "scripts/evaluate_rawframe_model.py"
+    ]
+  },
+  "files_changed": [
+    "scripts/evaluate_rawframe_model.py",
+    "docs/validation/return-to-form-m3gx-reduced4-manifest-metadata-or-sidecar-diagnostic-repair-no-training-v1.json",
+    "docs/session-logs/663-mission-3gx-reduced4-manifest-metadata-or-sidecar-diagnostic-repair-no-training.md"
+  ],
+  "diagnostic_gap_selected_from_m3gw": {
+    "gap": "future prediction sidecars had per-label softmax probabilities, confidence, true-label probability, probability margin, and entropy, but did not retain raw model logits",
+    "why_this_gap": "without per-label logits and logit margins, the next reduced4 diagnostic evaluation could still report another opaque accuracy number and probability collapse without showing whether the collapse is near-uniform, logit-scale, or class-ordering driven",
+    "m3gw_limitation_addressed": "insufficient sidecar logits/probability-distribution diagnostics",
+    "not_selected": [
+      "manifest/session helper, because M3GW already recorded that session_id and source_session are absent on all 79 reduced4 rows",
+      "crop/frame-quality hooks, because that would need tensor/media-quality work beyond this smallest code contract repair",
+      "summary-collapse report changes, because logits are the smaller missing primitive needed before the next no-training diagnostic rerun"
+    ]
+  },
+  "implementation": {
+    "repair_type": "future-facing evaluator sidecar score contract repair",
+    "changed_code": [
+      "added build_logit_by_label(row_logits, labels_by_index)",
+      "evaluate_split now records logits_by_label, predicted_label_logit, true_label_logit, top2_logit, top2_logit_label, and logit_margin for validation/test examples",
+      "evaluate_negative_challenge_set now records the same raw-logit fields, with true_label_logit null for reject rows",
+      "build_prediction_sidecar now lists raw-logit fields in sidecar_contract.score_fields, top-level score_fields, and field provenance"
+    ],
+    "schema_compatibility": {
+      "schema_version_changed": false,
+      "contract_version_changed": false,
+      "reason": "the repair is additive to the existing v2 sidecar examples and keeps existing v2 consumers compatible"
+    },
+    "future_run_effect": "the next evaluator invocation that writes a prediction-sidecar will include raw-logit diagnostics without regenerating existing M3GU outputs in this slice"
+  },
+  "commands_run": [
+    {
+      "command": "git log -1 --oneline",
+      "exit_status": 0,
+      "summary": "observed 9d1f6b8 before the newer supervisor commit landed"
+    },
+    {
+      "command": "git status --short",
+      "exit_status": 0,
+      "summary": "initially clean; later re-grounded after supervisor commit"
+    },
+    {
+      "command": "sed -n '1,220p' GOAL.md",
+      "exit_status": 0
+    },
+    {
+      "command": "sed -n '1,260p' docs/model/return-to-form-m3gx-reduced4-manifest-metadata-or-sidecar-diagnostic-repair-no-training-goal-loop-prompt.md",
+      "exit_status": 0
+    },
+    {
+      "command": "sed -n '1,260p' docs/model/return-to-form-plan.md",
+      "exit_status": 0
+    },
+    {
+      "command": "sed -n '1,260p' docs/runbooks/codex-goal-loop.md",
+      "exit_status": 0
+    },
+    {
+      "command": "sed -n '1,260p' docs/runbooks/observer-runbook-codex.md",
+      "exit_status": 0
+    },
+    {
+      "command": "git status --short --branch",
+      "exit_status": 0,
+      "summary": "after re-grounding: compound-plan-m0 ahead 330 with only scripts/evaluate_rawframe_model.py modified"
+    },
+    {
+      "command": "git log -12 --oneline --decorate",
+      "exit_status": 0,
+      "summary": "HEAD 9b62d34 supervisor: tighten m3gx diagnostic handoff guard"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_status": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_status": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "exit_status": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_status": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_status": 0,
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3gw-reduced4-data-split-zero-recall-diagnosis-no-training-v1.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3gu-reduced4-local-training-smoke-no-brev-v1.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": "python3 -m json.tool data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": "python3 -m json.tool data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": "python3 -m json.tool data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": "brev ls --json",
+      "exit_status": 0,
+      "summary": "read-only inspection only; worker asl-pilot-m3eh-l40s-001 / 3d58wpy9o observed STOPPED / COMPLETED / NOT READY / HEALTHY"
+    },
+    {
+      "command": "git diff --check",
+      "exit_status": 0
+    },
+    {
+      "command": "rg -n \"sidecar|validation-report|probab|logit|entropy|margin|top_k|prediction\" scripts/evaluate_rawframe_model.py scripts/train_rawframe_model.py tests -S",
+      "exit_status": 2,
+      "summary": "non-blocking exploratory search; rg found relevant evaluator lines and also reported tests: No such file or directory"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python - <<'PY' import scripts.evaluate_rawframe_model as evaluator ...",
+      "exit_status": 1,
+      "summary": "non-blocking RED setup attempt failed because PYTHONPATH did not include scripts"
+    },
+    {
+      "command": "PYTHONPATH=scripts PYTHONDONTWRITEBYTECODE=1 .venv/bin/python - <<'PY' import evaluate_rawframe_model as evaluator; assert hasattr(evaluator, 'build_logit_by_label') ...",
+      "exit_status": 1,
+      "summary": "RED check confirmed build_logit_by_label was missing before the repair"
+    },
+    {
+      "command": "PYTHONPATH=scripts PYTHONDONTWRITEBYTECODE=1 .venv/bin/python - <<'PY' import torch; import evaluate_rawframe_model as evaluator; evaluator.build_logit_by_label(...) ...",
+      "exit_status": 0,
+      "summary": "GREEN unit probe confirmed build_logit_by_label maps tensor logits to finite per-label floats"
+    },
+    {
+      "command": "PYTHONPATH=scripts PYTHONDONTWRITEBYTECODE=1 .venv/bin/python - <<'PY' synthetic build_prediction_sidecar contract probe ...",
+      "exit_status": 0,
+      "summary": "confirmed sidecar_contract.score_fields includes logits_by_label and synthetic examples retain logits_by_label"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/evaluate_rawframe_model.py",
+      "exit_status": 0
+    },
+    {
+      "command": "shasum -a 256 scripts/evaluate_rawframe_model.py docs/model/active-vocabulary-claim.json web/public/model/model-card.json web/public/model/detector0-card.json web/public/model/claim-matrix.json docs/validation/final-claim-matrix.json",
+      "exit_status": 0
+    },
+    {
+      "command": "date -u +%Y-%m-%dT%H:%M:%SZ",
+      "exit_status": 0
+    }
+  ],
+  "validation_summary": {
+    "compile_check": "passed",
+    "unit_contract_probe": "passed",
+    "synthetic_sidecar_contract_probe": "passed",
+    "audit_loop_premise": "passed",
+    "audit_return_to_form_plan": "passed",
+    "audit_source_register": "passed",
+    "audit_no_pretrained_deps": "passed",
+    "audit_no_pretrained_artifact_json": "passed",
+    "git_diff_check": "passed"
+  },
+  "brev_read_only_default_off_state": {
+    "command": "brev ls --json",
+    "exit_status": 0,
+    "lifecycle_remote_sync_copy_exec_or_spend_commands_run": false,
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ]
+  },
+  "claim_surface_status": {
+    "unchanged_fail_closed": true,
+    "surfaces": {
+      "web/public/model/model-card.json": {
+        "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+        "status": "not_trained"
+      },
+      "docs/model/active-vocabulary-claim.json": {
+        "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+        "modelVersion": "rawframe-not-trained",
+        "activeLabels": [],
+        "evidenceArtifacts": []
+      },
+      "web/public/model/detector0-card.json": {
+        "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+        "status": "not_trained"
+      },
+      "web/public/model/claim-matrix.json": {
+        "sha256": "5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf",
+        "status": "no_active_claim_rawframe_not_trained"
+      },
+      "docs/validation/final-claim-matrix.json": {
+        "sha256": "5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf",
+        "status": "no_active_claim_rawframe_not_trained"
+      }
+    }
+  },
+  "forbidden_action_proof": {
+    "brev_lifecycle_remote_sync_copy_exec_or_spend": false,
+    "training_or_fitting": false,
+    "micro_overfit": false,
+    "evaluator_rerun": false,
+    "output_regeneration_or_rewrite": false,
+    "ignored_m3gu_output_mutation": false,
+    "manifest_tensor_vocabulary_mutation": false,
+    "source_media_import_or_raw_video_inspection": false,
+    "source_register_rights_mutation": false,
+    "raw_learner_video_upload": false,
+    "export_or_model_card_promotion": false,
+    "browser_activation_or_browser_product_smoke": false,
+    "research_api_or_gpt_pro_call": false,
+    "final_gate_change": false,
+    "claim_expansion": false,
+    "broad_label_run": false,
+    "pretrained_detector_landmark_backbone_feature_model_shortcut": false
+  },
+  "evaluated_next_actions": [
+    {
+      "option": "continue_m3gy_reduced4_diagnostic_eval_rerun_no_training_no_brev",
+      "selected": true,
+      "classification": "best_next_smallest_useful_slice",
+      "reason": "M3GX repaired the future sidecar contract without regenerating outputs; the next useful proof is a bounded local no-training evaluator rerun that produces a new diagnostic sidecar/report under the repaired contract."
+    },
+    {
+      "option": "escalate_openai_or_gpt_pro_strategy_with_m3gq_to_m3gx_evidence",
+      "selected": false,
+      "classification": "available_after_diagnostic_rerun_or_if_observer_rejects_rerun",
+      "reason": "One no-training diagnostic eval rerun is now more concrete than strategy escalation because the missing logit contract has been repaired."
+    },
+    {
+      "option": "stop_for_human_source_media_compute_or_claim_review",
+      "selected": false,
+      "classification": "not_required_for_selected_no_spend_next_action",
+      "reason": "The selected next action remains local, no-training, no-Brev, no-source/media, no-claim, and no-spend."
+    }
+  ],
+  "exactly_one_next_action": "continue_m3gy_reduced4_diagnostic_eval_rerun_no_training_no_brev"
+}

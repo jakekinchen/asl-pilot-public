@@ -1,0 +1,207 @@
+{
+  "schema_version": "asl-pilot-validation-receipt/v1",
+  "receipt_id": "return-to-form-m3iq-detector0-landmark-integration-v1",
+  "mission": "M3IQ - Detector 0 landmark integration under offline-label policy",
+  "created_at": "2026-05-30T16:24:53Z",
+  "current_commit_at_start": "0a78f76 supervisor: redirect pair to M3IQ detector0 landmark integration + offline-label policy",
+  "active_prompt": "docs/model/return-to-form-m3iq-detector0-landmark-integration-offline-policy-goal-loop-prompt.md",
+  "status": "completed_policy_decision_record_no_brev_no_training_no_promotion",
+  "chosen_slice": {
+    "slice_id": "offline_label_policy_decision_record",
+    "prompt_option": 1,
+    "description": "Record the authorized offline-label policy and audit boundary in the project decision register."
+  },
+  "changed_files": [
+    {
+      "path": "DECISIONS.md",
+      "sha256": "82f9e70f4f84c4523d0a92d41f9cfeb93e9bcf505673eb7191aa302cc91ac72d",
+      "purpose": "Project decision-register entry for the M3IQ offline-label policy boundary"
+    },
+    {
+      "path": "docs/validation/return-to-form-m3iq-detector0-landmark-integration-v1.json",
+      "sha256": "self_hash_omitted_to_avoid_self_reference",
+      "purpose": "M3IQ validation receipt"
+    },
+    {
+      "path": "docs/session-logs/809-mission-3iq-detector0-offline-label-policy-decision-record.md",
+      "sha256": "39578a550d5fb96347731d0f7f18899ffa6581bc913bbaaad8da02c2d2a933f0",
+      "purpose": "M3IQ numbered session log"
+    }
+  ],
+  "decision_record": {
+    "path": "DECISIONS.md",
+    "section": "2026-05-30 decisions / offline-derived labels are allowed only as supervision; runtime remains scratch-only",
+    "status": "locked",
+    "human_authorization_date": "2026-05-30",
+    "co_located_disclosure_phrase": "targets offline-derived via MediaPipe Holistic; runtime uses only our scratch-trained model and is not a runtime dependency.",
+    "runtime_boundary": "The deployed browser runtime may use only this project's scratch-trained model; offline labelers are not runtime dependencies.",
+    "audit_boundary": "The artifact JSON audit permits only a single-string provenance disclosure that also attests scratch-only runtime. Dependency, extractor, tasks-version, populated pretrained_components, and browser-artifact bans remain in force."
+  },
+  "supervisor_side_worktree_evidence": {
+    "worktree": "/Users/kelly/Developer/asl-pilot-annotator",
+    "branch": "annotator-tool",
+    "latest_commit": "d145d88 detector0: pivot stage-2 to hand LANDMARKS (handshape) + human eval tooling",
+    "read_only": true,
+    "loop_branch_mutated_side_worktree": false,
+    "evidence_files": [
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/research/detector0-trained-evidence.md",
+        "sha256": "34bc2ade24badd1ddfeb79f0377b88b40b1853052b189c268bf2e675a89d47ef",
+        "summary": "Region detector evidence: head/face and signing-space meet the held-out recall target; hand boxes improve materially over fixed geometry but remain below the aspirational hand target."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/research/detector0-hand-push-findings.md",
+        "sha256": "f36dba70464bf6e06a8f2479d8ca32e912b99338643be21fdd2fefba00c4ffdd",
+        "summary": "Hand-box precision is label-quality-capped near 0.55 IoU; further hand-spec progress belongs to better supervision or a different landmark head rather than promotion."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/research/detector0-data-strategy.md",
+        "sha256": "4c57ae6cb08382f7ed7f0faefca3c162157ce3e56ddbcd41f90505099b0babe7",
+        "summary": "Data strategy evidence for using already-approved PopSign raw frames with explicit source-rights and provenance review before project integration."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-grid-final.json",
+        "sha256": "4f0230ebc071fa09b8e618a379a95835c74b35719679d67af1f0626deb008cb1",
+        "summary": "Training receipt for the scratch spatial-grid region detector over 18,189 frames and 95 words."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-spec-eval.json",
+        "sha256": "66810d0e1c21b832a22ec1f20a0f38fd66e5abdaa11f5929a721513ba65077d9",
+        "summary": "Held-out per-target detector metrics used by the decision record."
+      },
+      {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/detector0-hand-landmarks.json",
+        "sha256": "47c61deeeb37b6ec497c172cce0775b7adb213b0184183a6a31c65b54b262977",
+        "summary": "First scratch hand-landmark baseline with hand PCK@0.10 about 0.30."
+      }
+    ],
+    "metrics_snapshot": {
+      "frames": 18189,
+      "words": 95,
+      "head_or_face_recall_iou_0_30": 0.9838,
+      "upper_body_or_signing_space_recall_iou_0_30": 0.9987,
+      "left_or_first_hand_recall_iou_0_30": 0.8803,
+      "right_or_second_hand_recall_iou_0_30": 0.7821,
+      "mean_hand_iou": 0.5089,
+      "hand_pck_at_0_10": 0.2992
+    }
+  },
+  "claim_surface_proof": {
+    "detector0_card": {
+      "path": "web/public/model/detector0-card.json",
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null,
+      "changed_by_this_slice": false
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "active_labels": [],
+      "changed_by_this_slice": false
+    },
+    "browser_recognition_activated": false,
+    "asl_correctness_claimed": false,
+    "final_gates_changed": false
+  },
+  "brev_read_only_inventory": {
+    "command": "brev ls --json",
+    "lifecycle_action_taken": false,
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ]
+  },
+  "command_statuses": [
+    {
+      "command": "git log -1 --oneline",
+      "status": "passed",
+      "summary": "0a78f76 supervisor: redirect pair to M3IQ detector0 landmark integration + offline-label policy"
+    },
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "branch compound-plan-m0 ahead of origin; worktree clean before edits"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_detector0_strict_gate_crop_contract.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "brev ls --json",
+      "status": "passed_stopped_read_only"
+    },
+    {
+      "command": "git -C /Users/kelly/Developer/asl-pilot-annotator status --short --branch && git -C /Users/kelly/Developer/asl-pilot-annotator log -1 --oneline",
+      "status": "passed_read_only",
+      "summary": "side worktree branch annotator-tool at d145d88; untracked local cache/data paths observed but not mutated"
+    },
+    {
+      "command": "jq <side-worktree detector receipts>",
+      "status": "passed_read_only",
+      "summary": "read detector0-grid-final.json, detector0-spec-eval.json, and detector0-hand-landmarks.json"
+    },
+    {
+      "command": "shasum -a 256 <side-worktree evidence and changed files>",
+      "status": "passed"
+    },
+    {
+      "command": "jq '{status, promotion_state, browser_artifact}' web/public/model/detector0-card.json",
+      "status": "passed",
+      "summary": "status not_trained; promotion_state research_only; browser_artifact null"
+    },
+    {
+      "command": "jq '{activeLabels}' docs/model/active-vocabulary-claim.json",
+      "status": "passed",
+      "summary": "activeLabels empty"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3iq-detector0-landmark-integration-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "forbidden_action_proof": {
+    "no_brev_lifecycle_or_remote_command": true,
+    "no_paid_compute_started": true,
+    "no_labeling_run": true,
+    "no_training_run": true,
+    "no_source_or_media_import": true,
+    "no_side_worktree_mutation": true,
+    "no_export": true,
+    "no_promotion": true,
+    "no_browser_activation": true,
+    "no_final_gate_change": true,
+    "no_observer_only_redirect_decision_taken": true
+  },
+  "next_action": "continue_m3ir_detector0_landmark_contract_or_card_integration"
+}

@@ -1,0 +1,140 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-local-overfit-diagnostics/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_local_overfit_diagnostics_no_brev",
+  "recorded_at_utc": "2026-06-03T19:17:07Z",
+  "head_before_slice": "eaa79ea record(m3jb): triage recognizer transformer run1",
+  "status": "completed_local_diagnostics_transformer_tiny_overfit_failed",
+  "side_worktree": {
+    "path": "/Users/kelly/Developer/asl-pilot-annotator",
+    "commit": "3f9d3f0 feat(recognizer): add distill diagnostics",
+    "files": {
+      "tools/detector0-annotator/train_recognizer_distill.py": {
+        "sha256": "92890d4f2ab650b4455deee7f3988138011099ae58eb72a087955fce223d9a4d"
+      },
+      "tools/detector0-annotator/test_recognizer_distill_diagnostics.py": {
+        "sha256": "ecca12584eba7c4e701f2ca90036ced3de8c68808a04196f46afe6a37259435a"
+      }
+    },
+    "scoped_status_after_commit": "clean for train_recognizer_distill.py and test_recognizer_distill_diagnostics.py"
+  },
+  "tdd": {
+    "red_command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python test_recognizer_distill_diagnostics.py",
+    "red_result": "failed as expected before implementation: ImportError for missing classification_diagnostics",
+    "green_commands": [
+      "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python test_recognizer_distill_diagnostics.py",
+      "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile train_recognizer_distill.py test_recognizer_distill_diagnostics.py"
+    ],
+    "green_result": "passed"
+  },
+  "diagnostic_support_added": {
+    "flags": [
+      "--eval-train",
+      "--diagnostics",
+      "--no-save-model",
+      "--receipt as alias for --out",
+      "--arch as alias for --student-arch"
+    ],
+    "receipt_fields": [
+      "optimizer_steps",
+      "train_top1",
+      "train_top5",
+      "history_best_train_top1",
+      "history_final_train_top1",
+      "history_best_train_top5",
+      "history_final_train_top5",
+      "diagnostic_eval",
+      "per-epoch gradient/update/logit diagnostics"
+    ]
+  },
+  "artifacts": {
+    "help": {
+      "path": "docs/validation/m3jb-recognizer-distill-diagnostics-help-915.txt",
+      "sha256": "ef1b081d284a4583236a11742510616fcf8975fd91cb5a7c0f5071f2ade5c7cf"
+    },
+    "gru_tiny": {
+      "path": "docs/validation/m3jb-recognizer-local-overfit-gru-tiny-v1.json",
+      "sha256": "17c14f4698dfc4f4fe0bc450405ab389bee2f26bf71e97eb45ce3a0bd41c7f78"
+    },
+    "transformer_tiny": {
+      "path": "docs/validation/m3jb-recognizer-local-overfit-transformer-tiny-v1.json",
+      "sha256": "bb34936ded15598f934e4b79eeee6b70980e1e4808a024cac18160a89aca63fb"
+    }
+  },
+  "commands": {
+    "gru_tiny": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python train_recognizer_distill.py --student-arch gru --device cpu --epochs 80 --batch 16 --lr 2e-3 --alpha 1.0 --temperature 3.0 --jitter-std 0 --frame-drop 0 --limit-train 32 --limit-monitor 32 --limit-test 8 --eval-train --diagnostics --no-save-model --seed 0 --out /Users/kelly/Developer/asl-pilot/docs/validation/m3jb-recognizer-local-overfit-gru-tiny-v1.json",
+    "transformer_tiny": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python train_recognizer_distill.py --student-arch transformer --device cpu --epochs 80 --batch 16 --lr 1e-3 --alpha 1.0 --temperature 3.0 --jitter-std 0 --frame-drop 0 --limit-train 32 --limit-monitor 32 --limit-test 8 --eval-train --diagnostics --no-save-model --seed 0 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --out /Users/kelly/Developer/asl-pilot/docs/validation/m3jb-recognizer-local-overfit-transformer-tiny-v1.json"
+  },
+  "results": {
+    "common": {
+      "train_clips": 32,
+      "monitor_clips": 32,
+      "test_clips": 8,
+      "optimizer_steps": 160,
+      "teacher_covered_train": 12,
+      "weights_written": false,
+      "device": "cpu",
+      "alpha": 1.0,
+      "jitter_std": 0,
+      "frame_drop": 0
+    },
+    "gru_tiny": {
+      "first_loss": 4.5801,
+      "last_loss": 0.0103,
+      "history_best_train_top1": 1.0,
+      "history_final_train_top1": 1.0,
+      "history_best_train_top5": 1.0,
+      "final_receipt_train_top1_after_best_monitor_reload": 0.875,
+      "test_top1": 0.0,
+      "test_top5": 0.125,
+      "verification_recall_at_far10": 0.125,
+      "decision": "diagnostic_control_passed"
+    },
+    "transformer_tiny": {
+      "student_arch": "transformer",
+      "d_model": 256,
+      "n_layers": 6,
+      "n_heads": 8,
+      "dropout": 0.0,
+      "first_loss": 4.5442,
+      "last_loss": 2.6501,
+      "history_best_train_top1": 0.25,
+      "history_final_train_top1": 0.1875,
+      "history_best_train_top5": 0.7188,
+      "final_receipt_train_top1_after_best_monitor_reload": 0.125,
+      "test_top1": 0.0,
+      "test_top5": 0.0,
+      "verification_recall_at_far10": 0.375,
+      "final_train_pred_unique": 2,
+      "final_epoch_grad_norm": 4.711328,
+      "final_epoch_entropy_mean": 2.240349,
+      "decision": "failed_tiny_overfit_do_not_launch_brev"
+    }
+  },
+  "interpretation": {
+    "gru_control": "The diagnostic setup can learn: the GRU reached train top-1 1.0 on the same 32 hard-label/no-augmentation clips.",
+    "transformer": "The run1 Transformer architecture did not overfit the same tiny diagnostic split, even with hard-label-only loss, no augmentation, dropout 0, and gradients present. This points to Transformer-specific model/trainer/optimization behavior before any full-scope compute question.",
+    "matrix_stopped_reason": "The research memo required stopping before paid runs if the Transformer tiny overfit check failed; the 512-sample follow-up is only useful after tiny overfit passes."
+  },
+  "brev_visibility": {
+    "checked": false,
+    "reason": "No Brev command, sync, or lifecycle action was needed for this local-only slice; final read-only visibility is checked in the session log/final handoff."
+  },
+  "boundaries": {
+    "brev_used": false,
+    "remote_mutation": false,
+    "training_run_local_tiny_only": true,
+    "full_scope_training_run": false,
+    "checkpoint_written": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "pushed_to_remote": false
+  },
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_tiny_failure_debug_no_brev",
+    "description": "Debug why the Transformer cannot overfit a 32-clip hard-label/no-augmentation split before any second recognizer Brev run; candidate local levers include pooling/CLS behavior, optimizer/schedule, smaller model, and trainer wiring."
+  }
+}

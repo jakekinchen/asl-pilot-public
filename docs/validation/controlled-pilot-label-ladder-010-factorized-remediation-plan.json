@@ -1,0 +1,409 @@
+{
+  "schema_version": "asl-pilot-rawframe-data-remediation-plan/v1",
+  "status": "remediation_plan_ready_not_training_data",
+  "checked_at": "2026-05-21T19:06:49.960Z",
+  "generated_by": {
+    "tool": "node",
+    "command": [
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/Users/kelly/Developer/asl-pilot/scripts/plan_rawframe_data_remediation.mjs",
+      "--failure-analysis",
+      "docs/validation/controlled-pilot-label-ladder-010-factorized-failure-analysis.json",
+      "--split-shift-diagnostic",
+      "docs/validation/controlled-pilot-label-ladder-010-factorized-split-shift-diagnostic.json",
+      "--collection-plan",
+      "data/dataset/collection-plan.json",
+      "--output",
+      "docs/validation/controlled-pilot-label-ladder-010-factorized-remediation-plan.json",
+      "--write"
+    ],
+    "script": {
+      "path": "scripts/plan_rawframe_data_remediation.mjs",
+      "sha256": "d729200c492314ec318d75495ebb1f341149cef19d59c90984a8b8f32ded4ad2"
+    }
+  },
+  "inputs": {
+    "failure_analysis": {
+      "path": "docs/validation/controlled-pilot-label-ladder-010-factorized-failure-analysis.json",
+      "sha256": "d3d86990fb44f643878fc4fc18593aa53281dc1c878f6cb168bac3f17ef85833"
+    },
+    "split_shift_diagnostic": {
+      "path": "docs/validation/controlled-pilot-label-ladder-010-factorized-split-shift-diagnostic.json",
+      "exists": true,
+      "sha256": "01c21028d6cbb279dd419f20cb1f69253b324e40e659de07a9d2bcee55a2b752",
+      "status": "split_shift_diagnostic_ready_not_training_data",
+      "sample_count": 180,
+      "mean_nearest_own_split_rate": 0.5222222222222223,
+      "validation_nearest_train_label_centroid_accuracy": 0.05,
+      "test_nearest_train_label_centroid_accuracy": 0.16666666666666666,
+      "signals": []
+    },
+    "collection_plan": {
+      "path": "data/dataset/collection-plan.json",
+      "sha256": "e5f7089277a36200ec1791414c527e1e949a02f80881683f3484b25506bbc8ec"
+    },
+    "nvidia_metadata_audit": {
+      "path": "docs/research/nvidia-asl-metadata-audit.json",
+      "exists": true,
+      "sha256": "c21733ad2c82db5a1b0e1c3f13f79485c40ec5f733e852ed451d54056978dc76",
+      "status": "blocked",
+      "blockers": [
+        "Accepted NVIDIA access/license receipt is missing: docs/research/nvidia-asl-access-receipt.json",
+        "NVIDIA metadata staging directory is missing: artifacts/dataset-research/nvidia-asl/metadata"
+      ],
+      "metadata_dir": {
+        "path": "artifacts/dataset-research/nvidia-asl/metadata",
+        "exists": false
+      },
+      "access_receipt": {
+        "path": "docs/research/nvidia-asl-access-receipt.json",
+        "exists": false,
+        "sha256": null,
+        "status": null,
+        "source_id": null,
+        "operator_name": null,
+        "accepted_at": null,
+        "evidence_attachment_count": 0
+      }
+    }
+  },
+  "decision_boundary": {
+    "changes_manifests": false,
+    "approves_new_source": false,
+    "changes_vocabulary_scope": false,
+    "final_model_evidence": false
+  },
+  "current_failure_summary": {
+    "report_status": "smoke_only",
+    "failed_targets": [
+      "false_pass_rate",
+      "macro_f1",
+      "negative_challenge_false_pass_rate",
+      "top1_accuracy"
+    ],
+    "final_train_minus_selected_validation_accuracy": 0.468,
+    "validation_zero_recall_labels": 0,
+    "test_zero_recall_labels": 1,
+    "negative_challenge_false_pass_rate": 0.25,
+    "split_shift_signals": [],
+    "validation_low_level_label_centroid_accuracy": 0.05,
+    "test_low_level_label_centroid_accuracy": 0.16666666666666666
+  },
+  "collection_overlay": {
+    "collection_plan_status": "source_curated",
+    "store": {
+      "path": "data/asl-pilot-store.json",
+      "exists": false,
+      "counted_clips": 0,
+      "counted_negative_challenge_clips": 0
+    },
+    "assignment_count": 1425,
+    "planned_signer_counts": {
+      "train": 12,
+      "validation": 4,
+      "test": 4
+    },
+    "priority_summary": {
+      "labels_total": 95,
+      "priority_labels_nonzero_score": 9,
+      "zero_recall_on_validation_and_test": 0,
+      "zero_recall_on_validation_only": 0,
+      "zero_recall_on_test_only": 1,
+      "labels_in_top_confusions": 9
+    },
+    "priority_labels": [
+      {
+        "label_id": "white",
+        "display_text": "White",
+        "priority_score": 13,
+        "signals": [
+          "zero_recall_on_test",
+          "appears_as_true_label_in_top_validation_confusions",
+          "appears_as_true_label_in_top_test_confusions",
+          "low_nonzero_validation_recall"
+        ],
+        "observed_recall": {
+          "validation": 0.04,
+          "test": 0
+        },
+        "top_confusion_misclassified_count": {
+          "validation": 9,
+          "test": 15
+        },
+        "collection_plan": {
+          "label_id": "white",
+          "display_text": "White",
+          "planned_captures_by_split": {
+            "train": 5,
+            "validation": 5,
+            "test": 5
+          },
+          "planned_signer_counts_by_split": {
+            "train": 5,
+            "validation": 4,
+            "test": 4
+          }
+        }
+      },
+      {
+        "label_id": "say",
+        "display_text": "Say",
+        "priority_score": 9,
+        "signals": [
+          "appears_as_true_label_in_top_validation_confusions",
+          "appears_as_true_label_in_top_test_confusions",
+          "low_nonzero_validation_recall",
+          "low_nonzero_test_recall"
+        ],
+        "observed_recall": {
+          "validation": 0.04,
+          "test": 0.05263157894736842
+        },
+        "top_confusion_misclassified_count": {
+          "validation": 17,
+          "test": 9
+        },
+        "collection_plan": {
+          "label_id": "say",
+          "display_text": "Say",
+          "planned_captures_by_split": {
+            "train": 5,
+            "validation": 5,
+            "test": 5
+          },
+          "planned_signer_counts_by_split": {
+            "train": 5,
+            "validation": 4,
+            "test": 4
+          }
+        }
+      },
+      {
+        "label_id": "pencil",
+        "display_text": "Pencil",
+        "priority_score": 7,
+        "signals": [
+          "appears_as_true_label_in_top_validation_confusions",
+          "appears_as_true_label_in_top_test_confusions"
+        ],
+        "observed_recall": {
+          "validation": 0.12,
+          "test": 0.10526315789473684
+        },
+        "top_confusion_misclassified_count": {
+          "validation": 18,
+          "test": 14
+        },
+        "collection_plan": {
+          "label_id": "pencil",
+          "display_text": "Pencil",
+          "planned_captures_by_split": {
+            "train": 5,
+            "validation": 5,
+            "test": 5
+          },
+          "planned_signer_counts_by_split": {
+            "train": 5,
+            "validation": 4,
+            "test": 4
+          }
+        }
+      },
+      {
+        "label_id": "morning",
+        "display_text": "Morning",
+        "priority_score": 7,
+        "signals": [
+          "appears_as_true_label_in_top_validation_confusions",
+          "appears_as_true_label_in_top_test_confusions"
+        ],
+        "observed_recall": {
+          "validation": 0.32,
+          "test": 0.15789473684210525
+        },
+        "top_confusion_misclassified_count": {
+          "validation": 7,
+          "test": 13
+        },
+        "collection_plan": {
+          "label_id": "morning",
+          "display_text": "Morning",
+          "planned_captures_by_split": {
+            "train": 5,
+            "validation": 5,
+            "test": 5
+          },
+          "planned_signer_counts_by_split": {
+            "train": 5,
+            "validation": 4,
+            "test": 4
+          }
+        }
+      },
+      {
+        "label_id": "person",
+        "display_text": "Person",
+        "priority_score": 7,
+        "signals": [
+          "appears_as_true_label_in_top_validation_confusions",
+          "appears_as_true_label_in_top_test_confusions"
+        ],
+        "observed_recall": {
+          "validation": 0.48,
+          "test": 0.2631578947368421
+        },
+        "top_confusion_misclassified_count": {
+          "validation": 6,
+          "test": 12
+        },
+        "collection_plan": {
+          "label_id": "person",
+          "display_text": "Person",
+          "planned_captures_by_split": {
+            "train": 5,
+            "validation": 5,
+            "test": 5
+          },
+          "planned_signer_counts_by_split": {
+            "train": 5,
+            "validation": 4,
+            "test": 4
+          }
+        }
+      },
+      {
+        "label_id": "thirsty",
+        "display_text": "Thirsty",
+        "priority_score": 7,
+        "signals": [
+          "appears_as_true_label_in_top_validation_confusions",
+          "appears_as_true_label_in_top_test_confusions"
+        ],
+        "observed_recall": {
+          "validation": 0.12,
+          "test": 0.15789473684210525
+        },
+        "top_confusion_misclassified_count": {
+          "validation": 8,
+          "test": 7
+        },
+        "collection_plan": {
+          "label_id": "thirsty",
+          "display_text": "Thirsty",
+          "planned_captures_by_split": {
+            "train": 5,
+            "validation": 5,
+            "test": 5
+          },
+          "planned_signer_counts_by_split": {
+            "train": 5,
+            "validation": 4,
+            "test": 4
+          }
+        }
+      },
+      {
+        "label_id": "horse",
+        "display_text": "Horse",
+        "priority_score": 4,
+        "signals": [
+          "appears_as_true_label_in_top_test_confusions"
+        ],
+        "observed_recall": {
+          "validation": 0.56,
+          "test": 0.42105263157894735
+        },
+        "top_confusion_misclassified_count": {
+          "validation": 0,
+          "test": 11
+        },
+        "collection_plan": {
+          "label_id": "horse",
+          "display_text": "Horse",
+          "planned_captures_by_split": {
+            "train": 5,
+            "validation": 5,
+            "test": 5
+          },
+          "planned_signer_counts_by_split": {
+            "train": 5,
+            "validation": 4,
+            "test": 4
+          }
+        }
+      },
+      {
+        "label_id": "please",
+        "display_text": "Please",
+        "priority_score": 3,
+        "signals": [
+          "appears_as_true_label_in_top_validation_confusions"
+        ],
+        "observed_recall": {
+          "validation": 0.44,
+          "test": 0.5789473684210527
+        },
+        "top_confusion_misclassified_count": {
+          "validation": 11,
+          "test": 0
+        },
+        "collection_plan": {
+          "label_id": "please",
+          "display_text": "Please",
+          "planned_captures_by_split": {
+            "train": 5,
+            "validation": 5,
+            "test": 5
+          },
+          "planned_signer_counts_by_split": {
+            "train": 5,
+            "validation": 4,
+            "test": 4
+          }
+        }
+      },
+      {
+        "label_id": "table",
+        "display_text": "Table",
+        "priority_score": 3,
+        "signals": [
+          "appears_as_true_label_in_top_validation_confusions"
+        ],
+        "observed_recall": {
+          "validation": 0.64,
+          "test": 0.7368421052631579
+        },
+        "top_confusion_misclassified_count": {
+          "validation": 9,
+          "test": 0
+        },
+        "collection_plan": {
+          "label_id": "table",
+          "display_text": "Table",
+          "planned_captures_by_split": {
+            "train": 5,
+            "validation": 5,
+            "test": 5
+          },
+          "planned_signer_counts_by_split": {
+            "train": 5,
+            "validation": 4,
+            "test": 4
+          }
+        }
+      }
+    ]
+  },
+  "recommended_sequence": [
+    "Keep all 95 labels in scope unless the user explicitly approves a reduced pilot.",
+    "Collect or import only source-approved raw RGB videos; keep recognition inputs limited to raw frame tensors derived from those videos.",
+    "Do not treat low-level RGB statistics as a remedy; the retained split-shift diagnostic shows train label centroids do not generalize to held-out validation/test samples.",
+    "For first-party collection, prioritize labels with zero recall on both validation and test, then test-zero labels, then validation-zero labels and top-confusion true labels.",
+    "For NVIDIA or any online source, run metadata-only review first and require source-register approval before media import.",
+    "Retrain only after new approved raw-video evidence exists, then rerun evaluation, calibration, ONNX export, and browser parity from the final gates."
+  ],
+  "blockers": [
+    "First-party collection store is absent: data/asl-pilot-store.json",
+    "NVIDIA is not ready for source-register review; metadata audit is not metadata_review_ready_not_approved"
+  ]
+}

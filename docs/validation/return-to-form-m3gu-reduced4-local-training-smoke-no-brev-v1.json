@@ -1,0 +1,526 @@
+{
+  "schema_version": "asl-pilot-m3gu-reduced4-local-training-smoke-no-brev-receipt/v1",
+  "created_at": "2026-05-29T12:05:55Z",
+  "mission": "M3GU - reduced4 local training smoke no Brev",
+  "current_commit_before_slice": {
+    "hash": "0bbd2e0",
+    "subject": "observer: CONTINUE - m3gt m3gu local smoke handoff"
+  },
+  "active_prompt": "docs/model/return-to-form-m3gu-reduced4-local-training-smoke-no-brev-goal-loop-prompt.md",
+  "source_of_truth_confirmed": {
+    "goal_points_at_active_prompt": true,
+    "required_slice": "prove reduced4 region-preserving train/eval guard, then run exactly one capped local/no-Brev diagnostic training smoke and at most one diagnostic evaluation/report",
+    "claim_surfaces_must_remain_fail_closed": true
+  },
+  "files_changed": [
+    "scripts/train_rawframe_model.py",
+    "scripts/evaluate_rawframe_model.py",
+    "docs/validation/return-to-form-m3gu-reduced4-local-training-smoke-no-brev-v1.json",
+    "docs/session-logs/657-mission-3gu-reduced4-local-training-smoke-no-brev.md"
+  ],
+  "implementation_summary": [
+    "Added --m3gu-reduced4-training-smoke to the training command surface.",
+    "Added an M3GU-specific manifest/hash/output/cap guard that accepts only the three M3GQ reduced4 manifests and fails if the output namespace already exists.",
+    "Extended input-contract validation to load rgb_regions, preserve the region axis as B,T,R,C,H,W, reject rgb_frames fallback, and record random-initialization forward-probe evidence before fitting.",
+    "Added --m3gu-reduced4-training-smoke to the evaluation/report route without weakening final, lesson, product, or calibration gates.",
+    "Kept all generated model/report artifacts under ignored output/m3gu-reduced4-local-training-smoke."
+  ],
+  "baseline_checks": [
+    {
+      "command": "git status --short --branch",
+      "exit_status": 0,
+      "summary": "clean at start on compound-plan-m0, ahead of origin"
+    },
+    {
+      "command": "git log -12 --oneline --decorate",
+      "exit_status": 0,
+      "summary": "HEAD 0bbd2e0 observer: CONTINUE - m3gt m3gu local smoke handoff"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_status": 0
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_status": 0,
+      "summary": "active prompt M3GU"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "exit_status": 0,
+      "summary": "source register sha256 b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_status": 0
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_status": 0,
+      "summary": "no findings"
+    },
+    {
+      "command": "python3 -m json.tool <listed baseline JSON file> >/dev/null, repeated for M3GT/M3GS/M3GR/M3GQ receipts, three reduced4 manifests, model-card, active-vocabulary-claim, detector0-card, claim-matrix, and final-claim-matrix",
+      "exit_status": 0,
+      "summary": "all listed JSON files parsed successfully"
+    },
+    {
+      "command": "brev ls --json",
+      "exit_status": 0,
+      "summary": "read-only inspection only; worker asl-pilot-m3eh-l40s-001 / 3d58wpy9o observed STOPPED / COMPLETED / NOT READY / HEALTHY"
+    },
+    {
+      "command": "git diff --check",
+      "exit_status": 0
+    }
+  ],
+  "development_preflights": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py ... --region-grid-tcn-training-smoke ... reduced4 M3GQ manifests",
+      "exit_status": 2,
+      "summary": "RED check confirmed the generic region-grid smoke guard rejected the M3GQ reduced4 manifests and was not acceptable M3GU authority"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py ... --dry-run --m3gu-reduced4-training-smoke ... reduced4 M3GQ manifests",
+      "exit_status": 2,
+      "summary": "first M3GU dry-run exposed the reviewed parent-vocabulary/subset validation gap; fitting was not run before fixing the guard"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "exit_status": 0
+    }
+  ],
+  "m3gt_command_contract_used": {
+    "local_only": true,
+    "remote_or_brev_allowed": false,
+    "max_spend_usd": 0,
+    "seed": 20260529,
+    "max_runtime_minutes_total": 20,
+    "max_epochs": 3,
+    "batch_size": 4,
+    "max_train_batches": 12,
+    "max_validation_batches": 4,
+    "num_workers": 0,
+    "training_augmentation": "none",
+    "checkpoint_selection": "best_validation",
+    "output_namespace": "output/m3gu-reduced4-local-training-smoke"
+  },
+  "guard_proof_before_fitting": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json --output-dir output/m3gu-reduced4-local-training-smoke --model-id asl-pilot-m3gu-reduced4-local-training-smoke-v1 --architecture true_temporal_convnet_region_grid --check-files --dry-run --m3gu-reduced4-training-smoke --require-input-contract rgb_regions_grid_v1 --frame-count 16 --image-size 96 --num-workers 0 --epochs 3 --batch-size 4 --max-train-batches 12 --max-validation-batches 4 --training-augmentation none --checkpoint-selection best_validation --seed 20260529 > /tmp/asl-pilot-m3gu-reduced4-guard-dry-run.json",
+    "exit_status": 0,
+    "json_parse_check": {
+      "command": "python3 -m json.tool /tmp/asl-pilot-m3gu-reduced4-guard-dry-run.json >/dev/null",
+      "exit_status": 0
+    },
+    "artifact_sha256": "1916348ae8dde0398d8790125daaa6a68822427437147f0f167d956ef200eeaf",
+    "training_status": "dry_run_only",
+    "evidence_mode": "m3gu_reduced4_training_smoke",
+    "pretrained_components": [],
+    "required_input_contract": "rgb_regions_grid_v1",
+    "input_contract_status": "passed",
+    "preserve_region_axis": true,
+    "rgb_frames_fallback_used": false,
+    "total_clip_count": 79,
+    "observed_counts": {
+      "rgb_regions_grid_v1": 79
+    },
+    "manifests": {
+      "train": {
+        "path": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json",
+        "sha256": "aab52f670b9dbf6d219521a8ebf84d1af1a798ec5f1c8a54cbe126222ffe0f11",
+        "clip_count": 48,
+        "label_count": 4
+      },
+      "validation": {
+        "path": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json",
+        "sha256": "03f4d1e391146ab98bbb1aea9936396b82a09cbb09d5e783b6a147292140f13b",
+        "clip_count": 15,
+        "label_count": 4
+      },
+      "test": {
+        "path": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json",
+        "sha256": "c02486e4a50cb2894e8e1bf9ac848871368702371311c9b62b519ac8ce9b6920",
+        "clip_count": 16,
+        "label_count": 4
+      }
+    },
+    "region_axis_batch_probe": {
+      "batched_model_input_axis": "B,T,R,C,H,W",
+      "batched_model_input_shape": [
+        4,
+        16,
+        5,
+        3,
+        96,
+        96
+      ],
+      "labels_shape": [
+        4
+      ]
+    },
+    "training_loader_probe": {
+      "consumed_key": "rgb_regions",
+      "consumed_shape": [
+        16,
+        5,
+        96,
+        96,
+        3
+      ],
+      "derived_input_name": "rgb_regions_grid_v1",
+      "model_input_axis_before_prepare": "T,R,H,W,C",
+      "region_axis_preserved": true,
+      "fallback_to_rgb_frames": false
+    },
+    "forward_probe": {
+      "architecture": "true_temporal_convnet_region_grid",
+      "initialization": "random",
+      "logits_shape": [
+        4,
+        4
+      ],
+      "pretrained_components": [],
+      "region_axis_preserved_until": "TrueTemporalConvNetRawFrameClassifier.region_attention",
+      "initial_model_state_digest_sha256": "0769929137b94d7383e6bf591a1134930325acecfed574e5ed05c6bae369a6be"
+    }
+  },
+  "training_run": {
+    "ran": true,
+    "run_count": 1,
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json --output-dir output/m3gu-reduced4-local-training-smoke --model-id asl-pilot-m3gu-reduced4-local-training-smoke-v1 --architecture true_temporal_convnet_region_grid --check-files --m3gu-reduced4-training-smoke --frame-count 16 --image-size 96 --num-workers 0 --epochs 3 --batch-size 4 --max-train-batches 12 --max-validation-batches 4 --training-augmentation none --checkpoint-selection best_validation --seed 20260529 > /tmp/asl-pilot-m3gu-reduced4-training-run.jsonl",
+    "exit_status": 0,
+    "runtime": {
+      "max_runtime_minutes_total": 20,
+      "completed_under_cap": true,
+      "exact_elapsed_seconds_recorded": null,
+      "note": "the command completed in the executor poll window before the 20 minute cap; the training script did not record exact elapsed seconds"
+    },
+    "output_namespace": "output/m3gu-reduced4-local-training-smoke",
+    "stdout_jsonl_sha256": "8a934b09d154e14ba002d833f1e3a88fdbe35040ccb3fb97ccf0e97755c74915",
+    "artifacts": {
+      "model_state": {
+        "path": "output/m3gu-reduced4-local-training-smoke/model_state.pt",
+        "sha256": "af22dcba4ee8cdd5b304c9a25054bd5d7555c860820da9c04e88a275d8306519",
+        "ignored_by_git": true
+      },
+      "training_provenance": {
+        "path": "output/m3gu-reduced4-local-training-smoke/training-provenance.json",
+        "sha256": "66115e1eebe5e245c8a4bd8bf5d03b36a7ebe711378a4b48b6ac657077108079",
+        "ignored_by_git": true,
+        "json_parse_exit_status": 0
+      }
+    },
+    "training_provenance": {
+      "training_status": "completed",
+      "evidence_mode": "m3gu_reduced4_training_smoke",
+      "model_id": "asl-pilot-m3gu-reduced4-local-training-smoke-v1",
+      "architecture": "true_temporal_convnet_region_grid",
+      "seed": 20260529,
+      "framework": {
+        "name": "pytorch",
+        "version": "2.12.0",
+        "python": "3.14.5",
+        "device": "mps"
+      },
+      "pretrained_components": [],
+      "random_initialization_evidence": {
+        "initial_model_state_digest_sha256": "0769929137b94d7383e6bf591a1134930325acecfed574e5ed05c6bae369a6be",
+        "final_model_state_digest_sha256": "79fb9c7d5a0c4ca98ee0253f707d385c44e9269695dd41cf7d13e2902edf4c73",
+        "parameter_count": 1293743
+      },
+      "selected_checkpoint": {
+        "policy": "best_validation",
+        "selected_epoch": 1,
+        "selected_validation_accuracy": 0.26666666666666666,
+        "selected_validation_loss": 1.3912643671035767
+      },
+      "input_contract_evidence": {
+        "preserve_region_axis": true,
+        "train_consumed_key": "rgb_regions",
+        "train_model_input_axis_before_prepare": "T,R,H,W,C",
+        "train_prepared_model_input_axis": "T,R,C,H,W",
+        "train_prepared_model_input_shape": [
+          16,
+          5,
+          3,
+          96,
+          96
+        ]
+      }
+    },
+    "train_sanity": {
+      "epoch_history": [
+        {
+          "epoch": 1,
+          "train_accuracy": 0.2708333333333333,
+          "train_loss": 1.4867439170678456,
+          "validation_accuracy": 0.26666666666666666,
+          "validation_loss": 1.3912643671035767
+        },
+        {
+          "epoch": 2,
+          "train_accuracy": 0.2708333333333333,
+          "train_loss": 1.4859261711438496,
+          "validation_accuracy": 0.2,
+          "validation_loss": 1.4661352316538492
+        },
+        {
+          "epoch": 3,
+          "train_accuracy": 0.2708333333333333,
+          "train_loss": 1.3965888619422913,
+          "validation_accuracy": 0.26666666666666666,
+          "validation_loss": 1.8118819872538248
+        }
+      ],
+      "interpretation": "bounded smoke completed, but it did not establish held-out readiness"
+    }
+  },
+  "evaluation_report": {
+    "ran": true,
+    "run_count": 1,
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint output/m3gu-reduced4-local-training-smoke/model_state.pt --training-provenance output/m3gu-reduced4-local-training-smoke/training-provenance.json --train-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json --output-report output/m3gu-reduced4-local-training-smoke/validation-report.json --calibrated-provenance output/m3gu-reduced4-local-training-smoke/calibrated-provenance.json --prediction-sidecar output/m3gu-reduced4-local-training-smoke/prediction-sidecar.json --batch-size 4 --num-workers 0 --m3gu-reduced4-training-smoke > /tmp/asl-pilot-m3gu-reduced4-evaluation-run.json",
+    "exit_status": 1,
+    "exit_status_note": "the diagnostic report and stdout summary were written with passes_targets=false; the nonzero status came from a generic target-failure return guard before the scoped M3GU smoke flag was added to that guard. The evaluator was not rerun, honoring the one-evaluation cap.",
+    "stdout_json_parse_exit_status": 0,
+    "stdout_json_sha256": "d8087ba06ef037965d0200bd1892edeef48972d660cf02867fb5eb56c31692ad",
+    "status": "m3gu_reduced4_training_smoke_completed",
+    "passes_targets": false,
+    "selected_threshold": 1.0,
+    "artifacts": {
+      "validation_report": {
+        "path": "output/m3gu-reduced4-local-training-smoke/validation-report.json",
+        "sha256": "1312d7c5f5d50446579ea3dc8d7921bcf4372c272346401bf2f7c44dfa3fc426",
+        "ignored_by_git": true,
+        "json_parse_exit_status": 0
+      },
+      "prediction_sidecar": {
+        "path": "output/m3gu-reduced4-local-training-smoke/prediction-sidecar.json",
+        "sha256": "4077df1b70862de7dcc57c14c171fa0dfaa0995c7b3a2bf745f616768724f1e6",
+        "ignored_by_git": true,
+        "json_parse_exit_status": 0
+      },
+      "calibrated_provenance": {
+        "path": "output/m3gu-reduced4-local-training-smoke/calibrated-provenance.json",
+        "created": false,
+        "reason": "passes_targets=false"
+      }
+    },
+    "finality": "m3gu_reduced4_training_smoke_not_final_or_lesson_evidence",
+    "model": {
+      "architecture": "true_temporal_convnet_region_grid",
+      "frame_count": 16,
+      "image_size": 96,
+      "label_count": 4,
+      "preserve_region_axis": true,
+      "pretrained_components": [],
+      "runtime_device": "mps"
+    },
+    "validation_metrics": {
+      "top1_accuracy": 0.26666666666666666,
+      "macro_f1": 0.11111111111111112,
+      "per_label_recall": {
+        "hello": 0.0,
+        "sad": 1.0,
+        "uncle": 0.0,
+        "white": 0.0
+      },
+      "zero_recall_labels": [
+        "hello",
+        "uncle",
+        "white"
+      ],
+      "confusion_matrix": {
+        "labels": [
+          "hello",
+          "sad",
+          "uncle",
+          "white"
+        ],
+        "rows_true_columns_predicted": [
+          [
+            0,
+            4,
+            0,
+            0
+          ],
+          [
+            0,
+            4,
+            0,
+            0
+          ],
+          [
+            0,
+            3,
+            0,
+            0
+          ],
+          [
+            0,
+            3,
+            1,
+            0
+          ]
+        ]
+      }
+    },
+    "test_metrics": {
+      "top1_accuracy": 0.25,
+      "macro_f1": 0.1678321678321678,
+      "per_label_recall": {
+        "hello": 0.0,
+        "sad": 0.5,
+        "uncle": 0.5,
+        "white": 0.0
+      },
+      "zero_recall_labels": [
+        "hello",
+        "white"
+      ],
+      "confusion_matrix": {
+        "labels": [
+          "hello",
+          "sad",
+          "uncle",
+          "white"
+        ],
+        "rows_true_columns_predicted": [
+          [
+            0,
+            3,
+            1,
+            0
+          ],
+          [
+            0,
+            2,
+            2,
+            0
+          ],
+          [
+            0,
+            2,
+            2,
+            0
+          ],
+          [
+            0,
+            2,
+            2,
+            0
+          ]
+        ]
+      },
+      "threshold_metrics": {
+        "threshold": 1.0,
+        "coverage": 0.0,
+        "accepted_accuracy": 0.0,
+        "correct_pass_rate": 0.0,
+        "false_accept_rate": 0.0,
+        "false_pass_rate": 0.0
+      }
+    },
+    "absent_negative_or_false_pass_evidence": {
+      "reduced4_negative_challenge_manifest": null,
+      "negative_challenge_false_pass_rate": null,
+      "note": "test false_pass_rate is a closed-set threshold metric only; no reduced4 negative-challenge evidence exists"
+    },
+    "known_limitations": [
+      "This smoke is not final 75-100-label, 25-sign lesson, product, browser, promotion, calibration, or ASL correctness evidence.",
+      "There is no reduced4 negative-challenge manifest.",
+      "Metrics are poor and biased toward sad/uncle predictions."
+    ]
+  },
+  "claim_surface_status": {
+    "unchanged_fail_closed": true,
+    "web/public/model/model-card.json": {
+      "status": "not_trained"
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": []
+    },
+    "web/public/model/detector0-card.json": {
+      "status": "not_trained"
+    },
+    "web/public/model/claim-matrix.json": {
+      "status": "no_active_claim_rawframe_not_trained"
+    },
+    "docs/validation/final-claim-matrix.json": {
+      "status": "no_active_claim_rawframe_not_trained"
+    }
+  },
+  "brev_state": {
+    "inspected_read_only": true,
+    "lifecycle_or_remote_commands_run": false,
+    "spend_usd": 0,
+    "worker": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "state": "STOPPED",
+      "status": "COMPLETED",
+      "readiness": "NOT READY",
+      "health": "HEALTHY",
+      "machine_type": "l40s-48gb.1x"
+    }
+  },
+  "forbidden_action_proof": {
+    "brev_lifecycle_remote_sync_copy_exec": false,
+    "second_training_run": false,
+    "second_seed": false,
+    "second_evaluation_rerun": false,
+    "micro_overfit_rerun": false,
+    "export": false,
+    "browser_activation": false,
+    "browser_product_smoke": false,
+    "research_api_calls": false,
+    "source_or_media_import": false,
+    "raw_learner_video_upload": false,
+    "model_card_promotion": false,
+    "final_gate_changes": false,
+    "claim_expansion": false,
+    "broad_label_run": false,
+    "pretrained_detector_landmark_backbone_feature_model_shortcut": false
+  },
+  "post_slice_validation": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "exit_status": 0
+    },
+    {
+      "command": "python3 -m json.tool <listed generated JSON file> >/dev/null, repeated for training-provenance.json, validation-report.json, and prediction-sidecar.json",
+      "exit_status": 0
+    },
+    {
+      "command": "git check-ignore -v output/m3gu-reduced4-local-training-smoke/model_state.pt output/m3gu-reduced4-local-training-smoke/training-provenance.json output/m3gu-reduced4-local-training-smoke/validation-report.json output/m3gu-reduced4-local-training-smoke/prediction-sidecar.json",
+      "exit_status": 0,
+      "summary": "all generated output artifacts are ignored by .gitignore:27:output/"
+    },
+    {
+      "command": "git diff --check",
+      "exit_status": 0
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_status": 0
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_status": 0
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "exit_status": 0
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_status": 0
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_status": 0
+    }
+  ],
+  "interpretation": "M3GU proves the reduced4 region-preserving guard and completes exactly one capped local diagnostic smoke/eval. The model is not promoted or ready: validation/test accuracy and macro-F1 are low, several labels have zero recall, no negative-challenge evidence exists, and claim surfaces remain fail-closed.",
+  "next_action": "continue_m3gv_reduced4_smoke_metric_triage_no_brev"
+}

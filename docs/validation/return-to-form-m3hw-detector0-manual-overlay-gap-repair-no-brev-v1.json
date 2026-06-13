@@ -1,0 +1,421 @@
+{
+  "schema_version": "asl-pilot-m3hw-detector0-manual-overlay-gap-repair-receipt/v1",
+  "mission": "M3HW",
+  "role": "codex_executor",
+  "slice": "detector0_manual_overlay_gap_repair_no_brev_no_training",
+  "status": "completed_blocker_preserved_not_training_ready",
+  "created_at": "2026-05-29T20:27:58Z",
+  "current_commit": "48fc37277f6cfdb56c0585afa0f7345373c1cbf8",
+  "active_prompt": "docs/model/return-to-form-m3hw-detector0-manual-overlay-gap-repair-no-brev-goal-loop-prompt.md",
+  "command_summary": {
+    "all_required_local_checks_passed": true,
+    "brev_inventory_read_only": true,
+    "brev_default_off": true,
+    "training_or_remote_commands_run": false,
+    "json_artifact_validation_passed": true,
+    "blockers": []
+  },
+  "commands_run": [
+    {
+      "command": "git log -1 --oneline",
+      "exit_status": 0,
+      "summary": "HEAD 48fc372 observer CONTINUE handoff to M3HW."
+    },
+    {
+      "command": "git status --short",
+      "exit_status": 0,
+      "summary": "clean worktree before M3HW writes"
+    },
+    {
+      "command": "git status --short --branch",
+      "exit_status": 0,
+      "summary": "branch compound-plan-m0 ahead of origin; no uncommitted files at baseline"
+    },
+    {
+      "command": "git log -14 --oneline --decorate",
+      "exit_status": 0,
+      "summary": "HEAD 48fc372 M3HW observer handoff; prior d285c42 M3HV manual overlay packet and 0379773 supervisor bake-off gate remain in history"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_status": 0,
+      "summary": "passed with no blockers"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_status": 0,
+      "summary": "passed; GOAL.md points at the M3HW active prompt"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "exit_status": 0,
+      "summary": "passed; dataset-source-register sha256 b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_status": 0,
+      "summary": "passed; no banned pretrained-CV dependencies or source imports found"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_status": 0,
+      "summary": "passed with no findings"
+    },
+    {
+      "command": "node scripts/audit_detector0_manifest_contract.mjs",
+      "exit_status": 0,
+      "summary": "passed; Detector 0 remains not_trained/research_only with browser artifact null and fail-closed runtime gates"
+    },
+    {
+      "command": "node scripts/audit_detector0_strict_gate_crop_contract.mjs --json",
+      "exit_status": 0,
+      "summary": "passed; strict-gate crop contract remains diagnostic-only and fail-closed"
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlays-v1.json >/dev/null",
+      "exit_status": 0,
+      "summary": "M3HV manual overlay packet parses"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3hv-detector0-manual-contact-sheet-overlay-packet-no-brev-v1.json >/dev/null",
+      "exit_status": 0,
+      "summary": "M3HV receipt parses"
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-targeted-annotation-packet-expansion-v1.json >/dev/null",
+      "exit_status": 0,
+      "summary": "M3HS expansion artifact parses"
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-targeted-annotation-overlays-v1.json >/dev/null",
+      "exit_status": 0,
+      "summary": "M3HQ overlay artifact parses"
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-targeted-annotation-packet-v1.json >/dev/null",
+      "exit_status": 0,
+      "summary": "M3HN packet draft parses"
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json >/dev/null",
+      "exit_status": 0,
+      "summary": "approved V0 packet parses"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/detector0-card.json >/dev/null",
+      "exit_status": 0,
+      "summary": "Detector 0 card parses"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/browser-model-bundle.json >/dev/null",
+      "exit_status": 0,
+      "summary": "browser model bundle parses"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "exit_status": 0,
+      "summary": "recognizer model card parses"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "exit_status": 0,
+      "summary": "active vocabulary claim parses"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/dataset-source-register.json >/dev/null",
+      "exit_status": 0,
+      "summary": "dataset source register parses"
+    },
+    {
+      "command": "brev ls --json",
+      "exit_status": 0,
+      "summary": "read-only inventory reported asl-pilot-m3eh-l40s-001 as STOPPED / COMPLETED / NOT READY / HEALTHY"
+    },
+    {
+      "command": "git diff --check",
+      "exit_status": 0,
+      "summary": "passed before writes"
+    },
+    {
+      "command": "jq '.rows[6]' data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlays-v1.json",
+      "exit_status": 0,
+      "summary": "inspected blocked row det0-exp1-validation-table-000376-f004 and original M3HV insufficient-visual-evidence disposition"
+    },
+    {
+      "command": "jq '.selected_candidate_rows[6]' data/annotations/detector0/return-to-form-targeted-annotation-packet-expansion-v1.json",
+      "exit_status": 0,
+      "summary": "inspected M3HS selected candidate metadata for the blocked row"
+    },
+    {
+      "command": "jq '.frame_rows[] | select(.row_id == \"det0-v0-validation-table-000376-f005\")' data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "exit_status": 0,
+      "summary": "inspected related V0 frame-5 reviewed target boxes as non-authoritative temporal context"
+    },
+    {
+      "command": "jq '.rows[] | select(.clip_id == \"popsign-v1-validation-table-000376\") | {row_id, frame_index, timestamp_sec, review_status, left: .targets.left_or_first_hand, right: .targets.right_or_second_hand, notes}' data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlays-v1.json",
+      "exit_status": 0,
+      "summary": "inspected M3HV frame-4 blocker and frame-6 temporal-neighbor manual boxes"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python - <<'PY' ...",
+      "exit_status": 0,
+      "summary": "read tracked tensor data/tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000376-regions.pt and wrote non-committed temporary frame 3-7 visualization to /tmp/asl-pilot-m3hw-validation-table-000376-full-frame-f3-f7.png"
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlay-gap-repair-v1.json >/dev/null",
+      "exit_status": 0,
+      "summary": "supplemental gap-repair artifact parses after creation"
+    }
+  ],
+  "commands_intentionally_not_run": [
+    "brev start",
+    "brev stop",
+    "brev exec",
+    "brev sync",
+    "remote ssh command",
+    "Detector 0 training",
+    "recognizer training",
+    "model evaluation rerun",
+    "source or media import",
+    "tensor mutation",
+    "model-card promotion",
+    "browser export or activation"
+  ],
+  "brev_default_off_read_only_inventory": {
+    "command": "brev ls --json",
+    "workspace": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "status": "STOPPED",
+      "build_status": "COMPLETED",
+      "shell_status": "NOT READY",
+      "health_status": "HEALTHY",
+      "instance_type": "l40s-48gb.1x",
+      "instance_kind": "gpu",
+      "gpu": "L40S"
+    },
+    "lifecycle_action_taken": false
+  },
+  "files_inspected": [
+    {
+      "path": "GOAL.md",
+      "sha256": "605300042329c79d6f967c3943332d95f225dc1ef38d49162fdfe060a09c4889"
+    },
+    {
+      "path": "docs/model/return-to-form-m3hw-detector0-manual-overlay-gap-repair-no-brev-goal-loop-prompt.md",
+      "sha256": "ef1c052372e2f1d9d8a73a7e6ca1371726653bb8592b15c09bc086ad3ef14804"
+    },
+    {
+      "path": "docs/model/return-to-form-plan.md",
+      "sha256": "391adeb6e96a408c30d8f34cb0689deae2855d0924feaf3d73ead15f00707a63"
+    },
+    {
+      "path": "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlays-v1.json",
+      "sha256": "9336f9b4047ce20499d560da6a8d2967a229aa87497eca28bc6f77fa4600e8fb"
+    },
+    {
+      "path": "docs/validation/return-to-form-m3hv-detector0-manual-contact-sheet-overlay-packet-no-brev-v1.json",
+      "sha256": "a9f902fb2ec459522975d6eeff88a6fb56b0821dc0344e66677258404e92fe79"
+    },
+    {
+      "path": "docs/session-logs/708-mission-3hv-detector0-manual-contact-sheet-overlay-packet-no-brev.md",
+      "sha256": "80ad15775768b083728eb2c9b211ec9ebdd1ce50e16bc8664ab53cccf51331e4"
+    },
+    {
+      "path": "docs/model/return-to-form-detector0-fixed-baseline-gate-contract-v1.json",
+      "sha256": "92f4650a50b562b3055bb455fe9b5ae30ad639fe843b5efd834cd24925142423"
+    },
+    {
+      "path": "docs/model/return-to-form-detector0-fixed-baseline-gate-contract-review-v1.json",
+      "sha256": "adbc74cb6856a66a228d01e532709c4a3b8fdde0d499529e3fc5221262bd7283"
+    },
+    {
+      "path": "docs/validation/return-to-form-detector0-fullvshortcut-bakeoff-v1.json",
+      "sha256": "9d7ed27628d844665ebf05b698efe95d5c8c21d2eba0074561ef59bfec102dd2"
+    },
+    {
+      "path": "data/annotations/detector0/return-to-form-targeted-annotation-packet-expansion-v1.json",
+      "sha256": "79bb135a6e5c430f18a7f85dbabc617295e29ef7fdb95717de5e959381104f45"
+    },
+    {
+      "path": "data/annotations/detector0/return-to-form-targeted-annotation-overlays-v1.json",
+      "sha256": "4b0ba6679d399a48514283a9583914b3444aa21cbaeaeacedf4929e9118c002d"
+    },
+    {
+      "path": "data/annotations/detector0/return-to-form-targeted-annotation-packet-v1.json",
+      "sha256": "758c9dbc408e4ae02a042c08805d9baccf3bca6cc0a6d1e0e2d25dbd45a26f23"
+    },
+    {
+      "path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d"
+    },
+    {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    {
+      "path": "docs/validation/return-to-form-tier0-remediation-contact-sheets/table.png",
+      "sha256": "f223eb2c92c85418c999c85d0c664d35241e0b4a24f31b8af3bb37c19426169e"
+    },
+    {
+      "path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000376-regions.pt",
+      "sha256": "0333582a01338a88bc818d7f45aa2f669d8acfed6c6876fa860d9ab8c01d50d7"
+    },
+    {
+      "path": "web/public/model/detector0-card.json",
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929"
+    },
+    {
+      "path": "web/public/model/browser-model-bundle.json",
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9"
+    },
+    {
+      "path": "web/public/model/model-card.json",
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a"
+    },
+    {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546"
+    }
+  ],
+  "files_changed": [
+    {
+      "path": "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlay-gap-repair-v1.json",
+      "sha256": "d1903481cf3992889240d986f4c04b3f791941014e9128fef6db634831f3bf18"
+    },
+    {
+      "path": "docs/validation/return-to-form-m3hw-detector0-manual-overlay-gap-repair-no-brev-v1.json",
+      "sha256": null
+    },
+    {
+      "path": "docs/session-logs/710-mission-3hw-detector0-manual-overlay-gap-repair-no-brev.md",
+      "sha256": null
+    }
+  ],
+  "supplemental_artifact": {
+    "path": "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlay-gap-repair-v1.json",
+    "sha256": "d1903481cf3992889240d986f4c04b3f791941014e9128fef6db634831f3bf18",
+    "status": "completed_blocker_preserved_not_training_ready"
+  },
+  "blocked_row_disposition": {
+    "row_id": "det0-exp1-validation-table-000376-f004",
+    "original_m3hv_review_status": "blocked_insufficient_visual_evidence",
+    "disposition": "preserve_insufficient_visual_evidence_blocker",
+    "supplemental_manual_targets_authored": false,
+    "concrete_reason": "Retained frame 4 shows only a lower-edge blurred/partial forearm or hand-motion region. Existing frame-5 and frame-6 boxes are useful temporal context but cannot be copied backward as frame-4 manual labels."
+  },
+  "target_by_target_result": {
+    "left_or_first_hand": {
+      "result": "no_supplemental_target_authored",
+      "presence": null,
+      "absence_reason": "insufficient_visual_evidence",
+      "blocker_preserved": true
+    },
+    "right_or_second_hand": {
+      "result": "no_supplemental_target_authored",
+      "presence": null,
+      "absence_reason": "insufficient_visual_evidence",
+      "blocker_preserved": true
+    },
+    "head_or_face": {
+      "result": "fixed_anchor_policy_reference_only",
+      "new_label_authored": false
+    },
+    "upper_body_or_signing_space": {
+      "result": "fixed_anchor_policy_reference_only",
+      "new_label_authored": false
+    },
+    "table_two_hand_union_or_contact_region": {
+      "result": "diagnostic_only_not_derived",
+      "promoted_detector0_target_id": false,
+      "reason": "manual hand boxes remain unavailable for frame 4"
+    }
+  },
+  "m3ht_gate_continuity_proof": {
+    "fixed_baseline_gate_source": "docs/model/return-to-form-detector0-fixed-baseline-gate-contract-v1.json",
+    "left_hand_iou_must_exceed": 0.4073,
+    "right_hand_iou_must_exceed": 0.6476,
+    "learned_targets_for_future_detector0": [
+      "left_or_first_hand",
+      "right_or_second_hand"
+    ],
+    "fixed_anchor_targets": [
+      "head_or_face",
+      "upper_body_or_signing_space"
+    ],
+    "diagnostic_only_targets_not_promoted": [
+      "table_two_hand_union_or_contact_region"
+    ],
+    "gate_changed": false,
+    "improvement_or_promotion_claim_made": false
+  },
+  "source_provenance_no_pretrained_proof": {
+    "source_id": "popsign-v1-original-videos",
+    "source_license_decision": "approved_popsign_v1_original_videos_2026_05_20",
+    "source_license_review_status": "approved_cc_by_4_raw_video_with_attribution",
+    "source_register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+    "source_or_media_import_performed": false,
+    "pretrained_or_generated_label_use": false,
+    "raw_learner_video_upload_used": false,
+    "allowed_label_annotation_scope": "raw video/frame/tensor rows and project-authored manual boxes/regions with attribution and provenance",
+    "attestation": "Only retained tracked PopSign tensor/contact-sheet evidence and existing project-authored manual row context were inspected. No pretrained detector, landmark model, feature extractor, teacher model, generated label, pseudo-label, or pretrained feature cache was used."
+  },
+  "claim_surface_proof": {
+    "paths": [
+      {
+        "path": "web/public/model/detector0-card.json",
+        "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929"
+      },
+      {
+        "path": "web/public/model/browser-model-bundle.json",
+        "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9"
+      },
+      {
+        "path": "web/public/model/model-card.json",
+        "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a"
+      },
+      {
+        "path": "docs/model/active-vocabulary-claim.json",
+        "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546"
+      }
+    ],
+    "detector0_status": "not_trained",
+    "detector0_promotion_state": "research_only",
+    "browser_artifact": null,
+    "active_label_count": 0,
+    "claim_expansion_performed": false
+  },
+  "forbidden_action_proof": {
+    "brev_lifecycle_or_remote_command": false,
+    "paid_compute_started": false,
+    "detector0_training_or_evaluation": false,
+    "recognizer_training_or_evaluation": false,
+    "source_or_media_import": false,
+    "raw_learner_media_inspection": false,
+    "base_artifact_mutation": false,
+    "m3hv_packet_mutation": false,
+    "m3ht_contract_mutation": false,
+    "m3hs_expansion_mutation": false,
+    "m3hq_overlay_mutation": false,
+    "m3hn_packet_mutation": false,
+    "approved_v0_packet_mutation": false,
+    "source_register_mutation": false,
+    "manifest_mutation": false,
+    "tensor_mutation": false,
+    "vocabulary_mutation": false,
+    "model_card_or_claim_surface_mutation": false,
+    "runtime_code_mutation": false,
+    "final_gate_change": false,
+    "export_or_browser_activation": false,
+    "push_performed": false
+  },
+  "readiness_classification": {
+    "gap_repair_status": "single_blocked_row_reviewed_blocker_preserved",
+    "ready_for_full_scratch_detector0_training_evaluation": false,
+    "ready_for_browser_promotion": false,
+    "ready_for_final_gates_or_claim_expansion": false,
+    "claim_surfaces_remain_fail_closed": true,
+    "reason": "M3HW did not add supplemental hand labels and did not train/evaluate/export/promote anything. It preserves evidence accounting for one blocked row only."
+  },
+  "exactly_one_next_action": "continue_m3hx_detector0_manual_overlay_gap_review_no_brev"
+}

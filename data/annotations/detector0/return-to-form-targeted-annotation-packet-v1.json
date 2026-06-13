@@ -1,0 +1,499 @@
+{
+  "schema_version": "asl-pilot-detector0-targeted-annotation-packet/v1",
+  "status": "draft_not_ready_for_full_detector0_training_evaluation_or_browser_promotion",
+  "mission": "M3HN",
+  "created_at": "2026-05-29T17:41:03Z",
+  "head_at_creation": "39600ab observer: CONTINUE - m3hm to m3hn packet authoring",
+  "active_prompt": "docs/model/return-to-form-m3hn-detector0-targeted-annotation-packet-authoring-no-brev-goal-loop-prompt.md",
+  "purpose": "Reviewable Detector 0 targeted annotation packet draft from existing reviewed rows, tracked manifests/source metadata, split accounting, target coverage, validation/test negative candidates, and explicit blockers.",
+  "source_evidence": {
+    "m3hm_plan": {
+      "path": "docs/model/return-to-form-detector0-targeted-annotation-packet-plan-v1.json",
+      "sha256": "861da19e244f6404d078277a3bf8158340fcb242b0c89973012afb2dac4d6a18"
+    },
+    "m3hl_contract": {
+      "path": "docs/model/return-to-form-detector0-manifest-label-training-evaluation-contract-v1.json",
+      "sha256": "cd70aa2bc8568e50b3e5e3b53758bd595dbf480a1b24a5655a23c872f6d57b71"
+    },
+    "approved_reviewed_packet": {
+      "path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d",
+      "mutation_policy": "referenced_only_unchanged"
+    },
+    "tier0_manifests": {
+      "train": {
+        "path": "data/manifests/return-to-form-tier0/train.json",
+        "sha256": "03ae563a5f2ef0d5b868f6c80f50acb64ae642e782cd541faa5c022d4d0af1de",
+        "clip_count": 125
+      },
+      "validation": {
+        "path": "data/manifests/return-to-form-tier0/validation.json",
+        "sha256": "23da15a80ce2eee1dab1a7e64c08e2aefcf5d7dd48263677fdc49d1efb0ad808",
+        "clip_count": 125
+      },
+      "test": {
+        "path": "data/manifests/return-to-form-tier0/test.json",
+        "sha256": "b0c771b612ebb52beb375a98b4180ccd465aa642312a8c6c29d7ff225febd8ed",
+        "clip_count": 95
+      }
+    },
+    "negative_challenge_manifest": {
+      "path": "data/manifests/negative-challenge.json",
+      "sha256": "b06c7990b9d0efbec908b8466064b87dd29bbf7c5d891e133c935c5c7ed02293",
+      "clip_count": 25
+    },
+    "source_register": {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    "detector0_card": {
+      "path": "web/public/model/detector0-card.json",
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null
+    }
+  },
+  "target_schema": {
+    "promoted_target_ids": [
+      "left_or_first_hand",
+      "right_or_second_hand",
+      "head_or_face",
+      "upper_body_or_signing_space"
+    ],
+    "auxiliary_table_scoped_target_ids": [
+      "table_two_hand_union_or_contact_region"
+    ],
+    "coordinate_space": "normalized_full_frame_top_left_xyxy",
+    "required_target_fields": [
+      "presence",
+      "center_xy_norm",
+      "box_xyxy_norm",
+      "visibility_confidence",
+      "occlusion_flag",
+      "truncation_flag"
+    ],
+    "future_required_absence_fields": [
+      "absence_reason",
+      "target_applicability"
+    ],
+    "schema_change_policy": "M3HN preserves current Detector 0 target ids. Any promoted target, coordinate-space, field, or auxiliary-authority change requires later human approval or ESCALATE."
+  },
+  "source_license_overlays": {
+    "popsign-v1-original-videos": {
+      "source_license_decision": "approved_popsign_v1_original_videos_2026_05_20",
+      "source_license_review_status": "approved_cc_by_4_raw_video_with_attribution",
+      "allowed_for_model_training": true,
+      "allowed_for_validation": true,
+      "allowed_label_annotation_scope": "raw video/frame/tensor rows and project-authored manual boxes/regions with attribution and provenance",
+      "disallowed_derivatives": [
+        "preview_videos",
+        "source_provided_pose_or_landmarks",
+        "source_provided_embeddings_or_feature_caches",
+        "pretrained_detector_outputs",
+        "generated_or_pseudo_labels"
+      ]
+    },
+    "online-negative-challenge-mixed-wikimedia-cira-v1": {
+      "source_license_decision": "approved_mixed_online_negative_challenge_exact_files_2026_05_21",
+      "source_license_review_status": "approved_validation_only_mixed_external_raw_video_with_attribution",
+      "allowed_for_model_training": false,
+      "allowed_for_validation": true,
+      "allowed_label_annotation_scope": "validation_or_test_reject_only_exact_files_with_file_level_provenance",
+      "training_use_policy": "blocked_until_later_source_review_receipt_explicitly_approves_training_use"
+    },
+    "wikimedia-commons-negative-challenge-videos": {
+      "source_license_decision": "approved_wikimedia_commons_negative_challenge_exact_files_2026_05_21",
+      "source_license_review_status": "approved_validation_only_free_license_or_public_domain_with_attribution",
+      "allowed_for_model_training": false,
+      "allowed_for_validation": true
+    },
+    "cira-satellite-library-negative-challenge-videos": {
+      "source_license_decision": "approved_cira_negative_challenge_exact_files_2026_05_21",
+      "source_license_review_status": "approved_validation_only_cira_noaa_credit_required",
+      "allowed_for_model_training": false,
+      "allowed_for_validation": true
+    },
+    "asl-citizen-school-assignment-raw-videos": {
+      "source_license_decision": "approved_asl_citizen_school_assignment_raw_videos_2026_05_21",
+      "source_license_review_status": "approved_noncommercial_school_assignment_raw_video_only",
+      "allowed_for_model_training": true,
+      "allowed_for_validation": true,
+      "negative_challenge_policy": "non_target_asl_sign rows in the mixed negative manifest remain validation/test candidates unless a later Detector 0 packet source review assigns training use."
+    }
+  },
+  "row_reference_policy": {
+    "existing_reviewed_rows_are_referenced_by_row_id": true,
+    "source_packet_path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+    "source_packet_sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d",
+    "json_pointer_template": "/frame_rows[row_id=<row_id>]",
+    "referenced_payload_fields": [
+      "row_id",
+      "clip_id",
+      "label_id",
+      "split",
+      "source_id",
+      "source_split",
+      "source_record_id",
+      "source_video_sha256",
+      "signer_identity_hash",
+      "frame_index",
+      "timestamp_sec",
+      "frame_tensor_path",
+      "frame_tensor_sha256",
+      "tensor_digest_sha256",
+      "label_source",
+      "annotation_source",
+      "annotator",
+      "reviewer",
+      "reviewed_at",
+      "review_status",
+      "targets",
+      "notes"
+    ],
+    "per_row_overlay_fields_required_before_training_manifest": [
+      "source_license_decision",
+      "source_license_review_status",
+      "allowed_label_annotation_scope",
+      "pretrained_or_generated_label_use=false",
+      "no_pretrained_attestation",
+      "absence_reason when target presence is false",
+      "target_applicability when a target is label- or challenge-not-applicable"
+    ],
+    "no_pretrained_attestation": "Rows may use only human-authored project labels or explicitly source-approved offline supervision. This packet does not use MediaPipe, OpenPose, YOLO, SAM, DINO, CLIP, RTMPose, from_pretrained outputs, pretrained=True outputs, feature caches, generated labels, or pseudo-labels in the promoted lane."
+  },
+  "rows": {
+    "review_ready_rows": {
+      "status": "reviewed_row_references_from_existing_packet_not_full_training_readiness",
+      "row_count": 32,
+      "split_counts": {
+        "train": 11,
+        "validation": 11,
+        "test": 10
+      },
+      "review_status_counts": {
+        "manual_verified": 6,
+        "manual_corrected": 26
+      },
+      "train": [
+        "det0-v0-train-please-000076-f010",
+        "det0-v0-train-table-000376-f010",
+        "det0-v0-train-dad-000826-f010",
+        "det0-v0-train-grandpa-000951-f010",
+        "det0-v0-train-hat-001976-f010",
+        "det0-v0-train-table-000379-f008",
+        "det0-v0-train-table-000386-f008",
+        "det0-v0-train-table-000391-f010",
+        "det0-v0-train-table-000392-f008",
+        "det0-v0-train-table-000396-f008",
+        "det0-v0-train-table-000400-f008"
+      ],
+      "validation": [
+        "det0-v0-validation-please-000076-f005",
+        "det0-v0-validation-table-000376-f005",
+        "det0-v0-validation-dad-000826-f005",
+        "det0-v0-validation-grandpa-000952-f005",
+        "det0-v0-validation-hat-001976-f005",
+        "det0-v0-validation-table-000379-f008",
+        "det0-v0-validation-table-000383-f010",
+        "det0-v0-validation-table-000385-f008",
+        "det0-v0-validation-table-000388-f008",
+        "det0-v0-validation-table-000393-f008",
+        "det0-v0-validation-table-000397-f008"
+      ],
+      "test": [
+        "det0-v0-test-please-000058-f010",
+        "det0-v0-test-table-000286-f005",
+        "det0-v0-test-dad-000628-f005",
+        "det0-v0-test-grandpa-000723-f005",
+        "det0-v0-test-hat-001503-f010",
+        "det0-v0-test-table-000288-f008",
+        "det0-v0-test-table-000290-f008",
+        "det0-v0-test-table-000294-f008",
+        "det0-v0-test-table-000297-f008",
+        "det0-v0-test-table-000301-f008"
+      ]
+    },
+    "candidate_rows": {
+      "future_positive_annotation_candidates_from_tier0_manifests": {
+        "status": "candidate_clip_rows_not_detector0_frame_rows",
+        "source_id": "popsign-v1-original-videos",
+        "split_clip_counts": {
+          "train": 125,
+          "validation": 125,
+          "test": 95
+        },
+        "label_counts": {
+          "train": {
+            "dad": 25,
+            "grandpa": 25,
+            "hat": 25,
+            "please": 25,
+            "table": 25
+          },
+          "validation": {
+            "dad": 25,
+            "grandpa": 25,
+            "hat": 25,
+            "please": 25,
+            "table": 25
+          },
+          "test": {
+            "dad": 19,
+            "grandpa": 19,
+            "hat": 19,
+            "please": 19,
+            "table": 19
+          }
+        },
+        "required_before_use": "A later authoring slice must create frame or temporal Detector 0 target rows with reviewer/provenance/no-pretrained/source-license overlays."
+      },
+      "validation_test_reject_candidates_from_negative_challenge": {
+        "status": "validation_test_reject_candidates_only",
+        "source_manifest_path": "data/manifests/negative-challenge.json",
+        "source_manifest_sha256": "b06c7990b9d0efbec908b8466064b87dd29bbf7c5d891e133c935c5c7ed02293",
+        "challenge_type_counts": {
+          "empty_camera": 5,
+          "low_light": 5,
+          "no_hands_visible": 5,
+          "non_target_asl_sign": 5,
+          "off_center": 5
+        },
+        "clip_ids_by_challenge_type": {
+          "empty_camera": [
+            "negative-challenge-0001",
+            "negative-challenge-0002",
+            "negative-challenge-0003",
+            "negative-challenge-0004",
+            "negative-challenge-0005"
+          ],
+          "no_hands_visible": [
+            "negative-challenge-0006",
+            "negative-challenge-0007",
+            "negative-challenge-0008",
+            "negative-challenge-0009",
+            "negative-challenge-0010"
+          ],
+          "low_light": [
+            "negative-challenge-0011",
+            "negative-challenge-0012",
+            "negative-challenge-0013",
+            "negative-challenge-0014",
+            "negative-challenge-0015"
+          ],
+          "off_center": [
+            "negative-challenge-0016",
+            "negative-challenge-0017",
+            "negative-challenge-0018",
+            "negative-challenge-0019",
+            "negative-challenge-0020"
+          ],
+          "non_target_asl_sign": [
+            "negative-challenge-0021",
+            "negative-challenge-0022",
+            "negative-challenge-0023",
+            "negative-challenge-0024",
+            "negative-challenge-0025"
+          ]
+        },
+        "training_use_policy": "Do not use these as training hard negatives in this packet. They remain validation/test reject candidates unless a later source-rights receipt explicitly approves training use and row-level Detector 0 no-hand targets are authored."
+      }
+    },
+    "blocked_rows": [
+      {
+        "blocker_id": "training_hard_negatives_from_mixed_negative_challenge",
+        "status": "blocked",
+        "reason": "The mixed negative-challenge source family is validation-only/exact-file scoped and not approved for model training.",
+        "required_resolution": "Later source-review receipt or first-party consented hard-negative collection approved for Detector 0 training."
+      },
+      {
+        "blocker_id": "right_or_second_hand_non_table_positive_support",
+        "status": "blocked",
+        "reason": "Current positive right_or_second_hand support is table-only: train 7, validation 7, test 6. Non-table labels currently carry absent rows rather than positive second-hand examples.",
+        "required_resolution": "Human target-policy review or authored non-table positive rows before any claim of general second-hand detector readiness."
+      },
+      {
+        "blocker_id": "absence_reason_and_target_applicability_fields",
+        "status": "blocked",
+        "reason": "The referenced V0 rows carry target presence/absence, but absence_reason and target_applicability are future-required by the M3HM plan for full packet readiness.",
+        "required_resolution": "Later row-authoring pass records true_absent, not_applicable_by_label_review, occluded_beyond_review, out_of_frame, or unusable_frame where presence=false."
+      },
+      {
+        "blocker_id": "temporal_and_iou_evaluation_rows",
+        "status": "blocked",
+        "reason": "No temporal sequence rows, held-out IoU 0.30 rows, held-out IoU 0.50 rows, false no-hand accounting, or browser latency evidence are authored in this packet.",
+        "required_resolution": "Later review or authoring slice adds those row types before training/evaluation or promotion."
+      }
+    ],
+    "not_training_ready_rows": [
+      {
+        "row_group": "existing_review_ready_rows",
+        "row_count": 32,
+        "reason": "Useful reviewed single-frame seed evidence, but sparse coverage and missing temporal, hard-negative/no-hand, held-out IoU, false no-hand, false trigger, browser-latency, and future per-row overlay prerequisites."
+      },
+      {
+        "row_group": "negative_challenge_candidates",
+        "row_count": 25,
+        "reason": "Validation/test reject candidates do not contain Detector 0 target boxes and are not approved as model-training hard negatives."
+      }
+    ]
+  },
+  "split_accounting": {
+    "review_ready_row_counts": {
+      "train": 11,
+      "validation": 11,
+      "test": 10,
+      "total": 32
+    },
+    "review_ready_label_counts": {
+      "dad": 3,
+      "grandpa": 3,
+      "hat": 3,
+      "please": 3,
+      "table": 20
+    },
+    "target_by_target_split_counts": {
+      "left_or_first_hand": {
+        "train": {
+          "present": 11,
+          "absent": 0,
+          "total": 11
+        },
+        "validation": {
+          "present": 11,
+          "absent": 0,
+          "total": 11
+        },
+        "test": {
+          "present": 10,
+          "absent": 0,
+          "total": 10
+        },
+        "gap": "No hard-negative/no-hand, temporal, or held-out IoU accounting."
+      },
+      "right_or_second_hand": {
+        "train": {
+          "present": 7,
+          "absent": 4,
+          "total": 11
+        },
+        "validation": {
+          "present": 7,
+          "absent": 4,
+          "total": 11
+        },
+        "test": {
+          "present": 6,
+          "absent": 4,
+          "total": 10
+        },
+        "gap": "Positive support is table-only; absent/non-applicable semantics for non-table labels need human target-policy review."
+      },
+      "head_or_face": {
+        "train": {
+          "present": 11,
+          "absent": 0,
+          "total": 11
+        },
+        "validation": {
+          "present": 11,
+          "absent": 0,
+          "total": 11
+        },
+        "test": {
+          "present": 10,
+          "absent": 0,
+          "total": 10
+        },
+        "gap": "Auxiliary context target only; no ASL correctness authority or held-out IoU/browser authority."
+      },
+      "upper_body_or_signing_space": {
+        "train": {
+          "present": 11,
+          "absent": 0,
+          "total": 11
+        },
+        "validation": {
+          "present": 11,
+          "absent": 0,
+          "total": 11
+        },
+        "test": {
+          "present": 10,
+          "absent": 0,
+          "total": 10
+        },
+        "gap": "Upper-body versus signing-space semantics and temporal stability remain unresolved."
+      },
+      "table_two_hand_union_or_contact_region": {
+        "train": {
+          "present": 7,
+          "absent": 4,
+          "total": 11
+        },
+        "validation": {
+          "present": 7,
+          "absent": 4,
+          "total": 11
+        },
+        "test": {
+          "present": 6,
+          "absent": 4,
+          "total": 10
+        },
+        "scope": "auxiliary_table_scoped_only_not_promoted_detector0_card_target"
+      }
+    },
+    "negative_challenge_candidate_counts": {
+      "validation_or_test_candidate_total": 25,
+      "training_approved_total": 0
+    }
+  },
+  "plan_to_packet_mapping": {
+    "preserve_existing_approved_packet": "satisfied_by_reference_only_no_mutation",
+    "carry_forward_existing_reviewed_rows": "satisfied_by_32_row_id_references_to_v0_packet_hash_6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d",
+    "separate_review_ready_candidate_blocked_not_training_ready": "satisfied_in_rows_object",
+    "target_by_target_split_counts": "satisfied_in_split_accounting.target_by_target_split_counts",
+    "keep_table_union_auxiliary": "satisfied_as_auxiliary_table_scoped_target_only",
+    "negative_challenge_policy": "satisfied_as_validation_test_reject_candidates_only_no_training_use",
+    "record_required_provenance_and_no_pretrained": "satisfied_by_row_reference_policy_and_source_license_overlays_with_remaining_overlay_blockers",
+    "mark_not_ready": "satisfied_by_status_and_readiness"
+  },
+  "review_blockers": [
+    "Source/license overlay fields are recorded at packet level and must be materialized per row before a training/evaluation manifest is claimed ready.",
+    "Rows with presence=false need absence_reason and target_applicability before full packet readiness.",
+    "right_or_second_hand requires target-policy review because positive support is table-only.",
+    "upper_body_or_signing_space semantics require review before broad authoring expansion.",
+    "Training hard negatives require training-approved source review or first-party consented rows.",
+    "Temporal sequence, held-out IoU 0.30/0.50, false no-hand, false trigger, and browser-latency evidence remain missing."
+  ],
+  "forbidden_actions_preserved": {
+    "brev_lifecycle_or_remote_commands": false,
+    "paid_compute": false,
+    "detector0_training": false,
+    "recognizer_training_or_evaluation": false,
+    "source_or_media_import": false,
+    "raw_learner_media_inspection": false,
+    "existing_packet_mutation": false,
+    "source_register_or_manifest_mutation": false,
+    "labels_tensors_vocabulary_model_card_runtime_or_final_gate_mutation": false,
+    "export_promotion_or_browser_activation": false,
+    "claim_expansion": false
+  },
+  "claim_surface_boundary": {
+    "detector0_status": "not_trained",
+    "detector0_promotion_state": "research_only",
+    "detector0_browser_artifact": null,
+    "browser_recognition_enabled": false,
+    "detector0_tracking_enabled": false,
+    "box_driven_avatar_enabled": false,
+    "active_label_count": 0
+  },
+  "readiness": {
+    "current_packet_ready_for_full_scratch_detector0_training_evaluation": false,
+    "current_packet_ready_for_browser_detector0_promotion": false,
+    "current_packet_ready_for_final_gate_or_claim_expansion": false,
+    "reason": "M3HN creates a reviewable draft from existing evidence, but the draft still lacks full per-row license overlays, explicit absence/applicability semantics, training-approved hard negatives, temporal rows, held-out IoU rows, false no-hand and false trigger accounting, and browser-latency proof.",
+    "exactly_one_next_action": "continue_m3ho_detector0_annotation_packet_review_no_brev"
+  }
+}

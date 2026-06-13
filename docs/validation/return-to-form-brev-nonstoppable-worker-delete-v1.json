@@ -1,0 +1,133 @@
+{
+  "schema_version": "asl-pilot-brev-nonstoppable-worker-delete/v1",
+  "created_at": "2026-05-28T11:59:00Z",
+  "mission": "Supervisor Brev cost-control unblock after M3DV STOP",
+  "trigger": {
+    "latest_user_instruction": "continue overnight completion push and unblock Brev usage",
+    "prior_stop_commit": "fb0a90d observer: STOP - m3dv cost control",
+    "prior_blocker": "brev stop by name, id, and --all returned, but provider still reported asl-pilot-rawframe-001 / 2hl1hytty as RUNNING, READY, HEALTHY"
+  },
+  "deleted_worker": {
+    "name": "asl-pilot-rawframe-001",
+    "id": "2hl1hytty",
+    "instance_type": "massedcompute_A100_sxm4_80G_DGX",
+    "gpu": "A100",
+    "hourly_cost_usd": 1.49,
+    "stoppable_search_result": "not listed by brev search --gpu-name A100 --stoppable --wide",
+    "provider_support_classification": "non_stoppable_or_stop_not_effective"
+  },
+  "pre_delete_checks": {
+    "brev_ls_json": {
+      "status": "RUNNING",
+      "build_status": "COMPLETED",
+      "shell_status": "READY",
+      "health_status": "HEALTHY"
+    },
+    "remote_training_process_check": {
+      "command": "brev exec asl-pilot-rawframe-001 \"ps -eo pid,etime,pcpu,pmem,args | egrep 'python|torch|train|screen|tmux|jupyter' | grep -v egrep || true\"",
+      "active_training_process_found": false,
+      "non_training_processes": [
+        "networkd-dispatcher",
+        "jupyter-lab"
+      ]
+    },
+    "remote_gpu_check": {
+      "command": "brev exec asl-pilot-rawframe-001 \"nvidia-smi --query-gpu=index,name,memory.used,utilization.gpu --format=csv,noheader 2>/dev/null || true\"",
+      "result": "0, NVIDIA A100-SXM4-80GB, 0 MiB, 0 %"
+    },
+    "remote_output_dirs": [
+      "m3ah-tier0-cuda-full-split-recognizer",
+      "m3ah-tier0-cuda-smoke",
+      "m3bv-popsign-fresh5-region-grid-tcn-tiny-overfit",
+      "m3dq-high-signal-region-grid-tcn-brev",
+      "return-to-form-popsign-fresh5-local-smoke",
+      "return-to-form-popsign-fresh5-region-grid-local-smoke"
+    ],
+    "local_output_mirror": {
+      "all_remote_output_dirs_present_locally": true,
+      "note": "Local output directory contains corresponding copied artifact directories; ignored output artifacts were not force-added."
+    }
+  },
+  "delete_action": {
+    "command": "brev delete asl-pilot-rawframe-001",
+    "status": "returned_zero",
+    "stdout": "asl-pilot-rawframe-001"
+  },
+  "post_delete_polls": [
+    {
+      "poll": 1,
+      "status": "RUNNING",
+      "shell_status": "READY"
+    },
+    {
+      "poll": 2,
+      "status": "RUNNING",
+      "shell_status": "READY"
+    },
+    {
+      "poll": 3,
+      "status": "RUNNING",
+      "shell_status": "READY"
+    },
+    {
+      "poll": 4,
+      "status": "DELETING",
+      "shell_status": "NOT READY"
+    },
+    {
+      "poll": 5,
+      "status": "STARTING",
+      "shell_status": "NOT READY"
+    },
+    {
+      "poll": 6,
+      "workspaces": null
+    },
+    {
+      "poll": "final",
+      "workspaces": null
+    }
+  ],
+  "post_delete_state": {
+    "command": "brev ls --json",
+    "workspaces": null,
+    "cost_control_blocker_resolved": true,
+    "running_workspace_count": 0
+  },
+  "future_brev_policy": {
+    "create_worker_now": false,
+    "preferred_future_instance_filter": "stoppable",
+    "read_only_allowed_in_next_prompt": [
+      "brev ls --json",
+      "brev search --gpu-name A100 --stoppable --wide"
+    ],
+    "future_remote_training_requires": [
+      "active prompt with exact command",
+      "explicit human approval for spend",
+      "stoppable instance preference",
+      "max runtime",
+      "max spend",
+      "kill condition",
+      "copyback plan",
+      "teardown/default-off plan"
+    ]
+  },
+  "negative_authorizations": {
+    "new_worker_created": false,
+    "training_or_fitting_run": false,
+    "checkpoint_created": false,
+    "export_or_promotion": false,
+    "browser_activation": false,
+    "source_register_or_manifest_mutation": false,
+    "pretrained_component_added": false,
+    "push": false
+  },
+  "changed_files": [
+    "GOAL.md",
+    "docs/model/return-to-form-overnight-recovery-brev-unblock-goal-loop-prompt.md",
+    "docs/model/return-to-form-plan.md",
+    "docs/session-logs/486-supervisor-brev-nonstoppable-worker-delete.md",
+    "docs/validation/return-to-form-brev-nonstoppable-worker-delete-v1.json"
+  ],
+  "next_action": "continue_m3dw_post_unblock_route_packet"
+}

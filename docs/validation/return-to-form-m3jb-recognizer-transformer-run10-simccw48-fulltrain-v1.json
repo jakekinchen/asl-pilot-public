@@ -1,0 +1,72 @@
+{
+  "schema_version": "return-to-form-m3jb-recognizer-run10-simccw48-fulltrain/v1",
+  "status": "completed_first_run_to_clear_mvp_verification_gate_all_scratch_landmarks",
+  "session": "962",
+  "date": "2026-06-10",
+  "action_token": "m3jb_recognizer_run10_simccw48_reextract_retrain_after_plateau_stop",
+  "context": "GOAL.md session-961 plateau stop directed: when a ws1 student improves scratch landmarks, the next recognizer step is re-extraction with the new landmark source plus a run6-recipe retrain. The human directed this overnight pipeline (2026-06-09/10).",
+  "landmark_source_change_only": {
+    "old": "scratch HeatmapNet detector0-hand-landmarks-big2 (wired PCK@0.10 ~0.388 vs RTMPose teacher GT on the recon eval set)",
+    "new": "ws1 scratch SimCC width-48 student (annotator commits 8bfc50c1, 9ac1bd32; 30255 local RTMPose-teacher labels; recon-set PCK@0.10 0.726, signer-disjoint test 0.676; final training checkpoint sha256 23b23b9ed160ce658f590b2150d5585232a829ccdd7920a5b4f1de9287488f31)",
+    "runtime_legality": "the SimCC student is scratch-trained; RTMPose used OFFLINE for labels only, per the approved ws1 weak-supervision lane (#arch-no-pretrained)",
+    "everything_else_identical_to_run9": true
+  },
+  "extraction": {
+    "workspace": "/Users/kelly/ws1-recog-extract-ws (outside git worktrees)",
+    "extractor_smoke_receipt": "/Users/kelly/ws1-recog-extract-ws/extract-simccw48-smoke-receipt.json",
+    "smoke_checks": "format identical to the feasibility cache-scratch reference: same clip ids, splits, per-clip frame indices, row schema; T=32 feat=90 all-finite; CPU/MPS bit-identical; on-hand keypoint overlays; presence-formula bug found and fixed during smoke (raw_peak_mean collapsed to 0 on CE-trained student logits; replaced with the student's native decode score)",
+    "full_run": "6 MPS shards, 10335/10335 clips, merged rows 330309, splits train 5591 / validation 2375 / test 2369, zero split fixups, cache /Users/kelly/ws1-recog-extract-ws/cache-simccw48",
+    "cache_rows_sha256": "0f74c4d2 (prefix; full hash in run receipt)"
+  },
+  "training": {
+    "worker": { "name": "asl-pilot-m3eh-l40s-001", "id": "3d58wpy9o", "gpu": "NVIDIA L40S", "final_state": "STOPPED", "billable_window_approx_minutes": 25 },
+    "command_identical_to_run9_except": ["--student-data tools/detector0-annotator/.cache/cache-simccw48", "--out ...run10-simccw48..."],
+    "recipe": "transformer d256/l6/h8 dropout 0.0, epochs 240, batch 128, lr 5e-4 cosine warmup 500 min 5e-5, alpha 0.55, temperature 3.0, jitter 0.02, frame-drop 0.10, seq-len 32, seed 0, monitor_verification_recall_far10 selection, retention epsilon 0.005 window 5, no --limit-* flags",
+    "counts": { "train": 7011, "monitor": 955, "test": 2369, "classes": 95, "optimizer_steps": 13200 },
+    "trainer_hash_verified_vs_annotator_HEAD_9ac1bd32": "train_recognizer_distill.py 47c8c9ca..., seq_transformer.py 040a3f75..., verification.py f66bae99..."
+  },
+  "result": {
+    "test_verification_recall_at_far10": 0.9208642659279777,
+    "test_top1": 0.5428,
+    "test_top5": 0.8261,
+    "best_monitor_epoch": 214,
+    "best_monitor_verification_recall_far10": 0.9429480432120159,
+    "retained_candidate_checkpoints": 95,
+    "mvp_gate_0_85": "PASSED (+0.0709)",
+    "vs_old_landmarks_run6_run9": { "recall_at_far10": "0.8039 -> 0.9209", "top1": "0.287 -> 0.5428", "top5": "0.6399 -> 0.8261" },
+    "vs_rtmpose_feature_ceiling": { "recall_at_far10": "0.9635 (gap -0.043)", "top1": "0.632 (gap -0.089)" },
+    "per_class_tail": "76/95 classes >= 0.85 (run6: 33/95); only 2 classes < 0.70 (fish 0.68, mom 0.68; run6 worst was give 0.32)",
+    "monitor_dynamics_note": "verification kept improving to epoch 214 under the cosine schedule (run9 peaked at epoch 14) — the early-peak pathology was a feature-noise artifact"
+  },
+  "independent_review": {
+    "reviewer": "main session (Claude), separate from the executing agent",
+    "local_reproduction": "diagnose_verification_margins.py --device cpu on the local cache reproduced test recall@FAR10 0.9208642659279777 (abs diff 3.57e-05, tolerance 0.002) and emitted passed_no_training_verification_margin_diagnostic",
+    "artifact_hashes_spot_checked": true,
+    "worker_stop_confirmed_via_brev_ls": true
+  },
+  "artifacts": {
+    "dir": "asl-pilot-annotator worktree tools/detector0-annotator/output/ (gitignored)",
+    "receipt_json_sha256": "2788adc48b61a56befb7f10aa7abb6ca6f8809b0539f5dc6f6ffd0e4e415304c",
+    "selected_checkpoint_sha256": "d0616db4174de8f489202b11f6be0e6ebf02ac960e1f419e5fc002c1a6c6eaf8",
+    "log_sha256": "d010aa261b88c34f8b4d07e7ab4af1828c647d44b565c61a08166ae5aa4fd6e5",
+    "candidate_checkpoints": "95 files, all sha256 verified remote==local",
+    "cache_retained_on_worker": "tools/detector0-annotator/.cache/cache-simccw48"
+  },
+  "not_yet_done_fail_closed": [
+    "no browser/runtime promotion (model-card remains fail-closed placeholder; promotion requires scripts/promote_trained_model_card.mjs and the full gate chain)",
+    "no browser-side SimCC student landmark pipeline (JS wiring of region grid -> hands2 -> SimCC w48 -> features exists only in Python; ws1_compare wiring is the reference)",
+    "browser ONNX export of the run10 recognizer pending",
+    "in-flight: ws1 w48-v2 student (cosine schedule, 200 epochs) targeting PCK >= 0.75 for a possible further re-extract + retrain"
+  ],
+  "boundaries": {
+    "brev_used": true,
+    "brev_infrastructure_created_deleted_reset": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "raw_test_mined_supervision": false,
+    "final_gate_changed": false,
+    "push": false
+  },
+  "anchors": ["ARCHITECTURE.md#arch-no-pretrained", "ARCHITECTURE.md#arch-gpu-execution"]
+}

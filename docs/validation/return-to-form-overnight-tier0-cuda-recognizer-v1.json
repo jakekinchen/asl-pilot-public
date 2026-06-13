@@ -1,0 +1,229 @@
+{
+  "schema_version": "asl-pilot-return-to-form-overnight-tier0-cuda-recognizer/v1",
+  "status": "remote_cuda_recognizer_completed_not_promotable",
+  "mission": "M3AH overnight completion",
+  "checked_at": "2026-05-27T04:03:53Z",
+  "workspace": {
+    "name": "asl-pilot-rawframe-001",
+    "id": "2hl1hytty",
+    "gpu": "NVIDIA A100-SXM4-80GB",
+    "device": "cuda",
+    "project_python": "/home/shadeform/asl-pilot/.venv/bin/python"
+  },
+  "compute_controls": {
+    "human_approval_source": "GOAL.md and docs/model/return-to-form-overnight-completion-goal-loop-prompt.md Mission 3AH compute envelope",
+    "before_run_brev_status": "RUNNING",
+    "planned_command": "scripts/train_rawframe_model.py full-split Tier 0 motion_2d_temporal_cnn run followed by scripts/evaluate_rawframe_model.py --allow-smoke-eval",
+    "expected_metric_signal": "uncapped train/validation history plus validation and test top-1, macro-F1, threshold metrics, and per-class evidence",
+    "max_runtime_seconds": 1800,
+    "max_spend_usd": 10,
+    "kill_condition": "timeout at 1800 seconds, CUDA unavailable, accidental CPU-only training, or hung/no-progress training"
+  },
+  "sync_evidence": {
+    "script": "bash scripts/brev_sync_repo.sh asl-pilot-rawframe-001",
+    "status": "completed",
+    "remote_path": "/home/shadeform/asl-pilot",
+    "training_data_allowlist_synced": [
+      "data/annotations",
+      "data/active-module",
+      "data/manifests",
+      "data/tensors",
+      "data/external/popsign-v1/raw"
+    ]
+  },
+  "training_run": {
+    "status": "completed",
+    "command": "/home/shadeform/asl-pilot/.venv/bin/python scripts/train_rawframe_model.py --allow-small-label-set --train-manifest data/manifests/return-to-form-tier0/train.json --validation-manifest data/manifests/return-to-form-tier0/validation.json --test-manifest data/manifests/return-to-form-tier0/test.json --output-dir output/m3ah-tier0-cuda-full-split-recognizer --model-id m3ah-tier0-cuda-full-split-recognizer --architecture motion_2d_temporal_cnn --check-files --epochs 8 --batch-size 16 --frame-count 12 --image-size 96 --training-augmentation mild --checkpoint-selection best_validation --num-workers 2",
+    "timeout_seconds": 1800,
+    "architecture": "motion_2d_temporal_cnn",
+    "initialization": "random",
+    "pretrained_components": [],
+    "evidence_mode": "smoke",
+    "allow_small_label_set": true,
+    "max_train_batches": null,
+    "max_validation_batches": null,
+    "hyperparameters": {
+      "epochs": 8,
+      "batch_size": 16,
+      "frame_count": 12,
+      "image_size": 96,
+      "optimizer": "adamw",
+      "weight_decay": 0.01,
+      "learning_rate": 0.001,
+      "training_augmentation": "mild",
+      "checkpoint_selection": "best_validation",
+      "num_workers": 2
+    },
+    "history": [
+      {
+        "epoch": 1,
+        "train_accuracy": 0.248,
+        "train_loss": 1.6370286359786987,
+        "validation_accuracy": 0.2,
+        "validation_loss": 1.6291561880111693
+      },
+      {
+        "epoch": 2,
+        "train_accuracy": 0.48,
+        "train_loss": 1.3968702869415284,
+        "validation_accuracy": 0.2,
+        "validation_loss": 1.7214114990234375
+      },
+      {
+        "epoch": 3,
+        "train_accuracy": 0.648,
+        "train_loss": 1.1232603826522827,
+        "validation_accuracy": 0.184,
+        "validation_loss": 1.7911790351867676
+      },
+      {
+        "epoch": 4,
+        "train_accuracy": 0.664,
+        "train_loss": 0.9189214572906494,
+        "validation_accuracy": 0.304,
+        "validation_loss": 1.52713138961792
+      },
+      {
+        "epoch": 5,
+        "train_accuracy": 0.752,
+        "train_loss": 0.6797137460708618,
+        "validation_accuracy": 0.376,
+        "validation_loss": 1.512822907447815
+      },
+      {
+        "epoch": 6,
+        "train_accuracy": 0.848,
+        "train_loss": 0.5284571006298066,
+        "validation_accuracy": 0.368,
+        "validation_loss": 1.740743083000183
+      },
+      {
+        "epoch": 7,
+        "train_accuracy": 0.816,
+        "train_loss": 0.5208382935523986,
+        "validation_accuracy": 0.368,
+        "validation_loss": 1.6102566776275635
+      },
+      {
+        "epoch": 8,
+        "train_accuracy": 0.904,
+        "train_loss": 0.40640466690063476,
+        "validation_accuracy": 0.296,
+        "validation_loss": 2.197783187866211
+      }
+    ],
+    "selected_checkpoint": {
+      "policy": "best_validation",
+      "selected_epoch": 5,
+      "selected_validation_accuracy": 0.376,
+      "selected_validation_loss": 1.512822907447815
+    }
+  },
+  "evaluation_run": {
+    "status": "smoke_only",
+    "command": "/home/shadeform/asl-pilot/.venv/bin/python scripts/evaluate_rawframe_model.py --allow-smoke-eval --checkpoint output/m3ah-tier0-cuda-full-split-recognizer/model_state.pt --training-provenance output/m3ah-tier0-cuda-full-split-recognizer/training-provenance.json --train-manifest data/manifests/return-to-form-tier0/train.json --validation-manifest data/manifests/return-to-form-tier0/validation.json --test-manifest data/manifests/return-to-form-tier0/test.json --output-report output/m3ah-tier0-cuda-full-split-recognizer/validation-report.json --calibrated-provenance output/m3ah-tier0-cuda-full-split-recognizer/calibrated-provenance.json --prediction-sidecar output/m3ah-tier0-cuda-full-split-recognizer/prediction-sidecar.json --batch-size 16 --num-workers 2",
+    "evidence_mode": "smoke",
+    "validation": {
+      "examples": 125,
+      "top1_accuracy": 0.376,
+      "macro_f1": 0.3698995884278546,
+      "per_class_recall": {
+        "dad": 0.2,
+        "grandpa": 0.44,
+        "hat": 0.32,
+        "please": 0.6,
+        "table": 0.32
+      }
+    },
+    "test": {
+      "examples": 95,
+      "top1_accuracy": 0.47368421052631576,
+      "macro_f1": 0.4625908858166922,
+      "per_class_recall": {
+        "dad": 0.21052631578947367,
+        "grandpa": 0.7894736842105263,
+        "hat": 0.3684210526315789,
+        "please": 0.5789473684210527,
+        "table": 0.42105263157894735
+      },
+      "threshold_metrics_at_selected_threshold": {
+        "threshold": 0.74,
+        "coverage": 0.23157894736842105,
+        "correct_pass_rate": 0.12631578947368421,
+        "false_pass_rate": 0.10526315789473684,
+        "accepted_accuracy": 0.5454545454545454
+      }
+    },
+    "targets": {
+      "top1_accuracy": 0.7,
+      "macro_f1": 0.65,
+      "false_pass_rate_below": 0.1,
+      "negative_challenge_false_pass_rate_below": 0.05
+    },
+    "negative_challenge_evaluated": false,
+    "pass_status": {
+      "top1_accuracy": false,
+      "macro_f1": false,
+      "false_pass_rate": false,
+      "confidence_threshold": true,
+      "negative_challenge_false_pass_rate": false
+    },
+    "smoke_reasons": [
+      "training provenance evidence_mode is not final",
+      "current manifest train lacks full vocabulary_review evidence",
+      "current manifest validation lacks full vocabulary_review evidence",
+      "current manifest test lacks full vocabulary_review evidence",
+      "label_count is 5, not 75-100"
+    ]
+  },
+  "copied_back_artifacts": {
+    "model_state": {
+      "path": "output/m3ah-tier0-cuda-full-split-recognizer/model_state.pt",
+      "sha256": "edfa2e9e21a8faf18357103e7a99580e714a639f853b7442f3aff50803f97ad8",
+      "git_tracking": "ignored_by_output_gitignore"
+    },
+    "training_provenance": {
+      "path": "output/m3ah-tier0-cuda-full-split-recognizer/training-provenance.json",
+      "sha256": "292e0dfbd7fc1bb633b236470db4a9e93da09c271a615bfc220b20f1de01da3d",
+      "git_tracking": "ignored_by_output_gitignore"
+    },
+    "validation_report": {
+      "path": "output/m3ah-tier0-cuda-full-split-recognizer/validation-report.json",
+      "sha256": "c80b0e55bf30ae4df2211faacd95b14e25823d39b72a7ed3c66754fb93e16b35",
+      "git_tracking": "ignored_by_output_gitignore"
+    },
+    "calibrated_provenance": {
+      "path": "output/m3ah-tier0-cuda-full-split-recognizer/calibrated-provenance.json",
+      "sha256": "6ebd7c25c83f73bbe47649a4b3a3c018d5c2107cf846767a0f4f28b484157dfd",
+      "git_tracking": "ignored_by_output_gitignore"
+    },
+    "prediction_sidecar": {
+      "path": "output/m3ah-tier0-cuda-full-split-recognizer/prediction-sidecar.json",
+      "sha256": "6c4102e8b42bbcbdd6173e62798695236c70a9147e7dafa68aa7f22d6766280f",
+      "git_tracking": "ignored_by_output_gitignore"
+    }
+  },
+  "post_run_remote_status": {
+    "gpu_memory_used": "0 MiB",
+    "gpu_utilization": "0 %",
+    "active_training_processes": "none",
+    "jupyter_process_present": true
+  },
+  "teardown": {
+    "attempted": true,
+    "commands": [
+      "brev stop asl-pilot-rawframe-001",
+      "brev stop 2hl1hytty",
+      "brev stop --all"
+    ],
+    "verified_status_after_attempts": "RUNNING",
+    "blocker": "Brev CLI stop commands returned successfully, but repeated brev ls --json verification still reported asl-pilot-rawframe-001 / 2hl1hytty as RUNNING. Do not delete or reset the worker without explicit human approval."
+  },
+  "interpretation": {
+    "remote_compute_unblocked": true,
+    "promotion_justified": false,
+    "why_not_promotable": "This was a five-label smoke run. The model fit the train split better than the capped CUDA smoke, but validation and test metrics stayed below target, no negative-challenge evaluation ran, and the model remains ineligible for final or browser promotion.",
+    "notable_signal": "Removing train/validation batch caps improved train accuracy to 0.904 by epoch 8, but best validation accuracy stayed 0.376 and test top-1 was 0.47368421052631576, consistent with the existing Tier 0 held-out/signer distribution blocker."
+  },
+  "next_action": "write_tier0_data_vocabulary_decision_artifact"
+}

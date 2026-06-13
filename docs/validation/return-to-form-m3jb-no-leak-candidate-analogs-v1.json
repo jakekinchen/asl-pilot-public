@@ -1,0 +1,190 @@
+{
+  "schema_version": "asl-pilot-m3jb-no-leak-candidate-analogs/v1",
+  "receipt_id": "return-to-form-m3jb-no-leak-candidate-analogs-v1",
+  "mission": "M3JB - No-leak candidate analogs",
+  "status": "prepared_no_leak_train_validation_near_misses_not_gate_passing",
+  "checked_at": "2026-06-02T03:24:42Z",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "side_worktree": "/Users/kelly/Developer/asl-pilot-annotator",
+  "runtime_boundary": {
+    "eval_only": true,
+    "training_run": false,
+    "checkpoint_written": false,
+    "browser_exported": false,
+    "detector0_promoted": false,
+    "mediapipe_runtime_dependency_allowed": false,
+    "raw_learner_video_uploaded": false,
+    "brev_used": false,
+    "sign_model_run": false
+  },
+  "artifacts": {
+    "ranker_code": {
+      "path": "tools/detector0-annotator/train_hand_pair_ranker.py",
+      "side_worktree_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hand_pair_ranker.py",
+      "sha256": "947a89331dbdcfd46e89800004e66e728652889f5734aca4006473e181baed27",
+      "purpose": "Side-worktree pair ranker with split-filtered near-miss analog mining support."
+    },
+    "side_analog_receipt": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-candidate-no-leak-analogs-top40-nms050-v1.json",
+      "side_worktree_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-hand-candidate-no-leak-analogs-top40-nms050-v1.json",
+      "sha256": "b6ff30096e6802ce2c2e21758e846eb33f1931d647c4209a5929f33a0d57c384"
+    },
+    "side_contact_sheet": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-candidate-no-leak-analogs-top40-nms050-v1.png",
+      "side_worktree_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-hand-candidate-no-leak-analogs-top40-nms050-v1.png",
+      "sha256": "9f680313bd3adc0b377ffa87facb38ccfddd62c3ca36f699840e953761f3a7c5",
+      "purpose": "Diagnostic contact sheet only; not a browser artifact."
+    },
+    "canonical_m3jb_audit": {
+      "path": "docs/validation/return-to-form-m3jb-hierarchical-hand-state-tracker-v1.json",
+      "status": "passed_fail_closed_not_gate_passing"
+    }
+  },
+  "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --repair-targets-only --real-data tools/detector0-annotator/.cache/autolabel-big --coarse-weights tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.pt --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-candidate-oracle-sweep --topk 40 --nms-iou 0.5 --coverage-iou 0.3 --device mps --repair-splits train,validation --repair-include-near-misses --repair-min-best-gt-iou 0.55 --out tools/detector0-annotator/output/m3jb-hand-candidate-no-leak-analogs-top40-nms050-v1.json --repair-render tools/detector0-annotator/output/m3jb-hand-candidate-no-leak-analogs-top40-nms050-v1.png",
+  "params": {
+    "coverage_iou": 0.3,
+    "topk": 40,
+    "nms_iou": 0.5,
+    "n_real_twohand": 48,
+    "split_filter": [
+      "train",
+      "validation"
+    ],
+    "include_near_misses": true,
+    "near_miss_min_best_gt_iou": 0.55,
+    "candidate_limit_per_target": 12
+  },
+  "oracle_metrics": {
+    "coverage": 1,
+    "distinct_assigned_coverage": 1,
+    "collapse_rate": 0,
+    "coverage_failure_count": 0,
+    "distinct_assignment_failure_count": 0
+  },
+  "analog_targets": {
+    "target_count": 6,
+    "target_counts_by_kind": {
+      "near_miss": 6
+    },
+    "target_counts_by_split": {
+      "train": 1,
+      "validation": 5
+    },
+    "source_indices": [
+      2343,
+      6823,
+      8246,
+      8629,
+      8637,
+      8769
+    ],
+    "rows": [
+      {
+        "source_index": 2343,
+        "split": "train",
+        "label_id": "frog",
+        "video_frame_index": 41,
+        "target_kind": "near_miss",
+        "min_best_candidate_iou": 0.5153122220227978,
+        "repair_tags": [
+          "overlapping_gt_hands",
+          "proposal_boxes_not_distinct_enough"
+        ],
+        "recommended_use": "train_split_hard_analog_candidate"
+      },
+      {
+        "source_index": 6823,
+        "split": "validation",
+        "label_id": "bird",
+        "video_frame_index": 129,
+        "target_kind": "near_miss",
+        "min_best_candidate_iou": 0.5195509204988933,
+        "repair_tags": [
+          "overlapping_gt_hands",
+          "proposal_boxes_not_distinct_enough"
+        ],
+        "recommended_use": "heldout_failure_pattern_or_validation_monitor"
+      },
+      {
+        "source_index": 8246,
+        "split": "validation",
+        "label_id": "fish",
+        "video_frame_index": 33,
+        "target_kind": "near_miss",
+        "min_best_candidate_iou": 0.3793703051526193,
+        "repair_tags": [
+          "overlapping_gt_hands",
+          "proposal_boxes_not_distinct_enough"
+        ],
+        "recommended_use": "heldout_failure_pattern_or_validation_monitor"
+      },
+      {
+        "source_index": 8629,
+        "split": "validation",
+        "label_id": "grandma",
+        "video_frame_index": 33,
+        "target_kind": "near_miss",
+        "min_best_candidate_iou": 0.47127172362656045,
+        "repair_tags": [
+          "bottom_edge_hand",
+          "overlapping_gt_hands",
+          "proposal_boxes_not_distinct_enough"
+        ],
+        "recommended_use": "heldout_failure_pattern_or_validation_monitor"
+      },
+      {
+        "source_index": 8637,
+        "split": "validation",
+        "label_id": "grandma",
+        "video_frame_index": 129,
+        "target_kind": "near_miss",
+        "min_best_candidate_iou": 0.43588323146978364,
+        "repair_tags": [
+          "bottom_edge_hand",
+          "overlapping_gt_hands",
+          "proposal_boxes_not_distinct_enough"
+        ],
+        "recommended_use": "heldout_failure_pattern_or_validation_monitor"
+      },
+      {
+        "source_index": 8769,
+        "split": "validation",
+        "label_id": "green",
+        "video_frame_index": 0,
+        "target_kind": "near_miss",
+        "min_best_candidate_iou": 0.5325720567541424,
+        "repair_tags": [
+          "bottom_edge_hand",
+          "overlapping_gt_hands",
+          "proposal_boxes_not_distinct_enough"
+        ],
+        "recommended_use": "heldout_failure_pattern_or_validation_monitor"
+      }
+    ]
+  },
+  "selection": {
+    "selected_for_promotion": false,
+    "selected_as_no_leak_analog_manifest": true,
+    "gate_status": "failed_open",
+    "gate_gap": {
+      "required_distinct_assigned_coverage": 0.98,
+      "train_validation_oracle_distinct_assigned_coverage": 1,
+      "test_current_head_oracle_distinct_assigned_coverage": 0.9642857142857143
+    },
+    "reason": "Train+validation have no direct current-head oracle failures at top-40/NMS0.5, so this manifest selects one train near-miss and five validation monitors below min-best IoU 0.55 as a no-leak route for bounded proposal-head repair."
+  },
+  "commands_run": [
+    "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_hand_pair_ranker.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --self-test",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --repair-targets-only --real-data tools/detector0-annotator/.cache/autolabel-big --coarse-weights tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.pt --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-candidate-oracle-sweep --topk 40 --nms-iou 0.5 --coverage-iou 0.3 --device mps --repair-splits train,validation --repair-include-near-misses --repair-min-best-gt-iou 0.55 --out tools/detector0-annotator/output/m3jb-hand-candidate-no-leak-analogs-top40-nms050-v1.json --repair-render tools/detector0-annotator/output/m3jb-hand-candidate-no-leak-analogs-top40-nms050-v1.png",
+    "node scripts/audit_m3jb_hand_state_tracker.mjs --write-receipt --json"
+  ],
+  "commands_intentionally_not_run": [
+    "No training run.",
+    "No checkpoint export or browser artifact promotion.",
+    "No Brev lifecycle, remote sync, or paid compute.",
+    "No raw learner video upload.",
+    "No sign/language model continuation."
+  ],
+  "next_action": "continue_m3jb_bounded_proposal_head_repair_with_train_analog_and_validation_monitors_no_brev"
+}

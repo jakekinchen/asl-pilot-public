@@ -1,0 +1,110 @@
+{
+  "schema_version": "asl-pilot-m3jb-codex-supervisor-dry-run/v1",
+  "receipt_id": "return-to-form-m3jb-codex-supervisor-dry-run-v1",
+  "mission": "M3JB - Hierarchical hand-state tracker",
+  "active_tracker_next_action": "await_explicit_brev_spend_approval_then_launch_landmark_retrain_brev_plan",
+  "status": "passed_dry_run_actual_launch_blocked_pending_brev_approval",
+  "checked_at": "2026-06-03T00:09:41Z",
+  "source_of_truth": {
+    "goal": "GOAL.md",
+    "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+    "runbook": "docs/runbooks/codex-goal-loop.md",
+    "tracker_receipt": "docs/validation/return-to-form-m3jb-hierarchical-hand-state-tracker-v1.json",
+    "approval_gated_retrain_plan": "docs/validation/return-to-form-m3jb-landmark-retrain-brev-plan-v1.json"
+  },
+  "pair_state_before": {
+    "command": "node scripts/audit_codex_pair_state.mjs --json >/tmp/m3jb-pair-state-897-pre.json",
+    "status": "warning",
+    "warnings": [
+      "no live supervisor or executor process detected",
+      "recorded executor session is older than HEAD; verify whether the latest commit came from the intended executor thread"
+    ],
+    "blockers": [],
+    "supervisor_processes": []
+  },
+  "tracker_state_before": {
+    "command": "node scripts/audit_m3jb_hand_state_tracker.mjs --json >/tmp/m3jb-audit-897-pre.json",
+    "status": "passed_fail_closed_not_gate_passing",
+    "next_action": "await_explicit_brev_spend_approval_then_launch_landmark_retrain_brev_plan",
+    "brev_spend_approval": {
+      "active_prompt_authorizes_brev_for_compute_bound_landmark_fit": true,
+      "current_thread_explicit_brev_spend_approval": false,
+      "effective_launch_allowed_now": false
+    }
+  },
+  "dry_run": {
+    "command": "bash scripts/start_codex_goal_loop.sh --role supervisor --dry-run >/tmp/m3jb-supervisor-dry-run-897.txt",
+    "status": "passed",
+    "output_sha256": "a3d07360abade2046d29e09098cf3f4658c8d8f4640e74aaefa23cecc72f41d8",
+    "output_summary": [
+      "dry-run: would open iTerm2 tab: ASL Codex Pair Supervisor",
+      "bash /tmp/asl-pilot-codex-pair-loop.sh",
+      "exec bash scripts/run_codex_pair_cycle.sh --loop",
+      "Codex goal loop start command completed for role=supervisor"
+    ],
+    "generated_supervisor_script": {
+      "path": "/tmp/asl-pilot-codex-pair-loop.sh",
+      "repo_root": "/Users/kelly/Developer/asl-pilot",
+      "codex_bin": "codex",
+      "codex_profile": "asl-pilot-local-skills",
+      "pair_sleep_seconds": 30,
+      "executor_resume": true,
+      "observer_resume": true,
+      "launch_command": "exec bash scripts/run_codex_pair_cycle.sh --loop"
+    },
+    "script_hashes": {
+      "scripts/start_codex_goal_loop.sh": "60ab588fbd65e9f7670852c52f6188d87ba17ffa49aa70a47a6eb0564dd9b706",
+      "scripts/run_codex_pair_cycle.sh": "50afe4df696d5343cc5584329bcb4288b9ed81c7e116b3bcd901e0ce557e970a",
+      "docs/runbooks/codex-goal-loop.md": "53d3ca3fd4cda976cf9a455e2f3aa251daba3714c4b62e808238e77d6aaf352b",
+      "docs/runbooks/observer-runbook-codex.md": "f507cd8352f79756a5053b6df3166c9a1e03dc9e615d7bb82a1ca001b1a35fd0",
+      "docs/observer-prompt.md": "e3c9b8fff7d92040e55fe234b1727923275bfb0252c7fcf023c08edc1fce1cee"
+    }
+  },
+  "actual_launch": {
+    "command": "bash scripts/start_codex_goal_loop.sh --role supervisor",
+    "status": "not_run",
+    "reason": "The current tracker next action is a heavy Brev retrain that remains blocked on explicit current-thread spend approval. This executor turn is also constrained to one reviewable slice and stop, so starting a background loop would be outside the slice boundary.",
+    "legacy_both_command_not_run": "bash scripts/start_codex_goal_loop.sh --role both",
+    "preferred_mode": "supervisor",
+    "preferred_mode_reason": "docs/runbooks/codex-goal-loop.md names supervisor mode as the preferred path; --role both is legacy/debug mode."
+  },
+  "commands_run_this_slice": [
+    {
+      "command": "node scripts/audit_m3jb_hand_state_tracker.mjs --json >/tmp/m3jb-audit-897-pre.json",
+      "status": "passed",
+      "purpose": "confirmed current tracker next action and Brev approval state"
+    },
+    {
+      "command": "node scripts/audit_codex_pair_state.mjs --json >/tmp/m3jb-pair-state-897-pre.json",
+      "status": "warning",
+      "purpose": "captured current pair-state warning before supervisor dry-run"
+    },
+    {
+      "command": "bash scripts/start_codex_goal_loop.sh --role supervisor --dry-run >/tmp/m3jb-supervisor-dry-run-897.txt",
+      "status": "passed",
+      "purpose": "validated preferred Codex pair supervisor launch path without starting the loop"
+    },
+    {
+      "command": "shasum -a 256 scripts/start_codex_goal_loop.sh scripts/run_codex_pair_cycle.sh docs/runbooks/codex-goal-loop.md docs/runbooks/observer-runbook-codex.md docs/observer-prompt.md",
+      "status": "passed",
+      "purpose": "recorded command/runbook hashes for the dry-run receipt"
+    }
+  ],
+  "runtime_boundary": {
+    "codex_loop_launched": false,
+    "iterm_tab_opened": false,
+    "executor_turn_started": false,
+    "observer_turn_started": false,
+    "brev_exec_or_copy": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward": false,
+    "checkpoint_written": false,
+    "browser_runtime_dependency_added": false,
+    "browser_artifact_promoted": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false
+  },
+  "claim_boundary": "This receipt proves only that the preferred Codex supervisor launch path dry-runs cleanly under the local-skills profile. It does not start an autonomous loop, run another executor, approve or launch Brev, train a model, produce checkpoints, or change browser/runtime behavior.",
+  "next_action": "await_explicit_brev_spend_approval_then_launch_landmark_retrain_brev_plan"
+}

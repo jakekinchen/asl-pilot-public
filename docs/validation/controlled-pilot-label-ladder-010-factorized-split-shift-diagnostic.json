@@ -1,0 +1,423 @@
+{
+  "blockers": [],
+  "checked_at": "2026-05-21T19:06:11.592910Z",
+  "feature_contract": {
+    "feature_count": 16,
+    "feature_names": [
+      "mean_r",
+      "mean_g",
+      "mean_b",
+      "std_r",
+      "std_g",
+      "std_b",
+      "overall_mean",
+      "overall_std",
+      "luma_mean",
+      "luma_std",
+      "center_luma_mean",
+      "edge_luma_mean",
+      "center_edge_luma_delta",
+      "temporal_abs_delta_mean",
+      "first_last_abs_delta_mean",
+      "frame_luma_mean_std"
+    ],
+    "source": "prepared_raw_rgb_tensors_only",
+    "standardization": "zscore_across_sampled_train_validation_test_records"
+  },
+  "generated_by": {
+    "command": [
+      "scripts/analyze_rawframe_split_shift.py",
+      "--train-manifest",
+      "data/manifests/diagnostics/controlled-pilot-label-ladder/010-labels/train.json",
+      "--validation-manifest",
+      "data/manifests/diagnostics/controlled-pilot-label-ladder/010-labels/validation.json",
+      "--test-manifest",
+      "data/manifests/diagnostics/controlled-pilot-label-ladder/010-labels/test.json",
+      "--failure-analysis",
+      "docs/validation/controlled-pilot-label-ladder-010-factorized-failure-analysis.json",
+      "--output",
+      "docs/validation/controlled-pilot-label-ladder-010-factorized-split-shift-diagnostic.json",
+      "--samples-per-label-split",
+      "6",
+      "--write"
+    ],
+    "script": {
+      "path": "scripts/analyze_rawframe_split_shift.py",
+      "sha256": "66c0d3eb8284104cb4c38a6da2da2483919a60f395ba39c1ad1e51d1649834eb"
+    }
+  },
+  "inputs": {
+    "failure_analysis": {
+      "path": "docs/validation/controlled-pilot-label-ladder-010-factorized-failure-analysis.json",
+      "sha256": "d3d86990fb44f643878fc4fc18593aa53281dc1c878f6cb168bac3f17ef85833"
+    },
+    "manifests": {
+      "test": {
+        "clip_count": 190,
+        "dataset_source_mode": "approved_external_raw_video_source",
+        "label_count": 10,
+        "path": "data/manifests/diagnostics/controlled-pilot-label-ladder/010-labels/test.json",
+        "sha256": "27e2877bf330a98e23c9d4f95fd36b8581445ea580c526c602c910771f99ce6d"
+      },
+      "train": {
+        "clip_count": 250,
+        "dataset_source_mode": "approved_external_raw_video_source",
+        "label_count": 10,
+        "path": "data/manifests/diagnostics/controlled-pilot-label-ladder/010-labels/train.json",
+        "sha256": "bd42fbb13e6ddc2863229106c7c9554f4d24e70c505566e7bbdb6ae552995e96"
+      },
+      "validation": {
+        "clip_count": 250,
+        "dataset_source_mode": "approved_external_raw_video_source",
+        "label_count": 10,
+        "path": "data/manifests/diagnostics/controlled-pilot-label-ladder/010-labels/validation.json",
+        "sha256": "33e32b4bce9439cdc2123c1be86e132051d1d0c8877b03fec93015ee3eccc798"
+      }
+    }
+  },
+  "interpretation": {
+    "notes": [
+      "Uses only low-level RGB tensor statistics after the same frame preparation used by training/evaluation.",
+      "Does not approve any source, change manifests, train a classifier, calibrate thresholds, or export browser artifacts."
+    ],
+    "signals": [],
+    "status": "diagnostic_only_not_training_evidence"
+  },
+  "label_shift_from_train": {
+    "mean_distance_nonzero_recall_both": 2.4530223919837812,
+    "mean_distance_zero_recall_both": null,
+    "top_shifted_labels": [
+      {
+        "label_id": "say",
+        "mean_heldout_distance_from_train": 3.67576205501639,
+        "test_distance_from_train": 2.961996569994308,
+        "test_recall": 0.05263157894736842,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 4.389527540038472,
+        "validation_recall": 0.04,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": false
+      },
+      {
+        "label_id": "table",
+        "mean_heldout_distance_from_train": 3.496677580021492,
+        "test_distance_from_train": 3.4277294338763604,
+        "test_recall": 0.7368421052631579,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 3.565625726166624,
+        "validation_recall": 0.64,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": false
+      },
+      {
+        "label_id": "person",
+        "mean_heldout_distance_from_train": 3.1034527829767455,
+        "test_distance_from_train": 2.2956985618660886,
+        "test_recall": 0.2631578947368421,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 3.9112070040874025,
+        "validation_recall": 0.48,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": false
+      },
+      {
+        "label_id": "please",
+        "mean_heldout_distance_from_train": 2.6795393008883748,
+        "test_distance_from_train": 2.000030238887505,
+        "test_recall": 0.5789473684210527,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 3.359048362889244,
+        "validation_recall": 0.44,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": false
+      },
+      {
+        "label_id": "thirsty",
+        "mean_heldout_distance_from_train": 2.0358627052935043,
+        "test_distance_from_train": 2.1075177009228594,
+        "test_recall": 0.15789473684210525,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 1.964207709664149,
+        "validation_recall": 0.12,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": false
+      },
+      {
+        "label_id": "horse",
+        "mean_heldout_distance_from_train": 2.0307424617830465,
+        "test_distance_from_train": 2.254417816508042,
+        "test_recall": 0.42105263157894735,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 1.807067107058051,
+        "validation_recall": 0.56,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": false
+      },
+      {
+        "label_id": "morning",
+        "mean_heldout_distance_from_train": 1.9670834893320925,
+        "test_distance_from_train": 3.1084712729967507,
+        "test_recall": 0.15789473684210525,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 0.8256957056674343,
+        "validation_recall": 0.32,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": false
+      },
+      {
+        "label_id": "white",
+        "mean_heldout_distance_from_train": 1.6590251814301586,
+        "test_distance_from_train": 1.9457259643288323,
+        "test_recall": 0.0,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 1.372324398531485,
+        "validation_recall": 0.04,
+        "validation_sample_count": 6,
+        "zero_recall_test": true,
+        "zero_recall_validation": false
+      },
+      {
+        "label_id": "mad",
+        "mean_heldout_distance_from_train": 1.606259246411328,
+        "test_distance_from_train": 2.1294106324330513,
+        "test_recall": 0.8947368421052632,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 1.0831078603896043,
+        "validation_recall": 0.6,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": false
+      },
+      {
+        "label_id": "pencil",
+        "mean_heldout_distance_from_train": 1.481821906131057,
+        "test_distance_from_train": 1.4436475194512244,
+        "test_recall": 0.10526315789473684,
+        "test_sample_count": 6,
+        "validation_distance_from_train": 1.5199962928108894,
+        "validation_recall": 0.12,
+        "validation_sample_count": 6,
+        "zero_recall_test": false,
+        "zero_recall_validation": false
+      }
+    ],
+    "zero_recall_both_count": 0
+  },
+  "nearest_train_label_centroid": {
+    "test": {
+      "correct": 10,
+      "nearest_train_label_centroid_accuracy": 0.16666666666666666,
+      "sample_count": 60,
+      "top_predicted_labels": [
+        {
+          "count": 12,
+          "label_id": "say"
+        },
+        {
+          "count": 11,
+          "label_id": "person"
+        },
+        {
+          "count": 10,
+          "label_id": "horse"
+        },
+        {
+          "count": 8,
+          "label_id": "pencil"
+        },
+        {
+          "count": 6,
+          "label_id": "mad"
+        },
+        {
+          "count": 4,
+          "label_id": "morning"
+        },
+        {
+          "count": 4,
+          "label_id": "table"
+        },
+        {
+          "count": 3,
+          "label_id": "thirsty"
+        },
+        {
+          "count": 1,
+          "label_id": "please"
+        },
+        {
+          "count": 1,
+          "label_id": "white"
+        }
+      ]
+    },
+    "train": {
+      "correct": 16,
+      "nearest_train_label_centroid_accuracy": 0.26666666666666666,
+      "sample_count": 60,
+      "top_predicted_labels": [
+        {
+          "count": 10,
+          "label_id": "horse"
+        },
+        {
+          "count": 10,
+          "label_id": "table"
+        },
+        {
+          "count": 9,
+          "label_id": "please"
+        },
+        {
+          "count": 9,
+          "label_id": "say"
+        },
+        {
+          "count": 7,
+          "label_id": "morning"
+        },
+        {
+          "count": 6,
+          "label_id": "person"
+        },
+        {
+          "count": 3,
+          "label_id": "mad"
+        },
+        {
+          "count": 3,
+          "label_id": "white"
+        },
+        {
+          "count": 2,
+          "label_id": "thirsty"
+        },
+        {
+          "count": 1,
+          "label_id": "pencil"
+        }
+      ]
+    },
+    "validation": {
+      "correct": 3,
+      "nearest_train_label_centroid_accuracy": 0.05,
+      "sample_count": 60,
+      "top_predicted_labels": [
+        {
+          "count": 17,
+          "label_id": "morning"
+        },
+        {
+          "count": 9,
+          "label_id": "horse"
+        },
+        {
+          "count": 8,
+          "label_id": "mad"
+        },
+        {
+          "count": 7,
+          "label_id": "table"
+        },
+        {
+          "count": 5,
+          "label_id": "person"
+        },
+        {
+          "count": 4,
+          "label_id": "thirsty"
+        },
+        {
+          "count": 3,
+          "label_id": "pencil"
+        },
+        {
+          "count": 3,
+          "label_id": "say"
+        },
+        {
+          "count": 2,
+          "label_id": "please"
+        },
+        {
+          "count": 2,
+          "label_id": "white"
+        }
+      ]
+    }
+  },
+  "sampling": {
+    "frame_count": 16,
+    "image_size": 96,
+    "sample_count": 180,
+    "sampled_label_count": 10,
+    "sampled_split_counts": {
+      "test": 60,
+      "train": 60,
+      "validation": 60
+    },
+    "samples_per_label_split": 6
+  },
+  "schema_version": "asl-pilot-rawframe-split-shift-diagnostic/v1",
+  "split_separability": {
+    "by_split": [
+      {
+        "nearest_own_split_rate": 0.6333333333333333,
+        "nearest_split_counts": {
+          "test": 38,
+          "train": 10,
+          "validation": 12
+        },
+        "sample_count": 60,
+        "split": "test"
+      },
+      {
+        "nearest_own_split_rate": 0.38333333333333336,
+        "nearest_split_counts": {
+          "test": 18,
+          "train": 23,
+          "validation": 19
+        },
+        "sample_count": 60,
+        "split": "train"
+      },
+      {
+        "nearest_own_split_rate": 0.55,
+        "nearest_split_counts": {
+          "test": 16,
+          "train": 11,
+          "validation": 33
+        },
+        "sample_count": 60,
+        "split": "validation"
+      }
+    ],
+    "centroid_feature_names": [
+      "mean_r",
+      "mean_g",
+      "mean_b",
+      "std_r",
+      "std_g",
+      "std_b",
+      "overall_mean",
+      "overall_std",
+      "luma_mean",
+      "luma_std",
+      "center_luma_mean",
+      "edge_luma_mean",
+      "center_edge_luma_delta",
+      "temporal_abs_delta_mean",
+      "first_last_abs_delta_mean",
+      "frame_luma_mean_std"
+    ],
+    "mean_nearest_own_split_rate": 0.5222222222222223
+  },
+  "status": "split_shift_diagnostic_ready_not_training_data"
+}

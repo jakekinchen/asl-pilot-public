@@ -1,0 +1,86 @@
+{
+  "schema_version": "asl-pilot-final-privacy-smoke/v1",
+  "status": "passed",
+  "tested_at": "2026-05-21T17:34:56.360Z",
+  "app_url": "http://127.0.0.1:3025",
+  "normal_practice_findings": {
+    "raw_video_uploads_observed": false,
+    "raw_frame_uploads_observed": false,
+    "image_or_blob_payloads_observed": false,
+    "analytics_or_session_replay_observed": false
+  },
+  "commands": [
+    "node scripts/audit_no_raw_video_upload.mjs",
+    "GET http://127.0.0.1:3025",
+    "POST http://127.0.0.1:3025/api/attempts with raw frame payload",
+    "POST http://127.0.0.1:3025/api/dataset/clips",
+    "GET http://127.0.0.1:3025/api/dataset/coverage"
+  ],
+  "evidence": {
+    "static_audit": {
+      "ok": true,
+      "stdout": "No raw video/frame upload payloads found in web/src network or API code.",
+      "stderr": ""
+    },
+    "live_http": {
+      "app_reachable": true,
+      "root_page_status": 200,
+      "root_error": null,
+      "root_content_type": "text/html; charset=utf-8",
+      "attempt_raw_payload_post_status": 400,
+      "attempt_raw_payload_error_mentions_raw_camera": true,
+      "normal_practice_raw_payload_rejected": true,
+      "dataset_clip_post_status": 403,
+      "dataset_coverage_get_status": 403,
+      "dataset_collection_default_disabled": true,
+      "root_inspection": {
+        "blocked_analytics_or_replay_hosts": [],
+        "script_srcs": [
+          "/_next/static/chunks/03cnjj9mnzy_p.js",
+          "/_next/static/chunks/07lhk_q6pmm3r.js",
+          "/_next/static/chunks/turbopack-0bxcrz71-nfi1.js",
+          "/_next/static/chunks/0dbhjjzl8qfwv.js",
+          "/_next/static/chunks/16cqkfwxysin0.js",
+          "/_next/static/chunks/0l2odaz74-iht.js",
+          "/_next/static/chunks/03~yq9q893hmn.js",
+          "/_next/static/chunks/0ht900cau6_ur.js"
+        ],
+        "analytics_or_session_replay_observed": false
+      }
+    },
+    "server": {
+      "mode": "next_start_auto",
+      "command": "ASL_PILOT_STORE_PATH=/var/folders/hm/6gd6d81d5wbfmk6j51dx894c0000gn/T/asl-pilot-final-privacy-smoke-eIpH9W/store.json ENABLE_DATASET_COLLECTION=false NEXT_PUBLIC_ENABLE_DATASET_COLLECTION=false npm --prefix web run start -- --hostname 127.0.0.1 --port 3025",
+      "build_id_sha256": "6fe86d44c48fa5fcd907d36b1ef114ec1f44844b985b5575451b8cbde520c8ab",
+      "isolated_store": {
+        "env_var": "ASL_PILOT_STORE_PATH",
+        "path": "/var/folders/hm/6gd6d81d5wbfmk6j51dx894c0000gn/T/asl-pilot-final-privacy-smoke-eIpH9W/store.json",
+        "existed_after_smoke": false,
+        "removed_after_run": true
+      },
+      "stdout_tail": [],
+      "stderr_tail": [],
+      "app_url_reachable_before_auto_start": false
+    },
+    "source_files": [
+      {
+        "path": "web/src/app/api/attempts/route.ts",
+        "sha256": "48ac9e734204d84e18ccbb6797de3cd907dbabad07b5500e9b883781e8afe5f8"
+      },
+      {
+        "path": "web/src/app/api/dataset/clips/route.ts",
+        "sha256": "7fbe918827499e92d4e37c330e2cae1fe8a44378094dacdaccb9acffba01408c"
+      },
+      {
+        "path": "web/src/app/api/dataset/coverage/route.ts",
+        "sha256": "d2d5b76335efe090fd868f7e3f2c3690685b0adb60c236fcac82e6c7c7bae258"
+      },
+      {
+        "path": "web/src/components/PracticeApp.tsx",
+        "sha256": "a35146491aeb28d6ab67a2b2670f4553b32e1facf61f443f8649843565f0e214"
+      }
+    ]
+  },
+  "evidence_notes": "Live HTTP check verifies the normal practice attempt route rejects raw camera payloads, verifies the default-disabled dataset collection routes, and scans rendered root HTML for common analytics/session-replay hosts. Static audit scans normal practice network/API code for raw media payloads.",
+  "blockers": []
+}

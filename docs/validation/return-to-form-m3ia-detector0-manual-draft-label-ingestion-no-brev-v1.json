@@ -1,0 +1,388 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3ia-detector0-manual-draft-label-ingestion-no-brev/v1",
+  "mission": "M3IA - Detector 0 manual draft label ingestion no Brev",
+  "created_at": "2026-05-29T21:45:30Z",
+  "slice_base_commit": "66ff748b6dd731dce403527bee26cdb6b51a0a73",
+  "active_prompt": "docs/model/return-to-form-m3ia-detector0-manual-draft-label-ingestion-no-brev-goal-loop-prompt.md",
+  "status": "completed_blocked_no_local_reviewed_draft_export",
+  "purpose": "Apply the M3HZ manual-label ingestion contract to local workbench draft exports, without using remote storage, Brev, paid compute, training, source import, label authoring, model promotion, final-gate changes, or claim expansion.",
+  "source_files_inspected": [
+    "GOAL.md",
+    "docs/model/return-to-form-m3ia-detector0-manual-draft-label-ingestion-no-brev-goal-loop-prompt.md",
+    "docs/model/return-to-form-plan.md",
+    "docs/runbooks/codex-goal-loop.md",
+    "docs/runbooks/observer-runbook-codex.md",
+    "docs/model/return-to-form-detector0-manual-label-ingestion-contract-v1.json",
+    "docs/validation/return-to-form-m3hz-detector0-manual-label-ingestion-contract-no-brev-v1.json",
+    "docs/session-logs/717-mission-3hz-detector0-manual-label-ingestion-contract-no-brev.md",
+    "docs/session-logs/718-observer-continue-m3hz-m3ia-detector0-manual-draft-ingestion-handoff.md",
+    "docs/model/return-to-form-detector0-annotation-workbench-review-v1.json",
+    "docs/validation/return-to-form-m3hy-detector0-annotation-workbench-review-no-brev-v1.json",
+    "docs/validation/return-to-form-m3hx-detector0-annotation-workbench-no-brev-v1.json",
+    "tools/detector0-annotator/prepare.py",
+    "tools/detector0-annotator/app.html",
+    "tools/detector0-annotator/README.md",
+    "tools/detector0-annotator/.gitignore",
+    "tools/detector0-annotator/",
+    "tools/detector0-annotator/exports",
+    "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlays-v1.json",
+    "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlay-gap-repair-v1.json",
+    "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+    "docs/model/return-to-form-detector0-fixed-baseline-gate-contract-v1.json",
+    "docs/model/dataset-source-register.json",
+    "web/public/model/detector0-card.json",
+    "web/public/model/browser-model-bundle.json",
+    "web/public/model/model-card.json",
+    "docs/model/active-vocabulary-claim.json"
+  ],
+  "changed_files_for_this_slice": [
+    "docs/validation/return-to-form-m3ia-detector0-manual-draft-label-ingestion-no-brev-v1.json",
+    "docs/session-logs/719-mission-3ia-detector0-manual-draft-label-ingestion-no-brev.md"
+  ],
+  "command_statuses": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Branch compound-plan-m0 was ahead of origin with a clean tracked worktree before M3IA artifact writing."
+    },
+    {
+      "command": "git log -14 --oneline --decorate",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "HEAD was 66ff748 observer handoff to M3IA; previous executor commit was 8f7f762 mission-3hz."
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Premise audit passed at 2026-05-29T21:44:26.834Z with no blockers."
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Return-to-form plan audit passed; GOAL.md points at docs/model/return-to-form-m3ia-detector0-manual-draft-label-ingestion-no-brev-goal-loop-prompt.md."
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Source register audit passed with 12 sources and sha256 b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8."
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "No banned pretrained-CV dependencies or source imports found."
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Promoted/model-card JSON artifact scan passed with no findings."
+    },
+    {
+      "command": "node scripts/audit_detector0_manifest_contract.mjs",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Detector 0 card remains not_trained/research_only with no browser artifact; recognition, detector tracking, and box-driven avatar gates remain disabled."
+    },
+    {
+      "command": "python3 -m json.tool docs/model/return-to-form-detector0-manual-label-ingestion-contract-v1.json >/dev/null",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "M3HZ manual-label ingestion contract JSON parses."
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3hz-detector0-manual-label-ingestion-contract-no-brev-v1.json >/dev/null",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "M3HZ validation receipt JSON parses."
+    },
+    {
+      "command": "python3 -m json.tool docs/model/return-to-form-detector0-annotation-workbench-review-v1.json >/dev/null",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "M3HY workbench review artifact JSON parses."
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3hy-detector0-annotation-workbench-review-no-brev-v1.json >/dev/null",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "M3HY validation receipt JSON parses."
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlays-v1.json >/dev/null",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Manual contact-sheet overlay packet JSON parses."
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlay-gap-repair-v1.json >/dev/null",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Manual overlay gap-repair artifact JSON parses."
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json >/dev/null",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Detector 0 Tier 0 localization packet JSON parses."
+    },
+    {
+      "command": "python3 -m json.tool docs/model/dataset-source-register.json >/dev/null",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Dataset source register JSON parses."
+    },
+    {
+      "command": "python3 -m py_compile tools/detector0-annotator/prepare.py",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "prepare.py compiles; generated __pycache__ is ignored."
+    },
+    {
+      "command": "git status --short --ignored tools/detector0-annotator .playwright-cli",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Ignored local paths observed: .playwright-cli/, tools/detector0-annotator/.cache/, and tools/detector0-annotator/__pycache__/; no tracked draft exports appeared."
+    },
+    {
+      "command": "brev ls --json",
+      "status": "passed_read_only",
+      "exit_code": 0,
+      "summary": "Read-only inventory only; retained worker is STOPPED / COMPLETED / NOT READY / HEALTHY."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "No whitespace errors before M3IA artifact writing."
+    },
+    {
+      "command": "ls -la tools/detector0-annotator",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Workbench directory exists with .cache, .gitignore, README.md, __pycache__, app.html, and prepare.py."
+    },
+    {
+      "command": "ls -la tools/detector0-annotator/exports",
+      "status": "expected_blocker",
+      "exit_code": 1,
+      "summary": "tools/detector0-annotator/exports does not exist, so no local workbench draft export was available for contract validation."
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3ia-detector0-manual-draft-label-ingestion-no-brev-v1.json >/dev/null",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "M3IA validation receipt JSON parses after artifact writing."
+    },
+    {
+      "command": "test ! -f data/annotations/detector0/return-to-form-targeted-annotation-workbench-ingestion-v1.json",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "No zero-row authoritative supplemental ingestion artifact was created."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "No whitespace errors after M3IA artifact writing."
+    },
+    {
+      "command": "node -e '<m3ia receipt self-check>'",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Asserted allowed next action, no authoritative artifact creation, zero accepted draft candidates, and forbidden paid-compute/training/claim-mutation flags false."
+    }
+  ],
+  "brev_default_off_read_only_inventory": {
+    "command": "brev ls --json",
+    "lifecycle_action_taken": false,
+    "remote_command_taken": false,
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ]
+  },
+  "artifact_hashes": {
+    "docs/model/return-to-form-detector0-manual-label-ingestion-contract-v1.json": "803e493f29b1bf131444f5fea4500367c14cb7d337272d7386b55e0fff13e3bf",
+    "docs/validation/return-to-form-m3hz-detector0-manual-label-ingestion-contract-no-brev-v1.json": "1381cfc7f5879ad26b8a5f557ad81de0764fa5e36e3c50a7b82140a1d89afcc8",
+    "docs/model/return-to-form-detector0-annotation-workbench-review-v1.json": "5da7121293df1b1b7b793094e8b7c0686586dbabff7d51e6a24b30587afe56d0",
+    "docs/validation/return-to-form-m3hy-detector0-annotation-workbench-review-no-brev-v1.json": "f01261654df539125c8ae872608fa5746c17d0298f40333b6400da332b1188df",
+    "docs/validation/return-to-form-m3hx-detector0-annotation-workbench-no-brev-v1.json": "2edb9fc9726ddefc198cc8d21e9bacd63b81f248dcecb5fd270e4bc9fb0b0724",
+    "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlays-v1.json": "9336f9b4047ce20499d560da6a8d2967a229aa87497eca28bc6f77fa4600e8fb",
+    "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlay-gap-repair-v1.json": "d1903481cf3992889240d986f4c04b3f791941014e9128fef6db634831f3bf18",
+    "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d",
+    "docs/model/return-to-form-detector0-fixed-baseline-gate-contract-v1.json": "92f4650a50b562b3055bb455fe9b5ae30ad639fe843b5efd834cd24925142423",
+    "docs/model/dataset-source-register.json": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+    "web/public/model/detector0-card.json": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+    "web/public/model/browser-model-bundle.json": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9",
+    "web/public/model/model-card.json": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+    "docs/model/active-vocabulary-claim.json": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546"
+  },
+  "draft_discovery_results": {
+    "inspected_paths": [
+      {
+        "path": "tools/detector0-annotator/",
+        "exists": true,
+        "contents_relevant_to_discovery": [
+          ".cache/",
+          ".gitignore",
+          "README.md",
+          "__pycache__/",
+          "app.html",
+          "prepare.py"
+        ]
+      },
+      {
+        "path": "tools/detector0-annotator/exports",
+        "exists": false,
+        "command": "ls -la tools/detector0-annotator/exports",
+        "exit_code": 1,
+        "stderr": "ls: tools/detector0-annotator/exports: No such file or directory"
+      }
+    ],
+    "local_json_draft_files_found": [],
+    "accepted_candidate_draft_files": [],
+    "rejected_candidate_draft_files": [],
+    "remote_or_cloud_sources_inspected": false,
+    "blocker": "No local tools/detector0-annotator/exports directory or M3HX draft JSON export exists in the current filesystem state."
+  },
+  "per_contract_validation_results": {
+    "candidate_count": 0,
+    "validated_candidate_count": 0,
+    "promoted_row_count": 0,
+    "contract_path": "docs/model/return-to-form-detector0-manual-label-ingestion-contract-v1.json",
+    "contract_sha256": "803e493f29b1bf131444f5fea4500367c14cb7d337272d7386b55e0fff13e3bf",
+    "validation_status": "blocked_before_candidate_validation",
+    "blocker": "No local draft export was available, so schema/status, row identity, tensor hash, coordinate, target applicability, human-review, source/provenance, no-pretrained, duplicate/conflict, absence, and fail-closed claim checks could not be applied to any candidate row.",
+    "zero_row_authoritative_artifact_created": false
+  },
+  "authoritative_supplemental_artifact": {
+    "path": "data/annotations/detector0/return-to-form-targeted-annotation-workbench-ingestion-v1.json",
+    "created": false,
+    "artifact_sha256": null,
+    "reason": "The active prompt forbids creating a zero-row authoritative artifact, and no reviewed local draft export exists."
+  },
+  "source_provenance_no_pretrained_proof": {
+    "source_register_audit_status": "passed",
+    "no_pretrained_deps_audit_status": "passed",
+    "no_pretrained_artifact_json_audit_status": "passed",
+    "detector0_manifest_contract_audit_status": "passed",
+    "source_artifacts_parsed": [
+      "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlays-v1.json",
+      "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlay-gap-repair-v1.json",
+      "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "docs/model/dataset-source-register.json"
+    ],
+    "draft_input_source_reviewed": false,
+    "reason_draft_input_source_not_reviewed": "No draft export exists to bind to source, license, provenance, reviewer, tensor, or no-pretrained attestations.",
+    "network_or_remote_input_accepted": false,
+    "generated_or_pretrained_label_input_accepted": false,
+    "raw_learner_media_input_accepted": false
+  },
+  "claim_surface_proof": {
+    "audit_detector0_manifest_contract_status": "passed",
+    "claim_surfaces_mutated": false,
+    "web/public/model/detector0-card.json": {
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null
+    },
+    "web/public/model/browser-model-bundle.json": {
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9",
+      "recognition_enabled": false,
+      "detector0_tracking_enabled": false,
+      "box_driven_avatar_enabled": false
+    },
+    "web/public/model/model-card.json": {
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "status": "not_trained"
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "activeLabels": []
+    }
+  },
+  "fixed_baseline_gate_context": {
+    "contract_path": "docs/model/return-to-form-detector0-fixed-baseline-gate-contract-v1.json",
+    "sha256": "92f4650a50b562b3055bb455fe9b5ae30ad639fe843b5efd834cd24925142423",
+    "learned_targets": [
+      "left_or_first_hand",
+      "right_or_second_hand"
+    ],
+    "fixed_anchor_targets": [
+      "head_or_face",
+      "upper_body_or_signing_space"
+    ],
+    "diagnostic_only_targets": [
+      "table_two_hand_union_or_contact_region"
+    ],
+    "held_out_fixed_box_iou_baselines_to_beat": {
+      "left_or_first_hand": 0.4073,
+      "right_or_second_hand": 0.6476
+    },
+    "promotion_language_allowed_by_this_slice": false
+  },
+  "readiness_classification": {
+    "local_draft_export_discovered": false,
+    "reviewed_draft_export_discovered": false,
+    "manual_label_ingestion_contract_applied_to_rows": false,
+    "authoritative_supplemental_labels_created": false,
+    "draft_labels_ingested": false,
+    "detector0_training_ready": false,
+    "detector0_evaluation_ready": false,
+    "browser_promotion_ready": false,
+    "final_gate_ready": false,
+    "claim_expansion_ready": false,
+    "classification": "blocked_waiting_for_local_reviewed_draft_export"
+  },
+  "blockers": [
+    {
+      "id": "missing_local_workbench_draft_export",
+      "severity": "blocking",
+      "detail": "tools/detector0-annotator/exports does not exist, so there are no local JSON draft exports declaring schema_version asl-pilot-detector0-annotator-draft/v1 and status draft_unreviewed_not_authoritative_labels to validate."
+    },
+    {
+      "id": "missing_human_review_or_approval_artifact_for_workbench_export",
+      "severity": "blocking",
+      "detail": "Because no draft export exists, there is also no review_status, reviewer, reviewed_at, human_review_method, review_evidence_reference, source-rights attestation, or no-pretrained attestation to satisfy the M3HZ promotion contract."
+    }
+  ],
+  "forbidden_action_proof": {
+    "brev_lifecycle_or_remote_command": false,
+    "paid_compute_started": false,
+    "training_or_evaluation_run": false,
+    "source_or_media_import": false,
+    "raw_learner_media_inspection": false,
+    "raw_learner_video_upload": false,
+    "pretrained_or_generated_label_dependency": false,
+    "draft_label_ingestion": false,
+    "authoritative_label_row_creation": false,
+    "zero_row_authoritative_artifact_creation": false,
+    "label_packet_mutation": false,
+    "source_register_or_manifest_mutation": false,
+    "tensor_mutation": false,
+    "vocabulary_mutation": false,
+    "model_card_or_claim_surface_mutation": false,
+    "runtime_code_mutation": false,
+    "final_gate_change": false,
+    "export_promotion_or_browser_activation": false,
+    "side_worktree_mutation": false,
+    "push": false,
+    "amend_or_no_verify": false
+  },
+  "exactly_one_next_action": "stop_for_human_detector0_reviewed_draft_export"
+}

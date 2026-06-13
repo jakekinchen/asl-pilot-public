@@ -1,0 +1,2040 @@
+{
+  "boundaries": {
+    "brev_spend": false,
+    "brev_stop": false,
+    "brev_sync": false,
+    "brev_training": false,
+    "broad_run_redirect": false,
+    "controlled_clip_heldout_evaluation": false,
+    "crop_normalization_ablation": false,
+    "detector0_training": false,
+    "duplicate_brev_worker": false,
+    "final_gate_weakening": false,
+    "final_readiness_claim": false,
+    "generated_pseudo_label_use": false,
+    "label_expansion": false,
+    "model_card_promotion": false,
+    "onnx_export": false,
+    "packet_mutation": false,
+    "pretrained_detector_or_landmark_use": false,
+    "product_runtime_code_change": false,
+    "push": false,
+    "recognizer_training": false,
+    "rows_added": false,
+    "source_approval": false,
+    "training_smoke_rerun": false,
+    "unapproved_media_import": false
+  },
+  "brev_no_spend_boundary": {
+    "checked": true,
+    "command": "brev ls --json",
+    "compute_used": false,
+    "human_spend_approval": false,
+    "manual_stop_command": "brev stop asl-pilot-rawframe-001",
+    "manual_stop_command_run": false,
+    "max_runtime_minutes": 0,
+    "max_spend_usd": 0,
+    "planned_remote_command": "none",
+    "remote_training_used": false,
+    "returncode": 0,
+    "status": {
+      "workspaces": [
+        {
+          "build_status": "COMPLETED",
+          "gpu": "A100",
+          "health_status": "HEALTHY",
+          "id": "2hl1hytty",
+          "instance_kind": "gpu",
+          "instance_type": "massedcompute_A100_sxm4_80G_DGX",
+          "name": "asl-pilot-rawframe-001",
+          "shell_status": "READY",
+          "status": "RUNNING"
+        }
+      ]
+    },
+    "sync_or_training_used": false
+  },
+  "checked_at": "2026-05-26T13:31:02Z",
+  "classification": {
+    "classification": "smoke_implementation_instrumentation_issue",
+    "next_action": "detector0_union_target_training_smoke_continue",
+    "reason": "Packet targets, tensor/frame alignment, and bounded-adaptive union derivation all check out, while a no-training median-box baseline over the train union targets has MAE below the train-path cap. The M3AE-AG smoke therefore failed to fit even a simple target-local box prior and needs smoke instrumentation or training-path repair before packet/schema changes.",
+    "ruled_out": {
+      "insufficient_no_new_source_support": true,
+      "packet_data_issue": true,
+      "stop_reduced_claim_condition": true,
+      "target_schema_issue": true,
+      "tensor_frame_alignment_issue": true
+    },
+    "supporting_observations": {
+      "m3ae_aa_table_right_test_presence_accuracy": 0.3333333432674408,
+      "m3ae_aa_table_right_train_box_mae": 0.2194068431854248,
+      "m3ae_aa_table_right_validation_presence_accuracy": 0.2857142984867096,
+      "m3ae_ag_loss_drop_fraction": 0.805999828613751,
+      "m3ae_ag_train_presence_accuracy": 1.0,
+      "m3ae_ag_train_present_box_mae": 0.18746726214885712,
+      "smoke_minus_median_constant_mae": 0.14639583357742855,
+      "train_path_box_mae_cap": 0.15,
+      "train_union_median_constant_box_mae": 0.04107142857142857
+    }
+  },
+  "command": "/Users/kelly/Developer/asl-pilot/.venv/bin/python scripts/run_return_to_form_tier0_detector0_union_target_data_schema_remediation.py",
+  "failure_source_of_truth": {
+    "classification": "needs_union_target_data_or_schema_remediation",
+    "next_action": "detector0_union_target_data_or_schema_remediation",
+    "receipt": {
+      "path": "docs/validation/return-to-form-tier0-detector0-two-hand-union-training-smoke-v1.json",
+      "sha256": "de1556d48a6c89bd020bddf2a1bf0b4e13393c8b27a3e436b840cbb925aca3b8"
+    },
+    "table_union_behavior": {
+      "actual": {
+        "test": {
+          "box_mae_if_present": 0.2736905813217163,
+          "mean_iou_if_present": 0.0747925192117691,
+          "predicted_present_rate": 0.3333333432674408,
+          "presence_accuracy": 0.3333333432674408,
+          "present_support": 6,
+          "table_row_count": 6
+        },
+        "train": {
+          "box_mae_if_present": 0.18746726214885712,
+          "mean_iou_if_present": 0.3070330321788788,
+          "predicted_present_rate": 1.0,
+          "presence_accuracy": 1.0,
+          "present_support": 7,
+          "table_row_count": 7
+        },
+        "validation": {
+          "box_mae_if_present": 0.28654366731643677,
+          "mean_iou_if_present": 0.0,
+          "predicted_present_rate": 0.2857142984867096,
+          "presence_accuracy": 0.2857142984867096,
+          "present_support": 7,
+          "table_row_count": 7
+        }
+      },
+      "criteria": {
+        "heldout_box_mae_if_present_max": 0.3,
+        "heldout_mean_iou_if_present_min": 0.05,
+        "heldout_presence_accuracy_min": 0.8,
+        "per_split_present_support_min": 5,
+        "train_box_mae_if_present_max": 0.2,
+        "train_presence_accuracy": "1.0"
+      },
+      "status": "failed"
+    },
+    "train_path": {
+      "actual": {
+        "loss_drop_fraction_from_initial_to_best": 0.805999828613751,
+        "train_presence_accuracy": 1.0,
+        "train_present_box_mae": 0.18746726214885712,
+        "train_present_box_mean_iou": 0.3070330321788788
+      },
+      "criteria": {
+        "loss_drop_fraction_from_initial_to_best_min": 0.75,
+        "train_presence_accuracy": "1.0",
+        "train_present_box_mae_max": 0.15
+      },
+      "status": "failed"
+    }
+  },
+  "final_promotion_blocker_separation": {
+    "final_gate_weakening": false,
+    "final_promotion_negative_challenge_blocker": "unchanged and separate from this read-only union-target diagnostic",
+    "final_readiness_claim": false,
+    "hard_negative_far_assessed": false,
+    "model_card_promotion": false,
+    "no_zero_accepted_true_class_assessed": false,
+    "onnx_export": false,
+    "threshold_selected": false
+  },
+  "mission": "M3AE-AH Detector 0 union-target data/schema remediation",
+  "next_action": {
+    "description": "Fix the local union-target smoke instrumentation/training path so it records row-level predictions and target-local constant baselines, then rerun one bounded local no-spend smoke.",
+    "id": "detector0_union_target_training_smoke_continue"
+  },
+  "no_pretrained_provenance": {
+    "allowed_source_ids": [
+      "popsign-v1-original-videos"
+    ],
+    "generated_pseudo_labels": false,
+    "label_expansion": false,
+    "pretrained_backbones_or_embeddings": false,
+    "pretrained_detector_outputs": false,
+    "pretrained_landmarks": false,
+    "source_expansion": false,
+    "unapproved_media_import": false
+  },
+  "output": {
+    "path": "docs/validation/return-to-form-tier0-detector0-union-target-data-schema-remediation-v1.json"
+  },
+  "packet_tensor_target_alignment": {
+    "absent_non_table_count": 12,
+    "geometry_summary": {
+      "all_present_union_boxes": {
+        "area": {
+          "max": 0.24649999999999994,
+          "mean": 0.154535,
+          "median": 0.1496,
+          "min": 0.11439999999999999
+        },
+        "count": 20,
+        "height": {
+          "max": 0.2899999999999999,
+          "mean": 0.227,
+          "median": 0.22000000000000003,
+          "min": 0.20999999999999996
+        },
+        "mean_box": [
+          0.14475,
+          0.4755,
+          0.82225,
+          0.7025
+        ],
+        "mean_constant_box_mae": 0.03285,
+        "median_box": [
+          0.14,
+          0.47,
+          0.82,
+          0.7
+        ],
+        "median_constant_box_mae": 0.03237499999999999,
+        "width": {
+          "max": 0.85,
+          "mean": 0.6775,
+          "median": 0.6799999999999999,
+          "min": 0.52
+        },
+        "x1": {
+          "max": 0.28,
+          "mean": 0.14475,
+          "median": 0.14,
+          "min": 0.015
+        },
+        "x2": {
+          "max": 0.865,
+          "mean": 0.82225,
+          "median": 0.82,
+          "min": 0.8
+        },
+        "y1": {
+          "max": 0.56,
+          "mean": 0.4755,
+          "median": 0.47,
+          "min": 0.4
+        },
+        "y2": {
+          "max": 0.84,
+          "mean": 0.7025,
+          "median": 0.7,
+          "min": 0.62
+        }
+      },
+      "by_split": {
+        "test": {
+          "area": {
+            "max": 0.16999999999999996,
+            "mean": 0.14273333333333332,
+            "median": 0.14079999999999998,
+            "min": 0.11439999999999999
+          },
+          "count": 6,
+          "height": {
+            "max": 0.24999999999999994,
+            "mean": 0.22499999999999998,
+            "median": 0.22,
+            "min": 0.21999999999999997
+          },
+          "mean_box": [
+            0.18333333333333335,
+            0.4683333333333333,
+            0.8166666666666668,
+            0.6933333333333334
+          ],
+          "mean_constant_box_mae": 0.030416666666666647,
+          "median_box": [
+            0.18,
+            0.46499999999999997,
+            0.81,
+            0.7
+          ],
+          "median_constant_box_mae": 0.029583333333333323,
+          "width": {
+            "max": 0.74,
+            "mean": 0.6333333333333333,
+            "median": 0.64,
+            "min": 0.52
+          },
+          "x1": {
+            "max": 0.28,
+            "mean": 0.18333333333333335,
+            "median": 0.18,
+            "min": 0.1
+          },
+          "x2": {
+            "max": 0.84,
+            "mean": 0.8166666666666668,
+            "median": 0.81,
+            "min": 0.8
+          },
+          "y1": {
+            "max": 0.52,
+            "mean": 0.4683333333333333,
+            "median": 0.46499999999999997,
+            "min": 0.42
+          },
+          "y2": {
+            "max": 0.74,
+            "mean": 0.6933333333333334,
+            "median": 0.7,
+            "min": 0.64
+          }
+        },
+        "train": {
+          "area": {
+            "max": 0.24649999999999994,
+            "mean": 0.1673285714285714,
+            "median": 0.14960000000000004,
+            "min": 0.1344
+          },
+          "count": 7,
+          "height": {
+            "max": 0.2899999999999999,
+            "mean": 0.23285714285714285,
+            "median": 0.22000000000000003,
+            "min": 0.20999999999999996
+          },
+          "mean_box": [
+            0.11214285714285714,
+            0.48857142857142855,
+            0.8235714285714285,
+            0.7214285714285714
+          ],
+          "mean_constant_box_mae": 0.041836734693877546,
+          "median_box": [
+            0.12,
+            0.48,
+            0.82,
+            0.72
+          ],
+          "median_constant_box_mae": 0.04107142857142857,
+          "width": {
+            "max": 0.85,
+            "mean": 0.7114285714285715,
+            "median": 0.68,
+            "min": 0.6399999999999999
+          },
+          "x1": {
+            "max": 0.18,
+            "mean": 0.11214285714285714,
+            "median": 0.12,
+            "min": 0.015
+          },
+          "x2": {
+            "max": 0.865,
+            "mean": 0.8235714285714285,
+            "median": 0.82,
+            "min": 0.8
+          },
+          "y1": {
+            "max": 0.56,
+            "mean": 0.48857142857142855,
+            "median": 0.48,
+            "min": 0.4
+          },
+          "y2": {
+            "max": 0.84,
+            "mean": 0.7214285714285714,
+            "median": 0.72,
+            "min": 0.62
+          }
+        },
+        "validation": {
+          "area": {
+            "max": 0.16720000000000002,
+            "mean": 0.15185714285714286,
+            "median": 0.15399999999999997,
+            "min": 0.132
+          },
+          "count": 7,
+          "height": {
+            "max": 0.24000000000000005,
+            "mean": 0.22285714285714286,
+            "median": 0.22000000000000003,
+            "min": 0.21999999999999997
+          },
+          "mean_box": [
+            0.1442857142857143,
+            0.4685714285714286,
+            0.8257142857142857,
+            0.6914285714285714
+          ],
+          "mean_constant_box_mae": 0.02102040816326529,
+          "median_box": [
+            0.14,
+            0.46,
+            0.82,
+            0.68
+          ],
+          "median_constant_box_mae": 0.01964285714285713,
+          "width": {
+            "max": 0.76,
+            "mean": 0.6814285714285714,
+            "median": 0.6799999999999999,
+            "min": 0.6000000000000001
+          },
+          "x1": {
+            "max": 0.2,
+            "mean": 0.1442857142857143,
+            "median": 0.14,
+            "min": 0.08
+          },
+          "x2": {
+            "max": 0.86,
+            "mean": 0.8257142857142857,
+            "median": 0.82,
+            "min": 0.8
+          },
+          "y1": {
+            "max": 0.5,
+            "mean": 0.4685714285714286,
+            "median": 0.46,
+            "min": 0.44
+          },
+          "y2": {
+            "max": 0.72,
+            "mean": 0.6914285714285714,
+            "median": 0.68,
+            "min": 0.66
+          }
+        }
+      }
+    },
+    "label_counts_by_split": {
+      "test": {
+        "dad": 1,
+        "grandpa": 1,
+        "hat": 1,
+        "please": 1,
+        "table": 6
+      },
+      "train": {
+        "dad": 1,
+        "grandpa": 1,
+        "hat": 1,
+        "please": 1,
+        "table": 7
+      },
+      "validation": {
+        "dad": 1,
+        "grandpa": 1,
+        "hat": 1,
+        "please": 1,
+        "table": 7
+      }
+    },
+    "packet": {
+      "path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d",
+      "status": "expanded_packet_ready_for_detector0_smoke"
+    },
+    "signer_hash_counts_by_split": {
+      "test": 6,
+      "train": 7,
+      "validation": 7
+    },
+    "smoke_packet_alignment": {
+      "m3ae_ag_rows_matched_current_packet": true,
+      "mismatch_count": 0,
+      "mismatches": [],
+      "smoke_receipt_row_count": 32
+    },
+    "source_ids": [
+      "popsign-v1-original-videos"
+    ],
+    "source_record_counts_by_split": {
+      "test": 10,
+      "train": 11,
+      "validation": 11
+    },
+    "split_counts": {
+      "test": 10,
+      "train": 11,
+      "validation": 11
+    },
+    "target_derivation_alignment": {
+      "mismatch_count": 0,
+      "mismatches": [],
+      "reduced_context_margin_rows": [
+        {
+          "effective_margin_x": 0.0050000000000000044,
+          "effective_margin_y": 0.02,
+          "raw_union_box_xyxy_norm": [
+            0.02,
+            0.57,
+            0.86,
+            0.82
+          ],
+          "revised_box_xyxy_norm": [
+            0.014999999999999996,
+            0.5499999999999999,
+            0.865,
+            0.84
+          ],
+          "row_id": "det0-v0-train-table-000376-f010",
+          "split": "train"
+        }
+      ],
+      "rows": [
+        {
+          "actual_box_xyxy_norm": [
+            0.015,
+            0.55,
+            0.865,
+            0.84
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.014999999999999996,
+            0.5499999999999999,
+            0.865,
+            0.84
+          ],
+          "effective_margin_x": 0.0050000000000000044,
+          "effective_margin_y": 0.02,
+          "frame_index": 10,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.2,
+          "left_right_overlap_y": 0.24,
+          "raw_union_area": 0.21,
+          "raw_union_height": 0.25,
+          "raw_union_width": 0.84,
+          "revised_area": 0.24650000000000002,
+          "revised_height": 0.29000000000000004,
+          "revised_width": 0.85,
+          "row_id": "det0-v0-train-table-000376-f010",
+          "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+          "source_record_id": "popsign_v1_0/game/train/table/4a.6001-table-2022_12_16_00_17_47.002-0.mp4",
+          "split": "train"
+        },
+        {
+          "actual_box_xyxy_norm": [
+            0.14,
+            0.44,
+            0.82,
+            0.68
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.14,
+            0.44,
+            0.8200000000000001,
+            0.68
+          ],
+          "effective_margin_x": 0.02,
+          "effective_margin_y": 0.02,
+          "frame_index": 5,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.08000000000000002,
+          "left_right_overlap_y": 0.2,
+          "raw_union_area": 0.128,
+          "raw_union_height": 0.2,
+          "raw_union_width": 0.64,
+          "revised_area": 0.16320000000000004,
+          "revised_height": 0.24000000000000005,
+          "revised_width": 0.68,
+          "row_id": "det0-v0-validation-table-000376-f005",
+          "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+          "source_record_id": "popsign_v1_0/game/val/table/4a.7002-table-2022_12_19_22_52_30.498-0.mp4",
+          "split": "validation"
+        },
+        {
+          "actual_box_xyxy_norm": [
+            0.14,
+            0.45,
+            0.82,
+            0.7
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.14,
+            0.44999999999999996,
+            0.8200000000000001,
+            0.7000000000000001
+          ],
+          "effective_margin_x": 0.02,
+          "effective_margin_y": 0.02,
+          "frame_index": 5,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.08000000000000002,
+          "left_right_overlap_y": 0.21000000000000008,
+          "raw_union_area": 0.13440000000000005,
+          "raw_union_height": 0.21000000000000008,
+          "raw_union_width": 0.64,
+          "revised_area": 0.1700000000000001,
+          "revised_height": 0.2500000000000001,
+          "revised_width": 0.68,
+          "row_id": "det0-v0-test-table-000286-f005",
+          "signer_identity_hash": "e0940122312d361abda8019f5084ffd16eacdeaba32c7bb78ed08a50549015b2",
+          "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8031-table-2023_01_25_13_50_32.495-0.mp4",
+          "split": "test"
+        },
+        {
+          "actual_box_xyxy_norm": [
+            0.1,
+            0.46,
+            0.84,
+            0.69
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.09999999999999999,
+            0.45999999999999996,
+            0.84,
+            0.6900000000000001
+          ],
+          "effective_margin_x": 0.02,
+          "effective_margin_y": 0.02,
+          "frame_index": 8,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.10000000000000003,
+          "left_right_overlap_y": 0.17000000000000004,
+          "raw_union_area": 0.13300000000000003,
+          "raw_union_height": 0.19000000000000006,
+          "raw_union_width": 0.7,
+          "revised_area": 0.17020000000000007,
+          "revised_height": 0.2300000000000001,
+          "revised_width": 0.74,
+          "row_id": "det0-v0-train-table-000379-f008",
+          "signer_identity_hash": "7c01a9b7c2b20c7f1bb084d66ac6e7a2967d08a093077b9497d55131a1cd67bc",
+          "source_record_id": "popsign_v1_0/game/train/table/4a.7003-table-2022_12_27_09_26_53.197-0.mp4",
+          "split": "train"
+        },
+        {
+          "actual_box_xyxy_norm": [
+            0.08,
+            0.48,
+            0.84,
+            0.72
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.08,
+            0.48,
+            0.84,
+            0.72
+          ],
+          "effective_margin_x": 0.02,
+          "effective_margin_y": 0.02,
+          "frame_index": 8,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.12,
+          "left_right_overlap_y": 0.19999999999999996,
+          "raw_union_area": 0.14399999999999996,
+          "raw_union_height": 0.19999999999999996,
+          "raw_union_width": 0.72,
+          "revised_area": 0.1824,
+          "revised_height": 0.24,
+          "revised_width": 0.76,
+          "row_id": "det0-v0-train-table-000386-f008",
+          "signer_identity_hash": "44621e6a463f815358059025e7e5bc52a10856d5f4ec9c7ff63b47bf468a4a95",
+          "source_record_id": "popsign_v1_0/game/train/table/4a.8027-table-2023_01_12_13_05_43.195-0.mp4",
+          "split": "train"
+        },
+        {
+          "actual_box_xyxy_norm": [
+            0.13,
+            0.56,
+            0.8,
+            0.78
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.13,
+            0.5599999999999999,
+            0.8,
+            0.78
+          ],
+          "effective_margin_x": 0.02,
+          "effective_margin_y": 0.02,
+          "frame_index": 10,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.08000000000000002,
+          "left_right_overlap_y": 0.18000000000000005,
+          "raw_union_area": 0.11340000000000003,
+          "raw_union_height": 0.18000000000000005,
+          "raw_union_width": 0.63,
+          "revised_area": 0.14740000000000006,
+          "revised_height": 0.22000000000000008,
+          "revised_width": 0.67,
+          "row_id": "det0-v0-train-table-000391-f010",
+          "signer_identity_hash": "abc0cb7ba434779fb8887fd3ea3e91f33ab9618955dc3490ae87a330fd93a934",
+          "source_record_id": "popsign_v1_0/game/train/table/4a.8054-table-2023_02_10_23_22_08.360-0.mp4",
+          "split": "train"
+        },
+        {
+          "actual_box_xyxy_norm": [
+            0.16,
+            0.53,
+            0.8,
+            0.74
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.16,
+            0.53,
+            0.8,
+            0.74
+          ],
+          "effective_margin_x": 0.02,
+          "effective_margin_y": 0.02,
+          "frame_index": 8,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.08000000000000002,
+          "left_right_overlap_y": 0.16999999999999993,
+          "raw_union_area": 0.10199999999999997,
+          "raw_union_height": 0.16999999999999993,
+          "raw_union_width": 0.6000000000000001,
+          "revised_area": 0.1344,
+          "revised_height": 0.20999999999999996,
+          "revised_width": 0.64,
+          "row_id": "det0-v0-train-table-000392-f008",
+          "signer_identity_hash": "e8bbaa928eea9108f1951bea43e7ee4ccaeddc447f289c3cb54452a3f768cfe2",
+          "source_record_id": "popsign_v1_0/game/train/table/4a.8902-table-2023_01_28_20_25_36.429-0.mp4",
+          "split": "train"
+        },
+        {
+          "actual_box_xyxy_norm": [
+            0.18,
+            0.4,
+            0.82,
+            0.62
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.18000000000000002,
+            0.39999999999999997,
+            0.8200000000000001,
+            0.62
+          ],
+          "effective_margin_x": 0.02,
+          "effective_margin_y": 0.02,
+          "frame_index": 8,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.08000000000000002,
+          "left_right_overlap_y": 0.18,
+          "raw_union_area": 0.10800000000000001,
+          "raw_union_height": 0.18,
+          "raw_union_width": 0.6000000000000001,
+          "revised_area": 0.1408,
+          "revised_height": 0.22000000000000003,
+          "revised_width": 0.64,
+          "row_id": "det0-v0-train-table-000396-f008",
+          "signer_identity_hash": "d2fe031922f8146aa2014806244311a9fbf8e1e21d30e6effe10670b8e5afa4e",
+          "source_record_id": "popsign_v1_0/game/train/table/gtsignstudy4a.7042-table-2023_01_27_10_03_20.667-0.mp4",
+          "split": "train"
+        },
+        {
+          "actual_box_xyxy_norm": [
+            0.12,
+            0.44,
+            0.8,
+            0.66
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.12000000000000001,
+            0.44,
+            0.8,
+            0.66
+          ],
+          "effective_margin_x": 0.02,
+          "effective_margin_y": 0.02,
+          "frame_index": 8,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.08000000000000002,
+          "left_right_overlap_y": 0.18,
+          "raw_union_area": 0.1152,
+          "raw_union_height": 0.18,
+          "raw_union_width": 0.64,
+          "revised_area": 0.14960000000000004,
+          "revised_height": 0.22000000000000003,
+          "revised_width": 0.68,
+          "row_id": "det0-v0-train-table-000400-f008",
+          "signer_identity_hash": "dfbc221302a2da2fa433035916d9b200bb7090083a544b69469a1aec7d836a87",
+          "source_record_id": "popsign_v1_0/game/train/table/gtsignstudy4a.8048-table-2023_01_27_15_14_30.216-0.mp4",
+          "split": "train"
+        },
+        {
+          "actual_box_xyxy_norm": [
+            0.14,
+            0.44,
+            0.82,
+            0.66
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.14,
+            0.44,
+            0.8200000000000001,
+            0.66
+          ],
+          "effective_margin_x": 0.02,
+          "effective_margin_y": 0.02,
+          "frame_index": 8,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.08000000000000002,
+          "left_right_overlap_y": 0.18,
+          "raw_union_area": 0.1152,
+          "raw_union_height": 0.18,
+          "raw_union_width": 0.64,
+          "revised_area": 0.14960000000000004,
+          "revised_height": 0.22000000000000003,
+          "revised_width": 0.68,
+          "row_id": "det0-v0-validation-table-000379-f008",
+          "signer_identity_hash": "cc50a89882a8ed4c0982ee9170fb302bc1bbbb5e94e893bce3b0632118cc0cf8",
+          "source_record_id": "popsign_v1_0/game/val/table/4a.8005-table-2022_12_15_16_59_45.185-0.mp4",
+          "split": "validation"
+        },
+        {
+          "actual_box_xyxy_norm": [
+            0.14,
+            0.48,
+            0.84,
+            0.7
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.14,
+            0.48,
+            0.84,
+            0.7000000000000001
+          ],
+          "effective_margin_x": 0.02,
+          "effective_margin_y": 0.02,
+          "frame_index": 10,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.10000000000000003,
+          "left_right_overlap_y": 0.18000000000000005,
+          "raw_union_area": 0.11880000000000002,
+          "raw_union_height": 0.18000000000000005,
+          "raw_union_width": 0.6599999999999999,
+          "revised_area": 0.15400000000000005,
+          "revised_height": 0.22000000000000008,
+          "revised_width": 0.7,
+          "row_id": "det0-v0-validation-table-000383-f010",
+          "signer_identity_hash": "54ed19eb670a7fc395dbc28c6820b933d1eede5e2fcb97d9ea70c49c654682d8",
+          "source_record_id": "popsign_v1_0/game/val/table/4a.8013-table-2023_01_11_16_56_51.795-0.mp4",
+          "split": "validation"
+        },
+        {
+          "actual_box_xyxy_norm": [
+            0.08,
+            0.46,
+            0.84,
+            0.68
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.08,
+            0.45999999999999996,
+            0.84,
+            0.68
+          ],
+          "effective_margin_x": 0.02,
+          "effective_margin_y": 0.02,
+          "frame_index": 8,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.10000000000000003,
+          "left_right_overlap_y": 0.18000000000000005,
+          "raw_union_area": 0.12960000000000002,
+          "raw_union_height": 0.18000000000000005,
+          "raw_union_width": 0.72,
+          "revised_area": 0.16720000000000007,
+          "revised_height": 0.22000000000000008,
+          "revised_width": 0.76,
+          "row_id": "det0-v0-validation-table-000385-f008",
+          "signer_identity_hash": "fb6c9cc349eb6ba8c064cb7572615613c07e91211a75a97f3bc95bc91848d39a",
+          "source_record_id": "popsign_v1_0/game/val/table/4a.8015-table-2023_01_28_01_59_16.096-0.mp4",
+          "split": "validation"
+        },
+        {
+          "actual_box_xyxy_norm": [
+            0.18,
+            0.46,
+            0.8,
+            0.68
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.18000000000000002,
+            0.45999999999999996,
+            0.8,
+            0.68
+          ],
+          "effective_margin_x": 0.02,
+          "effective_margin_y": 0.02,
+          "frame_index": 8,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.10000000000000003,
+          "left_right_overlap_y": 0.18000000000000005,
+          "raw_union_area": 0.10440000000000003,
+          "raw_union_height": 0.18000000000000005,
+          "raw_union_width": 0.5800000000000001,
+          "revised_area": 0.13640000000000005,
+          "revised_height": 0.22000000000000008,
+          "revised_width": 0.62,
+          "row_id": "det0-v0-validation-table-000388-f008",
+          "signer_identity_hash": "96a654d6be5c2506b495f010339ce766ebd64a54096a79fe00b9bbc3ce1c280b",
+          "source_record_id": "popsign_v1_0/game/val/table/4a.8018-table-2023_01_10_18_35_17.729-0.mp4",
+          "split": "validation"
+        },
+        {
+          "actual_box_xyxy_norm": [
+            0.13,
+            0.5,
+            0.86,
+            0.72
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.13,
+            0.5,
+            0.86,
+            0.72
+          ],
+          "effective_margin_x": 0.02,
+          "effective_margin_y": 0.02,
+          "frame_index": 8,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.09000000000000002,
+          "left_right_overlap_y": 0.17999999999999994,
+          "raw_union_area": 0.12419999999999995,
+          "raw_union_height": 0.17999999999999994,
+          "raw_union_width": 0.69,
+          "revised_area": 0.16059999999999997,
+          "revised_height": 0.21999999999999997,
+          "revised_width": 0.73,
+          "row_id": "det0-v0-validation-table-000393-f008",
+          "signer_identity_hash": "30132f3fd3bc05eda5a491afa1802072649326f4a39e6a24ba7f2351b841f4a5",
+          "source_record_id": "popsign_v1_0/game/val/table/4a.8025-table-2023_01_12_23_52_10.159-0.mp4",
+          "split": "validation"
+        },
+        {
+          "actual_box_xyxy_norm": [
+            0.2,
+            0.5,
+            0.8,
+            0.72
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.2,
+            0.5,
+            0.8,
+            0.72
+          ],
+          "effective_margin_x": 0.02,
+          "effective_margin_y": 0.02,
+          "frame_index": 8,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.08000000000000002,
+          "left_right_overlap_y": 0.17999999999999994,
+          "raw_union_area": 0.10079999999999997,
+          "raw_union_height": 0.17999999999999994,
+          "raw_union_width": 0.56,
+          "revised_area": 0.132,
+          "revised_height": 0.21999999999999997,
+          "revised_width": 0.6000000000000001,
+          "row_id": "det0-v0-validation-table-000397-f008",
+          "signer_identity_hash": "d634581037b96d18388590532350e015fadb5d4e0891aa20e59c1731d7bfb9ee",
+          "source_record_id": "popsign_v1_0/game/val/table/4a.8051-table-2023_01_29_20_41_28.906-0.mp4",
+          "split": "validation"
+        },
+        {
+          "actual_box_xyxy_norm": [
+            0.22,
+            0.44,
+            0.8,
+            0.66
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.22,
+            0.44,
+            0.8,
+            0.66
+          ],
+          "effective_margin_x": 0.02,
+          "effective_margin_y": 0.02,
+          "frame_index": 8,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.08000000000000002,
+          "left_right_overlap_y": 0.18,
+          "raw_union_area": 0.09720000000000001,
+          "raw_union_height": 0.18,
+          "raw_union_width": 0.54,
+          "revised_area": 0.12760000000000002,
+          "revised_height": 0.22000000000000003,
+          "revised_width": 0.5800000000000001,
+          "row_id": "det0-v0-test-table-000288-f008",
+          "signer_identity_hash": "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25",
+          "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8032-table-2023_01_27_17_21_44.663-0.mp4",
+          "split": "test"
+        },
+        {
+          "actual_box_xyxy_norm": [
+            0.18,
+            0.42,
+            0.84,
+            0.64
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.18000000000000002,
+            0.42,
+            0.84,
+            0.64
+          ],
+          "effective_margin_x": 0.02,
+          "effective_margin_y": 0.02,
+          "frame_index": 8,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.08000000000000002,
+          "left_right_overlap_y": 0.18,
+          "raw_union_area": 0.11159999999999998,
+          "raw_union_height": 0.18,
+          "raw_union_width": 0.6199999999999999,
+          "revised_area": 0.1452,
+          "revised_height": 0.22000000000000003,
+          "revised_width": 0.6599999999999999,
+          "row_id": "det0-v0-test-table-000290-f008",
+          "signer_identity_hash": "4027e4c04fcfc2940fe00c6d89cf00633df9a37b921346a77c9c4c2bd29e69fb",
+          "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8033-table-2023_01_28_23_51_45.129-0.mp4",
+          "split": "test"
+        },
+        {
+          "actual_box_xyxy_norm": [
+            0.1,
+            0.48,
+            0.84,
+            0.7
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.09999999999999999,
+            0.48,
+            0.84,
+            0.7000000000000001
+          ],
+          "effective_margin_x": 0.02,
+          "effective_margin_y": 0.02,
+          "frame_index": 8,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.10000000000000003,
+          "left_right_overlap_y": 0.18000000000000005,
+          "raw_union_area": 0.12600000000000003,
+          "raw_union_height": 0.18000000000000005,
+          "raw_union_width": 0.7,
+          "revised_area": 0.16280000000000006,
+          "revised_height": 0.22000000000000008,
+          "revised_width": 0.74,
+          "row_id": "det0-v0-test-table-000294-f008",
+          "signer_identity_hash": "0a4c034271536723f6b9253752108a6bba85a26dea7185e2c8c25eea2493b920",
+          "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8035-table-2023_01_26_17_05_59.415-0.mp4",
+          "split": "test"
+        },
+        {
+          "actual_box_xyxy_norm": [
+            0.28,
+            0.5,
+            0.8,
+            0.72
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.27999999999999997,
+            0.5,
+            0.8,
+            0.72
+          ],
+          "effective_margin_x": 0.02,
+          "effective_margin_y": 0.02,
+          "frame_index": 8,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.08000000000000007,
+          "left_right_overlap_y": 0.17999999999999994,
+          "raw_union_area": 0.08639999999999998,
+          "raw_union_height": 0.17999999999999994,
+          "raw_union_width": 0.48000000000000004,
+          "revised_area": 0.11439999999999999,
+          "revised_height": 0.21999999999999997,
+          "revised_width": 0.52,
+          "row_id": "det0-v0-test-table-000297-f008",
+          "signer_identity_hash": "3660c753560b193daec1e61e3060fb0d2cab427ab3b6760f545fbc9f682c896b",
+          "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8036-table-2023_01_25_19_21_54.801-1.mp4",
+          "split": "test"
+        },
+        {
+          "actual_box_xyxy_norm": [
+            0.18,
+            0.52,
+            0.8,
+            0.74
+          ],
+          "box_matches_bounded_adaptive_margin": true,
+          "derived_box_xyxy_norm": [
+            0.18000000000000002,
+            0.52,
+            0.8,
+            0.74
+          ],
+          "effective_margin_x": 0.02,
+          "effective_margin_y": 0.02,
+          "frame_index": 8,
+          "left_right_horizontal_gap": 0.0,
+          "left_right_overlap_x": 0.08000000000000002,
+          "left_right_overlap_y": 0.17999999999999994,
+          "raw_union_area": 0.10439999999999998,
+          "raw_union_height": 0.17999999999999994,
+          "raw_union_width": 0.5800000000000001,
+          "revised_area": 0.1364,
+          "revised_height": 0.21999999999999997,
+          "revised_width": 0.62,
+          "row_id": "det0-v0-test-table-000301-f008",
+          "signer_identity_hash": "abb19b30e7af50c6cc238bd1d5ca897512d0c3a063d48bba12e78189ecfecdd0",
+          "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8037-table-2023_01_25_17_13_26.906-0.mp4",
+          "split": "test"
+        }
+      ],
+      "table_rows_checked": 20
+    },
+    "target_schema": {
+      "contains_union_target": true,
+      "target_ids": [
+        "left_or_first_hand",
+        "right_or_second_hand",
+        "head_or_face",
+        "upper_body_or_signing_space",
+        "table_two_hand_union_or_contact_region"
+      ]
+    },
+    "tensor_frame_alignment": {
+      "checked_row_count": 32,
+      "frame_index_out_of_bounds_count": 0,
+      "full_frame_reference_missing_count": 0,
+      "hash_mismatch_count": 0,
+      "rows": [
+        {
+          "frame_count": 16,
+          "frame_index": 10,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "please",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-train-please-000076-f010",
+          "split": "train",
+          "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-please-000076-regions.pt",
+          "tensor_sha256": "32dadc44d38225766957f2804cc9f9f15b6033ca9da77259fe1ded5b32185fa3"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 5,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "please",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-validation-please-000076-f005",
+          "split": "validation",
+          "tensor_path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-please-000076-regions.pt",
+          "tensor_sha256": "ea4635add669b880f187be26baa8f3ef992e208e44f1366c35d3a1ea83e72a6d"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 10,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "please",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-test-please-000058-f010",
+          "split": "test",
+          "tensor_path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-please-000058-regions.pt",
+          "tensor_sha256": "6d98d02ed2b57d1381db852ecda59e45db6fe0e44099b0ee047f63211bed22b4"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 10,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-train-table-000376-f010",
+          "split": "train",
+          "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-table-000376-regions.pt",
+          "tensor_sha256": "22a4a8b0db326286320be86e0caf526d8dbec3761d8bb431d556224230c41035"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 5,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-validation-table-000376-f005",
+          "split": "validation",
+          "tensor_path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000376-regions.pt",
+          "tensor_sha256": "0333582a01338a88bc818d7f45aa2f669d8acfed6c6876fa860d9ab8c01d50d7"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 5,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-test-table-000286-f005",
+          "split": "test",
+          "tensor_path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-table-000286-regions.pt",
+          "tensor_sha256": "e3bd3678a5b728cfa219254f6dad1047479e89f30a522a09405b456e2b3f2d70"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 10,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "dad",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-train-dad-000826-f010",
+          "split": "train",
+          "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-dad-000826-regions.pt",
+          "tensor_sha256": "b2bbf8085a902b2ad929bbac86bfd4d49150b7c1d569c7e56a8893bb633bee06"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 5,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "dad",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-validation-dad-000826-f005",
+          "split": "validation",
+          "tensor_path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-dad-000826-regions.pt",
+          "tensor_sha256": "0b9ba18bf30df4e7a9cc3a0bf38bb0903e9f4fb475325d5ff5163ff27c2262eb"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 5,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "dad",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-test-dad-000628-f005",
+          "split": "test",
+          "tensor_path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-dad-000628-regions.pt",
+          "tensor_sha256": "17491b3e34bc79e10f3625184c3db96df4141b96f8ef8ab085d508504fb5d72c"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 10,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "grandpa",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-train-grandpa-000951-f010",
+          "split": "train",
+          "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-grandpa-000951-regions.pt",
+          "tensor_sha256": "4e02571b24d5d0f2377271ae1df0e780a261f1355201fd9dabf743b7fc4f282d"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 5,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "grandpa",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-validation-grandpa-000952-f005",
+          "split": "validation",
+          "tensor_path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-grandpa-000952-regions.pt",
+          "tensor_sha256": "255450344b20fcff77980fdc4edf6b3709e001671b968f7f66f97648d77208d1"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 5,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "grandpa",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-test-grandpa-000723-f005",
+          "split": "test",
+          "tensor_path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-grandpa-000723-regions.pt",
+          "tensor_sha256": "962a3d0de57d621fd5746b44a932a04c206c10d1aab04c4c95f7d7d8ed969c9d"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 10,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "hat",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-train-hat-001976-f010",
+          "split": "train",
+          "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-hat-001976-regions.pt",
+          "tensor_sha256": "66baceb8014d3315900727244ae85562f8cf4f676231e795dcd1e438edc1f5ba"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 5,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "hat",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-validation-hat-001976-f005",
+          "split": "validation",
+          "tensor_path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-hat-001976-regions.pt",
+          "tensor_sha256": "522a52b729fca85053f46bea1e0c68029405820cfdeff6180d6396901a4f46ff"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 10,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "hat",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-test-hat-001503-f010",
+          "split": "test",
+          "tensor_path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-hat-001503-regions.pt",
+          "tensor_sha256": "016e8dd4b2047864738fe8596ee7b34cc355b10eef5c7aebfd1f81e3059ff4ca"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 8,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-train-table-000379-f008",
+          "split": "train",
+          "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-table-000379-regions.pt",
+          "tensor_sha256": "98f1f427ab617922bf0f51197c03979ba550ae387056c4c00dcb433ab641a129"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 8,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-train-table-000386-f008",
+          "split": "train",
+          "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-table-000386-regions.pt",
+          "tensor_sha256": "6670e588f90dc7e50c7dfa7f42e2857fe0367509eff8347d039e4b4e7110d6f6"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 10,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-train-table-000391-f010",
+          "split": "train",
+          "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-table-000391-regions.pt",
+          "tensor_sha256": "df0d0754637182018c296165632beea1ee7a68974e61360c48c07ecdba5eec88"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 8,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-train-table-000392-f008",
+          "split": "train",
+          "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-table-000392-regions.pt",
+          "tensor_sha256": "4f5add3b28dc914895b06459fdae6077f4e362e5f67af788a5c20290a57b4f6d"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 8,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-train-table-000396-f008",
+          "split": "train",
+          "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-table-000396-regions.pt",
+          "tensor_sha256": "97b2265269cf86c2fa7961faf8f1a326c95d3d2098a74c38cd02a34b0b73a3fb"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 8,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-train-table-000400-f008",
+          "split": "train",
+          "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-table-000400-regions.pt",
+          "tensor_sha256": "14e9995b4aeb93158c602e2ee036207b5b6000ce9f24f1339d972c1e1a8afbea"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 8,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-validation-table-000379-f008",
+          "split": "validation",
+          "tensor_path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000379-regions.pt",
+          "tensor_sha256": "2edb6d3ace5bcf43f14cca7263b0f139480cd9ff42459bb09b9f273550e3b4c9"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 10,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-validation-table-000383-f010",
+          "split": "validation",
+          "tensor_path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000383-regions.pt",
+          "tensor_sha256": "e0f8f078450999352c971a1a917239180b5edd7677a7673596f08f74f40095b1"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 8,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-validation-table-000385-f008",
+          "split": "validation",
+          "tensor_path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000385-regions.pt",
+          "tensor_sha256": "1bde07ea157d9bc597b3b5bb9b2bdd332145f1477fdedb7a2bfa74059b16e8f1"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 8,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-validation-table-000388-f008",
+          "split": "validation",
+          "tensor_path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000388-regions.pt",
+          "tensor_sha256": "414a9f343f27bb08832ea51f462ba1b3e88dc336679b39fdb8cfd4b52439a2e9"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 8,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-validation-table-000393-f008",
+          "split": "validation",
+          "tensor_path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000393-regions.pt",
+          "tensor_sha256": "932270232659dab4c37fce151b39ea596b78b19622802916dea52089eda06e61"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 8,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-validation-table-000397-f008",
+          "split": "validation",
+          "tensor_path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000397-regions.pt",
+          "tensor_sha256": "2351eca5272b6b264f99116c596ae3484e4c5239d6249ae8e1c383dee6448491"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 8,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-test-table-000288-f008",
+          "split": "test",
+          "tensor_path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-table-000288-regions.pt",
+          "tensor_sha256": "872eefcb3a18a24411bce0d34ac5ed22d1c331f92adfb33e495a67a3e4796fd1"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 8,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-test-table-000290-f008",
+          "split": "test",
+          "tensor_path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-table-000290-regions.pt",
+          "tensor_sha256": "af3a27c5c1567864c372ddd1cd9af3dfc93d4b78a44e4e05885cae477696668e"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 8,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-test-table-000294-f008",
+          "split": "test",
+          "tensor_path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-table-000294-regions.pt",
+          "tensor_sha256": "e642500d9eaf5f1d0e67f707775722a2340318ed713e2ac2c68602ad21425d73"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 8,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-test-table-000297-f008",
+          "split": "test",
+          "tensor_path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-table-000297-regions.pt",
+          "tensor_sha256": "840ed1575a06f701d2abbd937e74ece15ca68e00324232a282843d5cf00b1877"
+        },
+        {
+          "frame_count": 16,
+          "frame_index": 8,
+          "full_frame_reference_present": true,
+          "hash_matches_packet": true,
+          "label_id": "table",
+          "region_ids": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "row_id": "det0-v0-test-table-000301-f008",
+          "split": "test",
+          "tensor_path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-table-000301-regions.pt",
+          "tensor_sha256": "4ffeee0355b861344fa421614442276aca781e6e6438ae6353dbd43e3411a569"
+        }
+      ]
+    },
+    "union_target_support_by_split": {
+      "test": 6,
+      "train": 7,
+      "validation": 7
+    }
+  },
+  "schema_version": "asl-pilot-return-to-form-tier0-detector0-union-target-data-schema-remediation/v1",
+  "source_artifacts": {
+    "crop_config": {
+      "path": "docs/model/return-to-form-fixed-crop-config.json",
+      "sha256": "dbc735dad34fa9df1174a40374037976f9c88d789012634b2b22743ae0802b29"
+    },
+    "current_packet": {
+      "path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d"
+    },
+    "decode_dataloader": {
+      "path": "docs/validation/return-to-form-tier0-decode-dataloader.json",
+      "sha256": "d64c0b46500075d94207ef2197a6f6d8f1570cf548da8b08ca16dc520ba386c2"
+    },
+    "diagnostic_runner": {
+      "path": "scripts/run_return_to_form_tier0_detector0_union_target_data_schema_remediation.py",
+      "sha256": "33ffa797ac028bc09dda210410da24321f18664b879e28dee17f001c614377fb"
+    },
+    "m3ae_aa_expanded_packet_smoke": {
+      "path": "docs/validation/return-to-form-tier0-detector0-expanded-packet-training-smoke-v1.json",
+      "sha256": "baa2d2f958f50e299fb8d59e2ea2a0d081dd8995181da1719d60ead0c4971def"
+    },
+    "m3ae_ab_union_schema": {
+      "path": "docs/validation/return-to-form-tier0-detector0-two-hand-union-schema-v1.md",
+      "sha256": "4e0972b77304c09ffa3e4f5fee4c3b9f71c26f6efe2fe14a13eed82773892716"
+    },
+    "m3ae_ac_union_packet_mutation": {
+      "path": "docs/validation/return-to-form-tier0-detector0-two-hand-union-packet-mutation-v1.json",
+      "sha256": "0a0b1a89c904f19bba38e56e5cc08dbe7a23b9e47a7e596785488bcccac6cf28"
+    },
+    "m3ae_ad_union_target_remediation": {
+      "path": "docs/validation/return-to-form-tier0-detector0-union-target-remediation-v1.json",
+      "sha256": "f9b8111c0cda034f8c19e8aaab271851a0daa97de744d32f04c1019d4ae58553"
+    },
+    "m3ae_ae_union_margin_schema_revision": {
+      "path": "docs/validation/return-to-form-tier0-detector0-two-hand-union-margin-schema-revision-v1.md",
+      "sha256": "d48998a5e661a06a106359a5fcaf24d0c0aac65919f83ebc846ec469e3cc58ab"
+    },
+    "m3ae_af_union_margin_packet_mutation": {
+      "path": "docs/validation/return-to-form-tier0-detector0-two-hand-union-margin-packet-mutation-v1.json",
+      "sha256": "691365969fefa35a524d7ba007a2b22bff50be76805e4bff2962e9352d17b52b"
+    },
+    "m3ae_ag_session_log": {
+      "path": "docs/session-logs/244-return-to-form-tier0-detector0-two-hand-union-training-smoke.md",
+      "sha256": "ac56e9cd8d24ceefcdd39c98f4abaa188a45fe7b5208dde4a52d1d5f4034e9d0"
+    },
+    "m3ae_ag_smoke_runner": {
+      "path": "scripts/run_return_to_form_tier0_detector0_two_hand_union_training_smoke.py",
+      "sha256": "7aab7b71992da6134102d8ded3992b2d939a698c2020db8231cb8bcebc28e820"
+    },
+    "m3ae_ag_union_training_smoke": {
+      "path": "docs/validation/return-to-form-tier0-detector0-two-hand-union-training-smoke-v1.json",
+      "sha256": "de1556d48a6c89bd020bddf2a1bf0b4e13393c8b27a3e436b840cbb925aca3b8"
+    },
+    "m3ae_l_bootstrap": {
+      "path": "docs/validation/return-to-form-tier0-detector0-crop-normalization-bootstrap.json",
+      "sha256": "bd17e32bc7d4adbd195d1a26173740163e314a54577a9d9245a38dce752331e5"
+    },
+    "m3ae_p_detector0_smoke": {
+      "path": "docs/validation/return-to-form-tier0-detector0-training-smoke-v1.json",
+      "sha256": "ba8871964ba24bae88935bcad24c132af90dcd8d607bef04df54f56ebdd3b611"
+    },
+    "m3ae_y_candidate_review": {
+      "path": "docs/validation/return-to-form-tier0-detector0-table-second-hand-candidate-packet-review-v1.md",
+      "sha256": "1f132125dee5bbb0c4d57bd325ffcca04a2c6921abc434ac02ee93f69471c09e"
+    },
+    "m3ae_z_table_second_hand_packet_mutation": {
+      "path": "docs/validation/return-to-form-tier0-detector0-table-second-hand-packet-mutation-v1.json",
+      "sha256": "0f8d8c43fcce041694df132b327407b8dca5d11e22b89ecadca42ace5221ce82"
+    },
+    "observer_strategy_memo": {
+      "path": "artifacts/research/observer-201-localization-strategy-api-response.md",
+      "sha256": "b6e167fbf5f40541f718153906d085b787d674fea3c055826dc900a01f4639e2"
+    },
+    "pre_training_gates": {
+      "path": "docs/validation/return-to-form-tier0-gates.json",
+      "sha256": "2cc000d3f90e9be236cf64768530bf9786fc61fe6605c774b9c1e8ab123d9d97"
+    },
+    "source_coverage": {
+      "path": "docs/research/return-to-form-tier0-source-coverage.json",
+      "sha256": "1ff7da89a51e62f9efbeb08cf6361784e160ed862ac579f9e40db332fa576378"
+    },
+    "source_register": {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    "tensor_contract": {
+      "path": "docs/validation/return-to-form-tier0-tensor-contract.json",
+      "sha256": "0f2ea12cf9a6517bafb67876ba4b0e4951ce821b61b27a740d45f6d1e36b3cd3"
+    },
+    "test_manifest": {
+      "path": "data/manifests/return-to-form-tier0/test.json",
+      "sha256": "b0c771b612ebb52beb375a98b4180ccd465aa642312a8c6c29d7ff225febd8ed"
+    },
+    "train_manifest": {
+      "path": "data/manifests/return-to-form-tier0/train.json",
+      "sha256": "03ae563a5f2ef0d5b868f6c80f50acb64ae642e782cd541faa5c022d4d0af1de"
+    },
+    "validation_manifest": {
+      "path": "data/manifests/return-to-form-tier0/validation.json",
+      "sha256": "23da15a80ce2eee1dab1a7e64c08e2aefcf5d7dd48263677fdc49d1efb0ad808"
+    }
+  },
+  "status": "action_selected"
+}

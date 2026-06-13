@@ -1,0 +1,788 @@
+{
+  "baseline_comparison": {
+    "m3ae_g_train_macro_recall": 0.312,
+    "m3ae_g_train_top1": 0.312,
+    "m3ae_g_validation_macro_recall": 0.22400000000000003,
+    "m3ae_g_validation_top1": 0.224,
+    "m3ae_i_tiny_train_macro_recall": 1.0,
+    "m3ae_i_tiny_train_top1": 1.0,
+    "random_top1_chance": 0.2,
+    "smoke_test_macro_recall": 0.27368421052631575,
+    "smoke_test_top1": 0.2736842105263158,
+    "smoke_train_macro_recall": 1.0,
+    "smoke_train_top1": 1.0,
+    "smoke_validation_macro_recall": 0.21600000000000003,
+    "smoke_validation_top1": 0.216
+  },
+  "boundaries": {
+    "brev_stop": false,
+    "broad_run_redirect": false,
+    "controlled_clip_heldout_evaluation": false,
+    "duplicate_brev_worker": false,
+    "final_gate_weakening": false,
+    "final_readiness_claim": false,
+    "label_expansion": false,
+    "model_card_promotion": false,
+    "onnx_export": false,
+    "push": false,
+    "second_microprobe_run": false,
+    "second_smoke_job": false,
+    "smoke_training_jobs_run": 1,
+    "source_approval": false,
+    "unapproved_media_import": false
+  },
+  "checked_at": "2026-05-25T22:13:55Z",
+  "command": "/Users/kelly/Developer/asl-pilot/.venv/bin/python scripts/run_return_to_form_tier0_microprobe_config_smoke.py",
+  "configuration": {
+    "batching": "full train split in one batch",
+    "early_stop_loss": 0.02,
+    "epochs_ran": 11,
+    "feature_spatial_size": 12,
+    "hidden_dim": 512,
+    "label_order": [
+      "dad",
+      "grandpa",
+      "hat",
+      "please",
+      "table"
+    ],
+    "learning_rate": 0.003,
+    "loss": "CrossEntropyLoss",
+    "max_epochs": 600,
+    "optimizer": "AdamW(weight_decay=0.0)"
+  },
+  "crop_identity_preservation": {
+    "derived_from_m3ae_i": {
+      "path": "docs/validation/return-to-form-tier0-model-architecture-microprobe.json",
+      "sha256": "a527dd447753016d24f225b3b6c4556542c80fab381aa69350fb373e67d89a00"
+    },
+    "does_not_use": [
+      "rgb_regions_grid_v1",
+      "rgb_frames compatibility tensor",
+      "pretrained features"
+    ],
+    "method": "Load rgb_regions directly as T,R,H,W,C, keep R as an explicit crop stream, resize each crop independently to the feature spatial size, fit train normalization, then flatten ordered T,R,C,H,W tensors for a random-init classifier.",
+    "preserved": true
+  },
+  "device": "mps",
+  "gate_classifications": {
+    "no_zero_accepted_true_class": {
+      "reason": "No acceptance threshold is selected in this smoke.",
+      "status": "blocked_not_assessed"
+    },
+    "tier0_hard_negative_far": {
+      "reason": "No calibrated threshold or reviewed Tier 0 reject set is evaluated in this smoke.",
+      "status": "blocked_not_assessed"
+    },
+    "tier0_train_sanity": {
+      "actual": {
+        "loss_drop_fraction_from_initial_to_best": 0.9998795650976163,
+        "train_macro_recall": 1.0,
+        "train_top1": 1.0,
+        "zero_recall_labels": []
+      },
+      "status": "passed",
+      "targets": {
+        "loss_drop_min_fraction_from_initial_to_best": 0.4,
+        "train_macro_recall_min": 0.8,
+        "train_top1_min": 0.8
+      }
+    },
+    "tier0_validation_signal": {
+      "actual": {
+        "validation_macro_recall": 0.21600000000000003,
+        "validation_top1": 0.216,
+        "zero_recall_labels": [
+          "grandpa"
+        ]
+      },
+      "status": "failed",
+      "targets": {
+        "test_macro_recall_report_only": true,
+        "test_top1_report_only": true,
+        "validation_macro_recall_min": 0.5,
+        "validation_top1_min": 0.6
+      }
+    }
+  },
+  "hard_negative_and_calibration_blockers": {
+    "assessed_in_this_smoke": false,
+    "calibration_blocker": "unchanged; no threshold selection, ONNX export, or model promotion authorized",
+    "final_promotion_negative_challenge_blocker": "unchanged and separate from this smoke"
+  },
+  "input_contract_evidence": {
+    "consumed_tensor_keys": [
+      "rgb_regions"
+    ],
+    "derived_inputs_in_main_loader": [
+      "rgb_regions_grid_v1"
+    ],
+    "fallback_to_rgb_frames_count": 0,
+    "m3ae_f_status": "passed",
+    "sample_count": 45,
+    "smoke_consumed_tensor_key": "rgb_regions",
+    "smoke_derived_input": "region_identity_downsample_v1"
+  },
+  "mission": "M3AE-J Tier 0 microprobe-config smoke",
+  "model": {
+    "base_model_id": "region_identity_mlp_v1",
+    "description": "Random-init MLP over full-split downsampled per-region tensors. The region axis is kept explicit before flattening; no rgb_regions_grid_v1 mosaic is used.",
+    "model_id": "region_identity_mlp_v1_full_split_smoke",
+    "parameter_count": 17697797,
+    "pretrained_components": [],
+    "random_initialization": true
+  },
+  "next_action": {
+    "description": "Train sanity passed, but validation/test signal points to label, split, signer, or source distribution limits.",
+    "id": "label_or_split_remediation"
+  },
+  "output": {
+    "directory": "docs/validation",
+    "model_artifact_saved": false,
+    "path": "docs/validation/return-to-form-tier0-microprobe-config-smoke.json",
+    "reason_model_artifact_not_saved": "diagnostic smoke records metrics only; no model promotion or export is authorized"
+  },
+  "schema_version": "asl-pilot-return-to-form-tier0-microprobe-config-smoke/v1",
+  "seed": 271828,
+  "selected_labels": [
+    "dad",
+    "grandpa",
+    "hat",
+    "please",
+    "table"
+  ],
+  "source_artifacts": {
+    "api_strategy_memo": {
+      "path": "artifacts/research/observer-195-tier0-strategy-api-response.md",
+      "sha256": "7fcd771d7b3db62cf314c4163361b87b4351449cf8d56f5a4175bd1f6880865d"
+    },
+    "crop_config": {
+      "path": "docs/model/return-to-form-fixed-crop-config.json",
+      "sha256": "dbc735dad34fa9df1174a40374037976f9c88d789012634b2b22743ae0802b29"
+    },
+    "decode_dataloader": {
+      "path": "docs/validation/return-to-form-tier0-decode-dataloader.json",
+      "sha256": "d64c0b46500075d94207ef2197a6f6d8f1570cf548da8b08ca16dc520ba386c2"
+    },
+    "m3ae_f_tensor_contract": {
+      "path": "docs/validation/return-to-form-tier0-tensor-contract.json",
+      "sha256": "0f2ea12cf9a6517bafb67876ba4b0e4951ce821b61b27a740d45f6d1e36b3cd3"
+    },
+    "m3ae_g_baseline": {
+      "path": "docs/validation/return-to-form-tier0-learnability-smoke-rerun.json",
+      "sha256": "917fa9b5beb0415dc593e8e44bbdd9c2656659fff52251fe3c364464106bf6a1"
+    },
+    "m3ae_h_triage": {
+      "path": "docs/validation/return-to-form-tier0-failure-remediation-triage.json",
+      "sha256": "1e0e8e429af6d4dddb132fd1ee8355761dcc6845b2bfb28f87de0c508f19e091"
+    },
+    "m3ae_i_microprobe": {
+      "path": "docs/validation/return-to-form-tier0-model-architecture-microprobe.json",
+      "sha256": "a527dd447753016d24f225b3b6c4556542c80fab381aa69350fb373e67d89a00"
+    },
+    "pre_training_gates": {
+      "path": "docs/validation/return-to-form-tier0-gates.json",
+      "sha256": "2cc000d3f90e9be236cf64768530bf9786fc61fe6605c774b9c1e8ab123d9d97"
+    },
+    "source_coverage": {
+      "path": "docs/research/return-to-form-tier0-source-coverage.json",
+      "sha256": "1ff7da89a51e62f9efbeb08cf6361784e160ed862ac579f9e40db332fa576378"
+    },
+    "source_register": {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    }
+  },
+  "source_decision": {
+    "allowed_source_ids": [
+      "popsign-v1-original-videos"
+    ],
+    "label_expansion": false,
+    "source_expansion": false,
+    "unapproved_media_import": false
+  },
+  "split_inputs": {
+    "test": {
+      "example_clip_ids_by_label": {
+        "dad": [
+          "popsign-v1-test-dad-000628",
+          "popsign-v1-test-dad-000629",
+          "popsign-v1-test-dad-000630"
+        ],
+        "grandpa": [
+          "popsign-v1-test-grandpa-000723",
+          "popsign-v1-test-grandpa-000724",
+          "popsign-v1-test-grandpa-000725"
+        ],
+        "hat": [
+          "popsign-v1-test-hat-001502",
+          "popsign-v1-test-hat-001503",
+          "popsign-v1-test-hat-001504"
+        ],
+        "please": [
+          "popsign-v1-test-please-000058",
+          "popsign-v1-test-please-000059",
+          "popsign-v1-test-please-000060"
+        ],
+        "table": [
+          "popsign-v1-test-table-000286",
+          "popsign-v1-test-table-000287",
+          "popsign-v1-test-table-000288"
+        ]
+      },
+      "example_count": 95,
+      "feature_tensor_shapes": [
+        [
+          16,
+          5,
+          3,
+          12,
+          12
+        ]
+      ],
+      "manifest": {
+        "path": "data/manifests/return-to-form-tier0/test.json",
+        "sha256": "b0c771b612ebb52beb375a98b4180ccd465aa642312a8c6c29d7ff225febd8ed"
+      },
+      "normalization": "per-feature z-score fitted on the full Tier 0 train split",
+      "original_rgb_regions_shapes": [
+        [
+          16,
+          5,
+          96,
+          96,
+          3
+        ]
+      ],
+      "per_label_counts": {
+        "dad": 19,
+        "grandpa": 19,
+        "hat": 19,
+        "please": 19,
+        "table": 19
+      },
+      "region_orders": [
+        [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ]
+      ],
+      "source_ids": [
+        "popsign-v1-original-videos"
+      ]
+    },
+    "train": {
+      "example_clip_ids_by_label": {
+        "dad": [
+          "popsign-v1-train-dad-000826",
+          "popsign-v1-train-dad-000827",
+          "popsign-v1-train-dad-000828"
+        ],
+        "grandpa": [
+          "popsign-v1-train-grandpa-000951",
+          "popsign-v1-train-grandpa-000952",
+          "popsign-v1-train-grandpa-000953"
+        ],
+        "hat": [
+          "popsign-v1-train-hat-001976",
+          "popsign-v1-train-hat-001977",
+          "popsign-v1-train-hat-001978"
+        ],
+        "please": [
+          "popsign-v1-train-please-000076",
+          "popsign-v1-train-please-000077",
+          "popsign-v1-train-please-000078"
+        ],
+        "table": [
+          "popsign-v1-train-table-000376",
+          "popsign-v1-train-table-000377",
+          "popsign-v1-train-table-000378"
+        ]
+      },
+      "example_count": 125,
+      "feature_tensor_shapes": [
+        [
+          16,
+          5,
+          3,
+          12,
+          12
+        ]
+      ],
+      "manifest": {
+        "path": "data/manifests/return-to-form-tier0/train.json",
+        "sha256": "03ae563a5f2ef0d5b868f6c80f50acb64ae642e782cd541faa5c022d4d0af1de"
+      },
+      "normalization": "per-feature z-score fitted on the full Tier 0 train split",
+      "original_rgb_regions_shapes": [
+        [
+          16,
+          5,
+          96,
+          96,
+          3
+        ]
+      ],
+      "per_label_counts": {
+        "dad": 25,
+        "grandpa": 25,
+        "hat": 25,
+        "please": 25,
+        "table": 25
+      },
+      "region_orders": [
+        [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ]
+      ],
+      "source_ids": [
+        "popsign-v1-original-videos"
+      ]
+    },
+    "validation": {
+      "example_clip_ids_by_label": {
+        "dad": [
+          "popsign-v1-validation-dad-000826",
+          "popsign-v1-validation-dad-000827",
+          "popsign-v1-validation-dad-000828"
+        ],
+        "grandpa": [
+          "popsign-v1-validation-grandpa-000951",
+          "popsign-v1-validation-grandpa-000952",
+          "popsign-v1-validation-grandpa-000953"
+        ],
+        "hat": [
+          "popsign-v1-validation-hat-001976",
+          "popsign-v1-validation-hat-001977",
+          "popsign-v1-validation-hat-001978"
+        ],
+        "please": [
+          "popsign-v1-validation-please-000076",
+          "popsign-v1-validation-please-000077",
+          "popsign-v1-validation-please-000078"
+        ],
+        "table": [
+          "popsign-v1-validation-table-000376",
+          "popsign-v1-validation-table-000377",
+          "popsign-v1-validation-table-000378"
+        ]
+      },
+      "example_count": 125,
+      "feature_tensor_shapes": [
+        [
+          16,
+          5,
+          3,
+          12,
+          12
+        ]
+      ],
+      "manifest": {
+        "path": "data/manifests/return-to-form-tier0/validation.json",
+        "sha256": "23da15a80ce2eee1dab1a7e64c08e2aefcf5d7dd48263677fdc49d1efb0ad808"
+      },
+      "normalization": "per-feature z-score fitted on the full Tier 0 train split",
+      "original_rgb_regions_shapes": [
+        [
+          16,
+          5,
+          96,
+          96,
+          3
+        ]
+      ],
+      "per_label_counts": {
+        "dad": 25,
+        "grandpa": 25,
+        "hat": 25,
+        "please": 25,
+        "table": 25
+      },
+      "region_orders": [
+        [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ]
+      ],
+      "source_ids": [
+        "popsign-v1-original-videos"
+      ]
+    }
+  },
+  "status": "action_selected",
+  "training": {
+    "history": [
+      {
+        "epoch": 0,
+        "train_loss": 1.6654338836669922,
+        "train_macro_recall": 0.16799999999999998,
+        "train_top1": 0.168
+      },
+      {
+        "epoch": 1,
+        "train_loss": 15.393166542053223,
+        "train_macro_recall": 0.592,
+        "train_top1": 0.592
+      },
+      {
+        "epoch": 2,
+        "train_loss": 11.507447242736816,
+        "train_macro_recall": 0.648,
+        "train_top1": 0.648
+      },
+      {
+        "epoch": 3,
+        "train_loss": 3.78444242477417,
+        "train_macro_recall": 0.8320000000000001,
+        "train_top1": 0.832
+      },
+      {
+        "epoch": 4,
+        "train_loss": 2.0511181354522705,
+        "train_macro_recall": 0.8560000000000001,
+        "train_top1": 0.856
+      },
+      {
+        "epoch": 5,
+        "train_loss": 1.0173566341400146,
+        "train_macro_recall": 0.9279999999999999,
+        "train_top1": 0.928
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.6208018064498901,
+        "train_macro_recall": 0.96,
+        "train_top1": 0.96
+      },
+      {
+        "epoch": 7,
+        "train_loss": 0.48494410514831543,
+        "train_macro_recall": 0.96,
+        "train_top1": 0.96
+      },
+      {
+        "epoch": 8,
+        "train_loss": 0.10285181552171707,
+        "train_macro_recall": 0.984,
+        "train_top1": 0.984
+      },
+      {
+        "epoch": 9,
+        "train_loss": 0.5176644921302795,
+        "train_macro_recall": 0.968,
+        "train_top1": 0.968
+      },
+      {
+        "epoch": 10,
+        "train_loss": 0.3169286251068115,
+        "train_macro_recall": 0.976,
+        "train_top1": 0.976
+      },
+      {
+        "epoch": 11,
+        "train_loss": 0.0002005763672059402,
+        "train_macro_recall": 1.0,
+        "train_top1": 1.0
+      }
+    ],
+    "loss_movement": {
+      "best_train_loss": 0.0002005763672059402,
+      "final_minus_initial": -1.6652333072997862,
+      "final_train_loss": 0.0002005763672059402,
+      "initial_train_loss": 1.6654338836669922,
+      "loss_drop_fraction_from_initial_to_best": 0.9998795650976163
+    },
+    "metrics": {
+      "test": {
+        "confusion_matrix": [
+          [
+            9,
+            8,
+            2,
+            0,
+            0
+          ],
+          [
+            11,
+            8,
+            0,
+            0,
+            0
+          ],
+          [
+            7,
+            5,
+            5,
+            2,
+            0
+          ],
+          [
+            7,
+            4,
+            1,
+            4,
+            3
+          ],
+          [
+            13,
+            0,
+            3,
+            3,
+            0
+          ]
+        ],
+        "confusion_matrix_labels": [
+          "dad",
+          "grandpa",
+          "hat",
+          "please",
+          "table"
+        ],
+        "examples": 95,
+        "loss": 50.879825592041016,
+        "macro_f1": 0.2510822510822511,
+        "macro_recall": 0.27368421052631575,
+        "per_label": [
+          {
+            "f1": 0.2727272727272727,
+            "label_id": "dad",
+            "precision": 0.19148936170212766,
+            "recall": 0.47368421052631576,
+            "support": 19,
+            "true_positive": 9
+          },
+          {
+            "f1": 0.3636363636363636,
+            "label_id": "grandpa",
+            "precision": 0.32,
+            "recall": 0.42105263157894735,
+            "support": 19,
+            "true_positive": 8
+          },
+          {
+            "f1": 0.3333333333333333,
+            "label_id": "hat",
+            "precision": 0.45454545454545453,
+            "recall": 0.2631578947368421,
+            "support": 19,
+            "true_positive": 5
+          },
+          {
+            "f1": 0.2857142857142857,
+            "label_id": "please",
+            "precision": 0.4444444444444444,
+            "recall": 0.21052631578947367,
+            "support": 19,
+            "true_positive": 4
+          },
+          {
+            "f1": 0.0,
+            "label_id": "table",
+            "precision": 0.0,
+            "recall": 0.0,
+            "support": 19,
+            "true_positive": 0
+          }
+        ],
+        "top1_accuracy": 0.2736842105263158
+      },
+      "train": {
+        "confusion_matrix": [
+          [
+            25,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            25,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            25,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            25,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            25
+          ]
+        ],
+        "confusion_matrix_labels": [
+          "dad",
+          "grandpa",
+          "hat",
+          "please",
+          "table"
+        ],
+        "examples": 125,
+        "loss": 0.0002005763672059402,
+        "macro_f1": 1.0,
+        "macro_recall": 1.0,
+        "per_label": [
+          {
+            "f1": 1.0,
+            "label_id": "dad",
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 25,
+            "true_positive": 25
+          },
+          {
+            "f1": 1.0,
+            "label_id": "grandpa",
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 25,
+            "true_positive": 25
+          },
+          {
+            "f1": 1.0,
+            "label_id": "hat",
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 25,
+            "true_positive": 25
+          },
+          {
+            "f1": 1.0,
+            "label_id": "please",
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 25,
+            "true_positive": 25
+          },
+          {
+            "f1": 1.0,
+            "label_id": "table",
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 25,
+            "true_positive": 25
+          }
+        ],
+        "top1_accuracy": 1.0
+      },
+      "validation": {
+        "confusion_matrix": [
+          [
+            16,
+            3,
+            3,
+            2,
+            1
+          ],
+          [
+            20,
+            0,
+            1,
+            1,
+            3
+          ],
+          [
+            15,
+            2,
+            3,
+            3,
+            2
+          ],
+          [
+            12,
+            0,
+            3,
+            5,
+            5
+          ],
+          [
+            13,
+            2,
+            3,
+            4,
+            3
+          ]
+        ],
+        "confusion_matrix_labels": [
+          "dad",
+          "grandpa",
+          "hat",
+          "please",
+          "table"
+        ],
+        "examples": 125,
+        "loss": 61.42903137207031,
+        "macro_f1": 0.1757145147713152,
+        "macro_recall": 0.21600000000000003,
+        "per_label": [
+          {
+            "f1": 0.31683168316831684,
+            "label_id": "dad",
+            "precision": 0.21052631578947367,
+            "recall": 0.64,
+            "support": 25,
+            "true_positive": 16
+          },
+          {
+            "f1": 0.0,
+            "label_id": "grandpa",
+            "precision": 0.0,
+            "recall": 0.0,
+            "support": 25,
+            "true_positive": 0
+          },
+          {
+            "f1": 0.15789473684210525,
+            "label_id": "hat",
+            "precision": 0.23076923076923078,
+            "recall": 0.12,
+            "support": 25,
+            "true_positive": 3
+          },
+          {
+            "f1": 0.25,
+            "label_id": "please",
+            "precision": 0.3333333333333333,
+            "recall": 0.2,
+            "support": 25,
+            "true_positive": 5
+          },
+          {
+            "f1": 0.15384615384615383,
+            "label_id": "table",
+            "precision": 0.21428571428571427,
+            "recall": 0.12,
+            "support": 25,
+            "true_positive": 3
+          }
+        ],
+        "top1_accuracy": 0.216
+      }
+    },
+    "validation_test_blocker": null
+  }
+}

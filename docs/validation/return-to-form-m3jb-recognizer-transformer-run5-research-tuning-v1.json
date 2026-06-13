@@ -1,0 +1,317 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-run5-research-tuning/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_run5_research_guided_tuning_no_brev",
+  "recorded_at_utc": "2026-06-04T03:18:29Z",
+  "head_before_slice": "f519ce5 record(m3jb): complete recognizer run5 supcon",
+  "status": "completed_research_tuning_no_brev_no_training",
+  "inputs": {
+    "run4_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run4-t32-brev-v1.json",
+    "run5_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run5-supcon-brev-v1.json",
+    "run4_trainer_json": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run4-t32-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.json",
+    "run5_trainer_json": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run5-supcon-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-supcon005-brev-v1.json",
+    "verification_source": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/verification.py",
+    "prior_run4_research_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run4-research-tuning-v1.json",
+    "prior_run4_research_response": "artifacts/research/m3jb-recognizer-transformer-run4-tuning-930/response.md"
+  },
+  "metric_definition": {
+    "source": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/verification.py",
+    "far": 0.1,
+    "score": "softmax probability for each prompted class w",
+    "threshold": "per-class 90th percentile of non-w scores",
+    "recall": "fraction of true-w clips with p(w) >= threshold",
+    "aggregate": "mean across classes with positives and negatives"
+  },
+  "run5_summary": {
+    "student_arch": "transformer",
+    "full_data_no_limit_flags": true,
+    "epochs": 240,
+    "batch": 128,
+    "lr": 0.0005,
+    "lr_scheduler": "cosine",
+    "warmup_steps": 500,
+    "min_lr": 0.00005,
+    "d_model": 256,
+    "n_layers": 6,
+    "n_heads": 8,
+    "dropout": 0,
+    "alpha": 0.55,
+    "temperature": 3,
+    "jitter_std": 0.02,
+    "frame_drop": 0.1,
+    "supcon_weight": 0.05,
+    "supcon_temperature": 0.1,
+    "train_clips": 7011,
+    "monitor_clips": 955,
+    "test_clips": 2369,
+    "clips": 10335,
+    "classes": 95,
+    "sequence_length": 32,
+    "feature_dim": 90,
+    "teacher_covered_train": 2671,
+    "teacher_covered_total": 4560,
+    "optimizer_steps": 13200,
+    "expected_optimizer_steps": 13200,
+    "steps_per_epoch": 55,
+    "test_top1": 0.3369,
+    "test_top5": 0.6235,
+    "verification_recall_at_far10": 0.7601,
+    "monitor_best_top1": 0.4073,
+    "monitor_best_top1_epoch": 178,
+    "final_monitor_top1": 0.3916,
+    "final_monitor_top5": 0.6618,
+    "final_loss": 0.105,
+    "decision": "improved_top1_top5_but_rejected_fail_closed_below_primary_gate_and_below_run4_recall"
+  },
+  "run4_vs_run5": {
+    "run4_test_top1": 0.3132,
+    "run4_test_top5": 0.6214,
+    "run4_verification_recall_at_far10": 0.7626,
+    "run5_test_top1": 0.3369,
+    "run5_test_top5": 0.6235,
+    "run5_verification_recall_at_far10": 0.7601,
+    "delta_run5_minus_run4_top1": 0.0237,
+    "delta_run5_minus_run4_top5": 0.0021,
+    "delta_run5_minus_run4_verification_recall_at_far10": -0.0025,
+    "primary_running_best": "run4",
+    "primary_running_best_verification_recall_at_far10": 0.7626,
+    "gate_verification_recall_at_far10": 0.85,
+    "run5_gap_to_gate_verification_recall_at_far10": 0.0899,
+    "run5_beats_run4_primary_recall": false,
+    "run5_beats_run4_top1": true,
+    "run5_beats_run4_top5": true
+  },
+  "run5_supcon_and_confidence_diagnostics": {
+    "dryrun": {
+      "base_loss": 8.205649,
+      "supcon_loss": 5.052169,
+      "weighted_supcon_loss": 0.252608,
+      "positive_anchors": 96,
+      "positive_pairs": 216,
+      "optimizer_steps": 0,
+      "checkpoint_written": false
+    },
+    "best_monitor_epoch": {
+      "epoch": 178,
+      "supcon_loss": 0.73004,
+      "weighted_supcon_loss": 0.036502,
+      "positive_anchors": 5193,
+      "positive_pairs": 9516,
+      "logit_mean": -6.562116,
+      "logit_std": 7.548582,
+      "logit_max_abs": 34.558684,
+      "entropy_mean": 0.066903,
+      "mean_max_prob": 0.98305
+    },
+    "final_epoch": {
+      "epoch": 239,
+      "supcon_loss": 0.725966,
+      "weighted_supcon_loss": 0.036298,
+      "positive_anchors": 5192,
+      "positive_pairs": 9710,
+      "logit_mean": -6.873682,
+      "logit_std": 7.67795,
+      "logit_max_abs": 35.661154,
+      "entropy_mean": 0.067756,
+      "mean_max_prob": 0.982412
+    }
+  },
+  "trainer_surface": {
+    "source_inspected": true,
+    "existing_flags": [
+      "--student-arch",
+      "--student-data",
+      "--teacher-data",
+      "--teacher-checkpoint",
+      "--seq-len",
+      "--dry-run-forward",
+      "--epochs",
+      "--batch",
+      "--lr",
+      "--lr-scheduler",
+      "--warmup-steps",
+      "--min-lr",
+      "--d-model",
+      "--n-layers",
+      "--n-heads",
+      "--dropout",
+      "--alpha",
+      "--temperature",
+      "--jitter-std",
+      "--frame-drop",
+      "--device",
+      "--seed",
+      "--limit-train",
+      "--limit-monitor",
+      "--limit-test",
+      "--limit-teacher-train",
+      "--limit-teacher-monitor",
+      "--eval-train",
+      "--diagnostics",
+      "--no-save",
+      "--no-save-model",
+      "--supcon-weight",
+      "--supcon-temperature",
+      "--receipt",
+      "--out"
+    ],
+    "missing_for_selected_next_slice": [
+      "tools/diagnose_verification_margins.py",
+      "shared detailed verification-margin helper returning thresholds/quantiles/per-class recall",
+      "--eval-verification",
+      "--checkpoint-metric monitor_verification_recall_far10",
+      "--save-best-checkpoint",
+      "--eval-verification-every",
+      "monitor verification recall history and best-checkpoint receipt fields"
+    ]
+  },
+  "research_escalation": {
+    "gpt_pro_web_attempt": {
+      "attempted": true,
+      "status": "blocked_no_browser_control_iab_tool_exposed",
+      "details": "tool_search exposed node_repl and OpenAI developer docs tools, but no Browser/iab control tool for ChatGPT.com Pro in this session."
+    },
+    "fallback": {
+      "used": true,
+      "route": "openai-api-research",
+      "model_requested": "gpt-5.5",
+      "calls": [
+        {
+          "response_id": "resp_0f2d762a2b650446006a20ed66f0e081908582af4debbf834a",
+          "status": "completed",
+          "model_returned": "gpt-5.5-2026-04-23",
+          "total_tokens": 10782,
+          "reasoning_tokens": 3487
+        }
+      ],
+      "artifacts": {
+        "directory": "artifacts/research/m3jb-recognizer-transformer-run5-tuning-933",
+        "prompt_md": "artifacts/research/m3jb-recognizer-transformer-run5-tuning-933/prompt.md",
+        "request_json": "artifacts/research/m3jb-recognizer-transformer-run5-tuning-933/request.json",
+        "raw_json": "artifacts/research/m3jb-recognizer-transformer-run5-tuning-933/raw.json",
+        "response_md": "artifacts/research/m3jb-recognizer-transformer-run5-tuning-933/response.md"
+      },
+      "artifacts_sha256": {
+        "prompt_md": "cd031e817638dc7f6c3560f6538205d2f45d8a28d2a3b37de2095d23c51d4220",
+        "request_json": "764dea70dfd0000e8492f4b8114cd26b237d87c1f8915eb7cafab3a82143bb7a",
+        "raw_json": "3c83551da5326ce5f41216779c501c71e77517951307b4063c50dbac3239289f",
+        "response_md": "4e3e5a13d6619a98fd59cb9708484380b391b1197a64908f476c670e36e41cb9"
+      }
+    },
+    "advisory_not_authority": true
+  },
+  "research_conclusion": {
+    "diagnosis": [
+      "Run5 likely improved class ranking/representation but not the per-class softmax score tails that determine recall@FAR10.",
+      "Run5 was not a wiring no-op: SupCon diagnostics stayed nonzero with positive anchors/pairs throughout training.",
+      "Run5 is highly confident, which can help top-1 while raising per-class FAR10 thresholds when wrong classes receive high p(w).",
+      "The current training receipts select/report best monitor top-1 but do not expose monitor verification recall, per-class thresholds, or positive/negative score quantiles."
+    ],
+    "model_recommended_token": "IMPLEMENT_VERIFY_MARGIN_DIAGNOSTIC_AND_VERIF_SELECTION_PREFLIGHT",
+    "selected_next_action": "m3jb_recognizer_transformer_run6_verification_margin_and_selection_preflight_no_brev",
+    "selected_preflight": "Implement and locally validate a no-training verification-margin diagnostic plus monitor verification-recall checkpoint-selection preflight before any paid run6.",
+    "recommendation": "First make the primary metric auditable on monitor/test splits: compare run4 vs run5 per-class FAR10 thresholds, positive/negative score quantiles, per-word recall, and add trainer plumbing for monitor_verification_recall_far10 selection with zero-step/no-checkpoint dry-runs.",
+    "why_supcon_tuning_waits": "Run5 SupCon already improved top-1/top-5 while slightly reducing primary recall, so increasing or retuning SupCon is not justified until per-class margin diagnostics show where it helped or hurt.",
+    "why_t40_waits": "The latest failure is metric alignment and score-tail visibility, not clear temporal truncation; T=40 would require another cache audit and paid run before understanding the primary metric failure mode.",
+    "next_preflight_requirements": [
+      "Add or extend shared verification metric support to emit mean recall, per-class recall, FAR10 thresholds, positive score quantiles, and negative score quantiles.",
+      "Add a no-training diagnostic command/script that compares run4 and run5 checkpoints/artifacts on monitor and test splits and reproduces reported test recall within abs(diff) <= 0.002.",
+      "Add trainer dry-run support for --eval-verification and --checkpoint-metric monitor_verification_recall_far10 without optimizer steps, checkpoint writes, runtime export, Brev, or browser promotion.",
+      "Record cache counts 10335 clips, train/monitor/test 7011/955/2369, 95 classes, sequence length 32, feature_dim 90."
+    ],
+    "run6_recipe_if_preflight_passes": {
+      "token": "m3jb_recognizer_transformer_run6_t32_verifselect_fulltrain_brev_ok",
+      "student_arch": "transformer",
+      "device": "cuda",
+      "sequence_length": 32,
+      "student_data": "tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1",
+      "teacher_data": "tools/detector0-annotator/.cache/handcrop-lm2",
+      "teacher_checkpoint": "tools/detector0-annotator/output/recognizer-v1.pt",
+      "full_data_no_limit_flags": true,
+      "epochs": 240,
+      "batch": 128,
+      "lr": 0.0005,
+      "lr_scheduler": "cosine",
+      "warmup_steps": 500,
+      "min_lr": 0.00005,
+      "d_model": 256,
+      "n_layers": 6,
+      "n_heads": 8,
+      "dropout": 0,
+      "alpha": 0.55,
+      "temperature": 3,
+      "jitter_std": 0.02,
+      "frame_drop": 0.1,
+      "supcon_weight": 0,
+      "checkpoint_metric": "monitor_verification_recall_far10",
+      "eval_verification_every": 1,
+      "save_best_checkpoint": true,
+      "expected_optimizer_steps": 13200,
+      "expected_change_vs_run4": "Keep run4 model/data/optimizer recipe fixed and change only validation visibility plus best-checkpoint selection by monitor verification recall."
+    },
+    "paid_run6_kill_conditions": [
+      "Abort before optimizer steps if CUDA dry-run has wrong counts, wrong sequence length, wrong feature dimension, non-finite losses/verification metrics, or checkpoint output in dry-run.",
+      "Kill if actual optimizer steps diverge from expected 13200 or class/split/sequence counts change.",
+      "Kill if monitor top-1 remains below 0.10 after epoch 30 or below 0.20 after epoch 60.",
+      "Kill if logs do not show per-epoch monitor_verification_recall_far10 and current best epoch/score by that metric.",
+      "Kill if logit_max_abs exceeds 80 or softmax/probability computation becomes unstable.",
+      "After epoch 180, stop if best monitor verification recall is worse than the best run4/run5 monitor verification value measured by the no-Brev diagnostic by more than 0.01.",
+      "At completion, mark fail-closed unless test verification recall@FAR10 beats run4 0.7626 and still do not promote unless it reaches the 0.85 gate."
+    ],
+    "do_not_do_next": [
+      "Do not tune SupCon harder before margin diagnostics.",
+      "Do not run T=40 next.",
+      "Do not combine additional objective/capacity/augmentation changes into run6.",
+      "Do not change final gates.",
+      "Do not add pretrained runtime dependencies.",
+      "Do not upload raw learner practice video.",
+      "Do not promote browser/runtime artifacts unless recall@FAR10 reaches >= 0.85."
+    ]
+  },
+  "brev_visibility": {
+    "checked_with": "brev ls --json",
+    "workspaces": {
+      "asl-pilot-m3jb-pairrank-l40s-001": {
+        "name": "asl-pilot-m3jb-pairrank-l40s-001",
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "build_status": "",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      },
+      "asl-pilot-m3eh-l40s-001": {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    }
+  },
+  "boundaries": {
+    "brev_used": false,
+    "brev_lifecycle_or_exec": false,
+    "remote_mutation": false,
+    "remote_sync_attempted": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "push": false
+  },
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_run6_verification_margin_and_selection_preflight_no_brev",
+    "reason": "Run5 improved classification accuracy but did not beat run4 primary verification recall; add no-training margin diagnostics and monitor verification-recall selection support before any paid run6."
+  }
+}

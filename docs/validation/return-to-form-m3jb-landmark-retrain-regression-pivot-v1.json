@@ -1,0 +1,270 @@
+{
+  "schema_version": "asl-pilot-m3jb-landmark-retrain-regression-pivot/v1",
+  "receipt_id": "return-to-form-m3jb-landmark-retrain-regression-pivot-v1",
+  "mission": "M3JB - Hierarchical hand-state tracker",
+  "status": "completed_pivot_selected_no_brev",
+  "checked_at": "2026-06-03T11:50:00Z",
+  "source_of_truth": {
+    "goal": "GOAL.md",
+    "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+    "cache_rebuild_eval_receipt": "docs/validation/return-to-form-m3jb-landmark-cache-rebuild-eval-v1.json",
+    "approved_retrain_plan_receipt": "docs/validation/return-to-form-m3jb-landmark-retrain-brev-plan-v1.json",
+    "approved_retrain_run_receipt": "docs/validation/return-to-form-m3jb-landmark-retrain-brev-run-v1.json",
+    "canonical_tracker_receipt": "docs/validation/return-to-form-m3jb-hierarchical-hand-state-tracker-v1.json"
+  },
+  "inputs": {
+    "rebuilt_cache": {
+      "path": "tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1",
+      "rows_after": 30120,
+      "splits": {
+        "train": 22202,
+        "validation": 3545,
+        "test": 4373
+      },
+      "rows_json_sha256": "693f2dfb2b740d5a0ec763ccc9b65a8521ef40607587f26e41421ebb4551a173",
+      "splits_json_sha256": "f8afb677179cdbf3fc11392c95ee0aede6c09d27cd86a336720d7eabb17f1d0f"
+    },
+    "baseline_existing_checkpoint_on_rebuilt_cache": {
+      "weights": "tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt",
+      "test_pck_010": 0.6633,
+      "test_visible_pck_010": 0.6959,
+      "test_pck_005": 0.3722,
+      "test_visible_pck_005": 0.3917,
+      "validation_pck_010": 0.6603,
+      "validation_pck_005": 0.363,
+      "test_mean_kp_err": 0.105,
+      "test_visible_mean_kp_err": 0.0912
+    },
+    "approved_scratch_retrain": {
+      "receipt": "docs/validation/return-to-form-m3jb-landmark-retrain-brev-run-v1.json",
+      "weights": "tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-scratch-w64-e80-lr5e4-brev-v1.pt",
+      "test_pck_010": 0.6484,
+      "test_visible_pck_010": 0.6815,
+      "test_pck_005": 0.3651,
+      "test_visible_pck_005": 0.3843,
+      "validation_pck_010": 0.5998,
+      "validation_pck_005": 0.3,
+      "test_mean_kp_err": 0.1075,
+      "test_visible_mean_kp_err": 0.0926,
+      "best_epoch": 75,
+      "training_shape": {
+        "scratch_train": true,
+        "warm_start_or_init_weights": false,
+        "epochs": 80,
+        "batch": 512,
+        "eval_batch": 1024,
+        "lr": 0.0005,
+        "seed": 0,
+        "width": 64,
+        "heatmap_grid": 32,
+        "heatmap_ce_weight": 0.05
+      },
+      "quality_filter": {
+        "enabled": true,
+        "before": 22202,
+        "after": 15649,
+        "removed": 6553,
+        "removed_fraction": 0.295154,
+        "removed_breakdown": {
+          "oob": 1697,
+          "edge": 2203,
+          "below_min_gradient": 5481,
+          "below_min_contrast": 206
+        },
+        "thresholds": {
+          "exclude_oob": true,
+          "min_gradient": 0.012,
+          "min_contrast": 0.1
+        }
+      }
+    }
+  },
+  "regression_analysis": {
+    "same_rebuilt_cache_eval_split": true,
+    "metric_deltas_vs_rebuilt_cache_baseline": {
+      "test_pck_010": -0.0149,
+      "test_visible_pck_010": -0.0144,
+      "test_pck_005": -0.0071,
+      "test_visible_pck_005": -0.0074,
+      "validation_pck_010": -0.0605,
+      "validation_pck_005": -0.063,
+      "test_mean_kp_err": 0.0025,
+      "test_visible_mean_kp_err": 0.0014
+    },
+    "per_keypoint_summary": {
+      "pck_010_improved_keypoints": 2,
+      "pck_005_improved_keypoints": 5,
+      "worst_pck_010_regressions": [
+        {
+          "keypoint_index": 4,
+          "baseline": 0.5836,
+          "retrain": 0.5433,
+          "delta": -0.0403
+        },
+        {
+          "keypoint_index": 11,
+          "baseline": 0.6972,
+          "retrain": 0.6611,
+          "delta": -0.0361
+        },
+        {
+          "keypoint_index": 17,
+          "baseline": 0.6883,
+          "retrain": 0.6588,
+          "delta": -0.0295
+        },
+        {
+          "keypoint_index": 10,
+          "baseline": 0.7395,
+          "retrain": 0.7126,
+          "delta": -0.0269
+        },
+        {
+          "keypoint_index": 14,
+          "baseline": 0.7153,
+          "retrain": 0.6895,
+          "delta": -0.0258
+        }
+      ],
+      "worst_pck_005_regressions": [
+        {
+          "keypoint_index": 4,
+          "baseline": 0.3112,
+          "retrain": 0.2705,
+          "delta": -0.0407
+        },
+        {
+          "keypoint_index": 17,
+          "baseline": 0.4141,
+          "retrain": 0.378,
+          "delta": -0.0361
+        },
+        {
+          "keypoint_index": 3,
+          "baseline": 0.3842,
+          "retrain": 0.3549,
+          "delta": -0.0293
+        },
+        {
+          "keypoint_index": 10,
+          "baseline": 0.434,
+          "retrain": 0.4089,
+          "delta": -0.0251
+        },
+        {
+          "keypoint_index": 8,
+          "baseline": 0.2813,
+          "retrain": 0.265,
+          "delta": -0.0163
+        }
+      ]
+    },
+    "interpretation": [
+      "The cache-rebuild exclusion policy slightly improved the existing checkpoint, so the reviewed exclusions were useful as data hygiene but are not sufficient to reach the landmark gates.",
+      "The approved full scratch retrain regressed on the same rebuilt-cache test split and regressed much more on validation, so the same w64/heatmap32 quality-filtered scratch route is not a promotion candidate.",
+      "The train quality filter removed 6553/22202 training crops (29.5154%) while validation/test still cover the full rebuilt distribution; this may have narrowed the train distribution rather than solving the held-out edge/OOB/generalization problem.",
+      "Only 2/21 keypoints improved at PCK@0.10, so the failure is broad and not an isolated single-joint anomaly."
+    ]
+  },
+  "pivot_decision": {
+    "selected_lever": "higher_input_resolution_and_capacity_preflight",
+    "selected_next_action": "m3jb_landmark_resolution_capacity_preflight_no_brev",
+    "rationale": "More source-row deletion already produced only a small eval-only improvement and the same quality-filtered scratch training route regressed. The next smallest useful lever is a local no-training preflight that defines a higher-resolution/capacity landmark experiment before any new Brev approval request.",
+    "candidate_experiment_family_to_preflight": {
+      "input_width_options": [
+        96,
+        128
+      ],
+      "heatmap_grid_options": [
+        48,
+        64
+      ],
+      "capacity_options": [
+        "wider scratch heatmap head",
+        "higher-resolution crop decode",
+        "less destructive train-quality filtering or train/eval-matched filter audit"
+      ],
+      "must_preserve": [
+        "scratch-trained runtime only",
+        "same rebuilt cache or explicitly versioned successor cache",
+        "PCK@0.10 and PCK@0.05 eval-only receipts",
+        "browser/runtime default-off until gates pass",
+        "explicit approval before any Brev spend"
+      ]
+    },
+    "rejected_next_steps": [
+      {
+        "action": "relaunch_same_approved_brev_envelope",
+        "reason": "Approval is consumed and the completed route regressed below baseline and gates."
+      },
+      {
+        "action": "delete_more_frame_edge_rows",
+        "reason": "Anti-grind redirect requires pivot after no material PCK movement; this lever already moved PCK only slightly before the retrain regressed."
+      },
+      {
+        "action": "selector_training",
+        "reason": "Two-hand selector path is resolved/rejected and outside the current landmark bottleneck."
+      },
+      {
+        "action": "browser_promotion",
+        "reason": "Landmark gates and browser mapping remain open; runtime must stay fail-closed."
+      },
+      {
+        "action": "final_gate_change",
+        "reason": "No human approval to change final gates, and metrics remain far below the existing gates."
+      }
+    ]
+  },
+  "next_action_scope": {
+    "next_action": "m3jb_landmark_resolution_capacity_preflight_no_brev",
+    "allowed": [
+      "read local trainer/cache/model code",
+      "verify CLI support for higher width/heatmap/capacity options",
+      "record exact candidate commands, artifact paths, metrics, kill conditions, and approval requirements",
+      "run syntax/json/audit checks"
+    ],
+    "not_allowed_without_future_explicit_approval_or_prompt_update": [
+      "Brev exec/sync/copy/lifecycle commands",
+      "training or optimizer/backward runs",
+      "checkpoint writes",
+      "browser export or promotion",
+      "raw learner video upload",
+      "pretrained runtime dependency",
+      "final gate changes"
+    ]
+  },
+  "runtime_boundary": {
+    "local_only": true,
+    "brev_used": false,
+    "brev_exec_or_copy": false,
+    "brev_lifecycle_action": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward": false,
+    "checkpoint_written": false,
+    "browser_artifact_promoted": false,
+    "browser_runtime_dependency_added": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false
+  },
+  "commands_run_this_slice": [
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json > /tmp/m3jb-premise-904-pre.json",
+      "status": "passed",
+      "purpose": "confirmed current mission before pivot work"
+    },
+    {
+      "command": "node scripts/audit_m3jb_hand_state_tracker.mjs --json > /tmp/m3jb-audit-904-pre.json",
+      "status": "passed",
+      "purpose": "confirmed canonical next action and source run metrics"
+    },
+    {
+      "command": "node - <<'NODE' ... compare per-keypoint PCK deltas from cache-rebuild and retrain receipts ... NODE",
+      "status": "passed",
+      "purpose": "computed the per-keypoint regression summary recorded in this receipt"
+    }
+  ],
+  "claim_boundary": "This receipt records local no-Brev regression analysis and selects the next pivot lever. It does not train, write a checkpoint, launch or stop Brev, promote browser artifacts, change final gates, upload raw learner video, or authorize future spend.",
+  "next_action": "m3jb_landmark_resolution_capacity_preflight_no_brev"
+}

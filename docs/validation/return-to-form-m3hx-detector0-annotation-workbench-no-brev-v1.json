@@ -1,0 +1,298 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3hx-detector0-annotation-workbench-no-brev/v1",
+  "mission": "M3HX - Detector 0 annotation workbench no Brev",
+  "created_at": "2026-05-29T21:00:53Z",
+  "slice_base_commit": "b151c7c",
+  "active_prompt": "docs/model/return-to-form-m3hx-detector0-annotation-workbench-no-brev-goal-loop-prompt.md",
+  "status": "completed",
+  "purpose": "Create a scoped local-only Detector 0 manual annotation workbench from already approved tracked Tier 0 tensors and existing V0 metadata, without creating authoritative labels.",
+  "command_statuses": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Branch compound-plan-m0 ahead of origin; initial worktree clean before this slice."
+    },
+    {
+      "command": "git log -14 --oneline --decorate",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "HEAD at b151c7c observer redirect to M3HX annotation workbench; recent history matches GOAL.md current mission."
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Premise audit passed at 2026-05-29T21:00:03.316Z with no blockers."
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Return-to-form audit passed and GOAL.md points at the active M3HX annotation-workbench prompt."
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Source register valid with sha256 b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8."
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "No banned pretrained-CV dependencies or source imports found."
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Promoted/model-card JSON artifact scan passed with no findings."
+    },
+    {
+      "command": "node scripts/audit_detector0_manifest_contract.mjs",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Detector 0 card remains not_trained/research_only with runtime gates disabled and no browser artifact."
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlay-gap-repair-v1.json >/dev/null",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "M3HW gap-repair JSON parses."
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlays-v1.json >/dev/null",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "M3HV manual overlay JSON parses."
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json >/dev/null",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "V0 localization packet JSON parses."
+    },
+    {
+      "command": "python3 -m json.tool docs/model/dataset-source-register.json >/dev/null",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Dataset source register JSON parses."
+    },
+    {
+      "command": "brev ls --json",
+      "status": "passed_read_only",
+      "exit_code": 0,
+      "summary": "Read-only inventory only; retained worker is STOPPED / COMPLETED / NOT READY / HEALTHY."
+    },
+    {
+      "command": "python3 -m py_compile tools/detector0-annotator/prepare.py",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "prepare.py compiles."
+    },
+    {
+      "command": "rg -n \"fetch\\(|XMLHttpRequest|sendBeacon|WebSocket|importScripts|from_pretrained|pretrained\\s*=\\s*True|MediaPipe|OpenPose|YOLO|SAM|DINO|CLIP\" tools/detector0-annotator",
+      "status": "passed_no_matches",
+      "exit_code": 1,
+      "summary": "No network-call, pretrained-loader, or named forbidden CV dependency strings found in the workbench files."
+    },
+    {
+      "command": ".venv/bin/python tools/detector0-annotator/prepare.py --include-existing-only --max-frames 4",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Rendered 4 ignored full_frame_reference PNGs and wrote tools/detector0-annotator/.cache/index.json."
+    },
+    {
+      "command": "python3 -m json.tool tools/detector0-annotator/.cache/index.json >/dev/null",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Ignored workbench index parses."
+    },
+    {
+      "command": "git status --short --ignored tools/detector0-annotator .playwright-cli",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Tracked candidates are under tools/detector0-annotator; generated .cache, __pycache__, and .playwright-cli outputs are ignored."
+    },
+    {
+      "command": "Playwright local browser check via temporary python3 -m http.server 8766",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Loaded app.html, loaded the generated index through the file input, rendered frame 1, showed existing V0 anchors, drew a draft left_or_first_hand box with normalized coordinates 0.25,0.35,0.65,0.75, and reported 0 console errors after the favicon fix. Browser closed and temporary server stopped."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "No whitespace errors."
+    }
+  ],
+  "brev_default_off_read_only_inventory": {
+    "command": "brev ls --json",
+    "lifecycle_action_taken": false,
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ]
+  },
+  "files_inspected": [
+    "GOAL.md",
+    "docs/model/return-to-form-m3hx-detector0-annotation-workbench-no-brev-goal-loop-prompt.md",
+    "docs/model/return-to-form-plan.md",
+    "docs/runbooks/codex-goal-loop.md",
+    "docs/runbooks/observer-runbook-codex.md",
+    "docs/observer-prompt.md",
+    "docs/session-logs/712-supervisor-redirect-m3hx-gap-review-to-annotation-workbench.md",
+    "docs/observer-messages/observer-log.md",
+    "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlay-gap-repair-v1.json",
+    "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlays-v1.json",
+    "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+    "data/manifests/return-to-form-tier0/train.json",
+    "data/manifests/return-to-form-tier0/validation.json",
+    "data/manifests/return-to-form-tier0/test.json",
+    "docs/model/dataset-source-register.json",
+    "web/public/model/detector0-card.json",
+    "web/public/model/browser-model-bundle.json",
+    "web/public/model/model-card.json",
+    "docs/model/active-vocabulary-claim.json"
+  ],
+  "files_changed": [
+    "tools/detector0-annotator/.gitignore",
+    "tools/detector0-annotator/README.md",
+    "tools/detector0-annotator/app.html",
+    "tools/detector0-annotator/prepare.py",
+    "docs/validation/return-to-form-m3hx-detector0-annotation-workbench-no-brev-v1.json",
+    "docs/session-logs/713-mission-3hx-detector0-annotation-workbench-no-brev.md"
+  ],
+  "workbench_files": {
+    "tools/detector0-annotator/prepare.py": {
+      "sha256": "d22434b32a195f4b795f43ad61a68420695415ce061b7746dfaccc85358f41f9",
+      "purpose": "Render retained full_frame_reference tensor frames to ignored PNG cache and write ignored index metadata."
+    },
+    "tools/detector0-annotator/app.html": {
+      "sha256": "6be96d3124dc75c38a977c51776a53cb7add6b234fd3e34c2a61b6beb4769002",
+      "purpose": "Static local browser workbench for drawing normalized draft boxes and exporting local draft JSON."
+    },
+    "tools/detector0-annotator/README.md": {
+      "sha256": "14b6f9a0b363a4de0a6df0511c66fc22584f2bd929d1001055c8fd022d6ee1e0",
+      "purpose": "Usage and boundary documentation."
+    },
+    "tools/detector0-annotator/.gitignore": {
+      "sha256": "cfd0bf33bf0bd0eb93f1b0901d5dc77d8d761e38198a89c7c4df202c3f6f55a2",
+      "purpose": "Ignore local cache, images, and exported drafts by default."
+    }
+  },
+  "smoke_result": {
+    "command": ".venv/bin/python tools/detector0-annotator/prepare.py --include-existing-only --max-frames 4",
+    "status": "passed",
+    "rendered_frame_count": 4,
+    "index_path": "tools/detector0-annotator/.cache/index.json",
+    "index_sha256": "aa4eb34435388ecb832b063c75edbf8e3d7e11b164ccb05d1a99e0357f3c1152",
+    "rendered_images": [
+      "tools/detector0-annotator/.cache/images/det0-v0-test-dad-000628-f005.png",
+      "tools/detector0-annotator/.cache/images/det0-v0-test-grandpa-000723-f005.png",
+      "tools/detector0-annotator/.cache/images/det0-v0-test-hat-001503-f010.png",
+      "tools/detector0-annotator/.cache/images/det0-v0-test-please-000058-f010.png"
+    ],
+    "first_frame": {
+      "row_id": "det0-v0-test-dad-000628-f005",
+      "tensor_path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-dad-000628-regions.pt",
+      "tensor_file_sha256": "17491b3e34bc79e10f3625184c3db96df4141b96f8ef8ab085d508504fb5d72c",
+      "image_width_px": 96,
+      "image_height_px": 96,
+      "coordinate_space": "normalized_full_frame_top_left_xyxy",
+      "existing_v0_target_ids": [
+        "head_or_face",
+        "left_or_first_hand",
+        "right_or_second_hand",
+        "table_two_hand_union_or_contact_region",
+        "upper_body_or_signing_space"
+      ]
+    }
+  },
+  "ignored_output_proof": {
+    "ignored_paths_seen": [
+      ".playwright-cli/",
+      "tools/detector0-annotator/.cache/",
+      "tools/detector0-annotator/__pycache__/"
+    ],
+    "committed_cache_or_export_outputs": false,
+    "committed_rendered_frame_pngs": false,
+    "committed_draft_label_exports": false
+  },
+  "source_provenance_no_pretrained_proof": {
+    "uses_tracked_tensors_only": true,
+    "source_artifacts": {
+      "annotation_packet": {
+        "path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+        "sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d"
+      },
+      "source_register": {
+        "path": "docs/model/dataset-source-register.json",
+        "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+      },
+      "manifests": [
+        "data/manifests/return-to-form-tier0/train.json",
+        "data/manifests/return-to-form-tier0/validation.json",
+        "data/manifests/return-to-form-tier0/test.json"
+      ]
+    },
+    "prepare_index_boundaries": {
+      "imports_source_media": false,
+      "uploads_raw_learner_video": false,
+      "runs_inference_or_auto_labels": false,
+      "uses_pretrained_or_generated_labels": false,
+      "writes_authoritative_label_artifacts": false
+    },
+    "no_forbidden_string_matches_in_workbench": true
+  },
+  "claim_surface_proof": {
+    "detector0_manifest_contract_status": "passed",
+    "detector0_card_status": "not_trained",
+    "detector0_promotion_state": "research_only",
+    "detector0_browser_artifact": null,
+    "runtime_gates": {
+      "detector0_tracking": false,
+      "box_driven_avatar": false,
+      "recognition_pass_fail": false
+    },
+    "claim_surfaces_mutated": false
+  },
+  "forbidden_action_proof": {
+    "brev_lifecycle_or_remote_command": false,
+    "paid_compute_started": false,
+    "training_or_evaluation_run": false,
+    "source_or_media_import": false,
+    "source_video_decode": false,
+    "raw_learner_video_upload": false,
+    "pretrained_or_generated_label_dependency": false,
+    "label_packet_mutation": false,
+    "source_register_or_manifest_mutation": false,
+    "tensor_mutation": false,
+    "model_card_or_claim_surface_mutation": false,
+    "export_promotion_or_browser_activation": false,
+    "final_gate_change": false,
+    "push": false,
+    "amend_or_no_verify": false
+  },
+  "readiness_classification": {
+    "workbench_ready_for_local_draft_annotation_review": true,
+    "authoritative_labels_created": false,
+    "detector0_training_ready": false,
+    "detector0_evaluation_ready": false,
+    "browser_promotion_ready": false,
+    "claim_expansion_ready": false,
+    "classification": "local_workbench_smoke_ready_only"
+  },
+  "exactly_one_next_action": "continue_m3hy_detector0_annotation_workbench_review_no_brev"
+}

@@ -1,0 +1,1277 @@
+{
+  "boundaries": {
+    "ablation_smoke_jobs_run": 1,
+    "brev_spend": false,
+    "brev_stop": false,
+    "brev_sync": false,
+    "brev_training": false,
+    "broad_run_redirect": false,
+    "controlled_clip_heldout_evaluation": false,
+    "detector0_retraining": false,
+    "device_scope": "local CPU/status/accounting only; retained M3AE-S smoke metrics reused",
+    "duplicate_brev_worker": false,
+    "final_gate_weakening": false,
+    "final_readiness_claim": false,
+    "label_expansion": false,
+    "model_card_promotion": false,
+    "onnx_export": false,
+    "packet_mutation": false,
+    "product_runtime_code_change": false,
+    "push": false,
+    "recognizer_retraining": false,
+    "source_approval": false,
+    "unapproved_media_import": false
+  },
+  "brev_no_spend_boundary": {
+    "checked": true,
+    "command": "brev ls --json",
+    "compute_used": false,
+    "manual_stop_command": "brev stop asl-pilot-rawframe-001",
+    "manual_stop_command_run": false,
+    "remote_training_used": false,
+    "returncode": 0,
+    "status": {
+      "workspaces": [
+        {
+          "build_status": "COMPLETED",
+          "gpu": "A100",
+          "health_status": "HEALTHY",
+          "id": "2hl1hytty",
+          "instance_kind": "gpu",
+          "instance_type": "massedcompute_A100_sxm4_80G_DGX",
+          "name": "asl-pilot-rawframe-001",
+          "shell_status": "READY",
+          "status": "RUNNING"
+        }
+      ]
+    },
+    "sync_or_training_used": false
+  },
+  "checked_at": "2026-05-26T01:27:42Z",
+  "command": "/Users/kelly/Developer/asl-pilot/.venv/bin/python scripts/run_return_to_form_tier0_policy_aware_crop_norm_ablation_smoke.py",
+  "comparison_against_m3ae_s_and_m3ae_q_stop_rules": {
+    "m3ae_q_stop_rules": {
+      "detector0_train_sanity_failed": false,
+      "policy_aware_fallback_gate_failed": true,
+      "pretrained_detector_or_landmark_or_feature_used": false,
+      "recognizer_train_sanity_failed": false,
+      "shape_mismatch": false,
+      "source_artifact_hashes_drifted": false,
+      "unexpected_source_id": false,
+      "validation_signal_near_random": true
+    },
+    "m3ae_s_raw_gate_status": "failed",
+    "policy_aware_fallback_gate_status": "failed",
+    "recognizer_comparison": {
+      "baseline_validation_macro_recall": 0.21600000000000003,
+      "baseline_validation_top1": 0.216,
+      "baseline_zero_recall_labels": [
+        "grandpa"
+      ],
+      "candidate_validation_macro_recall": 0.22400000000000003,
+      "candidate_validation_top1": 0.224,
+      "candidate_zero_recall_labels": [],
+      "validation_macro_recall_improvement": 0.008000000000000007,
+      "validation_top1_improvement": 0.008000000000000007,
+      "zero_recall_label_count_decreased": true
+    }
+  },
+  "detector_normalized_candidate": {
+    "loss_movement": {
+      "best_train_loss": 0.001446677022613585,
+      "final_minus_initial": -1.6509873144095764,
+      "final_train_loss": 0.001446677022613585,
+      "initial_train_loss": 1.65243399143219,
+      "loss_drop_fraction_from_initial_to_best": 0.999124517511674
+    },
+    "metrics": {
+      "test": {
+        "confusion_matrix": [
+          [
+            11,
+            6,
+            1,
+            0,
+            1
+          ],
+          [
+            9,
+            3,
+            1,
+            1,
+            5
+          ],
+          [
+            10,
+            2,
+            5,
+            1,
+            1
+          ],
+          [
+            5,
+            3,
+            1,
+            1,
+            9
+          ],
+          [
+            6,
+            1,
+            1,
+            5,
+            6
+          ]
+        ],
+        "confusion_matrix_labels": [
+          "dad",
+          "grandpa",
+          "hat",
+          "please",
+          "table"
+        ],
+        "examples": 95,
+        "loss": 47.627159118652344,
+        "macro_f1": 0.25340742258963206,
+        "macro_recall": 0.2736842105263158,
+        "per_label": [
+          {
+            "f1": 0.36666666666666664,
+            "label_id": "dad",
+            "precision": 0.2682926829268293,
+            "recall": 0.5789473684210527,
+            "support": 19,
+            "true_positive": 11
+          },
+          {
+            "f1": 0.17647058823529413,
+            "label_id": "grandpa",
+            "precision": 0.2,
+            "recall": 0.15789473684210525,
+            "support": 19,
+            "true_positive": 3
+          },
+          {
+            "f1": 0.35714285714285715,
+            "label_id": "hat",
+            "precision": 0.5555555555555556,
+            "recall": 0.2631578947368421,
+            "support": 19,
+            "true_positive": 5
+          },
+          {
+            "f1": 0.07407407407407407,
+            "label_id": "please",
+            "precision": 0.125,
+            "recall": 0.05263157894736842,
+            "support": 19,
+            "true_positive": 1
+          },
+          {
+            "f1": 0.2926829268292683,
+            "label_id": "table",
+            "precision": 0.2727272727272727,
+            "recall": 0.3157894736842105,
+            "support": 19,
+            "true_positive": 6
+          }
+        ],
+        "top1_accuracy": 0.2736842105263158
+      },
+      "train": {
+        "confusion_matrix": [
+          [
+            25,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            25,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            25,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            25,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            25
+          ]
+        ],
+        "confusion_matrix_labels": [
+          "dad",
+          "grandpa",
+          "hat",
+          "please",
+          "table"
+        ],
+        "examples": 125,
+        "loss": 0.001446677022613585,
+        "macro_f1": 1.0,
+        "macro_recall": 1.0,
+        "per_label": [
+          {
+            "f1": 1.0,
+            "label_id": "dad",
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 25,
+            "true_positive": 25
+          },
+          {
+            "f1": 1.0,
+            "label_id": "grandpa",
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 25,
+            "true_positive": 25
+          },
+          {
+            "f1": 1.0,
+            "label_id": "hat",
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 25,
+            "true_positive": 25
+          },
+          {
+            "f1": 1.0,
+            "label_id": "please",
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 25,
+            "true_positive": 25
+          },
+          {
+            "f1": 1.0,
+            "label_id": "table",
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 25,
+            "true_positive": 25
+          }
+        ],
+        "top1_accuracy": 1.0
+      },
+      "validation": {
+        "confusion_matrix": [
+          [
+            8,
+            3,
+            5,
+            6,
+            3
+          ],
+          [
+            5,
+            3,
+            9,
+            3,
+            5
+          ],
+          [
+            5,
+            5,
+            6,
+            7,
+            2
+          ],
+          [
+            5,
+            2,
+            6,
+            6,
+            6
+          ],
+          [
+            8,
+            4,
+            4,
+            4,
+            5
+          ]
+        ],
+        "confusion_matrix_labels": [
+          "dad",
+          "grandpa",
+          "hat",
+          "please",
+          "table"
+        ],
+        "examples": 125,
+        "loss": 49.9551887512207,
+        "macro_f1": 0.21988773374962634,
+        "macro_recall": 0.22400000000000003,
+        "per_label": [
+          {
+            "f1": 0.2857142857142857,
+            "label_id": "dad",
+            "precision": 0.25806451612903225,
+            "recall": 0.32,
+            "support": 25,
+            "true_positive": 8
+          },
+          {
+            "f1": 0.14285714285714282,
+            "label_id": "grandpa",
+            "precision": 0.17647058823529413,
+            "recall": 0.12,
+            "support": 25,
+            "true_positive": 3
+          },
+          {
+            "f1": 0.2181818181818182,
+            "label_id": "hat",
+            "precision": 0.2,
+            "recall": 0.24,
+            "support": 25,
+            "true_positive": 6
+          },
+          {
+            "f1": 0.23529411764705882,
+            "label_id": "please",
+            "precision": 0.23076923076923078,
+            "recall": 0.24,
+            "support": 25,
+            "true_positive": 6
+          },
+          {
+            "f1": 0.21739130434782608,
+            "label_id": "table",
+            "precision": 0.23809523809523808,
+            "recall": 0.2,
+            "support": 25,
+            "true_positive": 5
+          }
+        ],
+        "top1_accuracy": 0.224
+      }
+    },
+    "model": {
+      "base_model_id": "region_identity_mlp_v1",
+      "model_artifact_saved": false,
+      "model_id": "region_identity_mlp_v1_detector_normalized_arm",
+      "parameter_count": 17697797,
+      "pretrained_components": [],
+      "random_initialization": true
+    },
+    "rerun_in_this_slice": false,
+    "source": "retained_m3ae_s_detector_normalized_candidate"
+  },
+  "final_promotion_blocker_separation": {
+    "final_gate_weakening": false,
+    "final_readiness_claim": false,
+    "full_17_type_negative_challenge_gate": "unchanged and separate from this policy-aware smoke",
+    "model_card_promotion": false,
+    "no_zero_accepted_true_class_assessed": false,
+    "onnx_export": false,
+    "threshold_selected": false,
+    "tier0_hard_negative_far_assessed": false
+  },
+  "fixed_crop_baseline": {
+    "loss_movement": {
+      "best_train_loss": 0.0002005763672059402,
+      "final_minus_initial": -1.6652333072997862,
+      "final_train_loss": 0.0002005763672059402,
+      "initial_train_loss": 1.6654338836669922,
+      "loss_drop_fraction_from_initial_to_best": 0.9998795650976163
+    },
+    "metrics": {
+      "test": {
+        "confusion_matrix": [
+          [
+            9,
+            8,
+            2,
+            0,
+            0
+          ],
+          [
+            11,
+            8,
+            0,
+            0,
+            0
+          ],
+          [
+            7,
+            5,
+            5,
+            2,
+            0
+          ],
+          [
+            7,
+            4,
+            1,
+            4,
+            3
+          ],
+          [
+            13,
+            0,
+            3,
+            3,
+            0
+          ]
+        ],
+        "confusion_matrix_labels": [
+          "dad",
+          "grandpa",
+          "hat",
+          "please",
+          "table"
+        ],
+        "examples": 95,
+        "loss": 50.879825592041016,
+        "macro_f1": 0.2510822510822511,
+        "macro_recall": 0.27368421052631575,
+        "per_label": [
+          {
+            "f1": 0.2727272727272727,
+            "label_id": "dad",
+            "precision": 0.19148936170212766,
+            "recall": 0.47368421052631576,
+            "support": 19,
+            "true_positive": 9
+          },
+          {
+            "f1": 0.3636363636363636,
+            "label_id": "grandpa",
+            "precision": 0.32,
+            "recall": 0.42105263157894735,
+            "support": 19,
+            "true_positive": 8
+          },
+          {
+            "f1": 0.3333333333333333,
+            "label_id": "hat",
+            "precision": 0.45454545454545453,
+            "recall": 0.2631578947368421,
+            "support": 19,
+            "true_positive": 5
+          },
+          {
+            "f1": 0.2857142857142857,
+            "label_id": "please",
+            "precision": 0.4444444444444444,
+            "recall": 0.21052631578947367,
+            "support": 19,
+            "true_positive": 4
+          },
+          {
+            "f1": 0.0,
+            "label_id": "table",
+            "precision": 0.0,
+            "recall": 0.0,
+            "support": 19,
+            "true_positive": 0
+          }
+        ],
+        "top1_accuracy": 0.2736842105263158
+      },
+      "train": {
+        "confusion_matrix": [
+          [
+            25,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            25,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            25,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            25,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            25
+          ]
+        ],
+        "confusion_matrix_labels": [
+          "dad",
+          "grandpa",
+          "hat",
+          "please",
+          "table"
+        ],
+        "examples": 125,
+        "loss": 0.0002005763672059402,
+        "macro_f1": 1.0,
+        "macro_recall": 1.0,
+        "per_label": [
+          {
+            "f1": 1.0,
+            "label_id": "dad",
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 25,
+            "true_positive": 25
+          },
+          {
+            "f1": 1.0,
+            "label_id": "grandpa",
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 25,
+            "true_positive": 25
+          },
+          {
+            "f1": 1.0,
+            "label_id": "hat",
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 25,
+            "true_positive": 25
+          },
+          {
+            "f1": 1.0,
+            "label_id": "please",
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 25,
+            "true_positive": 25
+          },
+          {
+            "f1": 1.0,
+            "label_id": "table",
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 25,
+            "true_positive": 25
+          }
+        ],
+        "top1_accuracy": 1.0
+      },
+      "validation": {
+        "confusion_matrix": [
+          [
+            16,
+            3,
+            3,
+            2,
+            1
+          ],
+          [
+            20,
+            0,
+            1,
+            1,
+            3
+          ],
+          [
+            15,
+            2,
+            3,
+            3,
+            2
+          ],
+          [
+            12,
+            0,
+            3,
+            5,
+            5
+          ],
+          [
+            13,
+            2,
+            3,
+            4,
+            3
+          ]
+        ],
+        "confusion_matrix_labels": [
+          "dad",
+          "grandpa",
+          "hat",
+          "please",
+          "table"
+        ],
+        "examples": 125,
+        "loss": 61.42903137207031,
+        "macro_f1": 0.1757145147713152,
+        "macro_recall": 0.21600000000000003,
+        "per_label": [
+          {
+            "f1": 0.31683168316831684,
+            "label_id": "dad",
+            "precision": 0.21052631578947367,
+            "recall": 0.64,
+            "support": 25,
+            "true_positive": 16
+          },
+          {
+            "f1": 0.0,
+            "label_id": "grandpa",
+            "precision": 0.0,
+            "recall": 0.0,
+            "support": 25,
+            "true_positive": 0
+          },
+          {
+            "f1": 0.15789473684210525,
+            "label_id": "hat",
+            "precision": 0.23076923076923078,
+            "recall": 0.12,
+            "support": 25,
+            "true_positive": 3
+          },
+          {
+            "f1": 0.25,
+            "label_id": "please",
+            "precision": 0.3333333333333333,
+            "recall": 0.2,
+            "support": 25,
+            "true_positive": 5
+          },
+          {
+            "f1": 0.15384615384615383,
+            "label_id": "table",
+            "precision": 0.21428571428571427,
+            "recall": 0.12,
+            "support": 25,
+            "true_positive": 3
+          }
+        ],
+        "top1_accuracy": 0.216
+      }
+    },
+    "model_id": "region_identity_mlp_v1_full_split_smoke",
+    "rerun_in_this_slice": false,
+    "source": "retained_m3ae_s_fixed_crop_baseline"
+  },
+  "gate_classifications": {
+    "candidate_train_sanity": {
+      "actual": {
+        "loss_drop_fraction_from_initial_to_best": 0.999124517511674,
+        "train_macro_recall": 1.0,
+        "train_top1": 1.0,
+        "zero_recall_labels": []
+      },
+      "criteria": {
+        "loss_drop_fraction_from_initial_to_best_min": 0.4,
+        "train_macro_recall_min": 0.8,
+        "train_top1_min": 0.8
+      },
+      "status": "passed"
+    },
+    "detector_localization_sanity": {
+      "actual": {
+        "loss_drop_fraction_from_initial_to_best": 0.8789713461733346,
+        "tensor_hashes_checked": 15,
+        "train_presence_accuracy": 1.0,
+        "train_present_box_mae": 0.1229877769947052,
+        "train_present_box_mean_iou": 0.5270578861236572
+      },
+      "criteria": {
+        "loss_drop_fraction_from_initial_to_best_min": 0.75,
+        "tensor_hashes_checked": 15,
+        "train_presence_accuracy": 1.0,
+        "train_present_box_mae_max": 0.15
+      },
+      "status": "passed"
+    },
+    "policy_aware_fallback_rate_gate": {
+      "actual": {
+        "gateable_fallback_rate_overall": 0.05253623188405797,
+        "gateable_fallback_rates_by_target": {
+          "head_or_face": 0.0,
+          "left_or_first_hand": 0.0,
+          "right_or_second_hand": 0.8405797101449275,
+          "upper_body_or_signing_space": 0.0
+        }
+      },
+      "criteria": {
+        "gateable_overall_fallback_rate_max": 0.4,
+        "gateable_per_target_fallback_rate_max": 0.6,
+        "optional_targets": [
+          "right_or_second_hand"
+        ],
+        "required_targets": [
+          "left_or_first_hand",
+          "head_or_face",
+          "upper_body_or_signing_space"
+        ]
+      },
+      "status": "failed"
+    },
+    "raw_m3ae_s_fallback_rate_gate": {
+      "actual": {
+        "fallback_rate_overall": 0.20276268115942028,
+        "fallback_rates_by_target": {
+          "head_or_face": 0.0,
+          "left_or_first_hand": 0.0,
+          "right_or_second_hand": 0.8110507246376811,
+          "upper_body_or_signing_space": 0.0
+        }
+      },
+      "criteria": {
+        "fallback_rate_overall_max": 0.4,
+        "fallback_rate_per_target_max": 0.6
+      },
+      "status": "failed"
+    },
+    "transform_integrity": {
+      "actual": {
+        "generated_tensor_count": 345,
+        "shape_mismatches": [],
+        "source_ids": [
+          "popsign-v1-original-videos"
+        ]
+      },
+      "criteria": {
+        "generated_tensor_count": 345,
+        "shape_mismatches": [],
+        "source_ids": [
+          "popsign-v1-original-videos"
+        ]
+      },
+      "status": "passed"
+    },
+    "validation_comparison": {
+      "actual": {
+        "baseline_validation_macro_recall": 0.21600000000000003,
+        "baseline_validation_top1": 0.216,
+        "baseline_zero_recall_labels": [
+          "grandpa"
+        ],
+        "candidate_validation_macro_recall": 0.22400000000000003,
+        "candidate_validation_top1": 0.224,
+        "candidate_zero_recall_labels": [],
+        "validation_macro_recall_improvement": 0.008000000000000007,
+        "validation_top1_improvement": 0.008000000000000007
+      },
+      "criteria": {
+        "or_zero_recall_labels_decrease": true,
+        "validation_macro_recall_improvement_min": 0.05,
+        "validation_top1_improvement_min": 0.05
+      },
+      "status": "passed"
+    }
+  },
+  "local_device": {
+    "no_new_detector0_training": true,
+    "no_new_recognizer_training": true,
+    "policy_accounting": "local_cpu_python",
+    "retained_m3ae_s_detector": "mps",
+    "retained_m3ae_s_recognizer": "mps"
+  },
+  "mission": "M3AE-V policy-aware crop-normalization ablation smoke",
+  "next_action": {
+    "description": "Policy-aware accounting still fails on missed-present table right/second-hand fallback, with sparse table-only positive support.",
+    "id": "detector0_optional_target_support_remediation"
+  },
+  "no_pretrained_provenance": {
+    "allowed_source_ids": [
+      "popsign-v1-original-videos"
+    ],
+    "generated_pseudo_labels": false,
+    "label_expansion": false,
+    "pretrained_backbones_or_embeddings": false,
+    "pretrained_components": [],
+    "pretrained_detector_outputs": false,
+    "pretrained_landmarks": false,
+    "source_expansion": false,
+    "unapproved_media_import": false
+  },
+  "output": {
+    "model_artifact_saved": false,
+    "path": "docs/validation/return-to-form-tier0-policy-aware-crop-normalization-ablation-smoke-v1.json",
+    "reason_model_artifact_not_saved": "policy-aware diagnostic receipt only; no export or promotion is authorized"
+  },
+  "packet_evidence": {
+    "review_status_counts": {
+      "manual_corrected": 9,
+      "manual_verified": 6
+    },
+    "right_or_second_hand": {
+      "absent_count": 12,
+      "absent_rate": 0.8,
+      "by_label": {
+        "dad": {
+          "absent": 3,
+          "expectation": "expected_absent",
+          "present": 0,
+          "total": 3
+        },
+        "grandpa": {
+          "absent": 3,
+          "expectation": "expected_absent",
+          "present": 0,
+          "total": 3
+        },
+        "hat": {
+          "absent": 3,
+          "expectation": "expected_absent",
+          "present": 0,
+          "total": 3
+        },
+        "please": {
+          "absent": 3,
+          "expectation": "expected_absent",
+          "present": 0,
+          "total": 3
+        },
+        "table": {
+          "absent": 0,
+          "expectation": "expected_present",
+          "present": 3,
+          "total": 3
+        }
+      },
+      "by_split": {
+        "test": {
+          "absent": 4,
+          "present": 1,
+          "total": 5
+        },
+        "train": {
+          "absent": 4,
+          "present": 1,
+          "total": 5
+        },
+        "validation": {
+          "absent": 4,
+          "present": 1,
+          "total": 5
+        }
+      },
+      "positive_support_labels": [
+        "table"
+      ],
+      "present_count": 3
+    },
+    "row_count": 15
+  },
+  "policy_aware_fallback_accounting": {
+    "criteria": {
+      "gateable_overall_fallback_rate_max": 0.4,
+      "gateable_per_target_fallback_rate_max": 0.6,
+      "optional_targets": [
+        "right_or_second_hand"
+      ],
+      "required_targets": [
+        "left_or_first_hand",
+        "head_or_face",
+        "upper_body_or_signing_space"
+      ]
+    },
+    "gateable_denominator": 17664,
+    "gateable_fallback_count": 928,
+    "gateable_fallback_counts_by_target": {
+      "head_or_face": 0,
+      "left_or_first_hand": 0,
+      "right_or_second_hand": 928,
+      "upper_body_or_signing_space": 0
+    },
+    "gateable_fallback_rate_overall": 0.05253623188405797,
+    "gateable_fallback_rates_by_target": {
+      "head_or_face": 0.0,
+      "left_or_first_hand": 0.0,
+      "right_or_second_hand": 0.8405797101449275,
+      "upper_body_or_signing_space": 0.0
+    },
+    "missed_present_optional_target_by_label": {
+      "table": 928
+    },
+    "missed_present_optional_target_by_split": {
+      "test": 274,
+      "train": 347,
+      "validation": 307
+    },
+    "missed_present_optional_target_counts": {
+      "right_or_second_hand": 928
+    },
+    "missed_present_optional_target_rate": 0.8405797101449275,
+    "optional_expected_absent_decisions": 4416,
+    "optional_expected_present_decisions": 1104,
+    "optional_false_positive_on_expected_absent_by_label": {
+      "dad": 161,
+      "grandpa": 287,
+      "hat": 216,
+      "please": 203
+    },
+    "required_target_decisions": 16560,
+    "required_target_fallback_by_label": {
+      "dad": {
+        "head_or_face": 0,
+        "left_or_first_hand": 0,
+        "upper_body_or_signing_space": 0
+      },
+      "grandpa": {
+        "head_or_face": 0,
+        "left_or_first_hand": 0,
+        "upper_body_or_signing_space": 0
+      },
+      "hat": {
+        "head_or_face": 0,
+        "left_or_first_hand": 0,
+        "upper_body_or_signing_space": 0
+      },
+      "please": {
+        "head_or_face": 0,
+        "left_or_first_hand": 0,
+        "upper_body_or_signing_space": 0
+      },
+      "table": {
+        "head_or_face": 0,
+        "left_or_first_hand": 0,
+        "upper_body_or_signing_space": 0
+      }
+    },
+    "required_target_fallback_by_split": {
+      "test": {
+        "head_or_face": 0,
+        "left_or_first_hand": 0,
+        "upper_body_or_signing_space": 0
+      },
+      "train": {
+        "head_or_face": 0,
+        "left_or_first_hand": 0,
+        "upper_body_or_signing_space": 0
+      },
+      "validation": {
+        "head_or_face": 0,
+        "left_or_first_hand": 0,
+        "upper_body_or_signing_space": 0
+      }
+    },
+    "required_target_fallback_counts": {
+      "head_or_face": 0,
+      "left_or_first_hand": 0,
+      "upper_body_or_signing_space": 0
+    },
+    "status": "failed",
+    "total_frames": 5520,
+    "unresolved_optional_target_support_labels": [],
+    "verified_absent_optional_target_by_label": {
+      "dad": 943,
+      "grandpa": 817,
+      "hat": 888,
+      "please": 901
+    },
+    "verified_absent_optional_target_by_split": {
+      "test": 1094,
+      "train": 1419,
+      "validation": 1036
+    },
+    "verified_absent_optional_target_counts": {
+      "right_or_second_hand": 3549
+    },
+    "verified_absent_optional_target_rate": 0.8036684782608695
+  },
+  "raw_fallback_accounting": {
+    "fallback_count_total": 4477,
+    "fallback_counts_by_label": {
+      "dad": [
+        {
+          "count": 943,
+          "reason": "below_presence_threshold",
+          "target_id": "right_or_second_hand"
+        }
+      ],
+      "grandpa": [
+        {
+          "count": 817,
+          "reason": "below_presence_threshold",
+          "target_id": "right_or_second_hand"
+        }
+      ],
+      "hat": [
+        {
+          "count": 888,
+          "reason": "below_presence_threshold",
+          "target_id": "right_or_second_hand"
+        }
+      ],
+      "please": [
+        {
+          "count": 901,
+          "reason": "below_presence_threshold",
+          "target_id": "right_or_second_hand"
+        }
+      ],
+      "table": [
+        {
+          "count": 928,
+          "reason": "below_presence_threshold",
+          "target_id": "right_or_second_hand"
+        }
+      ]
+    },
+    "fallback_counts_by_reason": {
+      "below_presence_threshold": 4477
+    },
+    "fallback_counts_by_split": {
+      "test": [
+        {
+          "count": 1368,
+          "reason": "below_presence_threshold",
+          "target_id": "right_or_second_hand"
+        }
+      ],
+      "train": [
+        {
+          "count": 1766,
+          "reason": "below_presence_threshold",
+          "target_id": "right_or_second_hand"
+        }
+      ],
+      "validation": [
+        {
+          "count": 1343,
+          "reason": "below_presence_threshold",
+          "target_id": "right_or_second_hand"
+        }
+      ]
+    },
+    "fallback_counts_by_target": {
+      "head_or_face": 0,
+      "left_or_first_hand": 0,
+      "right_or_second_hand": 4477,
+      "upper_body_or_signing_space": 0
+    },
+    "fallback_rate_overall": 0.20276268115942028,
+    "fallback_rates_by_target": {
+      "head_or_face": 0.0,
+      "left_or_first_hand": 0.0,
+      "right_or_second_hand": 0.8110507246376811,
+      "upper_body_or_signing_space": 0.0
+    }
+  },
+  "readiness_classification": {
+    "classification": "detector0_optional_target_support_remediation_needed",
+    "final_promotion_blockers_unchanged": true,
+    "not_a_product_readiness_claim": true
+  },
+  "required_target_fallback_accounting": {
+    "by_label": {
+      "dad": {
+        "head_or_face": 0,
+        "left_or_first_hand": 0,
+        "upper_body_or_signing_space": 0
+      },
+      "grandpa": {
+        "head_or_face": 0,
+        "left_or_first_hand": 0,
+        "upper_body_or_signing_space": 0
+      },
+      "hat": {
+        "head_or_face": 0,
+        "left_or_first_hand": 0,
+        "upper_body_or_signing_space": 0
+      },
+      "please": {
+        "head_or_face": 0,
+        "left_or_first_hand": 0,
+        "upper_body_or_signing_space": 0
+      },
+      "table": {
+        "head_or_face": 0,
+        "left_or_first_hand": 0,
+        "upper_body_or_signing_space": 0
+      }
+    },
+    "by_split": {
+      "test": {
+        "head_or_face": 0,
+        "left_or_first_hand": 0,
+        "upper_body_or_signing_space": 0
+      },
+      "train": {
+        "head_or_face": 0,
+        "left_or_first_hand": 0,
+        "upper_body_or_signing_space": 0
+      },
+      "validation": {
+        "head_or_face": 0,
+        "left_or_first_hand": 0,
+        "upper_body_or_signing_space": 0
+      }
+    },
+    "counts": {
+      "head_or_face": 0,
+      "left_or_first_hand": 0,
+      "upper_body_or_signing_space": 0
+    },
+    "gate_treatment": "unchanged and gate-affecting"
+  },
+  "retained_remediation_classification": {
+    "classification": "optional_second_hand_target_policy_mismatch",
+    "confidence": "high",
+    "evidence": [
+      "M3AE-S transform integrity passed with 345 generated tensors, no shape mismatches, and source_id=popsign-v1-original-videos.",
+      "All M3AE-S fallback instances are right_or_second_hand with reason=below_presence_threshold; no other target fell back.",
+      "The verified packet marks right_or_second_hand present in only 3 of 15 rows, all for the table label.",
+      "The packet's verified absent rate for right_or_second_hand is 0.8, which is already above the M3AE-Q per-target fallback cap of 0.6.",
+      "The observed right_or_second_hand fallback rate is 0.8110507246376811, closely matching the verified optional-target absent rate rather than a broad transform/source failure."
+    ],
+    "not_classified_as": {
+      "absence_of_bounded_path": false,
+      "broad_source_distribution_failure": false,
+      "packet_mutation_required_in_this_slice": false,
+      "pretrained_or_source_violation": false,
+      "transform_accounting_bug": false
+    },
+    "secondary_risk": "The right/second-hand positive support is sparse and present only on table rows, so a later policy-aware run should still report missed present-target fallback separately from verified absent-target fallback."
+  },
+  "schema_version": "asl-pilot-return-to-form-tier0-policy-aware-crop-normalization-ablation-smoke/v1",
+  "selected_labels": [
+    "dad",
+    "grandpa",
+    "hat",
+    "please",
+    "table"
+  ],
+  "source_artifacts": {
+    "crop_config": {
+      "path": "docs/model/return-to-form-fixed-crop-config.json",
+      "sha256": "dbc735dad34fa9df1174a40374037976f9c88d789012634b2b22743ae0802b29"
+    },
+    "decode_dataloader": {
+      "path": "docs/validation/return-to-form-tier0-decode-dataloader.json",
+      "sha256": "d64c0b46500075d94207ef2197a6f6d8f1570cf548da8b08ca16dc520ba386c2"
+    },
+    "detector0_packet": {
+      "path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "sha256": "ecbd0a53d46cdcc302cbc6c2cb5bb2c7f2049abda0e24328fe82c68118c48f34"
+    },
+    "m3ae_l_bootstrap": {
+      "path": "docs/validation/return-to-form-tier0-detector0-crop-normalization-bootstrap.json",
+      "sha256": "bd17e32bc7d4adbd195d1a26173740163e314a54577a9d9245a38dce752331e5"
+    },
+    "m3ae_p_detector0_smoke": {
+      "path": "docs/validation/return-to-form-tier0-detector0-training-smoke-v1.json",
+      "sha256": "ba8871964ba24bae88935bcad24c132af90dcd8d607bef04df54f56ebdd3b611"
+    },
+    "m3ae_q_design": {
+      "path": "docs/validation/return-to-form-tier0-crop-normalization-ablation-design-v1.md",
+      "sha256": "5658eec611b40459ff6473dad1338a718572c40cb297a6f704563f8f657d1316"
+    },
+    "m3ae_s_smoke": {
+      "path": "docs/validation/return-to-form-tier0-crop-normalization-ablation-smoke-v1.json",
+      "sha256": "b3c86cc08a82bdbe8ca212c26f8bc0287514ca559ad7beac0f9f41c8e21b20a7"
+    },
+    "m3ae_t_remediation": {
+      "path": "docs/validation/return-to-form-tier0-detector0-data-target-remediation-v1.json",
+      "sha256": "4ca5fbd2a10acb0d8d817370e6778466d989a61b6c939b1f87f1066eb6091f28"
+    },
+    "m3ae_u_policy": {
+      "path": "docs/validation/return-to-form-tier0-crop-normalization-optional-target-policy-v1.md",
+      "sha256": "565a34fa0029345b64d9f1ac485d2c474a79f33fd4a5bec786ac8e69fe99b4a8"
+    },
+    "pre_training_gates": {
+      "path": "docs/validation/return-to-form-tier0-gates.json",
+      "sha256": "2cc000d3f90e9be236cf64768530bf9786fc61fe6605c774b9c1e8ab123d9d97"
+    },
+    "script": {
+      "path": "scripts/run_return_to_form_tier0_policy_aware_crop_norm_ablation_smoke.py",
+      "sha256": "be30aa822039e4ed8651403ad7db23341e965334275381a725caf4edd95b1e18"
+    },
+    "source_coverage": {
+      "path": "docs/research/return-to-form-tier0-source-coverage.json",
+      "sha256": "1ff7da89a51e62f9efbeb08cf6361784e160ed862ac579f9e40db332fa576378"
+    },
+    "source_register": {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    "tensor_contract": {
+      "path": "docs/validation/return-to-form-tier0-tensor-contract.json",
+      "sha256": "0f2ea12cf9a6517bafb67876ba4b0e4951ce821b61b27a740d45f6d1e36b3cd3"
+    },
+    "test_manifest": {
+      "path": "data/manifests/return-to-form-tier0/test.json",
+      "sha256": "b0c771b612ebb52beb375a98b4180ccd465aa642312a8c6c29d7ff225febd8ed"
+    },
+    "train_manifest": {
+      "path": "data/manifests/return-to-form-tier0/train.json",
+      "sha256": "03ae563a5f2ef0d5b868f6c80f50acb64ae642e782cd541faa5c022d4d0af1de"
+    },
+    "validation_manifest": {
+      "path": "data/manifests/return-to-form-tier0/validation.json",
+      "sha256": "23da15a80ce2eee1dab1a7e64c08e2aefcf5d7dd48263677fdc49d1efb0ad808"
+    }
+  },
+  "split_counts": {
+    "test": 95,
+    "train": 125,
+    "validation": 125
+  },
+  "split_label_counts": {
+    "test": {
+      "dad": 19,
+      "grandpa": 19,
+      "hat": 19,
+      "please": 19,
+      "table": 19
+    },
+    "train": {
+      "dad": 25,
+      "grandpa": 25,
+      "hat": 25,
+      "please": 25,
+      "table": 25
+    },
+    "validation": {
+      "dad": 25,
+      "grandpa": 25,
+      "hat": 25,
+      "please": 25,
+      "table": 25
+    }
+  },
+  "status": "action_selected",
+  "table_expected_present_right_or_second_hand": {
+    "expected_present_decisions": 1104,
+    "manifest_examples": 69,
+    "missed_present_count": 928,
+    "missed_present_rate": 0.8405797101449275,
+    "packet_support": {
+      "absent": 0,
+      "expectation": "expected_present",
+      "present": 3,
+      "total": 3
+    }
+  },
+  "total_manifest_clips": 345
+}

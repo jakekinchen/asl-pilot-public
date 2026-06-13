@@ -1,0 +1,192 @@
+{
+  "schema_version": "asl-pilot-controlled-pilot-reject-score-grid-diagnostic/v1",
+  "status": "diagnostic_not_final_model_evidence",
+  "created_at": "2026-05-21T19:26:53.177Z",
+  "inputs": {
+    "prediction_sidecar": {
+      "path": "artifacts/rawframe-model/controlled-pilot-prediction-sidecar.json",
+      "exists": true,
+      "sha256": "48290bc18664c60ace2fb9ef42ff6f009432953327c316156fee0e719f35a649"
+    }
+  },
+  "score_fields": {
+    "selected_by_validation_only": [
+      "confidence",
+      "probability_margin",
+      "entropy"
+    ],
+    "min_confidence": "accept only when confidence is at or above the threshold",
+    "min_probability_margin": "accept only when top1 probability margin over top2 is at or above the threshold",
+    "max_entropy": "accept only when predictive entropy is at or below the threshold"
+  },
+  "search": {
+    "quantile_step": 0.01,
+    "candidate_count": 1030301,
+    "target_validation_false_pass_rate_below": 0.1,
+    "target_negative_false_pass_rate_below": 0.05
+  },
+  "baseline_confidence_only": {
+    "gate": {
+      "min_confidence": 0.1,
+      "min_probability_margin": null,
+      "max_entropy": null
+    },
+    "validation": {
+      "examples": 2375,
+      "accepted_count": 196,
+      "correct_accept_count": 24,
+      "false_pass_count": 172,
+      "accepted_coverage": 0.08252631578947368,
+      "accepted_precision": 0.12244897959183673,
+      "false_pass_rate": 0.07242105263157894
+    },
+    "test": {
+      "examples": 1805,
+      "accepted_count": 247,
+      "correct_accept_count": 33,
+      "false_pass_count": 214,
+      "accepted_coverage": 0.1368421052631579,
+      "accepted_precision": 0.13360323886639677,
+      "false_pass_rate": 0.1185595567867036
+    },
+    "negative_challenge": {
+      "examples": 20,
+      "false_pass_count": 6,
+      "false_pass_rate": 0.3,
+      "by_type": {
+        "empty_camera": {
+          "examples": 5,
+          "false_pass_count": 0,
+          "false_pass_rate": 0
+        },
+        "low_light": {
+          "examples": 5,
+          "false_pass_count": 2,
+          "false_pass_rate": 0.4
+        },
+        "no_hands_visible": {
+          "examples": 5,
+          "false_pass_count": 2,
+          "false_pass_rate": 0.4
+        },
+        "off_center": {
+          "examples": 5,
+          "false_pass_count": 2,
+          "false_pass_rate": 0.4
+        }
+      }
+    }
+  },
+  "validation_selected_gate": {
+    "gate": {
+      "min_confidence": 0.07867822796106339,
+      "min_probability_margin": 0.012003466486930847,
+      "max_entropy": 3.9882030487060547
+    },
+    "validation": {
+      "examples": 2375,
+      "accepted_count": 253,
+      "correct_accept_count": 32,
+      "false_pass_count": 221,
+      "accepted_coverage": 0.10652631578947368,
+      "accepted_precision": 0.12648221343873517,
+      "false_pass_rate": 0.09305263157894737
+    },
+    "test": {
+      "examples": 1805,
+      "accepted_count": 280,
+      "correct_accept_count": 32,
+      "false_pass_count": 248,
+      "accepted_coverage": 0.15512465373961218,
+      "accepted_precision": 0.11428571428571428,
+      "false_pass_rate": 0.13739612188365652
+    },
+    "negative_challenge": {
+      "examples": 20,
+      "false_pass_count": 7,
+      "false_pass_rate": 0.35,
+      "by_type": {
+        "empty_camera": {
+          "examples": 5,
+          "false_pass_count": 0,
+          "false_pass_rate": 0
+        },
+        "low_light": {
+          "examples": 5,
+          "false_pass_count": 3,
+          "false_pass_rate": 0.6
+        },
+        "no_hands_visible": {
+          "examples": 5,
+          "false_pass_count": 2,
+          "false_pass_rate": 0.4
+        },
+        "off_center": {
+          "examples": 5,
+          "false_pass_count": 2,
+          "false_pass_rate": 0.4
+        }
+      }
+    }
+  },
+  "negative_challenge_oracle_gate": {
+    "gate": {
+      "min_confidence": 0.4048573672771454,
+      "min_probability_margin": 0.3442610763013363,
+      "max_entropy": 3.425487756729126
+    },
+    "validation": {
+      "examples": 2375,
+      "accepted_count": 1,
+      "correct_accept_count": 1,
+      "false_pass_count": 0,
+      "accepted_coverage": 0.0004210526315789474,
+      "accepted_precision": 1,
+      "false_pass_rate": 0
+    },
+    "test": {
+      "examples": 1805,
+      "accepted_count": 1,
+      "correct_accept_count": 1,
+      "false_pass_count": 0,
+      "accepted_coverage": 0.000554016620498615,
+      "accepted_precision": 1,
+      "false_pass_rate": 0
+    },
+    "negative_challenge": {
+      "examples": 20,
+      "false_pass_count": 0,
+      "false_pass_rate": 0,
+      "by_type": {
+        "empty_camera": {
+          "examples": 5,
+          "false_pass_count": 0,
+          "false_pass_rate": 0
+        },
+        "low_light": {
+          "examples": 5,
+          "false_pass_count": 0,
+          "false_pass_rate": 0
+        },
+        "no_hands_visible": {
+          "examples": 5,
+          "false_pass_count": 0,
+          "false_pass_rate": 0
+        },
+        "off_center": {
+          "examples": 5,
+          "false_pass_count": 0,
+          "false_pass_rate": 0
+        }
+      }
+    },
+    "selection_warning": "Uses negative-challenge outcomes to show the best possible grid point; not a deployable threshold-selection rule."
+  },
+  "decision": {
+    "changes_model_weights": false,
+    "changes_thresholds": false,
+    "changes_model_card": false,
+    "final_evidence": false,
+    "result": "reject_scores_can_clear_negatives_only_at_near_zero_coverage"
+  }
+}

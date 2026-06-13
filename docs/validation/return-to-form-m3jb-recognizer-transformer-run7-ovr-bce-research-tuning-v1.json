@@ -1,0 +1,225 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-run7-ovr-bce-research-tuning/v1",
+  "status": "completed_ovr_bce_postmortem_no_brev_no_training",
+  "slice": "m3jb_recognizer_transformer_run7_ovr_bce_research_guided_tuning_no_brev",
+  "recorded_at": "2026-06-04T07:55:00Z",
+  "inputs": {
+    "run6_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run6-verifselect-brev-v1.json",
+    "run7_ovr_bce_preflight_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run7-ovr-bce-hardneg-preflight-v1.json",
+    "run7_ovr_bce_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run7-ovr-bce-hardneg-brev-v1.json",
+    "run7_verification_tail_audit_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run7-verification-tail-audit-v1.json",
+    "run7_verification_tail_diagnostic": "docs/validation/m3jb-recognizer-run7-verification-tail-audit-v1.json"
+  },
+  "run6_vs_run7_summary": {
+    "gate_verification_recall_at_far10": 0.85,
+    "run6": {
+      "test_verification_recall_at_far10": 0.8039,
+      "test_top1": 0.287,
+      "test_top5": 0.6399,
+      "best_monitor_verification_recall_at_far10": 0.8169,
+      "best_monitor_epoch": 14,
+      "final_epoch_monitor_verification_recall_at_far10": 0.7835,
+      "top_failure_words": [
+        "give",
+        "milk",
+        "airplane",
+        "food",
+        "dog",
+        "before",
+        "child",
+        "person",
+        "morning",
+        "girl"
+      ]
+    },
+    "run7_ovr_bce": {
+      "test_verification_recall_at_far10": 0.7759,
+      "test_top1": 0.2913,
+      "test_top5": 0.6167,
+      "best_monitor_verification_recall_at_far10": 0.8276,
+      "best_monitor_epoch": 24,
+      "final_epoch_monitor_verification_recall_at_far10": 0.7801,
+      "ovr_bce_weight": 0.03,
+      "ovr_bce_hard_k": 8,
+      "ovr_bce_negative_source": "batch-labels",
+      "ovr_bce_include_positive": true,
+      "uses_test_mined_pairs_for_training": false,
+      "top_failure_words": [
+        "before",
+        "thirsty",
+        "give",
+        "child",
+        "milk"
+      ]
+    },
+    "delta_run7_minus_run6": {
+      "test_verification_recall_at_far10": -0.028,
+      "test_top1": 0.0043,
+      "test_top5": -0.0232,
+      "best_monitor_verification_recall_at_far10": 0.0107
+    },
+    "interpretation_for_research_prompt": "Run7 improved the selected monitor metric while regressing held-out verification recall, suggesting possible calibration or positive-margin damage rather than a plain implementation failure."
+  },
+  "research_escalation": {
+    "gpt_pro_web_attempt": {
+      "attempted": true,
+      "status": "blocked_no_browser_control_iab_tool_exposed",
+      "details": "tool_search exposed node_repl, OpenAI docs, Figma, and unrelated connector tools, but no Browser/iab control tool for ChatGPT.com Pro in this session."
+    },
+    "fallback": {
+      "used": true,
+      "route": "openai-api-research",
+      "model_requested": "gpt-5.5",
+      "initial_attempts": [
+        {
+          "request_reasoning_effort": "high",
+          "status": "interrupted_after_no_response_body",
+          "response_id": null,
+          "details": "The first curl request produced a zero-byte raw.json body after a long wait and was terminated before any API body or response id was available."
+        }
+      ],
+      "calls": [
+        {
+          "response_id": "resp_077b7bdd7c4483eb006a211f48d0ec81979b381333045daf88",
+          "status": "completed",
+          "model_returned": "gpt-5.5-2026-04-23",
+          "request_reasoning_effort": "medium",
+          "input_tokens": 2377,
+          "output_tokens": 6998,
+          "reasoning_tokens": 3841,
+          "total_tokens": 9375
+        }
+      ],
+      "artifacts": {
+        "directory": "artifacts/research/m3jb-recognizer-transformer-run7-ovr-bce-postmortem-942",
+        "prompt_md": "artifacts/research/m3jb-recognizer-transformer-run7-ovr-bce-postmortem-942/prompt.md",
+        "request_json": "artifacts/research/m3jb-recognizer-transformer-run7-ovr-bce-postmortem-942/request.json",
+        "raw_json": "artifacts/research/m3jb-recognizer-transformer-run7-ovr-bce-postmortem-942/raw.json",
+        "response_md": "artifacts/research/m3jb-recognizer-transformer-run7-ovr-bce-postmortem-942/response.md"
+      },
+      "artifacts_sha256": {
+        "prompt_md": "d66a0bfde4f43d133d5d5c4c28a1abd6bb8400d7e049d26ff57655665cabd4b8",
+        "request_json": "b168bcba39f6c5b97f7e6006e51c6326c5c87010cad934d2d0beba9422aa620e",
+        "raw_json": "7680e7736bae2267bcf424078a0a14365480a32fd613415ffe14b86c4b06c6f6",
+        "response_md": "948e24f29842d9961b323e537dcaeea880100c2ce188a4ac8fe4f12cb402f13a"
+      }
+    },
+    "advisory_not_authority": true
+  },
+  "research_conclusion": {
+    "diagnosis": [
+      "Run7 does not look like an obvious hard-negative implementation leak: the preflight proved finite OVR-BCE, default-off parity, no true-label negatives, and no test-mined pairs for training.",
+      "The likely failure is split-specific verification calibration damage: OVR-BCE improved monitor false-positive behavior but may have suppressed held-out positive probabilities or compressed margins.",
+      "The combination of slightly higher top-1, lower top-5, and materially lower held-out verification recall suggests rank/probability distribution damage rather than a simple accuracy-only failure."
+    ],
+    "model_recommended_token": "run6_vs_run7_paired_verification_calibration_audit",
+    "selected_next_action": "m3jb_recognizer_transformer_run6_vs_run7_paired_verification_calibration_audit_no_brev",
+    "selected_preflight": "Run one local paired run6-vs-run7 verification calibration audit with inference/evaluation only: reproduce monitor/test recall, compare per-class thresholds, positive/negative quantiles, positive margins, rank distributions, hard-negative pair deltas, and monitor-vs-test delta correlation.",
+    "pass_criteria": [
+      "Recomputed run6 test recall@FAR10 is within +/-0.0005 of 0.8038559556786704.",
+      "Recomputed run7 test recall@FAR10 is within +/-0.0005 of 0.7759.",
+      "Monitor best-checkpoint scores reproduce within +/-0.0005 of run6 0.8169 and run7 0.8276.",
+      "Counts match train/monitor/test 7011/955/2369, classes 95, feature dim 90.",
+      "No test-mined pairs are marked as training supervision and no class-id or label mismatch is detected.",
+      "For classes where run7 test recall regressed by at least 0.10, at least 70% show worse positive q25 or median margin.",
+      "Monitor-improved classes show lower or equal non-class q90 in at least 60% of classes.",
+      "Per-class test recall delta correlates with per-class positive-margin delta at Spearman rho >= 0.50."
+    ],
+    "fail_conditions": [
+      "Official metrics cannot be reproduced.",
+      "The audit requires training or backward passes.",
+      "The audit writes checkpoints, exports, or browser artifacts.",
+      "Data counts or class counts mismatch.",
+      "The audit detects test-derived training supervision.",
+      "The regression is not explained by positive-margin or calibration damage."
+    ],
+    "future_paid_run_if_audit_passes": {
+      "token": "m3jb_recognizer_transformer_run8_ovr_bce_w001_fulltrain_brev_ok",
+      "launch_condition": "Only after the paired calibration audit passes and records positive-margin/calibration damage as the dominant run7 regression mode.",
+      "recipe": "Repeat the run6/run7 data/model/optimizer envelope with OVR-BCE enabled at lower weight 0.01 instead of 0.03, still using batch-label negatives and monitor_verification_recall_far10 checkpoint selection.",
+      "sequence_length": 32,
+      "epochs": 240,
+      "batch": 128,
+      "lr": 0.0005,
+      "lr_scheduler": "cosine",
+      "warmup_steps": 500,
+      "min_lr": 0.00005,
+      "d_model": 256,
+      "n_layers": 6,
+      "n_heads": 8,
+      "dropout": 0,
+      "alpha": 0.55,
+      "temperature": 3,
+      "jitter_std": 0.02,
+      "frame_drop": 0.1,
+      "checkpoint_metric": "monitor_verification_recall_far10",
+      "expected_optimizer_steps": 13200,
+      "ovr_bce_weight": 0.01,
+      "ovr_bce_hard_k": 8,
+      "ovr_bce_negative_source": "batch-labels",
+      "ovr_bce_include_positive": true,
+      "uses_test_mined_pairs_for_training": false
+    },
+    "future_paid_run_kill_conditions": [
+      "Kill immediately if loss is NaN or Inf.",
+      "Kill immediately if data counts differ from 7011/955/2369, class count differs from 95, feature dim differs from 90, or expected optimizer steps differ from 13200.",
+      "Kill immediately if uses_test_mined_pairs_for_training becomes true or selected_negative_matches_true_label is greater than 0.",
+      "Kill immediately if OVR-BCE selected negative count is zero after the first full epoch.",
+      "Kill if checkpoint metric is not monitor_verification_recall_far10.",
+      "Kill at epoch 48 if best monitor recall@FAR10 is below 0.8219.",
+      "Kill at epoch 80 if best monitor recall@FAR10 is below 0.8276.",
+      "Kill if monitor verification collapses below 0.75 for five consecutive evaluated epochs after epoch 20.",
+      "Kill if weighted OVR-BCE contribution exceeds 1% of base loss for two consecutive epochs."
+    ],
+    "not_selected_next": {
+      "paid_run8_now": "Rejected because run7's held-out regression needs paired calibration evidence before another Brev run.",
+      "repeat_ovr_bce_weight003": "Rejected because the existing weight regressed held-out recall.",
+      "class_balanced_ce": "Still not selected because the prior tail audit marked class/teacher-coverage constraint not_proven.",
+      "supcon_retuning": "Deferred because SupCon already improved top-1/top-5 without improving primary recall.",
+      "t40_or_capacity": "Deferred because they require separate preflight and do not directly test the OVR-BCE calibration regression."
+    }
+  },
+  "brev_visibility": {
+    "read_only_command": "brev ls --json",
+    "workspaces": {
+      "asl-pilot-m3jb-pairrank-l40s-001": {
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      },
+      "asl-pilot-m3eh-l40s-001": {
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    }
+  },
+  "boundaries": {
+    "brev_used": false,
+    "brev_read_only_visibility": true,
+    "brev_lifecycle_or_exec": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "runtime_export": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "push_performed": false
+  },
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_run6_vs_run7_paired_verification_calibration_audit_no_brev",
+    "requires_brev_spend": false,
+    "summary": "Run one local paired run6-vs-run7 verification calibration audit before any paid run8, focused on whether OVR-BCE damaged held-out positive margins/calibration while improving monitor hard-negative behavior."
+  }
+}

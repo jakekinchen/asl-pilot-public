@@ -1,0 +1,1087 @@
+{
+  "schema_version": "asl-pilot-rawframe-model-failure-analysis/v1",
+  "status": "candidate_failed_analyzed",
+  "checked_at": "2026-05-21T19:06:04.867Z",
+  "generated_by": {
+    "tool": "node",
+    "command": [
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/Users/kelly/Developer/asl-pilot/scripts/analyze_rawframe_model_failure.mjs",
+      "--report",
+      "artifacts/rawframe-model-diagnostics/controlled-pilot-label-ladder-010-factorized-basic-20260521T191100Z/validation-report.json",
+      "--training-provenance",
+      "artifacts/rawframe-model-diagnostics/controlled-pilot-label-ladder-010-factorized-basic-20260521T191100Z/training-provenance.json",
+      "--output",
+      "docs/validation/controlled-pilot-label-ladder-010-factorized-failure-analysis.json",
+      "--top-n",
+      "10",
+      "--write"
+    ],
+    "script": {
+      "path": "scripts/analyze_rawframe_model_failure.mjs",
+      "sha256": "2adea91e3f7ff3c29254b28a61b0ae3435f54ee8ca60beb4c50b086ec6c55d39"
+    }
+  },
+  "inputs": {
+    "validation_report": {
+      "path": "artifacts/rawframe-model-diagnostics/controlled-pilot-label-ladder-010-factorized-basic-20260521T191100Z/validation-report.json",
+      "sha256": "d725a640c43973384d229c1b6b95d29eb583f1eac5e6c21bf1023773a04724f7"
+    },
+    "training_provenance": {
+      "path": "artifacts/rawframe-model-diagnostics/controlled-pilot-label-ladder-010-factorized-basic-20260521T191100Z/training-provenance.json",
+      "sha256": "2cafc6b2f69e1c6ea55e0f601eca5b07090e19b8dddbc6c4ed32b0ffb03c1323"
+    }
+  },
+  "model": {
+    "architecture": "factorized_3d_cnn_spatiotemporal",
+    "label_count": 10,
+    "runtime_device": "mps",
+    "initialization": "random",
+    "pretrained_components": []
+  },
+  "target_status": {
+    "report_status": "smoke_only",
+    "failed_targets": [
+      "false_pass_rate",
+      "macro_f1",
+      "negative_challenge_false_pass_rate",
+      "top1_accuracy"
+    ],
+    "targets": {
+      "false_pass_rate_below": 0.1,
+      "macro_f1": 0.65,
+      "negative_challenge_false_pass_rate_below": 0.05,
+      "negative_challenge_min_clips_per_required_type": 5,
+      "negative_challenge_required_types": [
+        "casual_non_asl_gesture",
+        "counting",
+        "empty_camera",
+        "fingerspelling_like_motion",
+        "hands_cropped_out",
+        "idle_hands",
+        "low_light",
+        "no_hands_visible",
+        "non_target_asl_sign",
+        "off_center",
+        "partial_sign",
+        "thumbs_up",
+        "waving",
+        "wrong_location",
+        "wrong_palm_orientation"
+      ],
+      "top1_accuracy": 0.7
+    },
+    "pass_status": {
+      "confidence_threshold": true,
+      "false_pass_rate": false,
+      "macro_f1": false,
+      "negative_challenge_false_pass_rate": false,
+      "top1_accuracy": false
+    }
+  },
+  "training_dynamics": {
+    "epoch_count": 20,
+    "selected_epoch": 16,
+    "selected_validation_accuracy": 0.336,
+    "best_train_accuracy": {
+      "epoch": 19,
+      "accuracy": 0.84,
+      "loss": 0.8823454475402832
+    },
+    "best_validation_accuracy": {
+      "epoch": 16,
+      "accuracy": 0.336,
+      "loss": 1.9002817974090576
+    },
+    "final_epoch": {
+      "epoch": 20,
+      "train_accuracy": 0.804,
+      "train_loss": 0.916202088356018,
+      "validation_accuracy": 0.276,
+      "validation_loss": 2.43962615776062
+    },
+    "final_train_minus_selected_validation_accuracy": 0.468,
+    "test_accuracy_minus_chance": 0.23684210526315788
+  },
+  "manifest_summary": [
+    {
+      "split": "train",
+      "path": "data/manifests/diagnostics/controlled-pilot-label-ladder/010-labels/train.json",
+      "sha256": "bd42fbb13e6ddc2863229106c7c9554f4d24e70c505566e7bbdb6ae552995e96",
+      "dataset_source_mode": "approved_external_raw_video_source",
+      "clip_count": 250,
+      "label_count": 10,
+      "signer_count": 30,
+      "min_clips_per_label": 25,
+      "max_clips_per_label": 25
+    },
+    {
+      "split": "validation",
+      "path": "data/manifests/diagnostics/controlled-pilot-label-ladder/010-labels/validation.json",
+      "sha256": "33e32b4bce9439cdc2123c1be86e132051d1d0c8877b03fec93015ee3eccc798",
+      "dataset_source_mode": "approved_external_raw_video_source",
+      "clip_count": 250,
+      "label_count": 10,
+      "signer_count": 8,
+      "min_clips_per_label": 25,
+      "max_clips_per_label": 25
+    },
+    {
+      "split": "test",
+      "path": "data/manifests/diagnostics/controlled-pilot-label-ladder/010-labels/test.json",
+      "sha256": "27e2877bf330a98e23c9d4f95fd36b8581445ea580c526c602c910771f99ce6d",
+      "dataset_source_mode": "approved_external_raw_video_source",
+      "clip_count": 190,
+      "label_count": 10,
+      "signer_count": 7,
+      "min_clips_per_label": 19,
+      "max_clips_per_label": 19
+    }
+  ],
+  "signer_overlap": [
+    {
+      "left_split": "train",
+      "right_split": "validation",
+      "overlap_count": 0
+    },
+    {
+      "left_split": "train",
+      "right_split": "test",
+      "overlap_count": 0
+    },
+    {
+      "left_split": "validation",
+      "right_split": "test",
+      "overlap_count": 0
+    }
+  ],
+  "signer_generalization": {
+    "validation": {
+      "split": "validation",
+      "available": true,
+      "signer_count": 8,
+      "zero_correct_signer_count": 0,
+      "lowest_accuracy_signers": [
+        {
+          "signer_id": "popsign-signer-96a654d6be5c2506",
+          "examples": 16,
+          "correct": 3,
+          "accuracy": 0.1875,
+          "label_count": 6,
+          "mean_confidence": 0.32248318288475275,
+          "max_confidence": 0.5160113573074341,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-e4b4850de1ac3de8",
+          "examples": 29,
+          "correct": 6,
+          "accuracy": 0.20689655172413793,
+          "label_count": 10,
+          "mean_confidence": 0.2938339530393995,
+          "max_confidence": 0.47800585627555847,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-93953b2725a6d073",
+          "examples": 28,
+          "correct": 6,
+          "accuracy": 0.21428571428571427,
+          "label_count": 8,
+          "mean_confidence": 0.2880197178040232,
+          "max_confidence": 0.5672382712364197,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-54ed19eb670a7fc3",
+          "examples": 26,
+          "correct": 6,
+          "accuracy": 0.23076923076923078,
+          "label_count": 8,
+          "mean_confidence": 0.43647255920446837,
+          "max_confidence": 0.9231114983558655,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-cc50a89882a8ed4c",
+          "examples": 45,
+          "correct": 15,
+          "accuracy": 0.3333333333333333,
+          "label_count": 10,
+          "mean_confidence": 0.35925909678141277,
+          "max_confidence": 0.7776808142662048,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-d634581037b96d18",
+          "examples": 45,
+          "correct": 19,
+          "accuracy": 0.4222222222222222,
+          "label_count": 10,
+          "mean_confidence": 0.33415848116079966,
+          "max_confidence": 0.8336846232414246,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-fb6c9cc349eb6ba8",
+          "examples": 36,
+          "correct": 16,
+          "accuracy": 0.4444444444444444,
+          "label_count": 10,
+          "mean_confidence": 0.2689872769018014,
+          "max_confidence": 0.5124397277832031,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-30132f3fd3bc05ed",
+          "examples": 25,
+          "correct": 13,
+          "accuracy": 0.52,
+          "label_count": 9,
+          "mean_confidence": 0.40666260302066803,
+          "max_confidence": 0.8786863088607788,
+          "zero_correct": false
+        }
+      ],
+      "highest_accuracy_signers": [
+        {
+          "signer_id": "popsign-signer-30132f3fd3bc05ed",
+          "examples": 25,
+          "correct": 13,
+          "accuracy": 0.52,
+          "label_count": 9,
+          "mean_confidence": 0.40666260302066803,
+          "max_confidence": 0.8786863088607788,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-fb6c9cc349eb6ba8",
+          "examples": 36,
+          "correct": 16,
+          "accuracy": 0.4444444444444444,
+          "label_count": 10,
+          "mean_confidence": 0.2689872769018014,
+          "max_confidence": 0.5124397277832031,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-d634581037b96d18",
+          "examples": 45,
+          "correct": 19,
+          "accuracy": 0.4222222222222222,
+          "label_count": 10,
+          "mean_confidence": 0.33415848116079966,
+          "max_confidence": 0.8336846232414246,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-cc50a89882a8ed4c",
+          "examples": 45,
+          "correct": 15,
+          "accuracy": 0.3333333333333333,
+          "label_count": 10,
+          "mean_confidence": 0.35925909678141277,
+          "max_confidence": 0.7776808142662048,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-54ed19eb670a7fc3",
+          "examples": 26,
+          "correct": 6,
+          "accuracy": 0.23076923076923078,
+          "label_count": 8,
+          "mean_confidence": 0.43647255920446837,
+          "max_confidence": 0.9231114983558655,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-93953b2725a6d073",
+          "examples": 28,
+          "correct": 6,
+          "accuracy": 0.21428571428571427,
+          "label_count": 8,
+          "mean_confidence": 0.2880197178040232,
+          "max_confidence": 0.5672382712364197,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-e4b4850de1ac3de8",
+          "examples": 29,
+          "correct": 6,
+          "accuracy": 0.20689655172413793,
+          "label_count": 10,
+          "mean_confidence": 0.2938339530393995,
+          "max_confidence": 0.47800585627555847,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-96a654d6be5c2506",
+          "examples": 16,
+          "correct": 3,
+          "accuracy": 0.1875,
+          "label_count": 6,
+          "mean_confidence": 0.32248318288475275,
+          "max_confidence": 0.5160113573074341,
+          "zero_correct": false
+        }
+      ]
+    },
+    "test": {
+      "split": "test",
+      "available": true,
+      "signer_count": 7,
+      "zero_correct_signer_count": 1,
+      "lowest_accuracy_signers": [
+        {
+          "signer_id": "popsign-signer-f2225747b02727cc",
+          "examples": 2,
+          "correct": 0,
+          "accuracy": 0,
+          "label_count": 1,
+          "mean_confidence": 0.46150265634059906,
+          "max_confidence": 0.5405023694038391,
+          "zero_correct": true
+        },
+        {
+          "signer_id": "popsign-signer-e0940122312d361a",
+          "examples": 23,
+          "correct": 3,
+          "accuracy": 0.13043478260869565,
+          "label_count": 7,
+          "mean_confidence": 0.35121613611345703,
+          "max_confidence": 0.7682851552963257,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-abb19b30e7af50c6",
+          "examples": 31,
+          "correct": 7,
+          "accuracy": 0.22580645161290322,
+          "label_count": 9,
+          "mean_confidence": 0.4083667498442434,
+          "max_confidence": 0.907628059387207,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-3660c753560b193d",
+          "examples": 39,
+          "correct": 11,
+          "accuracy": 0.28205128205128205,
+          "label_count": 10,
+          "mean_confidence": 0.3753145757393959,
+          "max_confidence": 0.6687283515930176,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-dea2b45d14f9aa79",
+          "examples": 32,
+          "correct": 14,
+          "accuracy": 0.4375,
+          "label_count": 10,
+          "mean_confidence": 0.3519835723564029,
+          "max_confidence": 0.7301437854766846,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-4027e4c04fcfc294",
+          "examples": 36,
+          "correct": 16,
+          "accuracy": 0.4444444444444444,
+          "label_count": 9,
+          "mean_confidence": 0.42901867007215816,
+          "max_confidence": 0.959602415561676,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-0a4c034271536723",
+          "examples": 27,
+          "correct": 13,
+          "accuracy": 0.48148148148148145,
+          "label_count": 9,
+          "mean_confidence": 0.5209629866811964,
+          "max_confidence": 0.9507246613502502,
+          "zero_correct": false
+        }
+      ],
+      "highest_accuracy_signers": [
+        {
+          "signer_id": "popsign-signer-0a4c034271536723",
+          "examples": 27,
+          "correct": 13,
+          "accuracy": 0.48148148148148145,
+          "label_count": 9,
+          "mean_confidence": 0.5209629866811964,
+          "max_confidence": 0.9507246613502502,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-4027e4c04fcfc294",
+          "examples": 36,
+          "correct": 16,
+          "accuracy": 0.4444444444444444,
+          "label_count": 9,
+          "mean_confidence": 0.42901867007215816,
+          "max_confidence": 0.959602415561676,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-dea2b45d14f9aa79",
+          "examples": 32,
+          "correct": 14,
+          "accuracy": 0.4375,
+          "label_count": 10,
+          "mean_confidence": 0.3519835723564029,
+          "max_confidence": 0.7301437854766846,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-3660c753560b193d",
+          "examples": 39,
+          "correct": 11,
+          "accuracy": 0.28205128205128205,
+          "label_count": 10,
+          "mean_confidence": 0.3753145757393959,
+          "max_confidence": 0.6687283515930176,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-abb19b30e7af50c6",
+          "examples": 31,
+          "correct": 7,
+          "accuracy": 0.22580645161290322,
+          "label_count": 9,
+          "mean_confidence": 0.4083667498442434,
+          "max_confidence": 0.907628059387207,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-e0940122312d361a",
+          "examples": 23,
+          "correct": 3,
+          "accuracy": 0.13043478260869565,
+          "label_count": 7,
+          "mean_confidence": 0.35121613611345703,
+          "max_confidence": 0.7682851552963257,
+          "zero_correct": false
+        },
+        {
+          "signer_id": "popsign-signer-f2225747b02727cc",
+          "examples": 2,
+          "correct": 0,
+          "accuracy": 0,
+          "label_count": 1,
+          "mean_confidence": 0.46150265634059906,
+          "max_confidence": 0.5405023694038391,
+          "zero_correct": true
+        }
+      ]
+    }
+  },
+  "validation_summary": {
+    "split": "validation",
+    "examples": 250,
+    "top1_accuracy": 0.336,
+    "macro_f1": 0.3106561214857568,
+    "predicted_label_coverage": {
+      "predicted_nonzero_count": 10,
+      "total_labels": 10,
+      "zero_prediction_labels": []
+    },
+    "recall_coverage": {
+      "labels_with_nonzero_recall": 10,
+      "total_labels": 10,
+      "zero_recall_labels": []
+    },
+    "top_predicted_labels": [
+      {
+        "label": "mad",
+        "predicted_count": 61
+      },
+      {
+        "label": "table",
+        "predicted_count": 57
+      },
+      {
+        "label": "please",
+        "predicted_count": 52
+      },
+      {
+        "label": "horse",
+        "predicted_count": 23
+      },
+      {
+        "label": "pencil",
+        "predicted_count": 18
+      },
+      {
+        "label": "person",
+        "predicted_count": 18
+      },
+      {
+        "label": "morning",
+        "predicted_count": 9
+      },
+      {
+        "label": "thirsty",
+        "predicted_count": 8
+      },
+      {
+        "label": "say",
+        "predicted_count": 3
+      },
+      {
+        "label": "white",
+        "predicted_count": 1
+      }
+    ],
+    "top_recall_labels": [
+      {
+        "label": "table",
+        "support": 25,
+        "correct": 16,
+        "recall": 0.64,
+        "f1": 0.39024390243902435,
+        "precision": 0.2807017543859649
+      },
+      {
+        "label": "mad",
+        "support": 25,
+        "correct": 15,
+        "recall": 0.6,
+        "f1": 0.3488372093023256,
+        "precision": 0.2459016393442623
+      },
+      {
+        "label": "horse",
+        "support": 25,
+        "correct": 14,
+        "recall": 0.56,
+        "f1": 0.5833333333333334,
+        "precision": 0.6086956521739131
+      },
+      {
+        "label": "person",
+        "support": 25,
+        "correct": 12,
+        "recall": 0.48,
+        "f1": 0.5581395348837209,
+        "precision": 0.6666666666666666
+      },
+      {
+        "label": "please",
+        "support": 25,
+        "correct": 11,
+        "recall": 0.44,
+        "f1": 0.2857142857142857,
+        "precision": 0.21153846153846154
+      },
+      {
+        "label": "morning",
+        "support": 25,
+        "correct": 8,
+        "recall": 0.32,
+        "f1": 0.47058823529411764,
+        "precision": 0.8888888888888888
+      },
+      {
+        "label": "pencil",
+        "support": 25,
+        "correct": 3,
+        "recall": 0.12,
+        "f1": 0.13953488372093023,
+        "precision": 0.16666666666666666
+      },
+      {
+        "label": "thirsty",
+        "support": 25,
+        "correct": 3,
+        "recall": 0.12,
+        "f1": 0.18181818181818182,
+        "precision": 0.375
+      },
+      {
+        "label": "say",
+        "support": 25,
+        "correct": 1,
+        "recall": 0.04,
+        "f1": 0.07142857142857142,
+        "precision": 0.3333333333333333
+      },
+      {
+        "label": "white",
+        "support": 25,
+        "correct": 1,
+        "recall": 0.04,
+        "f1": 0.07692307692307693,
+        "precision": 1
+      }
+    ],
+    "lowest_nonzero_recall_labels": [
+      {
+        "label": "say",
+        "support": 25,
+        "correct": 1,
+        "recall": 0.04,
+        "f1": 0.07142857142857142,
+        "precision": 0.3333333333333333
+      },
+      {
+        "label": "white",
+        "support": 25,
+        "correct": 1,
+        "recall": 0.04,
+        "f1": 0.07692307692307693,
+        "precision": 1
+      },
+      {
+        "label": "pencil",
+        "support": 25,
+        "correct": 3,
+        "recall": 0.12,
+        "f1": 0.13953488372093023,
+        "precision": 0.16666666666666666
+      },
+      {
+        "label": "thirsty",
+        "support": 25,
+        "correct": 3,
+        "recall": 0.12,
+        "f1": 0.18181818181818182,
+        "precision": 0.375
+      },
+      {
+        "label": "morning",
+        "support": 25,
+        "correct": 8,
+        "recall": 0.32,
+        "f1": 0.47058823529411764,
+        "precision": 0.8888888888888888
+      },
+      {
+        "label": "please",
+        "support": 25,
+        "correct": 11,
+        "recall": 0.44,
+        "f1": 0.2857142857142857,
+        "precision": 0.21153846153846154
+      },
+      {
+        "label": "person",
+        "support": 25,
+        "correct": 12,
+        "recall": 0.48,
+        "f1": 0.5581395348837209,
+        "precision": 0.6666666666666666
+      },
+      {
+        "label": "horse",
+        "support": 25,
+        "correct": 14,
+        "recall": 0.56,
+        "f1": 0.5833333333333334,
+        "precision": 0.6086956521739131
+      },
+      {
+        "label": "mad",
+        "support": 25,
+        "correct": 15,
+        "recall": 0.6,
+        "f1": 0.3488372093023256,
+        "precision": 0.2459016393442623
+      },
+      {
+        "label": "table",
+        "support": 25,
+        "correct": 16,
+        "recall": 0.64,
+        "f1": 0.39024390243902435,
+        "precision": 0.2807017543859649
+      }
+    ],
+    "top_confusions": [
+      {
+        "true_label": "please",
+        "predicted_label": "table",
+        "count": 11
+      },
+      {
+        "true_label": "say",
+        "predicted_label": "please",
+        "count": 10
+      },
+      {
+        "true_label": "pencil",
+        "predicted_label": "mad",
+        "count": 9
+      },
+      {
+        "true_label": "pencil",
+        "predicted_label": "table",
+        "count": 9
+      },
+      {
+        "true_label": "table",
+        "predicted_label": "please",
+        "count": 9
+      },
+      {
+        "true_label": "white",
+        "predicted_label": "table",
+        "count": 9
+      },
+      {
+        "true_label": "thirsty",
+        "predicted_label": "please",
+        "count": 8
+      },
+      {
+        "true_label": "morning",
+        "predicted_label": "mad",
+        "count": 7
+      },
+      {
+        "true_label": "say",
+        "predicted_label": "mad",
+        "count": 7
+      },
+      {
+        "true_label": "person",
+        "predicted_label": "mad",
+        "count": 6
+      }
+    ]
+  },
+  "test_summary": {
+    "split": "test",
+    "examples": 190,
+    "top1_accuracy": 0.3368421052631579,
+    "macro_f1": 0.2899669340348758,
+    "predicted_label_coverage": {
+      "predicted_nonzero_count": 10,
+      "total_labels": 10,
+      "zero_prediction_labels": []
+    },
+    "recall_coverage": {
+      "labels_with_nonzero_recall": 9,
+      "total_labels": 10,
+      "zero_recall_labels": [
+        "white"
+      ]
+    },
+    "top_predicted_labels": [
+      {
+        "label": "mad",
+        "predicted_count": 77
+      },
+      {
+        "label": "please",
+        "predicted_count": 34
+      },
+      {
+        "label": "table",
+        "predicted_count": 32
+      },
+      {
+        "label": "horse",
+        "predicted_count": 11
+      },
+      {
+        "label": "person",
+        "predicted_count": 11
+      },
+      {
+        "label": "morning",
+        "predicted_count": 10
+      },
+      {
+        "label": "thirsty",
+        "predicted_count": 7
+      },
+      {
+        "label": "pencil",
+        "predicted_count": 3
+      },
+      {
+        "label": "white",
+        "predicted_count": 3
+      },
+      {
+        "label": "say",
+        "predicted_count": 2
+      }
+    ],
+    "top_recall_labels": [
+      {
+        "label": "mad",
+        "support": 19,
+        "correct": 17,
+        "recall": 0.8947368421052632,
+        "f1": 0.35416666666666663,
+        "precision": 0.22077922077922077
+      },
+      {
+        "label": "table",
+        "support": 19,
+        "correct": 14,
+        "recall": 0.7368421052631579,
+        "f1": 0.5490196078431372,
+        "precision": 0.4375
+      },
+      {
+        "label": "please",
+        "support": 19,
+        "correct": 11,
+        "recall": 0.5789473684210527,
+        "f1": 0.4150943396226416,
+        "precision": 0.3235294117647059
+      },
+      {
+        "label": "horse",
+        "support": 19,
+        "correct": 8,
+        "recall": 0.42105263157894735,
+        "f1": 0.5333333333333333,
+        "precision": 0.7272727272727273
+      },
+      {
+        "label": "person",
+        "support": 19,
+        "correct": 5,
+        "recall": 0.2631578947368421,
+        "f1": 0.3333333333333333,
+        "precision": 0.45454545454545453
+      },
+      {
+        "label": "morning",
+        "support": 19,
+        "correct": 3,
+        "recall": 0.15789473684210525,
+        "f1": 0.20689655172413793,
+        "precision": 0.3
+      },
+      {
+        "label": "thirsty",
+        "support": 19,
+        "correct": 3,
+        "recall": 0.15789473684210525,
+        "f1": 0.23076923076923078,
+        "precision": 0.42857142857142855
+      },
+      {
+        "label": "pencil",
+        "support": 19,
+        "correct": 2,
+        "recall": 0.10526315789473684,
+        "f1": 0.18181818181818182,
+        "precision": 0.6666666666666666
+      },
+      {
+        "label": "say",
+        "support": 19,
+        "correct": 1,
+        "recall": 0.05263157894736842,
+        "f1": 0.09523809523809525,
+        "precision": 0.5
+      },
+      {
+        "label": "white",
+        "support": 19,
+        "correct": 0,
+        "recall": 0,
+        "f1": 0,
+        "precision": 0
+      }
+    ],
+    "lowest_nonzero_recall_labels": [
+      {
+        "label": "say",
+        "support": 19,
+        "correct": 1,
+        "recall": 0.05263157894736842,
+        "f1": 0.09523809523809525,
+        "precision": 0.5
+      },
+      {
+        "label": "pencil",
+        "support": 19,
+        "correct": 2,
+        "recall": 0.10526315789473684,
+        "f1": 0.18181818181818182,
+        "precision": 0.6666666666666666
+      },
+      {
+        "label": "morning",
+        "support": 19,
+        "correct": 3,
+        "recall": 0.15789473684210525,
+        "f1": 0.20689655172413793,
+        "precision": 0.3
+      },
+      {
+        "label": "thirsty",
+        "support": 19,
+        "correct": 3,
+        "recall": 0.15789473684210525,
+        "f1": 0.23076923076923078,
+        "precision": 0.42857142857142855
+      },
+      {
+        "label": "person",
+        "support": 19,
+        "correct": 5,
+        "recall": 0.2631578947368421,
+        "f1": 0.3333333333333333,
+        "precision": 0.45454545454545453
+      },
+      {
+        "label": "horse",
+        "support": 19,
+        "correct": 8,
+        "recall": 0.42105263157894735,
+        "f1": 0.5333333333333333,
+        "precision": 0.7272727272727273
+      },
+      {
+        "label": "please",
+        "support": 19,
+        "correct": 11,
+        "recall": 0.5789473684210527,
+        "f1": 0.4150943396226416,
+        "precision": 0.3235294117647059
+      },
+      {
+        "label": "table",
+        "support": 19,
+        "correct": 14,
+        "recall": 0.7368421052631579,
+        "f1": 0.5490196078431372,
+        "precision": 0.4375
+      },
+      {
+        "label": "mad",
+        "support": 19,
+        "correct": 17,
+        "recall": 0.8947368421052632,
+        "f1": 0.35416666666666663,
+        "precision": 0.22077922077922077
+      }
+    ],
+    "top_confusions": [
+      {
+        "true_label": "pencil",
+        "predicted_label": "mad",
+        "count": 14
+      },
+      {
+        "true_label": "person",
+        "predicted_label": "mad",
+        "count": 12
+      },
+      {
+        "true_label": "say",
+        "predicted_label": "mad",
+        "count": 9
+      },
+      {
+        "true_label": "morning",
+        "predicted_label": "mad",
+        "count": 8
+      },
+      {
+        "true_label": "white",
+        "predicted_label": "please",
+        "count": 8
+      },
+      {
+        "true_label": "thirsty",
+        "predicted_label": "mad",
+        "count": 7
+      },
+      {
+        "true_label": "white",
+        "predicted_label": "table",
+        "count": 7
+      },
+      {
+        "true_label": "horse",
+        "predicted_label": "morning",
+        "count": 6
+      },
+      {
+        "true_label": "horse",
+        "predicted_label": "mad",
+        "count": 5
+      },
+      {
+        "true_label": "morning",
+        "predicted_label": "person",
+        "count": 5
+      }
+    ]
+  },
+  "threshold_summary": {
+    "selected_threshold": 0.4,
+    "validation_selected_metrics": {
+      "accepted_accuracy": 0.6,
+      "correct_pass_rate": 0.144,
+      "coverage": 0.24,
+      "false_accept_rate": 0.4,
+      "false_pass_rate": 0.096,
+      "threshold": 0.4
+    },
+    "test_threshold_metrics": {
+      "accepted_accuracy": 0.5324675324675324,
+      "correct_pass_rate": 0.21578947368421053,
+      "coverage": 0.4052631578947368,
+      "false_accept_rate": 0.4675324675324675,
+      "false_pass_rate": 0.18947368421052632,
+      "threshold": 0.4
+    },
+    "negative_challenge_metrics": {
+      "by_type": {
+        "empty_camera": {
+          "examples": 5,
+          "false_pass_count": 0,
+          "false_pass_rate": 0,
+          "max_confidence": 0.37246406078338623
+        },
+        "low_light": {
+          "examples": 5,
+          "false_pass_count": 2,
+          "false_pass_rate": 0.4,
+          "max_confidence": 0.43340107798576355
+        },
+        "no_hands_visible": {
+          "examples": 5,
+          "false_pass_count": 2,
+          "false_pass_rate": 0.4,
+          "max_confidence": 0.6195552349090576
+        },
+        "off_center": {
+          "examples": 5,
+          "false_pass_count": 1,
+          "false_pass_rate": 0.2,
+          "max_confidence": 0.977159321308136
+        }
+      },
+      "examples": 20,
+      "false_pass_count": 5,
+      "false_pass_rate": 0.25,
+      "max_confidence": 0.977159321308136,
+      "split": "negative_challenge",
+      "threshold": 0.4
+    }
+  },
+  "interpretation": [
+    "The selected checkpoint does not meet final model quality gates.",
+    "The final training epoch memorized the training split far more than it generalized to signer-disjoint validation/test splits.",
+    "Many held-out labels have zero recall, so additional approved signer/source diversity is more likely to matter than another small hyperparameter rerun.",
+    "ONNX/browser final export should remain fail-closed until a later validation report reaches candidate_final_validation_passed."
+  ],
+  "next_evidence_needed": [
+    "approved additional raw-video training data or consented first-party collection",
+    "metadata/source-register approval before any NVIDIA or other online source import",
+    "new training and evaluation report with substantially higher held-out top-1 and macro-F1",
+    "negative challenge false-pass rate below the final target"
+  ]
+}

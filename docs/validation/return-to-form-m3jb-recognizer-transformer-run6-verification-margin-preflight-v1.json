@@ -1,0 +1,277 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-run6-verification-margin-preflight/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_run6_verification_margin_and_selection_preflight_no_brev",
+  "recorded_at_utc": "2026-06-04T03:38:06Z",
+  "head_before_slice": "05dbf04 record(m3jb): tune recognizer run5 research",
+  "status": "completed_verification_margin_and_selection_preflight_no_brev_no_training",
+  "inputs": {
+    "run5_research_tuning_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run5-research-tuning-v1.json",
+    "run4_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run4-t32-brev-v1.json",
+    "run5_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run5-supcon-brev-v1.json",
+    "run4_trainer_json": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run4-t32-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.json",
+    "run5_trainer_json": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run5-supcon-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-supcon005-brev-v1.json",
+    "verification_margin_diagnostic_receipt": "docs/validation/m3jb-recognizer-run6-verification-margin-diagnostic-v1.json",
+    "verifselect_dryrun_receipt": "docs/validation/m3jb-recognizer-run6-verifselect-dryrun-v1.json"
+  },
+  "side_worktree": {
+    "path": "/Users/kelly/Developer/asl-pilot-annotator",
+    "commit": "0f54967a123946ccb12e1b6f918ca26629161986",
+    "commit_oneline": "0f54967 feat(recognizer): add verification margin preflight",
+    "preexisting_unrelated_dirty_worktree": true,
+    "scoped_files_clean_after_side_commit": true,
+    "scoped_files": [
+      "tools/detector0-annotator/verification.py",
+      "tools/detector0-annotator/train_recognizer_distill.py",
+      "tools/detector0-annotator/diagnose_verification_margins.py",
+      "tools/detector0-annotator/test_verification.py",
+      "tools/detector0-annotator/test_recognizer_distill_diagnostics.py"
+    ],
+    "sha256": {
+      "verification_py": "f66bae99a461d866f2127ad2a118f92ee2a1d7c7feb08ca58562ce59b087be9c",
+      "train_recognizer_distill_py": "a39a27f01d6bb79b67a577eb52453624f90c099ff63d1235096378e4af8f3509",
+      "diagnose_verification_margins_py": "f7a19e4fb4f200b694660c6ecaad9d2ec47ee4f0e91b9e19df889b9123d6f2d4",
+      "test_verification_py": "600648965e8d33a6250265ce781712d583d6af2b1258af569f99c329684a99bc",
+      "test_recognizer_distill_diagnostics_py": "8c3d962649478a0e4d357c7446e0c97f743a9491045552a420f22a4abe63fdae"
+    }
+  },
+  "implementation": {
+    "shared_metric_helper": {
+      "file": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/verification.py",
+      "function": "recall_at_far_details",
+      "preserves_existing_scalar_api": true,
+      "emits": [
+        "mean_recall_at_far10",
+        "per-class recall_at_far10",
+        "per-class FAR10 threshold",
+        "positive quantiles p10/p25/p50/p75/p90",
+        "negative quantiles p50/p75/p90/p95/p99",
+        "top failure words sorted by low recall and high threshold"
+      ]
+    },
+    "diagnostic_script": {
+      "file": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/diagnose_verification_margins.py",
+      "scope": "eval-only local checkpoint diagnostic; no optimizer, backward, checkpoint, runtime export, browser promotion, or Brev call"
+    },
+    "trainer_flags": [
+      "--eval-verification",
+      "--eval-verification-every",
+      "--checkpoint-metric monitor_verification_recall_far10",
+      "--save-best-checkpoint"
+    ],
+    "trainer_receipt_fields": [
+      "eval_verification",
+      "eval_verification_every",
+      "checkpoint_selection",
+      "history[].monitor_verification_recall_far10",
+      "verification.monitor/test details when requested"
+    ],
+    "runtime_inference_changed": false
+  },
+  "verification_margin_diagnostic": {
+    "command": "PYTORCH_ENABLE_MPS_FALLBACK=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python diagnose_verification_margins.py --student-data .cache/recog-seq-w64-t32-merged-v1 --seq-len 32 --artifact run4=output/m3jb-recognizer-transformer-run4-t32-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.json --artifact run5=output/m3jb-recognizer-transformer-run5-supcon-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-supcon005-brev-v1.json --batch 512 --device mps --out /Users/kelly/Developer/asl-pilot/docs/validation/m3jb-recognizer-run6-verification-margin-diagnostic-v1.json",
+    "cwd": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator",
+    "receipt_sha256": "fc6ef7dc1d4baf7c01b3d3c8cb6b8a3c21b2b3eb6c61442ff0b7a7bd38b0dfdc",
+    "status": "passed_no_training_verification_margin_diagnostic",
+    "actual_counts": {
+      "clips": 10335,
+      "train_clips": 7011,
+      "monitor_clips": 955,
+      "test_clips": 2369,
+      "classes": 95,
+      "sequence_length": 32,
+      "feature_dim": 90
+    },
+    "reported_test_recall_reproduction": {
+      "run4": {
+        "computed": 0.7626149584487534,
+        "reported": 0.7626,
+        "abs_diff": 0.000014958448753432663,
+        "within_abs_0_002": true
+      },
+      "run5": {
+        "computed": 0.7609307479224376,
+        "reported": 0.7601,
+        "abs_diff": 0.0008307479224376468,
+        "within_abs_0_002": true
+      }
+    },
+    "run4": {
+      "monitor_top1": 0.39267015706806285,
+      "monitor_top5": 0.6481675392670158,
+      "monitor_verification_recall_at_far10": 0.7878969680130672,
+      "test_top1": 0.313212325875897,
+      "test_top5": 0.6217813423385394,
+      "test_verification_recall_at_far10": 0.7626149584487534
+    },
+    "run5": {
+      "monitor_top1": 0.4083769633507853,
+      "monitor_top5": 0.6743455497382199,
+      "monitor_verification_recall_at_far10": 0.7914170375548083,
+      "test_top1": 0.3368509919797383,
+      "test_top5": 0.6234698184888139,
+      "test_verification_recall_at_far10": 0.7609307479224376
+    },
+    "run5_minus_run4": {
+      "monitor_verification_recall_at_far10": 0.003520069541741111,
+      "test_verification_recall_at_far10": -0.0016842105263157325,
+      "test_top1": 0.0236386661038413,
+      "test_top5": 0.0016884761502744539
+    },
+    "selection_signals": {
+      "primary_running_best_by_test_verification": "run4",
+      "best_by_monitor_verification_recall_far10": "run5",
+      "interpretation": "The diagnostic proves monitor verification selection is now measurable. It does not promote run5; run4 remains the fail-closed primary running best by held-out test verification recall."
+    }
+  },
+  "trainer_verifselect_dryrun": {
+    "command": "PYTORCH_ENABLE_MPS_FALLBACK=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python train_recognizer_distill.py --student-data .cache/recog-seq-w64-t32-merged-v1 --teacher-data .cache/handcrop-lm2 --teacher-checkpoint output/recognizer-v1.pt --seq-len 32 --student-arch transformer --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --epochs 240 --batch 128 --lr 5e-4 --lr-scheduler cosine --warmup-steps 500 --min-lr 5e-5 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --supcon-weight 0 --dry-run-forward --eval-verification --checkpoint-metric monitor_verification_recall_far10 --eval-verification-every 1 --save-best-checkpoint --device mps --out /Users/kelly/Developer/asl-pilot/docs/validation/m3jb-recognizer-run6-verifselect-dryrun-v1.json",
+    "cwd": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator",
+    "receipt_sha256": "9bd085c79daa57bb802e6822f6d8d98dc479b08f88aa8c123b3a7b4559c81150",
+    "training_mode": "dry_run_forward",
+    "student_cache": {
+      "clips": 10335,
+      "train_clips": 7011,
+      "monitor_clips": 955,
+      "test_clips": 2369,
+      "classes": 95,
+      "sequence_length": 32,
+      "feature_dim": 90
+    },
+    "dry_run_forward": {
+      "batch_size": 128,
+      "logits_shape": [
+        128,
+        95
+      ],
+      "loss": 8.20553,
+      "monitor_verification_recall_far10": 0.117539,
+      "monitor_verification_classes_evaluable": 95
+    },
+    "checkpoint_selection": {
+      "metric_name": "monitor_verification_recall_far10",
+      "save_best_checkpoint": true,
+      "eval_verification": true,
+      "eval_verification_every": 1,
+      "metric_available_in_dry_run": true,
+      "monitor_verification_recall_far10": 0.11753850638525562,
+      "monitor_verification_classes_evaluable": 95,
+      "checkpoint_written": false
+    },
+    "optimizer_steps": 0,
+    "expected_optimizer_steps": 0,
+    "planned_optimizer_steps": 13200,
+    "weights": null
+  },
+  "local_validation": {
+    "commands": [
+      {
+        "command": "/Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile verification.py train_recognizer_distill.py diagnose_verification_margins.py test_verification.py test_recognizer_distill_diagnostics.py",
+        "cwd": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator",
+        "result": "passed"
+      },
+      {
+        "command": "/Users/kelly/Developer/asl-pilot/.venv/bin/python test_verification.py",
+        "cwd": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator",
+        "result": "passed"
+      },
+      {
+        "command": "/Users/kelly/Developer/asl-pilot/.venv/bin/python test_recognizer_distill_diagnostics.py",
+        "cwd": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator",
+        "result": "passed"
+      },
+      {
+        "command": "git diff --cached --check",
+        "cwd": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator",
+        "result": "passed before side commit"
+      }
+    ],
+    "checkpoint_absence_checks": [
+      {
+        "path": "docs/validation/m3jb-recognizer-run6-verifselect-dryrun-v1.pt",
+        "exists": false
+      }
+    ]
+  },
+  "brev_visibility": {
+    "command": "timeout 30 brev ls --json",
+    "read_only": true,
+    "workspaces": {
+      "asl-pilot-m3jb-pairrank-l40s-001": {
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY",
+        "gpu": "L40S"
+      },
+      "asl-pilot-m3eh-l40s-001": {
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "gpu": "L40S"
+      }
+    }
+  },
+  "boundaries": {
+    "brev_used": false,
+    "brev_lifecycle_or_exec": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "runtime_export": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "push": false
+  },
+  "run6_recipe_if_preflight_passes": {
+    "token": "m3jb_recognizer_transformer_run6_t32_verifselect_fulltrain_brev_ok",
+    "student_arch": "transformer",
+    "device": "cuda",
+    "sequence_length": 32,
+    "student_data": "tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1",
+    "teacher_data": "tools/detector0-annotator/.cache/handcrop-lm2",
+    "teacher_checkpoint": "tools/detector0-annotator/output/recognizer-v1.pt",
+    "full_data_no_limit_flags": true,
+    "epochs": 240,
+    "batch": 128,
+    "lr": 0.0005,
+    "lr_scheduler": "cosine",
+    "warmup_steps": 500,
+    "min_lr": 0.00005,
+    "d_model": 256,
+    "n_layers": 6,
+    "n_heads": 8,
+    "dropout": 0.0,
+    "alpha": 0.55,
+    "temperature": 3.0,
+    "jitter_std": 0.02,
+    "frame_drop": 0.1,
+    "supcon_weight": 0.0,
+    "checkpoint_metric": "monitor_verification_recall_far10",
+    "eval_verification_every": 1,
+    "save_best_checkpoint": true,
+    "expected_optimizer_steps": 13200,
+    "side_worktree_commit_to_sync": "0f54967a123946ccb12e1b6f918ca26629161986",
+    "expected_change_vs_run4": "Keep run4 model/data/optimizer recipe fixed and change only validation visibility plus best-checkpoint selection by monitor verification recall."
+  },
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_run6_t32_verifselect_fulltrain_brev_ok",
+    "description": "Use the recorded recognizer campaign Brev approval only after read-only visibility plus SSH/CUDA/process preflight on a healthy existing NVIDIA worker; sync side commit 0f54967a123946ccb12e1b6f918ca26629161986, run the full T=32 run6 recipe with --checkpoint-metric monitor_verification_recall_far10 --eval-verification --eval-verification-every 1 --save-best-checkpoint, copy back JSON/PT/log evidence, stop the worker, and reject fail-closed unless test verification recall@FAR10 reaches >= 0.85."
+  },
+  "commands_intentionally_not_run": [
+    "brev start",
+    "brev exec",
+    "brev sync",
+    "remote training",
+    "local training",
+    "optimizer/backward step",
+    "runtime export",
+    "browser promotion",
+    "git push"
+  ]
+}

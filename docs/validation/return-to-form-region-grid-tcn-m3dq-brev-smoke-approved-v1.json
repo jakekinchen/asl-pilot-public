@@ -1,0 +1,268 @@
+{
+  "schema_version": "asl-pilot-region-grid-tcn-m3dq-brev-smoke-approved/v1",
+  "status": "timed_training_failed_before_training_no_artifacts",
+  "mission": "M3DS",
+  "active_prompt": "docs/model/return-to-form-region-grid-tcn-m3dq-brev-smoke-approved-goal-loop-prompt.md",
+  "generated_at": "2026-05-28T10:53:44Z",
+  "generated_by": "codex_executor",
+  "local_head_before_slice": {
+    "commit": "75f9d36",
+    "subject": "supervisor: activate m3ds brev smoke",
+    "branch": "compound-plan-m0",
+    "ahead_of_origin": 121
+  },
+  "authorization_and_compute_envelope": {
+    "brev_spend_authorized": true,
+    "authorization_source": "GOAL.md and active M3DS prompt explicitly record the latest supervising user instruction authorizing bounded Brev usage for this slice.",
+    "workspace": "asl-pilot-rawframe-001",
+    "workspace_id": "2hl1hytty",
+    "max_training_runtime_seconds": 3600,
+    "max_spend_usd": 35,
+    "timed_training_command_limit": 1,
+    "timed_training_commands_run": 1,
+    "kill_conditions": [
+      "CUDA unavailable",
+      "existing worker unavailable after bounded start/wait",
+      "duplicate training process",
+      "GPU memory unexpectedly in use by another training process",
+      "CPU-only training fallback",
+      "timeout",
+      "no startup plan or metric output after launch",
+      "same M3DQ output-dir guard failure repeats after sync",
+      "same 5D augmentation failure repeats before epoch metrics"
+    ]
+  },
+  "local_checks": [
+    {
+      "command": "git status --short --branch",
+      "exit_code": 0,
+      "status": "passed",
+      "summary": "## compound-plan-m0...origin/compound-plan-m0 [ahead 121]"
+    },
+    {
+      "command": "git log -10 --oneline",
+      "exit_code": 0,
+      "status": "passed",
+      "head": "75f9d36 supervisor: activate m3ds brev smoke"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-region-grid-tcn-m3dq-output-guard-fix-v1.json >/dev/null",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-region-grid-tcn-brev-smoke-after-5d-fix-v1.json >/dev/null",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "exit_code": 0,
+      "status": "passed"
+    }
+  ],
+  "initial_brev_provider_state": {
+    "command": "brev ls --json",
+    "exit_code": 0,
+    "workspace": {
+      "name": "asl-pilot-rawframe-001",
+      "id": "2hl1hytty",
+      "status": "RUNNING",
+      "build_status": "COMPLETED",
+      "shell_status": "READY",
+      "health_status": "HEALTHY",
+      "instance_type": "massedcompute_A100_sxm4_80G_DGX",
+      "instance_kind": "gpu",
+      "gpu": "A100"
+    },
+    "bounded_start_run": false,
+    "duplicate_worker_created": false
+  },
+  "remote_safety_check": {
+    "command": "brev exec asl-pilot-rawframe-001 \"nvidia-smi --query-gpu=name,memory.total,memory.used,utilization.gpu --format=csv,noheader && ps -eo pid,etime,pcpu,pmem,args | egrep 'python|torch|train|screen|tmux|jupyter' | grep -v egrep || true\"",
+    "exit_code": 0,
+    "gpu": {
+      "name": "NVIDIA A100-SXM4-80GB",
+      "memory_total_mib": 81920,
+      "memory_used_mib": 0,
+      "utilization_gpu_percent": 0
+    },
+    "training_processes_found": [],
+    "non_training_python_processes": [
+      "/usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers",
+      "/home/shadeform/.venv/bin/python3 /home/shadeform/.venv/bin/jupyter-lab --ip=0.0.0.0 --no-browser --NotebookApp.token= --NotebookApp.password= --ServerApp.allow_remote_access=True"
+    ],
+    "status": "passed"
+  },
+  "sync": {
+    "command": "bash scripts/brev_sync_repo.sh asl-pilot-rawframe-001",
+    "exit_code": 0,
+    "status": "passed",
+    "summary": "Synced current repo files plus rawframe training data allowlist to /home/shadeform/asl-pilot on the existing worker."
+  },
+  "remote_dry_run": {
+    "command": "brev exec asl-pilot-rawframe-001 \"cd /home/shadeform/asl-pilot && /home/shadeform/asl-pilot/.venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3dq-high-signal-region-grid-tcn-brev --model-id m3dq-high-signal-region-grid-tcn-brev --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1\"",
+    "exit_code": 0,
+    "status": "passed",
+    "training_status": "dry_run_only",
+    "output_dir": "output/m3dq-high-signal-region-grid-tcn-brev",
+    "input_contract": {
+      "required_contract": "rgb_regions_grid_v1",
+      "status": "passed",
+      "total_clip_count": 139,
+      "observed_counts": {
+        "rgb_regions_grid_v1": 139
+      }
+    },
+    "training_script_sha256": "610743029c2165d2a6327c483a6139225dec3cf2daa2fed26cc5dad3c388d543",
+    "pretrained_components": []
+  },
+  "timed_training_command": {
+    "command": "brev exec asl-pilot-rawframe-001 \"cd /home/shadeform/asl-pilot && timeout 3600 /home/shadeform/asl-pilot/.venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3dq-high-signal-region-grid-tcn-brev --model-id m3dq-high-signal-region-grid-tcn-brev --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke --require-input-contract rgb_regions_grid_v1\"",
+    "brev_wrapper_exit_code": 1,
+    "remote_exit_status": 2,
+    "status": "failed_before_training",
+    "runtime_seconds_observed_from_tool": 3.2,
+    "timeout_status": "not_timeout",
+    "printed_plan": null,
+    "training_history": null,
+    "selected_epoch": null,
+    "epoch_metrics": [],
+    "exact_failure": "Manifest validation failed: --require-input-contract is a no-training input-contract audit and requires --dry-run",
+    "classification": "prompt_contract_failure_require_input_contract_without_dry_run",
+    "timed_command_limit_exhausted": true,
+    "retry_run": false
+  },
+  "artifact_status": {
+    "remote_inspection_command": "brev exec asl-pilot-rawframe-001 \"cd /home/shadeform/asl-pilot && if [ -e output/m3dq-high-signal-region-grid-tcn-brev ]; then find output/m3dq-high-signal-region-grid-tcn-brev -maxdepth 2 -type f | sort; else echo 'output/m3dq-high-signal-region-grid-tcn-brev: absent'; fi\"",
+    "remote_inspection_exit_code": 0,
+    "remote_output_dir": "output/m3dq-high-signal-region-grid-tcn-brev",
+    "remote_output_dir_exists": false,
+    "checkpoint_exists": false,
+    "training_provenance_exists": false,
+    "artifacts": []
+  },
+  "evaluation": {
+    "command": null,
+    "status": "skipped",
+    "reason": "Timed training failed before training startup and remote output directory/checkpoint/provenance do not exist."
+  },
+  "copyback": {
+    "command": null,
+    "status": "skipped",
+    "reason": "Remote output directory output/m3dq-high-signal-region-grid-tcn-brev was absent, so there were no files to copy back."
+  },
+  "final_brev_state": {
+    "pre_stop_process_check": {
+      "command": "brev exec asl-pilot-rawframe-001 \"ps -eo pid,etime,pcpu,pmem,args | egrep 'python|torch|train|screen|tmux|jupyter' | grep -v egrep || true\"",
+      "exit_code": 0,
+      "training_processes_found": [],
+      "non_training_python_processes": [
+        "/usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers",
+        "/home/shadeform/.venv/bin/python3 /home/shadeform/.venv/bin/jupyter-lab --ip=0.0.0.0 --no-browser --NotebookApp.token= --NotebookApp.password= --ServerApp.allow_remote_access=True"
+      ]
+    },
+    "stop_attempts": [
+      {
+        "command": "brev stop asl-pilot-rawframe-001",
+        "exit_code": 0,
+        "status": "returned"
+      },
+      {
+        "command": "brev stop 2hl1hytty",
+        "exit_code": 0,
+        "status": "returned"
+      },
+      {
+        "command": "brev stop --all",
+        "exit_code": 0,
+        "status": "returned"
+      }
+    ],
+    "final_provider_check": {
+      "command": "sleep 10 && brev ls --json",
+      "exit_code": 0,
+      "workspace": {
+        "name": "asl-pilot-rawframe-001",
+        "id": "2hl1hytty",
+        "status": "RUNNING",
+        "build_status": "COMPLETED",
+        "shell_status": "READY",
+        "health_status": "HEALTHY",
+        "instance_type": "massedcompute_A100_sxm4_80G_DGX",
+        "instance_kind": "gpu",
+        "gpu": "A100"
+      },
+      "persistent_running_mismatch": true
+    },
+    "final_process_check": {
+      "command": "brev exec asl-pilot-rawframe-001 \"ps -eo pid,etime,pcpu,pmem,args | egrep 'python|torch|train|screen|tmux|jupyter' | grep -v egrep || true\"",
+      "exit_code": 0,
+      "training_processes_found": [],
+      "non_training_python_processes": [
+        "/usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers",
+        "/home/shadeform/.venv/bin/python3 /home/shadeform/.venv/bin/jupyter-lab --ip=0.0.0.0 --no-browser --NotebookApp.token= --NotebookApp.password= --ServerApp.allow_remote_access=True"
+      ]
+    },
+    "delete_or_reset_run": false
+  },
+  "pretrained_components": [],
+  "negative_authorizations": {
+    "no_second_timed_training_command": true,
+    "no_source_patch_or_retry_inside_mission": true,
+    "no_broad_75_80_95_label_work": true,
+    "no_pretrained_detector_landmark_backbone_embedding_pseudolabel_or_generated_label_dependency": true,
+    "no_source_import": true,
+    "no_source_register_approval_change": true,
+    "no_manifest_mutation": true,
+    "no_tensor_mutation": true,
+    "no_vocabulary_expansion": true,
+    "no_model_card_promotion": true,
+    "no_onnx_export": true,
+    "no_browser_trained_activation": true,
+    "no_threshold_promotion": true,
+    "no_final_readiness_claim": true,
+    "no_positive_asl_correctness_claim": true,
+    "no_raw_learner_video_upload": true,
+    "no_push": true,
+    "no_amend": true,
+    "no_no_verify": true,
+    "no_duplicate_worker": true,
+    "no_worker_delete_or_reset": true,
+    "no_hand_edit_promoted_model_cards_or_final_claim_matrices": true,
+    "no_evaluation_without_checkpoint_and_training_provenance": true,
+    "no_copyback_claim_without_listed_local_files": true,
+    "no_unapproved_media_import": true
+  },
+  "changed_files": [
+    "docs/validation/return-to-form-region-grid-tcn-m3dq-brev-smoke-approved-v1.json",
+    "docs/session-logs/478-mission-3ds-region-grid-tcn-m3dq-brev-smoke-approved.md"
+  ],
+  "conclusion": "M3DS used the approved existing Brev worker and proved the fixed M3DQ remote dry-run, but the single allowed timed training command failed before training because the prompt command passed --require-input-contract without --dry-run. No checkpoint, training provenance, remote output directory, evaluation, copyback, promotion, export, browser activation, source/data mutation, duplicate worker, delete/reset, final claim, or push occurred. Default-off stop commands returned, but the provider still reports the worker RUNNING/READY/HEALTHY with no training process.",
+  "exactly_one_next_action": "continue_local_tcn_failure_diagnosis_after_m3ds"
+}

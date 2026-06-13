@@ -1,0 +1,794 @@
+{
+  "active_prompt": "docs/model/return-to-form-popsign-fresh5-repaired-manifest-materialization-goal-loop-prompt.md",
+  "commands": {
+    "dataloader_contract_dry_run": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/train_rawframe_model.py",
+      "--train-manifest",
+      "data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json",
+      "--validation-manifest",
+      "data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json",
+      "--test-manifest",
+      "data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json",
+      "--output-dir",
+      "output/return-to-form-popsign-fresh5-repaired-v1-dry-run",
+      "--model-id",
+      "asl-pilot-popsign-fresh5-repaired-v1-contract",
+      "--allow-small-label-set",
+      "--check-files",
+      "--frame-count",
+      "16",
+      "--image-size",
+      "96",
+      "--dry-run",
+      "--require-input-contract",
+      "rgb_regions_grid_v1"
+    ],
+    "materialization": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/materialize_popsign_fresh5_repaired_manifest.py",
+      "--write",
+      "--receipt",
+      "docs/validation/return-to-form-popsign-fresh5-repaired-manifest-materialization-v1.json"
+    ],
+    "required_audits": [
+      "git status --short --branch",
+      "git log -10 --oneline --decorate",
+      "node scripts/audit_loop_premise.mjs --json",
+      "node scripts/audit_return_to_form_plan.mjs --json",
+      "node scripts/audit_no_pretrained_deps.mjs",
+      "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "node scripts/audit_source_register.mjs",
+      "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-repaired-manifest-contract-v1.json >/dev/null",
+      "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-vocab-split-remediation-v1.json >/dev/null",
+      "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-data-vocabulary-separability-v1.json >/dev/null",
+      "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/materialize_popsign_fresh5_repaired_manifest.py scripts/verify_popsign_fresh5_repaired_manifest_contract.py scripts/design_popsign_fresh5_vocab_split_remediation.py scripts/diagnose_popsign_fresh5_data_vocabulary_separability.py scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py scripts/decode_raw_videos.py scripts/materialize_popsign_fresh5_region_grid.py scripts/run_popsign_fresh5_region_grid_tcn_tiny_overfit.py",
+      "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-repaired-manifest-materialization-v1.json >/dev/null",
+      "python3 -m json.tool data/manifests/return-to-form-popsign-fresh5-repaired-v1/manifest-contract.json >/dev/null",
+      "python3 -m json.tool data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json >/dev/null",
+      "python3 -m json.tool data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json >/dev/null",
+      "python3 -m json.tool data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json >/dev/null",
+      "git diff --check"
+    ]
+  },
+  "decision": {
+    "bounded_fresh5_learnability_isolation_probe_justified_now": true,
+    "brev_training_receipt_justified_now": false,
+    "detector0_or_crop_contract_justified_now": false,
+    "exactly_one_next_action": "continue_bounded_fresh5_learnability_isolation_probe",
+    "fresh10_region_grid_materialization_justified_now": false,
+    "human_source_annotation_or_strategy_decision_required_now": false,
+    "next_action_rationale": "The repaired-v1 package is same-label, same-source, leakage-free, hash-bound to existing tensors, and carries pen/thank_you stop conditions into the next bounded local diagnostic."
+  },
+  "exactly_one_next_action": "continue_bounded_fresh5_learnability_isolation_probe",
+  "gate_results": {
+    "all_materialization_gates_pass": true,
+    "gates": {
+      "existing_tensor_references_only_binding": true,
+      "m3by_contract_gates_passed": true,
+      "m3by_selected_materialization": true,
+      "manifest_contract_written": true,
+      "manifest_package_written": true,
+      "no_cross_split_signer_identity_leakage": true,
+      "no_cross_split_source_clip_tensor_leakage": true,
+      "no_internal_dedupe_failures": true,
+      "pen_and_thank_you_stop_conditions_carried": true,
+      "per_label_clip_counts": true,
+      "required_dataloader_fields_carried": true,
+      "same_label_order": true,
+      "same_source_lane": true,
+      "signer_coverage": true,
+      "source_label_order_preserved": true,
+      "source_manifest_identity_preserved": true,
+      "source_record_coverage": true,
+      "source_sha256_coverage": true,
+      "source_split_boundaries_preserved": true,
+      "tensor_files_exist_and_hash_match": true
+    }
+  },
+  "generated_at": "2026-05-27T20:43:26Z",
+  "generated_by": {
+    "command": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/materialize_popsign_fresh5_repaired_manifest.py",
+      "--write",
+      "--generated-at",
+      "2026-05-27T20:43:26Z",
+      "--receipt",
+      "docs/validation/return-to-form-popsign-fresh5-repaired-manifest-materialization-v1.json"
+    ],
+    "python_executable": "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+    "script": {
+      "path": "scripts/materialize_popsign_fresh5_repaired_manifest.py",
+      "sha256": "772f20050c44e5a9154cce5887c67090836fdfe20153f5d76cc7a63b30340add"
+    },
+    "tool": "scripts/materialize_popsign_fresh5_repaired_manifest.py"
+  },
+  "git": {
+    "head": "1d9b5ce29a448c8bd91654403a7ad238fc610e76",
+    "head_short": "1d9b5ce",
+    "status_short_branch": "## compound-plan-m0...origin/compound-plan-m0 [ahead 18]\n?? docs/validation/return-to-form-popsign-fresh5-repaired-manifest-materialization-v1.json\n?? scripts/materialize_popsign_fresh5_repaired_manifest.py"
+  },
+  "input_artifacts": {
+    "receipts": {
+      "m3bs_materialization_local_smoke": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-materialization-local-smoke-v1.json",
+        "sha256": "510bce9946bf7afb145c5afb43e7b6492bb66e239511dfa91ade8ed3aca5f430"
+      },
+      "m3bt_region_grid_materialization": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-region-grid-materialization-v1.json",
+        "sha256": "ff2de8d6047a6dfc735245fbe73989c90f370a32b9f35fbd3209186be10dba68"
+      },
+      "m3bu_region_grid_smoke": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-region-grid-local-smoke-v1.json",
+        "sha256": "417664f34e8785d16979a3741d87a92222d20aaea6e9f789da223afaab1fcba2"
+      },
+      "m3bv_preserved_region_ablation": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-model-data-design-ablation-v1.json",
+        "sha256": "74590b35b59e7696bc2e4f46e5fd2ae0281935aa8d7360f6efeb563453b4effe"
+      },
+      "m3bw_separability": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-data-vocabulary-separability-v1.json",
+        "sha256": "746d8bb0b17d8e749bd80c8054741cda680a044080010cc1b51a02645f490227"
+      },
+      "m3bx_remediation": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-vocab-split-remediation-v1.json",
+        "sha256": "264819c3d687720b113af1f689b5d069084a76e5f4129cbf21e5a55784716b8b"
+      },
+      "m3by_contract": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-repaired-manifest-contract-v1.json",
+        "sha256": "97d92a052d6cd3740784102f6e999c86ec33d017877aad4b92aee5b44791d965"
+      }
+    },
+    "source_manifests": {
+      "test": {
+        "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/test.json",
+        "sha256": "fd1242c965ccf671384b38af8abf84333d107562a3700d30dfa6cd84720e4046"
+      },
+      "train": {
+        "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/train.json",
+        "sha256": "6cc8ca08bc127d8b42e55e03b604702a66c94d618821c07c23b6a9bd2b0f31ef"
+      },
+      "validation": {
+        "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/validation.json",
+        "sha256": "9e83e674ee9ee65508eb322b43fa0453ef7f5a76740735ebfa73a881ab3e0b40"
+      }
+    },
+    "source_metadata": {
+      "popsign_import_plan": {
+        "path": "docs/research/popsign-v1-import-plan.json",
+        "sha256": "0438c3e39e8c7f8b21f9968baebdd18870311c8f4103adc13012d5e230c06234"
+      },
+      "source_register": {
+        "path": "docs/model/dataset-source-register.json",
+        "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+      }
+    },
+    "steering": {
+      "active_prompt": {
+        "path": "docs/model/return-to-form-popsign-fresh5-repaired-manifest-materialization-goal-loop-prompt.md",
+        "sha256": "256089e15cf3d00e158a2a39ae7ff6b3c1aa54207e892a46631e77785405ef8f"
+      },
+      "goal": {
+        "path": "GOAL.md",
+        "sha256": "68d2f24b98dfd610d7768ebb493eef3dc011a162609fb68eac05c7c666b0283c"
+      },
+      "return_to_form_plan": {
+        "path": "docs/model/return-to-form-plan.md",
+        "sha256": "fbe47f90e7bfcf231b2bf1637f781377a63574441a544b1ee393f2997b486f46"
+      }
+    }
+  },
+  "m3by_contract_source": {
+    "all_materialization_contract_gates_pass": true,
+    "contract": {
+      "contract_id": "popsign_fresh5_repaired_manifest_contract_v1",
+      "contract_status": "ready_for_later_no_spend_materialization_prompt",
+      "current_contract_evidence_summary": {
+        "cross_split_leakage": {
+          "train_vs_test": {
+            "label_shared_signer_identity_hash_count": {
+              "home": 0,
+              "morning": 0,
+              "pen": 0,
+              "thank_you": 0,
+              "who": 0
+            },
+            "shared_clip_id_count": 0,
+            "shared_signer_identity_hash_count": 0,
+            "shared_source_record_id_count": 0,
+            "shared_tensor_path_count": 0
+          },
+          "train_vs_validation": {
+            "label_shared_signer_identity_hash_count": {
+              "home": 0,
+              "morning": 0,
+              "pen": 0,
+              "thank_you": 0,
+              "who": 0
+            },
+            "shared_clip_id_count": 0,
+            "shared_signer_identity_hash_count": 0,
+            "shared_source_record_id_count": 0,
+            "shared_tensor_path_count": 0
+          },
+          "validation_vs_test": {
+            "label_shared_signer_identity_hash_count": {
+              "home": 0,
+              "morning": 0,
+              "pen": 0,
+              "thank_you": 0,
+              "who": 0
+            },
+            "shared_clip_id_count": 0,
+            "shared_signer_identity_hash_count": 0,
+            "shared_source_record_id_count": 0,
+            "shared_tensor_path_count": 0
+          }
+        },
+        "split_count": 3,
+        "total_clip_count": 375,
+        "total_tensor_file_count": 375
+      },
+      "label_order": [
+        "thank_you",
+        "pen",
+        "home",
+        "who",
+        "morning"
+      ],
+      "materialize_later_only": true,
+      "no_manifest_written_this_mission": true,
+      "no_tensor_written_this_mission": true,
+      "required_gates_for_later_materialization": [
+        "use the same five labels and same approved PopSign raw-video source lane",
+        "preserve train/val/test source_split values exactly",
+        "carry source_record_id, source_sha256, signer_identity_hash, tensor path, and tensor sha256 provenance forward",
+        "reject any duplicate clip_id, source_record_id, or tensor path within a split",
+        "reject any source_record_id, clip_id, or tensor path crossing train/validation/test",
+        "require at least 25 clips and at least 6 pseudonymous signer hashes per label per split",
+        "require all tensor files to exist and match manifest frame_tensor_sha256",
+        "carry pen low-recall and thank_you overprediction gates into any later local smoke or compute receipt"
+      ],
+      "source_id": "popsign-v1-original-videos",
+      "split_strategy": "preserve PopSign train/val/test source split boundaries and retain signer-disjoint validation/test as evaluation property",
+      "training_stop_conditions": {
+        "browser": "No browser activation, active-label promotion, model-card promotion, or final-readiness claim is allowed from this contract alone.",
+        "compute": "No Brev compute receipt is allowed until a later local no-spend materialization/smoke records improved held-out signal over M3BU and preserves these gates.",
+        "pen": "Any later training/materialization prompt must stop before Brev/export if pen recall remains near M3BU 0.04 or pen remains mostly absorbed by thank_you.",
+        "thank_you": "Any later training/materialization prompt must stop before Brev/export if thank_you remains an overpredicted class near M3BW 0.568 of test predictions."
+      }
+    },
+    "selected_next_action": "continue_fresh5_repaired_manifest_materialization",
+    "status": "completed_no_training_contract_verification"
+  },
+  "manifest_contract_validation": {
+    "manifest_contract": {
+      "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/manifest-contract.json",
+      "sha256": "38e8e1b8663e0e360fd9b8284bad9a5f08dd7fa00d236ec50fecfb87c8c9ce4a"
+    },
+    "manifest_file_references_match": true,
+    "mismatches": [],
+    "total_clip_count": 375
+  },
+  "manifest_package": {
+    "files": {
+      "manifest_contract": {
+        "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/manifest-contract.json",
+        "sha256": "38e8e1b8663e0e360fd9b8284bad9a5f08dd7fa00d236ec50fecfb87c8c9ce4a"
+      },
+      "test": {
+        "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json",
+        "sha256": "07a67651bcd38c6cff90d433ad2e18f84d905291ebb90760665c03678b75592c"
+      },
+      "train": {
+        "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json",
+        "sha256": "f84b8eec2ee3b5f29118518caf42b64636f231acd39864ad0363729c96365a16"
+      },
+      "validation": {
+        "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json",
+        "sha256": "090b40ec70775e96fb81450feb6a5e9960f93175dfda4c2ae9087b0b970cb04a"
+      }
+    },
+    "package_id": "return-to-form-popsign-fresh5-repaired-v1",
+    "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1",
+    "tensor_policy": "references existing data/tensors/return-to-form-popsign-fresh5-region-grid/*.pt files only",
+    "tracked_in_git": true
+  },
+  "materialization_summary": {
+    "cross_split_leakage": {
+      "train_vs_test": {
+        "label_shared_signer_identity_hash_count": {
+          "home": 0,
+          "morning": 0,
+          "pen": 0,
+          "thank_you": 0,
+          "who": 0
+        },
+        "shared_clip_id_count": 0,
+        "shared_signer_identity_hash_count": 0,
+        "shared_source_record_id_count": 0,
+        "shared_tensor_path_count": 0
+      },
+      "train_vs_validation": {
+        "label_shared_signer_identity_hash_count": {
+          "home": 0,
+          "morning": 0,
+          "pen": 0,
+          "thank_you": 0,
+          "who": 0
+        },
+        "shared_clip_id_count": 0,
+        "shared_signer_identity_hash_count": 0,
+        "shared_source_record_id_count": 0,
+        "shared_tensor_path_count": 0
+      },
+      "validation_vs_test": {
+        "label_shared_signer_identity_hash_count": {
+          "home": 0,
+          "morning": 0,
+          "pen": 0,
+          "thank_you": 0,
+          "who": 0
+        },
+        "shared_clip_id_count": 0,
+        "shared_signer_identity_hash_count": 0,
+        "shared_source_record_id_count": 0,
+        "shared_tensor_path_count": 0
+      }
+    },
+    "expected_label_order": [
+      "thank_you",
+      "pen",
+      "home",
+      "who",
+      "morning"
+    ],
+    "source_identity_mismatch_count": 0,
+    "source_identity_mismatches": [],
+    "splits": {
+      "test": {
+        "binding": {
+          "existing_tensor_references_only": true,
+          "generated_at": "2026-05-27T20:43:26Z",
+          "later_learnability_architecture": "true_temporal_convnet_region_grid",
+          "m3by_repaired_manifest_contract": {
+            "path": "docs/validation/return-to-form-popsign-fresh5-repaired-manifest-contract-v1.json",
+            "sha256": "97d92a052d6cd3740784102f6e999c86ec33d017877aad4b92aee5b44791d965"
+          },
+          "mission": "M3BZ",
+          "no_source_import_or_media_download": true,
+          "no_tensor_written": true,
+          "no_training_or_model_fitting": true,
+          "package_id": "return-to-form-popsign-fresh5-repaired-v1",
+          "required_input_contract": "rgb_regions_grid_v1",
+          "schema_version": "asl-pilot-popsign-fresh5-repaired-manifest-binding/v1",
+          "selected_labels": [
+            "thank_you",
+            "pen",
+            "home",
+            "who",
+            "morning"
+          ],
+          "source_id": "popsign-v1-original-videos",
+          "source_manifest": {
+            "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/test.json",
+            "sha256": "fd1242c965ccf671384b38af8abf84333d107562a3700d30dfa6cd84720e4046"
+          },
+          "source_split_policy": "preserve PopSign train/val/test source split boundaries exactly",
+          "split": "test",
+          "status": "materialized_from_existing_verified_region_grid_manifest",
+          "training_stop_conditions": {
+            "browser": "No browser activation, active-label promotion, model-card promotion, or final-readiness claim is allowed from this contract alone.",
+            "compute": "No Brev compute receipt is allowed until a later local no-spend materialization/smoke records improved held-out signal over M3BU and preserves these gates.",
+            "pen": "Any later training/materialization prompt must stop before Brev/export if pen recall remains near M3BU 0.04 or pen remains mostly absorbed by thank_you.",
+            "thank_you": "Any later training/materialization prompt must stop before Brev/export if thank_you remains an overpredicted class near M3BW 0.568 of test predictions."
+          }
+        },
+        "carried_field_counts": {
+          "clip_id": 125,
+          "frame_tensor_provenance": 125,
+          "frame_tensor_sha256": 125,
+          "relative_frame_tensor_path": 125,
+          "sha256": 125,
+          "signer_identity_hash": 125,
+          "source_id": 125,
+          "source_record_id": 125,
+          "source_split": 125
+        },
+        "clip_count": 125,
+        "dataset_id": "return-to-form-popsign-fresh5-repaired-v1",
+        "dataset_source_mode": "approved_external_raw_video_source",
+        "duplicate_clip_ids": {},
+        "duplicate_source_record_ids": {},
+        "duplicate_tensor_paths": {},
+        "label_counts": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "labels": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "manifest": {
+          "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json",
+          "sha256": "07a67651bcd38c6cff90d433ad2e18f84d905291ebb90760665c03678b75592c"
+        },
+        "signer_identity_hash_count": 8,
+        "signer_identity_hash_count_by_label": {
+          "home": 7,
+          "morning": 8,
+          "pen": 8,
+          "thank_you": 8,
+          "who": 8
+        },
+        "source_id": "popsign-v1-original-videos",
+        "source_labels": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "source_manifest": {
+          "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/test.json",
+          "sha256": "fd1242c965ccf671384b38af8abf84333d107562a3700d30dfa6cd84720e4046"
+        },
+        "source_record_id_count": 125,
+        "source_record_id_count_by_label": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "source_sha256_count_by_label": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "source_split_counts": {
+          "test": 125
+        },
+        "tensor_contract_field_count": 125,
+        "tensor_file_count": 125,
+        "tensor_hash_match_count": 125,
+        "tensor_hash_samples": [
+          {
+            "clip_id": "popsign-v1-test-thank_you-000001",
+            "label_id": "thank_you",
+            "path": "data/tensors/return-to-form-popsign-fresh5-region-grid/test/popsign-v1-test-thank_you-000001-regions.pt",
+            "sha256": "39ca585be91e1392c5efc2fd77cede75b32c72c3673c2109b350f3b7a36917ee"
+          },
+          {
+            "clip_id": "popsign-v1-test-thank_you-000002",
+            "label_id": "thank_you",
+            "path": "data/tensors/return-to-form-popsign-fresh5-region-grid/test/popsign-v1-test-thank_you-000002-regions.pt",
+            "sha256": "225a3c19ef32602b371f18d685173b5deadddd1944342e0328e2d33232c01d7c"
+          }
+        ],
+        "tensor_reference_count": 125,
+        "tensor_sha256_count": 125
+      },
+      "train": {
+        "binding": {
+          "existing_tensor_references_only": true,
+          "generated_at": "2026-05-27T20:43:26Z",
+          "later_learnability_architecture": "true_temporal_convnet_region_grid",
+          "m3by_repaired_manifest_contract": {
+            "path": "docs/validation/return-to-form-popsign-fresh5-repaired-manifest-contract-v1.json",
+            "sha256": "97d92a052d6cd3740784102f6e999c86ec33d017877aad4b92aee5b44791d965"
+          },
+          "mission": "M3BZ",
+          "no_source_import_or_media_download": true,
+          "no_tensor_written": true,
+          "no_training_or_model_fitting": true,
+          "package_id": "return-to-form-popsign-fresh5-repaired-v1",
+          "required_input_contract": "rgb_regions_grid_v1",
+          "schema_version": "asl-pilot-popsign-fresh5-repaired-manifest-binding/v1",
+          "selected_labels": [
+            "thank_you",
+            "pen",
+            "home",
+            "who",
+            "morning"
+          ],
+          "source_id": "popsign-v1-original-videos",
+          "source_manifest": {
+            "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/train.json",
+            "sha256": "6cc8ca08bc127d8b42e55e03b604702a66c94d618821c07c23b6a9bd2b0f31ef"
+          },
+          "source_split_policy": "preserve PopSign train/val/test source split boundaries exactly",
+          "split": "train",
+          "status": "materialized_from_existing_verified_region_grid_manifest",
+          "training_stop_conditions": {
+            "browser": "No browser activation, active-label promotion, model-card promotion, or final-readiness claim is allowed from this contract alone.",
+            "compute": "No Brev compute receipt is allowed until a later local no-spend materialization/smoke records improved held-out signal over M3BU and preserves these gates.",
+            "pen": "Any later training/materialization prompt must stop before Brev/export if pen recall remains near M3BU 0.04 or pen remains mostly absorbed by thank_you.",
+            "thank_you": "Any later training/materialization prompt must stop before Brev/export if thank_you remains an overpredicted class near M3BW 0.568 of test predictions."
+          }
+        },
+        "carried_field_counts": {
+          "clip_id": 125,
+          "frame_tensor_provenance": 125,
+          "frame_tensor_sha256": 125,
+          "relative_frame_tensor_path": 125,
+          "sha256": 125,
+          "signer_identity_hash": 125,
+          "source_id": 125,
+          "source_record_id": 125,
+          "source_split": 125
+        },
+        "clip_count": 125,
+        "dataset_id": "return-to-form-popsign-fresh5-repaired-v1",
+        "dataset_source_mode": "approved_external_raw_video_source",
+        "duplicate_clip_ids": {},
+        "duplicate_source_record_ids": {},
+        "duplicate_tensor_paths": {},
+        "label_counts": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "labels": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "manifest": {
+          "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json",
+          "sha256": "f84b8eec2ee3b5f29118518caf42b64636f231acd39864ad0363729c96365a16"
+        },
+        "signer_identity_hash_count": 31,
+        "signer_identity_hash_count_by_label": {
+          "home": 18,
+          "morning": 15,
+          "pen": 14,
+          "thank_you": 18,
+          "who": 18
+        },
+        "source_id": "popsign-v1-original-videos",
+        "source_labels": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "source_manifest": {
+          "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/train.json",
+          "sha256": "6cc8ca08bc127d8b42e55e03b604702a66c94d618821c07c23b6a9bd2b0f31ef"
+        },
+        "source_record_id_count": 125,
+        "source_record_id_count_by_label": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "source_sha256_count_by_label": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "source_split_counts": {
+          "train": 125
+        },
+        "tensor_contract_field_count": 125,
+        "tensor_file_count": 125,
+        "tensor_hash_match_count": 125,
+        "tensor_hash_samples": [
+          {
+            "clip_id": "popsign-v1-train-thank_you-000001",
+            "label_id": "thank_you",
+            "path": "data/tensors/return-to-form-popsign-fresh5-region-grid/train/popsign-v1-train-thank_you-000001-regions.pt",
+            "sha256": "bac4801ae7a3fd3a207bdde5c110668cb114bedcff7b1c77590cf3a454b3000e"
+          },
+          {
+            "clip_id": "popsign-v1-train-thank_you-000002",
+            "label_id": "thank_you",
+            "path": "data/tensors/return-to-form-popsign-fresh5-region-grid/train/popsign-v1-train-thank_you-000002-regions.pt",
+            "sha256": "b63752b6519ae74ba5165705088ee5b77934d753f4ccd85cddfcae10e9d99fa1"
+          }
+        ],
+        "tensor_reference_count": 125,
+        "tensor_sha256_count": 125
+      },
+      "validation": {
+        "binding": {
+          "existing_tensor_references_only": true,
+          "generated_at": "2026-05-27T20:43:26Z",
+          "later_learnability_architecture": "true_temporal_convnet_region_grid",
+          "m3by_repaired_manifest_contract": {
+            "path": "docs/validation/return-to-form-popsign-fresh5-repaired-manifest-contract-v1.json",
+            "sha256": "97d92a052d6cd3740784102f6e999c86ec33d017877aad4b92aee5b44791d965"
+          },
+          "mission": "M3BZ",
+          "no_source_import_or_media_download": true,
+          "no_tensor_written": true,
+          "no_training_or_model_fitting": true,
+          "package_id": "return-to-form-popsign-fresh5-repaired-v1",
+          "required_input_contract": "rgb_regions_grid_v1",
+          "schema_version": "asl-pilot-popsign-fresh5-repaired-manifest-binding/v1",
+          "selected_labels": [
+            "thank_you",
+            "pen",
+            "home",
+            "who",
+            "morning"
+          ],
+          "source_id": "popsign-v1-original-videos",
+          "source_manifest": {
+            "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/validation.json",
+            "sha256": "9e83e674ee9ee65508eb322b43fa0453ef7f5a76740735ebfa73a881ab3e0b40"
+          },
+          "source_split_policy": "preserve PopSign train/val/test source split boundaries exactly",
+          "split": "validation",
+          "status": "materialized_from_existing_verified_region_grid_manifest",
+          "training_stop_conditions": {
+            "browser": "No browser activation, active-label promotion, model-card promotion, or final-readiness claim is allowed from this contract alone.",
+            "compute": "No Brev compute receipt is allowed until a later local no-spend materialization/smoke records improved held-out signal over M3BU and preserves these gates.",
+            "pen": "Any later training/materialization prompt must stop before Brev/export if pen recall remains near M3BU 0.04 or pen remains mostly absorbed by thank_you.",
+            "thank_you": "Any later training/materialization prompt must stop before Brev/export if thank_you remains an overpredicted class near M3BW 0.568 of test predictions."
+          }
+        },
+        "carried_field_counts": {
+          "clip_id": 125,
+          "frame_tensor_provenance": 125,
+          "frame_tensor_sha256": 125,
+          "relative_frame_tensor_path": 125,
+          "sha256": 125,
+          "signer_identity_hash": 125,
+          "source_id": 125,
+          "source_record_id": 125,
+          "source_split": 125
+        },
+        "clip_count": 125,
+        "dataset_id": "return-to-form-popsign-fresh5-repaired-v1",
+        "dataset_source_mode": "approved_external_raw_video_source",
+        "duplicate_clip_ids": {},
+        "duplicate_source_record_ids": {},
+        "duplicate_tensor_paths": {},
+        "label_counts": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "labels": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "manifest": {
+          "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json",
+          "sha256": "090b40ec70775e96fb81450feb6a5e9960f93175dfda4c2ae9087b0b970cb04a"
+        },
+        "signer_identity_hash_count": 8,
+        "signer_identity_hash_count_by_label": {
+          "home": 8,
+          "morning": 7,
+          "pen": 6,
+          "thank_you": 8,
+          "who": 8
+        },
+        "source_id": "popsign-v1-original-videos",
+        "source_labels": [
+          "thank_you",
+          "pen",
+          "home",
+          "who",
+          "morning"
+        ],
+        "source_manifest": {
+          "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/validation.json",
+          "sha256": "9e83e674ee9ee65508eb322b43fa0453ef7f5a76740735ebfa73a881ab3e0b40"
+        },
+        "source_record_id_count": 125,
+        "source_record_id_count_by_label": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "source_sha256_count_by_label": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "source_split_counts": {
+          "val": 125
+        },
+        "tensor_contract_field_count": 125,
+        "tensor_file_count": 125,
+        "tensor_hash_match_count": 125,
+        "tensor_hash_samples": [
+          {
+            "clip_id": "popsign-v1-validation-thank_you-000001",
+            "label_id": "thank_you",
+            "path": "data/tensors/return-to-form-popsign-fresh5-region-grid/validation/popsign-v1-validation-thank_you-000001-regions.pt",
+            "sha256": "5ba60e8dbe5c1c1e89f4104330777179690c6480e3895c8fa7b4be9cac3bb7af"
+          },
+          {
+            "clip_id": "popsign-v1-validation-thank_you-000002",
+            "label_id": "thank_you",
+            "path": "data/tensors/return-to-form-popsign-fresh5-region-grid/validation/popsign-v1-validation-thank_you-000002-regions.pt",
+            "sha256": "58b300b160bce6523c926abb3a6837da9c95703d555041313302d3e063d74a24"
+          }
+        ],
+        "tensor_reference_count": 125,
+        "tensor_sha256_count": 125
+      }
+    },
+    "tensor_failures": []
+  },
+  "mission": "Mission 3BZ - PopSign fresh5 repaired manifest materialization",
+  "non_actions": [
+    "no training/fitting/optimizer/backward pass/checkpoint",
+    "no Brev command or paid compute",
+    "no tensor write or rewrite",
+    "no source import or source-register change",
+    "no new labels or pseudo-labels",
+    "no pretrained detector, landmark, backbone, embedding, or model path",
+    "no export, browser activation, model-card promotion, final-gate change, or push"
+  ],
+  "schema_version": "asl-pilot-popsign-fresh5-repaired-manifest-materialization/v1",
+  "scope": {
+    "existing_artifacts_only": true,
+    "local_only": true,
+    "no_brev_command_or_spend": true,
+    "no_checkpoint_created": true,
+    "no_detector0_training": true,
+    "no_existing_m3bt_or_m3bs_manifest_overwrite": true,
+    "no_export_or_browser_activation": true,
+    "no_final_gate_change": true,
+    "no_label_expansion": true,
+    "no_model_card_promotion": true,
+    "no_model_fitting": true,
+    "no_optimizer_or_backward_pass": true,
+    "no_pretrained_dependency": true,
+    "no_pseudo_labels": true,
+    "no_push": true,
+    "no_source_import_or_media_download": true,
+    "no_source_register_mutation": true,
+    "no_tensor_write_or_rewrite": true,
+    "no_training_run": true
+  },
+  "status": "completed_no_training_manifest_materialization",
+  "tracked_files_changed": [
+    "scripts/materialize_popsign_fresh5_repaired_manifest.py",
+    "data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json",
+    "data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json",
+    "data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json",
+    "data/manifests/return-to-form-popsign-fresh5-repaired-v1/manifest-contract.json",
+    "docs/validation/return-to-form-popsign-fresh5-repaired-manifest-materialization-v1.json",
+    "docs/session-logs/386-mission-3bz-popsign-fresh5-repaired-manifest-materialization.md"
+  ],
+  "training_stop_conditions": {
+    "browser": "No browser activation, active-label promotion, model-card promotion, or final-readiness claim is allowed from this contract alone.",
+    "compute": "No Brev compute receipt is allowed until a later local no-spend materialization/smoke records improved held-out signal over M3BU and preserves these gates.",
+    "pen": "Any later training/materialization prompt must stop before Brev/export if pen recall remains near M3BU 0.04 or pen remains mostly absorbed by thank_you.",
+    "thank_you": "Any later training/materialization prompt must stop before Brev/export if thank_you remains an overpredicted class near M3BW 0.568 of test predictions."
+  }
+}

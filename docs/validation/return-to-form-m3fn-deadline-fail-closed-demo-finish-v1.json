@@ -1,0 +1,229 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3fn-deadline-fail-closed-demo-finish/v1",
+  "status": "completed_fail_closed_smoke_refresh_with_one_audit_contract_fix",
+  "generated_at": "2026-05-29T01:29:00Z",
+  "start_head": "ce4a997",
+  "active_prompt": "docs/model/return-to-form-m3fn-deadline-fail-closed-demo-finish-goal-loop-prompt.md",
+  "slice": {
+    "id": "fail_closed_product_smoke_refresh_practice_contract_fix",
+    "summary": "Refreshed local fail-closed product smoke evidence and repaired the stale practice-screen contract audit that still expected the retired Submit attempt copy.",
+    "scope": "local Mac only, no spend, no ML, no product claim expansion"
+  },
+  "commands_run": [
+    {
+      "command": "git status --short --branch",
+      "result": "passed",
+      "notes": "Worktree was clean at start; after the slice only scoped validation reports, one audit script, receipt, and session log were dirty."
+    },
+    {
+      "command": "git log -10 --oneline --decorate",
+      "result": "passed",
+      "notes": "Start HEAD was ce4a997 supervisor: activate m3fn deadline demo finish."
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "result": "passed",
+      "notes": "Source register hash b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8."
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3fm-popsign-label-ladder-metric-triage-no-training-v1.json >/dev/null",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_practice_screen_contract.mjs",
+      "result": "failed_then_fixed",
+      "notes": "Initial blocker: retry_next expected stale Submit attempt copy. The audit contract was updated to expect Save practice, then reran and passed."
+    },
+    {
+      "command": "node scripts/audit_practice_scope_copy_smoke.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/run_practice_progress_smoke.mjs --write",
+      "result": "passed",
+      "output": "docs/validation/practice-progress-smoke.json",
+      "sha256": "ffbeca4bd19c9e60e7d3a70cbfc82bb313a70bce44afabc38e84c5bd8e48b456",
+      "checks_passed": 12
+    },
+    {
+      "command": "node scripts/audit_practice_progress_smoke.mjs",
+      "result": "passed",
+      "notes": "Report sha256 ffbeca4bd19c9e60e7d3a70cbfc82bb313a70bce44afabc38e84c5bd8e48b456."
+    },
+    {
+      "command": "node scripts/run_practice_camera_behavior_smoke.mjs --write",
+      "result": "passed",
+      "output": "docs/validation/practice-camera-behavior-smoke.json",
+      "sha256": "1065c1c31fb9f3ba1e553f48014b1b149cd030d8a82ef775c20f14dc7da423a7",
+      "checks_passed": 7
+    },
+    {
+      "command": "node scripts/audit_practice_camera_behavior_smoke.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/run_lesson_page_smoke.mjs --write",
+      "result": "passed",
+      "output": "docs/validation/lesson-page-smoke.json",
+      "sha256": "9fa78a08ac259ba68868f3b00a86c291f5b7e0e30eee1c06dbcc4ebe9bf45580",
+      "checks_passed": 8
+    },
+    {
+      "command": "node scripts/audit_lesson_page_smoke.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_lesson_fail_closed.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_avatar_no_recognition_claims.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_validation_page_smoke.mjs",
+      "result": "passed",
+      "output": "docs/validation/validation-page-smoke.json",
+      "sha256": "2cfb9fe89e9c0cb120afc5a120062b72f9cd6cb68c4f066011239c15e74d57c9",
+      "checks_passed": 6
+    },
+    {
+      "command": "node scripts/audit_final_claim_matrix.mjs",
+      "result": "passed",
+      "notes": "Matrix remains no_active_claim_rawframe_not_trained with 0 active CV-supported labels and 100 learn-only labels."
+    },
+    {
+      "command": "node scripts/audit_no_raw_video_upload.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "npm --prefix web run typecheck",
+      "result": "passed"
+    },
+    {
+      "command": "npm --prefix web run lint",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    },
+    {
+      "command": "git status --short --ignored output/m3ff-popsign-label-ladder-local-sanity/validation-report.json",
+      "result": "passed",
+      "notes": "Confirmed the M3FL validation report remains ignored under output/."
+    },
+    {
+      "command": "shasum -a 256 output/m3ff-popsign-label-ladder-local-sanity/validation-report.json",
+      "result": "passed",
+      "sha256": "24cc76caec4453d8a7ea266f9eb39108c368aa5df5858981d344c59160928065"
+    }
+  ],
+  "smoke_audit_blockers": [
+    {
+      "blocker": "scripts/audit_practice_screen_contract.mjs expected Submit attempt even though the current fail-closed UI intentionally exposes Save practice while model-card status is not_trained.",
+      "status": "resolved",
+      "fix": "Updated the retry_next contract label/snippet to require Save practice instead of Submit attempt."
+    }
+  ],
+  "runtime_blockers": [],
+  "files_changed": [
+    {
+      "path": "scripts/audit_practice_screen_contract.mjs",
+      "why": "Repair stale fail-closed practice contract audit from Submit attempt to Save practice."
+    },
+    {
+      "path": "docs/validation/practice-progress-smoke.json",
+      "why": "Refresh local practice/progress fail-closed smoke evidence."
+    },
+    {
+      "path": "docs/validation/practice-camera-behavior-smoke.json",
+      "why": "Refresh local browser camera behavior fail-closed smoke evidence."
+    },
+    {
+      "path": "docs/validation/lesson-page-smoke.json",
+      "why": "Refresh local lesson page fail-closed smoke evidence."
+    },
+    {
+      "path": "docs/validation/return-to-form-m3fn-deadline-fail-closed-demo-finish-v1.json",
+      "why": "Record this M3FN receipt."
+    },
+    {
+      "path": "docs/session-logs/586-mission-3fn-deadline-fail-closed-demo-finish.md",
+      "why": "Record this numbered executor session log."
+    }
+  ],
+  "claim_surfaces_before": {
+    "web/public/model/model-card.json": {
+      "status": "not_trained",
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a"
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": [],
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546"
+    }
+  },
+  "claim_surfaces_after": {
+    "web/public/model/model-card.json": {
+      "status": "not_trained",
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a"
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": [],
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546"
+    }
+  },
+  "current_product_claim_boundary": {
+    "can_claim": [
+      "The browser learning app can save practice history under the current no-recognition state.",
+      "The practice, lesson, and validation routes expose fail-closed no-recognition behavior in local smoke evidence.",
+      "No active ASL recognition labels are promoted.",
+      "Normal practice does not upload raw learner video or frame payloads."
+    ],
+    "cannot_claim": [
+      "Trained browser ASL recognition.",
+      "ASL correctness grading.",
+      "Detector 0 tracking authority.",
+      "Model readiness, final readiness, or active vocabulary support."
+    ]
+  },
+  "diagnostic_model_outputs": {
+    "status": "diagnostic_only_unpromoted",
+    "ignored_report": "output/m3ff-popsign-label-ladder-local-sanity/validation-report.json",
+    "ignored_report_sha256": "24cc76caec4453d8a7ea266f9eb39108c368aa5df5858981d344c59160928065",
+    "confirmation": "No ignored model output was exported, promoted, copied into web/public/model, or used as browser/product/final evidence."
+  },
+  "forbidden_actions_intentionally_not_run": [
+    "Recognizer training, fitting, evaluator rerun, checkpoint creation, architecture search, threshold tuning, export, or promotion.",
+    "Brev start, exec, sync, copy, stop, lifecycle mutation, or GPU/cloud spend.",
+    "Source/media import, source-register edit, manifest/tensor/vocabulary/packet mutation, generated labels, or pseudo-labels.",
+    "Browser recognition activation, model-card promotion, active-vocabulary promotion, ASL correctness claim, Detector 0 tracking claim, final-readiness claim, push, amend, destructive reset, or no-verify commit."
+  ],
+  "next_action": "draft_final_fail_closed_demo_evidence_package"
+}

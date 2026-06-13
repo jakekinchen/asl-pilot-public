@@ -1,0 +1,1066 @@
+{
+  "schema_version": "asl-pilot-mission-3an-high-signal-module-selection/v1",
+  "mission": "Mission 3AN - ASL Citizen high-signal module selection",
+  "created_at": "2026-05-27T06:50:22Z",
+  "status": "completed_no_spend_module_selected",
+  "evidence_sources": {
+    "generalization_diagnosis": {
+      "path": "docs/validation/return-to-form-asl-citizen-generalization-diagnosis-v1.json",
+      "sha256": "23935696231eb5cc17b9d407bd8679a68ea67ce15043485c296ec1c09a7fd05c"
+    },
+    "diagnostic_report": {
+      "path": "artifacts/rawframe-lesson-milestone/core-negative-diagnostic-report.json",
+      "sha256": "07dc8e8a60893c230213bf2920a0e3a0e6114d13925ad479b15659d3dce7e5ef"
+    },
+    "prediction_sidecar": {
+      "path": "artifacts/rawframe-lesson-milestone/core-negative-diagnostic-prediction-sidecar.json",
+      "sha256": "d5eedaa23757441a6b1476993adf46c96ab711e75fbc64f512044698d6e1ca89"
+    },
+    "train_manifest": {
+      "path": "data/manifests/lesson/rawframe-milestone/train.json",
+      "sha256": "27b2a7c8dc00bd972c41e12dc3b3aa4ccac673c44e000ab5368e1679973ed395"
+    },
+    "validation_manifest": {
+      "path": "data/manifests/lesson/rawframe-milestone/validation.json",
+      "sha256": "396a5671edd74eed3e36d108663a8a7aae351e0e1c5617a3d307b810aad290c1"
+    },
+    "test_manifest": {
+      "path": "data/manifests/lesson/rawframe-milestone/test.json",
+      "sha256": "08c1111f5f699f8b2c42b283850f4f421ae5f277fc6921ed00cc80a4df86fa64"
+    },
+    "selected_import": {
+      "path": "docs/research/asl-citizen-selected-raw-clip-import.json",
+      "sha256": "9613276b10858cef6489676d4ce6765e487089aa5c9559e3982304e626f38b6f"
+    },
+    "source_review": {
+      "path": "docs/research/asl-citizen-academic-source-review.md",
+      "sha256": "f8295c8f498cc5ed3925b833ec51aa7799c4365118f69f0a57993ea27a538d94"
+    },
+    "hint_metadata": {
+      "path": "web/src/lib/sign-hint-metadata.json",
+      "sha256": "10ca7011cfb681556af9fd189a99b556f38e8910abb81e346e5333db92e6158b"
+    }
+  },
+  "selection_policy": {
+    "allowed_source": "asl-citizen-school-assignment-raw-videos",
+    "rank_score_formula": "10 * min(validation_recall, test_recall) + validation_f1 + test_f1 + 0.2 if repo hint metadata exists",
+    "required_for_selection": "nonzero recall on both signer-disjoint validation and signer-disjoint test",
+    "padding_policy": "do_not_pad_if_fewer_than_five_labels_are_defensible",
+    "curriculum_signal": "repo sign-hint metadata is a weak tie-breaker only; held-out model evidence dominates selection"
+  },
+  "selected_module": {
+    "label_count": 7,
+    "labels_ranked": [
+      "table",
+      "please",
+      "black",
+      "hello",
+      "uncle",
+      "white",
+      "sad"
+    ],
+    "labels_curriculum_order": [
+      "hello",
+      "please",
+      "black",
+      "white",
+      "sad",
+      "uncle",
+      "table"
+    ],
+    "selection_summary": "Seven labels are selected because they are the only labels with nonzero recall on both validation and test in the M3AM diagnostic. Only table is strong; the remaining six are weak but defensible for a reduced no-promotion learnability module.",
+    "selected_labels": [
+      {
+        "label": "table",
+        "rank_score": 11.415385,
+        "status": "selected",
+        "selection_reason": "nonzero_recall_on_validation_and_test",
+        "support": {
+          "train": 12,
+          "validation": 4,
+          "test": 4
+        },
+        "signer_count": {
+          "train": 11,
+          "validation": 4,
+          "test": 4
+        },
+        "validation": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1": 0.8
+        },
+        "test": {
+          "precision": 0.4444444444444444,
+          "recall": 1.0,
+          "f1": 0.6153846153846153
+        },
+        "has_repo_hint_metadata": false,
+        "high_confidence_confusion_count": 3,
+        "rationale": "Selected because this label has nonzero recall on both signer-disjoint validation and test while preserving approved ASL Citizen source support.",
+        "known_confusion_risks": [
+          {
+            "split": "test",
+            "true_label": "orange",
+            "predicted_label": "table",
+            "confidence": 0.995699405670166,
+            "probability_margin": 0.9948644824326038,
+            "signer_id": "asl-citizen-participant-P49",
+            "clip_id": "asl-citizen-test-orange-47163334562714154-orange",
+            "role": "predicted_as_label"
+          },
+          {
+            "split": "test",
+            "true_label": "white",
+            "predicted_label": "table",
+            "confidence": 0.9161048531532288,
+            "probability_margin": 0.8955301400274038,
+            "signer_id": "asl-citizen-participant-P49",
+            "clip_id": "asl-citizen-test-white-005758060810748145-white",
+            "role": "predicted_as_label"
+          },
+          {
+            "split": "validation",
+            "true_label": "read",
+            "predicted_label": "table",
+            "confidence": 0.8677783012390137,
+            "probability_margin": 0.8240226246416569,
+            "signer_id": "asl-citizen-participant-P21",
+            "clip_id": "asl-citizen-validation-read-8156740964285663-read",
+            "role": "predicted_as_label"
+          }
+        ]
+      },
+      {
+        "label": "please",
+        "rank_score": 3.35,
+        "status": "selected",
+        "selection_reason": "nonzero_recall_on_validation_and_test",
+        "support": {
+          "train": 12,
+          "validation": 4,
+          "test": 4
+        },
+        "signer_count": {
+          "train": 12,
+          "validation": 4,
+          "test": 4
+        },
+        "validation": {
+          "precision": 0.3333333333333333,
+          "recall": 0.5,
+          "f1": 0.4
+        },
+        "test": {
+          "precision": 0.25,
+          "recall": 0.25,
+          "f1": 0.25
+        },
+        "has_repo_hint_metadata": true,
+        "high_confidence_confusion_count": 4,
+        "rationale": "Selected because this label has nonzero recall on both signer-disjoint validation and test while preserving approved ASL Citizen source support.",
+        "known_confusion_risks": [
+          {
+            "split": "validation",
+            "true_label": "please",
+            "predicted_label": "white",
+            "confidence": 0.9977065324783325,
+            "probability_margin": 0.9968768957187422,
+            "signer_id": "asl-citizen-participant-P26",
+            "clip_id": "asl-citizen-validation-please-05859480723249688-please",
+            "role": "true_label_missed"
+          },
+          {
+            "split": "test",
+            "true_label": "white",
+            "predicted_label": "please",
+            "confidence": 0.8835694789886475,
+            "probability_margin": 0.8341537788510323,
+            "signer_id": "asl-citizen-participant-P22",
+            "clip_id": "asl-citizen-test-white-23222004944717023-white",
+            "role": "predicted_as_label"
+          },
+          {
+            "split": "test",
+            "true_label": "please",
+            "predicted_label": "white",
+            "confidence": 0.8818686604499817,
+            "probability_margin": 0.8284752629697323,
+            "signer_id": "asl-citizen-participant-P6",
+            "clip_id": "asl-citizen-test-please-3584447878251358-please",
+            "role": "true_label_missed"
+          },
+          {
+            "split": "test",
+            "true_label": "please",
+            "predicted_label": "white",
+            "confidence": 0.8021467328071594,
+            "probability_margin": 0.6817967742681503,
+            "signer_id": "asl-citizen-participant-P49",
+            "clip_id": "asl-citizen-test-please-5042323343464843-please",
+            "role": "true_label_missed"
+          }
+        ]
+      },
+      {
+        "label": "black",
+        "rank_score": 3.319048,
+        "status": "selected",
+        "selection_reason": "nonzero_recall_on_validation_and_test",
+        "support": {
+          "train": 12,
+          "validation": 4,
+          "test": 4
+        },
+        "signer_count": {
+          "train": 12,
+          "validation": 4,
+          "test": 4
+        },
+        "validation": {
+          "precision": 0.3333333333333333,
+          "recall": 0.25,
+          "f1": 0.28571428571428575
+        },
+        "test": {
+          "precision": 0.5,
+          "recall": 0.25,
+          "f1": 0.3333333333333333
+        },
+        "has_repo_hint_metadata": true,
+        "high_confidence_confusion_count": 1,
+        "rationale": "Selected because this label has nonzero recall on both signer-disjoint validation and test while preserving approved ASL Citizen source support.",
+        "known_confusion_risks": [
+          {
+            "split": "validation",
+            "true_label": "black",
+            "predicted_label": "think",
+            "confidence": 0.8300648331642151,
+            "probability_margin": 0.7845174223184586,
+            "signer_id": "asl-citizen-participant-P26",
+            "clip_id": "asl-citizen-validation-black-2816071785934098-black",
+            "role": "true_label_missed"
+          }
+        ]
+      },
+      {
+        "label": "hello",
+        "rank_score": 3.207937,
+        "status": "selected",
+        "selection_reason": "nonzero_recall_on_validation_and_test",
+        "support": {
+          "train": 12,
+          "validation": 4,
+          "test": 4
+        },
+        "signer_count": {
+          "train": 12,
+          "validation": 4,
+          "test": 4
+        },
+        "validation": {
+          "precision": 0.3333333333333333,
+          "recall": 0.25,
+          "f1": 0.28571428571428575
+        },
+        "test": {
+          "precision": 0.2,
+          "recall": 0.25,
+          "f1": 0.22222222222222224
+        },
+        "has_repo_hint_metadata": true,
+        "high_confidence_confusion_count": 0,
+        "rationale": "Selected because this label has nonzero recall on both signer-disjoint validation and test while preserving approved ASL Citizen source support.",
+        "known_confusion_risks": []
+      },
+      {
+        "label": "uncle",
+        "rank_score": 3.185714,
+        "status": "selected",
+        "selection_reason": "nonzero_recall_on_validation_and_test",
+        "support": {
+          "train": 12,
+          "validation": 3,
+          "test": 4
+        },
+        "signer_count": {
+          "train": 10,
+          "validation": 3,
+          "test": 4
+        },
+        "validation": {
+          "precision": 0.14285714285714285,
+          "recall": 0.3333333333333333,
+          "f1": 0.2
+        },
+        "test": {
+          "precision": 0.3333333333333333,
+          "recall": 0.25,
+          "f1": 0.28571428571428575
+        },
+        "has_repo_hint_metadata": true,
+        "high_confidence_confusion_count": 1,
+        "rationale": "Selected because this label has nonzero recall on both signer-disjoint validation and test while preserving approved ASL Citizen source support.",
+        "known_confusion_risks": [
+          {
+            "split": "test",
+            "true_label": "uncle",
+            "predicted_label": "read",
+            "confidence": 0.8024947643280029,
+            "probability_margin": 0.7220382317900658,
+            "signer_id": "asl-citizen-participant-P49",
+            "clip_id": "asl-citizen-test-uncle-9287423984089731-uncle",
+            "role": "true_label_missed"
+          }
+        ]
+      },
+      {
+        "label": "white",
+        "rank_score": 3.181818,
+        "status": "selected",
+        "selection_reason": "nonzero_recall_on_validation_and_test",
+        "support": {
+          "train": 12,
+          "validation": 4,
+          "test": 4
+        },
+        "signer_count": {
+          "train": 11,
+          "validation": 3,
+          "test": 4
+        },
+        "validation": {
+          "precision": 0.14285714285714285,
+          "recall": 0.25,
+          "f1": 0.18181818181818182
+        },
+        "test": {
+          "precision": 0.5,
+          "recall": 0.5,
+          "f1": 0.5
+        },
+        "has_repo_hint_metadata": false,
+        "high_confidence_confusion_count": 6,
+        "rationale": "Selected because this label has nonzero recall on both signer-disjoint validation and test while preserving approved ASL Citizen source support.",
+        "known_confusion_risks": [
+          {
+            "split": "validation",
+            "true_label": "please",
+            "predicted_label": "white",
+            "confidence": 0.9977065324783325,
+            "probability_margin": 0.9968768957187422,
+            "signer_id": "asl-citizen-participant-P26",
+            "clip_id": "asl-citizen-validation-please-05859480723249688-please",
+            "role": "predicted_as_label"
+          },
+          {
+            "split": "test",
+            "true_label": "white",
+            "predicted_label": "table",
+            "confidence": 0.9161048531532288,
+            "probability_margin": 0.8955301400274038,
+            "signer_id": "asl-citizen-participant-P49",
+            "clip_id": "asl-citizen-test-white-005758060810748145-white",
+            "role": "true_label_missed"
+          },
+          {
+            "split": "validation",
+            "true_label": "white",
+            "predicted_label": "frog",
+            "confidence": 0.8913748860359192,
+            "probability_margin": 0.8703162372112274,
+            "signer_id": "asl-citizen-participant-P21",
+            "clip_id": "asl-citizen-validation-white-21947947473280904-white",
+            "role": "true_label_missed"
+          },
+          {
+            "split": "test",
+            "true_label": "white",
+            "predicted_label": "please",
+            "confidence": 0.8835694789886475,
+            "probability_margin": 0.8341537788510323,
+            "signer_id": "asl-citizen-participant-P22",
+            "clip_id": "asl-citizen-test-white-23222004944717023-white",
+            "role": "true_label_missed"
+          },
+          {
+            "split": "test",
+            "true_label": "please",
+            "predicted_label": "white",
+            "confidence": 0.8818686604499817,
+            "probability_margin": 0.8284752629697323,
+            "signer_id": "asl-citizen-participant-P6",
+            "clip_id": "asl-citizen-test-please-3584447878251358-please",
+            "role": "predicted_as_label"
+          },
+          {
+            "split": "test",
+            "true_label": "please",
+            "predicted_label": "white",
+            "confidence": 0.8021467328071594,
+            "probability_margin": 0.6817967742681503,
+            "signer_id": "asl-citizen-participant-P49",
+            "clip_id": "asl-citizen-test-please-5042323343464843-please",
+            "role": "predicted_as_label"
+          }
+        ]
+      },
+      {
+        "label": "sad",
+        "rank_score": 3.143357,
+        "status": "selected",
+        "selection_reason": "nonzero_recall_on_validation_and_test",
+        "support": {
+          "train": 12,
+          "validation": 4,
+          "test": 4
+        },
+        "signer_count": {
+          "train": 12,
+          "validation": 4,
+          "test": 4
+        },
+        "validation": {
+          "precision": 0.14285714285714285,
+          "recall": 0.25,
+          "f1": 0.18181818181818182
+        },
+        "test": {
+          "precision": 0.3333333333333333,
+          "recall": 0.75,
+          "f1": 0.46153846153846156
+        },
+        "has_repo_hint_metadata": false,
+        "high_confidence_confusion_count": 4,
+        "rationale": "Selected because this label has nonzero recall on both signer-disjoint validation and test while preserving approved ASL Citizen source support.",
+        "known_confusion_risks": [
+          {
+            "split": "test",
+            "true_label": "sick",
+            "predicted_label": "sad",
+            "confidence": 0.9977909326553345,
+            "probability_margin": 0.9968764004297554,
+            "signer_id": "asl-citizen-participant-P22",
+            "clip_id": "asl-citizen-test-sick-40883500861073974-sick",
+            "role": "predicted_as_label"
+          },
+          {
+            "split": "test",
+            "true_label": "brother",
+            "predicted_label": "sad",
+            "confidence": 0.994654655456543,
+            "probability_margin": 0.9919208546634763,
+            "signer_id": "asl-citizen-participant-P22",
+            "clip_id": "asl-citizen-test-brother-4315928891640657-brother",
+            "role": "predicted_as_label"
+          },
+          {
+            "split": "validation",
+            "true_label": "thank_you",
+            "predicted_label": "sad",
+            "confidence": 0.9600628018379211,
+            "probability_margin": 0.9476668518036604,
+            "signer_id": "asl-citizen-participant-P21",
+            "clip_id": "asl-citizen-validation-thank_you-0006320057552187119-thank-you",
+            "role": "predicted_as_label"
+          },
+          {
+            "split": "validation",
+            "true_label": "sad",
+            "predicted_label": "brother",
+            "confidence": 0.8482057452201843,
+            "probability_margin": 0.7833151966333389,
+            "signer_id": "asl-citizen-participant-P12",
+            "clip_id": "asl-citizen-validation-sad-3043245354055728-sad",
+            "role": "true_label_missed"
+          }
+        ]
+      }
+    ]
+  },
+  "rejected_labels": [
+    {
+      "label": "book",
+      "rank_score": 0.6,
+      "status": "rejected",
+      "selection_reason": "zero_validation_recall",
+      "support": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "signer_count": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "validation": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "test": {
+        "precision": 0.3333333333333333,
+        "recall": 0.5,
+        "f1": 0.4
+      },
+      "has_repo_hint_metadata": true,
+      "high_confidence_confusion_count": 1,
+      "rejection_rationale": "Rejected for this reduced module because the current diagnostic has zero recall on validation and/or test; retaining it would pad the module beyond current evidence."
+    },
+    {
+      "label": "brother",
+      "rank_score": 0.444444,
+      "status": "rejected",
+      "selection_reason": "zero_validation_recall",
+      "support": {
+        "train": 12,
+        "validation": 3,
+        "test": 4
+      },
+      "signer_count": {
+        "train": 12,
+        "validation": 3,
+        "test": 3
+      },
+      "validation": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "test": {
+        "precision": 0.4,
+        "recall": 0.5,
+        "f1": 0.4444444444444445
+      },
+      "has_repo_hint_metadata": false,
+      "high_confidence_confusion_count": 3,
+      "rejection_rationale": "Rejected for this reduced module because the current diagnostic has zero recall on validation and/or test; retaining it would pad the module beyond current evidence."
+    },
+    {
+      "label": "orange",
+      "rank_score": 0.4,
+      "status": "rejected",
+      "selection_reason": "zero_test_recall",
+      "support": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "signer_count": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "validation": {
+        "precision": 1.0,
+        "recall": 0.25,
+        "f1": 0.4
+      },
+      "test": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "has_repo_hint_metadata": false,
+      "high_confidence_confusion_count": 1,
+      "rejection_rationale": "Rejected for this reduced module because the current diagnostic has zero recall on validation and/or test; retaining it would pad the module beyond current evidence."
+    },
+    {
+      "label": "thirsty",
+      "rank_score": 0.4,
+      "status": "rejected",
+      "selection_reason": "zero_validation_recall",
+      "support": {
+        "train": 12,
+        "validation": 3,
+        "test": 4
+      },
+      "signer_count": {
+        "train": 11,
+        "validation": 3,
+        "test": 3
+      },
+      "validation": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "test": {
+        "precision": 1.0,
+        "recall": 0.25,
+        "f1": 0.4
+      },
+      "has_repo_hint_metadata": false,
+      "high_confidence_confusion_count": 0,
+      "rejection_rationale": "Rejected for this reduced module because the current diagnostic has zero recall on validation and/or test; retaining it would pad the module beyond current evidence."
+    },
+    {
+      "label": "apple",
+      "rank_score": 0.333333,
+      "status": "rejected",
+      "selection_reason": "zero_test_recall",
+      "support": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "signer_count": {
+        "train": 11,
+        "validation": 4,
+        "test": 4
+      },
+      "validation": {
+        "precision": 0.5,
+        "recall": 0.25,
+        "f1": 0.3333333333333333
+      },
+      "test": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "has_repo_hint_metadata": false,
+      "high_confidence_confusion_count": 0,
+      "rejection_rationale": "Rejected for this reduced module because the current diagnostic has zero recall on validation and/or test; retaining it would pad the module beyond current evidence."
+    },
+    {
+      "label": "sick",
+      "rank_score": 0.333333,
+      "status": "rejected",
+      "selection_reason": "zero_test_recall",
+      "support": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "signer_count": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "validation": {
+        "precision": 0.5,
+        "recall": 0.25,
+        "f1": 0.3333333333333333
+      },
+      "test": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "has_repo_hint_metadata": false,
+      "high_confidence_confusion_count": 4,
+      "rejection_rationale": "Rejected for this reduced module because the current diagnostic has zero recall on validation and/or test; retaining it would pad the module beyond current evidence."
+    },
+    {
+      "label": "why",
+      "rank_score": 0.333333,
+      "status": "rejected",
+      "selection_reason": "zero_test_recall",
+      "support": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "signer_count": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "validation": {
+        "precision": 0.5,
+        "recall": 0.25,
+        "f1": 0.3333333333333333
+      },
+      "test": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "has_repo_hint_metadata": false,
+      "high_confidence_confusion_count": 1,
+      "rejection_rationale": "Rejected for this reduced module because the current diagnostic has zero recall on validation and/or test; retaining it would pad the module beyond current evidence."
+    },
+    {
+      "label": "read",
+      "rank_score": 0.315789,
+      "status": "rejected",
+      "selection_reason": "zero_validation_recall",
+      "support": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "signer_count": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "validation": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "test": {
+        "precision": 0.2,
+        "recall": 0.75,
+        "f1": 0.31578947368421056
+      },
+      "has_repo_hint_metadata": false,
+      "high_confidence_confusion_count": 4,
+      "rejection_rationale": "Rejected for this reduced module because the current diagnostic has zero recall on validation and/or test; retaining it would pad the module beyond current evidence."
+    },
+    {
+      "label": "think",
+      "rank_score": 0.285714,
+      "status": "rejected",
+      "selection_reason": "zero_test_recall",
+      "support": {
+        "train": 12,
+        "validation": 3,
+        "test": 4
+      },
+      "signer_count": {
+        "train": 10,
+        "validation": 3,
+        "test": 4
+      },
+      "validation": {
+        "precision": 0.25,
+        "recall": 0.3333333333333333,
+        "f1": 0.28571428571428575
+      },
+      "test": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "has_repo_hint_metadata": false,
+      "high_confidence_confusion_count": 2,
+      "rejection_rationale": "Rejected for this reduced module because the current diagnostic has zero recall on validation and/or test; retaining it would pad the module beyond current evidence."
+    },
+    {
+      "label": "bird",
+      "rank_score": 0.266667,
+      "status": "rejected",
+      "selection_reason": "zero_test_recall",
+      "support": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "signer_count": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "validation": {
+        "precision": 0.18181818181818182,
+        "recall": 0.5,
+        "f1": 0.26666666666666666
+      },
+      "test": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "has_repo_hint_metadata": false,
+      "high_confidence_confusion_count": 3,
+      "rejection_rationale": "Rejected for this reduced module because the current diagnostic has zero recall on validation and/or test; retaining it would pad the module beyond current evidence."
+    },
+    {
+      "label": "brown",
+      "rank_score": 0.222222,
+      "status": "rejected",
+      "selection_reason": "zero_test_recall",
+      "support": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "signer_count": {
+        "train": 12,
+        "validation": 3,
+        "test": 4
+      },
+      "validation": {
+        "precision": 0.2,
+        "recall": 0.25,
+        "f1": 0.22222222222222224
+      },
+      "test": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "has_repo_hint_metadata": false,
+      "high_confidence_confusion_count": 0,
+      "rejection_rationale": "Rejected for this reduced module because the current diagnostic has zero recall on validation and/or test; retaining it would pad the module beyond current evidence."
+    },
+    {
+      "label": "aunt",
+      "rank_score": 0.2,
+      "status": "rejected",
+      "selection_reason": "zero_recall_on_both_validation_and_test",
+      "support": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "signer_count": {
+        "train": 11,
+        "validation": 4,
+        "test": 4
+      },
+      "validation": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "test": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "has_repo_hint_metadata": true,
+      "high_confidence_confusion_count": 1,
+      "rejection_rationale": "Rejected for this reduced module because the current diagnostic has zero recall on validation and/or test; retaining it would pad the module beyond current evidence."
+    },
+    {
+      "label": "no",
+      "rank_score": 0.2,
+      "status": "rejected",
+      "selection_reason": "zero_recall_on_both_validation_and_test",
+      "support": {
+        "train": 12,
+        "validation": 3,
+        "test": 4
+      },
+      "signer_count": {
+        "train": 12,
+        "validation": 3,
+        "test": 4
+      },
+      "validation": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "test": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "has_repo_hint_metadata": true,
+      "high_confidence_confusion_count": 1,
+      "rejection_rationale": "Rejected for this reduced module because the current diagnostic has zero recall on validation and/or test; retaining it would pad the module beyond current evidence."
+    },
+    {
+      "label": "thank_you",
+      "rank_score": 0.2,
+      "status": "rejected",
+      "selection_reason": "zero_recall_on_both_validation_and_test",
+      "support": {
+        "train": 12,
+        "validation": 3,
+        "test": 4
+      },
+      "signer_count": {
+        "train": 12,
+        "validation": 3,
+        "test": 4
+      },
+      "validation": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "test": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "has_repo_hint_metadata": true,
+      "high_confidence_confusion_count": 2,
+      "rejection_rationale": "Rejected for this reduced module because the current diagnostic has zero recall on validation and/or test; retaining it would pad the module beyond current evidence."
+    },
+    {
+      "label": "yes",
+      "rank_score": 0.2,
+      "status": "rejected",
+      "selection_reason": "zero_recall_on_both_validation_and_test",
+      "support": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "signer_count": {
+        "train": 10,
+        "validation": 3,
+        "test": 4
+      },
+      "validation": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "test": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "has_repo_hint_metadata": true,
+      "high_confidence_confusion_count": 3,
+      "rejection_rationale": "Rejected for this reduced module because the current diagnostic has zero recall on validation and/or test; retaining it would pad the module beyond current evidence."
+    },
+    {
+      "label": "frog",
+      "rank_score": 0.0,
+      "status": "rejected",
+      "selection_reason": "zero_recall_on_both_validation_and_test",
+      "support": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "signer_count": {
+        "train": 10,
+        "validation": 3,
+        "test": 4
+      },
+      "validation": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "test": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "has_repo_hint_metadata": false,
+      "high_confidence_confusion_count": 5,
+      "rejection_rationale": "Rejected for this reduced module because the current diagnostic has zero recall on validation and/or test; retaining it would pad the module beyond current evidence."
+    },
+    {
+      "label": "man",
+      "rank_score": 0.0,
+      "status": "rejected",
+      "selection_reason": "zero_recall_on_both_validation_and_test",
+      "support": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "signer_count": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "validation": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "test": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "has_repo_hint_metadata": false,
+      "high_confidence_confusion_count": 1,
+      "rejection_rationale": "Rejected for this reduced module because the current diagnostic has zero recall on validation and/or test; retaining it would pad the module beyond current evidence."
+    },
+    {
+      "label": "who",
+      "rank_score": 0.0,
+      "status": "rejected",
+      "selection_reason": "zero_recall_on_both_validation_and_test",
+      "support": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "signer_count": {
+        "train": 12,
+        "validation": 4,
+        "test": 4
+      },
+      "validation": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "test": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "has_repo_hint_metadata": false,
+      "high_confidence_confusion_count": 1,
+      "rejection_rationale": "Rejected for this reduced module because the current diagnostic has zero recall on validation and/or test; retaining it would pad the module beyond current evidence."
+    }
+  ],
+  "aggregate_metrics": {
+    "source_label_count": 25,
+    "selected_label_count": 7,
+    "rejected_label_count": 18,
+    "labels_with_zero_recall_on_both_validation_and_test": [
+      "aunt",
+      "no",
+      "thank_you",
+      "yes",
+      "frog",
+      "man",
+      "who"
+    ],
+    "labels_with_zero_validation_recall_only": [
+      "book",
+      "brother",
+      "thirsty",
+      "read"
+    ],
+    "labels_with_zero_test_recall_only": [
+      "orange",
+      "apple",
+      "sick",
+      "why",
+      "think",
+      "bird",
+      "brown"
+    ],
+    "all_selected_have_train_validation_test_support": true,
+    "all_selected_have_validation_and_test_signal": true
+  },
+  "future_smoke_gates": {
+    "scope": "reduced-module learnability smoke only; final promotion gates remain unchanged",
+    "pre_training_required_receipt": "A later local/no-spend manifest slice must materialize reduced train/validation/test manifests from existing ASL Citizen manifests and prove check-files/dry-run before any training command.",
+    "training_allowed_now": false,
+    "minimum_train_accuracy_target_for_later_smoke": 0.85,
+    "minimum_validation_top1_target_for_later_smoke": 0.45,
+    "minimum_validation_macro_recall_target_for_later_smoke": 0.35,
+    "minimum_test_top1_target_for_later_smoke": 0.4,
+    "hard_negative_false_pass_rate_target": 0.05,
+    "zero_recall_selected_label_allowed": false,
+    "full_17_type_hard_negative_gate": "unchanged_and_still_required_for_final_promotion"
+  },
+  "selected_next_action": {
+    "action": "materialize_high_signal_module_manifests_and_gates",
+    "reason": "Before training the reduced module, create audited reduced manifests and a manifest/gate receipt from the existing ASL Citizen lesson manifests only.",
+    "new_prompt": "docs/model/return-to-form-asl-citizen-high-signal-manifest-gates-goal-loop-prompt.md",
+    "requires_brev_or_training": false
+  },
+  "boundaries": {
+    "no_brev_command_or_spend": true,
+    "no_classifier_or_detector_training": true,
+    "no_source_import": true,
+    "no_generated_pseudo_labels": true,
+    "no_pretrained_component": true,
+    "no_export_or_promotion": true,
+    "no_browser_activation": true,
+    "full_17_type_hard_negative_gate_unchanged": true,
+    "no_push": true
+  },
+  "conclusion": "Mission 3AN selects a seven-label high-signal ASL Citizen module and stops before manifest materialization or training. The current evidence supports a reduced local preflight next, not another broad training retry."
+}

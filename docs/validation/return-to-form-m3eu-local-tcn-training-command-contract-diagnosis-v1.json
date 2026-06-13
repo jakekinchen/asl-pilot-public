@@ -1,0 +1,270 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3eu-local-tcn-training-command-contract-diagnosis/v1",
+  "mission": "M3EU - Local TCN training-command contract diagnosis",
+  "status": "completed_local_command_contract_proven_no_training",
+  "generated_at": "2026-05-28T19:20:50Z",
+  "generated_by": "Codex executor",
+  "active_prompt": "docs/model/return-to-form-m3eu-local-tcn-training-command-contract-diagnosis-goal-loop-prompt.md",
+  "goal": "GOAL.md",
+  "source_hashes": {
+    "GOAL.md": "f46b0b0c19a25457b7c87d2ccff0f64b12114eaa8ba4ce511bfee7668717a62b",
+    "docs/model/return-to-form-m3eu-local-tcn-training-command-contract-diagnosis-goal-loop-prompt.md": "38f6b49ee2d2158db1a974ecdd78f96b65642c61389feb11ffd3a6a7e016e25f",
+    "scripts/train_rawframe_model.py": "00a86079768b94120687a2f465f751176fc9d166b34cabd371ce87474fae912d",
+    "docs/validation/return-to-form-m3et-bounded-brev-tcn-training-smoke-after-m3es-contract-fix-v1.json": "e5defd901126977c99a1dc58652a088e45e077fe015ad70fb36c640453a44532",
+    "web/public/model/model-card.json": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+    "docs/model/active-vocabulary-claim.json": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546"
+  },
+  "m3et_failure_classification": {
+    "receipt": "docs/validation/return-to-form-m3et-bounded-brev-tcn-training-smoke-after-m3es-contract-fix-v1.json",
+    "status": "blocked_timed_training_command_dry_run_only_input_contract_flag",
+    "classification": "timed_training_command_includes_dry_run_only_input_contract_flag",
+    "exact_failure": "Manifest validation failed: --require-input-contract is a no-training input-contract audit and requires --dry-run",
+    "script_exit_status": 2,
+    "training_performed": false,
+    "checkpoint_written": false,
+    "timed_training_commands_run": 1,
+    "dry_run_command_policy": "The dry-run/check-files command correctly used --dry-run --require-input-contract rgb_regions_grid_v1.",
+    "rejected_command_policy": "The single non-dry-run timed training command incorrectly kept --require-input-contract rgb_regions_grid_v1 after removing --dry-run."
+  },
+  "local_source_prompt_command_decision": {
+    "classification": "prompt_command_steering_only",
+    "source_code_change_required": false,
+    "prompt_or_documentation_change": "This M3EU receipt and session log record the corrected command contract. No source workaround is justified because the script guard is correct, and no historical M3ET prompt edit is needed because it remains evidence of the failed command.",
+    "future_remote_dry_run_contract": "Keep --dry-run --require-input-contract rgb_regions_grid_v1 on dry-run/check-files audit commands.",
+    "future_timed_training_contract": "Remove --require-input-contract from any future non-dry-run timed training command unless a future prompt deliberately changes the local policy.",
+    "brev_spend_authorized_by_m3eu": false
+  },
+  "local_checks": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "## compound-plan-m0...origin/compound-plan-m0 [ahead 193]"
+    },
+    {
+      "command": "git log -10 --oneline --decorate",
+      "status": "passed",
+      "summary": "HEAD ac00dae observer: CONTINUE - m3et local training command contract handoff; previous executor 45775cf mission-3et: record training command blocker"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed",
+      "active_prompt": "docs/model/return-to-form-m3eu-local-tcn-training-command-contract-diagnosis-goal-loop-prompt.md",
+      "blockers": []
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed",
+      "register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed",
+      "findings": []
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3et-bounded-brev-tcn-training-smoke-after-m3es-contract-fix-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "status": "passed"
+    },
+    {
+      "command": "bash -n scripts/brev_sync_repo.sh",
+      "status": "passed"
+    },
+    {
+      "command": "brev ls --json",
+      "status": "passed_read_only",
+      "worker": {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      },
+      "stop_action_needed": false
+    },
+    {
+      "command": "if [ -e output/m3er-high-signal-region-grid-tcn-brev ]; then find output/m3er-high-signal-region-grid-tcn-brev -maxdepth 2 -type f | head -20; else echo absent; fi",
+      "status": "passed",
+      "summary": "absent"
+    }
+  ],
+  "implementation_evidence": {
+    "inspection_command": "rg -n \"require_input_contract|--require-input-contract|dry-run|region_grid_tcn_training_smoke\" scripts/train_rawframe_model.py",
+    "source": "scripts/train_rawframe_model.py",
+    "evidence": [
+      {
+        "lines": "454-459",
+        "summary": "--require-input-contract is documented as a no-training audit guard requiring --dry-run and --check-files."
+      },
+      {
+        "lines": "2426-2430",
+        "summary": "validate_training_invocation rejects --require-input-contract unless --dry-run is present and also requires --check-files."
+      },
+      {
+        "lines": "4396-4403",
+        "summary": "validate_required_input_contracts runs only when args.require_input_contract is present."
+      },
+      {
+        "lines": "4414-4419",
+        "summary": "The script prints the plan and returns before run_training when args.dry_run is true."
+      }
+    ],
+    "decision": "The local implementation intentionally separates input-contract audits from non-dry-run fitting. The correct repair is command/prompt steering, not weakening the guard."
+  },
+  "m3et_prompt_mismatch": {
+    "source": "docs/model/return-to-form-m3et-bounded-brev-tcn-training-smoke-after-m3es-contract-fix-goal-loop-prompt.md",
+    "dry_run_lines": "155-159",
+    "timed_training_lines": "161-165",
+    "summary": "The historical M3ET prompt correctly placed --require-input-contract on the remote dry-run, but also placed it on the timed training command that omitted --dry-run."
+  },
+  "local_dry_run_with_input_contract": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3er-high-signal-region-grid-tcn-brev --model-id m3er-high-signal-region-grid-tcn-brev --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1",
+    "status": "passed",
+    "model_id": "m3er-high-signal-region-grid-tcn-brev",
+    "output_dir": "output/m3er-high-signal-region-grid-tcn-brev",
+    "training_status": "dry_run_only",
+    "evidence_mode": "region_grid_tcn_training_smoke",
+    "pretrained_components": [],
+    "input_contract_report_present": true,
+    "input_contract_status": "passed",
+    "manifests": {
+      "train": {
+        "clip_count": 84,
+        "sha256": "101455329ae04ad06a2c3fd4ca26a29c04ae945bb7925bee373cf3229594fc3d"
+      },
+      "validation": {
+        "clip_count": 27,
+        "sha256": "16a4a64a8fd48a1384c4cfd2e01dddcaa45fb3b1f0588af9ec66f96668cc3a53"
+      },
+      "test": {
+        "clip_count": 28,
+        "sha256": "5a315d49438242febb410287c4ff235ae8cd269a5aba5c3cf550950bae0359f8"
+      }
+    }
+  },
+  "local_dry_run_without_input_contract": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3er-high-signal-region-grid-tcn-brev --model-id m3er-high-signal-region-grid-tcn-brev --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke --dry-run",
+    "status": "passed",
+    "model_id": "m3er-high-signal-region-grid-tcn-brev",
+    "output_dir": "output/m3er-high-signal-region-grid-tcn-brev",
+    "training_status": "dry_run_only",
+    "evidence_mode": "region_grid_tcn_training_smoke",
+    "pretrained_components": [],
+    "input_contract_report_present": false,
+    "manifests": {
+      "train": {
+        "clip_count": 84,
+        "sha256": "101455329ae04ad06a2c3fd4ca26a29c04ae945bb7925bee373cf3229594fc3d"
+      },
+      "validation": {
+        "clip_count": 27,
+        "sha256": "16a4a64a8fd48a1384c4cfd2e01dddcaa45fb3b1f0588af9ec66f96668cc3a53"
+      },
+      "test": {
+        "clip_count": 28,
+        "sha256": "5a315d49438242febb410287c4ff235ae8cd269a5aba5c3cf550950bae0359f8"
+      }
+    }
+  },
+  "non_dry_run_training": {
+    "ran": false,
+    "statement": "No local or remote non-dry-run training command was run. No fitting, backward pass, optimizer construction, epoch training, checkpoint creation, evaluation from checkpoint, copyback, export, promotion, browser activation, or final-readiness claim occurred."
+  },
+  "brev_read_only_provider_state": {
+    "command": "brev ls --json",
+    "read_only": true,
+    "worker": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "status": "STOPPED",
+      "build_status": "COMPLETED",
+      "shell_status": "NOT READY",
+      "health_status": "HEALTHY",
+      "instance_type": "l40s-48gb.1x",
+      "instance_kind": "gpu",
+      "gpu": "L40S"
+    },
+    "stop_action_needed": false,
+    "brev_lifecycle_commands_run": []
+  },
+  "fail_closed_claim_surfaces": {
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "status": "not_trained",
+      "active_labels": []
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "activeLabels": []
+    },
+    "claim_status": "fail_closed_unchanged"
+  },
+  "pretrained_components": [],
+  "negative_authorizations": [
+    "no Brev start",
+    "no Brev exec",
+    "no Brev sync",
+    "no Brev copy",
+    "no remote dry-run",
+    "no remote training",
+    "no package install",
+    "no non-dry-run local training",
+    "no fitting",
+    "no backward pass",
+    "no optimizer work",
+    "no epoch training",
+    "no checkpoint creation",
+    "no evaluation from checkpoint",
+    "no copyback",
+    "no export",
+    "no promotion",
+    "no browser recognition activation",
+    "no final-readiness claim",
+    "no ASL-correctness claim",
+    "no source/media import",
+    "no source-register mutation",
+    "no manifest/tensor/vocabulary/packet mutation",
+    "no dependency mutation",
+    "no label expansion",
+    "no raw learner video upload",
+    "no duplicate worker",
+    "no worker delete/reset",
+    "no push",
+    "no amend",
+    "no no-verify",
+    "no pretrained detector/landmark/backbone/embedding/feature extractor/teacher path",
+    "no generated labels",
+    "no pseudo-labels"
+  ],
+  "changed_files": [
+    "docs/validation/return-to-form-m3eu-local-tcn-training-command-contract-diagnosis-v1.json",
+    "docs/session-logs/542-mission-3eu-local-tcn-training-command-contract-diagnosis.md"
+  ],
+  "blockers": [],
+  "next_action": "continue_bounded_brev_tcn_training_smoke_after_m3eu_command_fix",
+  "next_action_reason": "The local command contract is proven: dry-run/check-files keeps --require-input-contract, future non-dry-run timed training must omit it, fail-closed claims remain unchanged, no non-dry-run command ran, and the retained Brev worker is stopped. Any future Brev spend still requires an active prompt that explicitly records approval and bounded compute rules."
+}

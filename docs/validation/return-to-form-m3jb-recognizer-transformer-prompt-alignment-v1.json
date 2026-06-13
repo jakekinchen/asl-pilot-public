@@ -1,0 +1,107 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-prompt-alignment/v1",
+  "receipt_id": "return-to-form-m3jb-recognizer-transformer-prompt-alignment-v1",
+  "mission": "M3JB - Hierarchical hand-state tracker",
+  "status": "passed_prompt_alignment_and_leftover_landmark_cleanup_no_training",
+  "checked_at": "2026-06-03T18:24:56Z",
+  "source_of_truth": {
+    "fresh_head": "9eea8e7 redirect(goal): pivot loop from landmark-PCK to recognizer transformer distill campaign",
+    "goal": "GOAL.md",
+    "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md"
+  },
+  "active_directive": {
+    "next_action": "m3jb_recognizer_transformer_distill_campaign_brev",
+    "goal_summary": "Train a from-scratch Transformer landmark-sequence recognizer for the MVP verification flow.",
+    "baseline_to_beat": {
+      "artifact": "output/recognizer-distill.json",
+      "test_top1": 0.232,
+      "test_top5": 0.567,
+      "verification_recall_at_far10_approx": 0.7
+    },
+    "primary_metric": "verification_recall_at_far10",
+    "stop_success_metric": "verification_recall_at_far10 >= 0.85"
+  },
+  "prompt_alignment": {
+    "goal_records_active_directive": true,
+    "active_prompt_records_active_directive": true,
+    "old_landmark_pck_campaign_marked_superseded": true,
+    "recognizer_brev_approval_mirrored_in_active_prompt": true,
+    "approval_text_source": "GOAL.md records user 2026-06-03: \"we have infinite Brev compute, don't artificially handicap yourself if more compute would help\"",
+    "old_landmark_pck_50_usd_cap_marked_not_applicable_to_recognizer_campaign": true,
+    "next_slice_in_prompt": "preflight + sync"
+  },
+  "leftover_landmark_cleanup": {
+    "reason": "Current GOAL.md says the recognizer campaign supersedes and pauses the landmark-PCK campaign, and preflight step 1 says to stop leftover landmark training on the worker.",
+    "process_check_command": "timeout 900s brev exec asl-pilot-m3eh-l40s-001 \"echo BEFORE_KILL && ps -eo pid,etime,pcpu,pmem,args | egrep 'train_perhand_landmarks_heatmap|train_perhand|python|torch' | grep -v egrep || true\"",
+    "process_check_status": "passed",
+    "landmark_training_process_found": false,
+    "observed_processes": [
+      "/home/ubuntu/.venv/bin/python3 /home/ubuntu/.venv/bin/jupyter-lab --ip=0.0.0.0 --no-browser --NotebookApp.token= --NotebookApp.password= --ServerApp.allow_remote_access=True",
+      "/usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers"
+    ],
+    "run4_output_check_command": "timeout 900s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && for f in <planned run4 files>; do ...; done\"",
+    "planned_run4_outputs": {
+      "training_receipt": {
+        "path": "tools/detector0-annotator/output/m3jb-perhand-pckcampaign-resunet-w128-g64-fulltrain-e100-lr5e4-brev-v1.json",
+        "present": false
+      },
+      "weights": {
+        "path": "tools/detector0-annotator/output/m3jb-perhand-pckcampaign-resunet-w128-g64-fulltrain-e100-lr5e4-brev-v1.pt",
+        "present": false
+      },
+      "eval_pck010": {
+        "path": "tools/detector0-annotator/output/m3jb-perhand-pckcampaign-resunet-w128-g64-fulltrain-e100-lr5e4-brev-v1-eval-pck010.json",
+        "present": false
+      },
+      "eval_pck005": {
+        "path": "tools/detector0-annotator/output/m3jb-perhand-pckcampaign-resunet-w128-g64-fulltrain-e100-lr5e4-brev-v1-eval-pck005.json",
+        "present": false
+      }
+    }
+  },
+  "brev_teardown": {
+    "stop_command": "brev stop asl-pilot-m3eh-l40s-001",
+    "stop_command_status": "passed",
+    "final_brev_ls_command": "sleep 20; brev ls --json",
+    "final_brev_ls": {
+      "workspaces": [
+        {
+          "name": "asl-pilot-m3jb-pairrank-l40s-001",
+          "id": "h15cj91es",
+          "status": "STOPPED",
+          "build_status": "",
+          "shell_status": "NOT READY",
+          "health_status": "UNHEALTHY",
+          "instance_type": "l40s-48gb.1x",
+          "instance_kind": "gpu",
+          "gpu": "L40S"
+        },
+        {
+          "name": "asl-pilot-m3eh-l40s-001",
+          "id": "3d58wpy9o",
+          "status": "STOPPED",
+          "build_status": "COMPLETED",
+          "shell_status": "NOT READY",
+          "health_status": "HEALTHY",
+          "instance_type": "l40s-48gb.1x",
+          "instance_kind": "gpu",
+          "gpu": "L40S"
+        }
+      ]
+    }
+  },
+  "runtime_boundary": {
+    "local_docs_only_after_cleanup": true,
+    "recognizer_training_started": false,
+    "recognizer_sync_started": false,
+    "landmark_training_left_running": false,
+    "model_artifacts_copied_back": false,
+    "browser_artifact_promoted": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false
+  },
+  "claim_boundary": "This receipt only aligns the active prompt with GOAL.md's recognizer transformer campaign and records cleanup of a superseded landmark run state. It does not sync recognizer caches, train the recognizer, evaluate verification recall@FAR10, copy back model artifacts, promote browser runtime artifacts, upload raw learner video, add pretrained runtime dependencies, or change final gates.",
+  "next_action": "m3jb_recognizer_transformer_distill_campaign_brev",
+  "next_action_rationale": "GOAL.md and the active prompt now both record the recognizer transformer Brev campaign. The next executor should perform the preflight + sync slice from the active prompt, beginning with read-only Brev visibility and recognizer code/cache checks."
+}

@@ -1,0 +1,79 @@
+.DS_Store
+.venv/
+__pycache__/
+.playwright-cli/
+
+# Local environment and secret files. Keep shareable templates as
+# `.env.example` files.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+data/asl-pilot-store.json
+data/privacy-audit-log.jsonl
+data/learner-exports/
+data/vocabulary-review/
+data/clip-review/
+data/asl-citizen-primarymath-roi-review/
+data/signer-identity/
+data/dataset/
+data/manifests/
+data/tensors/
+data/smoke-artifacts/
+data/external/popsign-v1/raw/
+data/external/asl-citizen/raw/
+data/external/asl-citizen/extracted/
+data/external/freihand/
+data/external/rhd/
+data/external/coco2017/
+data/external/coco-wholebody/
+data/external/wlasl/metadata/
+data/external/wlasl/raw/
+data/external/wikimedia-commons-negative-challenge-videos/raw/
+data/external/cira-negative-challenge-videos/raw/
+data/external/internet-archive-negative-challenge-videos/raw/
+docs/review/final-external-attestations.draft.json
+web/node_modules/
+web/.next/
+output/
+.orchestrator-session-id
+.codex-executor-session-id
+.codex-observer-session-id
+
+# Project-local Claude Code settings (per-machine; not shared across team).
+# Contains the Stop hook config that triggers Codex on orchestrator exit.
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
+
+# Orchestrator-exit wake signal for the observer (transient; consumed by
+# .claude/hooks/on-orchestrator-stop.sh on the next Claude Stop event).
+docs/observer-messages/.wake-observer-now
+
+# Round-001 task-026 Stage A / MediaPipe vestige untracking.
+# These directories held the MediaPipe-bound Stage A teacher frontier
+# landmark caches and Stage B supervision manifests; they are removed
+# from git tracking but may remain on disk locally as historical
+# evidence. Delete locally with `rm -rf artifacts/stage_a/
+# artifacts/stage_b/` if storage is needed.
+artifacts/stage_a/
+artifacts/stage_b/
+
+# Mission 3AK local training smoke checkpoint.
+# Keep the JSON provenance tracked, but do not commit the binary checkpoint.
+artifacts/rawframe-lesson-milestone/model_state.pt
+
+# Round-001 task-027 push-blocker cleanup.
+# The PrimaryMath classroom HDF5 dataset (train/val/test.hdf5) was
+# removed from all history via git-filter-repo to enable GitHub push
+# (each file exceeded the 100 MB hard limit). The data is part of the
+# deprecated keypoint lane and is not referenced by the rawframe lane.
+# Pre-rewrite history is preserved in ../asl-pilot-backup-2026-05-23.
+# If the dataset is ever needed again, re-download from source rather
+# than re-commit.
+data/external/primarymath-classroom-asl-118/*.hdf5
+
+# preflight run records (transient, regenerated on each run)
+docs/validation/preflight-runs.log
+.vercel/
+.vercel

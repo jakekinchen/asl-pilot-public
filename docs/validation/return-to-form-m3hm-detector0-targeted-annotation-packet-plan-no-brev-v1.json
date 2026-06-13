@@ -1,0 +1,388 @@
+{
+  "schema_version": "asl-pilot-mission-receipt/v1",
+  "mission": "M3HM",
+  "role": "codex_executor",
+  "status": "completed_targeted_annotation_packet_plan_no_brev",
+  "created_at": "2026-05-29T17:23:26Z",
+  "head_at_start": "5d66b4a97efa2188665f571ddff6447b0d67f0ec",
+  "active_prompt": "docs/model/return-to-form-m3hm-detector0-targeted-annotation-packet-plan-no-brev-goal-loop-prompt.md",
+  "slice": "local no-remote no-Brev no-paid-compute no-training Detector 0 targeted annotation packet planning receipt",
+  "commands_run": [
+    {
+      "command": "git status --short --branch",
+      "exit_code": 0,
+      "summary": "branch compound-plan-m0 ahead of origin; no dirty files at mission start"
+    },
+    {
+      "command": "git log -14 --oneline --decorate",
+      "exit_code": 0,
+      "summary": "HEAD was 5d66b4a observer: CONTINUE - m3hl to m3hm annotation plan"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_code": 0,
+      "summary": "passed with no blockers"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_code": 0,
+      "summary": "passed; GOAL.md points at the M3HM prompt"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "exit_code": 0,
+      "summary": "passed; source register hash b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_code": 0,
+      "summary": "passed; no banned pretrained-CV dependencies or source imports found"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_code": 0,
+      "summary": "passed with no findings"
+    },
+    {
+      "command": "node scripts/audit_detector0_manifest_contract.mjs",
+      "exit_code": 0,
+      "summary": "passed; Detector 0 card remains not_trained/research_only and runtime gates disabled"
+    },
+    {
+      "command": "node scripts/audit_detector0_strict_gate_crop_contract.mjs --json",
+      "exit_code": 0,
+      "summary": "passed; strict gate evidence remains diagnostic-only with recall 0.0575 at 5 percent validation-frame FPR"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/return-to-form-detector0-manifest-label-training-evaluation-contract-v1.json >/dev/null",
+      "exit_code": 0,
+      "summary": "valid JSON"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3hl-detector0-manifest-or-label-contract-repair-no-brev-v1.json >/dev/null",
+      "exit_code": 0,
+      "summary": "valid JSON"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/detector0-card.json >/dev/null",
+      "exit_code": 0,
+      "summary": "valid JSON"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/return-to-form-detector0-strict-gate-crop-normalization-contract.json >/dev/null",
+      "exit_code": 0,
+      "summary": "valid JSON"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/dataset-source-register.json >/dev/null",
+      "exit_code": 0,
+      "summary": "valid JSON"
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json >/dev/null",
+      "exit_code": 0,
+      "summary": "valid JSON"
+    },
+    {
+      "command": "python3 -m json.tool data/manifests/return-to-form-tier0/train.json >/dev/null",
+      "exit_code": 0,
+      "summary": "valid JSON"
+    },
+    {
+      "command": "python3 -m json.tool data/manifests/return-to-form-tier0/validation.json >/dev/null",
+      "exit_code": 0,
+      "summary": "valid JSON"
+    },
+    {
+      "command": "python3 -m json.tool data/manifests/return-to-form-tier0/test.json >/dev/null",
+      "exit_code": 0,
+      "summary": "valid JSON"
+    },
+    {
+      "command": "python3 -m json.tool data/manifests/negative-challenge.json >/dev/null",
+      "exit_code": 0,
+      "summary": "valid JSON"
+    },
+    {
+      "command": "brev ls --json",
+      "exit_code": 0,
+      "summary": "read-only inventory showed asl-pilot-m3eh-l40s-001 stopped"
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0,
+      "summary": "passed before edits"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/return-to-form-detector0-targeted-annotation-packet-plan-v1.json >/dev/null",
+      "exit_code": 0,
+      "summary": "new plan is valid JSON"
+    },
+    {
+      "command": "shasum -a 256 docs/model/return-to-form-detector0-targeted-annotation-packet-plan-v1.json",
+      "exit_code": 0,
+      "summary": "plan hash 861da19e244f6404d078277a3bf8158340fcb242b0c89973012afb2dac4d6a18"
+    }
+  ],
+  "additional_inspection_commands": [
+    {
+      "command": "jq summaries over the M3HL contract, receipt, detector card, detector types, annotation packet, manifests, source register, and prior annotation reviews",
+      "exit_code": 0,
+      "summary": "inspected tracked JSON and markdown evidence without mutating data"
+    },
+    {
+      "command": "jq manifest/negative-challenge summaries using an array-root assumption",
+      "exit_code": 5,
+      "summary": "exploratory inspection failed because those manifests are object-rooted; corrected with .clips-based jq summaries before writing the plan"
+    },
+    {
+      "command": "node -e packet summary over data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "exit_code": 0,
+      "summary": "confirmed 32 rows, split counts 11/11/10, and target presence counts"
+    }
+  ],
+  "post_edit_validation_commands": [
+    {
+      "command": "python3 -m json.tool docs/model/return-to-form-detector0-targeted-annotation-packet-plan-v1.json >/dev/null",
+      "exit_code": 0,
+      "summary": "plan remained valid JSON after receipt/log writing"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3hm-detector0-targeted-annotation-packet-plan-no-brev-v1.json >/dev/null",
+      "exit_code": 0,
+      "summary": "receipt valid JSON; rerun after final command-list patch also exited 0"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_code": 0,
+      "summary": "passed with no blockers after edits"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_code": 0,
+      "summary": "passed after edits"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "exit_code": 0,
+      "summary": "passed after edits"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_code": 0,
+      "summary": "passed after edits"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_code": 0,
+      "summary": "passed after edits with no findings"
+    },
+    {
+      "command": "node scripts/audit_detector0_manifest_contract.mjs",
+      "exit_code": 0,
+      "summary": "passed after edits; fail-closed Detector 0 surfaces unchanged"
+    },
+    {
+      "command": "node scripts/audit_detector0_strict_gate_crop_contract.mjs --json",
+      "exit_code": 0,
+      "summary": "passed after edits"
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0,
+      "summary": "passed after edits"
+    }
+  ],
+  "brev_default_off_inventory": {
+    "checked": true,
+    "command": "brev ls --json",
+    "exit_code": 0,
+    "lifecycle_or_remote_command_run": false,
+    "paid_compute_started": false,
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ]
+  },
+  "files_inspected": [
+    "GOAL.md",
+    "AGENTS.md",
+    "docs/model/return-to-form-m3hm-detector0-targeted-annotation-packet-plan-no-brev-goal-loop-prompt.md",
+    "docs/model/return-to-form-plan.md",
+    "docs/runbooks/codex-goal-loop.md",
+    "docs/runbooks/observer-runbook-codex.md",
+    "docs/model/return-to-form-detector0-manifest-label-training-evaluation-contract-v1.json",
+    "docs/validation/return-to-form-m3hl-detector0-manifest-or-label-contract-repair-no-brev-v1.json",
+    "docs/session-logs/690-mission-3hl-detector0-manifest-or-label-contract-repair-no-brev.md",
+    "web/public/model/detector0-card.json",
+    "web/public/model/browser-model-bundle.json",
+    "web/public/model/model-card.json",
+    "web/src/lib/detector0-types.ts",
+    "docs/model/active-vocabulary-claim.json",
+    "docs/model/return-to-form-detector0-strict-gate-crop-normalization-contract.json",
+    "docs/model/dataset-source-register.json",
+    "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+    "data/manifests/return-to-form-tier0/train.json",
+    "data/manifests/return-to-form-tier0/validation.json",
+    "data/manifests/return-to-form-tier0/test.json",
+    "data/manifests/negative-challenge.json",
+    "docs/validation/return-to-form-tier0-detector0-annotation-packet-v0-review.md",
+    "docs/validation/return-to-form-tier0-detector0-annotation-review-v1.md",
+    "docs/validation/return-to-form-tier0-detector0-annotation-followup-v1.md"
+  ],
+  "files_changed": [
+    "docs/model/return-to-form-detector0-targeted-annotation-packet-plan-v1.json",
+    "docs/validation/return-to-form-m3hm-detector0-targeted-annotation-packet-plan-no-brev-v1.json",
+    "docs/session-logs/691-mission-3hm-detector0-targeted-annotation-packet-plan-no-brev.md"
+  ],
+  "annotation_packet_plan": {
+    "path": "docs/model/return-to-form-detector0-targeted-annotation-packet-plan-v1.json",
+    "sha256": "861da19e244f6404d078277a3bf8158340fcb242b0c89973012afb2dac4d6a18",
+    "status": "planned_not_authored_current_data_not_ready_for_full_detector0_training_evaluation",
+    "next_action": "continue_m3hn_detector0_targeted_annotation_packet_authoring_no_brev"
+  },
+  "m3hl_contract_to_plan_mapping": {
+    "current_candidate_rows_vs_readiness": "The plan preserves M3HL's distinction between 345 Tier 0 clip rows, 32 sparse annotation rows, and readiness for a full Detector 0 training/evaluation packet.",
+    "target_schema_contract": "The plan preserves left_or_first_hand, right_or_second_hand, head_or_face, and upper_body_or_signing_space as the promoted target ids and records any target-schema change as a later human approval or ESCALATE route.",
+    "auxiliary_table_target": "The plan keeps table_two_hand_union_or_contact_region auxiliary/table-scoped only and explicitly forbids using it as a substitute for required promoted target coverage.",
+    "future_manifest_row_contract": "The plan maps future rows to frame, temporal sequence, hard-negative/no-hand, empty-camera, low-light, off-center, non-target signing, absent/not-applicable, and held-out IoU row types by split.",
+    "metric_prerequisites": "The plan carries forward hard-negative, temporal, IoU 0.30/0.50, false no-hand, false trigger, and browser-latency prerequisites.",
+    "source_provenance": "The plan carries forward per-row source, signer, clip, frame/sequence, annotation source, annotator/reviewer, source-rights decision, and no-pretrained attestation requirements."
+  },
+  "target_by_target_planned_coverage_and_gaps": {
+    "left_or_first_hand": {
+      "planned": "positive frame and temporal rows by train/validation/test split across every selected Tier 0 label, absent rows only when human-reviewed, and held-out IoU rows",
+      "gap": "current rows are sparse and lack hard-negative/no-hand, temporal, and held-out IoU coverage"
+    },
+    "right_or_second_hand": {
+      "planned": "table positives remain counted, non-table absent/not-applicable semantics are explicit, and future review must decide whether more true two-hand positives are needed",
+      "gap": "current positives are table-only"
+    },
+    "head_or_face": {
+      "planned": "auxiliary-context rows by split with provenance, occlusion/truncation accounting, and claim-surface proof",
+      "gap": "current rows do not establish held-out IoU or runtime authority"
+    },
+    "upper_body_or_signing_space": {
+      "planned": "semantics must be recorded before expansion, with temporal stability and held-out IoU rows if emitted",
+      "gap": "current rows do not prove temporal stability or browser-latency behavior"
+    }
+  },
+  "metric_prerequisite_planned_coverage_and_gaps": {
+    "hard_negative_no_hand_empty_low_light_rows": "validation/test rows planned from exact-file validation-approved sources; training hard negatives remain blocked until a training-approved source exists",
+    "temporal_rows": "planned multi-frame rows for hand-visible PopSign examples; current packet is single-frame sparse evidence",
+    "iou_evaluation_rows": "planned held-out validation/test IoU 0.30 and 0.50 rows; current strict-gate evidence is diagnostic-only and fails recall needs",
+    "false_no_hand_accounting": "planned target-specific counts for all hand-visible target rows with absent/not-applicable separated from false negatives",
+    "false_trigger_accounting": "planned challenge-type counts for empty_camera, low_light, no_hands_visible, off_center, and non_target_asl_sign",
+    "browser_latency": "deferred until a scratch-trained browser Detector 0 artifact exists"
+  },
+  "source_provenance_no_pretrained_requirements": {
+    "human_authored_or_source_approved_offline_supervision_allowed": true,
+    "raw_video_only_approval_not_derived_annotation_approval": true,
+    "popsign_raw_video_use": "allowed for training/validation/pilot submission with CC BY 4.0 attribution and project-authored manual boxes or regions",
+    "online_negative_challenge_use": "allowed for validation/test reject-only exact-file evidence, not model training",
+    "required_per_row_fields": [
+      "source_id",
+      "source_license_decision",
+      "source_license_review_status",
+      "source_record_id",
+      "source_video_sha256",
+      "signer_identity_hash",
+      "clip_id",
+      "frame_index or frame_index_range",
+      "timestamp_sec or timestamp_sec_range",
+      "annotation_source",
+      "label_source",
+      "annotator or label_author",
+      "reviewer",
+      "reviewed_at",
+      "review_status",
+      "allowed_label_annotation_scope",
+      "pretrained_or_generated_label_use=false",
+      "no_pretrained_attestation"
+    ],
+    "pretrained_detector_landmark_backbone_or_feature_use_allowed": false,
+    "generated_pseudo_label_use_allowed_in_promoted_lane": false
+  },
+  "forbidden_action_proof": {
+    "brev_lifecycle_or_remote_command": false,
+    "paid_compute_started": false,
+    "detector0_training_or_evaluation": false,
+    "recognizer_training_or_evaluation": false,
+    "source_or_media_import": false,
+    "raw_learner_media_inspection": false,
+    "manifest_mutation": false,
+    "annotation_mutation": false,
+    "label_mutation": false,
+    "tensor_mutation": false,
+    "vocabulary_mutation": false,
+    "model_card_mutation": false,
+    "runtime_code_change": false,
+    "final_gate_change": false,
+    "target_schema_mutation": false,
+    "side_worktree_file_mutation": false,
+    "export_or_promotion": false,
+    "browser_recognition_activation": false,
+    "pretrained_detector_landmark_backbone_or_feature_use": false,
+    "generated_pseudo_label_use": false,
+    "push": false,
+    "amend_or_no_verify": false
+  },
+  "claim_surface_proof": {
+    "detector0_card": {
+      "path": "web/public/model/detector0-card.json",
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null,
+      "runtime_gates": {
+        "detector0_tracking": false,
+        "box_driven_avatar": false,
+        "recognition_pass_fail": false
+      }
+    },
+    "browser_model_bundle": {
+      "path": "web/public/model/browser-model-bundle.json",
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9",
+      "recognition_enabled": false,
+      "detector0_tracking_enabled": false,
+      "box_driven_avatar_enabled": false
+    },
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "status": "not_trained"
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "active_label_count": 0
+    }
+  },
+  "commands_intentionally_not_run": [
+    "brev stop",
+    "brev exec",
+    "remote ssh or rsync commands",
+    "Detector 0 training or evaluation",
+    "recognizer training or evaluation",
+    "source/media import",
+    "raw learner media inspection",
+    "model export or promotion",
+    "browser activation",
+    "final gate edits"
+  ],
+  "decision": {
+    "current_packet_ready_for_full_scratch_detector0_training_evaluation": false,
+    "current_packet_ready_for_browser_detector0_promotion": false,
+    "target_schema_preserved": true,
+    "exactly_one_next_action": "continue_m3hn_detector0_targeted_annotation_packet_authoring_no_brev"
+  }
+}

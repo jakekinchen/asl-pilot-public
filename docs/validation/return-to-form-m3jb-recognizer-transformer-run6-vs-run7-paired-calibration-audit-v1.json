@@ -1,0 +1,210 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-run6-vs-run7-paired-calibration-audit/v1",
+  "status": "completed_failed_reproduction_tolerance_no_brev_no_training",
+  "slice": "m3jb_recognizer_transformer_run6_vs_run7_paired_verification_calibration_audit_no_brev",
+  "completed_at": "2026-06-04",
+  "inputs": {
+    "run6_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run6-verifselect-brev-v1.json",
+    "run7_ovr_bce_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run7-ovr-bce-hardneg-brev-v1.json",
+    "run7_ovr_bce_research_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run7-ovr-bce-research-tuning-v1.json",
+    "detailed_audit_receipt": "docs/validation/m3jb-recognizer-run6-vs-run7-paired-calibration-audit-v1.json",
+    "detailed_audit_sha256": "01b44dfa17f6d0539af459702ae9f39cdcf5737a2748ce1771904eca3e99e1b4"
+  },
+  "side_worktree": {
+    "path": "/Users/kelly/Developer/asl-pilot-annotator",
+    "branch": "annotator-tool",
+    "commit": "bfd1e783",
+    "scoped_files": [
+      "tools/detector0-annotator/diagnose_verification_margins.py",
+      "tools/detector0-annotator/test_verification_tail_audit.py"
+    ]
+  },
+  "command": {
+    "python": "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+    "diagnostic": "diagnose_verification_margins.py --diagnostic-kind paired_verification_calibration_audit",
+    "artifact_seeds": {
+      "run6": 0,
+      "run7": 1337
+    },
+    "reproduction_tolerance": 0.0005,
+    "device": "cpu",
+    "batch": 128,
+    "exit_code": 1,
+    "exit_code_expected": true,
+    "exit_code_reason": "diagnostic exits non-zero when receipt status is failed; failure was the run7 local test-recall reproduction tolerance miss"
+  },
+  "dataset_counts": {
+    "clips": 10335,
+    "train_clips": 7011,
+    "monitor_clips": 955,
+    "test_clips": 2369,
+    "classes": 95,
+    "sequence_length": 32,
+    "feature_dim": 90
+  },
+  "counts_match_expected": true,
+  "reproduction": {
+    "run6_test": {
+      "computed_test_verification_recall_at_far10": 0.8038559556786704,
+      "reported_test_verification_recall_at_far10": 0.8039,
+      "abs_diff": 0.00004404432132953939,
+      "tolerance": 0.0005,
+      "within_tolerance": true
+    },
+    "run7_test": {
+      "computed_test_verification_recall_at_far10": 0.7750692520775622,
+      "reported_test_verification_recall_at_far10": 0.7759,
+      "abs_diff": 0.0008307479224378689,
+      "tolerance": 0.0005,
+      "within_tolerance": false
+    },
+    "run6_monitor": {
+      "computed_monitor_verification_recall_at_far10": 0.8169265323599687,
+      "reported_best_monitor_verification_recall_far10": 0.8169,
+      "reported_best_epoch": 14,
+      "abs_diff": 0.000026532359968745034,
+      "tolerance": 0.0005,
+      "within_tolerance": true
+    },
+    "run7_monitor": {
+      "computed_monitor_verification_recall_at_far10": 0.8275977981037635,
+      "reported_best_monitor_verification_recall_far10": 0.8276,
+      "reported_best_epoch": 24,
+      "abs_diff": 0.0000022018962364533934,
+      "tolerance": 0.0005,
+      "within_tolerance": true
+    },
+    "expected_recall_checks": {
+      "test_recall": {
+        "run6": {
+          "expected": 0.8038559556786704,
+          "computed": 0.8038559556786704,
+          "abs_diff": 0,
+          "tolerance": 0.0005,
+          "within_tolerance": true
+        },
+        "run7": {
+          "expected": 0.7759,
+          "computed": 0.7750692520775622,
+          "abs_diff": 0.0008307479224378689,
+          "tolerance": 0.0005,
+          "within_tolerance": false
+        }
+      },
+      "monitor_best": {
+        "run6": {
+          "expected": 0.8169,
+          "reported_best": 0.8169,
+          "computed_selected_checkpoint": 0.8169265323599687,
+          "reported_best_abs_diff": 0,
+          "computed_selected_checkpoint_abs_diff": 0.000026532359968745034,
+          "tolerance": 0.0005,
+          "within_tolerance": true
+        },
+        "run7": {
+          "expected": 0.8276,
+          "reported_best": 0.8276,
+          "computed_selected_checkpoint": 0.8275977981037635,
+          "reported_best_abs_diff": 0,
+          "computed_selected_checkpoint_abs_diff": 0.0000022018962364533934,
+          "tolerance": 0.0005,
+          "within_tolerance": true
+        }
+      },
+      "all_expected_recalls_within_tolerance": false
+    }
+  },
+  "paired_calibration_audit": {
+    "status": "completed",
+    "delta_direction": "run7_minus_run6",
+    "monitor_vs_test_behavior": {
+      "monitor_verification_recall_delta": 0.010671265743794844,
+      "test_verification_recall_delta": -0.028786703601108243,
+      "test_minus_monitor_delta": -0.03945796934490309,
+      "verification_recall_opposite_direction": true,
+      "monitor_split_pairing": "run_specific_training_monitor_splits",
+      "test_split_pairing": "same_heldout_test_split"
+    },
+    "test_per_class_delta_summary": {
+      "classes_compared": 95,
+      "recall_regressed_gt_0_05": 33,
+      "recall_improved_gt_0_05": 17,
+      "regressed_with_positive_margin_p25_or_p50_damage": 32,
+      "regressed_with_positive_rank_p50_damage": 16,
+      "regressed_positive_margin_damage_rate": 0.9696969696969697,
+      "regressed_rank_damage_rate": 0.48484848484848486,
+      "median_positive_margin_p50_delta": -0.012020704397582432,
+      "median_positive_rank_p50_delta": 0
+    },
+    "monitor_per_class_delta_summary": {
+      "classes_compared": 95,
+      "recall_regressed_gt_0_05": 34,
+      "recall_improved_gt_0_05": 42,
+      "regressed_with_positive_margin_p25_or_p50_damage": 30,
+      "regressed_with_positive_rank_p50_damage": 19,
+      "regressed_positive_margin_damage_rate": 0.8823529411764706,
+      "regressed_rank_damage_rate": 0.5588235294117647,
+      "median_positive_margin_p50_delta": -0.0068547839473467286,
+      "median_positive_rank_p50_delta": -0.5
+    },
+    "calibration_damage_conclusion": {
+      "determination_made": true,
+      "positive_margin_calibration_damage_confirmed": true,
+      "random_split_noise_unlikely": true,
+      "rule": "confirmed when test verification delta <= -0.02, monitor delta >= +0.005, test recall regressions outnumber improvements, and >=60% of regressed classes also lose positive p25 or p50 margin"
+    }
+  },
+  "decision": {
+    "audit_passed": false,
+    "reason": "run7 local held-out test recall recomputed to 0.7750692520775622, diff 0.0008307479224378689 from the prompt target 0.7759, exceeding +/-0.0005",
+    "calibration_damage_confirmed": true,
+    "paid_run8_authorized_by_this_slice": false,
+    "rationale": "The paired audit reached the calibration-damage determination, but the explicit reproduction pass criterion did not pass; therefore the prompt condition for considering paid run8 is not satisfied."
+  },
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_run7_test_recall_reproduction_discrepancy_audit_no_brev",
+    "reason": "Resolve the run7 CPU/MPS-vs-recorded CUDA test-recall discrepancy before any paid run8 or prompt target change.",
+    "boundaries": {
+      "brev_spend": false,
+      "training_run": false,
+      "optimizer_or_backward_step": false,
+      "checkpoint_written": false,
+      "runtime_export": false,
+      "browser_promotion": false,
+      "raw_learner_video_upload": false,
+      "pretrained_runtime_dependency_added": false,
+      "final_gate_changed": false
+    }
+  },
+  "validations": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/test_verification_tail_audit.py",
+      "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+      "status": "passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/diagnose_verification_margins.py tools/detector0-annotator/test_verification_tail_audit.py",
+      "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+      "status": "passed"
+    },
+    {
+      "command": "timeout 1800 env PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/diagnose_verification_margins.py --artifact run6=tools/detector0-annotator/output/m3jb-recognizer-transformer-run6-t32-verifselect-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.json --artifact run7=tools/detector0-annotator/output/m3jb-recognizer-transformer-run7-ovr-bce-hardneg-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-ovrbce003-brev-v1.json --artifact-seed run6=0 --artifact-seed run7=1337 --diagnostic-kind paired_verification_calibration_audit --paired-left run6 --paired-right run7 --reproduction-tolerance 0.0005 --expect-test-recall run6=0.8038559556786704 --expect-test-recall run7=0.7759 --expect-monitor-best run6=0.8169 --expect-monitor-best run7=0.8276 --device cpu --batch 128 --top-hard-pairs 100 --out tools/detector0-annotator/output/m3jb-recognizer-run6-vs-run7-paired-calibration-audit-v1.json",
+      "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+      "status": "expected_failed_status_receipt_written"
+    }
+  ],
+  "boundaries": {
+    "brev_used": false,
+    "brev_lifecycle_or_exec": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "runtime_export": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "push": false
+  }
+}

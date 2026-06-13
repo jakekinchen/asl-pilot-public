@@ -1,0 +1,219 @@
+{
+  "schema_version": "asl-pilot-post-collection-evidence-status/v1",
+  "status": "blocked_missing_collection_store",
+  "evidence_mode": "operator_readiness",
+  "finality": "not_final_dataset_evidence",
+  "generated_at": "2026-05-21T19:49:47.627Z",
+  "runner": {
+    "command": [
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/Users/kelly/Developer/asl-pilot/scripts/report_post_collection_evidence_status.mjs",
+      "--write"
+    ],
+    "script": {
+      "path": "scripts/report_post_collection_evidence_status.mjs",
+      "exists": true,
+      "sha256": "71e1fa09b5fde561abd00379d757f480bad058c9b86ef0ba5cde3814db786a25"
+    }
+  },
+  "paths": {
+    "store": {
+      "path": "data/asl-pilot-store.json",
+      "exists": false,
+      "sha256": null
+    },
+    "clip_review_packet": {
+      "path": "data/clip-review/asl-pilot-clip-review.json",
+      "exists": false,
+      "sha256": null
+    },
+    "clip_reviewer_receipt": {
+      "path": "data/clip-review/asl-pilot-clip-reviewer-receipt.json",
+      "exists": false,
+      "sha256": null
+    },
+    "clip_reviewer_authority": {
+      "path": "data/clip-review/asl-pilot-clip-reviewer-authority.json",
+      "exists": false,
+      "sha256": null
+    },
+    "challenge_review_packet": {
+      "path": "data/clip-review/asl-pilot-negative-challenge-review.json",
+      "exists": false,
+      "sha256": null
+    },
+    "challenge_reviewer_receipt": {
+      "path": "data/clip-review/asl-pilot-negative-challenge-reviewer-receipt.json",
+      "exists": false,
+      "sha256": null
+    },
+    "challenge_reviewer_authority": {
+      "path": "data/clip-review/asl-pilot-negative-challenge-reviewer-authority.json",
+      "exists": false,
+      "sha256": null
+    },
+    "signer_identity_packet": {
+      "path": "data/signer-identity/signer-identity-evidence.json",
+      "exists": false,
+      "sha256": null
+    },
+    "clip_review_evidence": {
+      "path": "docs/review/final-clip-review.json",
+      "exists": false,
+      "sha256": null
+    },
+    "challenge_review_evidence": {
+      "path": "docs/review/final-negative-challenge-review.json",
+      "exists": false,
+      "sha256": null
+    },
+    "manifests": [
+      {
+        "path": "data/manifests/train.json",
+        "exists": true,
+        "sha256": "74f0e8f58f5f07c9b2317fb17f8049b2ec11a3c273749db4a984513a50399660"
+      },
+      {
+        "path": "data/manifests/validation.json",
+        "exists": true,
+        "sha256": "76aa8c590d46d75b3dd0aa97a3c7b101300a9b4d49c8e039ae11a9dd03088eaf"
+      },
+      {
+        "path": "data/manifests/test.json",
+        "exists": true,
+        "sha256": "b4988df0a977eb6817da4e61d705e47ef2e2c99abc8a21d64c0168a7b98cd29b"
+      },
+      {
+        "path": "data/manifests/negative-challenge.json",
+        "exists": true,
+        "sha256": "99a345e86dba5c6df87478550cf419eefc44fb94cf991a6434dca54608f95851"
+      }
+    ]
+  },
+  "collection_store_summary": {
+    "exists": false,
+    "dataset_clip_count": 0,
+    "challenge_clip_count": 0,
+    "consent_record_count": 0,
+    "signer_count": 0,
+    "vocabulary_review_status_counts": {},
+    "challenge_review_status_counts": {}
+  },
+  "packet_readiness": {
+    "clip_review_packet_exportable": false,
+    "challenge_review_packet_exportable": false,
+    "signer_identity_packet_required": false,
+    "all_returned_inputs_present": false,
+    "dry_run": {
+      "status": "skipped_missing_inputs",
+      "command": [
+        "node",
+        "scripts/process_collected_dataset_evidence.mjs",
+        "--clip-review",
+        "data/clip-review/asl-pilot-clip-review.json",
+        "--challenge-review",
+        "data/clip-review/asl-pilot-negative-challenge-review.json",
+        "--signer-identity",
+        "data/signer-identity/signer-identity-evidence.json"
+      ],
+      "status_code": null,
+      "stdout": "",
+      "stderr": ""
+    }
+  },
+  "final_readiness": {
+    "dataset_collection_readiness": {
+      "command": [
+        "node",
+        "scripts/audit_dataset_collection_readiness.mjs"
+      ],
+      "status_code": 1,
+      "status": "failed",
+      "stdout": "{\n  \"status\": \"incomplete\",\n  \"checked_at\": \"2026-05-21T19:49:47.621Z\",\n  \"store\": {\n    \"path\": \"data/asl-pilot-store.json\",\n    \"exists\": false\n  },\n  \"targets\": {\n    \"labels_min\": 75,\n    \"labels_max\": 100,\n    \"min_clips_per_label_per_split\": 5,\n    \"target_signers\": 20,\n    \"target_signers_by_split\": {\n      \"train\": 12,\n      \"validation\": 4,\n      \"test\": 4\n    },\n    \"consent_form\": {\n      \"path\": \"docs/privacy/dataset-consent-form.md\",\n      \"sha256\": \"c1832291070b351fd3bbedf3ee1e099ce55f027b659823b8eefff23cc51e1995\"\n    }\n  },\n  \"vocabulary\": {\n    \"label_count\": 95\n  },\n  \"collection\": {\n    \"total_clips\": 0,\n    \"valid_clips\": 0,\n    \"rejected_clips\": 0,\n    \"unresolved_review_clips\": 0,\n    \"consent_records\": 0,\n    \"signer_records\": 0,\n    \"total_signers\": 0,\n    \"signer_counts_by_split\": {\n      \"train\": 0,\n      \"validation\": 0,\n      \"test\": 0\n    },\n    \"clip_counts_by_split\": {\n      \"train\": 0,\n      \"validation\": 0,\n      \"test\": 0\n    },\n    \"covered_labels_by_split\": {\n      \"train\": 0,\n      \"validation\": 0,\n      \"test\": 0\n    },\n    \"missing_labels_by_split\": {\n      \"train\": [\n        \"hello\",\n        \"bye\",\n        \"thank_you\",\n        \"please\",\n        \"yes\",\n        \"no\",\n        \"like\",\n        \"not\",\n        \"have\",\n        \"can\",\n        \"go\",\n        \"book\",\n        \"pen\",\n        \"pencil\",\n        \"read\",\n        \"table\",\n        \"chair\",\n        \"room\",\n        \"home\",\n        \"bed\",\n        \"who\",\n        \"where\",\n        \"why\",\n        \"morning\",\n        \"night\",\n        \"tomorrow\",\n        \"yesterday\",\n        \"now\",\n        \"time\",\n        \"after\",\n        \"before\",\n        \"later\",\n        \"mom\",\n        \"dad\",\n        \"brother\",\n        \"aunt\",\n        \"uncle\",\n        \"grandma\",\n        \"grandpa\",\n        \"boy\",\n        \"girl\",\n        \"child\",\n        \"man\",\n        \"person\",\n        \"happy\",\n        \"sad\",\n        \"sick\",\n        \"fine\",\n        \"mad\",\n        \"bad\",\n        \"hot\",\n        \"hungry\",\n        \"thirsty\",\n        \"food\",\n        \"drink\",\n        \"water\",\n        \"milk\",\n        \"apple\",\n        \"carrot\",\n        \"cereal\",\n        \"red\",\n        \"blue\",\n        \"green\",\n        \"yellow\",\n        \"black\",\n        \"white\",\n        \"orange\",\n        \"brown\",\n        \"animal\",\n        \"cat\",\n        \"dog\",\n        \"bird\",\n        \"fish\",\n        \"frog\",\n        \"horse\",\n        \"car\",\n        \"airplane\",\n        \"tv\",\n        \"call_on_phone\",\n        \"hat\",\n        \"shoe\",\n        \"all\",\n        \"another\",\n        \"any\",\n        \"every\",\n        \"make\",\n        \"find\",\n        \"give\",\n        \"see\",\n        \"look\",\n        \"listen\",\n        \"talk\",\n        \"say\",\n        \"think\",\n        \"open\"\n      ],\n      \"validation\": [\n        \"hello\",\n        \"bye\",\n        \"thank_you\",\n        \"please\",\n        \"yes\",\n        \"no\",\n        \"like\",\n        \"not\",\n        \"have\",\n        \"can\",\n        \"go\",\n        \"book\",\n        \"pen\",\n        \"pencil\",\n        \"read\",\n        \"table\",\n        \"chair\",\n        \"room\",\n        \"home\",\n        \"bed\",\n        \"who\",\n        \"where\",\n        \"why\",\n        \"morning\",\n        \"night\",\n        \"tomorrow\",\n        \"yesterday\",\n        \"now\",\n        \"time\",\n        \"after\",\n        \"before\",\n        \"later\",\n        \"mom\",\n        \"dad\",\n        \"brother\",\n        \"aunt\",\n        \"uncle\",\n        \"grandma\",\n        \"grandpa\",\n        \"boy\",\n        \"girl\",\n        \"child\",\n        \"man\",\n        \"person\",\n        \"happy\",\n        \"sad\",\n        \"sick\",\n        \"fine\",\n        \"mad\",\n        \"bad\",\n        \"hot\",\n        \"hungry\",\n        \"thirsty\",\n        \"food\",\n        \"drink\",\n        \"water\",\n        \"milk\",\n        \"apple\",\n        \"carrot\",\n        \"cereal\",\n        \"red\",\n        \"blue\",\n        \"green\",\n        \"yellow\",\n        \"black\",\n        \"white\",\n        \"orange\",\n        \"brown\",\n        \"animal\",\n        \"cat\",\n        \"dog\",\n        \"bird\",\n        \"fish\",\n        \"frog\",\n        \"horse\",\n        \"car\",\n        \"airplane\",\n        \"tv\",\n        \"call_on_phone\",\n        \"hat\",\n        \"shoe\",\n        \"all\",\n        \"another\",\n        \"any\",\n        \"every\",\n        \"make\",\n        \"find\",\n        \"give\",\n        \"see\",\n        \"look\",\n        \"listen\",\n        \"talk\",\n        \"say\",\n        \"think\",\n        \"open\"\n      ],\n      \"test\": [\n        \"hello\",\n        \"bye\",\n        \"thank_you\",\n        \"please\",\n        \"yes\",\n        \"no\",\n        \"like\",\n        \"not\",\n        \"have\",\n        \"can\",\n        \"go\",\n        \"book\",\n        \"pen\",\n        \"pencil\",\n        \"read\",\n        \"table\",\n        \"chair\",\n        \"room\",\n        \"home\",\n        \"bed\",\n        \"who\",\n        \"where\",\n        \"why\",\n        \"morning\",\n        \"night\",\n        \"tomorrow\",\n        \"yesterday\",\n        \"now\",\n        \"time\",\n        \"after\",\n        \"before\",\n        \"later\",\n        \"mom\",\n        \"dad\",\n        \"brother\",\n        \"aunt\",\n        \"uncle\",\n        \"grandma\",\n        \"grandpa\",\n        \"boy\",\n        \"girl\",\n        \"child\",\n        \"man\",\n        \"person\",\n        \"happy\",\n        \"sad\",\n        \"sick\",\n        \"fine\",\n        \"mad\",\n        \"bad\",\n        \"hot\",\n        \"hungry\",\n        \"thirsty\",\n        \"food\",\n        \"drink\",\n        \"water\",\n        \"milk\",\n        \"apple\",\n        \"carrot\",\n        \"cereal\",\n        \"red\",\n        \"blue\",\n        \"green\",\n        \"yellow\",\n        \"black\",\n        \"white\",\n        \"orange\",\n        \"brown\",\n        \"animal\",\n        \"cat\",\n        \"dog\",\n        \"bird\",\n        \"fish\",\n        \"frog\",\n        \"horse\",\n        \"car\",\n        \"airplane\",\n        \"tv\",\n        \"call_on_phone\",\n        \"hat\",\n        \"shoe\",\n        \"all\",\n        \"another\",\n        \"any\",\n        \"every\",\n        \"make\",\n        \"find\",\n        \"give\",\n        \"see\",\n        \"look\",\n        \"listen\",\n        \"talk\",\n        \"say\",\n        \"think\",\n        \"open\"\n      ]\n    }\n  },\n  \"negative_challenge\": {\n    \"total_clips\": 0,\n    \"valid_clips\": 0,\n    \"rejec",
+      "stderr": "Dataset collection readiness audit failed:\n- Store does not exist: data/asl-pilot-store.json\n- No dataset clips found\n- No negative challenge clips found\n- train split lacks 5 approved clips for 95 labels\n- train split needs at least 12 signer(s); found 0\n- validation split lacks 5 approved clips for 95 labels\n- validation split needs at least 4 signer(s); found 0\n- test split lacks 5 approved clips for 95 labels\n- test split needs at least 4 signer(s); found 0\n- Production pilot target is 20 signers; found 0\n- Negative challenge set needs at least 5 clip(s) for each required type; underfilled: idle_hands, empty_camera, no_hands_visible, low_light, off_center, hands_cropped_out, waving, thumbs_up, counting, fingerspelling_like_motion, wrong_location, wrong_palm_orientation, partial_sign, non_target_asl_sign, casual_non_asl_gesture"
+    },
+    "manifests_exist": true
+  },
+  "next_required_steps": [
+    "Promote accepted vocabulary evidence and regenerate a source-curated collection plan.",
+    "Run explicit consent collection sessions until data/asl-pilot-store.json exists with collected vocabulary and challenge clips."
+  ],
+  "final_evidence_exclusion": {
+    "excluded_from_completion": true,
+    "reason": "This report describes missing or dry-run post-collection evidence only. It does not review ASL clips, verify signer identity, export final manifests, train a model, or prove final readiness."
+  },
+  "evidence": {
+    "source_files": [
+      {
+        "path": "scripts/report_post_collection_evidence_status.mjs",
+        "exists": true,
+        "sha256": "71e1fa09b5fde561abd00379d757f480bad058c9b86ef0ba5cde3814db786a25"
+      },
+      {
+        "path": "scripts/audit_post_collection_evidence_status.mjs",
+        "exists": true,
+        "sha256": "2a80ccfe2db89b0712c6cfa099fed6bbd4761a8d3d60146809ea57a6ad6555c0"
+      },
+      {
+        "path": "scripts/process_collected_dataset_evidence.mjs",
+        "exists": true,
+        "sha256": "fc721a7614aa74eb424e59ea9391e64606ea8155163705d75ef929a2a9c7cbd8"
+      },
+      {
+        "path": "scripts/clip_review_utils.mjs",
+        "exists": true,
+        "sha256": "ab73d966d6417fd7440902a3e927be5b56ffbfd1621a08c133e09ff4255d818b"
+      },
+      {
+        "path": "scripts/export_clip_review_packet.mjs",
+        "exists": true,
+        "sha256": "f7a6583c9a9ba111c35eb0dea16b312037f4d76f2884ab41c03bb57d69d9997c"
+      },
+      {
+        "path": "scripts/export_challenge_review_packet.mjs",
+        "exists": true,
+        "sha256": "c95324b23a6933b1a841b819a91c0684d96fb422f17ebd686fcca2827568f8bb"
+      },
+      {
+        "path": "scripts/draft_post_collection_review_receipt.mjs",
+        "exists": true,
+        "sha256": "08cd50c769a0405b8f43d7f0fb1310e32555826f0408901e5290403d9227cd03"
+      },
+      {
+        "path": "scripts/import_clip_review.mjs",
+        "exists": true,
+        "sha256": "8b56724124b2f6bd63530e19243c60235e4a72175e6a44a199c3fc1916bb21a7"
+      },
+      {
+        "path": "scripts/import_challenge_review.mjs",
+        "exists": true,
+        "sha256": "6e29146749632b8f8b80fbdc1aca64febda68ec0844c89495b299b671b8221a3"
+      },
+      {
+        "path": "scripts/import_signer_identity_evidence.mjs",
+        "exists": true,
+        "sha256": "8a2cfd42665911006130e0f1d5ec2a1451b7c170edb1eac41e7fbb116e7e3ed6"
+      },
+      {
+        "path": "scripts/audit_dataset_collection_readiness.mjs",
+        "exists": true,
+        "sha256": "3a2fb0b8fd6c265e8f569846e370214c6887b2f532587c12a89c990c9b69ca3a"
+      },
+      {
+        "path": "scripts/signed_receipt_utils.mjs",
+        "exists": true,
+        "sha256": "a97cdd8d4cd8acf342313acc4d7517b831d72562a152d797a0899351336fb885"
+      },
+      {
+        "path": "scripts/export_dataset_manifests.mjs",
+        "exists": true,
+        "sha256": "0a6de18c33f2642cd96caea52231500fe29910be6cc49083b4d75d83ce05a835"
+      },
+      {
+        "path": "scripts/audit_final_manifests.py",
+        "exists": true,
+        "sha256": "20b0cb8ccd954e85b8c2facced5c47a177afaef381060965c223c509f8d5ff07"
+      }
+    ]
+  }
+}

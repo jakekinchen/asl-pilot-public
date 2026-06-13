@@ -1,0 +1,295 @@
+{
+  "schema_version": "asl-pilot-detector0-combined-packet-training-contract/v1",
+  "mission": "M3IC - Detector 0 combined packet training contract no Brev",
+  "created_at": "2026-05-30T02:39:11Z",
+  "status": "contract_written_not_training_ready",
+  "purpose": "Define the next auditable Detector 0 training/evaluation input contract from the reviewed 32-row V0 packet plus 17 reviewed supplemental manual overlay rows, while preserving one blocked insufficient-visual-evidence row and keeping all claim surfaces fail-closed.",
+  "source_artifacts": {
+    "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json": {
+      "sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d",
+      "role": "base reviewed Detector 0 V0 packet",
+      "included_row_count": 32
+    },
+    "data/annotations/detector0/return-to-form-targeted-annotation-workbench-ingestion-v1.json": {
+      "sha256": "91d9f32cdaef7c58f123f487cc8749769fc30f702f2be65a11142ab8d6120d02",
+      "role": "M3IB supplemental reviewed manual overlay ingestion artifact",
+      "included_row_count": 17,
+      "blocked_row_count": 1
+    },
+    "docs/validation/return-to-form-m3ib-detector0-reviewed-manual-overlay-ingestion-no-brev-v1.json": {
+      "sha256": "ac994b94f6f33023bec684f4af317134911315cdc8f4fb537dedf8fce84a763c",
+      "role": "M3IB supplemental ingestion validation receipt"
+    },
+    "docs/model/return-to-form-detector0-fixed-baseline-gate-contract-v1.json": {
+      "sha256": "92f4650a50b562b3055bb455fe9b5ae30ad639fe843b5efd834cd24925142423",
+      "role": "fixed-baseline beat-it gate and target policy"
+    }
+  },
+  "combined_input_contract": {
+    "included_future_training_evaluation_rows": 49,
+    "excluded_blocker_rows": 1,
+    "counts_by_artifact": {
+      "tier0_v0": 32,
+      "supplemental_m3ib": 17
+    },
+    "counts_by_split": {
+      "train": 17,
+      "validation": 16,
+      "test": 16
+    },
+    "counts_by_label": {
+      "dad": 3,
+      "grandpa": 3,
+      "hat": 3,
+      "please": 3,
+      "table": 37
+    },
+    "counts_by_source": {
+      "popsign-v1-original-videos": 49
+    },
+    "counts_by_source_split": {
+      "popsign-v1-original-videos:train": 17,
+      "popsign-v1-original-videos:val": 16,
+      "popsign-v1-original-videos:test": 16
+    },
+    "counts_by_review_status": {
+      "manual_verified": 6,
+      "manual_corrected": 26,
+      "manual_contact_sheet_overlay_authored": 17
+    },
+    "counts_by_label_source": {
+      "manual_verified_from_fixed_crop_context": 32,
+      "project_authored_manual_contact_sheet_overlay": 17
+    },
+    "unique_signer_identity_hashes_by_split": {
+      "train": 7,
+      "validation": 7,
+      "test": 6
+    },
+    "unique_source_records_by_split": {
+      "train": 11,
+      "validation": 11,
+      "test": 10
+    },
+    "counts_by_target_payload": {
+      "left_or_first_hand": {
+        "present": 49,
+        "absent": 0,
+        "null_or_blocked": 0,
+        "missing": 0,
+        "policy": "learned_detector0_target"
+      },
+      "right_or_second_hand": {
+        "present": 37,
+        "absent": 12,
+        "null_or_blocked": 0,
+        "missing": 0,
+        "policy": "learned_detector0_target"
+      },
+      "head_or_face": {
+        "present": 32,
+        "absent": 0,
+        "null_or_blocked": 0,
+        "missing": 17,
+        "policy": "fixed_anchor_not_learned_from_supplemental_rows"
+      },
+      "upper_body_or_signing_space": {
+        "present": 32,
+        "absent": 0,
+        "null_or_blocked": 0,
+        "missing": 17,
+        "policy": "fixed_anchor_not_learned_from_supplemental_rows"
+      },
+      "table_two_hand_union_or_contact_region": {
+        "present": 37,
+        "absent": 12,
+        "null_or_blocked": 0,
+        "missing": 0,
+        "policy": "diagnostic_only_not_promoted_detector0_target"
+      }
+    }
+  },
+  "split_and_identity_contract": {
+    "source_split_boundary_policy": "Future combined-packet materialization must preserve each source row's original source_split and must not move rows across train, validation, or test.",
+    "identity_fields_to_carry_forward_unchanged": [
+      "source_id",
+      "source_split",
+      "source_record_id",
+      "source_video_sha256",
+      "signer_identity_hash",
+      "clip_id",
+      "frame_index",
+      "timestamp_sec"
+    ],
+    "authoritative_identity_sources": [
+      "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json::frame_rows",
+      "data/annotations/detector0/return-to-form-targeted-annotation-workbench-ingestion-v1.json::rows"
+    ],
+    "supplemental_related_v0_row_policy": "Supplemental rows retain related_existing_v0_row_id as lineage only; they are additional reviewed frames, not replacements for the V0 rows."
+  },
+  "row_selection": {
+    "included_row_ids_by_artifact_and_split": {
+      "tier0_v0": {
+        "train": [
+          "det0-v0-train-please-000076-f010",
+          "det0-v0-train-table-000376-f010",
+          "det0-v0-train-dad-000826-f010",
+          "det0-v0-train-grandpa-000951-f010",
+          "det0-v0-train-hat-001976-f010",
+          "det0-v0-train-table-000379-f008",
+          "det0-v0-train-table-000386-f008",
+          "det0-v0-train-table-000391-f010",
+          "det0-v0-train-table-000392-f008",
+          "det0-v0-train-table-000396-f008",
+          "det0-v0-train-table-000400-f008"
+        ],
+        "validation": [
+          "det0-v0-validation-please-000076-f005",
+          "det0-v0-validation-table-000376-f005",
+          "det0-v0-validation-dad-000826-f005",
+          "det0-v0-validation-grandpa-000952-f005",
+          "det0-v0-validation-hat-001976-f005",
+          "det0-v0-validation-table-000379-f008",
+          "det0-v0-validation-table-000383-f010",
+          "det0-v0-validation-table-000385-f008",
+          "det0-v0-validation-table-000388-f008",
+          "det0-v0-validation-table-000393-f008",
+          "det0-v0-validation-table-000397-f008"
+        ],
+        "test": [
+          "det0-v0-test-please-000058-f010",
+          "det0-v0-test-table-000286-f005",
+          "det0-v0-test-dad-000628-f005",
+          "det0-v0-test-grandpa-000723-f005",
+          "det0-v0-test-hat-001503-f010",
+          "det0-v0-test-table-000288-f008",
+          "det0-v0-test-table-000290-f008",
+          "det0-v0-test-table-000294-f008",
+          "det0-v0-test-table-000297-f008",
+          "det0-v0-test-table-000301-f008"
+        ]
+      },
+      "supplemental_m3ib": {
+        "train": [
+          "det0-exp1-train-table-000376-f009",
+          "det0-exp1-train-table-000376-f011",
+          "det0-exp1-train-table-000379-f007",
+          "det0-exp1-train-table-000379-f009",
+          "det0-exp1-train-table-000386-f007",
+          "det0-exp1-train-table-000386-f009"
+        ],
+        "validation": [
+          "det0-exp1-validation-table-000376-f006",
+          "det0-exp1-validation-table-000379-f007",
+          "det0-exp1-validation-table-000379-f009",
+          "det0-exp1-validation-table-000383-f009",
+          "det0-exp1-validation-table-000383-f011"
+        ],
+        "test": [
+          "det0-exp1-test-table-000286-f004",
+          "det0-exp1-test-table-000286-f006",
+          "det0-exp1-test-table-000288-f007",
+          "det0-exp1-test-table-000288-f009",
+          "det0-exp1-test-table-000290-f007",
+          "det0-exp1-test-table-000290-f009"
+        ]
+      }
+    },
+    "excluded_blocker_rows": [
+      {
+        "row_id": "det0-exp1-validation-table-000376-f004",
+        "artifact": "supplemental_m3ib",
+        "split": "validation",
+        "label_id": "table",
+        "clip_id": "popsign-v1-validation-table-000376",
+        "frame_index": 4,
+        "review_status": "blocked_insufficient_visual_evidence",
+        "reason": "insufficient_visual_evidence",
+        "future_use_policy": "excluded from training/evaluation target labels until a later reviewed visual-evidence receipt explicitly repairs or replaces it"
+      }
+    ]
+  },
+  "target_policy": {
+    "learned_targets": [
+      "left_or_first_hand",
+      "right_or_second_hand"
+    ],
+    "fixed_anchor_targets": [
+      "head_or_face",
+      "upper_body_or_signing_space"
+    ],
+    "diagnostic_only_targets": [
+      "table_two_hand_union_or_contact_region"
+    ],
+    "disallowed_targets": [
+      "full_hand_landmarks",
+      "full_body_landmarks",
+      "full_face_landmarks",
+      "pretrained_detector_outputs",
+      "pretrained_generated_labels"
+    ],
+    "supplemental_anchor_policy": "The 17 supplemental M3IB rows add reviewed hand and diagnostic table-union labels only. They do not add learned face/body anchors and do not change fixed-anchor authority.",
+    "table_union_policy": "The table_two_hand_union_or_contact_region payload remains diagnostic-only, derived from manual hand boxes where present, and cannot be used as promoted Detector 0 target authority."
+  },
+  "fixed_baseline_beat_it_gate": {
+    "left_or_first_hand_iou_must_exceed": 0.4073,
+    "right_or_second_hand_iou_must_exceed": 0.6476,
+    "gate_policy": "A learned Detector 0 may not be called an improvement, exported, promoted, browser-activated, or used for claim language unless retraining beats both fixed-box held-out hand IoU baselines and then trends toward the spec gates.",
+    "until_gate_met": "Claim surfaces stay fail-closed and the fixed-geometry baseline remains the operative detector policy."
+  },
+  "promotion_evaluation_gaps": [
+    "hard_negative_no_hand_rows",
+    "empty_camera_rows",
+    "low_light_rows",
+    "temporal_jitter_metrics",
+    "recall_at_iou_0_30",
+    "recall_at_iou_0_50",
+    "false_no_hand_rate",
+    "false_trigger_rate",
+    "browser_latency"
+  ],
+  "claim_surface_proof": {
+    "claim_surfaces_mutated_by_this_contract": false,
+    "web/public/model/detector0-card.json": {
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null
+    },
+    "web/public/model/browser-model-bundle.json": {
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9",
+      "recognition_enabled": false,
+      "detector0_tracking_enabled": false,
+      "box_driven_avatar_enabled": false
+    },
+    "web/public/model/model-card.json": {
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "status": "not_trained"
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "activeLabels": []
+    }
+  },
+  "forbidden_action_proof": {
+    "brev_lifecycle": "not_run",
+    "remote_commands": "not_run",
+    "detector0_training": "not_run",
+    "recognizer_training": "not_run",
+    "source_media_import": "not_run",
+    "tensor_mutation": "not_run",
+    "model_card_promotion": "not_run",
+    "browser_activation": "not_run",
+    "final_gate_change": "not_run",
+    "claim_expansion": "not_run"
+  },
+  "readiness_classification": {
+    "combined_contract_written": true,
+    "ready_for_combined_packet_materialization": true,
+    "ready_for_training": false,
+    "ready_for_evaluation": false,
+    "ready_for_browser_promotion": false,
+    "reason": "The contract resolves current reviewed row inclusion/exclusion and target policy, but hard negatives/no-hand, empty-camera, low-light, temporal jitter, recall, false no-hand, false trigger, browser latency, and fixed-baseline beat-it evidence are still missing."
+  },
+  "exactly_one_next_action": "continue_m3id_detector0_combined_packet_materialization_no_brev"
+}

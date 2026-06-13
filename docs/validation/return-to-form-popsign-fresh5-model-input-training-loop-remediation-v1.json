@@ -1,0 +1,1168 @@
+{
+  "active_prompt": "docs/model/return-to-form-popsign-fresh5-model-input-training-loop-remediation-goal-loop-prompt.md",
+  "commands": {
+    "audit_command": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/audit_popsign_fresh5_model_input_training_loop.py",
+      "--output-dir",
+      "output/m3cb-popsign-fresh5-model-input-training-loop-remediation",
+      "--receipt",
+      "docs/validation/return-to-form-popsign-fresh5-model-input-training-loop-remediation-v1.json",
+      "--frame-count",
+      "16",
+      "--image-size",
+      "96",
+      "--write-receipt"
+    ],
+    "post_receipt_validation_commands": [
+      "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-model-input-training-loop-remediation-v1.json >/dev/null",
+      "python3 -m json.tool output/m3cb-popsign-fresh5-model-input-training-loop-remediation/audit-report.json >/dev/null",
+      "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/audit_popsign_fresh5_model_input_training_loop.py",
+      "git diff --check"
+    ],
+    "required_preflight_commands": [
+      "git status --short --branch",
+      "git log -10 --oneline --decorate",
+      "node scripts/audit_loop_premise.mjs --json",
+      "node scripts/audit_return_to_form_plan.mjs --json",
+      "node scripts/audit_no_pretrained_deps.mjs",
+      "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "node scripts/audit_source_register.mjs",
+      "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-learnability-isolation-probe-v1.json >/dev/null",
+      "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-model-data-design-ablation-v1.json >/dev/null",
+      "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-region-grid-local-smoke-v1.json >/dev/null",
+      "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/run_popsign_fresh5_learnability_isolation_probe.py scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py scripts/decode_raw_videos.py scripts/materialize_popsign_fresh5_region_grid.py scripts/run_popsign_fresh5_region_grid_tcn_tiny_overfit.py scripts/materialize_popsign_fresh5_repaired_manifest.py"
+    ]
+  },
+  "decision": {
+    "another_fitting_run_justified_now": false,
+    "blocker_classification": "architecture_or_optimization_research",
+    "brev_training_receipt_justified_now": false,
+    "concrete_model_input_training_loop_defect_found": false,
+    "exactly_one_next_action": "continue_no_training_architecture_or_optimization_research",
+    "export_or_browser_promotion_justified_now": false,
+    "next_action_rationale": "The audit found no concrete local label/index, shape/order, normalization, loss, device/dtype, or optimizer-loop defect. M3BV's five-clip success and M3CA's partial but insufficient 125-clip train-all learning point to an architecture/optimization/cap question that should be researched before any further fitting run."
+  },
+  "exactly_one_next_action": "continue_no_training_architecture_or_optimization_research",
+  "findings": {
+    "cap_and_class_balance": {
+      "finding": "The decisive difference is scale and budget, not a broken one-sample-per-label path: M3BV fit five deterministic clips to 1.0 after 120 epochs, while M3CA tried 125 balanced train clips for 40 epochs and only reached 0.464 eval-train accuracy. M3CA loss fell substantially, so the loop is learning something but not enough under the current architecture/cap.",
+      "m3bu_context": {
+        "pen_test_recall": 0.04,
+        "test_macro_f1": 0.2593486590038314,
+        "test_top1_accuracy": 0.288
+      },
+      "m3bv_memorization": {
+        "batch_size": 5,
+        "best_epoch": 108,
+        "clips_per_label": 1,
+        "decision": {
+          "blocker_classification": "data_vocabulary_split_or_crop_generalization",
+          "browser_activation_or_promotion_justified_now": false,
+          "exactly_one_next_action": "continue_data_vocabulary_separability_packet",
+          "fresh10_region_grid_materialization_justified_now": false,
+          "local_ablation_supports_brev_training_receipt_now": false,
+          "next_action_rationale": "Tiny memorization passed while held-out M3BU metrics remain weak, so the next useful no-spend artifact should characterize label/vocabulary/split/crop separability before any compute receipt."
+        },
+        "epochs": 120,
+        "final_accuracy": 1.0,
+        "final_loss": 5.006787091588194e-07,
+        "input_contract": {
+          "batched_model_input_axis": "B,T,R,C,H,W",
+          "batched_model_input_shape": [
+            5,
+            16,
+            5,
+            3,
+            96,
+            96
+          ],
+          "consumed_tensor_key": "rgb_regions",
+          "derived_input_name": "rgb_regions_grid_v1",
+          "logits_shape": [
+            5,
+            5
+          ],
+          "no_mosaic_training_path": true,
+          "prepared_model_input_axis": "T,R,C,H,W",
+          "prepared_model_input_shape": [
+            16,
+            5,
+            3,
+            96,
+            96
+          ],
+          "preserve_region_axis": true,
+          "raw_rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "region_axis_preserved_until": "TrueTemporalConvNetRawFrameClassifier.region_attention",
+          "required_contract": "rgb_regions_grid_v1",
+          "status": "passed"
+        },
+        "learning_rate": 0.003,
+        "status": "tiny_overfit_succeeded",
+        "subset_clip_count": 5,
+        "weight_decay": 0.0,
+        "zero_recall_labels": []
+      },
+      "m3ca_train_all": {
+        "batch_size": 5,
+        "delta_train_loss": -0.9613220477104187,
+        "epochs": 40,
+        "eval_train_accuracy": 0.464,
+        "eval_train_macro_f1": 0.4548505303760849,
+        "final_train_loss": 0.9130748319625854,
+        "final_train_mode_accuracy": 0.56,
+        "initial_train_loss": 1.8743968796730042,
+        "learning_rate": 0.003,
+        "peak_train_mode_accuracy": 0.664,
+        "pen_test_recall": 0.04,
+        "signer_disjoint_test_accuracy": 0.328,
+        "signer_disjoint_test_macro_f1": 0.2682622937946276,
+        "signer_disjoint_validation_accuracy": 0.256,
+        "signer_disjoint_validation_macro_f1": 0.18382858452371859,
+        "thank_you_test_prediction_fraction": 0.048,
+        "train_example_count": 125,
+        "weight_decay": 0.0
+      },
+      "status": "capacity_or_optimization_research_needed"
+    },
+    "concrete_local_defect": {
+      "defect": null,
+      "found": false,
+      "rationale": "The no-training audit rules out the concrete local defects requested by the prompt at the current evidence level: label/index mismatch, rgb_frames fallback, region-axis collapse on the M3CA path, invalid logits/target loss contract, and class imbalance."
+    },
+    "label_index_consistency": {
+      "finding": "The repaired train/validation/test manifests use the same five-label set and the training split is balanced at 25 clips per label. M3CA and M3BV use different run-local label orders, but each loss/confusion path carries its own label_to_index or labels array, so this is not a cross-run target mismatch.",
+      "forward_check_label_to_index": {
+        "home": 2,
+        "morning": 4,
+        "pen": 1,
+        "thank_you": 0,
+        "who": 3
+      },
+      "m3bv_subset_labels": [
+        "home",
+        "morning",
+        "pen",
+        "thank_you",
+        "who"
+      ],
+      "m3ca_label_order_first_seen": [
+        "thank_you",
+        "pen",
+        "home",
+        "who",
+        "morning"
+      ],
+      "status": "passed"
+    },
+    "model_build_loss_device_dtype": {
+      "device": "mps",
+      "finding": "The true TemporalConvNet builds for five classes and accepts the preserved-region batch in a no-grad forward pass. CrossEntropyLoss receives logits [5,5] and int64 targets 0..4. This audit did not create an optimizer, call backward, or write a checkpoint.",
+      "forward_check_loss_contract": {
+        "criterion": "torch.nn.CrossEntropyLoss",
+        "expected_logits_shape": [
+          5,
+          5
+        ],
+        "loss_value_forward_only": 1.6096101999282837,
+        "targets_dtype": "torch.int64",
+        "targets_max": 4,
+        "targets_min": 0
+      },
+      "forward_check_model": {
+        "architecture": "true_temporal_convnet_region_grid",
+        "logits_shape": [
+          5,
+          5
+        ],
+        "parameter_count": 1290470
+      },
+      "status": "passed",
+      "torch_version": "2.12.0"
+    },
+    "optimizer_and_training_loop_source": {
+      "finding": "M3CA used AdamW, CrossEntropyLoss, shuffled DataLoader batches, and the same true_temporal_convnet_region_grid build path as the forward-only check. No local source inspection found a label-target, dtype, shape, no-grad, or optimizer omission defect.",
+      "status": "source_inspected_no_concrete_defect_found"
+    },
+    "tensor_shape_order_normalization": {
+      "finding": "Existing repaired train tensors load through RawFrameClipDataset with preserve_region_axis=True, consume rgb_regions, prepare B,T,R,C,H,W, float32 values in [0,1], and do not fall back to rgb_frames.",
+      "forward_check_batch": {
+        "axis": "B,T,R,C,H,W",
+        "dtype": "torch.float32",
+        "max": 1.0,
+        "min": 0.003921568859368563,
+        "shape": [
+          5,
+          16,
+          5,
+          3,
+          96,
+          96
+        ]
+      },
+      "sample_training_loader": {
+        "consumed_key": "rgb_regions",
+        "consumed_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "derived_input_name": "rgb_regions_grid_v1",
+        "model_input_axis_before_prepare": "T,R,H,W,C",
+        "region_axis_preserved": true
+      },
+      "status": "passed"
+    }
+  },
+  "forward_only_contract_check": {
+    "backward_executed": false,
+    "batch": {
+      "axis": "B,T,R,C,H,W",
+      "dtype": "torch.float32",
+      "max": 1.0,
+      "min": 0.003921568859368563,
+      "shape": [
+        5,
+        16,
+        5,
+        3,
+        96,
+        96
+      ]
+    },
+    "checkpoint_written": false,
+    "dataset_record_count": 125,
+    "device": "mps",
+    "input_contract": {
+      "batched_model_input_axis": "B,T,R,C,H,W",
+      "fallback_to_rgb_frames": false,
+      "prepared_model_input_axis": "T,R,C,H,W",
+      "preserve_region_axis": true,
+      "required_contract": "rgb_regions_grid_v1"
+    },
+    "label_targets": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "label_to_index": {
+      "home": 2,
+      "morning": 4,
+      "pen": 1,
+      "thank_you": 0,
+      "who": 3
+    },
+    "loss_contract": {
+      "criterion": "torch.nn.CrossEntropyLoss",
+      "expected_logits_shape": [
+        5,
+        5
+      ],
+      "loss_value_forward_only": 1.6096101999282837,
+      "targets_dtype": "torch.int64",
+      "targets_max": 4,
+      "targets_min": 0
+    },
+    "model": {
+      "architecture": "true_temporal_convnet_region_grid",
+      "logits_shape": [
+        5,
+        5
+      ],
+      "parameter_count": 1290470
+    },
+    "samples": [
+      {
+        "clip_id": "popsign-v1-train-thank_you-000001",
+        "derived_input": {
+          "name": "rgb_regions_grid_v1",
+          "output_axis": "T,R,H,W,C",
+          "output_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "region_axis_preserved": true,
+          "region_order": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "source_region_axis": "T,R,H,W,C",
+          "source_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "source_tensor_key": "rgb_regions"
+        },
+        "label_id": "thank_you",
+        "prepared_model_input_axis": "T,R,C,H,W",
+        "prepared_model_input_shape": [
+          16,
+          5,
+          3,
+          96,
+          96
+        ],
+        "preserve_region_axis": true,
+        "raw_rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "tensor_path": "data/tensors/return-to-form-popsign-fresh5-region-grid/train/popsign-v1-train-thank_you-000001-regions.pt",
+        "training_loader": {
+          "consumed_key": "rgb_regions",
+          "consumed_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "derived_input_name": "rgb_regions_grid_v1",
+          "model_input_axis_before_prepare": "T,R,H,W,C",
+          "region_axis_preserved": true
+        }
+      },
+      {
+        "clip_id": "popsign-v1-train-pen-000026",
+        "derived_input": {
+          "name": "rgb_regions_grid_v1",
+          "output_axis": "T,R,H,W,C",
+          "output_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "region_axis_preserved": true,
+          "region_order": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "source_region_axis": "T,R,H,W,C",
+          "source_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "source_tensor_key": "rgb_regions"
+        },
+        "label_id": "pen",
+        "prepared_model_input_axis": "T,R,C,H,W",
+        "prepared_model_input_shape": [
+          16,
+          5,
+          3,
+          96,
+          96
+        ],
+        "preserve_region_axis": true,
+        "raw_rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "tensor_path": "data/tensors/return-to-form-popsign-fresh5-region-grid/train/popsign-v1-train-pen-000026-regions.pt",
+        "training_loader": {
+          "consumed_key": "rgb_regions",
+          "consumed_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "derived_input_name": "rgb_regions_grid_v1",
+          "model_input_axis_before_prepare": "T,R,H,W,C",
+          "region_axis_preserved": true
+        }
+      },
+      {
+        "clip_id": "popsign-v1-train-home-000051",
+        "derived_input": {
+          "name": "rgb_regions_grid_v1",
+          "output_axis": "T,R,H,W,C",
+          "output_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "region_axis_preserved": true,
+          "region_order": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "source_region_axis": "T,R,H,W,C",
+          "source_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "source_tensor_key": "rgb_regions"
+        },
+        "label_id": "home",
+        "prepared_model_input_axis": "T,R,C,H,W",
+        "prepared_model_input_shape": [
+          16,
+          5,
+          3,
+          96,
+          96
+        ],
+        "preserve_region_axis": true,
+        "raw_rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "tensor_path": "data/tensors/return-to-form-popsign-fresh5-region-grid/train/popsign-v1-train-home-000051-regions.pt",
+        "training_loader": {
+          "consumed_key": "rgb_regions",
+          "consumed_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "derived_input_name": "rgb_regions_grid_v1",
+          "model_input_axis_before_prepare": "T,R,H,W,C",
+          "region_axis_preserved": true
+        }
+      },
+      {
+        "clip_id": "popsign-v1-train-who-000076",
+        "derived_input": {
+          "name": "rgb_regions_grid_v1",
+          "output_axis": "T,R,H,W,C",
+          "output_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "region_axis_preserved": true,
+          "region_order": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "source_region_axis": "T,R,H,W,C",
+          "source_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "source_tensor_key": "rgb_regions"
+        },
+        "label_id": "who",
+        "prepared_model_input_axis": "T,R,C,H,W",
+        "prepared_model_input_shape": [
+          16,
+          5,
+          3,
+          96,
+          96
+        ],
+        "preserve_region_axis": true,
+        "raw_rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "tensor_path": "data/tensors/return-to-form-popsign-fresh5-region-grid/train/popsign-v1-train-who-000076-regions.pt",
+        "training_loader": {
+          "consumed_key": "rgb_regions",
+          "consumed_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "derived_input_name": "rgb_regions_grid_v1",
+          "model_input_axis_before_prepare": "T,R,H,W,C",
+          "region_axis_preserved": true
+        }
+      },
+      {
+        "clip_id": "popsign-v1-train-morning-000101",
+        "derived_input": {
+          "name": "rgb_regions_grid_v1",
+          "output_axis": "T,R,H,W,C",
+          "output_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "region_axis_preserved": true,
+          "region_order": [
+            "viewer_left_hand_context",
+            "viewer_right_hand_context",
+            "upper_body_signing_space",
+            "head_context",
+            "full_frame_reference"
+          ],
+          "source_region_axis": "T,R,H,W,C",
+          "source_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "source_tensor_key": "rgb_regions"
+        },
+        "label_id": "morning",
+        "prepared_model_input_axis": "T,R,C,H,W",
+        "prepared_model_input_shape": [
+          16,
+          5,
+          3,
+          96,
+          96
+        ],
+        "preserve_region_axis": true,
+        "raw_rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "tensor_path": "data/tensors/return-to-form-popsign-fresh5-region-grid/train/popsign-v1-train-morning-000101-regions.pt",
+        "training_loader": {
+          "consumed_key": "rgb_regions",
+          "consumed_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "derived_input_name": "rgb_regions_grid_v1",
+          "model_input_axis_before_prepare": "T,R,H,W,C",
+          "region_axis_preserved": true
+        }
+      }
+    ],
+    "selected_clip_ids": [
+      "popsign-v1-train-thank_you-000001",
+      "popsign-v1-train-pen-000026",
+      "popsign-v1-train-home-000051",
+      "popsign-v1-train-who-000076",
+      "popsign-v1-train-morning-000101"
+    ],
+    "status": "passed",
+    "torch_version": "2.12.0",
+    "training_or_optimizer_step_executed": false
+  },
+  "generated_at": "2026-05-27T21:23:32.228144+00:00",
+  "generated_by": "scripts/audit_popsign_fresh5_model_input_training_loop.py",
+  "input_artifacts": {
+    "m3bu_region_grid_local_smoke": {
+      "exists": true,
+      "path": "docs/validation/return-to-form-popsign-fresh5-region-grid-local-smoke-v1.json",
+      "sha256": "417664f34e8785d16979a3741d87a92222d20aaea6e9f789da223afaab1fcba2",
+      "size_bytes": 19187
+    },
+    "m3bv_model_data_design_ablation": {
+      "exists": true,
+      "path": "docs/validation/return-to-form-popsign-fresh5-model-data-design-ablation-v1.json",
+      "sha256": "74590b35b59e7696bc2e4f46e5fd2ae0281935aa8d7360f6efeb563453b4effe",
+      "size_bytes": 35840
+    },
+    "m3bv_selected_subset": {
+      "exists": true,
+      "path": "output/m3bv-popsign-fresh5-region-grid-tcn-tiny-overfit/selected-subset.json",
+      "sha256": "4a932e88c882558656fbb693e8cfe1ad5b0e499e6074cfa60a1c1c571b0fc1f5",
+      "size_bytes": 6362
+    },
+    "m3bv_tiny_overfit_provenance": {
+      "exists": true,
+      "path": "output/m3bv-popsign-fresh5-region-grid-tcn-tiny-overfit/tiny-overfit-provenance.json",
+      "sha256": "4af1d0202a96ad79d4db3306cb0f038502bd9e6e738b108f0e0441dec0b588da",
+      "size_bytes": 50802
+    },
+    "m3bz_manifest_contract": {
+      "exists": true,
+      "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/manifest-contract.json",
+      "sha256": "38e8e1b8663e0e360fd9b8284bad9a5f08dd7fa00d236ec50fecfb87c8c9ce4a",
+      "size_bytes": 6986
+    },
+    "m3bz_repaired_manifest_materialization": {
+      "exists": true,
+      "path": "docs/validation/return-to-form-popsign-fresh5-repaired-manifest-materialization-v1.json",
+      "sha256": "a0ed38cf94affb0c4e20fac829c1370c1f65f7583cadd9923886663e6bfbe014",
+      "size_bytes": 34648
+    },
+    "m3ca_ignored_output_report": {
+      "exists": true,
+      "path": "output/m3ca-popsign-fresh5-learnability-isolation-probe/probe-report.json",
+      "sha256": "eb9e70f5b70d0ebd8808e10ee0ad961901ad2dfb8b89e9580fbd0fd84a015831",
+      "size_bytes": 142689
+    },
+    "m3ca_learnability_probe": {
+      "exists": true,
+      "path": "docs/validation/return-to-form-popsign-fresh5-learnability-isolation-probe-v1.json",
+      "sha256": "eb9e70f5b70d0ebd8808e10ee0ad961901ad2dfb8b89e9580fbd0fd84a015831",
+      "size_bytes": 142689
+    },
+    "manifests": {
+      "test": {
+        "exists": true,
+        "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json",
+        "sha256": "07a67651bcd38c6cff90d433ad2e18f84d905291ebb90760665c03678b75592c",
+        "size_bytes": 725417
+      },
+      "train": {
+        "exists": true,
+        "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json",
+        "sha256": "f84b8eec2ee3b5f29118518caf42b64636f231acd39864ad0363729c96365a16",
+        "size_bytes": 722546
+      },
+      "validation": {
+        "exists": true,
+        "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json",
+        "sha256": "090b40ec70775e96fb81450feb6a5e9960f93175dfda4c2ae9087b0b970cb04a",
+        "size_bytes": 722026
+      }
+    },
+    "source_files": {
+      "m3bv_tiny_overfit_helper": {
+        "exists": true,
+        "path": "scripts/run_popsign_fresh5_region_grid_tcn_tiny_overfit.py",
+        "sha256": "f07a0aaf2b1803548fbd0eb7d2e4d8d3ab6014c9ee397bc53d7edeab4eef3706",
+        "size_bytes": 28706
+      },
+      "m3ca_probe_helper": {
+        "exists": true,
+        "path": "scripts/run_popsign_fresh5_learnability_isolation_probe.py",
+        "sha256": "99590a5a46d5a1ddcc3b837d15ab8e6a6e9073c82a242ec5b168276f75a7146d",
+        "size_bytes": 40565
+      },
+      "this_helper": {
+        "exists": true,
+        "path": "scripts/audit_popsign_fresh5_model_input_training_loop.py",
+        "sha256": "6a646950fd30daed0ac115efb87ebdb7fe2d30beacafaefaca8641d079a4f17f",
+        "size_bytes": 29713
+      },
+      "train_rawframe_model": {
+        "exists": true,
+        "path": "scripts/train_rawframe_model.py",
+        "sha256": "e1f6f2bc024fa24fd52b4fb799f1bf0afeae7fcd27951c6335a2bbb38354ce3f",
+        "size_bytes": 179515
+      }
+    }
+  },
+  "m3ca_m3bv_m3bu_comparison": {
+    "interpretation": "M3BV proves the preserved-region true TCN path can memorize one deterministic clip per label. M3CA uses the same preserved-region family but expands to 125 balanced train clips and fails train-all sanity under the local cap. That pattern is not explained by label order, tensor fallback, or loss-shape mechanics.",
+    "m3bu": {
+      "architecture": "motion_2d_temporal_cnn",
+      "decision": {
+        "blocker": "Region-grid smoke shows some signal improvement but remains weak: test top1 0.288, macro F1 0.2593486590038314, and pen recall 0.04. A Brev compute receipt would be premature.",
+        "detector0_or_crop_contract_required_now": false,
+        "exactly_one_next_action": "continue_local_model_data_design_ablation",
+        "fresh10_region_grid_materialization_justified_now": false,
+        "local_model_data_design_ablation_justified_now": true,
+        "local_region_grid_smoke_completed": true,
+        "local_region_grid_smoke_stronger_than_full_frame_baseline": true,
+        "local_region_grid_smoke_supports_brev_training_receipt_now": false,
+        "next_action_rationale": "The bounded smoke consumed rgb_regions_grid_v1 and improved on the full-frame baseline, but the result is still too weak for Brev or fresh10. The honest next step is one local model/input/data design ablation using the same approved fresh5 region-grid evidence."
+      },
+      "input_contract": {
+        "derived_input_name": "rgb_regions_grid_v1",
+        "derived_shape_before_prepare": [
+          16,
+          192,
+          288,
+          3
+        ],
+        "fallback_to_rgb_frames": false,
+        "prepared_model_input_shape": [
+          16,
+          3,
+          96,
+          96
+        ],
+        "sample_tensor_path": "data/tensors/return-to-form-popsign-fresh5-region-grid/train/popsign-v1-train-thank_you-000001-regions.pt",
+        "source_region_axis": "T,R,H,W,C",
+        "source_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "training_loader_consumed_key": "rgb_regions"
+      },
+      "local_smoke_train_signal": {
+        "reason": "Capped train accuracy rose from 0.171875 to 0.578125 and capped train loss fell by 0.5316674262285233, but held-out metrics remain weak.",
+        "status": "partial_capped_train_signal_present"
+      },
+      "pen_test_recall": 0.04,
+      "preserved_region_axis": false,
+      "status": "completed_local_smoke_weak",
+      "test_macro_f1": 0.2593486590038314,
+      "test_top1_accuracy": 0.288,
+      "thank_you_test_recall": 0.64,
+      "validation_macro_f1": 0.15837302833380346,
+      "validation_top1_accuracy": 0.224
+    },
+    "m3bv": {
+      "batch_size": 5,
+      "best_epoch": 108,
+      "clips_per_label": 1,
+      "decision": {
+        "blocker_classification": "data_vocabulary_split_or_crop_generalization",
+        "browser_activation_or_promotion_justified_now": false,
+        "exactly_one_next_action": "continue_data_vocabulary_separability_packet",
+        "fresh10_region_grid_materialization_justified_now": false,
+        "local_ablation_supports_brev_training_receipt_now": false,
+        "next_action_rationale": "Tiny memorization passed while held-out M3BU metrics remain weak, so the next useful no-spend artifact should characterize label/vocabulary/split/crop separability before any compute receipt."
+      },
+      "epochs": 120,
+      "final_accuracy": 1.0,
+      "final_loss": 5.006787091588194e-07,
+      "input_contract": {
+        "batched_model_input_axis": "B,T,R,C,H,W",
+        "batched_model_input_shape": [
+          5,
+          16,
+          5,
+          3,
+          96,
+          96
+        ],
+        "consumed_tensor_key": "rgb_regions",
+        "derived_input_name": "rgb_regions_grid_v1",
+        "logits_shape": [
+          5,
+          5
+        ],
+        "no_mosaic_training_path": true,
+        "prepared_model_input_axis": "T,R,C,H,W",
+        "prepared_model_input_shape": [
+          16,
+          5,
+          3,
+          96,
+          96
+        ],
+        "preserve_region_axis": true,
+        "raw_rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "region_axis_preserved_until": "TrueTemporalConvNetRawFrameClassifier.region_attention",
+        "required_contract": "rgb_regions_grid_v1",
+        "status": "passed"
+      },
+      "learning_rate": 0.003,
+      "status": "tiny_overfit_succeeded",
+      "subset_clip_count": 5,
+      "weight_decay": 0.0,
+      "zero_recall_labels": []
+    },
+    "m3ca": {
+      "caps": {
+        "batch_size": 5,
+        "frame_count": 16,
+        "image_size": 96,
+        "learning_rate": 0.003,
+        "num_workers": 0,
+        "relaxed_epochs": 30,
+        "seed": 20260527,
+        "train_all_epochs": 40,
+        "weight_decay": 0.0
+      },
+      "decision": {
+        "blocker_classification": "model_input_or_training_loop",
+        "brev_training_receipt_justified_now": false,
+        "decision_facts": {
+          "materially_improved_test_over_m3bu": false,
+          "pen_recall": 0.04,
+          "pen_stop_condition_clear": false,
+          "relaxed_signal": false,
+          "test_zero_recall_labels": [],
+          "thank_you_prediction_fraction": 0.048,
+          "thank_you_stop_condition_clear": true,
+          "train_all_sane": false
+        },
+        "exactly_one_next_action": "continue_model_input_or_training_loop_remediation",
+        "export_or_browser_promotion_justified_now": false,
+        "next_action_rationale": "The preserved-region train-all probe failed its sanity threshold, so the model/input/training loop should be repaired before data or compute escalation."
+      },
+      "input_contract": {
+        "architecture": "true_temporal_convnet_region_grid",
+        "batched_model_input_axis": "B,T,R,C,H,W",
+        "no_m3bu_mosaic_path_for_decisive_result": true,
+        "preserve_region_axis": true,
+        "required_contract": "rgb_regions_grid_v1",
+        "sample": {
+          "clip_id": "popsign-v1-train-thank_you-000001",
+          "derived_input": {
+            "name": "rgb_regions_grid_v1",
+            "output_axis": "T,R,H,W,C",
+            "output_shape": [
+              16,
+              5,
+              96,
+              96,
+              3
+            ],
+            "region_axis_preserved": true,
+            "region_order": [
+              "viewer_left_hand_context",
+              "viewer_right_hand_context",
+              "upper_body_signing_space",
+              "head_context",
+              "full_frame_reference"
+            ],
+            "source_region_axis": "T,R,H,W,C",
+            "source_shape": [
+              16,
+              5,
+              96,
+              96,
+              3
+            ],
+            "source_tensor_key": "rgb_regions"
+          },
+          "label_id": "thank_you",
+          "prepared_model_input_axis": "T,R,C,H,W",
+          "prepared_model_input_shape": [
+            16,
+            5,
+            3,
+            96,
+            96
+          ],
+          "preserve_region_axis": true,
+          "raw_rgb_regions_shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "tensor_path": "data/tensors/return-to-form-popsign-fresh5-region-grid/train/popsign-v1-train-thank_you-000001-regions.pt",
+          "training_loader": {
+            "consumed_key": "rgb_regions",
+            "consumed_shape": [
+              16,
+              5,
+              96,
+              96,
+              3
+            ],
+            "derived_input_name": "rgb_regions_grid_v1",
+            "model_input_axis_before_prepare": "T,R,H,W,C",
+            "region_axis_preserved": true
+          }
+        },
+        "status": "passed"
+      },
+      "relaxed_signer_overlap": {
+        "epochs": 30,
+        "eval_accuracy": 0.32,
+        "eval_macro_f1": 0.2977777777777778,
+        "train_example_count": 100,
+        "zero_recall_labels": [
+          "thank_you"
+        ]
+      },
+      "status": "completed_local_learnability_isolation_probe",
+      "train_all": {
+        "batch_size": 5,
+        "delta_train_loss": -0.9613220477104187,
+        "epochs": 40,
+        "eval_train_accuracy": 0.464,
+        "eval_train_macro_f1": 0.4548505303760849,
+        "final_train_loss": 0.9130748319625854,
+        "final_train_mode_accuracy": 0.56,
+        "initial_train_loss": 1.8743968796730042,
+        "learning_rate": 0.003,
+        "peak_train_mode_accuracy": 0.664,
+        "pen_test_recall": 0.04,
+        "signer_disjoint_test_accuracy": 0.328,
+        "signer_disjoint_test_macro_f1": 0.2682622937946276,
+        "signer_disjoint_validation_accuracy": 0.256,
+        "signer_disjoint_validation_macro_f1": 0.18382858452371859,
+        "thank_you_test_prediction_fraction": 0.048,
+        "train_example_count": 125,
+        "weight_decay": 0.0
+      }
+    }
+  },
+  "manifests": {
+    "test": {
+      "balanced_25_per_label": true,
+      "clip_count": 125,
+      "label_counts": {
+        "home": 25,
+        "morning": 25,
+        "pen": 25,
+        "thank_you": 25,
+        "who": 25
+      },
+      "label_order_first_seen": [
+        "thank_you",
+        "pen",
+        "home",
+        "who",
+        "morning"
+      ],
+      "label_set": [
+        "home",
+        "morning",
+        "pen",
+        "thank_you",
+        "who"
+      ],
+      "manifest": {
+        "exists": true,
+        "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/test.json",
+        "sha256": "07a67651bcd38c6cff90d433ad2e18f84d905291ebb90760665c03678b75592c",
+        "size_bytes": 725417
+      },
+      "signer_identity_hash_count_by_label": {
+        "home": 7,
+        "morning": 8,
+        "pen": 8,
+        "thank_you": 8,
+        "who": 8
+      },
+      "source_record_id_count": 125,
+      "tensor_reference_count": 125
+    },
+    "train": {
+      "balanced_25_per_label": true,
+      "clip_count": 125,
+      "label_counts": {
+        "home": 25,
+        "morning": 25,
+        "pen": 25,
+        "thank_you": 25,
+        "who": 25
+      },
+      "label_order_first_seen": [
+        "thank_you",
+        "pen",
+        "home",
+        "who",
+        "morning"
+      ],
+      "label_set": [
+        "home",
+        "morning",
+        "pen",
+        "thank_you",
+        "who"
+      ],
+      "manifest": {
+        "exists": true,
+        "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/train.json",
+        "sha256": "f84b8eec2ee3b5f29118518caf42b64636f231acd39864ad0363729c96365a16",
+        "size_bytes": 722546
+      },
+      "signer_identity_hash_count_by_label": {
+        "home": 18,
+        "morning": 15,
+        "pen": 14,
+        "thank_you": 18,
+        "who": 18
+      },
+      "source_record_id_count": 125,
+      "tensor_reference_count": 125
+    },
+    "validation": {
+      "balanced_25_per_label": true,
+      "clip_count": 125,
+      "label_counts": {
+        "home": 25,
+        "morning": 25,
+        "pen": 25,
+        "thank_you": 25,
+        "who": 25
+      },
+      "label_order_first_seen": [
+        "thank_you",
+        "pen",
+        "home",
+        "who",
+        "morning"
+      ],
+      "label_set": [
+        "home",
+        "morning",
+        "pen",
+        "thank_you",
+        "who"
+      ],
+      "manifest": {
+        "exists": true,
+        "path": "data/manifests/return-to-form-popsign-fresh5-repaired-v1/validation.json",
+        "sha256": "090b40ec70775e96fb81450feb6a5e9960f93175dfda4c2ae9087b0b970cb04a",
+        "size_bytes": 722026
+      },
+      "signer_identity_hash_count_by_label": {
+        "home": 8,
+        "morning": 7,
+        "pen": 6,
+        "thank_you": 8,
+        "who": 8
+      },
+      "source_record_id_count": 125,
+      "tensor_reference_count": 125
+    }
+  },
+  "mission": "Mission 3CB - PopSign fresh5 model/input/training-loop remediation audit",
+  "output_artifacts": {
+    "diagnostic_report": {
+      "exists": true,
+      "path": "output/m3cb-popsign-fresh5-model-input-training-loop-remediation/audit-report.json",
+      "sha256": "a10acb6315504609f4e17b2e0418ff913889e2013c2a6895df6387df3e7f99c9",
+      "size_bytes": 29786
+    }
+  },
+  "schema_version": "asl-pilot-popsign-fresh5-model-input-training-loop-remediation/v1",
+  "scope": {
+    "local_only": true,
+    "no_backward_pass": true,
+    "no_brev_command": true,
+    "no_browser_activation": true,
+    "no_checkpoint_creation": true,
+    "no_export": true,
+    "no_manifest_mutation": true,
+    "no_model_card_or_final_gate_change": true,
+    "no_optimizer_step": true,
+    "no_source_import": true,
+    "no_spend": true,
+    "no_tensor_write_or_rewrite": true,
+    "no_training_or_fitting": true
+  },
+  "source_code_evidence": {
+    "input_loader": {
+      "line": 2896,
+      "matched": "class RawFrameClipDataset",
+      "path": "scripts/train_rawframe_model.py",
+      "symbol": "RawFrameClipDataset"
+    },
+    "m3bv_subset_contract": {
+      "line": 470,
+      "matched": "if args.batch_size != len(selected)",
+      "path": "scripts/run_popsign_fresh5_region_grid_tcn_tiny_overfit.py",
+      "symbol": "run"
+    },
+    "m3ca_probe_dataset": {
+      "line": 277,
+      "matched": "preserve_region_axis=True",
+      "path": "scripts/run_popsign_fresh5_learnability_isolation_probe.py",
+      "symbol": "build_dataset"
+    },
+    "m3ca_probe_optimizer": {
+      "line": 478,
+      "matched": "optimizer = torch.optim.AdamW",
+      "path": "scripts/run_popsign_fresh5_learnability_isolation_probe.py",
+      "symbol": "train_probe_model"
+    },
+    "model_build": {
+      "line": 3224,
+      "matched": "def build_model",
+      "path": "scripts/train_rawframe_model.py",
+      "symbol": "build_model"
+    },
+    "preserve_region_axis_guard": {
+      "line": 2918,
+      "matched": "region-axis-preserving training currently requires training_augmentation=none",
+      "path": "scripts/train_rawframe_model.py",
+      "symbol": "RawFrameClipDataset.__init__"
+    },
+    "region_prepare": {
+      "line": 3095,
+      "matched": "def prepare_region_frames",
+      "path": "scripts/train_rawframe_model.py",
+      "symbol": "prepare_region_frames"
+    },
+    "true_tcn_forward": {
+      "line": 3493,
+      "matched": "true TemporalConvNet input must be 5D B,T,C,H,W or 6D B,T,R,C,H,W",
+      "path": "scripts/train_rawframe_model.py",
+      "symbol": "TrueTemporalConvNetRawFrameClassifier.forward"
+    }
+  },
+  "status": "completed_no_training_model_input_training_loop_remediation_audit",
+  "tracked_files_changed": [
+    "scripts/audit_popsign_fresh5_model_input_training_loop.py",
+    "docs/validation/return-to-form-popsign-fresh5-model-input-training-loop-remediation-v1.json"
+  ],
+  "validation_commands": [
+    "git status --short --branch",
+    "git log -10 --oneline --decorate",
+    "node scripts/audit_loop_premise.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs --json",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "node scripts/audit_source_register.mjs",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-learnability-isolation-probe-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-model-data-design-ablation-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-region-grid-local-smoke-v1.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/run_popsign_fresh5_learnability_isolation_probe.py scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py scripts/decode_raw_videos.py scripts/materialize_popsign_fresh5_region_grid.py scripts/run_popsign_fresh5_region_grid_tcn_tiny_overfit.py scripts/materialize_popsign_fresh5_repaired_manifest.py",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-model-input-training-loop-remediation-v1.json >/dev/null",
+    "python3 -m json.tool output/m3cb-popsign-fresh5-model-input-training-loop-remediation/audit-report.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/audit_popsign_fresh5_model_input_training_loop.py",
+    "git diff --check"
+  ]
+}

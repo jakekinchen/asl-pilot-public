@@ -1,0 +1,180 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-run8-ovr-bce-w001-research-tuning/v1",
+  "status": "completed_run8_ovr_bce_w001_postmortem_no_brev_no_training",
+  "slice": "m3jb_recognizer_transformer_run8_ovr_bce_w001_research_guided_tuning_no_brev",
+  "recorded_at": "2026-06-04T08:58:02Z",
+  "inputs": {
+    "run6_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run6-verifselect-brev-v1.json",
+    "run7_ovr_bce_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run7-ovr-bce-hardneg-brev-v1.json",
+    "run7_ovr_bce_research_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run7-ovr-bce-research-tuning-v1.json",
+    "run6_vs_run7_paired_calibration_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run6-vs-run7-paired-calibration-audit-v1.json",
+    "run7_discrepancy_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run7-test-recall-reproduction-discrepancy-audit-v1.json",
+    "run8_preflight_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run8-ovr-bce-w001-preflight-v1.json",
+    "run8_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run8-ovr-bce-w001-brev-v1.json"
+  },
+  "run6_run7_run8_summary": {
+    "gate_verification_recall_at_far10": 0.85,
+    "run6": {
+      "ovr_bce_weight": 0,
+      "best_monitor_verification_recall_at_far10": 0.8169265323599687,
+      "best_monitor_epoch": 14,
+      "test_verification_recall_at_far10": 0.8038559556786704,
+      "test_top1": 0.287,
+      "test_top5": 0.6399,
+      "running_best": true
+    },
+    "run7_ovr_bce_w003": {
+      "ovr_bce_weight": 0.03,
+      "best_monitor_verification_recall_at_far10": 0.8275977981037635,
+      "best_monitor_epoch": 24,
+      "test_verification_recall_at_far10": 0.7759113573407201,
+      "test_top1": 0.2913,
+      "test_top5": 0.6167,
+      "delta_test_recall_vs_run6": -0.027944598337950276,
+      "paired_audit_confirmed_positive_margin_damage": true
+    },
+    "run8_ovr_bce_w001": {
+      "ovr_bce_weight": 0.01,
+      "best_monitor_verification_recall_at_far10": 0.8252875272322179,
+      "best_monitor_epoch": 83,
+      "final_monitor_verification_recall_at_far10": 0.81,
+      "test_verification_recall_at_far10": 0.7571,
+      "test_top1": 0.3081,
+      "test_top5": 0.6079,
+      "delta_test_recall_vs_run6": -0.0467559556786704,
+      "delta_test_recall_vs_run7": -0.0188113573407201,
+      "top_failure_words": [
+        "give",
+        "airplane",
+        "child",
+        "look",
+        "night"
+      ]
+    },
+    "interpretation_for_research_prompt": "Two OVR-BCE runs improved or preserved strong monitor checkpoint scores while both regressed held-out verification recall; run8 lowered OVR-BCE weight but worsened held-out recall further, making another blind OVR-BCE paid run inappropriate."
+  },
+  "research_escalation": {
+    "gpt_pro_web_attempt": {
+      "attempted": true,
+      "status": "blocked_no_browser_control_iab_tool_exposed",
+      "details": "tool_search was queried for Browser/iab ChatGPT control, but the exposed callable tools in this session did not include an in-app Browser/iab control route for ChatGPT.com Pro."
+    },
+    "fallback": {
+      "used": true,
+      "route": "openai-api-research",
+      "model_requested": "gpt-5.5",
+      "calls": [
+        {
+          "response_id": "resp_0585ce963c8da7af006a213dace9d8819491ed3d584b3cb9a7",
+          "status": "completed",
+          "model_returned": "gpt-5.5-2026-04-23",
+          "request_reasoning_effort": "medium",
+          "input_tokens": 2893,
+          "output_tokens": 2634,
+          "reasoning_tokens": 516,
+          "total_tokens": 5527
+        }
+      ],
+      "artifacts": {
+        "directory": "artifacts/research/m3jb-recognizer-transformer-run8-ovr-bce-w001-postmortem-948",
+        "prompt_md": "artifacts/research/m3jb-recognizer-transformer-run8-ovr-bce-w001-postmortem-948/prompt.md",
+        "request_json": "artifacts/research/m3jb-recognizer-transformer-run8-ovr-bce-w001-postmortem-948/request.json",
+        "raw_json": "artifacts/research/m3jb-recognizer-transformer-run8-ovr-bce-w001-postmortem-948/raw.json",
+        "response_md": "artifacts/research/m3jb-recognizer-transformer-run8-ovr-bce-w001-postmortem-948/response.md"
+      },
+      "artifacts_sha256": {
+        "prompt_md": "5c9c0b1d52844004d372acdc264803ee6955521678ab608c947a69e83c7ec248",
+        "request_json": "13a278cfb7898dd8c897587325d9fb1d69f5ea5320cb1bba4a84a3c8c578a6f2",
+        "raw_json": "c75fef3db45173275a4b91f773999a6bbc156a431e349a0103f6e5b9f6ed1680",
+        "response_md": "52a8ba2d49dab9064092aa8237687237625dcaf26be539e6602a772bad5c9552"
+      }
+    },
+    "advisory_not_authority": true
+  },
+  "research_conclusion": {
+    "diagnosis": [
+      "Reducing OVR-BCE from 0.03 to 0.01 did not fix the held-out regression, so the failure is unlikely to be only auxiliary-loss magnitude.",
+      "The likely failure is objective or checkpoint-selection mismatch: OVR-BCE improves monitor-side false-positive behavior while damaging held-out true-class positive margins or calibration.",
+      "Top-1 improved while top-5 and verification recall regressed, so argmax accuracy is not diagnosing the MVP per-word verification failure.",
+      "After two negative held-out OVR-BCE results, OVR-BCE should be stopped for now and run6 should remain the running-best base."
+    ],
+    "selected_next_action": "m3jb_recognizer_transformer_run6_run7_run8_calibration_tail_audit_no_brev",
+    "selected_no_brev_diagnostic": {
+      "summary": "Run one local run6/run7/run8 verification calibration-tail and checkpoint-selection audit across monitor and held-out test splits.",
+      "required_outputs": [
+        "overall verification recall@FAR10 for each run and split",
+        "per-class verification recall and FAR10 thresholds",
+        "true-positive softmax quantiles p10/p25/p50/p75",
+        "non-target softmax quantiles near threshold p90/p95/max",
+        "positive margin quantiles where margin = p_true_class - threshold",
+        "per-class deltas run7-run6, run8-run6, and run8-run7",
+        "classes regressing by more than 0.05 recall and whether lower positive margins, higher thresholds, both, or boundary sensitivity explains them",
+        "monitor-vs-test transfer table with monitor best score, test score, monitor-test gap, best checkpoint epoch, and final monitor score",
+        "top failure words for runs 6, 7, and 8"
+      ],
+      "pass_criteria": [
+        "No Brev lifecycle command is run.",
+        "No optimizer step or backward pass occurs.",
+        "No checkpoint, model export, or browser/runtime artifact is written or promoted.",
+        "No raw learner video is uploaded.",
+        "No pretrained runtime dependency is introduced.",
+        "No final gate is changed.",
+        "No raw test-mined pairs are used as training supervision.",
+        "Run6 held-out verification recall reproduces within +/-0.001.",
+        "Run7 and run8 held-out verification recall reproduce within expected CPU/GPU threshold-boundary tolerance, no wider than +/-0.002 unless explicitly justified by class-level boundary flips.",
+        "Per-class margin, threshold, and recall deltas are produced for all 95 classes or missing classes are explicitly documented.",
+        "The audit identifies whether run8's added regression versus run7 is mostly broader positive-margin damage, worse thresholds, different affected classes, later checkpoint selection, or unresolved."
+      ],
+      "fail_criteria": [
+        "Any training, backward, checkpoint, export, browser promotion, raw upload, pretrained runtime dependency, final-gate change, or Brev lifecycle occurs.",
+        "Authoritative run metrics cannot be reproduced within the stated tolerances or documented boundary-flip exception.",
+        "The audit cannot explain or classify the run8-vs-run7 regression mode.",
+        "The audit tries to use held-out test-mined pairs as training supervision."
+      ]
+    },
+    "future_paid_recipe": {
+      "recommendation": "no_paid_recipe_yet",
+      "reason": "Run7 and run8 both show OVR-BCE can improve monitor selection while worsening held-out verification recall. Another paid variant before a three-run calibration-tail and checkpoint-selection audit risks repeating the same monitor-overfit pattern.",
+      "likely_future_direction_after_audit": "Return to the run6 base and choose a minimal calibration-safe change only after the audit identifies whether checkpoint selection, positive-margin compression, threshold inflation, or another cause dominates."
+    },
+    "brev_auth_prerequisite": {
+      "required_before_future_lifecycle_or_compute": true,
+      "minimum_command": "brev ls --json",
+      "reason": "Run8 teardown lost Brev CLI auth and could not verify final workspace state through Brev; future compute must first recover auth and verify worker visibility."
+    }
+  },
+  "boundaries": {
+    "brev_used": false,
+    "brev_lifecycle_or_exec": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "runtime_export": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "push": false,
+    "future_paid_recipe_selected": false
+  },
+  "validations": [
+    {
+      "command": "test -f /Users/kelly/.codex/secrets/openai-api.env && grep -q '^OPENAI_API_KEY=sk-' /Users/kelly/.codex/secrets/openai-api.env",
+      "status": "passed"
+    },
+    {
+      "command": "OpenAI Responses API request using artifacts/research/m3jb-recognizer-transformer-run8-ovr-bce-w001-postmortem-948/request.json",
+      "status": "completed"
+    },
+    {
+      "command": "shasum -a 256 artifacts/research/m3jb-recognizer-transformer-run8-ovr-bce-w001-postmortem-948/{prompt.md,request.json,raw.json,response.md}",
+      "status": "passed"
+    }
+  ],
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_run6_run7_run8_calibration_tail_audit_no_brev",
+    "requires_brev_spend": false,
+    "summary": "Implement or reuse a local no-training calibration-tail and checkpoint-selection audit comparing run6, run7, and run8 before selecting any further paid recognizer recipe."
+  }
+}

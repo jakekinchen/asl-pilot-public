@@ -1,0 +1,467 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3gs-reduced4-trainability-result-triage-no-brev/v1",
+  "mission": "Mission 3GS - reduced4 trainability result triage no Brev",
+  "status": "completed_local_no_remote_no_brev_no_training_result_triage",
+  "generated_at": "2026-05-29T11:17:30Z",
+  "current_commit_before_slice_commit": "721439a observer: CONTINUE - m3gr m3gs triage handoff",
+  "active_prompt": "docs/model/return-to-form-m3gs-reduced4-trainability-result-triage-no-brev-goal-loop-prompt.md",
+  "architecture_anchors": [
+    "ARCHITECTURE.md#arch-no-pretrained",
+    "ARCHITECTURE.md#arch-camera-privacy",
+    "ARCHITECTURE.md#arch-data-provenance",
+    "ARCHITECTURE.md#arch-gpu-execution"
+  ],
+  "commands_run": {
+    "freshness_and_source_of_truth": [
+      "git log -1 --oneline",
+      "git status --short",
+      "sed -n '1,220p' GOAL.md",
+      "sed -n '1,220p' .agents/skills/asl-pilot-codex-pair/SKILL.md",
+      "sed -n '1,260p' docs/model/return-to-form-m3gs-reduced4-trainability-result-triage-no-brev-goal-loop-prompt.md",
+      "sed -n '1,260p' docs/runbooks/codex-goal-loop.md",
+      "sed -n '1,260p' docs/runbooks/observer-runbook-codex.md",
+      "sed -n '1,220p' .agents/skills/asl-pilot-ml-receipt/SKILL.md",
+      "sed -n '1,260p' docs/model/return-to-form-plan.md",
+      "sed -n '1,220p' AGENTS.md",
+      "ls docs/session-logs | sort | tail -12",
+      "jq reads of M3GR, M3GQ, M3GP, M3GO, M3GN, M3GM, and M3GL receipts"
+    ],
+    "required_baseline_checks": [
+      "git status --short --branch",
+      "git log -12 --oneline --decorate",
+      "node scripts/audit_loop_premise.mjs --json",
+      "node scripts/audit_return_to_form_plan.mjs --json",
+      "node scripts/audit_source_register.mjs",
+      "node scripts/audit_no_pretrained_deps.mjs",
+      "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "python3 -m json.tool docs/validation/return-to-form-m3gr-local-dataloader-or-micro-overfit-preflight-no-brev-v1.json >/dev/null",
+      "python3 -m json.tool docs/validation/return-to-form-m3gq-source-vocab-input-repair-no-brev-v1.json >/dev/null",
+      "python3 -m json.tool data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json >/dev/null",
+      "python3 -m json.tool data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json >/dev/null",
+      "python3 -m json.tool data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json >/dev/null",
+      "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "python3 -m json.tool web/public/model/detector0-card.json >/dev/null",
+      "python3 -m json.tool web/public/model/claim-matrix.json >/dev/null",
+      "python3 -m json.tool docs/validation/final-claim-matrix.json >/dev/null",
+      "brev ls --json",
+      "git diff --check"
+    ],
+    "m3gr_ignored_output_checks": [
+      "find output/m3gr-reduced4-local-micro-overfit-preflight -maxdepth 1 -type f \\( -name '*.json' -o -name '*.pt' \\) -print | sort",
+      "python3 -m json.tool output/m3gr-reduced4-local-micro-overfit-preflight/selected-subset.json >/dev/null",
+      "python3 -m json.tool output/m3gr-reduced4-local-micro-overfit-preflight/tiny-overfit-provenance.json >/dev/null",
+      "shasum -a 256 output/m3gr-reduced4-local-micro-overfit-preflight/selected-subset.json output/m3gr-reduced4-local-micro-overfit-preflight/tiny-overfit-provenance.json output/m3gr-reduced4-local-micro-overfit-preflight/model_state.pt",
+      "git check-ignore -v output/m3gr-reduced4-local-micro-overfit-preflight/selected-subset.json output/m3gr-reduced4-local-micro-overfit-preflight/tiny-overfit-provenance.json output/m3gr-reduced4-local-micro-overfit-preflight/model_state.pt"
+    ],
+    "hash_and_claim_reads": [
+      "shasum -a 256 data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json web/public/model/model-card.json docs/model/active-vocabulary-claim.json web/public/model/detector0-card.json web/public/model/claim-matrix.json docs/validation/final-claim-matrix.json",
+      "jq reads of output/m3gr-reduced4-local-micro-overfit-preflight/selected-subset.json",
+      "jq reads of output/m3gr-reduced4-local-micro-overfit-preflight/tiny-overfit-provenance.json",
+      "jq reads of web/public/model/model-card.json, docs/model/active-vocabulary-claim.json, web/public/model/detector0-card.json, web/public/model/claim-matrix.json, and docs/validation/final-claim-matrix.json"
+    ],
+    "intentionally_not_run": [
+      "Brev lifecycle, remote, sync, copy, exec, stop, start, or spend commands",
+      "training, fitting, optimizer/backward, micro-overfit rerun, or local training smoke",
+      "checkpoint evaluator rerun or validation/test readiness evaluation",
+      "export, promotion, browser activation, browser/product smoke, final-gate change, or claim expansion",
+      "source/media import, raw media inspection, raw learner video upload, source-register rights mutation, or manifest/tensor mutation",
+      "OpenAI API, GPT-Pro, web research, Hugging Face, or other research calls",
+      "pretrained detector, landmark, backbone, embedding, feature, model, generated-label, or pseudo-label shortcuts"
+    ],
+    "post_write_validation": [
+      "python3 -m json.tool docs/validation/return-to-form-m3gs-reduced4-trainability-result-triage-no-brev-v1.json >/dev/null",
+      "git diff --check",
+      "node scripts/audit_loop_premise.mjs --json",
+      "node scripts/audit_return_to_form_plan.mjs --json",
+      "node scripts/audit_no_pretrained_deps.mjs",
+      "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "git status --short"
+    ]
+  },
+  "command_results_summary": {
+    "git_status_short_branch": "## compound-plan-m0...origin/compound-plan-m0 [ahead 319] at baseline",
+    "latest_commit": "721439a observer: CONTINUE - m3gr m3gs triage handoff",
+    "audit_loop_premise": "passed",
+    "audit_return_to_form_plan": "passed; active prompt is docs/model/return-to-form-m3gs-reduced4-trainability-result-triage-no-brev-goal-loop-prompt.md",
+    "audit_source_register": "passed; sha256 b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8; source_count 12",
+    "audit_no_pretrained_deps": "passed",
+    "audit_no_pretrained_artifact_json": "passed with no findings",
+    "required_json_validation": "passed",
+    "git_diff_check_before_edits": "passed",
+    "m3gr_ignored_output_json_validation": "passed for selected-subset.json and tiny-overfit-provenance.json",
+    "post_write_validation": {
+      "receipt_json_tool": "passed",
+      "git_diff_check": "passed",
+      "audit_loop_premise": "passed",
+      "audit_return_to_form_plan": "passed",
+      "audit_no_pretrained_deps": "passed",
+      "audit_no_pretrained_artifact_json": "passed",
+      "git_status_short_after_write": "only scoped untracked M3GS receipt and session log"
+    }
+  },
+  "read_only_brev_default_off_state": {
+    "command": "brev ls --json",
+    "lifecycle_remote_sync_copy_exec_stop_start_or_spend_commands_run": [],
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ],
+    "default_off_preserved": true
+  },
+  "m3gr_train_fit_evidence": {
+    "source_receipt": "docs/validation/return-to-form-m3gr-local-dataloader-or-micro-overfit-preflight-no-brev-v1.json",
+    "source_session_log": "docs/session-logs/651-mission-3gr-local-dataloader-or-micro-overfit-preflight-no-brev.md",
+    "helper_script": "scripts/run_m3gr_reduced4_micro_overfit_preflight.py",
+    "dataloader_and_input_contract": {
+      "status": "passed_before_m3gr_fit",
+      "manifest_clip_count_checked": 79,
+      "observed_input_contract_counts": {
+        "rgb_regions_grid_v1": 79
+      },
+      "raw_rgb_regions_shape": [
+        16,
+        5,
+        96,
+        96,
+        3
+      ],
+      "prepared_model_input_axis": "T,R,C,H,W",
+      "prepared_model_input_shape": [
+        16,
+        5,
+        3,
+        96,
+        96
+      ],
+      "batched_model_input_axis": "B,T,R,C,H,W",
+      "batched_model_input_shape": [
+        4,
+        16,
+        5,
+        3,
+        96,
+        96
+      ],
+      "region_axis_preserved_until": "TrueTemporalConvNetRawFrameClassifier.region_attention",
+      "rgb_frames_fallback_used": false
+    },
+    "tiny_same_subset_fit": {
+      "status": "succeeded_train_fit_only",
+      "subset_source": "deterministic one train clip per reduced4 label",
+      "clip_count": 4,
+      "labels": [
+        "hello",
+        "sad",
+        "uncle",
+        "white"
+      ],
+      "caps": {
+        "single_probe_only": true,
+        "scratch_initialized": true,
+        "epochs": 120,
+        "batch_size": 4,
+        "learning_rate": 0.003,
+        "weight_decay": 0.0,
+        "frame_count": 16,
+        "image_size": 96,
+        "num_workers": 0,
+        "no_validation_or_test_readiness_evaluation": true
+      },
+      "runtime": {
+        "device": "mps",
+        "elapsed_seconds": 4.381503084092401,
+        "python": "3.14.5",
+        "torch": "2.12.0"
+      },
+      "best_epoch_same_subset_only": 76,
+      "final_same_subset_accuracy": 1.0,
+      "final_same_subset_loss": 1.1920928244535389e-7,
+      "zero_recall_labels": [],
+      "predeclared_success_threshold": {
+        "accuracy_gte": 0.95,
+        "no_zero_recall_selected_labels": true
+      },
+      "finality": "diagnostic_train_fit_only_not_heldout_quality_not_promotion"
+    },
+    "ignored_outputs_present_locally": [
+      {
+        "path": "output/m3gr-reduced4-local-micro-overfit-preflight/selected-subset.json",
+        "sha256": "fa4f9e16e60230299fe17c85004e62db13f97eeb624f9eeb6afdd657330bb58b",
+        "json_tool_validation": "passed",
+        "ignored_by": ".gitignore:27:output/"
+      },
+      {
+        "path": "output/m3gr-reduced4-local-micro-overfit-preflight/tiny-overfit-provenance.json",
+        "sha256": "31234b929eab8bc0f084ecd695d7b9caab025c41ff33883b7ca58ec4b240984b",
+        "json_tool_validation": "passed",
+        "ignored_by": ".gitignore:27:output/"
+      },
+      {
+        "path": "output/m3gr-reduced4-local-micro-overfit-preflight/model_state.pt",
+        "sha256": "5030212e24dcbf4da58110726de2bcf795da5e47387bdd472e2a49a9b06dbfed",
+        "json_tool_validation": "not_json",
+        "ignored_by": ".gitignore:27:output/"
+      }
+    ]
+  },
+  "m3gq_reduced4_manifest_paths_and_hashes": {
+    "source_receipt": "docs/validation/return-to-form-m3gq-source-vocab-input-repair-no-brev-v1.json",
+    "source_session_log": "docs/session-logs/649-mission-3gq-source-vocab-input-repair-no-brev.md",
+    "selected_route": "reduced_existing_vocab_contract",
+    "selected_labels": [
+      "hello",
+      "uncle",
+      "white",
+      "sad"
+    ],
+    "input_contract": "rgb_regions_grid_v1",
+    "tensors_reused_without_mutation": true,
+    "splits": {
+      "train": {
+        "path": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json",
+        "sha256": "aab52f670b9dbf6d219521a8ebf84d1af1a798ec5f1c8a54cbe126222ffe0f11",
+        "clip_count": 48,
+        "label_counts": {
+          "white": 12,
+          "sad": 12,
+          "uncle": 12,
+          "hello": 12
+        },
+        "signer_count": 18
+      },
+      "validation": {
+        "path": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json",
+        "sha256": "03f4d1e391146ab98bbb1aea9936396b82a09cbb09d5e783b6a147292140f13b",
+        "clip_count": 15,
+        "label_counts": {
+          "white": 4,
+          "sad": 4,
+          "uncle": 3,
+          "hello": 4
+        },
+        "signer_count": 5
+      },
+      "test": {
+        "path": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json",
+        "sha256": "c02486e4a50cb2894e8e1bf9ac848871368702371311c9b62b519ac8ce9b6920",
+        "clip_count": 16,
+        "label_counts": {
+          "white": 4,
+          "sad": 4,
+          "uncle": 4,
+          "hello": 4
+        },
+        "signer_count": 7
+      }
+    },
+    "total_clip_count": 79
+  },
+  "prior_heldout_context": {
+    "why_m3gj_m3gl_seven_label_failures_remain_relevant": [
+      "They are the closest held-out evidence for the same ASL Citizen high-signal region-grid source, same rgb_regions_grid_v1 input contract, and same region-preserving TCN family.",
+      "M3GR only memorized four deterministic train clips and did not inspect validation/test generalization.",
+      "Seven-label seed instability is still a warning that same-subset fit can coexist with weak class boundaries under signer-disjoint held-out splits."
+    ],
+    "m3gj_current_m3gb_seed20260519": {
+      "validation_top1": 0.37037037037037035,
+      "validation_macro_f1": 0.3320964749536178,
+      "test_top1": 0.25,
+      "test_macro_f1": 0.15634920634920638,
+      "failed_gates": [
+        "top1_accuracy",
+        "macro_f1",
+        "negative_challenge_false_pass_rate"
+      ]
+    },
+    "m3gl_independent_seed20260530": {
+      "validation_top1": 0.2962962962962963,
+      "validation_macro_f1": 0.2755102040816327,
+      "test_top1": 0.14285714285714285,
+      "test_macro_f1": 0.09206349206349207,
+      "test_false_pass_rate": 0.07142857142857142,
+      "failed_gates": [
+        "top1_accuracy",
+        "macro_f1",
+        "negative_challenge_false_pass_rate"
+      ],
+      "classification": "regression_against_m3gb_m3gj_and_failed_gates"
+    },
+    "m3gl_minus_m3gj": {
+      "validation_top1": -0.07407407407407407,
+      "validation_macro_f1": -0.056586270871985145,
+      "test_top1": -0.10714285714285715,
+      "test_macro_f1": -0.06428571428571431
+    }
+  },
+  "trainability_interpretation_table": [
+    {
+      "category": "what_m3gr_proves",
+      "findings": [
+        "The M3GQ reduced4 train, validation, and test manifests exist and parse locally.",
+        "All 79 selected rows use the expected rgb_regions_grid_v1 contract.",
+        "The loader consumes rgb_regions, preserves the region axis through B,T,R,C,H,W model input, and does not fall back to rgb_frames for the sampled proof path.",
+        "A deterministic four-clip train subset, one clip per reduced4 label, can be memorized from scratch locally on MPS.",
+        "The helper path can produce ignored local provenance without tracking model outputs."
+      ]
+    },
+    {
+      "category": "what_m3gr_does_not_prove",
+      "findings": [
+        "No validation or test generalization was measured for reduced4.",
+        "No threshold, calibration, negative-challenge, browser, export, or promotion readiness was established.",
+        "No broad training viability was established beyond the tiny deterministic same-subset fit.",
+        "No final-readiness, active-vocabulary, ASL-correctness, or learner-facing recognition claim changed.",
+        "The result does not authorize Brev spend, broader training, source/media work, or final-gate changes."
+      ]
+    },
+    {
+      "category": "remaining_reduced4_evidence_gaps",
+      "findings": [
+        "Reduced4 train/validation/test held-out behavior under strict local caps is unknown.",
+        "Reduced4 threshold and false-pass behavior are unknown.",
+        "Reduced4 negative-challenge evidence is absent.",
+        "Signer/split and per-label failure modes for the reduced4 lane remain unproven beyond manifest counts.",
+        "Product/browser behavior remains fail-closed and intentionally inactive."
+      ]
+    },
+    {
+      "category": "overfit_risk",
+      "findings": [
+        "The selected subset has only four examples and one train clip per label.",
+        "The deterministic selection can be memorized without proving signer-disjoint class-boundary learning.",
+        "Same-subset 1.0 accuracy is a connectivity/train-fit signal, not a quality signal."
+      ]
+    }
+  ],
+  "evaluated_next_step_options": [
+    {
+      "option": "bounded_reduced4_local_training_smoke",
+      "classification": "recommended_next_under_future_prompt",
+      "tradeoff": "Directly tests the next missing reduced4 evidence: train, validation, and test behavior on existing approved manifests. Risk is overclaiming if the future prompt does not cap runtime, forbid promotion, and require diagnostic-only interpretation.",
+      "required_boundary": "Future M3GT prompt must be local/no-Brev, use existing M3GQ manifests only, set strict runtime/output caps, record exact command and kill conditions, and preserve fail-closed claims.",
+      "selected": true
+    },
+    {
+      "option": "receipt_only_before_training",
+      "classification": "fold_into_recommended_m3gt_prompt",
+      "tradeoff": "A command/kill-condition receipt reduces risk before non-tiny fitting, but receipt-only would not add the held-out signal now missing after M3GR.",
+      "required_boundary": "The future M3GT route should include the receipt fields before any local smoke command runs.",
+      "selected": false
+    },
+    {
+      "option": "data_or_split_diagnosis_no_training",
+      "classification": "reasonable_fallback_if_m3gt_receipt_cannot_bound_training",
+      "tradeoff": "Safest no-training option and could inspect signer/source/split balance more deeply, but M3GQ/M3GN/M3GO already recorded the core counts and approval-gated fields; it delays the direct reduced4 held-out signal.",
+      "required_boundary": "No raw media inspection, tensor generation, source-register mutation, or manifest mutation.",
+      "selected": false
+    },
+    {
+      "option": "external_strategy_research",
+      "classification": "not_selected_without_explicit_human_research_approval",
+      "tradeoff": "Could improve strategy quality after repeated failures, but the active prompt does not authorize OpenAI API or GPT-Pro research calls.",
+      "required_boundary": "Human approval for research tool, evidence scope, and saved artifact location.",
+      "selected": false
+    },
+    {
+      "option": "human_review",
+      "classification": "not_required_for_selected_local_no_brev_diagnostic_next_step",
+      "tradeoff": "Appropriate before budget/source/privacy/claim/final-submission changes, but this selected next action can remain local, no-Brev, existing-artifact, diagnostic-only, and fail-closed.",
+      "required_boundary": "Stop for human approval before any budget, source/privacy, claim, promotion, final-submission, Brev, or scope change.",
+      "selected": false
+    }
+  ],
+  "selected_recommended_next_action": {
+    "exactly_one_next_action": "continue_m3gt_reduced4_local_training_smoke_receipt_no_brev",
+    "reason": "M3GR removed the immediate loader/connectivity blocker but only produced same-subset train-fit evidence. The next smallest evidence-producing step is a future local/no-Brev, diagnostic-only reduced4 training-smoke receipt that first records command caps and kill conditions, then measures reduced4 held-out behavior without promotion or claim expansion.",
+    "not_authorized_in_this_mission": [
+      "running the M3GT training smoke",
+      "running an evaluator",
+      "exporting or promoting artifacts",
+      "activating browser recognition",
+      "changing final gates or claim surfaces",
+      "using Brev or research APIs"
+    ]
+  },
+  "claim_surface_status": {
+    "fail_closed_unchanged": true,
+    "web_public_model_model_card": {
+      "path": "web/public/model/model-card.json",
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "status": "not_trained",
+      "model_id": "asl-pilot-rawframe-v0"
+    },
+    "docs_model_active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": [],
+      "evidenceArtifacts": []
+    },
+    "web_public_model_detector0_card": {
+      "path": "web/public/model/detector0-card.json",
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null
+    },
+    "web_public_model_claim_matrix": {
+      "path": "web/public/model/claim-matrix.json",
+      "sha256": "5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf",
+      "status": "no_active_claim_rawframe_not_trained"
+    },
+    "docs_validation_final_claim_matrix": {
+      "path": "docs/validation/final-claim-matrix.json",
+      "sha256": "5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf",
+      "status": "no_active_claim_rawframe_not_trained"
+    }
+  },
+  "forbidden_action_proof": {
+    "brev_lifecycle_remote_sync_copy_exec_stop_start_or_spend": false,
+    "training_or_fitting_or_micro_overfit_rerun": false,
+    "checkpoint_evaluator_rerun": false,
+    "validation_or_test_readiness_evaluation": false,
+    "export": false,
+    "browser_activation": false,
+    "browser_or_product_smoke": false,
+    "source_import": false,
+    "source_register_rights_mutation": false,
+    "raw_learner_video_upload": false,
+    "raw_media_inspection": false,
+    "manifest_tensor_crop_or_label_mutation": false,
+    "claim_expansion": false,
+    "model_card_promotion": false,
+    "final_gate_change": false,
+    "research_api_or_gpt_pro_call": false,
+    "pretrained_detector_landmark_backbone_feature_model_or_generated_label_shortcut": false
+  },
+  "corrected_read_only_probe_errors": [
+    {
+      "command_class": "jq multi-file claim-surface summary read",
+      "result": "One jq summary command exited nonzero because the filter misused input while reading multiple claim JSON files.",
+      "correction": "Reran separate jq reads for model-card, active-vocabulary, detector0, claim-matrix, and final-claim-matrix status. No repo files changed."
+    }
+  ],
+  "pretrained_components": [],
+  "changed_files": [
+    {
+      "path": "docs/validation/return-to-form-m3gs-reduced4-trainability-result-triage-no-brev-v1.json",
+      "status": "new_tracked_receipt"
+    },
+    {
+      "path": "docs/session-logs/653-mission-3gs-reduced4-trainability-result-triage-no-brev.md",
+      "status": "new_session_log"
+    }
+  ],
+  "exact_blocker": null,
+  "exactly_one_next_action": "continue_m3gt_reduced4_local_training_smoke_receipt_no_brev"
+}

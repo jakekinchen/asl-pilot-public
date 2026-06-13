@@ -1,0 +1,2457 @@
+{
+  "active_prompt": "docs/model/return-to-form-data-quality-contract-goal-loop-prompt.md",
+  "blocked_actions_requiring_human_approval": [
+    "Brev login, worker inspection, worker lifecycle changes, or paid compute without a compute-receipt prompt",
+    "any training run, model fitting, optimizer/backward pass, checkpoint creation, or sweep",
+    "source import, source approval expansion, generated pseudo-labels, or manual annotation/data collection",
+    "manifest or tensor mutation",
+    "Detector 0 or landmark revival",
+    "ONNX export, model-card promotion, browser trained activation, final-readiness claim, or final-gate changes",
+    "product-runtime implementation changes",
+    "push"
+  ],
+  "candidate_subset": {
+    "excluded_labels": [
+      {
+        "label_id": "table",
+        "m3bc_vocab_decision": "hold",
+        "repairability_decision": "drop_or_defer",
+        "why_excluded": "Existing artifacts justify holding the label out of the next training scope; they do not repair the never-predicted or zero-recall failure without manual review, source work, or data changes."
+      },
+      {
+        "label_id": "please",
+        "m3bc_vocab_decision": "hold",
+        "repairability_decision": "drop_or_defer",
+        "why_excluded": "Existing artifacts justify holding the label out of the next training scope; they do not repair the never-predicted or zero-recall failure without manual review, source work, or data changes."
+      },
+      {
+        "label_id": "black",
+        "m3bc_vocab_decision": "defer",
+        "repairability_decision": "drop_or_defer",
+        "why_excluded": "Existing artifacts show partial held-out signal, but unresolved crop/region drift or targeted gates mean the label can only be deferred or dropped from the next scope, not repaired without new review or a mutation/training prompt."
+      },
+      {
+        "label_id": "hello",
+        "m3bc_vocab_decision": "defer",
+        "repairability_decision": "drop_or_defer",
+        "why_excluded": "Existing artifacts show partial held-out signal, but unresolved crop/region drift or targeted gates mean the label can only be deferred or dropped from the next scope, not repaired without new review or a mutation/training prompt."
+      },
+      {
+        "label_id": "uncle",
+        "m3bc_vocab_decision": "repair",
+        "repairability_decision": "drop_or_defer",
+        "why_excluded": "Existing artifacts identify the repair need but do not contain an artifact-only correction for the zero-recall/crop-drift failure."
+      },
+      {
+        "label_id": "white",
+        "m3bc_vocab_decision": "hold",
+        "repairability_decision": "drop_or_defer",
+        "why_excluded": "Existing artifacts justify holding the label out of the next training scope; they do not repair the never-predicted or zero-recall failure without manual review, source work, or data changes."
+      },
+      {
+        "label_id": "sad",
+        "m3bc_vocab_decision": "hold",
+        "repairability_decision": "drop_or_defer",
+        "why_excluded": "Existing artifacts justify holding the label out of the next training scope; they do not repair the never-predicted or zero-recall failure without manual review, source work, or data changes."
+      }
+    ],
+    "paid_microexperiment_supported_now": false,
+    "product_fallback_scope_seed": {
+      "constraint": "Because no label is training-worthy from existing artifacts, the next bounded lane should design an honest fail-closed product fallback scope without browser trained-activation or runtime changes inside this contract.",
+      "status": "requires_next_prompt_design"
+    },
+    "smallest_honest_candidate_subset": [],
+    "status": "none_currently_training_ready",
+    "training_worthy_subset_identified": false
+  },
+  "commands": {
+    "contract_generation": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/audit_high_signal_data_quality_contract.py",
+      "--receipt",
+      "docs/validation/return-to-form-data-quality-contract-v1.json",
+      "--write-receipt"
+    ],
+    "json_validation": [
+      [
+        "python3",
+        "-m",
+        "json.tool",
+        "docs/validation/return-to-form-data-quality-contract-v1.json"
+      ]
+    ],
+    "required_audits": [
+      [
+        "node",
+        "scripts/audit_loop_premise.mjs",
+        "--json"
+      ],
+      [
+        "node",
+        "scripts/audit_return_to_form_plan.mjs",
+        "--json"
+      ],
+      [
+        "node",
+        "scripts/audit_no_pretrained_deps.mjs"
+      ],
+      [
+        "node",
+        "scripts/audit_no_pretrained_artifact_json.mjs"
+      ],
+      [
+        "python3",
+        "-m",
+        "py_compile",
+        "scripts/train_rawframe_model.py",
+        "scripts/evaluate_rawframe_model.py",
+        "scripts/compile_true_tcn_architecture.py",
+        "scripts/run_region_grid_tcn_tiny_overfit.py",
+        "scripts/diagnose_vocab_crop_separability.py",
+        "scripts/design_vocab_crop_remediation.py",
+        "scripts/audit_high_signal_split_signer_contract.py",
+        "scripts/audit_high_signal_crop_region_contract.py",
+        "scripts/audit_high_signal_vocab_subset_contract.py",
+        "scripts/audit_high_signal_data_quality_contract.py"
+      ],
+      [
+        "git",
+        "diff",
+        "--check"
+      ]
+    ]
+  },
+  "contract_conclusions": [
+    "Existing artifacts do not repair any held, deferred, or repair-required label into a training-worthy retained candidate.",
+    "All seven high-signal labels remain excluded from future training until manual/source/data repair is approved or a later bounded contract changes the evidence.",
+    "A paid Brev micro-experiment is not supported because the retained subset is empty.",
+    "The honest next lane is a no-training product fallback scope design that preserves fail-closed browser claims.",
+    "The browser model remains fail-closed and not_trained; this receipt is not promotion or readiness evidence.",
+    "The single next action is continue_product_fallback_scope_design_no_training."
+  ],
+  "exactly_one_next_action": "continue_product_fallback_scope_design_no_training",
+  "generated_at": "2026-05-27T13:01:24.285636+00:00",
+  "generated_by": {
+    "command": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/audit_high_signal_data_quality_contract.py",
+      "--receipt",
+      "docs/validation/return-to-form-data-quality-contract-v1.json",
+      "--write-receipt"
+    ],
+    "script": {
+      "path": "scripts/audit_high_signal_data_quality_contract.py",
+      "sha256": "2fdfc14c5749188f303db6ba0e7fe2b66f579a47ce458841ec9bca197ef90011"
+    },
+    "tool": "scripts/audit_high_signal_data_quality_contract.py"
+  },
+  "guardrails": {
+    "brev_used": false,
+    "browser_or_final_claims_changed": false,
+    "external_media_imported": false,
+    "final_gates_changed": false,
+    "manifest_or_tensor_mutated": false,
+    "model_exported": false,
+    "model_promoted": false,
+    "non_promotion": "This data quality contract is not training, calibration, export, browser activation, final readiness, or evidence that the M3AW recognizer generalizes. The browser model remains not_trained/fail-closed.",
+    "paid_compute_used": false,
+    "pretrained_components": [],
+    "product_runtime_changed": false,
+    "pseudo_labels_generated": false
+  },
+  "input_artifacts": [
+    {
+      "path": "docs/validation/return-to-form-vocab-subset-contract-v1.json",
+      "sha256": "c2c40b845c574daae50f7326e087dbb195cf42c759797779ec0f7ca42bf1346b"
+    },
+    {
+      "path": "docs/session-logs/336-mission-3bc-vocab-subset-contract.md",
+      "sha256": "15b4155f43825a5997d468e27d085aad46ff2c3ad45565a0a27a2ef33200ae0e"
+    },
+    {
+      "path": "docs/validation/return-to-form-crop-region-contract-v1.json",
+      "sha256": "fdd802cf883f746c31e2e5505fc4827210b1b1ee30ea9f61ef677afc11dcacac"
+    },
+    {
+      "path": "docs/validation/return-to-form-split-signer-contract-v1.json",
+      "sha256": "b774eea643a23faee6958475b87117c8d09dfa96b0ce10becf99270808132c06"
+    },
+    {
+      "path": "docs/validation/return-to-form-vocab-crop-remediation-design-v1.json",
+      "sha256": "987502bbbcd42d941c1c70462acdb148044233199fcce2832dde54b9317aa844"
+    },
+    {
+      "path": "docs/validation/return-to-form-vocab-crop-separability-diagnosis-v1.json",
+      "sha256": "6b6f507a5285083fdc6bb7f56e0d419d8e92bc33f8fc4d061c0649c67642f793"
+    },
+    {
+      "path": "docs/validation/return-to-form-region-grid-tcn-local-smoke-v1.json",
+      "sha256": "07497e1a9b205b671c7ea85183778aac1167cb8f8f0eb34b5126f15ca2e1467b"
+    },
+    {
+      "path": "docs/validation/return-to-form-region-grid-tcn-tiny-overfit-v1.json",
+      "sha256": "18f8ddddd98b87ac3af8050f696468a49aa89c27ab2d924d8a706345ddc974fc"
+    },
+    {
+      "path": "output/m3aw-region-grid-tcn-local-smoke/validation-report.json",
+      "sha256": "4747f634acb32812ed3c3600cf84b0d32967ea48450f5218b292561b1c10e9e4"
+    },
+    {
+      "path": "output/m3aw-region-grid-tcn-local-smoke/prediction-sidecar.json",
+      "sha256": "4dfd629ea0e440574497c2488e72622b764b6beb244f83dcba3943a8bdaea12c"
+    },
+    {
+      "path": "data/manifests/lesson/high-signal-region-grid/train.json",
+      "sha256": "101455329ae04ad06a2c3fd4ca26a29c04ae945bb7925bee373cf3229594fc3d"
+    },
+    {
+      "path": "data/manifests/lesson/high-signal-region-grid/validation.json",
+      "sha256": "16a4a64a8fd48a1384c4cfd2e01dddcaa45fb3b1f0588af9ec66f96668cc3a53"
+    },
+    {
+      "path": "data/manifests/lesson/high-signal-region-grid/test.json",
+      "sha256": "5a315d49438242febb410287c4ff235ae8cd269a5aba5c3cf550950bae0359f8"
+    }
+  ],
+  "manifest_summary": {
+    "test": {
+      "clip_count": 28,
+      "label_count": 7,
+      "labels": [
+        "table",
+        "please",
+        "black",
+        "hello",
+        "uncle",
+        "white",
+        "sad"
+      ],
+      "per_label_clip_counts": {
+        "black": 4,
+        "hello": 4,
+        "please": 4,
+        "sad": 4,
+        "table": 4,
+        "uncle": 4,
+        "white": 4
+      },
+      "per_label_signer_counts": {
+        "black": 4,
+        "hello": 4,
+        "please": 4,
+        "sad": 4,
+        "table": 4,
+        "uncle": 4,
+        "white": 4
+      },
+      "signer_count": 7
+    },
+    "train": {
+      "clip_count": 84,
+      "label_count": 7,
+      "labels": [
+        "table",
+        "please",
+        "black",
+        "hello",
+        "uncle",
+        "white",
+        "sad"
+      ],
+      "per_label_clip_counts": {
+        "black": 12,
+        "hello": 12,
+        "please": 12,
+        "sad": 12,
+        "table": 12,
+        "uncle": 12,
+        "white": 12
+      },
+      "per_label_signer_counts": {
+        "black": 12,
+        "hello": 12,
+        "please": 12,
+        "sad": 12,
+        "table": 11,
+        "uncle": 10,
+        "white": 11
+      },
+      "signer_count": 19
+    },
+    "validation": {
+      "clip_count": 27,
+      "label_count": 7,
+      "labels": [
+        "table",
+        "please",
+        "black",
+        "hello",
+        "uncle",
+        "white",
+        "sad"
+      ],
+      "per_label_clip_counts": {
+        "black": 4,
+        "hello": 4,
+        "please": 4,
+        "sad": 4,
+        "table": 4,
+        "uncle": 3,
+        "white": 4
+      },
+      "per_label_signer_counts": {
+        "black": 4,
+        "hello": 4,
+        "please": 4,
+        "sad": 4,
+        "table": 4,
+        "uncle": 3,
+        "white": 3
+      },
+      "signer_count": 5
+    }
+  },
+  "method": {
+    "brev_used": false,
+    "browser_or_final_claim_changed": false,
+    "description": "Loaded existing receipts, reports, sidecars, and manifests; reused M3BB tensor inventory and crop/region quality summaries as metadata; selected artifact-only repairability decisions without training, mutation, Brev, source import, or product runtime changes.",
+    "manifest_or_tensor_mutated": false,
+    "model_loaded_or_checkpoint_created": false,
+    "optimizer_or_backward_used": false,
+    "product_runtime_changed": false,
+    "source_imported": false,
+    "training_or_fitting_performed": false
+  },
+  "minimum_gates_before_future_training": [
+    {
+      "gate": "artifact_only_data_quality_repair",
+      "requirement": "Each retained label must be repaired from existing artifacts or explicitly approved for new manual/source/data work before training.",
+      "status": "failed_current_contract"
+    },
+    {
+      "gate": "candidate_subset_nonempty_minimum",
+      "requirement": "At least two labels must be retained as training-worthy before any recognizer training prompt.",
+      "status": "failed_current_contract"
+    },
+    {
+      "gate": "manual_data_quality_repair_approval",
+      "requirement": "Manual visual review, manual labels, manual data collection, source approval, or manifest/tensor mutation must be explicitly approved and scoped before it is used to unblock training.",
+      "status": "human_approval_required_if_training_remains_goal"
+    },
+    {
+      "gate": "compute_receipt_before_brev",
+      "requirement": "Paid Brev work requires a nonempty training-worthy subset plus worker, price, command, max runtime/spend, kill condition, expected metric signal, and teardown receipt.",
+      "status": "blocked_until_training_worthy_subset"
+    },
+    {
+      "gate": "browser_claim_integrity",
+      "requirement": "The browser model must remain not_trained/fail-closed until a promoted artifact clears final gates.",
+      "status": "passed_current_contract"
+    }
+  ],
+  "mission": "M3BD",
+  "per_label_data_quality": [
+    {
+      "crop_region_quality_reference": {
+        "m3ay_drift_failures": [
+          {
+            "crop_region_contract_decision": "hold_label_before_training",
+            "drift_ratio_same_to_nearest_other": 1.233581668071419,
+            "nearest_other_train_label": "hello",
+            "split": "validation"
+          }
+        ],
+        "quality_digest": {
+          "test": {
+            "clip_count": 4,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 4,
+                "max": 0.002199526166077703,
+                "mean": 0.000810637288577709,
+                "min": 6.374783079081681e-05
+              },
+              "dark_fraction_lte_10": {
+                "count": 4,
+                "max": 0.0182083691470325,
+                "mean": 0.0075894955803278204,
+                "min": 0.00020797164252144283
+              },
+              "hand_context_motion_mean": {
+                "count": 4,
+                "max": 20.5983829498291,
+                "mean": 16.21508824825287,
+                "min": 12.97878360748291
+              },
+              "hand_context_std_intensity": {
+                "count": 4,
+                "max": 62.95246887207031,
+                "mean": 55.43594837188721,
+                "min": 49.510955810546875
+              },
+              "std_intensity": {
+                "count": 4,
+                "max": 59.74399642944336,
+                "mean": 52.70456447601318,
+                "min": 46.97321472167969
+              },
+              "temporal_motion_mean": {
+                "count": 4,
+                "max": 15.843921518325805,
+                "mean": 13.235506236553192,
+                "min": 10.701509094238281
+              }
+            },
+            "signer_count": 4
+          },
+          "train": {
+            "clip_count": 12,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 12,
+                "max": 0.019340006448328496,
+                "mean": 0.0060926272216799285,
+                "min": 0.0
+              },
+              "dark_fraction_lte_10": {
+                "count": 12,
+                "max": 0.058467610366642477,
+                "mean": 0.016524364366061188,
+                "min": 9.675202891230583e-05
+              },
+              "hand_context_motion_mean": {
+                "count": 12,
+                "max": 20.01012134552002,
+                "mean": 15.565448880195618,
+                "min": 8.694774627685547
+              },
+              "hand_context_std_intensity": {
+                "count": 12,
+                "max": 74.08707809448242,
+                "mean": 58.06200313568115,
+                "min": 41.83659362792969
+              },
+              "std_intensity": {
+                "count": 12,
+                "max": 74.53840026855468,
+                "mean": 58.13728014628092,
+                "min": 44.145695495605466
+              },
+              "temporal_motion_mean": {
+                "count": 12,
+                "max": 16.856506729125975,
+                "mean": 12.901915458838145,
+                "min": 7.438195753097534
+              }
+            },
+            "signer_count": 11
+          },
+          "validation": {
+            "clip_count": 4,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 4,
+                "max": 0.04435582961887121,
+                "mean": 0.024625085663865322,
+                "min": 0.006089500326197594
+              },
+              "dark_fraction_lte_10": {
+                "count": 4,
+                "max": 0.07721851468086242,
+                "mean": 0.023321081102972128,
+                "min": 0.00013156467030057685
+              },
+              "hand_context_motion_mean": {
+                "count": 4,
+                "max": 23.39488983154297,
+                "mean": 16.508346438407898,
+                "min": 11.064913749694824
+              },
+              "hand_context_std_intensity": {
+                "count": 4,
+                "max": 69.02858352661133,
+                "mean": 61.93395948410034,
+                "min": 52.91508483886719
+              },
+              "std_intensity": {
+                "count": 4,
+                "max": 68.1369140625,
+                "mean": 61.928385925292964,
+                "min": 51.82247619628906
+              },
+              "temporal_motion_mean": {
+                "count": 4,
+                "max": 19.77832775115967,
+                "mean": 13.837869894504546,
+                "min": 9.302439785003662
+              }
+            },
+            "signer_count": 4
+          }
+        },
+        "source_receipt": "docs/validation/return-to-form-crop-region-contract-v1.json"
+      },
+      "label_id": "table",
+      "low_signal_indicators": {},
+      "m3ba_decision": "hold_and_repair_before_next_training",
+      "m3bb_crop_region_status": "held_not_training_ready",
+      "m3bc_vocab_decision": "hold",
+      "prediction_facts": {
+        "test_never_predicted": true,
+        "test_predicted_count": 0,
+        "test_true_count": 4,
+        "test_zero_recall": true,
+        "validation_never_predicted": true,
+        "validation_predicted_count": 0,
+        "validation_true_count": 4,
+        "validation_zero_recall": true
+      },
+      "repairability": {
+        "blockers": [
+          "never_predicted_validation",
+          "never_predicted_test",
+          "zero_recall_validation",
+          "zero_recall_test",
+          "crop_stat_drift_validation",
+          "m3bb_status:held_not_training_ready",
+          "crop_drift_validation_nearest_hello"
+        ],
+        "existing_artifacts_can_repair_for_training": false,
+        "rationale": "Existing artifacts justify holding the label out of the next training scope; they do not repair the never-predicted or zero-recall failure without manual review, source work, or data changes.",
+        "repairability_decision": "drop_or_defer",
+        "would_require_human_repair_for_training": true
+      },
+      "split_coverage_status": "present_all_splits",
+      "support": {
+        "signer_disjoint_implications": {
+          "diagnostic_target": "signer_disjoint",
+          "train_test_overlap": [],
+          "train_validation_overlap": [],
+          "training_implication": "Any future training/evaluation claim for this label must be judged as signer-disjoint generalization, not signer-overlap memorization.",
+          "validation_test_overlap": []
+        },
+        "splits": {
+          "test": {
+            "clip_count": 4,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P17": 1,
+              "asl-citizen-participant-P22": 1,
+              "asl-citizen-participant-P49": 1,
+              "asl-citizen-participant-P6": 1
+            },
+            "signer_count": 4,
+            "signer_ids": [
+              "asl-citizen-participant-P17",
+              "asl-citizen-participant-P22",
+              "asl-citizen-participant-P49",
+              "asl-citizen-participant-P6"
+            ],
+            "source_record_count": 4
+          },
+          "train": {
+            "clip_count": 12,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P11": 1,
+              "asl-citizen-participant-P14": 1,
+              "asl-citizen-participant-P16": 1,
+              "asl-citizen-participant-P27": 2,
+              "asl-citizen-participant-P29": 1,
+              "asl-citizen-participant-P30": 1,
+              "asl-citizen-participant-P31": 1,
+              "asl-citizen-participant-P37": 1,
+              "asl-citizen-participant-P40": 1,
+              "asl-citizen-participant-P50": 1,
+              "asl-citizen-participant-P51": 1
+            },
+            "signer_count": 11,
+            "signer_ids": [
+              "asl-citizen-participant-P11",
+              "asl-citizen-participant-P14",
+              "asl-citizen-participant-P16",
+              "asl-citizen-participant-P27",
+              "asl-citizen-participant-P29",
+              "asl-citizen-participant-P30",
+              "asl-citizen-participant-P31",
+              "asl-citizen-participant-P37",
+              "asl-citizen-participant-P40",
+              "asl-citizen-participant-P50",
+              "asl-citizen-participant-P51"
+            ],
+            "source_record_count": 12
+          },
+          "validation": {
+            "clip_count": 4,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P12": 1,
+              "asl-citizen-participant-P21": 1,
+              "asl-citizen-participant-P26": 1,
+              "asl-citizen-participant-P39": 1
+            },
+            "signer_count": 4,
+            "signer_ids": [
+              "asl-citizen-participant-P12",
+              "asl-citizen-participant-P21",
+              "asl-citizen-participant-P26",
+              "asl-citizen-participant-P39"
+            ],
+            "source_record_count": 4
+          }
+        }
+      }
+    },
+    {
+      "crop_region_quality_reference": {
+        "m3ay_drift_failures": [
+          {
+            "crop_region_contract_decision": "hold_label_before_training",
+            "drift_ratio_same_to_nearest_other": 1.7956747202879564,
+            "nearest_other_train_label": "uncle",
+            "split": "test"
+          },
+          {
+            "crop_region_contract_decision": "hold_label_before_training",
+            "drift_ratio_same_to_nearest_other": 1.0210655281054313,
+            "nearest_other_train_label": "sad",
+            "split": "validation"
+          }
+        ],
+        "quality_digest": {
+          "test": {
+            "clip_count": 4,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 4,
+                "max": 0.07019223794341087,
+                "mean": 0.032096580140932925,
+                "min": 0.0
+              },
+              "dark_fraction_lte_10": {
+                "count": 4,
+                "max": 0.08649857239797712,
+                "mean": 0.028007451127041352,
+                "min": 0.00010986327888531377
+              },
+              "hand_context_motion_mean": {
+                "count": 4,
+                "max": 10.430235862731934,
+                "mean": 8.854989528656006,
+                "min": 6.553899049758911
+              },
+              "hand_context_std_intensity": {
+                "count": 4,
+                "max": 77.78708267211914,
+                "mean": 63.334383487701416,
+                "min": 54.5667781829834
+              },
+              "std_intensity": {
+                "count": 4,
+                "max": 77.24517669677735,
+                "mean": 64.99200286865235,
+                "min": 53.49870071411133
+              },
+              "temporal_motion_mean": {
+                "count": 4,
+                "max": 9.459664726257325,
+                "mean": 7.647184371948242,
+                "min": 5.439310836791992
+              }
+            },
+            "signer_count": 4
+          },
+          "train": {
+            "clip_count": 12,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 12,
+                "max": 0.015168818552047015,
+                "mean": 0.005521383405281691,
+                "min": 0.0
+              },
+              "dark_fraction_lte_10": {
+                "count": 12,
+                "max": 0.2146091064903885,
+                "mean": 0.03247823857059302,
+                "min": 1.6728153968870175e-05
+              },
+              "hand_context_motion_mean": {
+                "count": 12,
+                "max": 18.789010047912598,
+                "mean": 10.850200871626535,
+                "min": 4.433865070343018
+              },
+              "hand_context_std_intensity": {
+                "count": 12,
+                "max": 88.48144149780273,
+                "mean": 53.996809562047325,
+                "min": 28.817313194274902
+              },
+              "std_intensity": {
+                "count": 12,
+                "max": 80.7778305053711,
+                "mean": 55.293153285980225,
+                "min": 34.65861854553223
+              },
+              "temporal_motion_mean": {
+                "count": 12,
+                "max": 16.130647087097167,
+                "mean": 9.794088848431905,
+                "min": 4.198751068115234
+              }
+            },
+            "signer_count": 12
+          },
+          "validation": {
+            "clip_count": 4,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 4,
+                "max": 0.04211742245825008,
+                "mean": 0.01338534880487714,
+                "min": 0.0
+              },
+              "dark_fraction_lte_10": {
+                "count": 4,
+                "max": 0.10028799548745156,
+                "mean": 0.03218813298246914,
+                "min": 0.0003829390968348889
+              },
+              "hand_context_motion_mean": {
+                "count": 4,
+                "max": 10.869877099990845,
+                "mean": 8.08743542432785,
+                "min": 5.597438097000122
+              },
+              "hand_context_std_intensity": {
+                "count": 4,
+                "max": 70.74969482421875,
+                "mean": 56.754852294921875,
+                "min": 41.774085998535156
+              },
+              "std_intensity": {
+                "count": 4,
+                "max": 72.07737274169922,
+                "mean": 57.56308002471924,
+                "min": 43.84960861206055
+              },
+              "temporal_motion_mean": {
+                "count": 4,
+                "max": 9.511997890472411,
+                "mean": 7.385291981697082,
+                "min": 5.437578201293945
+              }
+            },
+            "signer_count": 4
+          }
+        },
+        "source_receipt": "docs/validation/return-to-form-crop-region-contract-v1.json"
+      },
+      "label_id": "please",
+      "low_signal_indicators": {
+        "highest_dark_fraction": {
+          "count_in_top_examples": 1,
+          "examples": [
+            {
+              "clip_id": "asl-citizen-train-please-47017724784893633-seedplease",
+              "dark_fraction_lte_10": 0.2146091064903885,
+              "hand_context_motion_mean": 8.590679168701172,
+              "label_id": "please",
+              "signer_id": "asl-citizen-participant-P52",
+              "split": "train"
+            }
+          ]
+        },
+        "lowest_hand_context_motion": {
+          "count_in_top_examples": 2,
+          "examples": [
+            {
+              "clip_id": "asl-citizen-train-please-6400788027798874-please",
+              "hand_context_motion_mean": 4.433865070343018,
+              "label_id": "please",
+              "signer_id": "asl-citizen-participant-P51",
+              "split": "train",
+              "temporal_motion_mean": 4.198751068115234
+            },
+            {
+              "clip_id": "asl-citizen-validation-please-4096147054343935-please",
+              "hand_context_motion_mean": 5.597438097000122,
+              "label_id": "please",
+              "signer_id": "asl-citizen-participant-P12",
+              "split": "validation",
+              "temporal_motion_mean": 5.437578201293945
+            }
+          ]
+        }
+      },
+      "m3ba_decision": "hold_and_repair_before_next_training",
+      "m3bb_crop_region_status": "held_not_training_ready",
+      "m3bc_vocab_decision": "hold",
+      "prediction_facts": {
+        "test_never_predicted": true,
+        "test_predicted_count": 0,
+        "test_true_count": 4,
+        "test_zero_recall": true,
+        "validation_never_predicted": true,
+        "validation_predicted_count": 0,
+        "validation_true_count": 4,
+        "validation_zero_recall": true
+      },
+      "repairability": {
+        "blockers": [
+          "never_predicted_validation",
+          "never_predicted_test",
+          "zero_recall_validation",
+          "zero_recall_test",
+          "crop_stat_drift_test_and_validation",
+          "low_signal_top_examples_present",
+          "m3bb_status:held_not_training_ready",
+          "crop_drift_test_nearest_uncle",
+          "crop_drift_validation_nearest_sad"
+        ],
+        "existing_artifacts_can_repair_for_training": false,
+        "rationale": "Existing artifacts justify holding the label out of the next training scope; they do not repair the never-predicted or zero-recall failure without manual review, source work, or data changes.",
+        "repairability_decision": "drop_or_defer",
+        "would_require_human_repair_for_training": true
+      },
+      "split_coverage_status": "present_all_splits",
+      "support": {
+        "signer_disjoint_implications": {
+          "diagnostic_target": "signer_disjoint",
+          "train_test_overlap": [],
+          "train_validation_overlap": [],
+          "training_implication": "Any future training/evaluation claim for this label must be judged as signer-disjoint generalization, not signer-overlap memorization.",
+          "validation_test_overlap": []
+        },
+        "splits": {
+          "test": {
+            "clip_count": 4,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P22": 1,
+              "asl-citizen-participant-P35": 1,
+              "asl-citizen-participant-P49": 1,
+              "asl-citizen-participant-P6": 1
+            },
+            "signer_count": 4,
+            "signer_ids": [
+              "asl-citizen-participant-P22",
+              "asl-citizen-participant-P35",
+              "asl-citizen-participant-P49",
+              "asl-citizen-participant-P6"
+            ],
+            "source_record_count": 4
+          },
+          "train": {
+            "clip_count": 12,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P14": 1,
+              "asl-citizen-participant-P16": 1,
+              "asl-citizen-participant-P27": 1,
+              "asl-citizen-participant-P30": 1,
+              "asl-citizen-participant-P31": 1,
+              "asl-citizen-participant-P33": 1,
+              "asl-citizen-participant-P37": 1,
+              "asl-citizen-participant-P40": 1,
+              "asl-citizen-participant-P50": 1,
+              "asl-citizen-participant-P51": 1,
+              "asl-citizen-participant-P52": 1,
+              "asl-citizen-participant-P7": 1
+            },
+            "signer_count": 12,
+            "signer_ids": [
+              "asl-citizen-participant-P14",
+              "asl-citizen-participant-P16",
+              "asl-citizen-participant-P27",
+              "asl-citizen-participant-P30",
+              "asl-citizen-participant-P31",
+              "asl-citizen-participant-P33",
+              "asl-citizen-participant-P37",
+              "asl-citizen-participant-P40",
+              "asl-citizen-participant-P50",
+              "asl-citizen-participant-P51",
+              "asl-citizen-participant-P52",
+              "asl-citizen-participant-P7"
+            ],
+            "source_record_count": 12
+          },
+          "validation": {
+            "clip_count": 4,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P12": 1,
+              "asl-citizen-participant-P21": 1,
+              "asl-citizen-participant-P26": 1,
+              "asl-citizen-participant-P39": 1
+            },
+            "signer_count": 4,
+            "signer_ids": [
+              "asl-citizen-participant-P12",
+              "asl-citizen-participant-P21",
+              "asl-citizen-participant-P26",
+              "asl-citizen-participant-P39"
+            ],
+            "source_record_count": 4
+          }
+        }
+      }
+    },
+    {
+      "crop_region_quality_reference": {
+        "m3ay_drift_failures": [
+          {
+            "crop_region_contract_decision": "retain_only_with_crop_region_gate",
+            "drift_ratio_same_to_nearest_other": 1.023049795527087,
+            "nearest_other_train_label": "uncle",
+            "split": "test"
+          }
+        ],
+        "quality_digest": {
+          "test": {
+            "clip_count": 4,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 4,
+                "max": 0.04574607454414945,
+                "mean": 0.014311161421210273,
+                "min": 0.001858633547089994
+              },
+              "dark_fraction_lte_10": {
+                "count": 4,
+                "max": 0.2551120367308613,
+                "mean": 0.06954741384261069,
+                "min": 0.003605143184540793
+              },
+              "hand_context_motion_mean": {
+                "count": 4,
+                "max": 11.894810914993286,
+                "mean": 10.086141765117645,
+                "min": 7.298396706581116
+              },
+              "hand_context_std_intensity": {
+                "count": 4,
+                "max": 69.78390502929688,
+                "mean": 60.33289098739624,
+                "min": 46.469627380371094
+              },
+              "std_intensity": {
+                "count": 4,
+                "max": 68.50412063598633,
+                "mean": 57.690646171569824,
+                "min": 42.468377685546876
+              },
+              "temporal_motion_mean": {
+                "count": 4,
+                "max": 11.05013074874878,
+                "mean": 9.213210964202881,
+                "min": 5.974647092819214
+              }
+            },
+            "signer_count": 4
+          },
+          "train": {
+            "clip_count": 12,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 12,
+                "max": 0.04641429744660854,
+                "mean": 0.010046462050862221,
+                "min": 1.4467592882283497e-05
+              },
+              "dark_fraction_lte_10": {
+                "count": 12,
+                "max": 0.42936108261346817,
+                "mean": 0.05164184639184744,
+                "min": 1.3563367701863172e-05
+              },
+              "hand_context_motion_mean": {
+                "count": 12,
+                "max": 17.499982833862305,
+                "mean": 11.655013938744863,
+                "min": 7.070540189743042
+              },
+              "hand_context_std_intensity": {
+                "count": 12,
+                "max": 67.11819076538086,
+                "mean": 54.75785628954569,
+                "min": 39.93828582763672
+              },
+              "std_intensity": {
+                "count": 12,
+                "max": 68.6722396850586,
+                "mean": 56.221288394927974,
+                "min": 45.015099716186526
+              },
+              "temporal_motion_mean": {
+                "count": 12,
+                "max": 15.354026794433594,
+                "mean": 11.05144236087799,
+                "min": 6.3388079643249515
+              }
+            },
+            "signer_count": 12
+          },
+          "validation": {
+            "clip_count": 4,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 4,
+                "max": 0.013999204104766249,
+                "mean": 0.006956199358319281,
+                "min": 0.0
+              },
+              "dark_fraction_lte_10": {
+                "count": 4,
+                "max": 0.0854225441813469,
+                "mean": 0.02987026647242601,
+                "min": 0.0005872938207176048
+              },
+              "hand_context_motion_mean": {
+                "count": 4,
+                "max": 15.374208450317383,
+                "mean": 11.56951242685318,
+                "min": 7.522610425949097
+              },
+              "hand_context_std_intensity": {
+                "count": 4,
+                "max": 71.80573272705078,
+                "mean": 56.71363544464111,
+                "min": 41.6528263092041
+              },
+              "std_intensity": {
+                "count": 4,
+                "max": 71.79800872802734,
+                "mean": 57.91392765045166,
+                "min": 43.69962387084961
+              },
+              "temporal_motion_mean": {
+                "count": 4,
+                "max": 13.656871223449707,
+                "mean": 10.886261320114135,
+                "min": 7.0887451171875
+              }
+            },
+            "signer_count": 4
+          }
+        },
+        "source_receipt": "docs/validation/return-to-form-crop-region-contract-v1.json"
+      },
+      "label_id": "black",
+      "low_signal_indicators": {
+        "highest_dark_fraction": {
+          "count_in_top_examples": 2,
+          "examples": [
+            {
+              "clip_id": "asl-citizen-train-black-31045839782231943-black",
+              "dark_fraction_lte_10": 0.42936108261346817,
+              "hand_context_motion_mean": 12.67754054069519,
+              "label_id": "black",
+              "signer_id": "asl-citizen-participant-P4",
+              "split": "train"
+            },
+            {
+              "clip_id": "asl-citizen-test-black-9045342550783173-black",
+              "dark_fraction_lte_10": 0.2551120367308613,
+              "hand_context_motion_mean": 11.894810914993286,
+              "label_id": "black",
+              "signer_id": "asl-citizen-participant-P6",
+              "split": "test"
+            }
+          ]
+        }
+      },
+      "m3ba_decision": "retain_with_targeted_repair_gate",
+      "m3bb_crop_region_status": "crop_region_gate_required_not_training_ready",
+      "m3bc_vocab_decision": "defer",
+      "prediction_facts": {
+        "test_never_predicted": false,
+        "test_predicted_count": 11,
+        "test_true_count": 4,
+        "test_zero_recall": false,
+        "validation_never_predicted": false,
+        "validation_predicted_count": 7,
+        "validation_true_count": 4,
+        "validation_zero_recall": true
+      },
+      "repairability": {
+        "blockers": [
+          "zero_recall_validation",
+          "crop_stat_drift_test",
+          "low_signal_top_examples_present",
+          "m3bb_status:crop_region_gate_required_not_training_ready",
+          "crop_drift_test_nearest_uncle"
+        ],
+        "existing_artifacts_can_repair_for_training": false,
+        "rationale": "Existing artifacts show partial held-out signal, but unresolved crop/region drift or targeted gates mean the label can only be deferred or dropped from the next scope, not repaired without new review or a mutation/training prompt.",
+        "repairability_decision": "drop_or_defer",
+        "would_require_human_repair_for_training": true
+      },
+      "split_coverage_status": "present_all_splits",
+      "support": {
+        "signer_disjoint_implications": {
+          "diagnostic_target": "signer_disjoint",
+          "train_test_overlap": [],
+          "train_validation_overlap": [],
+          "training_implication": "Any future training/evaluation claim for this label must be judged as signer-disjoint generalization, not signer-overlap memorization.",
+          "validation_test_overlap": []
+        },
+        "splits": {
+          "test": {
+            "clip_count": 4,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P17": 1,
+              "asl-citizen-participant-P22": 1,
+              "asl-citizen-participant-P49": 1,
+              "asl-citizen-participant-P6": 1
+            },
+            "signer_count": 4,
+            "signer_ids": [
+              "asl-citizen-participant-P17",
+              "asl-citizen-participant-P22",
+              "asl-citizen-participant-P49",
+              "asl-citizen-participant-P6"
+            ],
+            "source_record_count": 4
+          },
+          "train": {
+            "clip_count": 12,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P11": 1,
+              "asl-citizen-participant-P14": 1,
+              "asl-citizen-participant-P16": 1,
+              "asl-citizen-participant-P27": 1,
+              "asl-citizen-participant-P29": 1,
+              "asl-citizen-participant-P30": 1,
+              "asl-citizen-participant-P31": 1,
+              "asl-citizen-participant-P37": 1,
+              "asl-citizen-participant-P4": 1,
+              "asl-citizen-participant-P40": 1,
+              "asl-citizen-participant-P50": 1,
+              "asl-citizen-participant-P7": 1
+            },
+            "signer_count": 12,
+            "signer_ids": [
+              "asl-citizen-participant-P11",
+              "asl-citizen-participant-P14",
+              "asl-citizen-participant-P16",
+              "asl-citizen-participant-P27",
+              "asl-citizen-participant-P29",
+              "asl-citizen-participant-P30",
+              "asl-citizen-participant-P31",
+              "asl-citizen-participant-P37",
+              "asl-citizen-participant-P4",
+              "asl-citizen-participant-P40",
+              "asl-citizen-participant-P50",
+              "asl-citizen-participant-P7"
+            ],
+            "source_record_count": 12
+          },
+          "validation": {
+            "clip_count": 4,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P12": 1,
+              "asl-citizen-participant-P21": 1,
+              "asl-citizen-participant-P26": 1,
+              "asl-citizen-participant-P39": 1
+            },
+            "signer_count": 4,
+            "signer_ids": [
+              "asl-citizen-participant-P12",
+              "asl-citizen-participant-P21",
+              "asl-citizen-participant-P26",
+              "asl-citizen-participant-P39"
+            ],
+            "source_record_count": 4
+          }
+        }
+      }
+    },
+    {
+      "crop_region_quality_reference": {
+        "m3ay_drift_failures": [
+          {
+            "crop_region_contract_decision": "retain_only_with_crop_region_gate",
+            "drift_ratio_same_to_nearest_other": 1.3596513103003578,
+            "nearest_other_train_label": "black",
+            "split": "test"
+          },
+          {
+            "crop_region_contract_decision": "retain_only_with_crop_region_gate",
+            "drift_ratio_same_to_nearest_other": 1.7045805142386186,
+            "nearest_other_train_label": "black",
+            "split": "validation"
+          }
+        ],
+        "quality_digest": {
+          "test": {
+            "clip_count": 4,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 4,
+                "max": 0.02968885633163154,
+                "mean": 0.009210431123210582,
+                "min": 0.00062255859375
+              },
+              "dark_fraction_lte_10": {
+                "count": 4,
+                "max": 0.07846272699534892,
+                "mean": 0.02661449269580771,
+                "min": 0.0013070565910311416
+              },
+              "hand_context_motion_mean": {
+                "count": 4,
+                "max": 10.861846685409546,
+                "mean": 8.626153767108917,
+                "min": 5.2746405601501465
+              },
+              "hand_context_std_intensity": {
+                "count": 4,
+                "max": 77.95060729980469,
+                "mean": 56.41467475891113,
+                "min": 43.8784065246582
+              },
+              "std_intensity": {
+                "count": 4,
+                "max": 75.04946517944336,
+                "mean": 55.91127319335938,
+                "min": 45.52559127807617
+              },
+              "temporal_motion_mean": {
+                "count": 4,
+                "max": 10.163395595550536,
+                "mean": 8.208777046203613,
+                "min": 4.310957717895508
+              }
+            },
+            "signer_count": 4
+          },
+          "train": {
+            "clip_count": 12,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 12,
+                "max": 0.08511556047014893,
+                "mean": 0.013810824172439123,
+                "min": 0.0
+              },
+              "dark_fraction_lte_10": {
+                "count": 12,
+                "max": 0.18818811465753243,
+                "mean": 0.037039862838378214,
+                "min": 1.1754919341910863e-05
+              },
+              "hand_context_motion_mean": {
+                "count": 12,
+                "max": 15.384690284729004,
+                "mean": 9.402625272671381,
+                "min": 4.298793077468872
+              },
+              "hand_context_std_intensity": {
+                "count": 12,
+                "max": 93.9694938659668,
+                "mean": 58.220892906188965,
+                "min": 29.081750869750977
+              },
+              "std_intensity": {
+                "count": 12,
+                "max": 85.86797409057617,
+                "mean": 58.998876380920414,
+                "min": 33.78224487304688
+              },
+              "temporal_motion_mean": {
+                "count": 12,
+                "max": 15.663213920593261,
+                "mean": 9.277379210789999,
+                "min": 4.406950664520264
+              }
+            },
+            "signer_count": 12
+          },
+          "validation": {
+            "clip_count": 4,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 4,
+                "max": 0.011071325000375509,
+                "mean": 0.004089355426572183,
+                "min": 0.00013608579247375018
+              },
+              "dark_fraction_lte_10": {
+                "count": 4,
+                "max": 0.18545012325048446,
+                "mean": 0.05480199757348601,
+                "min": 0.0008843316078127828
+              },
+              "hand_context_motion_mean": {
+                "count": 4,
+                "max": 10.979794263839722,
+                "mean": 8.701717555522919,
+                "min": 6.384392976760864
+              },
+              "hand_context_std_intensity": {
+                "count": 4,
+                "max": 59.92211723327637,
+                "mean": 48.93935489654541,
+                "min": 41.029985427856445
+              },
+              "std_intensity": {
+                "count": 4,
+                "max": 62.83895721435547,
+                "mean": 51.82992038726807,
+                "min": 43.0704948425293
+              },
+              "temporal_motion_mean": {
+                "count": 4,
+                "max": 10.38416509628296,
+                "mean": 8.189934468269348,
+                "min": 5.637236213684082
+              }
+            },
+            "signer_count": 4
+          }
+        },
+        "source_receipt": "docs/validation/return-to-form-crop-region-contract-v1.json"
+      },
+      "label_id": "hello",
+      "low_signal_indicators": {
+        "highest_dark_fraction": {
+          "count_in_top_examples": 2,
+          "examples": [
+            {
+              "clip_id": "asl-citizen-train-hello-180739946524912-seedhello",
+              "dark_fraction_lte_10": 0.18818811465753243,
+              "hand_context_motion_mean": 10.382852554321289,
+              "label_id": "hello",
+              "signer_id": "asl-citizen-participant-P52",
+              "split": "train"
+            },
+            {
+              "clip_id": "asl-citizen-validation-hello-020030442376253177-hello",
+              "dark_fraction_lte_10": 0.18545012325048446,
+              "hand_context_motion_mean": 7.882612466812134,
+              "label_id": "hello",
+              "signer_id": "asl-citizen-participant-P26",
+              "split": "validation"
+            }
+          ]
+        },
+        "lowest_hand_context_motion": {
+          "count_in_top_examples": 2,
+          "examples": [
+            {
+              "clip_id": "asl-citizen-train-hello-081380748015633-hello",
+              "hand_context_motion_mean": 4.298793077468872,
+              "label_id": "hello",
+              "signer_id": "asl-citizen-participant-P51",
+              "split": "train",
+              "temporal_motion_mean": 4.406950664520264
+            },
+            {
+              "clip_id": "asl-citizen-test-hello-1789715889624135-hello",
+              "hand_context_motion_mean": 5.2746405601501465,
+              "label_id": "hello",
+              "signer_id": "asl-citizen-participant-P17",
+              "split": "test",
+              "temporal_motion_mean": 4.310957717895508
+            }
+          ]
+        }
+      },
+      "m3ba_decision": "retain_with_crop_region_gate",
+      "m3bb_crop_region_status": "crop_region_gate_required_not_training_ready",
+      "m3bc_vocab_decision": "defer",
+      "prediction_facts": {
+        "test_never_predicted": false,
+        "test_predicted_count": 12,
+        "test_true_count": 4,
+        "test_zero_recall": false,
+        "validation_never_predicted": false,
+        "validation_predicted_count": 15,
+        "validation_true_count": 4,
+        "validation_zero_recall": false
+      },
+      "repairability": {
+        "blockers": [
+          "crop_stat_drift_test_and_validation",
+          "low_signal_top_examples_present",
+          "m3bb_status:crop_region_gate_required_not_training_ready",
+          "crop_drift_test_nearest_black",
+          "crop_drift_validation_nearest_black"
+        ],
+        "existing_artifacts_can_repair_for_training": false,
+        "rationale": "Existing artifacts show partial held-out signal, but unresolved crop/region drift or targeted gates mean the label can only be deferred or dropped from the next scope, not repaired without new review or a mutation/training prompt.",
+        "repairability_decision": "drop_or_defer",
+        "would_require_human_repair_for_training": true
+      },
+      "split_coverage_status": "present_all_splits",
+      "support": {
+        "signer_disjoint_implications": {
+          "diagnostic_target": "signer_disjoint",
+          "train_test_overlap": [],
+          "train_validation_overlap": [],
+          "training_implication": "Any future training/evaluation claim for this label must be judged as signer-disjoint generalization, not signer-overlap memorization.",
+          "validation_test_overlap": []
+        },
+        "splits": {
+          "test": {
+            "clip_count": 4,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P17": 1,
+              "asl-citizen-participant-P22": 1,
+              "asl-citizen-participant-P49": 1,
+              "asl-citizen-participant-P6": 1
+            },
+            "signer_count": 4,
+            "signer_ids": [
+              "asl-citizen-participant-P17",
+              "asl-citizen-participant-P22",
+              "asl-citizen-participant-P49",
+              "asl-citizen-participant-P6"
+            ],
+            "source_record_count": 4
+          },
+          "train": {
+            "clip_count": 12,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P11": 1,
+              "asl-citizen-participant-P16": 1,
+              "asl-citizen-participant-P27": 1,
+              "asl-citizen-participant-P29": 1,
+              "asl-citizen-participant-P31": 1,
+              "asl-citizen-participant-P37": 1,
+              "asl-citizen-participant-P40": 1,
+              "asl-citizen-participant-P41": 1,
+              "asl-citizen-participant-P50": 1,
+              "asl-citizen-participant-P51": 1,
+              "asl-citizen-participant-P52": 1,
+              "asl-citizen-participant-P7": 1
+            },
+            "signer_count": 12,
+            "signer_ids": [
+              "asl-citizen-participant-P11",
+              "asl-citizen-participant-P16",
+              "asl-citizen-participant-P27",
+              "asl-citizen-participant-P29",
+              "asl-citizen-participant-P31",
+              "asl-citizen-participant-P37",
+              "asl-citizen-participant-P40",
+              "asl-citizen-participant-P41",
+              "asl-citizen-participant-P50",
+              "asl-citizen-participant-P51",
+              "asl-citizen-participant-P52",
+              "asl-citizen-participant-P7"
+            ],
+            "source_record_count": 12
+          },
+          "validation": {
+            "clip_count": 4,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P12": 1,
+              "asl-citizen-participant-P21": 1,
+              "asl-citizen-participant-P26": 1,
+              "asl-citizen-participant-P39": 1
+            },
+            "signer_count": 4,
+            "signer_ids": [
+              "asl-citizen-participant-P12",
+              "asl-citizen-participant-P21",
+              "asl-citizen-participant-P26",
+              "asl-citizen-participant-P39"
+            ],
+            "source_record_count": 4
+          }
+        }
+      }
+    },
+    {
+      "crop_region_quality_reference": {
+        "m3ay_drift_failures": [
+          {
+            "crop_region_contract_decision": "repair_gate_required_before_training",
+            "drift_ratio_same_to_nearest_other": 1.0381595040718095,
+            "nearest_other_train_label": "black",
+            "split": "test"
+          }
+        ],
+        "quality_digest": {
+          "test": {
+            "clip_count": 4,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 4,
+                "max": 0.005337185252574273,
+                "mean": 0.0029996518489497246,
+                "min": 8.725766674615443e-05
+              },
+              "dark_fraction_lte_10": {
+                "count": 4,
+                "max": 0.05549000008031726,
+                "mean": 0.024281820028863876,
+                "min": 0.004803240868568537
+              },
+              "hand_context_motion_mean": {
+                "count": 4,
+                "max": 10.820658445358276,
+                "mean": 9.253165751695633,
+                "min": 7.7467193603515625
+              },
+              "hand_context_std_intensity": {
+                "count": 4,
+                "max": 63.92599296569824,
+                "mean": 51.789788484573364,
+                "min": 42.48263072967529
+              },
+              "std_intensity": {
+                "count": 4,
+                "max": 62.26775894165039,
+                "mean": 52.94474058151245,
+                "min": 46.3055980682373
+              },
+              "temporal_motion_mean": {
+                "count": 4,
+                "max": 9.734935998916626,
+                "mean": 8.49065067768097,
+                "min": 6.64967303276062
+              }
+            },
+            "signer_count": 4
+          },
+          "train": {
+            "clip_count": 12,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 12,
+                "max": 0.020680518727749585,
+                "mean": 0.006961285561555996,
+                "min": 0.0
+              },
+              "dark_fraction_lte_10": {
+                "count": 12,
+                "max": 0.2500515431165695,
+                "mean": 0.06200305367576675,
+                "min": 5.425347171694739e-06
+              },
+              "hand_context_motion_mean": {
+                "count": 12,
+                "max": 15.678582191467285,
+                "mean": 10.736589695016542,
+                "min": 5.826945781707764
+              },
+              "hand_context_std_intensity": {
+                "count": 12,
+                "max": 77.6238899230957,
+                "mean": 62.65652513504028,
+                "min": 44.1496696472168
+              },
+              "std_intensity": {
+                "count": 12,
+                "max": 76.36847229003907,
+                "mean": 62.54687474568684,
+                "min": 48.36672744750977
+              },
+              "temporal_motion_mean": {
+                "count": 12,
+                "max": 13.891678428649902,
+                "mean": 10.219213948647182,
+                "min": 5.032611918449402
+              }
+            },
+            "signer_count": 10
+          },
+          "validation": {
+            "clip_count": 3,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 3,
+                "max": 0.01927218958735466,
+                "mean": 0.01102777166912953,
+                "min": 0.003913935972377658
+              },
+              "dark_fraction_lte_10": {
+                "count": 3,
+                "max": 0.14924633055925368,
+                "mean": 0.05985665088616466,
+                "min": 0.0035441081068711354
+              },
+              "hand_context_motion_mean": {
+                "count": 3,
+                "max": 12.824963569641113,
+                "mean": 10.301091114679972,
+                "min": 8.161934614181519
+              },
+              "hand_context_std_intensity": {
+                "count": 3,
+                "max": 68.87923049926758,
+                "mean": 57.16057332356771,
+                "min": 51.0881404876709
+              },
+              "std_intensity": {
+                "count": 3,
+                "max": 68.98708801269531,
+                "mean": 57.79129638671875,
+                "min": 51.350548553466794
+              },
+              "temporal_motion_mean": {
+                "count": 3,
+                "max": 11.465399169921875,
+                "mean": 9.771168486277263,
+                "min": 8.171353244781494
+              }
+            },
+            "signer_count": 3
+          }
+        },
+        "source_receipt": "docs/validation/return-to-form-crop-region-contract-v1.json"
+      },
+      "label_id": "uncle",
+      "low_signal_indicators": {
+        "highest_dark_fraction": {
+          "count_in_top_examples": 2,
+          "examples": [
+            {
+              "clip_id": "asl-citizen-train-uncle-5565475524048642-uncle",
+              "dark_fraction_lte_10": 0.2500515431165695,
+              "hand_context_motion_mean": 12.358424425125122,
+              "label_id": "uncle",
+              "signer_id": "asl-citizen-participant-P8",
+              "split": "train"
+            },
+            {
+              "clip_id": "asl-citizen-train-uncle-7613148444087081-uncle",
+              "dark_fraction_lte_10": 0.20125913619995117,
+              "hand_context_motion_mean": 10.374001502990723,
+              "label_id": "uncle",
+              "signer_id": "asl-citizen-participant-P40",
+              "split": "train"
+            }
+          ]
+        },
+        "lowest_hand_context_motion": {
+          "count_in_top_examples": 2,
+          "examples": [
+            {
+              "clip_id": "asl-citizen-train-uncle-5780077570584161-uncle",
+              "hand_context_motion_mean": 5.826945781707764,
+              "label_id": "uncle",
+              "signer_id": "asl-citizen-participant-P51",
+              "split": "train",
+              "temporal_motion_mean": 6.213506412506104
+            },
+            {
+              "clip_id": "asl-citizen-train-uncle-5961807916652511-uncle",
+              "hand_context_motion_mean": 6.134772956371307,
+              "label_id": "uncle",
+              "signer_id": "asl-citizen-participant-P29",
+              "split": "train",
+              "temporal_motion_mean": 5.032611918449402
+            }
+          ]
+        }
+      },
+      "m3ba_decision": "repair_before_next_training",
+      "m3bb_crop_region_status": "repair_required_not_training_ready",
+      "m3bc_vocab_decision": "repair",
+      "prediction_facts": {
+        "test_never_predicted": false,
+        "test_predicted_count": 5,
+        "test_true_count": 4,
+        "test_zero_recall": true,
+        "validation_never_predicted": false,
+        "validation_predicted_count": 5,
+        "validation_true_count": 3,
+        "validation_zero_recall": true
+      },
+      "repairability": {
+        "blockers": [
+          "zero_recall_validation",
+          "zero_recall_test",
+          "crop_stat_drift_test",
+          "low_signal_top_examples_present",
+          "m3bb_status:repair_required_not_training_ready",
+          "crop_drift_test_nearest_black"
+        ],
+        "existing_artifacts_can_repair_for_training": false,
+        "rationale": "Existing artifacts identify the repair need but do not contain an artifact-only correction for the zero-recall/crop-drift failure.",
+        "repairability_decision": "drop_or_defer",
+        "would_require_human_repair_for_training": true
+      },
+      "split_coverage_status": "present_all_splits",
+      "support": {
+        "signer_disjoint_implications": {
+          "diagnostic_target": "signer_disjoint",
+          "train_test_overlap": [],
+          "train_validation_overlap": [],
+          "training_implication": "Any future training/evaluation claim for this label must be judged as signer-disjoint generalization, not signer-overlap memorization.",
+          "validation_test_overlap": []
+        },
+        "splits": {
+          "test": {
+            "clip_count": 4,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P22": 1,
+              "asl-citizen-participant-P48": 1,
+              "asl-citizen-participant-P49": 1,
+              "asl-citizen-participant-P6": 1
+            },
+            "signer_count": 4,
+            "signer_ids": [
+              "asl-citizen-participant-P22",
+              "asl-citizen-participant-P48",
+              "asl-citizen-participant-P49",
+              "asl-citizen-participant-P6"
+            ],
+            "source_record_count": 4
+          },
+          "train": {
+            "clip_count": 12,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P11": 1,
+              "asl-citizen-participant-P14": 1,
+              "asl-citizen-participant-P16": 1,
+              "asl-citizen-participant-P27": 1,
+              "asl-citizen-participant-P29": 2,
+              "asl-citizen-participant-P31": 1,
+              "asl-citizen-participant-P37": 1,
+              "asl-citizen-participant-P40": 2,
+              "asl-citizen-participant-P51": 1,
+              "asl-citizen-participant-P8": 1
+            },
+            "signer_count": 10,
+            "signer_ids": [
+              "asl-citizen-participant-P11",
+              "asl-citizen-participant-P14",
+              "asl-citizen-participant-P16",
+              "asl-citizen-participant-P27",
+              "asl-citizen-participant-P29",
+              "asl-citizen-participant-P31",
+              "asl-citizen-participant-P37",
+              "asl-citizen-participant-P40",
+              "asl-citizen-participant-P51",
+              "asl-citizen-participant-P8"
+            ],
+            "source_record_count": 12
+          },
+          "validation": {
+            "clip_count": 3,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P21": 1,
+              "asl-citizen-participant-P26": 1,
+              "asl-citizen-participant-P39": 1
+            },
+            "signer_count": 3,
+            "signer_ids": [
+              "asl-citizen-participant-P21",
+              "asl-citizen-participant-P26",
+              "asl-citizen-participant-P39"
+            ],
+            "source_record_count": 3
+          }
+        }
+      }
+    },
+    {
+      "crop_region_quality_reference": {
+        "m3ay_drift_failures": [
+          {
+            "crop_region_contract_decision": "hold_label_before_training",
+            "drift_ratio_same_to_nearest_other": 1.2698802776355254,
+            "nearest_other_train_label": "uncle",
+            "split": "validation"
+          }
+        ],
+        "quality_digest": {
+          "test": {
+            "clip_count": 4,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 4,
+                "max": 0.028894947096705436,
+                "mean": 0.010846399310776177,
+                "min": 0.0006804289529100061
+              },
+              "dark_fraction_lte_10": {
+                "count": 4,
+                "max": 0.27566053718328476,
+                "mean": 0.07862085436208872,
+                "min": 0.0010529694904107601
+              },
+              "hand_context_motion_mean": {
+                "count": 4,
+                "max": 12.332929134368896,
+                "mean": 8.349284678697586,
+                "min": 4.3722065687179565
+              },
+              "hand_context_std_intensity": {
+                "count": 4,
+                "max": 71.26191711425781,
+                "mean": 59.7771635055542,
+                "min": 48.68306350708008
+              },
+              "std_intensity": {
+                "count": 4,
+                "max": 68.62320251464844,
+                "mean": 57.78479404449463,
+                "min": 49.515845489501956
+              },
+              "temporal_motion_mean": {
+                "count": 4,
+                "max": 10.186665630340576,
+                "mean": 7.18532611131668,
+                "min": 3.9129943370819094
+              }
+            },
+            "signer_count": 4
+          },
+          "train": {
+            "clip_count": 12,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 12,
+                "max": 0.03712972067296505,
+                "mean": 0.010615407709443995,
+                "min": 0.0
+              },
+              "dark_fraction_lte_10": {
+                "count": 12,
+                "max": 0.13626437559723853,
+                "mean": 0.027642407762808338,
+                "min": 1.0850694343389477e-05
+              },
+              "hand_context_motion_mean": {
+                "count": 12,
+                "max": 11.158740520477295,
+                "mean": 7.797624786694844,
+                "min": 5.6471943855285645
+              },
+              "hand_context_std_intensity": {
+                "count": 12,
+                "max": 77.92040252685547,
+                "mean": 57.78842465082804,
+                "min": 35.2627010345459
+              },
+              "std_intensity": {
+                "count": 12,
+                "max": 75.17466354370117,
+                "mean": 59.40748538970947,
+                "min": 37.142052459716794
+              },
+              "temporal_motion_mean": {
+                "count": 12,
+                "max": 9.81044054031372,
+                "mean": 6.956291631857554,
+                "min": 4.867596435546875
+              }
+            },
+            "signer_count": 11
+          },
+          "validation": {
+            "clip_count": 4,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 4,
+                "max": 0.03168086316436529,
+                "mean": 0.01667717837844975,
+                "min": 0.0003372757462784648
+              },
+              "dark_fraction_lte_10": {
+                "count": 4,
+                "max": 0.1212063267827034,
+                "mean": 0.06035031941137277,
+                "min": 0.0003766095265746117
+              },
+              "hand_context_motion_mean": {
+                "count": 4,
+                "max": 11.726631164550781,
+                "mean": 10.387089192867279,
+                "min": 8.554219961166382
+              },
+              "hand_context_std_intensity": {
+                "count": 4,
+                "max": 74.5071792602539,
+                "mean": 64.1488299369812,
+                "min": 54.855031967163086
+              },
+              "std_intensity": {
+                "count": 4,
+                "max": 77.90817565917969,
+                "mean": 65.13762950897217,
+                "min": 55.0818473815918
+              },
+              "temporal_motion_mean": {
+                "count": 4,
+                "max": 10.504703712463378,
+                "mean": 9.412446928024291,
+                "min": 7.6540858268737795
+              }
+            },
+            "signer_count": 3
+          }
+        },
+        "source_receipt": "docs/validation/return-to-form-crop-region-contract-v1.json"
+      },
+      "label_id": "white",
+      "low_signal_indicators": {
+        "highest_dark_fraction": {
+          "count_in_top_examples": 1,
+          "examples": [
+            {
+              "clip_id": "asl-citizen-test-white-39073540410206586-white",
+              "dark_fraction_lte_10": 0.27566053718328476,
+              "hand_context_motion_mean": 10.003135681152344,
+              "label_id": "white",
+              "signer_id": "asl-citizen-participant-P17",
+              "split": "test"
+            }
+          ]
+        },
+        "lowest_hand_context_motion": {
+          "count_in_top_examples": 5,
+          "examples": [
+            {
+              "clip_id": "asl-citizen-test-white-23222004944717023-white",
+              "hand_context_motion_mean": 4.3722065687179565,
+              "label_id": "white",
+              "signer_id": "asl-citizen-participant-P22",
+              "split": "test",
+              "temporal_motion_mean": 3.9129943370819094
+            },
+            {
+              "clip_id": "asl-citizen-train-white-10848457531453715-white",
+              "hand_context_motion_mean": 5.6471943855285645,
+              "label_id": "white",
+              "signer_id": "asl-citizen-participant-P50",
+              "split": "train",
+              "temporal_motion_mean": 5.012728548049926
+            },
+            {
+              "clip_id": "asl-citizen-train-white-4741310832000436-white",
+              "hand_context_motion_mean": 5.85403037071228,
+              "label_id": "white",
+              "signer_id": "asl-citizen-participant-P29",
+              "split": "train",
+              "temporal_motion_mean": 4.867596435546875
+            },
+            {
+              "clip_id": "asl-citizen-train-white-9377005568553618-white",
+              "hand_context_motion_mean": 6.031802415847778,
+              "label_id": "white",
+              "signer_id": "asl-citizen-participant-P11",
+              "split": "train",
+              "temporal_motion_mean": 5.186683654785156
+            },
+            {
+              "clip_id": "asl-citizen-train-white-6448236951011861-white",
+              "hand_context_motion_mean": 6.143121957778931,
+              "label_id": "white",
+              "signer_id": "asl-citizen-participant-P14",
+              "split": "train",
+              "temporal_motion_mean": 5.839522647857666
+            }
+          ]
+        }
+      },
+      "m3ba_decision": "hold_and_repair_before_next_training",
+      "m3bb_crop_region_status": "held_not_training_ready",
+      "m3bc_vocab_decision": "hold",
+      "prediction_facts": {
+        "test_never_predicted": true,
+        "test_predicted_count": 0,
+        "test_true_count": 4,
+        "test_zero_recall": true,
+        "validation_never_predicted": true,
+        "validation_predicted_count": 0,
+        "validation_true_count": 4,
+        "validation_zero_recall": true
+      },
+      "repairability": {
+        "blockers": [
+          "never_predicted_validation",
+          "never_predicted_test",
+          "zero_recall_validation",
+          "zero_recall_test",
+          "crop_stat_drift_validation",
+          "low_signal_top_examples_present",
+          "m3bb_status:held_not_training_ready",
+          "crop_drift_validation_nearest_uncle"
+        ],
+        "existing_artifacts_can_repair_for_training": false,
+        "rationale": "Existing artifacts justify holding the label out of the next training scope; they do not repair the never-predicted or zero-recall failure without manual review, source work, or data changes.",
+        "repairability_decision": "drop_or_defer",
+        "would_require_human_repair_for_training": true
+      },
+      "split_coverage_status": "present_all_splits",
+      "support": {
+        "signer_disjoint_implications": {
+          "diagnostic_target": "signer_disjoint",
+          "train_test_overlap": [],
+          "train_validation_overlap": [],
+          "training_implication": "Any future training/evaluation claim for this label must be judged as signer-disjoint generalization, not signer-overlap memorization.",
+          "validation_test_overlap": []
+        },
+        "splits": {
+          "test": {
+            "clip_count": 4,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P17": 1,
+              "asl-citizen-participant-P22": 1,
+              "asl-citizen-participant-P49": 1,
+              "asl-citizen-participant-P6": 1
+            },
+            "signer_count": 4,
+            "signer_ids": [
+              "asl-citizen-participant-P17",
+              "asl-citizen-participant-P22",
+              "asl-citizen-participant-P49",
+              "asl-citizen-participant-P6"
+            ],
+            "source_record_count": 4
+          },
+          "train": {
+            "clip_count": 12,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P11": 1,
+              "asl-citizen-participant-P14": 1,
+              "asl-citizen-participant-P16": 1,
+              "asl-citizen-participant-P23": 1,
+              "asl-citizen-participant-P27": 1,
+              "asl-citizen-participant-P29": 1,
+              "asl-citizen-participant-P31": 2,
+              "asl-citizen-participant-P37": 1,
+              "asl-citizen-participant-P40": 1,
+              "asl-citizen-participant-P43": 1,
+              "asl-citizen-participant-P50": 1
+            },
+            "signer_count": 11,
+            "signer_ids": [
+              "asl-citizen-participant-P11",
+              "asl-citizen-participant-P14",
+              "asl-citizen-participant-P16",
+              "asl-citizen-participant-P23",
+              "asl-citizen-participant-P27",
+              "asl-citizen-participant-P29",
+              "asl-citizen-participant-P31",
+              "asl-citizen-participant-P37",
+              "asl-citizen-participant-P40",
+              "asl-citizen-participant-P43",
+              "asl-citizen-participant-P50"
+            ],
+            "source_record_count": 12
+          },
+          "validation": {
+            "clip_count": 4,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P21": 1,
+              "asl-citizen-participant-P26": 2,
+              "asl-citizen-participant-P5": 1
+            },
+            "signer_count": 3,
+            "signer_ids": [
+              "asl-citizen-participant-P21",
+              "asl-citizen-participant-P26",
+              "asl-citizen-participant-P5"
+            ],
+            "source_record_count": 4
+          }
+        }
+      }
+    },
+    {
+      "crop_region_quality_reference": {
+        "m3ay_drift_failures": [
+          {
+            "crop_region_contract_decision": "hold_label_before_training",
+            "drift_ratio_same_to_nearest_other": 1.0785867830619476,
+            "nearest_other_train_label": "uncle",
+            "split": "test"
+          },
+          {
+            "crop_region_contract_decision": "hold_label_before_training",
+            "drift_ratio_same_to_nearest_other": 1.3354975371990052,
+            "nearest_other_train_label": "black",
+            "split": "validation"
+          }
+        ],
+        "quality_digest": {
+          "test": {
+            "clip_count": 4,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 4,
+                "max": 0.0606752755742491,
+                "mean": 0.01771681062919015,
+                "min": 0.0
+              },
+              "dark_fraction_lte_10": {
+                "count": 4,
+                "max": 0.28914976119995117,
+                "mean": 0.08136811511058113,
+                "min": 0.00046386719441215973
+              },
+              "hand_context_motion_mean": {
+                "count": 4,
+                "max": 16.41594886779785,
+                "mean": 12.308826923370361,
+                "min": 8.361519813537598
+              },
+              "hand_context_std_intensity": {
+                "count": 4,
+                "max": 69.16178131103516,
+                "mean": 61.75794839859009,
+                "min": 57.9022102355957
+              },
+              "std_intensity": {
+                "count": 4,
+                "max": 68.37305755615235,
+                "mean": 63.75316867828369,
+                "min": 59.24037094116211
+              },
+              "temporal_motion_mean": {
+                "count": 4,
+                "max": 14.31388053894043,
+                "mean": 10.666621041297912,
+                "min": 7.146543788909912
+              }
+            },
+            "signer_count": 4
+          },
+          "train": {
+            "clip_count": 12,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 12,
+                "max": 0.05295681357383728,
+                "mean": 0.00915877725219616,
+                "min": 0.0
+              },
+              "dark_fraction_lte_10": {
+                "count": 12,
+                "max": 0.2850337244570255,
+                "mean": 0.059044656422035276,
+                "min": 0.0002925166370914667
+              },
+              "hand_context_motion_mean": {
+                "count": 12,
+                "max": 21.94614315032959,
+                "mean": 13.054609934488932,
+                "min": 5.469533681869507
+              },
+              "hand_context_std_intensity": {
+                "count": 12,
+                "max": 89.8412094116211,
+                "mean": 59.433573404947914,
+                "min": 28.536251068115234
+              },
+              "std_intensity": {
+                "count": 12,
+                "max": 82.10759201049805,
+                "mean": 59.49921449025472,
+                "min": 34.40135040283203
+              },
+              "temporal_motion_mean": {
+                "count": 12,
+                "max": 19.18067569732666,
+                "mean": 11.61793608268102,
+                "min": 5.443085479736328
+              }
+            },
+            "signer_count": 12
+          },
+          "validation": {
+            "clip_count": 4,
+            "overall": {
+              "bright_fraction_gte_245": {
+                "count": 4,
+                "max": 0.043290653766598554,
+                "mean": 0.012236757573555223,
+                "min": 0.0
+              },
+              "dark_fraction_lte_10": {
+                "count": 4,
+                "max": 0.2007084608078003,
+                "mean": 0.06407809803113196,
+                "min": 0.0019061052902543453
+              },
+              "hand_context_motion_mean": {
+                "count": 4,
+                "max": 13.988356113433838,
+                "mean": 12.168878674507141,
+                "min": 7.949822902679443
+              },
+              "hand_context_std_intensity": {
+                "count": 4,
+                "max": 66.78951454162598,
+                "mean": 56.08678388595581,
+                "min": 41.198028564453125
+              },
+              "std_intensity": {
+                "count": 4,
+                "max": 69.36491775512695,
+                "mean": 57.90209903717041,
+                "min": 43.33205108642578
+              },
+              "temporal_motion_mean": {
+                "count": 4,
+                "max": 12.517369651794434,
+                "mean": 10.798177886009217,
+                "min": 7.192259407043457
+              }
+            },
+            "signer_count": 4
+          }
+        },
+        "source_receipt": "docs/validation/return-to-form-crop-region-contract-v1.json"
+      },
+      "label_id": "sad",
+      "low_signal_indicators": {
+        "highest_dark_fraction": {
+          "count_in_top_examples": 4,
+          "examples": [
+            {
+              "clip_id": "asl-citizen-test-sad-7209250305663026-sad",
+              "dark_fraction_lte_10": 0.28914976119995117,
+              "hand_context_motion_mean": 11.17880630493164,
+              "label_id": "sad",
+              "signer_id": "asl-citizen-participant-P18",
+              "split": "test"
+            },
+            {
+              "clip_id": "asl-citizen-train-sad-5986607687971939-sad",
+              "dark_fraction_lte_10": 0.2850337244570255,
+              "hand_context_motion_mean": 16.363774299621582,
+              "label_id": "sad",
+              "signer_id": "asl-citizen-participant-P4",
+              "split": "train"
+            },
+            {
+              "clip_id": "asl-citizen-train-sad-19468908305966748-seedsad",
+              "dark_fraction_lte_10": 0.2028085223864764,
+              "hand_context_motion_mean": 8.66430377960205,
+              "label_id": "sad",
+              "signer_id": "asl-citizen-participant-P52",
+              "split": "train"
+            },
+            {
+              "clip_id": "asl-citizen-validation-sad-9009874398583952-sad",
+              "dark_fraction_lte_10": 0.2007084608078003,
+              "hand_context_motion_mean": 13.988356113433838,
+              "label_id": "sad",
+              "signer_id": "asl-citizen-participant-P26",
+              "split": "validation"
+            }
+          ]
+        },
+        "lowest_hand_context_motion": {
+          "count_in_top_examples": 1,
+          "examples": [
+            {
+              "clip_id": "asl-citizen-train-sad-496259098773171-sad",
+              "hand_context_motion_mean": 5.469533681869507,
+              "label_id": "sad",
+              "signer_id": "asl-citizen-participant-P51",
+              "split": "train",
+              "temporal_motion_mean": 5.443085479736328
+            }
+          ]
+        }
+      },
+      "m3ba_decision": "hold_and_repair_before_next_training",
+      "m3bb_crop_region_status": "held_not_training_ready",
+      "m3bc_vocab_decision": "hold",
+      "prediction_facts": {
+        "test_never_predicted": true,
+        "test_predicted_count": 0,
+        "test_true_count": 4,
+        "test_zero_recall": true,
+        "validation_never_predicted": true,
+        "validation_predicted_count": 0,
+        "validation_true_count": 4,
+        "validation_zero_recall": true
+      },
+      "repairability": {
+        "blockers": [
+          "never_predicted_validation",
+          "never_predicted_test",
+          "zero_recall_validation",
+          "zero_recall_test",
+          "crop_stat_drift_test_and_validation",
+          "low_signal_top_examples_present",
+          "m3bb_status:held_not_training_ready",
+          "crop_drift_test_nearest_uncle",
+          "crop_drift_validation_nearest_black"
+        ],
+        "existing_artifacts_can_repair_for_training": false,
+        "rationale": "Existing artifacts justify holding the label out of the next training scope; they do not repair the never-predicted or zero-recall failure without manual review, source work, or data changes.",
+        "repairability_decision": "drop_or_defer",
+        "would_require_human_repair_for_training": true
+      },
+      "split_coverage_status": "present_all_splits",
+      "support": {
+        "signer_disjoint_implications": {
+          "diagnostic_target": "signer_disjoint",
+          "train_test_overlap": [],
+          "train_validation_overlap": [],
+          "training_implication": "Any future training/evaluation claim for this label must be judged as signer-disjoint generalization, not signer-overlap memorization.",
+          "validation_test_overlap": []
+        },
+        "splits": {
+          "test": {
+            "clip_count": 4,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P18": 1,
+              "asl-citizen-participant-P22": 1,
+              "asl-citizen-participant-P35": 1,
+              "asl-citizen-participant-P49": 1
+            },
+            "signer_count": 4,
+            "signer_ids": [
+              "asl-citizen-participant-P18",
+              "asl-citizen-participant-P22",
+              "asl-citizen-participant-P35",
+              "asl-citizen-participant-P49"
+            ],
+            "source_record_count": 4
+          },
+          "train": {
+            "clip_count": 12,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P11": 1,
+              "asl-citizen-participant-P16": 1,
+              "asl-citizen-participant-P27": 1,
+              "asl-citizen-participant-P29": 1,
+              "asl-citizen-participant-P30": 1,
+              "asl-citizen-participant-P31": 1,
+              "asl-citizen-participant-P37": 1,
+              "asl-citizen-participant-P4": 1,
+              "asl-citizen-participant-P40": 1,
+              "asl-citizen-participant-P50": 1,
+              "asl-citizen-participant-P51": 1,
+              "asl-citizen-participant-P52": 1
+            },
+            "signer_count": 12,
+            "signer_ids": [
+              "asl-citizen-participant-P11",
+              "asl-citizen-participant-P16",
+              "asl-citizen-participant-P27",
+              "asl-citizen-participant-P29",
+              "asl-citizen-participant-P30",
+              "asl-citizen-participant-P31",
+              "asl-citizen-participant-P37",
+              "asl-citizen-participant-P4",
+              "asl-citizen-participant-P40",
+              "asl-citizen-participant-P50",
+              "asl-citizen-participant-P51",
+              "asl-citizen-participant-P52"
+            ],
+            "source_record_count": 12
+          },
+          "validation": {
+            "clip_count": 4,
+            "signer_clip_counts": {
+              "asl-citizen-participant-P12": 1,
+              "asl-citizen-participant-P21": 1,
+              "asl-citizen-participant-P26": 1,
+              "asl-citizen-participant-P39": 1
+            },
+            "signer_count": 4,
+            "signer_ids": [
+              "asl-citizen-participant-P12",
+              "asl-citizen-participant-P21",
+              "asl-citizen-participant-P26",
+              "asl-citizen-participant-P39"
+            ],
+            "source_record_count": 4
+          }
+        }
+      }
+    }
+  ],
+  "prior_evidence": {
+    "m3aw": {
+      "prediction_sidecar_threshold": 0.23,
+      "receipt_status": "completed_smoke_target_failed",
+      "test_macro_f1": 0.09166666666666666,
+      "test_top1_accuracy": 0.17857142857142858,
+      "validation_macro_f1": 0.015037593984962407,
+      "validation_top1_accuracy": 0.037037037037037035
+    },
+    "m3ax": {
+      "receipt_status": "tiny_overfit_succeeded",
+      "tiny_subset_accuracy": 1.0,
+      "tiny_subset_zero_recall_labels": []
+    },
+    "m3ay": {
+      "receipt_status": "completed",
+      "test_labels_never_predicted": [
+        "please",
+        "sad",
+        "table",
+        "white"
+      ],
+      "test_zero_recall_labels": [
+        "please",
+        "sad",
+        "table",
+        "uncle",
+        "white"
+      ],
+      "validation_labels_never_predicted": [
+        "please",
+        "sad",
+        "table",
+        "white"
+      ],
+      "validation_zero_recall_labels": [
+        "black",
+        "please",
+        "sad",
+        "table",
+        "uncle",
+        "white"
+      ]
+    },
+    "m3az": {
+      "ranked_lanes": [
+        "split_signer_contract",
+        "crop_region_contract",
+        "vocab_subset_contract",
+        "data_quality_contract",
+        "product_fallback_scope"
+      ],
+      "receipt_status": "completed"
+    },
+    "m3ba": {
+      "generalization_target": "signer_disjoint",
+      "receipt_status": "completed",
+      "train_test_signer_overlap": [],
+      "train_validation_signer_overlap": []
+    },
+    "m3bb": {
+      "preserved_input_contract_status": "passed",
+      "receipt_status": "completed",
+      "selected_next_action": "continue_no_training_vocab_subset_contract_scaffold",
+      "tensor_inventory": {
+        "all_manifest_hashes_verified": true,
+        "inventory_digest_algorithm": "sha256(sorted_json_rows_of_split_clip_label_signer_path_hash)",
+        "inventory_sha256": "92f89f1e34151f5273b856bc062f020d2fc67756ce30fbd877fea5659a1c4ccb",
+        "mismatches": [],
+        "split_counts": {
+          "test": 28,
+          "train": 84,
+          "validation": 27
+        },
+        "tensor_file_count": 139
+      }
+    },
+    "m3bc": {
+      "candidate_subset_status": "none_currently_training_ready",
+      "receipt_status": "completed",
+      "retained_labels": [],
+      "selected_next_action": "continue_no_training_data_quality_contract_scaffold"
+    }
+  },
+  "schema_version": "asl-pilot-data-quality-contract/v1",
+  "status": "completed",
+  "stop_conditions_requiring_human_approval": [
+    "Stop before any Brev login, worker inspection, worker lifecycle action, or paid compute unless a bounded compute-receipt prompt is active and human approval is current.",
+    "Stop before any training run, model fitting, optimizer/backward pass, checkpoint creation, sweep, calibration, export, browser activation, final-readiness claim, or final-gate change.",
+    "Stop before any source import, source-approval expansion, generated pseudo-labels, manual labels, manual data collection, manual annotation, or manifest/tensor mutation.",
+    "Stop before Detector 0, landmark, broad-label, product-runtime, or browser model changes.",
+    "Stop if resolving data quality for training requires manual repair or source/data changes instead of a bounded no-training product fallback design."
+  ]
+}

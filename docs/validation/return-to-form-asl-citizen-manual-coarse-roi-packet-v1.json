@@ -1,0 +1,585 @@
+{
+  "schema_version": "1.0",
+  "status": "completed_no_training_manual_coarse_roi_packet",
+  "generated_at": "2026-05-27T17:21:06Z",
+  "generated_by": "codex_executor",
+  "mission": "M3BP_ASL_CITIZEN_MANUAL_COARSE_ROI_PACKET",
+  "active_prompt": "docs/model/return-to-form-asl-citizen-manual-coarse-roi-packet-goal-loop-prompt.md",
+  "source_of_truth": {
+    "goal": "GOAL.md",
+    "return_to_form_plan": "docs/model/return-to-form-plan.md",
+    "prior_crop_roi_contract": "docs/validation/return-to-form-asl-citizen-high-signal-crop-roi-contract-v1.json"
+  },
+  "scope": {
+    "local_no_spend": true,
+    "training_run": false,
+    "brev_command_run": false,
+    "source_import": false,
+    "source_register_approval_change": false,
+    "manifest_or_tensor_mutation": false,
+    "pseudo_label_generation": false,
+    "detector0_training": false,
+    "browser_activation": false,
+    "model_card_promotion": false,
+    "final_gate_change": false,
+    "push": false
+  },
+  "input_artifacts": [
+    {
+      "path": "GOAL.md",
+      "sha256": "75c6bef5ba8dc6c7e9c6424816c5ff251d741d6fe7fa9a98c9508536b718b9dc"
+    },
+    {
+      "path": "docs/model/return-to-form-asl-citizen-manual-coarse-roi-packet-goal-loop-prompt.md",
+      "sha256": "418c945e109e9e89bf3d4a3613c6e4eb43c8b0400157a39a2ee219e571bb5b3c"
+    },
+    {
+      "path": "docs/model/return-to-form-plan.md",
+      "sha256": "7f87df0636beffc149aeddcb4e110a782e996458c10383ec34b7fe245b1f82cd"
+    },
+    {
+      "path": "docs/validation/return-to-form-asl-citizen-high-signal-crop-roi-contract-v1.json",
+      "sha256": "4b50bc35a5c89eb9f35168a5586d353cd9f10ff367fb21c0af3cbbba70c7c24c"
+    },
+    {
+      "path": "docs/validation/return-to-form-dataset-training-root-cause-v1.json",
+      "sha256": "2aa26a8c73decf793515755274a6d2a66ee0a34b1bf4101709c78a45227839fa"
+    },
+    {
+      "path": "docs/validation/return-to-form-crop-region-contract-v1.json",
+      "sha256": "fdd802cf883f746c31e2e5505fc4827210b1b1ee30ea9f61ef677afc11dcacac"
+    },
+    {
+      "path": "docs/validation/return-to-form-vocab-crop-separability-diagnosis-v1.json",
+      "sha256": "6b6f507a5285083fdc6bb7f56e0d419d8e92bc33f8fc4d061c0649c67642f793"
+    },
+    {
+      "path": "docs/validation/return-to-form-vocab-subset-contract-v1.json",
+      "sha256": "c2c40b845c574daae50f7326e087dbb195cf42c759797779ec0f7ca42bf1346b"
+    },
+    {
+      "path": "docs/validation/return-to-form-data-quality-contract-v1.json",
+      "sha256": "ad09d35c84075ff21926af611b7a8cf13477edd072853225d6ca21b52590e0da"
+    },
+    {
+      "path": "data/manifests/lesson/high-signal-region-grid/train.json",
+      "sha256": "101455329ae04ad06a2c3fd4ca26a29c04ae945bb7925bee373cf3229594fc3d"
+    },
+    {
+      "path": "data/manifests/lesson/high-signal-region-grid/validation.json",
+      "sha256": "16a4a64a8fd48a1384c4cfd2e01dddcaa45fb3b1f0588af9ec66f96668cc3a53"
+    },
+    {
+      "path": "data/manifests/lesson/high-signal-region-grid/test.json",
+      "sha256": "5a315d49438242febb410287c4ff235ae8cd269a5aba5c3cf550950bae0359f8"
+    },
+    {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    {
+      "path": "web/public/model/model-card.json",
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a"
+    },
+    {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546"
+    }
+  ],
+  "target_rows": [
+    "validation:table",
+    "validation:please",
+    "validation:hello",
+    "validation:white",
+    "validation:sad",
+    "test:please",
+    "test:black",
+    "test:hello",
+    "test:uncle",
+    "test:sad"
+  ],
+  "review_rubric": {
+    "evidence_source": "Existing local ASL Citizen high-signal region-grid tensors and source-video paths already bound in the manifests.",
+    "frame_indices_reviewed_per_clip": [
+      0,
+      5,
+      10,
+      15
+    ],
+    "regions_reviewed": [
+      "viewer_left_hand_context",
+      "viewer_right_hand_context",
+      "upper_body_signing_space",
+      "head_context",
+      "full_frame_reference"
+    ],
+    "cleared": "Active hand or forearm motion and the signer upper-body context are visible in the fixed five-region tensor package, with no observed outside-crop blocker in sampled frames.",
+    "held": "The row is visible enough to avoid a crop-config decision but label-level gates still prevent retention.",
+    "requires_human_review": "Sampled local evidence is viewable but too ambiguous for this executor to decide.",
+    "requires_crop_config_repair": "Sampled local evidence shows active signing motion outside the fixed crop regions.",
+    "blocked_no_viewable_evidence": "The manifest row lacks local tensor/video evidence that can be inspected without import or mutation."
+  },
+  "temporary_review_aids": {
+    "created_under": "/tmp/asl-pilot-m3bp-roi-sheets",
+    "committed": false,
+    "source": "Generated from existing local region-grid tensors only; no repo data, manifests, tensors, or source videos were mutated.",
+    "purpose": "Manual visual inspection during this executor turn."
+  },
+  "per_row_reviews": [
+    {
+      "row": "validation:table",
+      "label_id": "table",
+      "split": "validation",
+      "support": {
+        "clip_count": 4,
+        "signer_count": 4,
+        "tensor_count": 4,
+        "source_video_count": 4
+      },
+      "evidence_paths": [
+        "data/manifests/lesson/high-signal-region-grid/validation.json",
+        "data/tensors/asl-citizen-high-signal-region-grid/validation/",
+        "data/external/asl-citizen/raw/selected/table/validation/"
+      ],
+      "reviewed_clip_ids": [
+        "asl-citizen-validation-table-8440244434939912-table",
+        "asl-citizen-validation-table-1991144257109958-table",
+        "asl-citizen-validation-table-4107831847068073-table",
+        "asl-citizen-validation-table-49077260423452396-table"
+      ],
+      "manual_observation": "Both forearms and the upper-body signing area are visible in sampled frames. One signer extends horizontally, but the active motion remains visible in the upper-body and full-frame reference regions.",
+      "coarse_roi_status": "cleared",
+      "residual_training_gate": "label remains held by prior zero-recall/never-predicted held-out gates"
+    },
+    {
+      "row": "validation:please",
+      "label_id": "please",
+      "split": "validation",
+      "support": {
+        "clip_count": 4,
+        "signer_count": 4,
+        "tensor_count": 4,
+        "source_video_count": 4
+      },
+      "evidence_paths": [
+        "data/manifests/lesson/high-signal-region-grid/validation.json",
+        "data/tensors/asl-citizen-high-signal-region-grid/validation/",
+        "data/external/asl-citizen/raw/selected/please/validation/"
+      ],
+      "reviewed_clip_ids": [
+        "asl-citizen-validation-please-05859480723249688-please",
+        "asl-citizen-validation-please-4096147054343935-please",
+        "asl-citizen-validation-please-42961246858695024-please",
+        "asl-citizen-validation-please-6330094542104612-please"
+      ],
+      "manual_observation": "Hand-to-chest motion and upper-body context are visible across sampled clips. The fixed regions do not show a missing-hand or outside-frame crop blocker.",
+      "coarse_roi_status": "cleared",
+      "residual_training_gate": "label remains held by prior zero-recall/never-predicted held-out gates"
+    },
+    {
+      "row": "validation:hello",
+      "label_id": "hello",
+      "split": "validation",
+      "support": {
+        "clip_count": 4,
+        "signer_count": 4,
+        "tensor_count": 4,
+        "source_video_count": 4
+      },
+      "evidence_paths": [
+        "data/manifests/lesson/high-signal-region-grid/validation.json",
+        "data/tensors/asl-citizen-high-signal-region-grid/validation/",
+        "data/external/asl-citizen/raw/selected/hello/validation/"
+      ],
+      "reviewed_clip_ids": [
+        "asl-citizen-validation-hello-020030442376253177-hello",
+        "asl-citizen-validation-hello-20675411351630046-hello",
+        "asl-citizen-validation-hello-05614933522741539-hello",
+        "asl-citizen-validation-hello-16493550450776628-hello"
+      ],
+      "manual_observation": "Face-adjacent hand motion is visible in sampled frames for all clips, including the upper-body, head-context, and full-frame reference regions.",
+      "coarse_roi_status": "cleared",
+      "residual_training_gate": "coarse ROI visibility clears, but crop-stat drift and label-level subset gates remain unresolved for training"
+    },
+    {
+      "row": "validation:white",
+      "label_id": "white",
+      "split": "validation",
+      "support": {
+        "clip_count": 4,
+        "signer_count": 3,
+        "tensor_count": 4,
+        "source_video_count": 4
+      },
+      "evidence_paths": [
+        "data/manifests/lesson/high-signal-region-grid/validation.json",
+        "data/tensors/asl-citizen-high-signal-region-grid/validation/",
+        "data/external/asl-citizen/raw/selected/white/validation/"
+      ],
+      "reviewed_clip_ids": [
+        "asl-citizen-validation-white-21947947473280904-white",
+        "asl-citizen-validation-white-5748285380978266-white",
+        "asl-citizen-validation-white-9951826983579728-white",
+        "asl-citizen-validation-white-14684615781592747-white"
+      ],
+      "manual_observation": "Hand-to-chest or hand-to-face motion is visible in sampled frames. The signer is sometimes tight in the frame, but active motion remains inside the fixed five-region tensor package.",
+      "coarse_roi_status": "cleared",
+      "residual_training_gate": "label remains held by prior zero-recall/never-predicted held-out gates"
+    },
+    {
+      "row": "validation:sad",
+      "label_id": "sad",
+      "split": "validation",
+      "support": {
+        "clip_count": 4,
+        "signer_count": 4,
+        "tensor_count": 4,
+        "source_video_count": 4
+      },
+      "evidence_paths": [
+        "data/manifests/lesson/high-signal-region-grid/validation.json",
+        "data/tensors/asl-citizen-high-signal-region-grid/validation/",
+        "data/external/asl-citizen/raw/selected/sad/validation/"
+      ],
+      "reviewed_clip_ids": [
+        "asl-citizen-validation-sad-3043245354055728-sad",
+        "asl-citizen-validation-sad-29913355059297864-sad",
+        "asl-citizen-validation-sad-9009874398583952-sad",
+        "asl-citizen-validation-sad-04551864995837951-sad"
+      ],
+      "manual_observation": "Face and hand motion are visible in sampled frames. The sampled fixed regions do not show a crop inclusion failure.",
+      "coarse_roi_status": "cleared",
+      "residual_training_gate": "label remains held by prior zero-recall/never-predicted held-out gates"
+    },
+    {
+      "row": "test:please",
+      "label_id": "please",
+      "split": "test",
+      "support": {
+        "clip_count": 4,
+        "signer_count": 4,
+        "tensor_count": 4,
+        "source_video_count": 4
+      },
+      "evidence_paths": [
+        "data/manifests/lesson/high-signal-region-grid/test.json",
+        "data/tensors/asl-citizen-high-signal-region-grid/test/",
+        "data/external/asl-citizen/raw/selected/please/test/"
+      ],
+      "reviewed_clip_ids": [
+        "asl-citizen-test-please-5042323343464843-please",
+        "asl-citizen-test-please-7328260605453549-please",
+        "asl-citizen-test-please-3584447878251358-please",
+        "asl-citizen-test-please-49277089703101806-please"
+      ],
+      "manual_observation": "Hand-to-chest motion is visible across the sampled clips. Low-light or signer/background variation exists, but no outside-crop blocker was observed.",
+      "coarse_roi_status": "cleared",
+      "residual_training_gate": "label remains held by prior zero-recall/never-predicted held-out gates"
+    },
+    {
+      "row": "test:black",
+      "label_id": "black",
+      "split": "test",
+      "support": {
+        "clip_count": 4,
+        "signer_count": 4,
+        "tensor_count": 4,
+        "source_video_count": 4
+      },
+      "evidence_paths": [
+        "data/manifests/lesson/high-signal-region-grid/test.json",
+        "data/tensors/asl-citizen-high-signal-region-grid/test/",
+        "data/external/asl-citizen/raw/selected/black/test/"
+      ],
+      "reviewed_clip_ids": [
+        "asl-citizen-test-black-9045342550783173-black",
+        "asl-citizen-test-black-8816224302083786-black",
+        "asl-citizen-test-black-987601351199263-black",
+        "asl-citizen-test-black-5944412238113308-black"
+      ],
+      "manual_observation": "Face-adjacent hand or fist motion is visible in sampled frames. A top-of-head crop is visible for one signer, but the active hand motion remains inside upper-body/full-frame regions.",
+      "coarse_roi_status": "cleared",
+      "residual_training_gate": "validation zero-recall and prior defer gates still prevent label retention"
+    },
+    {
+      "row": "test:hello",
+      "label_id": "hello",
+      "split": "test",
+      "support": {
+        "clip_count": 4,
+        "signer_count": 4,
+        "tensor_count": 4,
+        "source_video_count": 4
+      },
+      "evidence_paths": [
+        "data/manifests/lesson/high-signal-region-grid/test.json",
+        "data/tensors/asl-citizen-high-signal-region-grid/test/",
+        "data/external/asl-citizen/raw/selected/hello/test/"
+      ],
+      "reviewed_clip_ids": [
+        "asl-citizen-test-hello-1789715889624135-hello",
+        "asl-citizen-test-hello-5911924789322505-hello",
+        "asl-citizen-test-hello-9042145214602195-hello",
+        "asl-citizen-test-hello-3283413810240037-hello"
+      ],
+      "manual_observation": "Hello/wave motion is visible in sampled frames for all clips. The motion stays inside the fixed five-region tensor package.",
+      "coarse_roi_status": "cleared",
+      "residual_training_gate": "coarse ROI visibility clears, but crop-stat drift and label-level subset gates remain unresolved for training"
+    },
+    {
+      "row": "test:uncle",
+      "label_id": "uncle",
+      "split": "test",
+      "support": {
+        "clip_count": 4,
+        "signer_count": 4,
+        "tensor_count": 4,
+        "source_video_count": 4
+      },
+      "evidence_paths": [
+        "data/manifests/lesson/high-signal-region-grid/test.json",
+        "data/tensors/asl-citizen-high-signal-region-grid/test/",
+        "data/external/asl-citizen/raw/selected/uncle/test/"
+      ],
+      "reviewed_clip_ids": [
+        "asl-citizen-test-uncle-8097763069166906-uncle",
+        "asl-citizen-test-uncle-4408844034200958-uncle",
+        "asl-citizen-test-uncle-7264912121812768-uncle",
+        "asl-citizen-test-uncle-9287423984089731-uncle"
+      ],
+      "manual_observation": "Index-finger and face-adjacent motion are visible in sampled frames. Some clips have asymmetric hand-context motion, but full-frame and upper-body regions retain the action.",
+      "coarse_roi_status": "cleared",
+      "residual_training_gate": "label remains repair-required because prior held-out zero-recall gates persist"
+    },
+    {
+      "row": "test:sad",
+      "label_id": "sad",
+      "split": "test",
+      "support": {
+        "clip_count": 4,
+        "signer_count": 4,
+        "tensor_count": 4,
+        "source_video_count": 4
+      },
+      "evidence_paths": [
+        "data/manifests/lesson/high-signal-region-grid/test.json",
+        "data/tensors/asl-citizen-high-signal-region-grid/test/",
+        "data/external/asl-citizen/raw/selected/sad/test/"
+      ],
+      "reviewed_clip_ids": [
+        "asl-citizen-test-sad-8959116998657448-sad",
+        "asl-citizen-test-sad-2613508295176463-sad",
+        "asl-citizen-test-sad-7209250305663026-sad",
+        "asl-citizen-test-sad-9272659447119582-sad"
+      ],
+      "manual_observation": "Hands and face/upper-body context are visible in sampled frames. Low light appears in one clip, but no fixed-crop exclusion was observed.",
+      "coarse_roi_status": "cleared",
+      "residual_training_gate": "label remains held by prior zero-recall/never-predicted held-out gates"
+    }
+  ],
+  "label_level_rollup": [
+    {
+      "label_id": "table",
+      "reviewed_rows": [
+        "validation:table"
+      ],
+      "all_reviewed_rows_roi_cleared": true,
+      "prior_vocab_decision": "hold",
+      "training_retained_before_training": false,
+      "reason": "Manual coarse ROI visibility cleared the target row, but prior validation/test never-predicted and zero-recall gates remain."
+    },
+    {
+      "label_id": "please",
+      "reviewed_rows": [
+        "validation:please",
+        "test:please"
+      ],
+      "all_reviewed_rows_roi_cleared": true,
+      "prior_vocab_decision": "hold",
+      "training_retained_before_training": false,
+      "reason": "Manual coarse ROI visibility cleared both target rows, but prior validation/test never-predicted and zero-recall gates remain."
+    },
+    {
+      "label_id": "black",
+      "reviewed_rows": [
+        "test:black"
+      ],
+      "all_reviewed_rows_roi_cleared": true,
+      "prior_vocab_decision": "defer",
+      "training_retained_before_training": false,
+      "reason": "Manual coarse ROI visibility cleared the test row, but validation zero-recall and prior targeted repair gates remain."
+    },
+    {
+      "label_id": "hello",
+      "reviewed_rows": [
+        "validation:hello",
+        "test:hello"
+      ],
+      "all_reviewed_rows_roi_cleared": true,
+      "prior_vocab_decision": "defer",
+      "training_retained_before_training": false,
+      "reason": "Manual coarse ROI visibility cleared both drift rows, making hello the only plausible ROI-visibility candidate, but a one-label candidate is not a training-worthy subset and the crop-stat drift remains unexplained."
+    },
+    {
+      "label_id": "uncle",
+      "reviewed_rows": [
+        "test:uncle"
+      ],
+      "all_reviewed_rows_roi_cleared": true,
+      "prior_vocab_decision": "repair",
+      "training_retained_before_training": false,
+      "reason": "Manual coarse ROI visibility cleared the test row, but prior validation/test zero-recall and repair-required gates remain."
+    },
+    {
+      "label_id": "white",
+      "reviewed_rows": [
+        "validation:white"
+      ],
+      "all_reviewed_rows_roi_cleared": true,
+      "prior_vocab_decision": "hold",
+      "training_retained_before_training": false,
+      "reason": "Manual coarse ROI visibility cleared the target row, but prior validation/test never-predicted and zero-recall gates remain."
+    },
+    {
+      "label_id": "sad",
+      "reviewed_rows": [
+        "validation:sad",
+        "test:sad"
+      ],
+      "all_reviewed_rows_roi_cleared": true,
+      "prior_vocab_decision": "hold",
+      "training_retained_before_training": false,
+      "reason": "Manual coarse ROI visibility cleared both target rows, but prior validation/test never-predicted and zero-recall gates remain."
+    }
+  ],
+  "retained_subset_decision": {
+    "all_ten_target_rows_have_viewable_local_evidence": true,
+    "coarse_roi_rows_cleared": 10,
+    "coarse_roi_rows_requiring_crop_config_repair": 0,
+    "coarse_roi_rows_blocked_no_viewable_evidence": 0,
+    "training_worthy_subset_identified": false,
+    "training_worthy_retained_labels": [],
+    "roi_visibility_candidate_labels_not_training_worthy": [
+      "hello"
+    ],
+    "reason": "The manual packet clears coarse ROI inclusion as the likely immediate blocker for the ten drift rows, but it does not repair held-out zero-recall/never-predicted gates or produce at least two retained labels. The statistical crop drift now appears not to be a simple outside-crop visibility failure."
+  },
+  "minimum_gates_before_future_training": [
+    {
+      "gate": "strategy_or_diagnosis_after_visible_roi",
+      "status": "required_next",
+      "requirement": "Use the local evidence that coarse ROI inclusion is visible to decide whether the remaining blocker is label mapping, split/domain generalization, source quality, vocabulary choice, or model/data design before another repair or training turn."
+    },
+    {
+      "gate": "candidate_subset_nonempty_minimum",
+      "status": "failed_current_packet",
+      "requirement": "At least two labels must be retained as training-worthy before recognizer or Brev training."
+    },
+    {
+      "gate": "source_and_no_pretrained_audits",
+      "status": "must_remain_passing",
+      "requirement": "Source-register and no-pretrained audit surfaces must pass before any training prompt."
+    },
+    {
+      "gate": "browser_claim_integrity",
+      "status": "passed_current_packet",
+      "requirement": "Browser surfaces remain not_trained and activeLabels remains empty until final promotion gates are separately satisfied."
+    },
+    {
+      "gate": "compute_receipt_before_brev",
+      "status": "blocked_until_training_worthy_subset",
+      "requirement": "Any paid Brev run requires a separate receipt with worker state, listed price, command, max runtime, max spend, kill condition, expected signal, copyback, cleanup/default-off verification, and current human approval."
+    }
+  ],
+  "brev_assessment": {
+    "brev_useful_now": false,
+    "brev_commands_run": [],
+    "reason": "Mission 3BP forbids Brev commands, the live worker remains a cost-control blocker in GOAL.md, and this packet does not yield a training-worthy retained subset.",
+    "missing_before_any_remote_run": [
+      "at least two training-worthy retained labels",
+      "separate training receipt",
+      "fresh brev ls --json worker state",
+      "listed price",
+      "planned command",
+      "max runtime",
+      "max spend",
+      "kill condition",
+      "expected metric signal",
+      "artifact copyback",
+      "teardown/default-off verification",
+      "explicit current human approval tied to that bounded compute receipt"
+    ]
+  },
+  "landmark_and_detector_assessment": {
+    "missing_full_hand_posture_face_landmarks_are_current_blocker": false,
+    "detector0_training_supported_now": false,
+    "basis": [
+      "M3BN classified full landmarks as future robustness work, not the immediate missing proof.",
+      "This packet found coarse fixed-region visibility for all ten target rows, so the next blocker is not simply a missing full-landmark stack.",
+      "Detector 0/crop receipts remain relevant background evidence but do not authorize Detector 0 training or browser promotion."
+    ]
+  },
+  "commands_run": [
+    "sed -n '1,220p' /Users/kelly/.codex/skills/asl-pilot-codex-pair/SKILL.md",
+    "rg -n \"asl-pilot|Brev|crop ROI|manual coarse ROI|return-to-form|codex pair\" /Users/kelly/.codex/memories/MEMORY.md",
+    "find .. -name AGENTS.md -print",
+    "git status --short --branch",
+    "git log -5 --oneline --decorate",
+    "sed -n '1,260p' GOAL.md",
+    "node scripts/audit_codex_pair_state.mjs --json",
+    "ls docs/session-logs | sort -V | tail -8",
+    "sed -n '1,220p' docs/observer-messages/observer-log.md",
+    "sed -n '1,260p' docs/model/return-to-form-asl-citizen-manual-coarse-roi-packet-goal-loop-prompt.md",
+    "sed -n '1,260p' docs/runbooks/codex-goal-loop.md",
+    "sed -n '1,240p' docs/runbooks/observer-runbook-codex.md",
+    "sed -n '1,220p' docs/session-logs/362-observer-continue-manual-coarse-roi-packet-handoff.md",
+    "git status --short --branch",
+    "git log -10 --oneline --decorate",
+    "node scripts/audit_loop_premise.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs --json",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "python3 -m json.tool docs/validation/return-to-form-asl-citizen-high-signal-crop-roi-contract-v1.json >/dev/null",
+    "jq 'keys' data/manifests/lesson/high-signal-region-grid/validation.json",
+    "jq '.items[0] // .clips[0] // .records[0] // .examples[0] // .manifest[0]' data/manifests/lesson/high-signal-region-grid/validation.json",
+    "find data -maxdepth 5 -type f | rg 'frame|jpg|jpeg|png|contact|roi|thumbnail|thumb|packet|preview' | head -200",
+    "find artifacts docs data -maxdepth 5 -type f | rg 'high-signal|roi|crop|contact|sheet|region-grid|manual' | head -200",
+    "./.venv/bin/python - <<'PY' ... torch version probe ... PY",
+    "which ffmpeg && ffmpeg -version | head -1",
+    "./.venv/bin/python - <<'PY' ... load one region tensor and print keys/shapes ... PY",
+    "./.venv/bin/python - <<'PY' ... generate /tmp/asl-pilot-m3bp-roi-sheets from existing region tensors ... PY",
+    "view_image /tmp/asl-pilot-m3bp-roi-sheets/validation-table.jpg",
+    "view_image /tmp/asl-pilot-m3bp-roi-sheets/validation-please.jpg",
+    "view_image /tmp/asl-pilot-m3bp-roi-sheets/validation-hello.jpg",
+    "view_image /tmp/asl-pilot-m3bp-roi-sheets/validation-white.jpg",
+    "view_image /tmp/asl-pilot-m3bp-roi-sheets/validation-sad.jpg",
+    "view_image /tmp/asl-pilot-m3bp-roi-sheets/test-please.jpg",
+    "view_image /tmp/asl-pilot-m3bp-roi-sheets/test-black.jpg",
+    "view_image /tmp/asl-pilot-m3bp-roi-sheets/test-hello.jpg",
+    "view_image /tmp/asl-pilot-m3bp-roi-sheets/test-uncle.jpg",
+    "view_image /tmp/asl-pilot-m3bp-roi-sheets/test-sad.jpg",
+    "shasum -a 256 GOAL.md docs/model/return-to-form-asl-citizen-manual-coarse-roi-packet-goal-loop-prompt.md docs/model/return-to-form-plan.md docs/validation/return-to-form-asl-citizen-high-signal-crop-roi-contract-v1.json docs/validation/return-to-form-dataset-training-root-cause-v1.json docs/validation/return-to-form-crop-region-contract-v1.json docs/validation/return-to-form-vocab-crop-separability-diagnosis-v1.json docs/validation/return-to-form-vocab-subset-contract-v1.json docs/validation/return-to-form-data-quality-contract-v1.json data/manifests/lesson/high-signal-region-grid/train.json data/manifests/lesson/high-signal-region-grid/validation.json data/manifests/lesson/high-signal-region-grid/test.json docs/model/dataset-source-register.json web/public/model/model-card.json docs/model/active-vocabulary-claim.json",
+    "date -u +%Y-%m-%dT%H:%M:%SZ",
+    "python3 -m json.tool docs/validation/return-to-form-asl-citizen-manual-coarse-roi-packet-v1.json >/dev/null",
+    "node scripts/audit_return_to_form_plan.mjs --json",
+    "node scripts/audit_loop_premise.mjs --json",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "git diff --check",
+    "node scripts/audit_source_register.mjs",
+    "git add docs/validation/return-to-form-asl-citizen-manual-coarse-roi-packet-v1.json docs/session-logs/363-mission-3bp-asl-citizen-manual-coarse-roi-packet.md",
+    "git diff --cached --check",
+    "git diff --cached --stat"
+  ],
+  "files_changed": [
+    "docs/validation/return-to-form-asl-citizen-manual-coarse-roi-packet-v1.json",
+    "docs/session-logs/363-mission-3bp-asl-citizen-manual-coarse-roi-packet.md"
+  ],
+  "blockers": [
+    "The ten target rows are viewable and coarse ROI inclusion is cleared, but no label set reaches training-worthy status.",
+    "The remaining failure is not explained by a simple outside-crop visibility blocker.",
+    "Brev and recognizer training remain unsupported."
+  ],
+  "exactly_one_next_action": "escalate_strategy_research_with_local_evidence",
+  "next_action_rationale": "The manual ROI packet removes the immediate crop-inclusion uncertainty but still leaves an empty training-worthy subset. Another crop repair or training turn would be low-confidence without a strategy pass over the local evidence to decide the next technical lane."
+}

@@ -1,0 +1,96 @@
+{
+ "schema_version": "asl-pilot-recognizer-distill/v1",
+ "teacher": "checkpoint:/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/recognizer-v1.pt",
+ "teacher_data": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/handcrop-lm2",
+ "student_data": ".cache/recog-seq-w64-t32-cpw1-v1",
+ "student_cache": {
+  "data_dir": ".cache/recog-seq-w64-t32-cpw1-v1",
+  "clips": 285,
+  "classes": 95,
+  "sequence_length": 32,
+  "tensor_sequence_length": 32,
+  "feature_dim": 90,
+  "length_min": 32,
+  "length_max": 32,
+  "split_counts": {
+   "test": 95,
+   "train": 95,
+   "validation": 95
+  }
+ },
+ "classes": 95,
+ "student_arch": "transformer",
+ "training_mode": "dry_run_forward",
+ "epochs": 240,
+ "alpha": 0.55,
+ "temperature": 3.0,
+ "jitter_std": 0.02,
+ "frame_drop": 0.1,
+ "teacher_covered_train": 168,
+ "teacher_covered_total": 285,
+ "train_clips": 168,
+ "monitor_clips": 22,
+ "test_clips": 95,
+ "optimizer_steps": 0,
+ "expected_optimizer_steps": 0,
+ "planned_optimizer_steps": 5040,
+ "steps_per_epoch": 21,
+ "lr_scheduler": {
+  "name": "cosine",
+  "base_lr": 0.0005,
+  "warmup_steps": 500,
+  "min_lr": 5e-05
+ },
+ "eval_train": false,
+ "diagnostics": false,
+ "dry_run_forward": {
+  "batch_size": 8,
+  "logits_shape": [
+   8,
+   95
+  ],
+  "loss": 15.614637,
+  "loss_components": {
+   "covered": 8,
+   "plain": 0,
+   "ce_teacher": 4.568297,
+   "kd": 29.115721,
+   "ce_plain": null,
+   "loss": 15.614637
+  },
+  "diagnostics": {
+   "logit_mean": 0.024,
+   "logit_std": 0.175699,
+   "logit_max_abs": 0.579777,
+   "entropy_mean": 4.538149,
+   "mean_max_prob": 0.016339,
+   "pred_unique": 4,
+   "pred_hist": {
+    "13": 2,
+    "28": 1,
+    "74": 1,
+    "88": 4
+   },
+   "label_hist": {
+    "21": 1,
+    "33": 1,
+    "39": 1,
+    "55": 1,
+    "60": 1,
+    "63": 1,
+    "75": 1,
+    "85": 1
+   }
+  },
+  "optimizer_constructed": false,
+  "backward_called": false,
+  "optimizer_steps": 0
+ },
+ "no_save_model": false,
+ "history": [],
+ "test_top1": null,
+ "test_top5": null,
+ "verification_recall_at_far10": null,
+ "chance": 0.0105,
+ "weights": null
+}

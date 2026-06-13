@@ -1,0 +1,304 @@
+{
+  "schema_version": "asl-pilot-practice-progress-smoke/v1",
+  "status": "passed",
+  "tested_at": "2026-05-29T13:57:01.942Z",
+  "app_url": "http://127.0.0.1:63988",
+  "account_email_sha256": "f8500b05c5e5eb7ce1ce6ac4dd79eb89d23cc7356d795324efd296ea9afd663c",
+  "checks": [
+    {
+      "id": "model_card_not_trained",
+      "label": "Runtime model-card is the fail-closed not_trained card",
+      "status": "passed",
+      "evidence": {
+        "status": 200,
+        "model_id": "asl-pilot-rawframe-v0",
+        "model_status": "not_trained"
+      },
+      "blockers": []
+    },
+    {
+      "id": "unauthenticated_progress_requires_login",
+      "label": "Progress API rejects unauthenticated requests",
+      "status": "passed",
+      "evidence": {
+        "status": 401
+      },
+      "blockers": []
+    },
+    {
+      "id": "register_creates_session",
+      "label": "Registration creates an account session",
+      "status": "passed",
+      "evidence": {
+        "status": 200,
+        "account_email_sha256": "f8500b05c5e5eb7ce1ce6ac4dd79eb89d23cc7356d795324efd296ea9afd663c",
+        "has_cookie": true,
+        "returned_email_matches": true
+      },
+      "blockers": []
+    },
+    {
+      "id": "me_returns_registered_user",
+      "label": "Authenticated /api/me returns the registered user",
+      "status": "passed",
+      "evidence": {
+        "status": 200,
+        "account_email_sha256": "f8500b05c5e5eb7ce1ce6ac4dd79eb89d23cc7356d795324efd296ea9afd663c",
+        "returned_email_matches": true,
+        "has_user_id": true
+      },
+      "blockers": []
+    },
+    {
+      "id": "initial_progress_empty",
+      "label": "New account starts with empty progress for the smoke vocabulary",
+      "status": "passed",
+      "evidence": {
+        "status": 200,
+        "progress_count": 100,
+        "vocabulary_id": "hello",
+        "progress_item": {
+          "vocabularyId": "hello",
+          "label": "Hello",
+          "attempts": 0,
+          "passes": 0,
+          "fails": 0,
+          "status": "not_started",
+          "lastAttemptAt": null
+        }
+      },
+      "blockers": []
+    },
+    {
+      "id": "raw_payload_rejected",
+      "label": "Practice attempt route rejects raw camera payloads",
+      "status": "passed",
+      "evidence": {
+        "status": 400,
+        "error_mentions_raw_camera": true
+      },
+      "blockers": []
+    },
+    {
+      "id": "raw_payload_rejection_does_not_save",
+      "label": "Rejected raw camera payload does not create progress",
+      "status": "passed",
+      "evidence": {
+        "status": 200,
+        "progress_item": {
+          "vocabularyId": "hello",
+          "label": "Hello",
+          "attempts": 0,
+          "passes": 0,
+          "fails": 0,
+          "status": "not_started",
+          "lastAttemptAt": null
+        },
+        "recent_attempts_count": 0
+      },
+      "blockers": []
+    },
+    {
+      "id": "metadata_attempt_fail_closed",
+      "label": "Metadata-only spoofed pass is saved as fail-closed practice history",
+      "status": "passed",
+      "evidence": {
+        "status": 200,
+        "saved_attempt": {
+          "id": "16656394-b2fb-4b0c-ad19-b923c5a5d801",
+          "userId": "9dc174a7-2cd9-4f75-9659-6d2f511fd7b1",
+          "vocabularyId": "hello",
+          "passed": false,
+          "confidence": 1,
+          "predictedId": "hello",
+          "modelId": "asl-pilot-rawframe-v0",
+          "modelStatus": "not_trained",
+          "hint": "Automatic sign checking is not ready for this pilot yet. Your attempt was saved as practice history only.",
+          "reason": "server fail-closed because active model card is not_trained",
+          "durationMs": null,
+          "frameCount": null,
+          "createdAt": "2026-05-29T13:57:01.903Z"
+        }
+      },
+      "blockers": []
+    },
+    {
+      "id": "progress_updates_after_attempt",
+      "label": "Saved attempt updates progress and recent history",
+      "status": "passed",
+      "evidence": {
+        "status": 200,
+        "saved_attempt_id": "16656394-b2fb-4b0c-ad19-b923c5a5d801",
+        "progress_item": {
+          "vocabularyId": "hello",
+          "label": "Hello",
+          "attempts": 1,
+          "passes": 0,
+          "fails": 1,
+          "status": "in_progress",
+          "lastAttemptAt": "2026-05-29T13:57:01.903Z"
+        },
+        "recent_attempt": {
+          "id": "16656394-b2fb-4b0c-ad19-b923c5a5d801",
+          "userId": "9dc174a7-2cd9-4f75-9659-6d2f511fd7b1",
+          "vocabularyId": "hello",
+          "passed": false,
+          "confidence": 1,
+          "predictedId": "hello",
+          "modelId": "asl-pilot-rawframe-v0",
+          "modelStatus": "not_trained",
+          "hint": "Automatic sign checking is not ready for this pilot yet. Your attempt was saved as practice history only.",
+          "reason": "server fail-closed because active model card is not_trained",
+          "durationMs": null,
+          "frameCount": null,
+          "createdAt": "2026-05-29T13:57:01.903Z"
+        }
+      },
+      "blockers": []
+    },
+    {
+      "id": "logout_blocks_progress",
+      "label": "Logout removes progress access for the session",
+      "status": "passed",
+      "evidence": {
+        "logout_status": 200,
+        "progress_status_after_logout": 401,
+        "has_cookie_after_logout": false
+      },
+      "blockers": []
+    },
+    {
+      "id": "login_restores_persisted_progress",
+      "label": "Login restores the persisted learner progress record",
+      "status": "passed",
+      "evidence": {
+        "login_status": 200,
+        "has_cookie_after_login": true,
+        "saved_attempt_id": "16656394-b2fb-4b0c-ad19-b923c5a5d801",
+        "progress_status_after_login": 200,
+        "progress_item": {
+          "vocabularyId": "hello",
+          "label": "Hello",
+          "attempts": 1,
+          "passes": 0,
+          "fails": 1,
+          "status": "in_progress",
+          "lastAttemptAt": "2026-05-29T13:57:01.903Z"
+        },
+        "recent_attempt": {
+          "id": "16656394-b2fb-4b0c-ad19-b923c5a5d801",
+          "userId": "9dc174a7-2cd9-4f75-9659-6d2f511fd7b1",
+          "vocabularyId": "hello",
+          "passed": false,
+          "confidence": 1,
+          "predictedId": "hello",
+          "modelId": "asl-pilot-rawframe-v0",
+          "modelStatus": "not_trained",
+          "hint": "Automatic sign checking is not ready for this pilot yet. Your attempt was saved as practice history only.",
+          "reason": "server fail-closed because active model card is not_trained",
+          "durationMs": null,
+          "frameCount": null,
+          "createdAt": "2026-05-29T13:57:01.903Z"
+        }
+      },
+      "blockers": []
+    },
+    {
+      "id": "dataset_collection_default_disabled",
+      "label": "Dataset collection routes remain disabled in normal practice env",
+      "status": "passed",
+      "evidence": {
+        "dataset_clip_post_status": 403,
+        "dataset_coverage_get_status": 403
+      },
+      "blockers": []
+    }
+  ],
+  "source_files": [
+    {
+      "path": "web/src/lib/server-store.ts",
+      "sha256": "5d5fea7e35f673cdbe55e85fe7808e526047f0c4f2d7c0132a96a8deb8aaac6a"
+    },
+    {
+      "path": "web/src/app/api/auth/register/route.ts",
+      "sha256": "30aac856dac515acf66662acdd44e84592b449cd86f6b864d37688c5ce050245"
+    },
+    {
+      "path": "web/src/app/api/auth/login/route.ts",
+      "sha256": "211d427fc986b63a0a36dc9b4ffe6b2d2de7fbed6edf949930184c5cc6397c19"
+    },
+    {
+      "path": "web/src/app/api/auth/logout/route.ts",
+      "sha256": "40620134b1a55c4d29c217dce4040f19987a10838bdb8847de4a4f1fdeba60d1"
+    },
+    {
+      "path": "web/src/app/api/me/route.ts",
+      "sha256": "12e84c0bc3d4882098a9b0024a11489f69d0435e9668c877409571e7c37fc67d"
+    },
+    {
+      "path": "web/src/app/api/attempts/route.ts",
+      "sha256": "30be146630620bcee956a8f47662a8b501a1f61cad411e898c5bc3c0630f8c41"
+    },
+    {
+      "path": "web/src/app/api/progress/route.ts",
+      "sha256": "378c47f1da0a783383421e4ec75b55984a1fb31022afa019d538f4a6cb7c1239"
+    },
+    {
+      "path": "web/src/app/api/dataset/clips/route.ts",
+      "sha256": "7fbe918827499e92d4e37c330e2cae1fe8a44378094dacdaccb9acffba01408c"
+    },
+    {
+      "path": "web/src/app/api/dataset/coverage/route.ts",
+      "sha256": "d2d5b76335efe090fd868f7e3f2c3690685b0adb60c236fcac82e6c7c7bae258"
+    },
+    {
+      "path": "web/src/components/PracticeApp.tsx",
+      "sha256": "c8672c59bedc350b744e03bccbf291d459135a8541e5034c828f01d4cb445c8f"
+    },
+    {
+      "path": "web/public/model/model-card.json",
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a"
+    }
+  ],
+  "blockers": [],
+  "commands": [
+    "node scripts/run_practice_progress_smoke.mjs --write",
+    "ASL_PILOT_AUTH_PROVIDER=local ASL_PILOT_STORE_PATH=/var/folders/hm/6gd6d81d5wbfmk6j51dx894c0000gn/T/asl-pilot-practice-smoke-3AEepH/store.json ENABLE_DATASET_COLLECTION=false NEXT_PUBLIC_ENABLE_DATASET_COLLECTION=false npm --prefix web run start -- --hostname 127.0.0.1 --port 63988",
+    "GET http://127.0.0.1:63988",
+    "GET http://127.0.0.1:63988/model/model-card.json",
+    "POST http://127.0.0.1:63988/api/auth/register",
+    "GET http://127.0.0.1:63988/api/me",
+    "GET http://127.0.0.1:63988/api/progress",
+    "POST http://127.0.0.1:63988/api/attempts with raw frame payload",
+    "POST http://127.0.0.1:63988/api/attempts with metadata-only spoofed pass",
+    "POST http://127.0.0.1:63988/api/auth/logout",
+    "POST http://127.0.0.1:63988/api/auth/login",
+    "POST http://127.0.0.1:63988/api/attempts with packaged Stage A smoke pass metadata",
+    "POST http://127.0.0.1:63988/api/dataset/clips",
+    "GET http://127.0.0.1:63988/api/dataset/coverage"
+  ],
+  "server": {
+    "mode": "next_start",
+    "build_id_sha256": "7d182bfe72c86b581618f084d842c96f69c376c59a430d0d9fe095d7c5c36ac3",
+    "command": "ASL_PILOT_AUTH_PROVIDER=local ASL_PILOT_STORE_PATH=/var/folders/hm/6gd6d81d5wbfmk6j51dx894c0000gn/T/asl-pilot-practice-smoke-3AEepH/store.json ENABLE_DATASET_COLLECTION=false NEXT_PUBLIC_ENABLE_DATASET_COLLECTION=false npm --prefix web run start -- --hostname 127.0.0.1 --port 63988",
+    "isolated_store": {
+      "env_var": "ASL_PILOT_STORE_PATH",
+      "path": "/var/folders/hm/6gd6d81d5wbfmk6j51dx894c0000gn/T/asl-pilot-practice-smoke-3AEepH/store.json",
+      "existed_after_smoke": true,
+      "removed_after_run": true
+    },
+    "stdout_tail": [
+      "> web@0.1.0 start",
+      "> next start --hostname 127.0.0.1 --port 63988",
+      "",
+      "▲ Next.js 16.2.6",
+      "- Local:         http://127.0.0.1:63988",
+      "- Network:       http://127.0.0.1:63988",
+      "✓ Ready in 135ms"
+    ],
+    "stderr_tail": [
+      ""
+    ]
+  },
+  "evidence_notes": "Runtime smoke uses an isolated temporary store and proves account creation/login, progress persistence, unsupported-label fail-closed not_trained attempts, packaged Stage A smoke-pass persistence, and live raw-camera-payload rejection."
+}

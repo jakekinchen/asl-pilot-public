@@ -1,0 +1,283 @@
+{
+  "active_prompt": "docs/model/return-to-form-fixed-geometric-claim-reduction-goal-loop-prompt.md",
+  "boundaries": {
+    "brev_lifecycle_or_spend": false,
+    "browser_activation": false,
+    "classifier_comparison": false,
+    "crop_smoke_rerun": false,
+    "fitting": false,
+    "local_only": true,
+    "manifest_mutation": false,
+    "model_artifact": false,
+    "model_card_mutation": false,
+    "onnx_export": false,
+    "optimizer_or_backward": false,
+    "packet_mutation": false,
+    "pretrained_or_generated_label_path": false,
+    "product_runtime_change": false,
+    "push": false,
+    "read_only_existing_evidence": true,
+    "source_import": false,
+    "tracked_tensor_mutation": false,
+    "training": false,
+    "vocabulary_mutation": false
+  },
+  "checked_at": "2026-05-28T13:48:18Z",
+  "claim_reduction": {
+    "exact_m3eb_context_roi": {
+      "allowed_claims": [
+        "Deterministic head/face context crop for optional local accounting.",
+        "Can be applied from full_frame_reference tensors when a future no-Brev diagnostic needs context."
+      ],
+      "disallowed_claims": [
+        "Does not prove face tracking, identity inference, landmarks, hand evidence preservation, browser recognition, ASL correctness, product authority, or final readiness."
+      ],
+      "roi": {
+        "allowed_use": "optional fixed context/normalization reference in a future local smoke",
+        "box_source": "train_median_box",
+        "box_xyxy_norm": [
+          0.32,
+          0.06,
+          0.68,
+          0.44
+        ],
+        "disallowed_use": "landmark detection, face tracking claim, identity inference, or product runtime authority",
+        "target_id": "head_or_face"
+      }
+    },
+    "exact_m3eb_primary_roi": {
+      "allowed_claims": [
+        "Deterministic train-median ROI derived from approved packet boxes.",
+        "Can be applied locally from full_frame_reference tensors for diagnostic/accounting work.",
+        "Kept all present target centers inside for the current 32-row packet.",
+        "May be used as transparent fixed-geometry evidence only under fail-closed product claims."
+      ],
+      "containment_evidence": {
+        "all_present_target_centers_inside": true,
+        "exact_roi_materialized_region_count": 0,
+        "full_frame_reference_available_count": 345,
+        "left_hand_full_containment_rate": 0.34375,
+        "table_union_contact_full_containment_rate": 0.15
+      },
+      "disallowed_claims": [
+        "Does not preserve all current hand/contact evidence.",
+        "Does not prove runtime Detector 0 objectness or negative specificity.",
+        "Does not prove hand localization, hand tracking, hand landmarks, ASL correctness, browser recognition, product authority, or final readiness.",
+        "Must not be used as the sole basis for a model-input comparison that claims interaction preservation."
+      ],
+      "roi": {
+        "allowed_use": "transparent fixed crop/ROI fallback for local diagnostic crop-normalization smoke",
+        "box_source": "train_median_box",
+        "box_xyxy_norm": [
+          0.2,
+          0.08,
+          0.82,
+          0.98
+        ],
+        "disallowed_use": "runtime Detector 0 objectness, hand localization, ASL correctness, browser activation, or product promotion",
+        "target_id": "upper_body_or_signing_space"
+      }
+    },
+    "materialized_head_context": {
+      "allowed_claims": [
+        "Already materialized in the existing approved region tensors.",
+        "May be included as optional context in a bounded no-Brev materialized-region follow-up."
+      ],
+      "box_xyxy_norm": [
+        0.2,
+        0.0,
+        0.8,
+        0.44
+      ],
+      "disallowed_claims": [
+        "Does not prove face tracking, identity inference, landmarks, hand/contact preservation, browser recognition, product authority, ASL correctness, or final readiness."
+      ],
+      "region_id": "head_context"
+    },
+    "materialized_upper_body_signing_space": {
+      "allowed_claims": [
+        "Already materialized in the existing approved region tensors.",
+        "Broader than the exact M3EB primary ROI for current table interaction evidence.",
+        "May be compared locally against full-frame references in one bounded no-Brev model-input follow-up."
+      ],
+      "box_xyxy_norm": [
+        0.1,
+        0.1,
+        0.9,
+        0.96
+      ],
+      "containment_evidence": {
+        "right_hand_full_containment_rate": 1.0,
+        "table_union_contact_full_containment_rate": 0.85
+      },
+      "disallowed_claims": [
+        "Does not prove complete hand/contact preservation.",
+        "Does not prove Detector 0 objectness, hand landmarks, browser recognition, product authority, ASL correctness, or final readiness."
+      ],
+      "region_id": "upper_body_signing_space"
+    }
+  },
+  "command": "/Users/kelly/Developer/asl-pilot/.venv/bin/python scripts/run_return_to_form_fixed_geometric_claim_reduction.py",
+  "commands_intentionally_not_run": [
+    "No crop-smoke rerun, classifier comparison, training, fitting, optimizer construction, backward pass, checkpoint, model artifact, ONNX export, model-card promotion, or product-runtime change.",
+    "No Brev worker creation, sync, SSH, remote compute, remote training, stop, delete, reset, or spend.",
+    "No source import, media download, source-register mutation, manifest mutation, tracked tensor mutation, vocabulary mutation, label expansion, or packet-row mutation.",
+    "No hand-landmark source import, landmark detector training, pretrained detector/backbone/embedding/teacher/generated-label path, browser activation, ASL-correctness claim, final-readiness claim, raw learner video upload, or push."
+  ],
+  "commands_run": [
+    "git status --short --branch",
+    "git log -10 --oneline --decorate",
+    "node scripts/audit_loop_premise.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs --json",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "node scripts/audit_source_register.mjs",
+    "python3 -m json.tool docs/validation/return-to-form-fixed-geometric-crop-normalization-smoke-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-detector0-fixed-geometric-fallback-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-detector0-class-invariant-target-probe-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-detector0-packet-support-diagnosis-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-detector0-objectness-repair-v1.json >/dev/null",
+    "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+    "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+    "brev ls --json",
+    "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/run_return_to_form_fixed_geometric_claim_reduction.py",
+    "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/run_return_to_form_fixed_geometric_claim_reduction.py",
+    "python3 -m json.tool docs/validation/return-to-form-fixed-geometric-claim-reduction-v1.json >/dev/null",
+    "git diff --check"
+  ],
+  "current_claim_surface": {
+    "active_labels": [],
+    "browser_recognition": "fail_closed_inactive",
+    "claim_surface_mutated": false,
+    "model_card_status": "not_trained",
+    "raw_active_vocabulary_claim_path": "docs/model/active-vocabulary-claim.json",
+    "raw_model_card_path": "web/public/model/model-card.json"
+  },
+  "docs_update": {
+    "needed": false,
+    "reason": "GOAL.md and docs/model/return-to-form-plan.md already record M3EC's exact containment rates and state that M3ED is the claim-reduction mission; this receipt is the smallest durable claim boundary."
+  },
+  "files_changed": [
+    "scripts/run_return_to_form_fixed_geometric_claim_reduction.py",
+    "docs/validation/return-to-form-fixed-geometric-claim-reduction-v1.json",
+    "docs/session-logs/503-mission-3ed-fixed-geometric-claim-reduction.md"
+  ],
+  "followup_decision": {
+    "bounded_no_brev_followup_justified": true,
+    "m3ec_followup_context": {
+      "justified_under_unqualified_exact_m3eb_roi_claim": false,
+      "potentially_justified_after_claim_reduction": true,
+      "required_scope": "Use the fixed geometry as transparent coverage/accounting evidence, or compare materialized upper-body/head tensor regions against full-frame references, without claiming runtime objectness, hand tracking, landmarks, browser activation, or product readiness.",
+      "still_requires_human_approval_for": [
+        "packet-row mutation",
+        "new annotation budget",
+        "source import or source license approval",
+        "Brev spend or remote training",
+        "final gate changes or product promotion"
+      ]
+    },
+    "may_test": "A local materialized-region follow-up may compare existing upper_body_signing_space/head_context region inputs against full-frame references, using current approved tensors/manifests only, and must keep browser/product/model claims fail-closed.",
+    "must_not_test": [
+      "exact M3EB ROI as unqualified interaction-preserving input",
+      "runtime Detector 0 objectness",
+      "hand landmarks or tracking",
+      "browser recognition activation",
+      "product readiness",
+      "Brev or remote training",
+      "new source/media/packet/manifest/tensor/vocabulary mutations"
+    ],
+    "next_action": "fixed_geometry_materialized_region_followup_no_brev"
+  },
+  "global_disallowed_claims": {
+    "asl_correctness": false,
+    "browser_recognition": "inactive",
+    "final_readiness": false,
+    "hand_contact_preservation": "not_unqualified_for_exact_m3eb_roi",
+    "hand_landmarks_or_tracking": "unavailable",
+    "model_artifact_or_export": false,
+    "product_authority": false,
+    "runtime_detector0_objectness": "unproven"
+  },
+  "input_evidence": {
+    "m3eb_next_action": "prepare_fixed_geometric_crop_normalization_smoke_no_brev",
+    "m3ec_classification": "exact_m3eb_roi_is_consistent_but_too_narrow_for_unqualified_interaction_claims",
+    "m3ec_crop_smoke_rerun": false,
+    "m3ec_next_action": "fixed_geometry_claim_reduction",
+    "m3ec_packet_rows_crosschecked": 32,
+    "m3ec_tensor_hash_verified_count": 345
+  },
+  "mission": "M3ED - Fixed-geometric claim reduction",
+  "next_action": {
+    "id": "fixed_geometry_materialized_region_followup_no_brev",
+    "reason": "The exact M3EB ROI claim is now reduced, and existing materialized upper-body/head tensors can support one bounded local no-Brev follow-up without product authority."
+  },
+  "outcome": {
+    "classification": "fixed_geometry_claim_reduced_materialized_region_followup_allowed",
+    "next_action": "fixed_geometry_materialized_region_followup_no_brev",
+    "reason": "M3ED reduces exact M3EB ROI to deterministic diagnostic/accounting evidence only, while preserving one bounded no-Brev follow-up for the broader materialized upper-body/head regions under fail-closed claims."
+  },
+  "schema_version": "asl-pilot-return-to-form-fixed-geometric-claim-reduction/v1",
+  "source_artifacts": {
+    "active_prompt": {
+      "path": "docs/model/return-to-form-fixed-geometric-claim-reduction-goal-loop-prompt.md",
+      "sha256": "4a6ecfe26a694e4ef7400c4fffc248ff0a6b820ae5ad9898b747531b3d64aa57"
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546"
+    },
+    "codex_goal_loop_runbook": {
+      "path": "docs/runbooks/codex-goal-loop.md",
+      "sha256": "81ac1f0677dc2618e3d10ada8a4ad837019571b525cb72657c9554bdaab98181"
+    },
+    "crop_config": {
+      "path": "docs/model/return-to-form-fixed-crop-config.json",
+      "sha256": "dbc735dad34fa9df1174a40374037976f9c88d789012634b2b22743ae0802b29"
+    },
+    "goal": {
+      "path": "GOAL.md",
+      "sha256": "054b5e34994f1dab4cce100d50dd1b5a638c68226348a57ee31b8c6b83a3c76a"
+    },
+    "m3dy_objectness_repair": {
+      "path": "docs/validation/return-to-form-detector0-objectness-repair-v1.json",
+      "sha256": "bb89929c932f50f1d873f51e4b422c58f7fc507c02d72f8e95d1a96b1eca0523"
+    },
+    "m3dz_packet_support_diagnosis": {
+      "path": "docs/validation/return-to-form-detector0-packet-support-diagnosis-v1.json",
+      "sha256": "9818bbf143ee7408ee97420f6061225f57deef73885d8c8c7a3ba0aef2ce7733"
+    },
+    "m3ea_class_invariant_probe": {
+      "path": "docs/validation/return-to-form-detector0-class-invariant-target-probe-v1.json",
+      "sha256": "ddbe156a1f14e532095e0145249dc2f21619a5aca260786765d24ee450171ad1"
+    },
+    "m3eb_fixed_geometric_fallback": {
+      "path": "docs/validation/return-to-form-detector0-fixed-geometric-fallback-v1.json",
+      "sha256": "3cdcbccfced069cc1edcddda04b4ad3f63dd9d4167ffc210276da20f885b1629"
+    },
+    "m3ec_crop_normalization_smoke": {
+      "path": "docs/validation/return-to-form-fixed-geometric-crop-normalization-smoke-v1.json",
+      "sha256": "f8f18fe863e8496e713d88a006bd4b074f81211c6d0df0330748322684d545f2"
+    },
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a"
+    },
+    "observer_runbook": {
+      "path": "docs/runbooks/observer-runbook-codex.md",
+      "sha256": "4fd6763e7992b4c7589049e888dd14d9b5bf09be830cf925c268161ae96419b4"
+    },
+    "packet": {
+      "path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d"
+    },
+    "return_to_form_plan": {
+      "path": "docs/model/return-to-form-plan.md",
+      "sha256": "53edc85cd44614811377d5d330ca9c07d821bfc57e623b4341935a1291649cab"
+    },
+    "runner": {
+      "path": "scripts/run_return_to_form_fixed_geometric_claim_reduction.py",
+      "sha256": "70cee590127ee772e6a5233a519bdf86e6e7d57b86146b0657e181b69cdddd74"
+    }
+  },
+  "status": "action_selected"
+}

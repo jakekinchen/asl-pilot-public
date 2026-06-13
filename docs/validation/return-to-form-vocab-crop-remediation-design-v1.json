@@ -1,0 +1,308 @@
+{
+  "acceptance_criteria_before_future_training": [
+    {
+      "criterion": "tracked_split_signer_contract_receipt",
+      "description": "A tracked receipt must enumerate train/validation/test signer ids, signer counts, per-label signer support, and train-to-held-out overlap for the high-signal region-grid manifests.",
+      "required_before_training": true
+    },
+    {
+      "criterion": "explicit_generalization_target",
+      "description": "The contract must state whether the next evaluation target is signer-disjoint generalization, signer-overlap diagnostic learning, or product fallback, and why that target is acceptable.",
+      "required_before_training": true
+    },
+    {
+      "criterion": "label_level_hold_drop_or_repair_table",
+      "description": "The contract must carry per-label decisions for held-out zero-recall and never-predicted labels, including whether each label is retained, held out, dropped from the next diagnostic, or routed to crop QA.",
+      "required_before_training": true
+    },
+    {
+      "criterion": "crop_region_quality_gate",
+      "description": "The contract must include a deterministic per-region quality summary or explicitly defer crop work with a reason. A future training prompt cannot rely only on tiny memorization.",
+      "required_before_training": true
+    },
+    {
+      "criterion": "no_new_source_or_manual_annotation_without_human_approval",
+      "description": "If satisfying the contract requires new source approval, manual labels, data collection, paid compute, or Brev auth, the loop must stop for human scope approval instead of training.",
+      "required_before_training": true
+    }
+  ],
+  "active_prompt": "docs/model/return-to-form-vocab-crop-remediation-design-goal-loop-prompt.md",
+  "blocked_actions_requiring_human_approval": [
+    "Brev login, worker inspection, worker lifecycle changes, or paid compute",
+    "any training run, model fitting, optimizer/backward pass, checkpoint creation, or sweep",
+    "source import, source approval expansion, generated pseudo-labels, or manual annotation/data collection",
+    "Detector 0 or landmark revival",
+    "ONNX export, model-card promotion, browser trained activation, final-readiness claim, or final-gate changes",
+    "product-runtime implementation changes",
+    "push"
+  ],
+  "commands": {
+    "design": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/design_vocab_crop_remediation.py",
+      "--receipt",
+      "docs/validation/return-to-form-vocab-crop-remediation-design-v1.json",
+      "--write-receipt"
+    ],
+    "json_validation": [
+      [
+        "python3",
+        "-m",
+        "json.tool",
+        "docs/validation/return-to-form-vocab-crop-remediation-design-v1.json"
+      ]
+    ],
+    "required_audits": [
+      [
+        "node",
+        "scripts/audit_loop_premise.mjs",
+        "--json"
+      ],
+      [
+        "node",
+        "scripts/audit_return_to_form_plan.mjs",
+        "--json"
+      ],
+      [
+        "node",
+        "scripts/audit_no_pretrained_deps.mjs"
+      ],
+      [
+        "node",
+        "scripts/audit_no_pretrained_artifact_json.mjs"
+      ],
+      [
+        "python3",
+        "-m",
+        "py_compile",
+        "scripts/train_rawframe_model.py",
+        "scripts/evaluate_rawframe_model.py",
+        "scripts/compile_true_tcn_architecture.py",
+        "scripts/run_region_grid_tcn_tiny_overfit.py",
+        "scripts/diagnose_vocab_crop_separability.py",
+        "scripts/design_vocab_crop_remediation.py"
+      ],
+      [
+        "git",
+        "diff",
+        "--check"
+      ]
+    ]
+  },
+  "design_facts": {
+    "descriptive_crop_stat_drift_failure_count": 10,
+    "descriptive_crop_stat_drift_failures": [
+      "test:please",
+      "test:black",
+      "test:hello",
+      "test:uncle",
+      "test:sad",
+      "validation:table",
+      "validation:please",
+      "validation:hello",
+      "validation:white",
+      "validation:sad"
+    ],
+    "m3aw_test_macro_f1": 0.09166666666666666,
+    "m3aw_test_top1": 0.17857142857142858,
+    "m3aw_validation_macro_f1": 0.015037593984962407,
+    "m3aw_validation_top1": 0.037037037037037035,
+    "m3ax_tiny_subset_accuracy": 1.0,
+    "m3ax_tiny_subset_zero_recall_labels": [],
+    "test_labels_never_predicted": [
+      "please",
+      "sad",
+      "table",
+      "white"
+    ],
+    "test_prediction_label_coverage": 3,
+    "test_zero_recall_labels": [
+      "please",
+      "sad",
+      "table",
+      "uncle",
+      "white"
+    ],
+    "train_test_signer_overlap": [],
+    "train_validation_signer_overlap": [],
+    "validation_labels_never_predicted": [
+      "please",
+      "sad",
+      "table",
+      "white"
+    ],
+    "validation_prediction_label_coverage": 3,
+    "validation_zero_recall_labels": [
+      "black",
+      "please",
+      "sad",
+      "table",
+      "uncle",
+      "white"
+    ]
+  },
+  "exactly_one_next_action": "continue_no_training_remediation_contract_scaffold",
+  "future_artifacts_allowed_in_next_prompt": [
+    "docs/validation/return-to-form-split-signer-contract-v1.json",
+    "scripts/audit_high_signal_split_signer_contract.py",
+    "docs/session-logs/<next>-mission-3ba-split-signer-contract.md"
+  ],
+  "generated_at": "2026-05-27T11:51:36.985131+00:00",
+  "generated_by": {
+    "command": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/design_vocab_crop_remediation.py",
+      "--receipt",
+      "docs/validation/return-to-form-vocab-crop-remediation-design-v1.json",
+      "--write-receipt"
+    ],
+    "script": {
+      "path": "scripts/design_vocab_crop_remediation.py",
+      "sha256": "9b91026d8f2dd690f0432a6d5ab0fdbdbdf5f815647aec05c756f77d7b673441"
+    },
+    "tool": "scripts/design_vocab_crop_remediation.py"
+  },
+  "guardrails": {
+    "brev_used": false,
+    "browser_or_final_claims_changed": false,
+    "external_media_imported": false,
+    "final_gates_changed": false,
+    "model_exported": false,
+    "model_promoted": false,
+    "non_promotion": "This design is not training, calibration, export, browser activation, final readiness, or evidence that the M3AW recognizer generalizes.",
+    "paid_compute_used": false,
+    "pretrained_components": [],
+    "product_runtime_changed": false,
+    "pseudo_labels_generated": false
+  },
+  "input_artifacts": [
+    {
+      "path": "docs/validation/return-to-form-vocab-crop-separability-diagnosis-v1.json",
+      "sha256": "6b6f507a5285083fdc6bb7f56e0d419d8e92bc33f8fc4d061c0649c67642f793"
+    },
+    {
+      "path": "docs/session-logs/327-mission-3ay-vocab-crop-separability-diagnosis.md",
+      "sha256": "4e409f8a82be572e4386cccf27b5f5cd52d852c1beb20dddf04e580f207d4783"
+    },
+    {
+      "path": "docs/validation/return-to-form-region-grid-tcn-local-smoke-v1.json",
+      "sha256": "07497e1a9b205b671c7ea85183778aac1167cb8f8f0eb34b5126f15ca2e1467b"
+    },
+    {
+      "path": "output/m3aw-region-grid-tcn-local-smoke/validation-report.json",
+      "sha256": "4747f634acb32812ed3c3600cf84b0d32967ea48450f5218b292561b1c10e9e4"
+    },
+    {
+      "path": "output/m3aw-region-grid-tcn-local-smoke/prediction-sidecar.json",
+      "sha256": "4dfd629ea0e440574497c2488e72622b764b6beb244f83dcba3943a8bdaea12c"
+    },
+    {
+      "path": "docs/validation/return-to-form-region-grid-tcn-tiny-overfit-v1.json",
+      "sha256": "18f8ddddd98b87ac3af8050f696468a49aa89c27ab2d924d8a706345ddc974fc"
+    },
+    {
+      "path": "output/m3ax-region-grid-tcn-tiny-overfit/selected-subset.json",
+      "sha256": "12a2fb093b65993e7768a9c5706368672d4414bc61f7c10d41548a73d5ecca7f"
+    },
+    {
+      "path": "output/m3ax-region-grid-tcn-tiny-overfit/tiny-overfit-provenance.json",
+      "sha256": "36dd0d00981974c4762908c7a5cddbdf21df87bdd667fc7aaf2541fe082aa467"
+    },
+    {
+      "path": "artifacts/research/observer-324-post-m3aw-strategy-api-response.md",
+      "sha256": "d2c0c5f9ae0d26f6b59c10638d44ac90d0956d0b9717064471161cde5919f6ac"
+    },
+    {
+      "path": "data/manifests/lesson/high-signal-region-grid/train.json",
+      "sha256": "101455329ae04ad06a2c3fd4ca26a29c04ae945bb7925bee373cf3229594fc3d"
+    },
+    {
+      "path": "data/manifests/lesson/high-signal-region-grid/validation.json",
+      "sha256": "16a4a64a8fd48a1384c4cfd2e01dddcaa45fb3b1f0588af9ec66f96668cc3a53"
+    },
+    {
+      "path": "data/manifests/lesson/high-signal-region-grid/test.json",
+      "sha256": "5a315d49438242febb410287c4ff235ae8cd269a5aba5c3cf550950bae0359f8"
+    }
+  ],
+  "method": {
+    "brev_used": false,
+    "browser_or_final_claim_changed": false,
+    "description": "Loaded existing JSON/Markdown artifacts, extracted deterministic M3AY/M3AW/M3AX facts, ranked remediation lanes, and selected one no-training contract scaffold.",
+    "model_loaded_or_checkpoint_created": false,
+    "optimizer_or_backward_used": false,
+    "product_runtime_changed": false,
+    "source_imported": false,
+    "training_or_fitting_performed": false
+  },
+  "mission": "M3AZ",
+  "prior_evidence": {
+    "m3aw_receipt_status": "completed_smoke_target_failed",
+    "m3ax_receipt_status": "tiny_overfit_succeeded",
+    "m3ay_next_action": "continue_no_training_vocab_or_crop_remediation_design",
+    "m3ay_receipt_status": "completed"
+  },
+  "ranked_remediation_hypotheses": [
+    {
+      "confidence": "high",
+      "design_implication": "Before any future training, add a split/signer contract that makes the intended generalization target explicit and gates any training prompt on per-label signer/split support and held-out coverage evidence.",
+      "evidence": [
+        "train/validation signer overlap is empty",
+        "train/test signer overlap is empty",
+        "held-out prediction label coverage is 3 validation labels and 3 test labels",
+        "same-label descriptive crop-stat drift loses to another train label in 10 split-label rows"
+      ],
+      "lane": "split_signer_contract",
+      "rank": 1
+    },
+    {
+      "confidence": "medium_high",
+      "design_implication": "A crop-region contract should follow the split/signer contract or be folded into it, requiring explicit per-region quality thresholds and label-level drift checks before training.",
+      "evidence": [
+        "descriptive crop-stat drift failures: ['test:please', 'test:black', 'test:hello', 'test:uncle', 'test:sad', 'validation:table', 'validation:please', 'validation:hello', 'validation:white', 'validation:sad']",
+        "M3AX memorization succeeded with the same region-grid path, so crop-region statistics are a likely generalization surface rather than a total input-path break"
+      ],
+      "lane": "crop_region_contract",
+      "rank": 2
+    },
+    {
+      "confidence": "medium",
+      "design_implication": "The next contract should preserve these labels as hold/drop/split candidates, but choosing a narrower vocabulary without first documenting signer/split support would hide the main generalization weakness.",
+      "evidence": [
+        "labels never predicted on both held-out splits: ['please', 'sad', 'table', 'white']",
+        "validation zero-recall labels: ['black', 'please', 'sad', 'table', 'uncle', 'white']",
+        "test zero-recall labels: ['please', 'sad', 'table', 'uncle', 'white']"
+      ],
+      "lane": "vocab_subset_contract",
+      "rank": 3
+    },
+    {
+      "confidence": "medium",
+      "design_implication": "Data-quality checks are useful acceptance criteria, but this prompt should not import sources, collect data, or manually relabel clips.",
+      "evidence": [
+        "M3AY low-signal and crop-stat tables identify candidate outlier clips",
+        "Current manifests and tensors are usable for diagnostics but not enough to explain generalization by accuracy alone"
+      ],
+      "lane": "data_quality_contract",
+      "rank": 4
+    },
+    {
+      "confidence": "medium",
+      "design_implication": "Product fallback remains the honest runtime state, but the evidence still supports one bounded no-training contract scaffold before stopping recognizer remediation entirely.",
+      "evidence": [
+        "browser model remains fail-closed",
+        "M3AW held-out smoke is not promotable",
+        "M3AX tiny memorization is diagnostic only"
+      ],
+      "lane": "product_fallback_scope",
+      "rank": 5
+    }
+  ],
+  "schema_version": "asl-pilot-vocab-crop-remediation-design/v1",
+  "selected_remediation_lane": {
+    "lane": "split_signer_contract",
+    "why_not_training_now": "M3AW failed held-out metrics and M3AY shows unresolved split/crop/vocabulary drift. Training, Brev, export, or browser activation would be ungrounded until a contract defines what evidence must change.",
+    "why_selected": "Empty train-to-held-out signer overlap plus prediction collapse means the next useful no-training artifact is a split/signer contract. Crop and vocabulary decisions should be recorded inside that contract rather than launching another training attempt."
+  },
+  "status": "completed"
+}

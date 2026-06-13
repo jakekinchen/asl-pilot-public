@@ -1,0 +1,465 @@
+{
+  "active_prompt": "docs/model/return-to-form-product-interactive-integration-no-promotion-goal-loop-prompt.md",
+  "blocked_actions_requiring_human_approval": [
+    "Brev login, worker inspection, worker lifecycle changes, or paid compute",
+    "any training run, model fitting, optimizer/backward pass, checkpoint creation, or sweep",
+    "source import, source approval expansion, generated pseudo-labels, manual annotation, or data collection",
+    "manifest or tensor mutation",
+    "Detector 0 or landmark revival",
+    "ONNX export, model-card promotion, browser trained activation, final-readiness claim, or final-gate changes",
+    "positive recognition/pass/fail outcomes while model-card status is not_trained",
+    "push"
+  ],
+  "browser_qa_evidence": {
+    "practice_camera_behavior_smoke": {
+      "app_url": "http://127.0.0.1:49320",
+      "browser": {
+        "automation": "playwright",
+        "browser_name": "chromium",
+        "fake_media_device": true,
+        "permission_error_modes": [
+          "NotAllowedError",
+          "NotFoundError",
+          "unsupported mediaDevices"
+        ]
+      },
+      "history_evidence": {
+        "authenticated_history_visible": true,
+        "empty_history_visible": true,
+        "fail_closed_hint_visible": true,
+        "history_updated_visible": true
+      },
+      "passed_checks": [
+        "authenticated_practice_ui",
+        "camera_success_attempt_result_and_progress",
+        "next_prompt_action",
+        "camera_denied",
+        "camera_missing",
+        "camera_unsupported",
+        "camera_generic_error"
+      ],
+      "status": "passed"
+    },
+    "practice_progress_smoke": {
+      "metadata_attempt_fail_closed": {
+        "confidence": 1,
+        "createdAt": "2026-05-27T13:37:24.797Z",
+        "durationMs": null,
+        "frameCount": null,
+        "hint": "Automatic sign checking is not ready for this pilot yet. Your attempt was saved as practice history only.",
+        "id": "8fae957e-5aad-458d-a197-98f90b03d952",
+        "modelId": "asl-pilot-rawframe-v0",
+        "modelStatus": "not_trained",
+        "passed": false,
+        "predictedId": "hello",
+        "reason": "server fail-closed because active model card is not_trained",
+        "userId": "80517bad-50a5-41dd-90d1-13b78c9e3636",
+        "vocabularyId": "hello"
+      },
+      "passed_checks": [
+        "model_card_not_trained",
+        "unauthenticated_progress_requires_login",
+        "register_creates_session",
+        "me_returns_registered_user",
+        "initial_progress_empty",
+        "raw_payload_rejected",
+        "raw_payload_rejection_does_not_save",
+        "metadata_attempt_fail_closed",
+        "progress_updates_after_attempt",
+        "logout_blocks_progress",
+        "login_restores_persisted_progress",
+        "dataset_collection_default_disabled"
+      ],
+      "progress_after_attempt": {
+        "progress_item": {
+          "attempts": 1,
+          "fails": 1,
+          "label": "Hello",
+          "lastAttemptAt": "2026-05-27T13:37:24.797Z",
+          "passes": 0,
+          "status": "in_progress",
+          "vocabularyId": "hello"
+        },
+        "recent_attempt": {
+          "confidence": 1,
+          "createdAt": "2026-05-27T13:37:24.797Z",
+          "durationMs": null,
+          "frameCount": null,
+          "hint": "Automatic sign checking is not ready for this pilot yet. Your attempt was saved as practice history only.",
+          "id": "8fae957e-5aad-458d-a197-98f90b03d952",
+          "modelId": "asl-pilot-rawframe-v0",
+          "modelStatus": "not_trained",
+          "passed": false,
+          "predictedId": "hello",
+          "reason": "server fail-closed because active model card is not_trained",
+          "userId": "80517bad-50a5-41dd-90d1-13b78c9e3636",
+          "vocabularyId": "hello"
+        },
+        "saved_attempt_id": "8fae957e-5aad-458d-a197-98f90b03d952",
+        "status": 200
+      },
+      "raw_payload_rejected": {
+        "error_mentions_raw_camera": true,
+        "status": 400
+      },
+      "status": "passed"
+    },
+    "practice_scope_copy_smoke": {
+      "copy_boundary_evidence": {
+        "has_not_trained_copy": true,
+        "has_old_ready_overclaim": false,
+        "has_practice_ledger": true,
+        "has_prompt_catalog": true
+      },
+      "passed_checks": [
+        "auth_prompt_catalog_boundary",
+        "practice_prompt_catalog_boundary"
+      ],
+      "status": "passed"
+    }
+  },
+  "changed_files": [
+    {
+      "path": "web/src/components/PracticeApp.tsx",
+      "role": "practice runtime",
+      "sha256": "7fdf1635cacf611c06d48b46421193ec25da27eca3f96105e55c32bf540bacea"
+    },
+    {
+      "path": "web/src/app/globals.css",
+      "role": "practice runtime",
+      "sha256": "86d72b2a210a517de228620ba9a6d31ba47c1ce12d40ce031a9066e906f8e515"
+    },
+    {
+      "path": "scripts/run_practice_camera_behavior_smoke.mjs",
+      "role": "practice smoke/audit or M3BF receipt helper",
+      "sha256": "9f6d275525718c1ce0ecc3b400bda581ac5b7fc44f68c0ab0a8bb4954c653774"
+    },
+    {
+      "path": "scripts/audit_practice_camera_behavior_smoke.mjs",
+      "role": "practice smoke/audit or M3BF receipt helper",
+      "sha256": "7df28e44e8ce923c7e5f5b680100823d797ced70238c5acdcb3c1a674d1a4859"
+    },
+    {
+      "path": "scripts/audit_product_interactive_integration_no_promotion.py",
+      "role": "practice smoke/audit or M3BF receipt helper",
+      "sha256": "04719826a37d49427d58f973d593f4bd4057a350a75879343ab7b16987408b80"
+    },
+    {
+      "path": "docs/validation/practice-camera-behavior-smoke.json",
+      "role": "refreshed practice validation evidence",
+      "sha256": "14187598614fefe2fbb72ace0cce2c0e4f3771bb598ddd3defb59f3b2b46563e"
+    },
+    {
+      "path": "docs/validation/practice-progress-smoke.json",
+      "role": "refreshed practice validation evidence",
+      "sha256": "252837c853aa471f9ddefb1eefdf056c32335739ab721acc6dc170dcb7a56546"
+    },
+    {
+      "path": "docs/validation/practice-scope-copy-smoke.json",
+      "role": "refreshed practice validation evidence",
+      "sha256": "6648abc03d0e46d6042afa33f3603500c19bc33811ee4000b18a3ec1f04ea0f2"
+    }
+  ],
+  "claim_surfaces_verified_unchanged": [
+    {
+      "matches_m3be_hash": true,
+      "path": "web/public/model/model-card.json",
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a"
+    },
+    {
+      "matches_m3be_hash": true,
+      "path": "web/public/model/claim-matrix.json",
+      "sha256": "24ea5ca219b45c6307acc2ccb3f288a5b76cc5627593a35da0fc983b33bf041f"
+    },
+    {
+      "matches_m3be_hash": true,
+      "path": "docs/model/active-vocabulary-claim.json",
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546"
+    },
+    {
+      "matches_m3be_hash": true,
+      "path": "docs/validation/final-claim-matrix.json",
+      "sha256": "24ea5ca219b45c6307acc2ccb3f288a5b76cc5627593a35da0fc983b33bf041f"
+    },
+    {
+      "matches_m3be_hash": true,
+      "path": "web/public/model/browser-model-bundle.json",
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9"
+    },
+    {
+      "matches_m3be_hash": true,
+      "path": "web/public/model/detector0-card.json",
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929"
+    }
+  ],
+  "current_fail_closed_claim_values": {
+    "active_cv_claim": null,
+    "active_labels": [],
+    "active_vocabulary_model_version": "rawframe-not-trained",
+    "box_driven_avatar_enabled": false,
+    "browser_recognition_enabled": false,
+    "claim_matrix_status": "no_active_claim_rawframe_not_trained",
+    "detector0_status": "not_trained",
+    "detector0_tracking_enabled": false,
+    "model_card_status": "not_trained",
+    "model_id": "asl-pilot-rawframe-v0",
+    "public_claim_matrix_status": "no_active_claim_rawframe_not_trained"
+  },
+  "exactly_one_next_action": "continue_product_interactive_integration_no_promotion",
+  "generated_at": "2026-05-27T13:37:50.008049+00:00",
+  "generated_by": {
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "scripts/audit_product_interactive_integration_no_promotion.py",
+      "--write-receipt"
+    ],
+    "script": {
+      "path": "scripts/audit_product_interactive_integration_no_promotion.py",
+      "sha256": "04719826a37d49427d58f973d593f4bd4057a350a75879343ab7b16987408b80"
+    },
+    "tool": "scripts/audit_product_interactive_integration_no_promotion.py"
+  },
+  "guardrails": {
+    "brev_used": false,
+    "browser_or_final_claims_changed": false,
+    "external_media_imported": false,
+    "final_gates_changed": false,
+    "manifest_or_tensor_mutated": false,
+    "model_exported": false,
+    "model_promoted": false,
+    "non_promotion": "This receipt records a fail-closed practice UX improvement only. It is not training, calibration, model export, browser activation, final readiness, ASL correctness scoring, or evidence that the M3AW recognizer generalizes.",
+    "paid_compute_used": false,
+    "positive_recognition_outcome_created": false,
+    "pretrained_components": [],
+    "product_surface_count": 1,
+    "pseudo_labels_generated": false
+  },
+  "input_artifacts": [
+    {
+      "path": "docs/validation/return-to-form-product-fallback-scope-design-v1.json",
+      "sha256": "151b52422f9a7f6cea3e70f5321cc49e2677ff515b02818971276369924c5d03"
+    },
+    {
+      "path": "docs/validation/return-to-form-data-quality-contract-v1.json",
+      "sha256": "ad09d35c84075ff21926af611b7a8cf13477edd072853225d6ca21b52590e0da"
+    },
+    {
+      "path": "docs/model/return-to-form-product-interactive-integration-no-promotion-goal-loop-prompt.md",
+      "sha256": "1c47f09759d34b062dacb37e6a218483fc8c74c53a0e341e22855d543c34d30e"
+    },
+    {
+      "path": "docs/model/return-to-form-plan.md",
+      "sha256": "ab87a5e1ac8d54b5ec0c776e5de159cdf9de4d5b930687c9e837d5774b44749a"
+    },
+    {
+      "path": "GOAL.md",
+      "sha256": "806102f60cbdb42f72306e83c975d904a4efa93ff2b62fed56a4fff231f2626b"
+    },
+    {
+      "path": "docs/validation/practice-camera-behavior-smoke.json",
+      "sha256": "14187598614fefe2fbb72ace0cce2c0e4f3771bb598ddd3defb59f3b2b46563e"
+    },
+    {
+      "path": "docs/validation/practice-progress-smoke.json",
+      "sha256": "252837c853aa471f9ddefb1eefdf056c32335739ab721acc6dc170dcb7a56546"
+    },
+    {
+      "path": "docs/validation/practice-scope-copy-smoke.json",
+      "sha256": "6648abc03d0e46d6042afa33f3603500c19bc33811ee4000b18a3ec1f04ea0f2"
+    }
+  ],
+  "mission": "M3BF",
+  "privacy_and_fail_closed_proof": {
+    "active_cv_claim": null,
+    "active_labels": [],
+    "browser_recognition_enabled": false,
+    "positive_recognition_outcome_created": false,
+    "raw_camera_frames_uploaded_or_persisted": false,
+    "raw_payload_rejection_evidence": {
+      "error_mentions_raw_camera": true,
+      "status": 400
+    },
+    "saved_attempt_model_status": "not_trained",
+    "saved_attempt_passed": false
+  },
+  "runtime_ux_behavior_added_or_changed": [
+    "Practice topbar shows saved attempt count instead of Mastered while automatic checking is inactive.",
+    "Practice right rail is labeled History and explains that rows are saved practice history only while checking is inactive.",
+    "Saved prompt rows render as '<n> saved' instead of pass-style '<passes>/<attempts>' when the model card is not_trained.",
+    "Empty history copy names saved attempts and practice history without implying recognition feedback."
+  ],
+  "schema_version": "asl-pilot-product-interactive-integration-no-promotion/v1",
+  "selected_product_surface": {
+    "slice": "fail_closed_practice_history_presentation",
+    "surface": "practice",
+    "why_smallest_useful": "The existing practice runtime already saved metadata-only fail-closed attempts, but the visible ledger used pass-style progress cues while the browser model is not_trained. This slice changes only the practice history presentation so learners see saved history, not recognition scoring."
+  },
+  "status": "completed",
+  "stop_conditions_requiring_human_approval": [
+    "Stop before any Brev login, worker inspection, worker lifecycle action, or paid compute.",
+    "Stop before any training run, model fitting, optimizer/backward pass, checkpoint creation, sweep, calibration, export, browser activation, threshold promotion, or final-gate change.",
+    "Stop before any source import, source approval expansion, generated pseudo-labels, manual labels, manual data collection, manual annotation, or manifest/tensor mutation.",
+    "Stop before Detector 0, landmark, broad-label, browser model, or runtime changes that create correctness, tracking, active-vocabulary, or final-readiness claims.",
+    "Stop if further product work requires human UX/content review outside another bounded fail-closed product surface."
+  ],
+  "validation_commands": [
+    {
+      "command": [
+        "node",
+        "scripts/audit_loop_premise.mjs",
+        "--json"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/audit_return_to_form_plan.mjs",
+        "--json"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/audit_no_pretrained_deps.mjs"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/audit_no_pretrained_artifact_json.mjs"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "docs/validation/return-to-form-product-fallback-scope-design-v1.json"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/audit_final_claim_matrix.mjs"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/audit_lesson_fail_closed.mjs"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/audit_avatar_no_recognition_claims.mjs"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/audit_practice_screen_contract.mjs"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": [
+        "npm",
+        "--prefix",
+        "web",
+        "run",
+        "typecheck"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": [
+        "npm",
+        "--prefix",
+        "web",
+        "run",
+        "build"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run_practice_camera_behavior_smoke.mjs",
+        "--write"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/audit_practice_camera_behavior_smoke.mjs"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run_practice_progress_smoke.mjs",
+        "--write"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/audit_practice_progress_smoke.mjs"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run_practice_scope_copy_smoke.mjs",
+        "--write"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/audit_practice_scope_copy_smoke.mjs"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "py_compile",
+        "scripts/audit_product_interactive_integration_no_promotion.py"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "json.tool",
+        "docs/validation/return-to-form-product-interactive-integration-no-promotion-v1.json"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "status": "passed"
+    }
+  ]
+}

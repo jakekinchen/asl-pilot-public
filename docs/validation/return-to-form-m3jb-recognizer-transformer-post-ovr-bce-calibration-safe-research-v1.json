@@ -1,0 +1,151 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-post-ovr-bce-calibration-safe-research/v1",
+  "status": "completed_post_ovr_bce_calibration_safe_research_no_brev_no_training",
+  "slice": "m3jb_recognizer_transformer_post_ovr_bce_calibration_safe_research_no_brev",
+  "recorded_at": "2026-06-04T09:31:51Z",
+  "inputs": {
+    "run6_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run6-verifselect-brev-v1.json",
+    "run7_ovr_bce_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run7-ovr-bce-hardneg-brev-v1.json",
+    "run8_ovr_bce_w001_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run8-ovr-bce-w001-brev-v1.json",
+    "run8_ovr_bce_w001_research_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run8-ovr-bce-w001-research-tuning-v1.json",
+    "three_run_calibration_tail_audit_summary": "docs/validation/return-to-form-m3jb-recognizer-transformer-run6-run7-run8-calibration-tail-audit-v1.json",
+    "three_run_calibration_tail_audit_detailed": "docs/validation/m3jb-recognizer-run6-run7-run8-calibration-tail-audit-v1.json",
+    "three_run_calibration_tail_audit_detailed_sha256": "159cd2b84aa8bb8abb7bb99c22b82499374bb1cedbe05addc3180a526200e9d1"
+  },
+  "research_escalation": {
+    "gpt_pro_web_attempt": {
+      "attempted": true,
+      "status": "blocked_no_browser_control_iab_tool_exposed",
+      "details": "tool_search was queried for Browser/iab ChatGPT Pro control, but the exposed callable tools did not include an in-app Browser/iab route for ChatGPT.com Pro in this session."
+    },
+    "fallback": {
+      "used": true,
+      "route": "openai-api-research",
+      "model_requested": "gpt-5.5",
+      "calls": [
+        {
+          "response_id": "resp_0701b4689f25eb29006a214576dcac8197b1f838ad45dbf2b5",
+          "status": "completed",
+          "model_returned": "gpt-5.5-2026-04-23",
+          "request_reasoning_effort": "medium",
+          "input_tokens": 2314,
+          "output_tokens": 3598,
+          "reasoning_tokens": 2031,
+          "total_tokens": 5912
+        }
+      ],
+      "artifacts": {
+        "directory": "artifacts/research/m3jb-recognizer-transformer-post-ovr-bce-calibration-safe-950",
+        "prompt_md": "artifacts/research/m3jb-recognizer-transformer-post-ovr-bce-calibration-safe-950/prompt.md",
+        "request_json": "artifacts/research/m3jb-recognizer-transformer-post-ovr-bce-calibration-safe-950/request.json",
+        "raw_json": "artifacts/research/m3jb-recognizer-transformer-post-ovr-bce-calibration-safe-950/raw.json",
+        "response_md": "artifacts/research/m3jb-recognizer-transformer-post-ovr-bce-calibration-safe-950/response.md"
+      },
+      "artifacts_sha256": {
+        "prompt_md": "f36ecc5767a5d23893964324c9635130ad43642d5f5bfd491637290147b6aee3",
+        "request_json": "221e491529c8b8bf31b51a73a7e70fb5c0800794ef55894d9863d05224ac235a",
+        "raw_json": "eef45184601ccc547efa14d4d10809469fc4e619da9f3cd6eb2e1dbf82e4f113",
+        "response_md": "cd9dd1b59ff985a25aa8519e4be4f206f9dfec8317d42d59a1afe280ad5d5c6a"
+      }
+    },
+    "advisory_not_authority": true
+  },
+  "research_conclusion": {
+    "diagnosis": [
+      "The immediate failure mode is monitor-to-held-out transfer, not simply insufficient objective pressure.",
+      "Run7 and run8 looked strong on monitor verification but transferred worse than run6 on held-out verification.",
+      "Before another objective, capacity change, or score transform, the smallest useful next slice is to audit whether a monitor-only robust checkpoint-selection rule from the run6 base could reduce monitor overfit.",
+      "If existing artifacts cannot evaluate more than the already selected run6 checkpoint, the next slice should report that insufficiency rather than infer a paid recipe."
+    ],
+    "selected_next_action": "m3jb_recognizer_transformer_run6_monitor_selection_stability_preflight_no_brev",
+    "selected_no_brev_preflight": {
+      "summary": "Run a local CPU/no-training run6 monitor/checkpoint-selection stability preflight using existing run6 receipts/logs/artifacts only.",
+      "candidate_rules": [
+        "current max monitor verification recall selector",
+        "earliest epoch within epsilon of max monitor verification recall",
+        "5-epoch smoothed or median monitor selector if per-epoch monitor history is available",
+        "class-bootstrap lower-confidence-bound selector on monitor verification recall if per-class monitor recalls are available",
+        "nearby-epoch stability selector if intermediate run6 artifacts exist"
+      ],
+      "required_outputs": [
+        "artifact sufficiency inventory for run6 logs, per-epoch metrics, and any available checkpoint/logit artifacts",
+        "reproduction of current run6 held-out verification recall@FAR10 0.8038559556786704 within tolerance",
+        "pre-registered monitor-only selector table",
+        "held-out test metrics reported only after selector definitions are fixed",
+        "per-class recall and positive-margin regression comparison versus current run6"
+      ],
+      "pass_criteria": [
+        "No Brev lifecycle command is run.",
+        "No optimizer step or backward pass occurs.",
+        "No checkpoint, model export, or browser/runtime artifact is written or promoted.",
+        "No raw learner video is uploaded.",
+        "No pretrained runtime dependency is introduced.",
+        "No final gate is changed.",
+        "No raw test-mined pairs are used as training supervision.",
+        "Local replay reproduces run6 held-out verification recall@FAR10 0.8038559556786704 within established tolerance.",
+        "Every candidate selector is defined using monitor data only before held-out test reporting.",
+        "A pre-registered robust selector improves held-out verification recall@FAR10 by at least 0.005 absolute over current run6, or the slice records fail-closed with no paid recipe.",
+        "The selected rule does not create broad run7/run8-like class damage: fewer than 15 classes regress by more than 0.05 recall and no dominant positive-margin damage signature.",
+        "Top-5 does not drop more than about 0.02 absolute versus run6 unless verification gain is larger and class damage remains limited."
+      ],
+      "fail_criteria": [
+        "Required run6 artifacts are insufficient to evaluate more than the already-selected checkpoint.",
+        "Local replay cannot reproduce run6 metrics within tolerance.",
+        "Robust monitor-only selectors do not improve held-out verification recall.",
+        "Any apparent improvement depends on using held-out test results to choose the selector.",
+        "The selector creates broad per-class recall or positive-margin regressions.",
+        "The slice attempts training, optimizer/backward steps, checkpoint writing, export, browser promotion, Brev lifecycle, or raw test-mined supervision."
+      ]
+    },
+    "why_other_preflights_lower_priority": [
+      "Post-hoc score transforms are lower priority because the audit shows positive-margin/ranking damage rather than a simple threshold-calibration issue; flexible transforms risk monitor overfit.",
+      "Class or teacher coverage audits remain useful later for repeated weak words, but they do not directly address the demonstrated monitor-to-test selection failure.",
+      "Objective-simulation audits for positive margins are directionally relevant, but choosing another objective before validating selection stability risks repeating run7/run8.",
+      "T=40/cache/capacity is lower priority because run8 improved top-1 while hurting verification, so more classification capacity could again miss the primary metric."
+    ],
+    "future_paid_recipe": {
+      "recommendation": "no_paid_recipe_yet",
+      "reason": "The local preflight has not yet proven a safer checkpoint-selection rule or future objective; launching a paid recipe now risks repeating monitor-overfit.",
+      "only_after_preflight_passes": "A future run6-like objective/envelope with improved monitor/checkpoint-selection discipline may become reasonable only after the local preflight passes, Brev auth is recovered, and a future receipt records the exact bounded compute envelope."
+    },
+    "brev_auth_prerequisite": {
+      "required_before_future_lifecycle_or_compute": true,
+      "minimum_command": "brev ls --json",
+      "reason": "Run8 teardown lost Brev CLI API visibility; future compute must first recover auth and verify worker state."
+    }
+  },
+  "boundaries": {
+    "brev_used": false,
+    "brev_lifecycle_or_exec": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "runtime_export": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "future_paid_recipe_selected": false,
+    "push": false
+  },
+  "validations": [
+    {
+      "command": "test -f /Users/kelly/.codex/secrets/openai-api.env && grep -q '^OPENAI_API_KEY=sk-' /Users/kelly/.codex/secrets/openai-api.env",
+      "status": "passed"
+    },
+    {
+      "command": "OpenAI Responses API request using artifacts/research/m3jb-recognizer-transformer-post-ovr-bce-calibration-safe-950/request.json",
+      "status": "completed"
+    },
+    {
+      "command": "shasum -a 256 artifacts/research/m3jb-recognizer-transformer-post-ovr-bce-calibration-safe-950/{prompt.md,request.json,raw.json,response.md}",
+      "status": "passed"
+    }
+  ],
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_run6_monitor_selection_stability_preflight_no_brev",
+    "requires_brev_spend": false,
+    "summary": "Use existing run6 artifacts only to test monitor-only robust checkpoint-selection rules before any paid run or new objective is selected."
+  }
+}

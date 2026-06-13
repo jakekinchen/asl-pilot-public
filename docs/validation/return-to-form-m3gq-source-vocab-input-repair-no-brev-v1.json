@@ -1,0 +1,1112 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3gq-source-vocab-input-repair-no-brev/v1",
+  "mission": "Mission 3GQ - source/vocabulary/input repair no Brev",
+  "status": "completed_local_no_remote_no_brev_reduced_existing_vocab_contract",
+  "generated_at": "2026-05-29T10:45:44Z",
+  "current_commit_before_slice_commit": "44d3cde supervisor: unpark m3gq source vocab input repair",
+  "active_prompt": "docs/model/return-to-form-m3gq-source-vocab-input-repair-no-brev-goal-loop-prompt.md",
+  "architecture_anchors": [
+    "ARCHITECTURE.md#arch-no-pretrained",
+    "ARCHITECTURE.md#arch-camera-privacy",
+    "ARCHITECTURE.md#arch-data-provenance",
+    "ARCHITECTURE.md#arch-gpu-execution"
+  ],
+  "commands_run": {
+    "freshness_and_source_of_truth": [
+      "git log -1 --oneline",
+      "git status --short",
+      "sed -n 1,220p GOAL.md",
+      "sed -n 1,260p docs/model/return-to-form-m3gq-source-vocab-input-repair-no-brev-goal-loop-prompt.md",
+      "sed -n 1,260p docs/runbooks/codex-goal-loop.md",
+      "sed -n 1,260p docs/runbooks/observer-runbook-codex.md",
+      "sed -n 1,260p .agents/skills/asl-pilot-codex-pair/SKILL.md",
+      "sed -n 1,260p .agents/skills/asl-pilot-ml-receipt/SKILL.md",
+      "sed -n 1,220p AGENTS.md",
+      "sed/rg reads of CLAUDE.md, data/CLAUDE.md, docs/CLAUDE.md, ARCHITECTURE.md, MVP_TASKS.md, data/LESSONS.md, docs/LESSONS.md, and docs/briefs/*"
+    ],
+    "required_baseline_checks": [
+      "git status --short --branch",
+      "git log -12 --oneline --decorate",
+      "node scripts/audit_loop_premise.mjs --json",
+      "node scripts/audit_return_to_form_plan.mjs --json",
+      "node scripts/audit_source_register.mjs",
+      "node scripts/audit_no_pretrained_deps.mjs",
+      "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "python3 -m json.tool docs/validation/return-to-form-m3gp-human-strategy-packet-no-brev-v1.json >/dev/null",
+      "python3 -m json.tool docs/validation/return-to-form-m3go-read-only-contract-gap-inventory-no-brev-v1.json >/dev/null",
+      "python3 -m json.tool docs/validation/return-to-form-m3gn-dataset-vocab-model-input-contract-no-brev-v1.json >/dev/null",
+      "python3 -m json.tool docs/model/dataset-source-register.json >/dev/null",
+      "python3 -m json.tool data/manifests/lesson/high-signal-region-grid/{train,validation,test}.json >/dev/null",
+      "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "python3 -m json.tool web/public/model/detector0-card.json web/public/model/claim-matrix.json docs/validation/final-claim-matrix.json >/dev/null",
+      "brev ls --json",
+      "git diff --check"
+    ],
+    "evidence_extraction": [
+      "jq reads of high-signal region-grid manifest samples and source-register entry",
+      "jq reads of M3GJ/M3GL sidecar/report metrics and M3GM per-label/example patterns",
+      "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=scripts .venv/bin/python heredoc importing train_rawframe_model to inspect sampled tensor payload keys and shapes",
+      "node heredoc summarizing label/signer counts, source/license status, tensor file/hash coverage, and per-label M3GJ/M3GL failure patterns"
+    ],
+    "repair_commands": [
+      "node heredoc generated data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/{train,validation,test}.json from existing approved local parent manifests only"
+    ],
+    "repair_validation": [
+      "python3 -m json.tool data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/{train,validation,test}.json >/dev/null",
+      "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json --output-dir output/m3gq-reduced4-contract-dry-run --model-id asl-pilot-m3gq-reduced4-contract-v1 --architecture true_temporal_convnet_region_grid --check-files --dry-run --allow-small-label-set --require-input-contract rgb_regions_grid_v1 --frame-count 16 --image-size 96 --num-workers 0",
+      "find output -maxdepth 1 -type d -name m3gq-reduced4-contract-dry-run -print"
+    ],
+    "corrected_read_only_probe_errors": [
+      {
+        "command_class": "jq sidecar sample probe",
+        "result": "failed before edits because the sidecar root is an object with validation/test examples, not an array",
+        "correction": "reran with .validation.examples[0] and .test.examples[0]",
+        "files_changed": []
+      },
+      {
+        "command_class": "python tensor payload probe",
+        "result": "initial import failed because PYTHONPATH did not include scripts",
+        "correction": "reran with PYTHONPATH=scripts and PYTHONDONTWRITEBYTECODE=1",
+        "files_changed": []
+      }
+    ]
+  },
+  "command_results_summary": {
+    "git_status_short_branch": "## compound-plan-m0...origin/compound-plan-m0 [ahead 315] at baseline",
+    "audit_loop_premise": "passed",
+    "audit_return_to_form_plan": "passed",
+    "audit_source_register": "passed; sha256 b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8; source_count 12",
+    "audit_no_pretrained_deps": "passed",
+    "audit_no_pretrained_artifact_json": "passed with no findings",
+    "required_json_validation": "passed",
+    "git_diff_check_before_edits": "passed",
+    "pair_state_audit": "warning only: recorded executor session older than HEAD after supervisor unpark; no dirty files and active prompt correct",
+    "reduced_manifest_json_validation": "passed",
+    "reduced_manifest_dry_run_check_files": {
+      "status": "passed_dry_run_only",
+      "total_clip_count": 79,
+      "observed_input_contract_counts": {
+        "rgb_regions_grid_v1": 79
+      },
+      "output_dir_created": false
+    }
+  },
+  "read_only_brev_default_off_state": {
+    "command": "brev ls --json",
+    "lifecycle_remote_or_spend_commands_run": [],
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ],
+    "default_off_preserved": true
+  },
+  "source_and_license_status_consulted": {
+    "source_id": "asl-citizen-school-assignment-raw-videos",
+    "display_name": "ASL Citizen raw videos - noncommercial school assignment",
+    "source_kind": "public_reference_dataset",
+    "allowed_for_model_training": true,
+    "allowed_for_validation": true,
+    "allowed_for_pilot_submission": true,
+    "license_review_status": "approved_noncommercial_school_assignment_raw_video_only",
+    "decision_id": "approved_asl_citizen_school_assignment_raw_videos_2026_05_21",
+    "restrictions": [
+      "approval is limited to this noncommercial school assignment",
+      "use only official ASL Citizen raw RGB videos",
+      "raw videos, modified videos, extracted frames, and local mirrors may not be redistributed",
+      "pretrained baselines, pose outputs, landmarks, feature caches, and derived CV artifacts are disallowed",
+      "personal-data-bearing local files must remain confidential and be destroyed when school research use is complete unless a fresh review authorizes retention"
+    ],
+    "source_evidence": [
+      {
+        "evidence_type": "license_terms",
+        "url": "https://www.microsoft.com/en-us/research/project/asl-citizen/dataset-license/",
+        "checked_at": "2026-05-21T16:55:00.000Z",
+        "summary": "Microsoft Research license limits use to noncommercial, non-revenue-generating research and bars distribution of data or modifications.",
+        "supports_decision": true
+      },
+      {
+        "evidence_type": "approved_academic_source_review",
+        "path": "docs/research/asl-citizen-academic-source-review.md",
+        "sha256": "f8295c8f498cc5ed3925b833ec51aa7799c4365118f69f0a57993ea27a538d94",
+        "checked_at": "2026-05-21T16:55:00.000Z",
+        "summary": "Review approves ASL Citizen only for local noncommercial school-assignment raw-RGB training and validation.",
+        "supports_decision": true
+      }
+    ]
+  },
+  "current_7_label_evidence_table": {
+    "parent_contract": {
+      "dataset": "ASL Citizen raw videos - noncommercial school assignment",
+      "source_id": "asl-citizen-school-assignment-raw-videos",
+      "input_contract": "rgb_regions_grid_v1",
+      "tensor_shape": [
+        16,
+        5,
+        96,
+        96,
+        3
+      ],
+      "region_order": [
+        "viewer_left_hand_context",
+        "viewer_right_hand_context",
+        "upper_body_signing_space",
+        "head_context",
+        "full_frame_reference"
+      ],
+      "labels": [
+        "black",
+        "hello",
+        "please",
+        "sad",
+        "table",
+        "uncle",
+        "white"
+      ],
+      "splits": {
+        "train": {
+          "path": "data/manifests/lesson/high-signal-region-grid/train.json",
+          "sha256": "101455329ae04ad06a2c3fd4ca26a29c04ae945bb7925bee373cf3229594fc3d",
+          "clip_count": 84,
+          "label_counts": {
+            "white": 12,
+            "sad": 12,
+            "black": 12,
+            "uncle": 12,
+            "hello": 12,
+            "please": 12,
+            "table": 12
+          },
+          "signer_count": 19,
+          "source_ids": {
+            "asl-citizen-school-assignment-raw-videos": 84
+          },
+          "source_license_review_statuses": {
+            "approved_noncommercial_school_assignment_raw_video_only": 84
+          },
+          "tensor_coverage": {
+            "present": 84,
+            "hash_matches": 84,
+            "total": 84,
+            "examples": [
+              {
+                "clip_id": "asl-citizen-train-white-10848457531453715-white",
+                "label_id": "white",
+                "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/train/asl-citizen-train-white-10848457531453715-white-regions.pt",
+                "expected_sha256": "c9ebbad3541142bf7a2ff8566e61610806cfe7f47417ba230b16a0754272cf4f",
+                "file_exists": true,
+                "hash_matches_manifest": true,
+                "provenance_tensor_digest": {
+                  "dtype": "uint8",
+                  "layout": "T,R,H,W,C",
+                  "sha256": "b9e6aa702c317434ca1df9fc78dd057a39c3ba7cd567ba08f5b3a6fabf1418ec",
+                  "shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ]
+                }
+              },
+              {
+                "clip_id": "asl-citizen-train-white-9377005568553618-white",
+                "label_id": "white",
+                "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/train/asl-citizen-train-white-9377005568553618-white-regions.pt",
+                "expected_sha256": "7487493bb56245b0bbffdcfbce27b9efee5b422f0409468d65402b91b642f369",
+                "file_exists": true,
+                "hash_matches_manifest": true,
+                "provenance_tensor_digest": {
+                  "dtype": "uint8",
+                  "layout": "T,R,H,W,C",
+                  "sha256": "9a4a5184c522d53e01e4c8137a4c76a0daaa4479897694c164546a7aa11a3e07",
+                  "shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "validation": {
+          "path": "data/manifests/lesson/high-signal-region-grid/validation.json",
+          "sha256": "16a4a64a8fd48a1384c4cfd2e01dddcaa45fb3b1f0588af9ec66f96668cc3a53",
+          "clip_count": 27,
+          "label_counts": {
+            "white": 4,
+            "sad": 4,
+            "black": 4,
+            "uncle": 3,
+            "hello": 4,
+            "please": 4,
+            "table": 4
+          },
+          "signer_count": 5,
+          "source_ids": {
+            "asl-citizen-school-assignment-raw-videos": 27
+          },
+          "source_license_review_statuses": {
+            "approved_noncommercial_school_assignment_raw_video_only": 27
+          },
+          "tensor_coverage": {
+            "present": 27,
+            "hash_matches": 27,
+            "total": 27,
+            "examples": [
+              {
+                "clip_id": "asl-citizen-validation-white-21947947473280904-white",
+                "label_id": "white",
+                "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/validation/asl-citizen-validation-white-21947947473280904-white-regions.pt",
+                "expected_sha256": "9a0c59c769f0eee0544242774647eb8cb6ba9c9cc6c8e5e8da0f0c8d0754b0ed",
+                "file_exists": true,
+                "hash_matches_manifest": true,
+                "provenance_tensor_digest": {
+                  "dtype": "uint8",
+                  "layout": "T,R,H,W,C",
+                  "sha256": "7e314c0f01bfc95186cd2f3da4cd17e143555794d3611a9fd25f7f68225650d9",
+                  "shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ]
+                }
+              },
+              {
+                "clip_id": "asl-citizen-validation-white-5748285380978266-white",
+                "label_id": "white",
+                "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/validation/asl-citizen-validation-white-5748285380978266-white-regions.pt",
+                "expected_sha256": "74f6347e740aec46bae43dec8b4009c0eb171597e0673158bd815b5f4b1fa0ee",
+                "file_exists": true,
+                "hash_matches_manifest": true,
+                "provenance_tensor_digest": {
+                  "dtype": "uint8",
+                  "layout": "T,R,H,W,C",
+                  "sha256": "65bd5b468c059053d2bc304fcea60be984ebbb7780e74930b8253905b5928c1c",
+                  "shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "test": {
+          "path": "data/manifests/lesson/high-signal-region-grid/test.json",
+          "sha256": "5a315d49438242febb410287c4ff235ae8cd269a5aba5c3cf550950bae0359f8",
+          "clip_count": 28,
+          "label_counts": {
+            "white": 4,
+            "sad": 4,
+            "black": 4,
+            "uncle": 4,
+            "hello": 4,
+            "please": 4,
+            "table": 4
+          },
+          "signer_count": 7,
+          "source_ids": {
+            "asl-citizen-school-assignment-raw-videos": 28
+          },
+          "source_license_review_statuses": {
+            "approved_noncommercial_school_assignment_raw_video_only": 28
+          },
+          "tensor_coverage": {
+            "present": 28,
+            "hash_matches": 28,
+            "total": 28,
+            "examples": [
+              {
+                "clip_id": "asl-citizen-test-white-23222004944717023-white",
+                "label_id": "white",
+                "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/test/asl-citizen-test-white-23222004944717023-white-regions.pt",
+                "expected_sha256": "357741ed44047bca329aacb7844679038843673b8d65b5c0b222da70deb83176",
+                "file_exists": true,
+                "hash_matches_manifest": true,
+                "provenance_tensor_digest": {
+                  "dtype": "uint8",
+                  "layout": "T,R,H,W,C",
+                  "sha256": "761721bba5e753ba251ac75b43623c2be188616a9ac3e0215b488a4c052ee4d7",
+                  "shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ]
+                }
+              },
+              {
+                "clip_id": "asl-citizen-test-white-013205075687238388-white",
+                "label_id": "white",
+                "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/test/asl-citizen-test-white-013205075687238388-white-regions.pt",
+                "expected_sha256": "ca41fc321bf5a79db61db95248c466073668cd8ff74b567f5258c78602738014",
+                "file_exists": true,
+                "hash_matches_manifest": true,
+                "provenance_tensor_digest": {
+                  "dtype": "uint8",
+                  "layout": "T,R,H,W,C",
+                  "sha256": "2384fa871bb8fe1051916f7ca38658192402a35469bdce8cf65b6c3968829fcd",
+                  "shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "sampled_input_payload_keys_and_shapes": {
+      "source": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=scripts .venv/bin/python tensor probe plus dry-run input contract report",
+      "payload_type": "dict",
+      "payload_keys": [
+        "crop_config",
+        "region_axis",
+        "region_ids",
+        "rgb_frames",
+        "rgb_frames_region_id",
+        "rgb_regions",
+        "schema_version"
+      ],
+      "rgb_regions_shape": [
+        16,
+        5,
+        96,
+        96,
+        3
+      ],
+      "rgb_frames_shape": [
+        16,
+        96,
+        96,
+        3
+      ],
+      "prepared_region_axis_shape_from_direct_tensor_probe": [
+        16,
+        5,
+        3,
+        96,
+        96
+      ],
+      "dry_run_observed_contract_counts": {
+        "rgb_regions_grid_v1": 79
+      },
+      "note": "The dry-run validates source/hash/input-contract for the reduced candidate. The next preflight should still use a region-axis-preserving local route before any fitting command."
+    },
+    "crop_region_metadata_available": {
+      "crop_config_path": "docs/model/return-to-form-fixed-crop-config.json",
+      "crop_config_sha256": "dbc735dad34fa9df1174a40374037976f9c88d789012634b2b22743ae0802b29",
+      "region_ids": [
+        "viewer_left_hand_context",
+        "viewer_right_hand_context",
+        "upper_body_signing_space",
+        "head_context",
+        "full_frame_reference"
+      ],
+      "available_without_new_source_import": true,
+      "absent_without_forbidden_work": [
+        "per-row visibility score",
+        "occlusion/blur/lighting/hand-contact labels",
+        "new crop thumbnails",
+        "new tensor statistics generated from raw video"
+      ]
+    },
+    "per_label_failure_pattern_from_m3gj_m3gl": {
+      "black": {
+        "average_f1_across_m3gj_m3gl_validation_test": 0.0625,
+        "min_f1": 0,
+        "nonzero_f1_split_count": 1,
+        "rows": [
+          {
+            "run": "m3gj_current_m3gb_seed20260519",
+            "split": "validation",
+            "f1": 0,
+            "recall": 0,
+            "precision": 0,
+            "support": 4
+          },
+          {
+            "run": "m3gj_current_m3gb_seed20260519",
+            "split": "test",
+            "f1": 0,
+            "recall": 0,
+            "precision": 0,
+            "support": 4
+          },
+          {
+            "run": "m3gl_seed20260530",
+            "split": "validation",
+            "f1": 0.25,
+            "recall": 0.25,
+            "precision": 0.25,
+            "support": 4
+          },
+          {
+            "run": "m3gl_seed20260530",
+            "split": "test",
+            "f1": 0,
+            "recall": 0,
+            "precision": 0,
+            "support": 4
+          }
+        ]
+      },
+      "hello": {
+        "average_f1_across_m3gj_m3gl_validation_test": 0.17045454545454547,
+        "min_f1": 0,
+        "nonzero_f1_split_count": 3,
+        "rows": [
+          {
+            "run": "m3gj_current_m3gb_seed20260519",
+            "split": "validation",
+            "f1": 0.18181818181818182,
+            "recall": 0.25,
+            "precision": 0.14285714285714285,
+            "support": 4
+          },
+          {
+            "run": "m3gj_current_m3gb_seed20260519",
+            "split": "test",
+            "f1": 0.25,
+            "recall": 0.25,
+            "precision": 0.25,
+            "support": 4
+          },
+          {
+            "run": "m3gl_seed20260530",
+            "split": "validation",
+            "f1": 0.25,
+            "recall": 0.25,
+            "precision": 0.25,
+            "support": 4
+          },
+          {
+            "run": "m3gl_seed20260530",
+            "split": "test",
+            "f1": 0,
+            "recall": 0,
+            "precision": 0,
+            "support": 4
+          }
+        ]
+      },
+      "please": {
+        "average_f1_across_m3gj_m3gl_validation_test": 0.14285714285714288,
+        "min_f1": 0,
+        "nonzero_f1_split_count": 1,
+        "rows": [
+          {
+            "run": "m3gj_current_m3gb_seed20260519",
+            "split": "validation",
+            "f1": 0.5714285714285715,
+            "recall": 0.5,
+            "precision": 0.6666666666666666,
+            "support": 4
+          },
+          {
+            "run": "m3gj_current_m3gb_seed20260519",
+            "split": "test",
+            "f1": 0,
+            "recall": 0,
+            "precision": 0,
+            "support": 4
+          },
+          {
+            "run": "m3gl_seed20260530",
+            "split": "validation",
+            "f1": 0,
+            "recall": 0,
+            "precision": 0,
+            "support": 4
+          },
+          {
+            "run": "m3gl_seed20260530",
+            "split": "test",
+            "f1": 0,
+            "recall": 0,
+            "precision": 0,
+            "support": 4
+          }
+        ]
+      },
+      "sad": {
+        "average_f1_across_m3gj_m3gl_validation_test": 0.27777777777777773,
+        "min_f1": 0,
+        "nonzero_f1_split_count": 2,
+        "rows": [
+          {
+            "run": "m3gj_current_m3gb_seed20260519",
+            "split": "validation",
+            "f1": 0.6666666666666665,
+            "recall": 0.75,
+            "precision": 0.6,
+            "support": 4
+          },
+          {
+            "run": "m3gj_current_m3gb_seed20260519",
+            "split": "test",
+            "f1": 0.4444444444444445,
+            "recall": 1,
+            "precision": 0.2857142857142857,
+            "support": 4
+          },
+          {
+            "run": "m3gl_seed20260530",
+            "split": "validation",
+            "f1": 0,
+            "recall": 0,
+            "precision": 0,
+            "support": 4
+          },
+          {
+            "run": "m3gl_seed20260530",
+            "split": "test",
+            "f1": 0,
+            "recall": 0,
+            "precision": 0,
+            "support": 4
+          }
+        ]
+      },
+      "table": {
+        "average_f1_across_m3gj_m3gl_validation_test": 0.126984126984127,
+        "min_f1": 0,
+        "nonzero_f1_split_count": 2,
+        "rows": [
+          {
+            "run": "m3gj_current_m3gb_seed20260519",
+            "split": "validation",
+            "f1": 0,
+            "recall": 0,
+            "precision": 0,
+            "support": 4
+          },
+          {
+            "run": "m3gj_current_m3gb_seed20260519",
+            "split": "test",
+            "f1": 0,
+            "recall": 0,
+            "precision": 0,
+            "support": 4
+          },
+          {
+            "run": "m3gl_seed20260530",
+            "split": "validation",
+            "f1": 0.28571428571428575,
+            "recall": 0.5,
+            "precision": 0.2,
+            "support": 4
+          },
+          {
+            "run": "m3gl_seed20260530",
+            "split": "test",
+            "f1": 0.22222222222222224,
+            "recall": 0.5,
+            "precision": 0.14285714285714285,
+            "support": 4
+          }
+        ]
+      },
+      "uncle": {
+        "average_f1_across_m3gj_m3gl_validation_test": 0.44761904761904764,
+        "min_f1": 0.2,
+        "nonzero_f1_split_count": 4,
+        "rows": [
+          {
+            "run": "m3gj_current_m3gb_seed20260519",
+            "split": "validation",
+            "f1": 0.3333333333333333,
+            "recall": 0.6666666666666666,
+            "precision": 0.2222222222222222,
+            "support": 3
+          },
+          {
+            "run": "m3gj_current_m3gb_seed20260519",
+            "split": "test",
+            "f1": 0.4,
+            "recall": 0.5,
+            "precision": 0.3333333333333333,
+            "support": 4
+          },
+          {
+            "run": "m3gl_seed20260530",
+            "split": "validation",
+            "f1": 0.8571428571428571,
+            "recall": 1,
+            "precision": 0.75,
+            "support": 3
+          },
+          {
+            "run": "m3gl_seed20260530",
+            "split": "test",
+            "f1": 0.2,
+            "recall": 0.25,
+            "precision": 0.16666666666666666,
+            "support": 4
+          }
+        ]
+      },
+      "white": {
+        "average_f1_across_m3gj_m3gl_validation_test": 0.2698412698412699,
+        "min_f1": 0,
+        "nonzero_f1_split_count": 3,
+        "rows": [
+          {
+            "run": "m3gj_current_m3gb_seed20260519",
+            "split": "validation",
+            "f1": 0.5714285714285715,
+            "recall": 0.5,
+            "precision": 0.6666666666666666,
+            "support": 4
+          },
+          {
+            "run": "m3gj_current_m3gb_seed20260519",
+            "split": "test",
+            "f1": 0,
+            "recall": 0,
+            "precision": 0,
+            "support": 4
+          },
+          {
+            "run": "m3gl_seed20260530",
+            "split": "validation",
+            "f1": 0.28571428571428575,
+            "recall": 0.25,
+            "precision": 0.3333333333333333,
+            "support": 4
+          },
+          {
+            "run": "m3gl_seed20260530",
+            "split": "test",
+            "f1": 0.22222222222222224,
+            "recall": 0.25,
+            "precision": 0.2,
+            "support": 4
+          }
+        ]
+      }
+    },
+    "m3gm_instability_summary": {
+      "validation_rows_joined": 27,
+      "validation_changed_prediction_or_correctness_count": 18,
+      "test_rows_joined": 28,
+      "test_changed_prediction_or_correctness_count": 22,
+      "interpretation": "The same validation/test clips produce substantially different predictions between the two seeds, which points to unstable class-boundary learning under the current dataset/vocabulary/input contract rather than a single deterministic evaluator-accounting issue."
+    },
+    "metric_comparison_table": [
+      {
+        "run": "M3GB original training with current M3GJ regenerated evaluator output",
+        "seed": 20260519,
+        "architecture": "true_temporal_convnet_region_grid",
+        "input_contract": "rgb_regions_grid_v1",
+        "selected_epoch": 5,
+        "selected_epoch_train_accuracy": 0.34523809523809523,
+        "selected_epoch_validation_accuracy": 0.37037037037037035,
+        "last_epoch_train_accuracy": 0.4642857142857143,
+        "last_epoch_validation_accuracy": 0.25925925925925924,
+        "validation_top1": 0.37037037037037035,
+        "validation_macro_f1": 0.3320964749536178,
+        "test_top1": 0.25,
+        "test_macro_f1": 0.15634920634920638,
+        "selected_threshold": 0.49,
+        "validation_selected_false_pass_rate": 0.037037037037037035,
+        "validation_selected_coverage": 0.1111111111111111,
+        "test_false_pass_rate": 0,
+        "negative_challenge": null,
+        "failed_gates": [
+          "top1_accuracy",
+          "macro_f1",
+          "negative_challenge_false_pass_rate"
+        ],
+        "classification": "diagnostic_only_failed_gates"
+      },
+      {
+        "run": "M3GJ regenerated v2 sidecar/report",
+        "seed": 20260519,
+        "architecture": "true_temporal_convnet_region_grid",
+        "input_contract": "rgb_regions_grid_v1",
+        "selected_epoch": 5,
+        "validation_top1": 0.37037037037037035,
+        "validation_macro_f1": 0.3320964749536178,
+        "test_top1": 0.25,
+        "test_macro_f1": 0.15634920634920638,
+        "selected_threshold": 0.49,
+        "validation_selected_false_pass_rate": 0.037037037037037035,
+        "validation_selected_coverage": 0.1111111111111111,
+        "test_false_pass_rate": 0,
+        "negative_challenge": null,
+        "failed_gates": [
+          "top1_accuracy",
+          "macro_f1",
+          "negative_challenge_false_pass_rate"
+        ],
+        "classification": "same_metric_failure_with_better_sidecar_contract"
+      },
+      {
+        "run": "M3GL independent-seed Brev completion route",
+        "seed": 20260530,
+        "architecture": "true_temporal_convnet_region_grid",
+        "input_contract": "rgb_regions_grid_v1",
+        "selected_epoch": 10,
+        "selected_epoch_train_accuracy": 0.35714285714285715,
+        "selected_epoch_validation_accuracy": 0.2962962962962963,
+        "last_epoch_train_accuracy": 0.3333333333333333,
+        "last_epoch_validation_accuracy": 0.2222222222222222,
+        "validation_top1": 0.2962962962962963,
+        "validation_macro_f1": 0.2755102040816327,
+        "test_top1": 0.14285714285714285,
+        "test_macro_f1": 0.09206349206349207,
+        "selected_threshold": 0.47,
+        "validation_selected_false_pass_rate": 0.037037037037037035,
+        "validation_selected_coverage": 0.1111111111111111,
+        "test_false_pass_rate": 0.07142857142857142,
+        "negative_challenge": null,
+        "failed_gates": [
+          "top1_accuracy",
+          "macro_f1",
+          "negative_challenge_false_pass_rate"
+        ],
+        "classification": "regression_against_m3gb_m3gj_and_failed_gates"
+      }
+    ]
+  },
+  "selected_repair_route": {
+    "route": "reduced_existing_vocab_contract",
+    "reason": "The current 7-label source/input path is wired and hash-covered, but M3GJ/M3GL show seed-unstable class boundaries. The smallest approved local mutation is a reduced vocabulary candidate from existing approved rows, not another compute or evaluator route.",
+    "selected_labels": [
+      "hello",
+      "uncle",
+      "white",
+      "sad"
+    ],
+    "rejected_labels": [
+      {
+        "label_id": "black",
+        "reason": "Average F1 0.0625 across M3GJ/M3GL validation/test; nonzero in one of four evidence splits."
+      },
+      {
+        "label_id": "please",
+        "reason": "Average F1 0.14285714285714288, but zero on both tests and M3GL validation."
+      },
+      {
+        "label_id": "table",
+        "reason": "Average F1 0.126984126984127 and seed-specific behavior: zero in M3GJ validation/test, then overpredicted in M3GL."
+      }
+    ],
+    "produced_contract": {
+      "manifest_directory": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq",
+      "splits": {
+        "train": {
+          "path": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json",
+          "sha256": "aab52f670b9dbf6d219521a8ebf84d1af1a798ec5f1c8a54cbe126222ffe0f11",
+          "clip_count": 48,
+          "label_counts": {
+            "white": 12,
+            "sad": 12,
+            "uncle": 12,
+            "hello": 12
+          },
+          "signer_count": 18,
+          "source_ids": {
+            "asl-citizen-school-assignment-raw-videos": 48
+          },
+          "source_license_review_statuses": {
+            "approved_noncommercial_school_assignment_raw_video_only": 48
+          },
+          "tensor_coverage": {
+            "present": 48,
+            "hash_matches": 48,
+            "total": 48,
+            "examples": [
+              {
+                "clip_id": "asl-citizen-train-white-10848457531453715-white",
+                "label_id": "white",
+                "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/train/asl-citizen-train-white-10848457531453715-white-regions.pt",
+                "expected_sha256": "c9ebbad3541142bf7a2ff8566e61610806cfe7f47417ba230b16a0754272cf4f",
+                "file_exists": true,
+                "hash_matches_manifest": true,
+                "provenance_tensor_digest": {
+                  "dtype": "uint8",
+                  "layout": "T,R,H,W,C",
+                  "sha256": "b9e6aa702c317434ca1df9fc78dd057a39c3ba7cd567ba08f5b3a6fabf1418ec",
+                  "shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ]
+                }
+              },
+              {
+                "clip_id": "asl-citizen-train-white-9377005568553618-white",
+                "label_id": "white",
+                "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/train/asl-citizen-train-white-9377005568553618-white-regions.pt",
+                "expected_sha256": "7487493bb56245b0bbffdcfbce27b9efee5b422f0409468d65402b91b642f369",
+                "file_exists": true,
+                "hash_matches_manifest": true,
+                "provenance_tensor_digest": {
+                  "dtype": "uint8",
+                  "layout": "T,R,H,W,C",
+                  "sha256": "9a4a5184c522d53e01e4c8137a4c76a0daaa4479897694c164546a7aa11a3e07",
+                  "shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "validation": {
+          "path": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json",
+          "sha256": "03f4d1e391146ab98bbb1aea9936396b82a09cbb09d5e783b6a147292140f13b",
+          "clip_count": 15,
+          "label_counts": {
+            "white": 4,
+            "sad": 4,
+            "uncle": 3,
+            "hello": 4
+          },
+          "signer_count": 5,
+          "source_ids": {
+            "asl-citizen-school-assignment-raw-videos": 15
+          },
+          "source_license_review_statuses": {
+            "approved_noncommercial_school_assignment_raw_video_only": 15
+          },
+          "tensor_coverage": {
+            "present": 15,
+            "hash_matches": 15,
+            "total": 15,
+            "examples": [
+              {
+                "clip_id": "asl-citizen-validation-white-21947947473280904-white",
+                "label_id": "white",
+                "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/validation/asl-citizen-validation-white-21947947473280904-white-regions.pt",
+                "expected_sha256": "9a0c59c769f0eee0544242774647eb8cb6ba9c9cc6c8e5e8da0f0c8d0754b0ed",
+                "file_exists": true,
+                "hash_matches_manifest": true,
+                "provenance_tensor_digest": {
+                  "dtype": "uint8",
+                  "layout": "T,R,H,W,C",
+                  "sha256": "7e314c0f01bfc95186cd2f3da4cd17e143555794d3611a9fd25f7f68225650d9",
+                  "shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ]
+                }
+              },
+              {
+                "clip_id": "asl-citizen-validation-white-5748285380978266-white",
+                "label_id": "white",
+                "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/validation/asl-citizen-validation-white-5748285380978266-white-regions.pt",
+                "expected_sha256": "74f6347e740aec46bae43dec8b4009c0eb171597e0673158bd815b5f4b1fa0ee",
+                "file_exists": true,
+                "hash_matches_manifest": true,
+                "provenance_tensor_digest": {
+                  "dtype": "uint8",
+                  "layout": "T,R,H,W,C",
+                  "sha256": "65bd5b468c059053d2bc304fcea60be984ebbb7780e74930b8253905b5928c1c",
+                  "shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "test": {
+          "path": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json",
+          "sha256": "c02486e4a50cb2894e8e1bf9ac848871368702371311c9b62b519ac8ce9b6920",
+          "clip_count": 16,
+          "label_counts": {
+            "white": 4,
+            "sad": 4,
+            "uncle": 4,
+            "hello": 4
+          },
+          "signer_count": 7,
+          "source_ids": {
+            "asl-citizen-school-assignment-raw-videos": 16
+          },
+          "source_license_review_statuses": {
+            "approved_noncommercial_school_assignment_raw_video_only": 16
+          },
+          "tensor_coverage": {
+            "present": 16,
+            "hash_matches": 16,
+            "total": 16,
+            "examples": [
+              {
+                "clip_id": "asl-citizen-test-white-23222004944717023-white",
+                "label_id": "white",
+                "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/test/asl-citizen-test-white-23222004944717023-white-regions.pt",
+                "expected_sha256": "357741ed44047bca329aacb7844679038843673b8d65b5c0b222da70deb83176",
+                "file_exists": true,
+                "hash_matches_manifest": true,
+                "provenance_tensor_digest": {
+                  "dtype": "uint8",
+                  "layout": "T,R,H,W,C",
+                  "sha256": "761721bba5e753ba251ac75b43623c2be188616a9ac3e0215b488a4c052ee4d7",
+                  "shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ]
+                }
+              },
+              {
+                "clip_id": "asl-citizen-test-white-013205075687238388-white",
+                "label_id": "white",
+                "tensor_path": "data/tensors/asl-citizen-high-signal-region-grid/test/asl-citizen-test-white-013205075687238388-white-regions.pt",
+                "expected_sha256": "ca41fc321bf5a79db61db95248c466073668cd8ff74b567f5258c78602738014",
+                "file_exists": true,
+                "hash_matches_manifest": true,
+                "provenance_tensor_digest": {
+                  "dtype": "uint8",
+                  "layout": "T,R,H,W,C",
+                  "sha256": "2384fa871bb8fe1051916f7ca38658192402a35469bdce8cf65b6c3968829fcd",
+                  "shape": [
+                    16,
+                    5,
+                    96,
+                    96,
+                    3
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "total_clips": 79,
+      "input_contract": "rgb_regions_grid_v1",
+      "tensors_reused_without_mutation": true
+    }
+  },
+  "rejected_routes": [
+    {
+      "route": "input_contract_repair",
+      "rejected_reason": "No loader/input-contract defect was proven. Parent tensor probes and the reduced manifest dry-run observed rgb_regions_grid_v1, payload keys, and tensor hashes; code repair would be premature in this slice."
+    },
+    {
+      "route": "crop_or_region_contract_repair",
+      "rejected_reason": "Crop/region blind spots remain plausible, but current approved JSON lacks per-row visibility or motion evidence. Raw media inspection, thumbnail generation, new crop/tensor generation, or Detector 0 output creation were outside M3GQ."
+    }
+  ],
+  "changed_files_and_hashes": [
+    {
+      "path": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json",
+      "sha256": "aab52f670b9dbf6d219521a8ebf84d1af1a798ec5f1c8a54cbe126222ffe0f11",
+      "status": "new_scoped_manifest"
+    },
+    {
+      "path": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json",
+      "sha256": "03f4d1e391146ab98bbb1aea9936396b82a09cbb09d5e783b6a147292140f13b",
+      "status": "new_scoped_manifest"
+    },
+    {
+      "path": "data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json",
+      "sha256": "c02486e4a50cb2894e8e1bf9ac848871368702371311c9b62b519ac8ce9b6920",
+      "status": "new_scoped_manifest"
+    },
+    {
+      "path": "docs/validation/return-to-form-m3gq-source-vocab-input-repair-no-brev-v1.json",
+      "sha256": "recorded-after-write-in-session-log",
+      "status": "new_tracked_receipt"
+    },
+    {
+      "path": "docs/session-logs/649-mission-3gq-source-vocab-input-repair-no-brev.md",
+      "sha256": "recorded-after-write-in-session-log",
+      "status": "new_session_log"
+    }
+  ],
+  "claim_surface_status": {
+    "web_public_model_model_card": {
+      "path": "web/public/model/model-card.json",
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "status": "not_trained",
+      "model_id": "asl-pilot-rawframe-v0"
+    },
+    "web_public_model_detector0_card": {
+      "path": "web/public/model/detector0-card.json",
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "status": "not_trained",
+      "browser_artifact": null,
+      "promotion_state": "research_only"
+    },
+    "docs_model_active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": []
+    },
+    "web_public_model_claim_matrix": {
+      "path": "web/public/model/claim-matrix.json",
+      "sha256": "5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf",
+      "status": "no_active_claim_rawframe_not_trained"
+    },
+    "docs_validation_final_claim_matrix": {
+      "path": "docs/validation/final-claim-matrix.json",
+      "sha256": "5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf",
+      "status": "no_active_claim_rawframe_not_trained"
+    },
+    "fail_closed_unchanged": true
+  },
+  "explicit_forbidden_action_proof": {
+    "brev_lifecycle_remote_sync_copy_exec_or_spend_commands": [],
+    "training_or_fitting_commands": [],
+    "evaluator_rerun_commands": [],
+    "output_directory_created": false,
+    "new_source_import": false,
+    "source_register_rights_mutation": false,
+    "raw_learner_video_upload": false,
+    "raw_media_inspection": false,
+    "tensor_or_crop_generation": false,
+    "model_export_or_promotion": false,
+    "browser_activation_or_product_smoke": false,
+    "final_gate_changes": false,
+    "claim_expansion": false,
+    "pretrained_detector_landmark_backbone_feature_or_model_shortcut": false,
+    "pretrained_components": []
+  },
+  "pretrained_components": [],
+  "exactly_one_next_action": "continue_m3gr_local_dataloader_or_micro_overfit_preflight_no_brev",
+  "next_action": "continue_m3gr_local_dataloader_or_micro_overfit_preflight_no_brev"
+}

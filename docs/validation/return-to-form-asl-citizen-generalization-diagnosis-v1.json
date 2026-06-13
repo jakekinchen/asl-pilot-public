@@ -1,0 +1,643 @@
+{
+  "schema_version": "asl-pilot-mission-3am-generalization-diagnosis/v1",
+  "mission": "Mission 3AM - ASL Citizen generalization diagnosis",
+  "created_at": "2026-05-27T06:36:39Z",
+  "status": "completed_no_spend_next_action_selected",
+  "evidence_sources": {
+    "training_receipt": "docs/validation/return-to-form-asl-citizen-brev-training-v1.json",
+    "training_provenance": {
+      "path": "artifacts/rawframe-lesson-milestone/training-provenance.json",
+      "sha256": "14f890c3620b92f74fa7a75cc152e80d0c93bb31446a9b1564f7677ff37afd83"
+    },
+    "core_negative_diagnostic_receipt": {
+      "path": "docs/validation/return-to-form-asl-citizen-core-negative-diagnostic-v1.json",
+      "sha256": "f5ccb2e3b961497e320b71acb97c9b77e5457b830642a29700aa899cb8b5f6a1"
+    },
+    "diagnostic_report": {
+      "path": "artifacts/rawframe-lesson-milestone/core-negative-diagnostic-report.json",
+      "sha256": "07dc8e8a60893c230213bf2920a0e3a0e6114d13925ad479b15659d3dce7e5ef"
+    },
+    "prediction_sidecar": {
+      "path": "artifacts/rawframe-lesson-milestone/core-negative-diagnostic-prediction-sidecar.json",
+      "sha256": "d5eedaa23757441a6b1476993adf46c96ab711e75fbc64f512044698d6e1ca89"
+    }
+  },
+  "training_and_evaluation_gap": {
+    "architecture": "motion_2d_temporal_cnn",
+    "initialization": "random",
+    "device_for_training": "cuda",
+    "epochs_completed": 40,
+    "train_examples": 300,
+    "validation_examples": 94,
+    "test_examples": 100,
+    "final_train_accuracy": 0.9966666666666667,
+    "final_train_loss": 0.02694639136393865,
+    "best_validation_epoch": 36,
+    "best_validation_accuracy": 0.20212765957446807,
+    "final_validation_accuracy": 0.1595744680851064,
+    "diagnostic_validation_top1_accuracy": 0.20212765957446807,
+    "diagnostic_validation_macro_f1": 0.1803867243867244,
+    "diagnostic_test_top1_accuracy": 0.21,
+    "diagnostic_test_macro_f1": 0.16913707345286294,
+    "train_to_test_accuracy_gap": 0.7866666666666667,
+    "interpretation": "The checkpoint memorized or nearly memorized the 300-clip train split but failed signer-disjoint validation/test. The failure is not caused by unavailable GPU runtime."
+  },
+  "threshold_and_negative_challenge": {
+    "selected_threshold": 0.99,
+    "test_threshold_coverage": 0.06,
+    "test_threshold_accepted_accuracy": 0.5,
+    "test_threshold_false_pass_rate": 0.03,
+    "core_negative_examples": 25,
+    "core_negative_false_pass_count": 1,
+    "core_negative_false_pass_rate": 0.04,
+    "core_negative_max_confidence": 0.9951267242431641,
+    "core_negative_by_type": {
+      "empty_camera": {
+        "examples": 5,
+        "false_pass_count": 1,
+        "false_pass_rate": 0.2,
+        "max_confidence": 0.9951267242431641
+      },
+      "low_light": {
+        "examples": 5,
+        "false_pass_count": 0,
+        "false_pass_rate": 0.0,
+        "max_confidence": 0.7756024599075317
+      },
+      "no_hands_visible": {
+        "examples": 5,
+        "false_pass_count": 0,
+        "false_pass_rate": 0.0,
+        "max_confidence": 0.9713236093521118
+      },
+      "non_target_asl_sign": {
+        "examples": 5,
+        "false_pass_count": 0,
+        "false_pass_rate": 0.0,
+        "max_confidence": 0.8248966932296753
+      },
+      "off_center": {
+        "examples": 5,
+        "false_pass_count": 0,
+        "false_pass_rate": 0.0,
+        "max_confidence": 0.6762192845344543
+      }
+    },
+    "full_hard_negative_gate_status": "unchanged_underfilled_full_17_type_gate",
+    "blocking_issue": "positive_class_signer_disjoint_generalization",
+    "core_negative_gate_is_primary_blocker": false
+  },
+  "per_class_recall": {
+    "validation_zero_recall": [
+      {
+        "label": "aunt",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "book",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "brother",
+        "support": 3,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "frog",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "man",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "no",
+        "support": 3,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "read",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "thank_you",
+        "support": 3,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "thirsty",
+        "support": 3,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "who",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "yes",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    ],
+    "validation_low_recall": [
+      {
+        "label": "apple",
+        "support": 4,
+        "recall": 0.25,
+        "f1": 0.3333333333333333
+      },
+      {
+        "label": "black",
+        "support": 4,
+        "recall": 0.25,
+        "f1": 0.28571428571428575
+      },
+      {
+        "label": "brown",
+        "support": 4,
+        "recall": 0.25,
+        "f1": 0.22222222222222224
+      },
+      {
+        "label": "hello",
+        "support": 4,
+        "recall": 0.25,
+        "f1": 0.28571428571428575
+      },
+      {
+        "label": "orange",
+        "support": 4,
+        "recall": 0.25,
+        "f1": 0.4
+      },
+      {
+        "label": "sad",
+        "support": 4,
+        "recall": 0.25,
+        "f1": 0.18181818181818182
+      },
+      {
+        "label": "sick",
+        "support": 4,
+        "recall": 0.25,
+        "f1": 0.3333333333333333
+      },
+      {
+        "label": "white",
+        "support": 4,
+        "recall": 0.25,
+        "f1": 0.18181818181818182
+      },
+      {
+        "label": "why",
+        "support": 4,
+        "recall": 0.25,
+        "f1": 0.3333333333333333
+      }
+    ],
+    "test_zero_recall": [
+      {
+        "label": "apple",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "aunt",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "bird",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "brown",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "frog",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "man",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "no",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "orange",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "sick",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "thank_you",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "think",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "who",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "why",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "label": "yes",
+        "support": 4,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    ],
+    "test_low_recall": [
+      {
+        "label": "black",
+        "support": 4,
+        "recall": 0.25,
+        "f1": 0.3333333333333333
+      },
+      {
+        "label": "hello",
+        "support": 4,
+        "recall": 0.25,
+        "f1": 0.22222222222222224
+      },
+      {
+        "label": "please",
+        "support": 4,
+        "recall": 0.25,
+        "f1": 0.25
+      },
+      {
+        "label": "thirsty",
+        "support": 4,
+        "recall": 0.25,
+        "f1": 0.4
+      },
+      {
+        "label": "uncle",
+        "support": 4,
+        "recall": 0.25,
+        "f1": 0.28571428571428575
+      }
+    ],
+    "labels_with_nonzero_recall_on_validation_and_test": [
+      {
+        "label": "table",
+        "validation_recall": 1.0,
+        "validation_f1": 0.8,
+        "test_recall": 1.0,
+        "test_f1": 0.6153846153846153,
+        "min_recall": 1.0
+      },
+      {
+        "label": "white",
+        "validation_recall": 0.25,
+        "validation_f1": 0.18181818181818182,
+        "test_recall": 0.5,
+        "test_f1": 0.5,
+        "min_recall": 0.25
+      },
+      {
+        "label": "please",
+        "validation_recall": 0.5,
+        "validation_f1": 0.4,
+        "test_recall": 0.25,
+        "test_f1": 0.25,
+        "min_recall": 0.25
+      },
+      {
+        "label": "sad",
+        "validation_recall": 0.25,
+        "validation_f1": 0.18181818181818182,
+        "test_recall": 0.75,
+        "test_f1": 0.46153846153846156,
+        "min_recall": 0.25
+      },
+      {
+        "label": "black",
+        "validation_recall": 0.25,
+        "validation_f1": 0.28571428571428575,
+        "test_recall": 0.25,
+        "test_f1": 0.3333333333333333,
+        "min_recall": 0.25
+      },
+      {
+        "label": "hello",
+        "validation_recall": 0.25,
+        "validation_f1": 0.28571428571428575,
+        "test_recall": 0.25,
+        "test_f1": 0.22222222222222224,
+        "min_recall": 0.25
+      },
+      {
+        "label": "uncle",
+        "validation_recall": 0.3333333333333333,
+        "validation_f1": 0.2,
+        "test_recall": 0.25,
+        "test_f1": 0.28571428571428575,
+        "min_recall": 0.25
+      }
+    ]
+  },
+  "high_confidence_wrong_predictions": {
+    "validation": [
+      {
+        "clip_id": "asl-citizen-validation-please-05859480723249688-please",
+        "signer_id": "asl-citizen-participant-P26",
+        "true_label": "please",
+        "predicted_label": "white",
+        "confidence": 0.9977065324783325,
+        "probability_margin": 0.9968768957187422
+      },
+      {
+        "clip_id": "asl-citizen-validation-thank_you-0006320057552187119-thank-you",
+        "signer_id": "asl-citizen-participant-P21",
+        "true_label": "thank_you",
+        "predicted_label": "sad",
+        "confidence": 0.9600628018379211,
+        "probability_margin": 0.9476668518036604
+      },
+      {
+        "clip_id": "asl-citizen-validation-no-8079226457278508-no",
+        "signer_id": "asl-citizen-participant-P26",
+        "true_label": "no",
+        "predicted_label": "think",
+        "confidence": 0.9283067584037781,
+        "probability_margin": 0.8930418342351913
+      },
+      {
+        "clip_id": "asl-citizen-validation-white-21947947473280904-white",
+        "signer_id": "asl-citizen-participant-P21",
+        "true_label": "white",
+        "predicted_label": "frog",
+        "confidence": 0.8913748860359192,
+        "probability_margin": 0.8703162372112274
+      },
+      {
+        "clip_id": "asl-citizen-validation-sick-47832051707828005-sick",
+        "signer_id": "asl-citizen-participant-P21",
+        "true_label": "sick",
+        "predicted_label": "read",
+        "confidence": 0.8751367330551147,
+        "probability_margin": 0.8307883553206921
+      },
+      {
+        "clip_id": "asl-citizen-validation-read-8156740964285663-read",
+        "signer_id": "asl-citizen-participant-P21",
+        "true_label": "read",
+        "predicted_label": "table",
+        "confidence": 0.8677783012390137,
+        "probability_margin": 0.8240226246416569
+      }
+    ],
+    "test": [
+      {
+        "clip_id": "asl-citizen-test-sick-40883500861073974-sick",
+        "signer_id": "asl-citizen-participant-P22",
+        "true_label": "sick",
+        "predicted_label": "sad",
+        "confidence": 0.9977909326553345,
+        "probability_margin": 0.9968764004297554
+      },
+      {
+        "clip_id": "asl-citizen-test-orange-47163334562714154-orange",
+        "signer_id": "asl-citizen-participant-P49",
+        "true_label": "orange",
+        "predicted_label": "table",
+        "confidence": 0.995699405670166,
+        "probability_margin": 0.9948644824326038
+      },
+      {
+        "clip_id": "asl-citizen-test-brother-4315928891640657-brother",
+        "signer_id": "asl-citizen-participant-P22",
+        "true_label": "brother",
+        "predicted_label": "sad",
+        "confidence": 0.994654655456543,
+        "probability_margin": 0.9919208546634763
+      },
+      {
+        "clip_id": "asl-citizen-test-bird-01207267097409459-bird",
+        "signer_id": "asl-citizen-participant-P22",
+        "true_label": "bird",
+        "predicted_label": "who",
+        "confidence": 0.9895716905593872,
+        "probability_margin": 0.9876054604537785
+      },
+      {
+        "clip_id": "asl-citizen-test-frog-15154585570053025-frog",
+        "signer_id": "asl-citizen-participant-P49",
+        "true_label": "frog",
+        "predicted_label": "sick",
+        "confidence": 0.9291421175003052,
+        "probability_margin": 0.9096722807735205
+      },
+      {
+        "clip_id": "asl-citizen-test-white-005758060810748145-white",
+        "signer_id": "asl-citizen-participant-P49",
+        "true_label": "white",
+        "predicted_label": "table",
+        "confidence": 0.9161048531532288,
+        "probability_margin": 0.8955301400274038
+      }
+    ]
+  },
+  "signer_accuracy_spread": {
+    "validation": {
+      "signer_count": 5,
+      "zero_correct_count": 1,
+      "min_accuracy": 0.0,
+      "max_accuracy": 0.2962962962962963,
+      "by_signer": [
+        {
+          "signer_id": "asl-citizen-participant-P5",
+          "examples": 3,
+          "correct": 0,
+          "accuracy": 0.0,
+          "mean_confidence": 0.39282968640327454,
+          "max_confidence": 0.4776303172111511
+        },
+        {
+          "signer_id": "asl-citizen-participant-P39",
+          "examples": 23,
+          "correct": 3,
+          "accuracy": 0.13043478260869565,
+          "mean_confidence": 0.40164071839788684,
+          "max_confidence": 0.9974707365036011
+        },
+        {
+          "signer_id": "asl-citizen-participant-P12",
+          "examples": 14,
+          "correct": 2,
+          "accuracy": 0.14285714285714285,
+          "mean_confidence": 0.616703460259097,
+          "max_confidence": 0.9989443421363831
+        },
+        {
+          "signer_id": "asl-citizen-participant-P26",
+          "examples": 27,
+          "correct": 6,
+          "accuracy": 0.2222222222222222,
+          "mean_confidence": 0.6105949431657791,
+          "max_confidence": 0.9977065324783325
+        },
+        {
+          "signer_id": "asl-citizen-participant-P21",
+          "examples": 27,
+          "correct": 8,
+          "accuracy": 0.2962962962962963,
+          "mean_confidence": 0.5873449190899178,
+          "max_confidence": 0.9995593428611755
+        }
+      ]
+    },
+    "test": {
+      "signer_count": 7,
+      "zero_correct_count": 0,
+      "min_accuracy": 0.08333333333333333,
+      "max_accuracy": 0.5,
+      "by_signer": [
+        {
+          "signer_id": "asl-citizen-participant-P49",
+          "examples": 24,
+          "correct": 2,
+          "accuracy": 0.08333333333333333,
+          "mean_confidence": 0.6121008023619652,
+          "max_confidence": 0.9999054670333862
+        },
+        {
+          "signer_id": "asl-citizen-participant-P22",
+          "examples": 25,
+          "correct": 3,
+          "accuracy": 0.12,
+          "mean_confidence": 0.5965136289596558,
+          "max_confidence": 0.9981726408004761
+        },
+        {
+          "signer_id": "asl-citizen-participant-P48",
+          "examples": 7,
+          "correct": 1,
+          "accuracy": 0.14285714285714285,
+          "mean_confidence": 0.5568098298140934,
+          "max_confidence": 0.862021267414093
+        },
+        {
+          "signer_id": "asl-citizen-participant-P17",
+          "examples": 12,
+          "correct": 3,
+          "accuracy": 0.25,
+          "mean_confidence": 0.5248931472500166,
+          "max_confidence": 0.9999362230300903
+        },
+        {
+          "signer_id": "asl-citizen-participant-P6",
+          "examples": 24,
+          "correct": 8,
+          "accuracy": 0.3333333333333333,
+          "mean_confidence": 0.5224289372563362,
+          "max_confidence": 0.9799811244010925
+        },
+        {
+          "signer_id": "asl-citizen-participant-P18",
+          "examples": 4,
+          "correct": 2,
+          "accuracy": 0.5,
+          "mean_confidence": 0.6691034510731697,
+          "max_confidence": 0.927697479724884
+        },
+        {
+          "signer_id": "asl-citizen-participant-P35",
+          "examples": 4,
+          "correct": 2,
+          "accuracy": 0.5,
+          "mean_confidence": 0.5433953665196896,
+          "max_confidence": 0.8816380500793457
+        }
+      ]
+    }
+  },
+  "failure_classification": {
+    "primary": "data_split_support",
+    "secondary_hypotheses": [
+      "architecture_capacity_or_regularization",
+      "source_domain"
+    ],
+    "not_selected": {
+      "crop_or_region_information": "The current report/sidecar does not isolate crop or region coverage as the dominant failure, although future reduced-module work should still record crop assumptions before training.",
+      "label_semantics": "Failures are broad across many labels and signers, not limited to a small vocabulary semantics collision.",
+      "inconclusive": "The train-to-heldout gap, zero-recall classes, high-confidence wrong predictions, and signer spread are sufficient to select a no-spend downscope action."
+    },
+    "rationale": "The 25-label signer-disjoint module has only 3-4 held-out clips per class, many zero-recall classes, and severe signer spread after the model fits train. That points first to module/data support and split robustness, not to another broad training retry."
+  },
+  "research_escalation": {
+    "used": false,
+    "reason": "Local evidence clearly selects a non-training downscope action, and no additional training-style retry is proposed."
+  },
+  "selected_next_action": {
+    "action": "reduce_to_high_signal_5_10_sign_module",
+    "reason": "Only seven labels have nonzero recall on both validation and test, and only table is consistently strong. The smallest robust next step is to reduce the lesson module to labels with observed held-out signal, reject the many zero-recall labels for now, and write gates before any future smoke.",
+    "new_prompt": "docs/model/return-to-form-asl-citizen-high-signal-module-selection-goal-loop-prompt.md",
+    "allowed_next_slice": "local/no-spend selection of a 5-10 sign ASL Citizen module and gates from existing diagnostics and manifests"
+  },
+  "boundaries": {
+    "no_brev_command_or_spend": true,
+    "no_classifier_or_detector_training": true,
+    "no_source_import": true,
+    "no_generated_pseudo_labels": true,
+    "no_pretrained_component": true,
+    "no_export_or_promotion": true,
+    "no_browser_activation": true,
+    "full_17_type_hard_negative_gate_unchanged": true,
+    "no_push": true
+  },
+  "conclusion": "Mission 3AM selects a no-spend reduction to a high-signal 5-10 sign module. The current 25-label checkpoint is diagnostic evidence only and remains non-promotable."
+}

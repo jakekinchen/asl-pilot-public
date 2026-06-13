@@ -1,0 +1,153 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-run7-verification-tail-audit/v1",
+  "status": "completed_verification_tail_audit_no_brev_no_training",
+  "created_at": "2026-06-04T05:13:15Z",
+  "slice": "m3jb_recognizer_transformer_run7_verification_tail_audit_no_brev",
+  "inputs": {
+    "run6_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run6-verifselect-brev-v1.json",
+    "run6_research_tuning_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run6-research-tuning-v1.json",
+    "detail_audit_receipt": "docs/validation/m3jb-recognizer-run7-verification-tail-audit-v1.json",
+    "detail_audit_sha256": "f593e74a420551282d77cd6daadfeff7856b4f3267878cb07386b2218a2cfd4f",
+    "side_annotator_repo": "/Users/kelly/Developer/asl-pilot-annotator",
+    "side_annotator_commit": "885477c614c97506839b8248f1c0f93d71cbb55c",
+    "side_sha256": {
+      "diagnose_verification_margins_py": "54fcbb9191e071089245dbfab9c2340818f4096503d72cb6692548070dec3ea3",
+      "test_verification_tail_audit_py": "d938c4eddc57e0f17c5779333decff3ec869d531be2d9bc484d359a9aaf32392"
+    }
+  },
+  "commands": {
+    "focused_test": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python test_verification_tail_audit.py",
+    "compile_check": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile diagnose_verification_margins.py test_verification_tail_audit.py",
+    "full_audit": "PYTHONDONTWRITEBYTECODE=1 PYTORCH_ENABLE_MPS_FALLBACK=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python diagnose_verification_margins.py --diagnostic-kind verification_tail_audit --student-data .cache/recog-seq-w64-t32-merged-v1 --teacher-data .cache/handcrop-lm2 --artifact run6=output/m3jb-recognizer-transformer-run6-t32-verifselect-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.json --batch 512 --device mps --top-k-failures 20 --top-negative-labels 5 --top-hard-pairs 50 --target-recall 0.85 --out /Users/kelly/Developer/asl-pilot/docs/validation/m3jb-recognizer-run7-verification-tail-audit-v1.json"
+  },
+  "reproduction": {
+    "computed_test_verification_recall_at_far10": 0.8038559556786704,
+    "reported_test_verification_recall_at_far10": 0.8039,
+    "abs_diff": 0.00004404432132953939,
+    "tolerance": 0.002,
+    "within_tolerance": true
+  },
+  "split_totals": {
+    "train": {
+      "clips": 7011,
+      "teacher_covered": 2671,
+      "teacher_coverage_rate": 0.380972757095992,
+      "median_clips": 71,
+      "median_teacher_coverage_rate": 0.39436619718309857
+    },
+    "monitor": {
+      "clips": 955,
+      "teacher_covered": 369,
+      "teacher_coverage_rate": 0.3863874345549738,
+      "median_clips": 10,
+      "median_teacher_coverage_rate": 0.38461538461538464
+    },
+    "test": {
+      "clips": 2369,
+      "teacher_covered": 1520,
+      "teacher_coverage_rate": 0.6416209371042634,
+      "median_clips": 25,
+      "median_teacher_coverage_rate": 0.64
+    }
+  },
+  "tail_conclusion": {
+    "constraint_status": "not_proven",
+    "material_count_or_teacher_coverage_constraint_proven": false,
+    "top_gap_classes_checked": 10,
+    "top_gap_classes_constrained": 5,
+    "train_clip_p25": 69,
+    "train_teacher_coverage_rate_p25": 0.3783783783783784,
+    "top_gap_words": [
+      {
+        "label": "give",
+        "recall_at_far10": 0.32,
+        "gap_to_target_recall": 0.53,
+        "train_clips": 71,
+        "train_teacher_coverage_rate": 0.4084507042253521,
+        "test_clips": 25
+      },
+      {
+        "label": "airplane",
+        "recall_at_far10": 0.48,
+        "gap_to_target_recall": 0.37,
+        "train_clips": 70,
+        "train_teacher_coverage_rate": 0.38571428571428573,
+        "test_clips": 25
+      },
+      {
+        "label": "milk",
+        "recall_at_far10": 0.48,
+        "gap_to_target_recall": 0.37,
+        "train_clips": 93,
+        "train_teacher_coverage_rate": 0.2903225806451613,
+        "test_clips": 25
+      },
+      {
+        "label": "food",
+        "recall_at_far10": 0.52,
+        "gap_to_target_recall": 0.32999999999999996,
+        "train_clips": 42,
+        "train_teacher_coverage_rate": 0.6666666666666666,
+        "test_clips": 25
+      },
+      {
+        "label": "dog",
+        "recall_at_far10": 0.5263157894736842,
+        "gap_to_target_recall": 0.3236842105263158,
+        "train_clips": 156,
+        "train_teacher_coverage_rate": 0.1794871794871795,
+        "test_clips": 19
+      }
+    ],
+    "top_hard_negative_pairs": [
+      {
+        "target_label": "hungry",
+        "true_negative_label": "please",
+        "count_at_or_above_threshold": 24
+      },
+      {
+        "target_label": "please",
+        "true_negative_label": "hungry",
+        "count_at_or_above_threshold": 24
+      },
+      {
+        "target_label": "uncle",
+        "true_negative_label": "horse",
+        "count_at_or_above_threshold": 23
+      },
+      {
+        "target_label": "thirsty",
+        "true_negative_label": "red",
+        "count_at_or_above_threshold": 23
+      },
+      {
+        "target_label": "say",
+        "true_negative_label": "red",
+        "count_at_or_above_threshold": 23
+      }
+    ],
+    "interpretation": "The weakest run6 words are a mixed tail: milk and dog are teacher-coverage constrained and food is low-count, but give and airplane are near-median count/coverage. The prompt's condition for a paid class-balanced CE run7 is therefore not satisfied."
+  },
+  "future_paid_candidate_decision": {
+    "candidate_token": "m3jb_recognizer_transformer_run7_class_balanced_ce_fulltrain_brev_ok",
+    "class_balanced_ce_fulltrain_selected": false,
+    "reason": "The run7 tail audit did not prove weak classes are materially count/teacher-coverage constrained; only 5 of the top 10 target-gap classes met the audit's constrained criterion."
+  },
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_run7_hard_negative_objective_research_no_brev",
+    "reason": "Use a no-Brev research pass to select the next objective/mining lever from the verified score-tail confusions and per-class gaps before any paid run7."
+  },
+  "boundaries": {
+    "brev_used": false,
+    "brev_lifecycle_or_exec": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "runtime_export": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false
+  }
+}

@@ -1,0 +1,385 @@
+{
+  "schema_version": "asl-pilot-return-to-form-popsign-fresh5-materialization-local-smoke/v1",
+  "mission": "Mission 3BS - PopSign fresh5 materialization local smoke",
+  "status": "completed_local_smoke_weak",
+  "generated_at": "2026-05-27T18:36:03Z",
+  "generated_by": "Codex executor",
+  "active_prompt": "docs/model/return-to-form-popsign-fresh5-materialization-local-smoke-goal-loop-prompt.md",
+  "scope": {
+    "local_only": true,
+    "no_brev_training_or_spend": true,
+    "no_remote_command": true,
+    "no_broad_training": true,
+    "no_source_register_change": true,
+    "no_unreviewed_source_import": true,
+    "no_pretrained_dependency": true,
+    "no_pseudo_labels": true,
+    "no_export_or_browser_activation": true,
+    "no_model_card_promotion": true,
+    "no_final_gate_change": true
+  },
+  "source_of_truth": [
+    "GOAL.md",
+    "docs/model/return-to-form-popsign-fresh5-materialization-local-smoke-goal-loop-prompt.md",
+    "docs/validation/return-to-form-supported-raw-source-candidates-v1.json",
+    "docs/validation/return-to-form-vocab-reselection-existing-local-artifacts-v1.json",
+    "docs/session-logs/368-observer-stop-supported-training-data.md",
+    "docs/session-logs/369-goal-reactivate-popsign-fresh5-materialization.md",
+    "docs/model/dataset-source-register.json",
+    "docs/research/popsign-v1-import-plan.json"
+  ],
+  "selected_candidate": {
+    "packet_id": "popsign_fresh_5_v1",
+    "selected_action_from_candidate_audit": "materialize_popsign_fresh_5_candidate",
+    "source_id": "popsign-v1-original-videos",
+    "labels": [
+      "thank_you",
+      "pen",
+      "home",
+      "who",
+      "morning"
+    ],
+    "differs_from_failed_sets": {
+      "not_failed_popsign_tier0_exact_set": true,
+      "failed_popsign_tier0_labels": [
+        "dad",
+        "grandpa",
+        "hat",
+        "please",
+        "table"
+      ],
+      "no_overlap_with_failed_popsign_tier0": true,
+      "not_current_asl_citizen_high_signal_set": true,
+      "not_existing_materialized_artifact_reselection": true,
+      "reason": "M3BR ruled out already-materialized local artifacts. This packet uses approved PopSign raw source files on disk to create a fresh 5-label source-bound materialization."
+    }
+  },
+  "source_and_plan_hashes": {
+    "source_register": {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+      "source_id": "popsign-v1-original-videos",
+      "decision_id": "approved_popsign_v1_original_videos_2026_05_20",
+      "license_review_status": "approved_cc_by_4_raw_video_with_attribution"
+    },
+    "popsign_import_plan": {
+      "path": "docs/research/popsign-v1-import-plan.json",
+      "sha256": "0438c3e39e8c7f8b21f9968baebdd18870311c8f4103adc13012d5e230c06234",
+      "source_register_sha256_matches_current": true,
+      "refreshed_this_slice": false
+    },
+    "candidate_audit": {
+      "path": "docs/validation/return-to-form-supported-raw-source-candidates-v1.json",
+      "sha256": "51d7bf658c89c4bdfe356dab7af27de3980c11fd23878b7f25124b9b48b25c5f",
+      "status": "candidate_raw_source_available",
+      "popsign_label_count_with_at_least_five_per_split": 95
+    }
+  },
+  "validator_change": {
+    "path": "scripts/train_rawframe_model.py",
+    "sha256_after_change": "e1f6f2bc024fa24fd52b4fb799f1bf0afeae7fcd27951c6335a2bbb38354ce3f",
+    "reason": "The validator rejected an allow-small-label-set PopSign subset even though all selected labels are covered by the full 95-label source-curated vocabulary review. The change keeps exact approved_item_ids matching for normal/final validation, and permits reviewed subsets only when allow_small_label_set is explicit.",
+    "final_gate_weakened": false
+  },
+  "manifest_materialization": {
+    "command_status": "passed",
+    "command_summary": "import_popsign_v1_raw_videos.py wrote source-bound train/validation/test manifests with 25 clips per label per split and no blockers.",
+    "manifest_dir": "data/manifests/return-to-form-popsign-fresh5",
+    "labels": [
+      "thank_you",
+      "pen",
+      "home",
+      "who",
+      "morning"
+    ],
+    "split_manifests": {
+      "train": {
+        "path": "data/manifests/return-to-form-popsign-fresh5/train.json",
+        "sha256": "614885e2b260950775b7518bde7957940bc2e15fce83e287d901ffeda9b76228",
+        "clip_count": 125,
+        "per_label_counts": {
+          "thank_you": 25,
+          "pen": 25,
+          "home": 25,
+          "who": 25,
+          "morning": 25
+        },
+        "signer_alias_counts": {
+          "thank_you": 18,
+          "pen": 14,
+          "home": 18,
+          "who": 18,
+          "morning": 15
+        }
+      },
+      "validation": {
+        "path": "data/manifests/return-to-form-popsign-fresh5/validation.json",
+        "sha256": "e8039f294deeb561d54705a1f52233330859f63cac0420916e6a64ea87c5cd15",
+        "clip_count": 125,
+        "per_label_counts": {
+          "thank_you": 25,
+          "pen": 25,
+          "home": 25,
+          "who": 25,
+          "morning": 25
+        },
+        "signer_alias_counts": {
+          "thank_you": 8,
+          "pen": 6,
+          "home": 8,
+          "who": 8,
+          "morning": 7
+        }
+      },
+      "test": {
+        "path": "data/manifests/return-to-form-popsign-fresh5/test.json",
+        "sha256": "0f4aa2b7cc2667694f2e81e8e02b8de1d02f21fc4c64f74fb4f288aafb8a8eee",
+        "clip_count": 125,
+        "per_label_counts": {
+          "thank_you": 25,
+          "pen": 25,
+          "home": 25,
+          "who": 25,
+          "morning": 25
+        },
+        "signer_alias_counts": {
+          "thank_you": 8,
+          "pen": 8,
+          "home": 7,
+          "who": 8,
+          "morning": 8
+        }
+      }
+    },
+    "tracked_in_git": false,
+    "gitignore_reason": "data/manifests/ and data/tensors/ are ignored project-local evidence paths; this tracked receipt records paths, counts, and hashes."
+  },
+  "decode_tensor_materialization": {
+    "command_status": "passed",
+    "tensor_root": "data/tensors/return-to-form-popsign-fresh5",
+    "frame_count": 16,
+    "image_size": 96,
+    "pretrained_components": [],
+    "split_tensor_counts": {
+      "train": 125,
+      "validation": 125,
+      "test": 125
+    },
+    "every_manifest_clip_has_relative_frame_tensor_path": true,
+    "every_manifest_clip_has_frame_tensor_sha256": true,
+    "missing_tensor_count": 0,
+    "tensor_hash_samples": {
+      "train": [
+        {
+          "clip_id": "popsign-v1-train-thank_you-000001",
+          "sha256": "17f5bffb5370c0343f15835175d1a390b39765f58fbfe0399011ae601cd813d4"
+        },
+        {
+          "clip_id": "popsign-v1-train-thank_you-000002",
+          "sha256": "4adf062aca7a88bca15177d853884d309e9cb316c9947e292b99d9e17cfbcaea"
+        }
+      ],
+      "validation": [
+        {
+          "clip_id": "popsign-v1-validation-thank_you-000001",
+          "sha256": "53274b7ea879b5f5e54f72e14724cfa7711539a82d71c90eef7642befa3b12ff"
+        },
+        {
+          "clip_id": "popsign-v1-validation-thank_you-000002",
+          "sha256": "66550f5446e7bef251e9fe6e96334553ee4498fe1d8ec44a195ab2db5ae99750"
+        }
+      ],
+      "test": [
+        {
+          "clip_id": "popsign-v1-test-thank_you-000001",
+          "sha256": "2b91db6207a2ef8c8206b2d147180c19df050b9da402883e86dbb3c85b2fc7e4"
+        },
+        {
+          "clip_id": "popsign-v1-test-thank_you-000002",
+          "sha256": "f3929bfbb2e5ac6c8938f8c3c4b9e7aea7ae2350977d66104829829ce70f42ff"
+        }
+      ]
+    }
+  },
+  "dry_run_validation": {
+    "pre_decode_dry_run": {
+      "initial_status": "failed_before_validator_fix",
+      "blocker": "vocabulary review approved_item_ids must match manifest labels in order",
+      "resolution": "allow-small-label-set validation now accepts selected labels when each is included in the full source-curated review."
+    },
+    "post_decode_dry_run": {
+      "status": "passed",
+      "model_id": "asl-pilot-popsign-fresh5-dry-run-v1",
+      "command": ".venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/return-to-form-popsign-fresh5/train.json --validation-manifest data/manifests/return-to-form-popsign-fresh5/validation.json --test-manifest data/manifests/return-to-form-popsign-fresh5/test.json --output-dir output/return-to-form-popsign-fresh5-dry-run --model-id asl-pilot-popsign-fresh5-dry-run-v1 --allow-small-label-set --check-files --dry-run"
+    }
+  },
+  "local_smoke": {
+    "ran": true,
+    "command": ".venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/return-to-form-popsign-fresh5/train.json --validation-manifest data/manifests/return-to-form-popsign-fresh5/validation.json --test-manifest data/manifests/return-to-form-popsign-fresh5/test.json --output-dir output/return-to-form-popsign-fresh5-local-smoke --model-id asl-pilot-popsign-fresh5-local-smoke-v1 --allow-small-label-set --check-files --epochs 6 --batch-size 8 --learning-rate 0.001 --architecture motion_2d_temporal_cnn --training-augmentation mild --checkpoint-selection best_validation --max-train-batches 8 --max-validation-batches 4",
+    "status": "completed_smoke_weak",
+    "framework": {
+      "name": "pytorch",
+      "version": "2.12.0",
+      "python": "3.14.5",
+      "device": "mps"
+    },
+    "model_id": "asl-pilot-popsign-fresh5-local-smoke-v1",
+    "model_artifact": {
+      "path": "output/return-to-form-popsign-fresh5-local-smoke/model_state.pt",
+      "sha256": "b9e06eb6e2dc08a1795706829a5baeeb9eeddc338f6157d61aa0c95eff156868"
+    },
+    "training_provenance": {
+      "path": "output/return-to-form-popsign-fresh5-local-smoke/training-provenance.json",
+      "sha256": "13b0ead3de7b56cdb560909c0e1728da0e0b51c8c717505abb4a8b720c8a1d77"
+    },
+    "labels_to_index": {
+      "home": 0,
+      "morning": 1,
+      "pen": 2,
+      "thank_you": 3,
+      "who": 4
+    },
+    "best_validation_checkpoint": {
+      "selected_epoch": 3,
+      "capped_validation_accuracy": 0.65625,
+      "capped_validation_examples": 32,
+      "capped_validation_batches": 4,
+      "loss": 1.3232780396938324
+    },
+    "final_epoch_capped_metrics": {
+      "epoch": 6,
+      "train_accuracy": 0.5625,
+      "train_examples": 64,
+      "train_batches": 8,
+      "train_loss": 1.1345101222395897,
+      "validation_accuracy": 0.34375,
+      "validation_examples": 32,
+      "validation_batches": 4,
+      "validation_loss": 1.5732153803110123
+    }
+  },
+  "smoke_evaluation": {
+    "ran": true,
+    "command": ".venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint output/return-to-form-popsign-fresh5-local-smoke/model_state.pt --training-provenance output/return-to-form-popsign-fresh5-local-smoke/training-provenance.json --train-manifest data/manifests/return-to-form-popsign-fresh5/train.json --validation-manifest data/manifests/return-to-form-popsign-fresh5/validation.json --test-manifest data/manifests/return-to-form-popsign-fresh5/test.json --output-report output/return-to-form-popsign-fresh5-local-smoke/validation-report.json --calibrated-provenance output/return-to-form-popsign-fresh5-local-smoke/calibrated-provenance-smoke.json --prediction-sidecar output/return-to-form-popsign-fresh5-local-smoke/prediction-sidecar.json --allow-smoke-eval --batch-size 8",
+    "status": "smoke_only",
+    "finality": "smoke_or_wiring_only_not_model_evidence",
+    "validation_report": {
+      "path": "output/return-to-form-popsign-fresh5-local-smoke/validation-report.json",
+      "sha256": "986dcab7012a4bfdd3be42d2aa2cba83be309d910e43da648d0e1bdf3f418891"
+    },
+    "prediction_sidecar": {
+      "path": "output/return-to-form-popsign-fresh5-local-smoke/prediction-sidecar.json",
+      "sha256": "85fa1b35e8f8452ba88dabf9ed07766122cdd6fe25bd70a3633a9eeed19c24b8"
+    },
+    "calibrated_provenance_smoke": {
+      "path": "output/return-to-form-popsign-fresh5-local-smoke/calibrated-provenance-smoke.json",
+      "sha256": "af46f2858eafa8be57ae90b446640653f6916cab7d94308eb268a19f3e4aae80"
+    },
+    "validation_metrics": {
+      "top1_accuracy": 0.192,
+      "macro_f1": 0.10437062937062935
+    },
+    "test_metrics": {
+      "top1_accuracy": 0.272,
+      "macro_f1": 0.20170903619228636,
+      "selected_threshold": 0.35,
+      "false_pass_rate": 0.104,
+      "per_class": {
+        "home": {
+          "support": 25,
+          "recall": 0.4,
+          "f1": 0.3278688524590164
+        },
+        "morning": {
+          "support": 25,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "pen": {
+          "support": 25,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "thank_you": {
+          "support": 25,
+          "recall": 0.68,
+          "f1": 0.3695652173913044
+        },
+        "who": {
+          "support": 25,
+          "recall": 0.28,
+          "f1": 0.3111111111111111
+        }
+      }
+    },
+    "pass_status": {
+      "top1_accuracy": false,
+      "macro_f1": false,
+      "false_pass_rate": false,
+      "negative_challenge_false_pass_rate": true,
+      "confidence_threshold": true
+    },
+    "passes_targets": false
+  },
+  "brev_status": {
+    "collected_this_slice": false,
+    "brev_commands_run": [],
+    "reason": "M3BS local evidence did not justify a Brev training receipt, and this executor slice avoided Brev commands and spend. The prior GOAL/session-369 Brev readiness note remains historical operational evidence only."
+  },
+  "decision": {
+    "local_data_materialized": true,
+    "local_smoke_supports_brev_training_receipt_now": false,
+    "blocker": "Fresh5 full-frame tensors load and train locally, but held-out smoke is weak: test top1 0.272, test macro F1 0.20170903619228636, false pass rate 0.104, and two labels have zero test recall.",
+    "exactly_one_next_action": "continue_region_grid_or_detector0_tensor_materialization",
+    "next_action_rationale": "Manifests and full-frame tensors are valid, but the full-frame local smoke is too weak for Brev training. The next useful bounded step is to materialize a better input contract, such as region-grid or detector/crop tensors, before more classifier training."
+  },
+  "guardrails": {
+    "pretrained_components": [],
+    "pseudo_labels_generated": false,
+    "remote_training_run": false,
+    "brev_spend": false,
+    "source_register_mutation": false,
+    "browser_model_activation": false,
+    "model_card_promotion": false,
+    "final_readiness_claim": false,
+    "claim_state": "fail_closed_browser_model_remains_not_trained"
+  },
+  "local_artifacts_written_or_updated": [
+    "data/manifests/return-to-form-popsign-fresh5/train.json",
+    "data/manifests/return-to-form-popsign-fresh5/validation.json",
+    "data/manifests/return-to-form-popsign-fresh5/test.json",
+    "data/tensors/return-to-form-popsign-fresh5/",
+    "output/return-to-form-popsign-fresh5-local-smoke/"
+  ],
+  "tracked_files_changed": [
+    "scripts/train_rawframe_model.py",
+    "docs/validation/return-to-form-popsign-fresh5-materialization-local-smoke-v1.json",
+    "docs/session-logs/370-mission-3bs-popsign-fresh5-materialization-local-smoke.md"
+  ],
+  "commands_run": [
+    "git status --short --branch",
+    "git log -10 --oneline --decorate",
+    "find .. -name AGENTS.md -print",
+    "sed -n '1,260p' GOAL.md",
+    "sed -n '1,320p' docs/model/return-to-form-popsign-fresh5-materialization-local-smoke-goal-loop-prompt.md",
+    "sed -n '1,260p' docs/runbooks/codex-goal-loop.md",
+    "sed -n '1,260p' docs/runbooks/observer-runbook-codex.md",
+    "sed -n '1,260p' docs/session-logs/369-goal-reactivate-popsign-fresh5-materialization.md",
+    "node scripts/audit_loop_premise.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs --json",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "node scripts/audit_source_register.mjs",
+    "python3 -m json.tool docs/validation/return-to-form-supported-raw-source-candidates-v1.json >/dev/null",
+    "node scripts/audit_supported_raw_source_candidates.mjs",
+    ".venv/bin/python scripts/import_popsign_v1_raw_videos.py --manifest-dir data/manifests/return-to-form-popsign-fresh5 --label thank_you --label pen --label home --label who --label morning --train-clips-per-label 25 --validation-clips-per-label 25 --test-clips-per-label 25 --allow-partial --write",
+    ".venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/return-to-form-popsign-fresh5/train.json --validation-manifest data/manifests/return-to-form-popsign-fresh5/validation.json --test-manifest data/manifests/return-to-form-popsign-fresh5/test.json --output-dir output/return-to-form-popsign-fresh5-dry-run --model-id asl-pilot-popsign-fresh5-dry-run-v1 --allow-small-label-set --check-files --dry-run",
+    ".venv/bin/python scripts/decode_raw_videos.py --manifest data/manifests/return-to-form-popsign-fresh5/train.json --manifest data/manifests/return-to-form-popsign-fresh5/validation.json --manifest data/manifests/return-to-form-popsign-fresh5/test.json --tensor-root data/tensors/return-to-form-popsign-fresh5 --frame-count 16 --image-size 96 --allow-small-label-set",
+    ".venv/bin/python -m py_compile scripts/train_rawframe_model.py",
+    ".venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/return-to-form-popsign-fresh5/train.json --validation-manifest data/manifests/return-to-form-popsign-fresh5/validation.json --test-manifest data/manifests/return-to-form-popsign-fresh5/test.json --output-dir output/return-to-form-popsign-fresh5-local-smoke --model-id asl-pilot-popsign-fresh5-local-smoke-v1 --allow-small-label-set --check-files --epochs 6 --batch-size 8 --learning-rate 0.001 --architecture motion_2d_temporal_cnn --training-augmentation mild --checkpoint-selection best_validation --max-train-batches 8 --max-validation-batches 4",
+    ".venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint output/return-to-form-popsign-fresh5-local-smoke/model_state.pt --training-provenance output/return-to-form-popsign-fresh5-local-smoke/training-provenance.json --train-manifest data/manifests/return-to-form-popsign-fresh5/train.json --validation-manifest data/manifests/return-to-form-popsign-fresh5/validation.json --test-manifest data/manifests/return-to-form-popsign-fresh5/test.json --output-report output/return-to-form-popsign-fresh5-local-smoke/validation-report.json --calibrated-provenance output/return-to-form-popsign-fresh5-local-smoke/calibrated-provenance-smoke.json --prediction-sidecar output/return-to-form-popsign-fresh5-local-smoke/prediction-sidecar.json --allow-smoke-eval --batch-size 8",
+    "node read-only manifest/tensor/output summarizer",
+    "date -u +%Y-%m-%dT%H:%M:%SZ"
+  ],
+  "exactly_one_next_action": "continue_region_grid_or_detector0_tensor_materialization"
+}

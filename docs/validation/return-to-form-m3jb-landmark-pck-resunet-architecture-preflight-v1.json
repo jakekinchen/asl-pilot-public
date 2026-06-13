@@ -1,0 +1,192 @@
+{
+  "schema_version": "asl-pilot-m3jb-landmark-pck-resunet-architecture-preflight/v1",
+  "receipt_id": "return-to-form-m3jb-landmark-pck-resunet-architecture-preflight-v1",
+  "mission": "M3JB - Hierarchical hand-state tracker",
+  "status": "passed_local_architecture_preflight_no_brev_no_training",
+  "checked_at": "2026-06-03T16:34:00Z",
+  "source_of_truth": {
+    "goal": "GOAL.md",
+    "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+    "research_refresh_receipt": "docs/validation/return-to-form-m3jb-landmark-pck-research-refresh-after-run3-v1.json",
+    "running_best_receipt": "docs/validation/return-to-form-m3jb-landmark-pck-campaign-run2-w128-g64-fulltrain-brev-v1.json",
+    "no_clear_win_receipt": "docs/validation/return-to-form-m3jb-landmark-pck-campaign-run3-w128-g64-hardgeomaug-fulltrain-brev-v1.json"
+  },
+  "side_worktree": {
+    "path": "/Users/kelly/Developer/asl-pilot-annotator",
+    "branch": "annotator-tool",
+    "code_commit": "712ab989d9451e92894ee72fc73e757a21f6d1ea",
+    "code_commit_subject": "model(m3jb): add per-hand resunet heatmap preflight trainer",
+    "trainer_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_perhand_landmarks_heatmap.py",
+    "trainer_sha256": "295941330493c99ef9d985520e738499e895ca18637449f6933f56037bfed3c1",
+    "note": "The active PCK campaign receipts name this per-hand trainer path. It was untracked before this slice and is now committed in the annotator worktree so the preflight code is reviewable."
+  },
+  "implementation": {
+    "model_arch_added": "perhand_resunet_heatmap",
+    "default_model_arch_preserved": "perhand_heatmap",
+    "model_class": "PerHandResidualUNetHeatmapNet",
+    "cli_flags_added": [
+      "--model-arch",
+      "--smoke-architecture",
+      "--smoke-batch"
+    ],
+    "input_contract": {
+      "channels": 5,
+      "crop_size": 128
+    },
+    "output_contract": {
+      "keypoints": 21,
+      "heatmap_grid": 64,
+      "heatmap_shape": [
+        2,
+        21,
+        64,
+        64
+      ],
+      "decode_shape": [
+        2,
+        21,
+        2
+      ],
+      "decode": "existing soft_argmax"
+    },
+    "ops_boundary": [
+      "Conv2d",
+      "BatchNorm2d",
+      "ReLU",
+      "Add",
+      "bilinear interpolate",
+      "1x1 Conv2d heatmap head"
+    ],
+    "pretrained_dependencies_added": false
+  },
+  "local_smoke": {
+    "red_command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_perhand_landmarks_heatmap.py --model-arch perhand_resunet_heatmap --smoke-architecture --heatmap-g 64 --width 128 --device cpu --out /tmp/m3jb-resunet-preflight-red.json",
+    "red_status": "failed_as_expected_unrecognized_model_arch_and_smoke_flags",
+    "syntax_command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_perhand_landmarks_heatmap.py",
+    "syntax_status": "passed",
+    "smoke_command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --model-arch perhand_resunet_heatmap --smoke-architecture --heatmap-g 64 --width 128 --device cpu --heatmap-ce-weight 0.05 --out tools/detector0-annotator/output/m3jb-perhand-resunet-architecture-smoke-v1.json",
+    "smoke_status": "passed",
+    "smoke_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-perhand-resunet-architecture-smoke-v1.json",
+    "smoke_sha256": "c39d5a2f877af6c994e9e9f6a0bf9e17ce099c8055cd89d1a4d505310c26688a",
+    "smoke_payload": {
+      "schema_version": "asl-pilot-m3jb-perhand-architecture-smoke/v1",
+      "status": "passed_no_training_no_checkpoint",
+      "model_arch": "perhand_resunet_heatmap",
+      "input_shape": [
+        2,
+        5,
+        128,
+        128
+      ],
+      "heatmap_shape": [
+        2,
+        21,
+        64,
+        64
+      ],
+      "expected_heatmap_shape": [
+        2,
+        21,
+        64,
+        64
+      ],
+      "decode_shape": [
+        2,
+        21,
+        2
+      ],
+      "expected_decode_shape": [
+        2,
+        21,
+        2
+      ],
+      "loss": {
+        "coord_smooth_l1": 0.048952408134937286,
+        "heatmap_ce": 8.419949531555176,
+        "total": 0.9105215072631836,
+        "finite": true
+      },
+      "eval_smoke": {
+        "samples": 2,
+        "points": 42,
+        "visible_points": 42,
+        "PCK": 0,
+        "visible_PCK": 0,
+        "mean_kp_err": 0.4232,
+        "visible_mean_kp_err": 0.4232,
+        "per_keypoint_count": 21
+      },
+      "parameter_count": 15358485,
+      "device": "cpu",
+      "width": 128,
+      "heatmap_grid": 64,
+      "sigma": 1.5,
+      "runtime_boundary": {
+        "training_run": false,
+        "optimizer_constructed": false,
+        "backward_called": false,
+        "checkpoint_written": false,
+        "brev_used": false,
+        "pretrained_runtime_dependency_added": false
+      }
+    }
+  },
+  "run4_envelope": {
+    "next_action": "m3jb_landmark_pck_run4_resunet_g64_fulltrain_brev_ok",
+    "worker": {
+      "preferred_name": "asl-pilot-m3eh-l40s-001",
+      "preferred_id": "3d58wpy9o",
+      "equivalent_healthy_nvidia_worker_allowed_by_goal": true
+    },
+    "max_outer_runtime_seconds": 21600,
+    "training_timeout_seconds": 20000,
+    "eval_timeout_seconds": 3600,
+    "campaign_total_cap_usd": 50,
+    "command_shape": {
+      "training": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --data tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1 --model-arch perhand_resunet_heatmap --epochs 100 --batch 128 --eval-batch 512 --lr 5e-4 --device cuda --seed 0 --pck 0.10 --sigma 2.0 --heatmap-g 64 --width 128 --heatmap-ce-weight 0.05 --oversample-hard-geometry 0 --affine-aug-prob 0 --blur-prob 0 --noise-std 0 --eval-every 5 --out tools/detector0-annotator/output/m3jb-perhand-pckcampaign-resunet-w128-g64-fulltrain-e100-lr5e4-brev-v1.json\"",
+      "eval_pck_010": "timeout 3600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --eval-only --data tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1 --weights tools/detector0-annotator/output/m3jb-perhand-pckcampaign-resunet-w128-g64-fulltrain-e100-lr5e4-brev-v1.pt --out tools/detector0-annotator/output/m3jb-perhand-pckcampaign-resunet-w128-g64-fulltrain-e100-lr5e4-brev-v1-eval-pck010.json --pck 0.10 --device cuda --eval-batch 512\"",
+      "eval_pck_005": "timeout 3600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --eval-only --data tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1 --weights tools/detector0-annotator/output/m3jb-perhand-pckcampaign-resunet-w128-g64-fulltrain-e100-lr5e4-brev-v1.pt --out tools/detector0-annotator/output/m3jb-perhand-pckcampaign-resunet-w128-g64-fulltrain-e100-lr5e4-brev-v1-eval-pck005.json --pck 0.05 --device cuda --eval-batch 512\""
+    },
+    "planned_outputs": {
+      "training_receipt": "tools/detector0-annotator/output/m3jb-perhand-pckcampaign-resunet-w128-g64-fulltrain-e100-lr5e4-brev-v1.json",
+      "weights": "tools/detector0-annotator/output/m3jb-perhand-pckcampaign-resunet-w128-g64-fulltrain-e100-lr5e4-brev-v1.pt",
+      "eval_pck010": "tools/detector0-annotator/output/m3jb-perhand-pckcampaign-resunet-w128-g64-fulltrain-e100-lr5e4-brev-v1-eval-pck010.json",
+      "eval_pck005": "tools/detector0-annotator/output/m3jb-perhand-pckcampaign-resunet-w128-g64-fulltrain-e100-lr5e4-brev-v1-eval-pck005.json"
+    },
+    "controlled_against_run2": {
+      "model_architecture_changed": true,
+      "width": 128,
+      "heatmap_grid": 64,
+      "sigma": 2,
+      "epochs": 100,
+      "batch": 128,
+      "eval_batch": 512,
+      "lr": 0.0005,
+      "train_quality_filter": false,
+      "oversample_hard_geometry": 0,
+      "affine_aug_prob": 0,
+      "blur_prob": 0,
+      "noise_std": 0
+    },
+    "success_signal": "held-out test PCK@0.10 > 0.749600 and PCK@0.05 > 0.486700",
+    "kill_condition": "Do not launch unless Brev visibility is read-only checked first and no active conflicting training process exists. During the run, if validation PCK@0.10 has never matched run2 validation PCK@0.10 `0.709800` by about epoch 70, save best logs/checkpoint and do not launch any follow-up experiment.",
+    "teardown": "After copyback or crash evidence capture, stop the worker and verify `STOPPED` / `NOT READY` in brev ls --json."
+  },
+  "runtime_boundary": {
+    "local_repo_edits": true,
+    "side_worktree_code_commit": true,
+    "brev_used": false,
+    "brev_exec_or_copy": false,
+    "brev_lifecycle_action": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward": false,
+    "checkpoint_written": false,
+    "browser_artifact_promoted": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false
+  },
+  "claim_boundary": "This receipt proves only that the local scratch per-hand residual U-Net heatmap architecture option exists, preserves the 5-channel input and 21x64x64 heatmap output contract, and passes a CPU no-training forward/loss/decode/eval smoke. It does not run Brev, train, write a model checkpoint, improve PCK, pass landmark gates, promote browser artifacts, upload raw learner video, add pretrained runtime dependencies, or change final gates.",
+  "next_action": "m3jb_landmark_pck_run4_resunet_g64_fulltrain_brev_ok"
+}

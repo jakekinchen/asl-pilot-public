@@ -1,0 +1,137 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-research-triage/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_research_guided_tuning_after_run1_no_brev",
+  "recorded_at_utc": "2026-06-03T19:05:13Z",
+  "head_before_slice": "0a756d7 record(m3jb): reject recognizer transformer run1",
+  "status": "completed_research_triage_no_brev_no_training",
+  "inputs": {
+    "failed_run_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run1-v1.json",
+    "failed_run_summary": {
+      "student_arch": "transformer",
+      "epochs": 160,
+      "batch": 256,
+      "lr": "1e-3",
+      "d_model": 256,
+      "n_layers": 6,
+      "n_heads": 8,
+      "dropout": 0.2,
+      "alpha": 0.55,
+      "temperature": 3.0,
+      "jitter_std": 0.02,
+      "frame_drop": 0.1,
+      "test_top1": 0.008,
+      "test_top5": 0.0502,
+      "verification_recall_at_far10": 0.1124,
+      "first_epoch_loss": 8.5832,
+      "last_epoch_loss": 8.5474,
+      "best_monitor_top1": 0.0188
+    },
+    "baseline_gru_summary": {
+      "artifact": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/recognizer-distill.json",
+      "test_top1": 0.2322,
+      "test_top5": 0.5673,
+      "verification_recall_at_far10_approx": 0.7,
+      "first_epoch_loss": 8.5066,
+      "last_epoch_loss": 1.0964,
+      "final_monitor_top1": 0.2691,
+      "final_monitor_top5": 0.578
+    }
+  },
+  "research_escalation": {
+    "required_by_goal": true,
+    "gpt_pro_web_attempt": {
+      "attempted": true,
+      "status": "blocked_browser_control_not_exposed_in_current_tool_set",
+      "evidence": "tool_search exposed node_repl but no direct in-app browser control tool; node_repl metadata probe showed no browser tab binding."
+    },
+    "fallback": {
+      "used": true,
+      "route": "openai-api-research",
+      "model_requested": "gpt-5.5",
+      "calls": [
+        {
+          "kind": "initial",
+          "response_id": "resp_0685336152fa5340006a2079ba81d481959c4464e4bb90f488",
+          "status": "incomplete_max_output_tokens",
+          "model_returned": "gpt-5.5-2026-04-23",
+          "total_tokens": 8596,
+          "reasoning_tokens": 4072,
+          "prompt_path": "artifacts/research/m3jb-recognizer-transformer-run1-triage-914/prompt.md",
+          "request_path": "artifacts/research/m3jb-recognizer-transformer-run1-triage-914/request.json",
+          "raw_response_path": "artifacts/research/m3jb-recognizer-transformer-run1-triage-914/raw.json",
+          "response_path": "artifacts/research/m3jb-recognizer-transformer-run1-triage-914/response.partial.md"
+        },
+        {
+          "kind": "compact",
+          "response_id": "resp_06390c62b7c485b2006a207a603b708194ac8230063a600944",
+          "status": "incomplete_max_output_tokens",
+          "model_returned": "gpt-5.5-2026-04-23",
+          "total_tokens": 5634,
+          "reasoning_tokens": 2070,
+          "prompt_path": "artifacts/research/m3jb-recognizer-transformer-run1-triage-914/prompt.md",
+          "request_path": "artifacts/research/m3jb-recognizer-transformer-run1-triage-914/request-compact.json",
+          "raw_response_path": "artifacts/research/m3jb-recognizer-transformer-run1-triage-914/raw-compact.json",
+          "response_path": "artifacts/research/m3jb-recognizer-transformer-run1-triage-914/response.md"
+        }
+      ],
+      "artifacts_sha256": {
+        "prompt_md": "96fc8a0f335bdafb23414f02ce4c327b15c6c712fe1713eaaec3314fed3c3a57",
+        "request_json": "f5bcf774a1ce99b547140a32a69182452c04b5a0bddd7eb491e8959309417d8d",
+        "raw_json": "b025cacaf5d1111cc90f1991f21c50d6bee26b448c2bace214df3ab3c9819ea6",
+        "response_partial_md": "48b6949e8953648897b59d64d94c1b22d3f968633a1f5e923864d2991f9cdad5",
+        "request_compact_json": "9c535ec51955c899995b040890b7c5e5d4cb049b406ddd580e4a90883557a236",
+        "raw_compact_json": "a65f8fa1dc789990533fa6adc9f55b7b859d54f418eca11468f9439a46714828",
+        "response_md": "f58fe96f3d06f79f1f4b453a7b9005a3ec0b798ff92b1fd66e0589a496905327"
+      }
+    },
+    "advisory_not_authority": true
+  },
+  "research_conclusion": {
+    "root_cause_assessment": "The flat loss is a Transformer training-path or optimization failure, not evidence that more full-scope compute will help. The GRU learned on the same general trainer/data regime while the Transformer stayed near chance.",
+    "selected_next_action": "m3jb_recognizer_transformer_local_overfit_diagnostics_no_brev",
+    "recommendation": "Before any second Brev run, patch or use the trainer locally to run tiny hard-label/no-augmentation GRU-vs-Transformer overfit diagnostics, record train-subset evaluation and gradient/logit/update diagnostics, and stop if the Transformer cannot overfit a tiny subset.",
+    "minimum_diagnostics": [
+      "capture train_recognizer_distill.py --help",
+      "run GRU tiny hard-label no-augmentation control",
+      "run Transformer tiny hard-label no-augmentation overfit check",
+      "if tiny Transformer learns, run small Transformer hard-label no-augmentation check",
+      "only if hard-label checks learn, isolate distillation and augmentation locally"
+    ],
+    "later_brev_recipe_guard": "A later paid full-scope run is allowed only after local diagnostics show real Transformer learning; do not repeat run1 blindly. Candidate changes are smaller batch or matched update count, augmentation off initially, hard-label-only if distillation isolation has not passed, and warmup/cosine or AdamW-style schedule."
+  },
+  "brev_visibility": {
+    "checked_after_research": true,
+    "workspaces": {
+      "asl-pilot-m3jb-pairrank-l40s-001": {
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY"
+      },
+      "asl-pilot-m3eh-l40s-001": {
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY"
+      }
+    }
+  },
+  "boundaries": {
+    "brev_used": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "pushed_to_remote": false
+  },
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_local_overfit_diagnostics_no_brev",
+    "description": "Add/use local trainer diagnostics and run no-save tiny GRU-vs-Transformer overfit checks before any second recognizer Brev run."
+  }
+}

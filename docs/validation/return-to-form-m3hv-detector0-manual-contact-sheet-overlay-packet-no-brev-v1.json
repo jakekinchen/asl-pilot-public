@@ -1,0 +1,493 @@
+{
+  "schema_version": "asl-pilot-validation-receipt/v1",
+  "mission": "M3HV - Detector 0 manual contact-sheet overlay packet no Brev",
+  "status": "passed_with_manual_overlay_gap",
+  "created_at": "2026-05-29T20:10:50Z",
+  "current_commit": "2dfee5e41c716dea272e7298b58801bf8ea9caea",
+  "active_prompt": "docs/model/return-to-form-m3hv-detector0-manual-contact-sheet-overlay-packet-no-brev-goal-loop-prompt.md",
+  "commands": [
+    {
+      "command": "git status --short --branch",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "## compound-plan-m0...origin/compound-plan-m0 [ahead 382]",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "git log -14 --oneline --decorate",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "2dfee5e (HEAD -> compound-plan-m0) observer: CONTINUE - m3hu to m3hv manual overlay\n61a97dd mission-3hu: review Detector 0 fixed baseline gate\ne360467 observer: CONTINUE - m3ht to m3hu fixed baseline gate review\n38f8135 mission-3ht: codify Detector 0 fixed baseline gate\n79aec41 observer: REDIRECT - m3hs to m3ht fixed baseline gate\n0379773 supervisor: detector0 bake-off gate + design nudge\nf43371a mission-3hs: expand Detector 0 annotation packet\nfc87269 observer: CONTINUE - m3hr to m3hs packet expansion\n7bef572 mission-3hr: review Detector 0 overlay readiness\n20700b2 observer: CONTINUE - m3hq to m3hr overlay readiness\nca5e996 mission-3hq: materialize Detector 0 packet overlays\n7bc9bcb observer: CONTINUE - m3hp to m3hq packet overlay\nfa42c47 mission-3hp: review Detector 0 target policy\n6fb2860 observer: CONTINUE - m3ho to m3hp target policy review",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n  \"schema_version\": \"asl-pilot-loop-premise-audit/v1\",\n  \"status\": \"passed\",\n  \"checked_at\": \"2026-05-29T20:14:32.969Z\",\n  \"rules\": [\n    {\n      \"rule\": \"blocked-narrative-vs-cleared-manifests\",\n      \"description\": \"GOAL.md or the active per-milestone prompt claims the loop is blocked on human first-party collection, but data/manifests/*.json already exist AND bind to sources approved for training in docs/model/dataset-source-register.json.\",\n      \"triggered\": false,\n      \"narrative_match\": null\n    },\n    {\n      \"rule\": \"named-artifacts-already-exist\",\n      \"description\": \"GOAL.md or the active per-milestone prompt asserts an artifact is missing, but the file exists on disk.\",\n      \"triggered\": false,\n      \"checks\": []\n    }\n  ],\n  \"blockers\": []\n}",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n  \"schema_version\": \"asl-pilot-return-to-form-plan-audit/v1\",\n  \"status\": \"passed\",\n  \"checked_at\": \"2026-05-29T20:14:33.034Z\",\n  \"checks\": [\n    {\n      \"check\": \"goal_exists\",\n      \"path\": \"GOAL.md\",\n      \"passed\": true\n    },\n    {\n      \"check\": \"plan_exists\",\n      \"path\": \"docs/model/return-to-form-plan.md\",\n      \"passed\": true\n    },\n    {\n      \"check\": \"readme_exists\",\n      \"path\": \"README.md\",\n      \"passed\": true\n    },\n    {\n      \"check\": \"tasks_exists\",\n      \"path\": \"MVP_TASKS.md\",\n      \"passed\": true\n    },\n    {\n      \"check\": \"datasetPlan_exists\",\n      \"path\": \"docs/model/dataset-and-training-plan.md\",\n      \"passed\": true\n    },\n    {\n      \"check\": \"observerPrompt_exists\",\n      \"path\": \"docs/observer-prompt.md\",\n      \"passed\": true\n    },\n    {\n      \"check\": \"goal_points_at_return_to_form_prompt\",\n      \"active_prompt\": \"docs/model/return-to-form-m3hv-detector0-manual-contact-sheet-overlay-packet-no-brev-goal-loop-prompt.md\",\n      \"passed\": true\n    },\n    {\n      \"check\": \"active_prompt_exists\",\n      \"active_prompt\": \"docs/model/return-to-form-m3hv-detector0-manual-contact-sheet-overlay-packet-no-brev-goal-loop-prompt.md\",\n      \"passed\": true\n    },\n    {\n      \"check\": \"active_prompt_not_superseded\",\n      \"active_prompt\": \"docs/model/return-to-form-m3hv-detector0-manual-contact-sheet-overlay-packet-no-brev-goal-loop-prompt.md\",\n      \"passed\": true\n    },\n    {\n      \"check\": \"goal_names_return_to_form_mission\",\n      \"passed\": true\n    },\n    {\n      \"check\": \"plan_has_original_spine\",\n      \"passed\": true\n    },\n    {\n      \"check\": \"plan_has_mutable_overlay\",\n      \"passed\": true\n    },\n    {\n      \"check\": \"plan_has_milestone_ladder\",\n      \"passed\": true\n    },\n    {\n      \"check\": \"plan_has_observer_transition_rules\",\n      \"passed\": true\n    },\n    {\n      \"check\": \"readme_no_stale_mission_3r_active_state\",\n      \"passed\": true\n    },\n    {\n      \"check\": \"mvp_tasks_current_state_not_mission_3r\",\n      \"passed\": true\n    }",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n  \"status\": \"passed\",\n  \"checked_at\": \"2026-05-29T20:14:33.103Z\",\n  \"register\": {\n    \"path\": \"docs/model/dataset-source-register.json\",\n    \"exists\": true,\n    \"sha256\": \"b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8\"\n  },\n  \"source_count\": 12,\n  \"blockers\": []\n}",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "No banned pretrained-CV dependencies or source imports found.",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n  \"status\": \"passed\",\n  \"checked_at\": \"2026-05-29T20:14:33.410Z\",\n  \"scanned_roots\": [\n    \"web/public/model/model-card.json\",\n    \"web/public/model/claim-matrix.json\",\n    \"docs/validation/final-claim-matrix.json\",\n    \"docs/validation/supported-label-registry.json\",\n    \"docs/validation/no-pretrained-lane-audit.json\",\n    \"artifacts/rawframe-model\"\n  ],\n  \"scanned_json_files\": [\n    \"artifacts/rawframe-model/browser-parity-fixture.json\",\n    \"artifacts/rawframe-model/calibrated-provenance-smoke-nochallenge.json\",\n    \"artifacts/rawframe-model/calibrated-provenance.json\",\n    \"artifacts/rawframe-model/controlled-pilot-prediction-sidecar.json\",\n    \"artifacts/rawframe-model/controlled-pilot-validation-report.json\",\n    \"artifacts/rawframe-model/prediction-sidecar-smoke-nochallenge.json\",\n    \"artifacts/rawframe-model/training-provenance.json\",\n    \"artifacts/rawframe-model/validation-report-smoke-nochallenge.json\",\n    \"artifacts/rawframe-model/validation-report.json\",\n    \"docs/validation/final-claim-matrix.json\",\n    \"docs/validation/no-pretrained-lane-audit.json\",\n    \"docs/validation/supported-label-registry.json\",\n    \"web/public/model/claim-matrix.json\",\n    \"web/public/model/model-card.json\"\n  ],\n  \"findings\": []\n}",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "node scripts/audit_detector0_manifest_contract.mjs",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n  \"status\": \"passed\",\n  \"checked_at\": \"2026-05-29T20:14:33.471Z\",\n  \"checks\": [\n    {\n      \"id\": \"detector_card_identity\",\n      \"label\": \"Detector 0 card is a not-trained research-only scaffold\",\n      \"status\": \"passed\",\n      \"evidence\": {\n        \"schema_version\": \"asl-pilot-detector0-card/v1\",\n        \"status\": \"not_trained\",\n        \"promotion_state\": \"research_only\",\n        \"browser_artifact\": null\n      }\n    },\n    {\n      \"id\": \"detector_targets\",\n      \"label\": \"Detector 0 target ids match the return-to-form target contract\",\n      \"status\": \"passed\",\n      \"evidence\": {\n        \"target_ids\": [\n          \"left_or_first_hand\",\n          \"right_or_second_hand\",\n          \"head_or_face\",\n          \"upper_body_or_signing_space\"\n        ]\n      }\n    },\n    {\n      \"id\": \"detector_no_pretrained_components\",\n      \"label\": \"Detector 0 card declares no pretrained components\",\n      \"status\": \"passed\",\n      \"evidence\": {\n        \"pretrained_components\": []\n      }\n    },\n    {\n      \"id\": \"detector_runtime_gates\",\n      \"label\": \"Detector 0 runtime gates are all disabled\",\n      \"status\": \"passed\",\n      \"evidence\": {\n        \"detector0_tracking\": false,\n        \"box_driven_avatar\": false,\n        \"recognition_pass_fail\": false\n      }\n    },\n    {\n      \"id\": \"bundle_schema\",\n      \"label\": \"Browser bundle schema and paths are anchored to current model manifests\",\n      \"status\": \"passed\",\n      \"evidence\": {\n        \"schema_version\": \"asl-pilot-browser-model-bundle/v1\",\n        \"model_card_path\": \"/model/model-card.json\",\n        \"detector_card_path\": \"/model/detector0-card.json\"\n      }\n    },\n    {\n      \"id\": \"bundle_fail_closed\",\n      \"label\": \"Browser bundle disables recognition, detector tracking, box-driven avatar, and authored demos\",\n      \"status\": \"passed\",\n      \"evidence\": {\n        \"recognition\": {\n          \"enabled\": false,\n          \"model_status\": \"not_trained\",\n          \"model_card_path\": \"/model/model-card.json\"\n        },\n        \"de",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "node scripts/audit_detector0_strict_gate_crop_contract.mjs --json",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n  \"schema_version\": \"asl-pilot-detector0-strict-gate-crop-contract-audit/v1\",\n  \"status\": \"passed\",\n  \"checked_at\": \"2026-05-29T20:14:33.538Z\",\n  \"contract\": \"docs/model/return-to-form-detector0-strict-gate-crop-normalization-contract.json\",\n  \"checks\": [\n    {\n      \"id\": \"schema_and_status\",\n      \"label\": \"Strict-gate contract is diagnostic-only and bound to M3FQ\",\n      \"status\": \"passed\",\n      \"evidence\": {\n        \"schema_version\": \"asl-pilot-detector0-strict-gate-crop-normalization-contract/v1\",\n        \"status\": \"diagnostic_contract_only\",\n        \"active_prompt\": \"docs/model/return-to-form-m3fq-detector0-crop-normalized-recognizer-integration-goal-loop-prompt.md\"\n      }\n    },\n    {\n      \"id\": \"m3fp_boundary\",\n      \"label\": \"M3FP receipt remains failed-gate accounting evidence only\",\n      \"status\": \"passed\",\n      \"evidence\": {\n        \"m3fp_status\": \"completed_not_promotable\",\n        \"m3fp_next_action\": \"continue_detector0_integration_for_crop_normalized_recognizer\",\n        \"contract_boundary\": {\n          \"receipt\": {\n            \"path\": \"docs/validation/return-to-form-m3fp-overnight-brev-detector-tcn-completion-v1.json\",\n            \"sha256\": \"74767dd594c26b69a3af09490f10079c5f59d7880f8ad74b32a2bad1924b5156\"\n          },\n          \"status\": \"completed_not_promotable\",\n          \"summary\": {\n            \"validation_top1\": 0.2,\n            \"validation_macro_f1\": 0.06666666666666668,\n            \"test_top1\": 0.2,\n            \"test_macro_f1\": 0.06666666666666668,\n            \"zero_recall_labels\": [\n              \"morning\",\n              \"pen\",\n              \"thank_you\",\n              \"who\"\n            ],\n            \"behavior\": \"Fresh5 classifier collapsed to predicting home.\"\n          },\n          \"copied_artifacts_are_accounting_only\": true\n        }\n      }\n    },\n    {\n      \"id\": \"strict_gate_identity\",\n      \"label\": \"Contract pins the reviewed strict contact/right-hand gate identity\",\n      \"status\": \"passed\",\n      \"evidence\": {\n        \"va",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "python3 -m json.tool docs/model/return-to-form-detector0-fixed-baseline-gate-contract-review-v1.json",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n    \"schema_version\": \"asl-pilot-detector0-fixed-baseline-gate-contract-review/v1\",\n    \"mission\": \"M3HU\",\n    \"status\": \"completed_contract_review_contract_consistent_not_training_ready\",\n    \"created_at\": \"2026-05-29T19:51:24Z\",\n    \"current_commit\": \"e360467cac0f097d5b14dfa9b2736fce5bccf420\",\n    \"active_prompt\": \"docs/model/return-to-form-m3hu-detector0-fixed-baseline-gate-contract-review-no-brev-goal-loop-prompt.md\",\n    \"purpose\": \"Review the M3HT Detector 0 fixed-baseline gate contract against the supervisor bake-off receipt, M3HS expansion evidence, packet/overlay/source evidence, and fail-closed claim surfaces without mutating contracts, packets, overlays, source records, labels, tensors, model cards, runtime code, final gates, or claim surfaces.\",\n    \"files_changed\": [\n        {\n            \"path\": \"docs/model/return-to-form-detector0-fixed-baseline-gate-contract-review-v1.json\",\n            \"purpose\": \"Tracked M3HU contract-review artifact.\"\n        },\n        {\n            \"path\": \"docs/validation/return-to-form-m3hu-detector0-fixed-baseline-gate-contract-review-no-brev-v1.json\",\n            \"purpose\": \"Validation receipt for this local/no-Brev/no-training review slice.\"\n        },\n        {\n            \"path\": \"docs/session-logs/706-mission-3hu-detector0-fixed-baseline-gate-contract-review-no-brev.md\",\n            \"purpose\": \"Numbered executor session log.\"\n        }\n    ],\n    \"source_files_inspected\": [\n        {\n            \"path\": \"GOAL.md\",\n            \"sha256\": \"2b262439dc910d1938d315ea1ad8510ea11e361f8cbcce4e35b6821202d991e8\",\n            \"role\": \"current mission and active prompt pointer\"\n        },\n        {\n            \"path\": \"docs/model/return-to-form-m3hu-detector0-fixed-baseline-gate-contract-review-no-brev-goal-loop-prompt.md\",\n            \"sha256\": \"3745538df7146c534453e8259b9a73e867fd865af281dea364f6f606205ea8ca\",\n            \"role\": \"active per-milestone prompt\"\n        },\n        {\n            \"path\": \"docs/model/return-to-form-pla",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3hu-detector0-fixed-baseline-gate-contract-review-no-brev-v1.json",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n    \"schema_version\": \"asl-pilot-m3hu-detector0-fixed-baseline-gate-contract-review-receipt/v1\",\n    \"mission\": \"M3HU\",\n    \"role\": \"codex_executor\",\n    \"slice\": \"detector0_fixed_baseline_gate_contract_review_no_brev_no_training\",\n    \"status\": \"completed_contract_review_contract_consistent_not_training_ready\",\n    \"created_at\": \"2026-05-29T19:51:24Z\",\n    \"current_commit\": \"e360467cac0f097d5b14dfa9b2736fce5bccf420\",\n    \"active_prompt\": \"docs/model/return-to-form-m3hu-detector0-fixed-baseline-gate-contract-review-no-brev-goal-loop-prompt.md\",\n    \"commands_run\": [\n        {\n            \"command\": \"git log -1 --oneline\",\n            \"exit_status\": 0,\n            \"summary\": \"HEAD e360467 observer CONTINUE handoff to M3HU.\"\n        },\n        {\n            \"command\": \"git status --short\",\n            \"exit_status\": 0,\n            \"summary\": \"clean worktree before M3HU writes\"\n        },\n        {\n            \"command\": \"git status --short --branch\",\n            \"exit_status\": 0,\n            \"summary\": \"branch compound-plan-m0 ahead of origin; no uncommitted files at baseline\"\n        },\n        {\n            \"command\": \"git log -14 --oneline --decorate\",\n            \"exit_status\": 0,\n            \"summary\": \"HEAD e360467 M3HU observer handoff; prior 38f8135 M3HT contract, 0379773 supervisor bake-off gate, and f43371a M3HS expansion\"\n        },\n        {\n            \"command\": \"node scripts/audit_loop_premise.mjs --json\",\n            \"exit_status\": 0,\n            \"summary\": \"passed with no blockers\"\n        },\n        {\n            \"command\": \"node scripts/audit_return_to_form_plan.mjs --json\",\n            \"exit_status\": 0,\n            \"summary\": \"passed; GOAL.md points at the M3HU active prompt\"\n        },\n        {\n            \"command\": \"node scripts/audit_source_register.mjs\",\n            \"exit_status\": 0,\n            \"summary\": \"passed; dataset-source-register sha256 b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8\"\n        },\n        {\n         ",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "python3 -m json.tool docs/model/return-to-form-detector0-fixed-baseline-gate-contract-v1.json",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n    \"schema_version\": \"asl-pilot-detector0-fixed-baseline-gate-contract/v1\",\n    \"mission\": \"M3HT\",\n    \"status\": \"fixed_baseline_gate_contract_only_not_training_ready\",\n    \"created_at\": \"2026-05-29T19:33:54Z\",\n    \"current_commit\": \"79aec41f86b4acb2e4abecb4519f46bf17b698ce\",\n    \"active_prompt\": \"docs/model/return-to-form-m3ht-detector0-fixed-baseline-gate-contract-no-brev-goal-loop-prompt.md\",\n    \"purpose\": \"Codify the current Detector 0 fixed-geometry comparison baseline, learned-target design, M3HS expansion classification, and beat-it promotion gate without training, Brev lifecycle work, source mutation, model-card mutation, runtime mutation, export, promotion, browser activation, or claim expansion.\",\n    \"files_changed\": [\n        {\n            \"path\": \"docs/model/return-to-form-detector0-fixed-baseline-gate-contract-v1.json\",\n            \"purpose\": \"Tracked fixed-baseline gate contract.\"\n        },\n        {\n            \"path\": \"docs/validation/return-to-form-m3ht-detector0-fixed-baseline-gate-contract-no-brev-v1.json\",\n            \"purpose\": \"Validation receipt for this no-Brev/no-training slice.\"\n        },\n        {\n            \"path\": \"docs/session-logs/704-mission-3ht-detector0-fixed-baseline-gate-contract-no-brev.md\",\n            \"purpose\": \"Numbered executor session log.\"\n        }\n    ],\n    \"source_files_inspected\": [\n        {\n            \"path\": \"GOAL.md\",\n            \"sha256\": \"d747862c2e0430a57cabcde75a14601631792902f3efd8d2bdb2a789b7124f24\",\n            \"role\": \"current mission and active prompt pointer\"\n        },\n        {\n            \"path\": \"docs/model/return-to-form-m3ht-detector0-fixed-baseline-gate-contract-no-brev-goal-loop-prompt.md\",\n            \"sha256\": \"b3f592b3a1dba8925951d55451ced582d6d31355ebb591968b52f461f74fb241\",\n            \"role\": \"active per-milestone prompt\"\n        },\n        {\n            \"path\": \"docs/model/return-to-form-plan.md\",\n            \"sha256\": \"54ec3a6e17c0a360bc33a490c9645404d821ea016077bde753bdd9aef8664",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-detector0-fullvshortcut-bakeoff-v1.json",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n    \"schema_version\": \"asl-pilot-detector0-fullvshortcut-bakeoff/v1\",\n    \"id\": \"return-to-form-detector0-fullvshortcut-bakeoff-v1\",\n    \"created_at\": \"2026-05-29\",\n    \"author\": \"supervisor (Claude) under human direction; isolated bake-off worktrees off detector0-win-20260528\",\n    \"status\": \"diagnostic_bakeoff_no_brev_no_promotion\",\n    \"purpose\": \"Decide empirically whether a reduced 'shortcut' Detector 0 target set (learn both hands, keep face/body as fixed anchors, drop the table union) reaches the same outcome as the 'full' multi-target set, and define a measurable success gate for any learned Detector 0.\",\n    \"method\": {\n        \"data\": \"data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json (32 hand-labeled frames: train 11 / val 11 / test 10, 5 PopSign words).\",\n        \"base_script\": \"scripts/run_return_to_form_tier0_detector0_multitarget_gaussian_policy.py\",\n        \"device\": \"local Mac Studio MPS; no Brev, no remote, no paid compute, no pretrained deps\",\n        \"protocol\": \"12 seeds (1-12) full-train per arm + a train-size sweep at 4/7/11 rows over seeds 1-6; all hyperparameters at script defaults (max-epochs 250); only the learned-target set differs between arms.\",\n        \"fair_comparison_note\": \"median_constant_box_mean_iou is data-only (seed-invariant) and matched the prior single-run all-targets receipt exactly (head 0.951, body 0.949, right 0.648, left 0.407), confirming identical data loading across arms.\"\n    },\n    \"key_correction\": \"The constants LEARNED_RUNTIME_TARGETS / FIXED_GEOMETRY_TARGETS / DIAGNOSTIC_TARGETS in the multitarget script do NOT drive the training gradient in the original code (they are runtime/reporting metadata used by classify()). The original training loss optimizes all five targets. The strict-gate contract's '3 fixed + 1 learned right hand' is therefore a runtime/reporting policy, not what training optimizes. The shortcut arm gated the loss to the two hands via a minimal edit and verified gradie",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-targeted-annotation-packet-expansion-v1.json",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n    \"schema_version\": \"asl-pilot-detector0-targeted-annotation-packet-expansion/v1\",\n    \"mission\": \"M3HS\",\n    \"status\": \"expansion_draft_source_bound_not_training_ready\",\n    \"created_at\": \"2026-05-29T19:11:46Z\",\n    \"current_commit\": \"fc8726908196e7666391a17c5b86c7ad95d8feba\",\n    \"active_prompt\": \"docs/model/return-to-form-m3hs-detector0-targeted-annotation-packet-expand-no-brev-goal-loop-prompt.md\",\n    \"purpose\": \"Create one bounded local/no-remote/no-Brev/no-training Detector 0 packet expansion draft from current approved tracked evidence, without mutating the existing overlay, packet, V0 packet, source manifests, source register, tensors, model cards, runtime code, final gates, or claim surfaces.\",\n    \"source_files_inspected\": [\n        {\n            \"path\": \"GOAL.md\",\n            \"sha256\": \"88b7af297ed5aebf8a56ecdc9ef26a2cc10019df9473aca14aaf262d641f01c8\"\n        },\n        {\n            \"path\": \"docs/model/return-to-form-m3hs-detector0-targeted-annotation-packet-expand-no-brev-goal-loop-prompt.md\",\n            \"sha256\": \"643b12d02c3d81283eeddb0617f657f192c0f877063783cfd639ae911f2458fa\"\n        },\n        {\n            \"path\": \"docs/model/return-to-form-plan.md\",\n            \"sha256\": \"a6b48b614a6cf978431e43ae98e9f23b0d6674d694e99d6f871418cdb3f5cd82\"\n        },\n        {\n            \"path\": \"docs/model/return-to-form-detector0-overlay-readiness-review-v1.json\",\n            \"sha256\": \"a0027f86e6df16ac3f7773255c14f1e66ccb15c8063c4e534aeab64c4f8f986c\"\n        },\n        {\n            \"path\": \"docs/validation/return-to-form-m3hr-detector0-overlay-readiness-review-no-brev-v1.json\",\n            \"sha256\": \"99ea58c548c50430aa48e2fbe6f7570ae95c7db313d4cfb21d5b81ee3bf4f82f\"\n        },\n        {\n            \"path\": \"docs/session-logs/701-mission-3hr-detector0-overlay-readiness-review-no-brev.md\",\n            \"sha256\": \"0a693c928d305f8d8fca25a3319b65e4a6838db27b768729ac196841993dbd28\"\n        },\n        {\n            \"path\": \"data/annotations/detector0/return-to-for",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-targeted-annotation-overlays-v1.json",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n    \"schema_version\": \"asl-pilot-detector0-targeted-annotation-overlays/v1\",\n    \"mission\": \"M3HQ\",\n    \"status\": \"completed_overlay_materialization_not_training_ready\",\n    \"created_at\": \"2026-05-29T18:38:36Z\",\n    \"current_commit\": \"7bc9bcb04b1beccdd8eeb06dd07e6254bbe835c1\",\n    \"active_prompt\": \"docs/model/return-to-form-m3hq-detector0-packet-overlay-materialization-no-brev-goal-loop-prompt.md\",\n    \"purpose\": \"Materialize per-row source/license, provenance, no-pretrained, coordinate-space, absence-reason, and target-applicability overlays for the current M3HN review-ready row references using the M3HP target policy and existing approved V0 rows.\",\n    \"source_files_inspected\": [\n        {\n            \"path\": \"GOAL.md\",\n            \"sha256\": \"954335fcbb572da6450356a124fe607f3131eb40cdb1bf95f23c4adf089f8fe6\"\n        },\n        {\n            \"path\": \"docs/model/return-to-form-m3hq-detector0-packet-overlay-materialization-no-brev-goal-loop-prompt.md\",\n            \"sha256\": \"a2363fdb07fe7fc0aaa3057b15ff83f8a7068144687bdd810145ea90546be7ec\"\n        },\n        {\n            \"path\": \"docs/model/return-to-form-plan.md\",\n            \"sha256\": \"b6bf8a9f05e8bfada0ec345653a9daff7920320301a6e4436a5bd4443956644e\"\n        },\n        {\n            \"path\": \"docs/model/return-to-form-detector0-target-policy-review-v1.json\",\n            \"sha256\": \"6126f06d3d219086b8a8dd4ea20ca470efef699d34be65276f83c47c873c4fec\"\n        },\n        {\n            \"path\": \"docs/validation/return-to-form-m3hp-detector0-target-policy-review-no-brev-v1.json\",\n            \"sha256\": \"fdcc9f4219445206787653028044a2f230f5677b5d0607a1d09829dc0993342d\"\n        },\n        {\n            \"path\": \"docs/session-logs/697-mission-3hp-detector0-target-policy-review-no-brev.md\",\n            \"sha256\": \"f33affef20515d00a2a8284a52e0957ffd67061d3266c97389d331370eff9344\"\n        },\n        {\n            \"path\": \"docs/validation/return-to-form-m3ho-detector0-annotation-packet-review-no-brev-v1.json\",\n            \"sha256\": ",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-targeted-annotation-packet-v1.json",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n    \"schema_version\": \"asl-pilot-detector0-targeted-annotation-packet/v1\",\n    \"status\": \"draft_not_ready_for_full_detector0_training_evaluation_or_browser_promotion\",\n    \"mission\": \"M3HN\",\n    \"created_at\": \"2026-05-29T17:41:03Z\",\n    \"head_at_creation\": \"39600ab observer: CONTINUE - m3hm to m3hn packet authoring\",\n    \"active_prompt\": \"docs/model/return-to-form-m3hn-detector0-targeted-annotation-packet-authoring-no-brev-goal-loop-prompt.md\",\n    \"purpose\": \"Reviewable Detector 0 targeted annotation packet draft from existing reviewed rows, tracked manifests/source metadata, split accounting, target coverage, validation/test negative candidates, and explicit blockers.\",\n    \"source_evidence\": {\n        \"m3hm_plan\": {\n            \"path\": \"docs/model/return-to-form-detector0-targeted-annotation-packet-plan-v1.json\",\n            \"sha256\": \"861da19e244f6404d078277a3bf8158340fcb242b0c89973012afb2dac4d6a18\"\n        },\n        \"m3hl_contract\": {\n            \"path\": \"docs/model/return-to-form-detector0-manifest-label-training-evaluation-contract-v1.json\",\n            \"sha256\": \"cd70aa2bc8568e50b3e5e3b53758bd595dbf480a1b24a5655a23c872f6d57b71\"\n        },\n        \"approved_reviewed_packet\": {\n            \"path\": \"data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json\",\n            \"sha256\": \"6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d\",\n            \"mutation_policy\": \"referenced_only_unchanged\"\n        },\n        \"tier0_manifests\": {\n            \"train\": {\n                \"path\": \"data/manifests/return-to-form-tier0/train.json\",\n                \"sha256\": \"03ae563a5f2ef0d5b868f6c80f50acb64ae642e782cd541faa5c022d4d0af1de\",\n                \"clip_count\": 125\n            },\n            \"validation\": {\n                \"path\": \"data/manifests/return-to-form-tier0/validation.json\",\n                \"sha256\": \"23da15a80ce2eee1dab1a7e64c08e2aefcf5d7dd48263677fdc49d1efb0ad808\",\n                \"clip_count\": 125\n            },\n            \"tes",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n    \"schema_version\": \"asl-pilot-detector0-localization-packet/v1\",\n    \"status\": \"expanded_packet_ready_for_detector0_smoke\",\n    \"created_at\": \"2026-05-25T23:02:30Z\",\n    \"mission\": \"M3AE-Z\",\n    \"selected_labels\": [\n        \"please\",\n        \"table\",\n        \"dad\",\n        \"grandpa\",\n        \"hat\"\n    ],\n    \"coordinate_space\": \"normalized_full_frame_xyxy_top_left_origin\",\n    \"label_sources_allowed\": [\n        \"project_manual_box_label\",\n        \"manual_verified_from_fixed_crop_context\"\n    ],\n    \"source_hashes\": {\n        \"source_register_sha256\": \"b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8\",\n        \"source_coverage_sha256\": \"1ff7da89a51e62f9efbeb08cf6361784e160ed862ac579f9e40db332fa576378\",\n        \"crop_config_sha256\": \"dbc735dad34fa9df1174a40374037976f9c88d789012634b2b22743ae0802b29\",\n        \"pre_training_gates_sha256\": \"2cc000d3f90e9be236cf64768530bf9786fc61fe6605c774b9c1e8ab123d9d97\",\n        \"bootstrap_report_sha256\": \"bd17e32bc7d4adbd195d1a26173740163e314a54577a9d9245a38dce752331e5\",\n        \"train_manifest_sha256\": \"03ae563a5f2ef0d5b868f6c80f50acb64ae642e782cd541faa5c022d4d0af1de\",\n        \"validation_manifest_sha256\": \"23da15a80ce2eee1dab1a7e64c08e2aefcf5d7dd48263677fdc49d1efb0ad808\",\n        \"test_manifest_sha256\": \"b0c771b612ebb52beb375a98b4180ccd465aa642312a8c6c29d7ff225febd8ed\",\n        \"packet_expansion_design_sha256\": \"ef9b84fd891c6e69e91259f26059a7ce69f0b75f1e3f860673551eea2b3f2717\",\n        \"candidate_review_sha256\": \"1f132125dee5bbb0c4d57bd325ffcca04a2c6921abc434ac02ee93f69471c09e\",\n        \"table_second_hand_packet_mutation_receipt_sha256\": \"0f8d8c43fcce041694df132b327407b8dca5d11e22b89ecadca42ace5221ce82\",\n        \"expanded_packet_training_smoke_sha256\": \"baa2d2f958f50e299fb8d59e2ea2a0d081dd8995181da1719d60ead0c4971def\",\n        \"two_hand_union_schema_sha256\": \"4e0972b77304c09ffa3e4f5fee4c3b9f71c26f6efe2fe14a13eed82773892716\",\n        \"two_hand_union_margin_schema_revision_sha256\": \"d48998a5e661a06a106359a5fcaf24d0",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/detector0-card.json",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n    \"schema_version\": \"asl-pilot-detector0-card/v1\",\n    \"detector_id\": \"asl-pilot-detector0-not-trained-v0\",\n    \"status\": \"not_trained\",\n    \"promotion_state\": \"research_only\",\n    \"browser_artifact\": null,\n    \"coordinate_space\": \"normalized_full_frame_top_left_xyxy\",\n    \"target_ids\": [\n        \"left_or_first_hand\",\n        \"right_or_second_hand\",\n        \"head_or_face\",\n        \"upper_body_or_signing_space\"\n    ],\n    \"architecture\": {\n        \"family\": \"scratch_coarse_region_detector\",\n        \"summary\": \"Detector 0 target contract scaffold only. No detector weights are trained, exported, or promoted.\",\n        \"pretrained_components\": []\n    },\n    \"runtime_gates\": {\n        \"detector0_tracking\": false,\n        \"box_driven_avatar\": false,\n        \"recognition_pass_fail\": false\n    },\n    \"limitations\": [\n        \"Detector 0 has no promoted browser artifact.\",\n        \"Target regions are a future crop-normalization scaffold, not ASL scoring.\",\n        \"Avatar motion cannot produce pass/fail outcomes.\"\n    ],\n    \"provenance_note\": \"This card is intentionally fail-closed until a scratch-trained Detector 0 browser artifact is promoted with retained evidence.\"\n}",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/browser-model-bundle.json",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n    \"schema_version\": \"asl-pilot-browser-model-bundle/v1\",\n    \"bundle_id\": \"asl-pilot-browser-bundle-not-trained-v0\",\n    \"generated_at\": \"2026-05-26\",\n    \"recognition\": {\n        \"enabled\": false,\n        \"model_status\": \"not_trained\",\n        \"model_card_path\": \"/model/model-card.json\"\n    },\n    \"detector0_tracking\": {\n        \"enabled\": false,\n        \"promotion_state\": \"research_only\",\n        \"detector_card_path\": \"/model/detector0-card.json\",\n        \"browser_artifact\": null\n    },\n    \"box_driven_avatar\": {\n        \"enabled\": false,\n        \"requires_detector0_tracking\": true\n    },\n    \"authored_avatar_demos\": {\n        \"enabled\": false,\n        \"reviewed_clip_count\": 0\n    }\n}",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n    \"model_id\": \"asl-pilot-rawframe-v0\",\n    \"status\": \"not_trained\",\n    \"confidence_thresholds\": {\n        \"default\": 0.72\n    },\n    \"architecture\": {\n        \"family\": \"raw_frame_compact_3d_cnn\",\n        \"summary\": \"compact_3d_cnn_spatiotemporal_placeholder_not_promoted\",\n        \"pretrained_components\": []\n    },\n    \"label_support_registry\": \"docs/validation/supported-label-registry.json\",\n    \"claim_matrix\": \"/model/claim-matrix.json\",\n    \"validation_route\": \"/validation\",\n    \"limitations\": [\n        \"The rawframe browser model is not_trained; every automatic sign check is server-side fail-closed and attempts are saved as practice history only.\",\n        \"All prompt-catalog labels are learn-only until a trained rawframe model card is promoted via scripts/promote_trained_model_card.mjs.\",\n        \"No first-party browser-webcam/raw-RGB model has been trained, validated, exported, or promoted.\"\n    ],\n    \"provenance_note\": \"This placeholder card intentionally fails closed for live browser checking. Stage A / MediaPipe vestige was removed in round-001 task-026; the only forward path is the rawframe lane, which is pending first-party data collection and Brev training.\"\n}",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n    \"$schema_version\": \"asl-pilot-active-vocabulary-claim/v1\",\n    \"$comment\": \"Source-of-truth declaration of which vocabulary labels the promoted recognition lane is currently authorised to pass/fail. Per ARCHITECTURE.md#arch-active-module the UI must NOT ask the model to pass/fail a sign outside this claim's activeLabels[]. While modelVersion == 'rawframe-not-trained' (post Stage A vestige removal, pre first Brev training round), activeLabels and evidenceArtifacts MUST remain empty arrays \\u2014 meaning the entire vocabulary defaults to content_only and no camera-driven recognition is gated as 'passed'. This file is consumed by the downstream vocabulary provenance audit (scripts/audit_downstream_vocabulary_provenance.mjs) and is the source-of-truth that scripts/promote_trained_model_card.mjs updates once a trained model artifact, signer-disjoint metrics, and a calibrated threshold set exist.\",\n    \"generated_at\": \"2026-05-24\",\n    \"modelVersion\": \"rawframe-not-trained\",\n    \"lane\": \"rawframe\",\n    \"activeLabels\": [],\n    \"evidenceArtifacts\": [],\n    \"claim_disclaimer\": \"No labels are currently active for recognition. The rawframe lane has no trained model; the model card at web/public/model/model-card.json is 'not_trained'. All 100 content vocabulary items default to content_only and cannot produce a passed=true result from the recognizer. activeLabels[] and evidenceArtifacts[] will be populated by scripts/promote_trained_model_card.mjs only after: (1) first-party clips are collected via the runbook at docs/runbooks/first-party-collection.md (mission 3), (2) a Brev training round produces signer-disjoint passing metrics for at least the 10-sign smoke active module, and (3) the negative-challenge / hard-negative validation gates in docs/strategy-confidence-audit.md pass. Promotion never happens by hand-editing this file.\"\n}",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "python3 -m json.tool docs/model/dataset-source-register.json",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n    \"schema_version\": \"asl-pilot-dataset-source-register/v1\",\n    \"updated_at\": \"2026-05-25T02:25:00.000Z\",\n    \"review_method\": {\n        \"reviewed_at\": \"2026-05-21T11:50:54.000Z\",\n        \"review_scope\": \"ASL pilot training, validation, browser inference, and pilot submission artifacts\",\n        \"default_public_dataset_policy\": \"blocked_without_external_rights_review\",\n        \"only_builtin_allowed_source_id\": \"first-party-browser-consent-capture\",\n        \"research_receipts\": {\n            \"path\": \"docs/research/dataset-source-research-receipts.json\",\n            \"sha256\": \"9cf6c7211b96eb5e8f06b6ccd3856424519cf2c5bd1edd05de43f8208731b42f\",\n            \"generated_by\": \"scripts/refresh_dataset_source_research.mjs\",\n            \"audited_by\": \"scripts/audit_dataset_source_research.mjs\"\n        }\n    },\n    \"sources\": [\n        {\n            \"source_id\": \"first-party-browser-consent-capture\",\n            \"display_name\": \"First-party consented browser recordings\",\n            \"source_kind\": \"first_party_collection\",\n            \"allowed_for_model_training\": true,\n            \"allowed_for_validation\": true,\n            \"allowed_for_pilot_submission\": true,\n            \"license_review_status\": \"approved_after_clip_level_consent\",\n            \"decision_id\": \"first_party_consent_required_v1\",\n            \"required_evidence\": [\n                \"dataset signer registry record\",\n                \"clip-level consent record\",\n                \"dataset consent form version and hash\",\n                \"raw clip SHA-256 hash\",\n                \"clip-level ASL label review approval\"\n            ],\n            \"source_evidence\": [\n                {\n                    \"evidence_type\": \"first_party_consent_contract\",\n                    \"path\": \"docs/privacy/dataset-consent-form.md\",\n                    \"sha256\": \"c1832291070b351fd3bbedf3ee1e099ce55f027b659823b8eefff23cc51e1995\",\n                    \"checked_at\": \"2026-05-20T00:00:00.000Z\",\n                    \"summary\": \"Project conse",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "brev ls --json",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n  \"workspaces\": [\n    {\n      \"name\": \"asl-pilot-m3eh-l40s-001\",\n      \"id\": \"3d58wpy9o\",\n      \"status\": \"STOPPED\",\n      \"build_status\": \"COMPLETED\",\n      \"shell_status\": \"NOT READY\",\n      \"health_status\": \"HEALTHY\",\n      \"instance_type\": \"l40s-48gb.1x\",\n      \"instance_kind\": \"gpu\",\n      \"gpu\": \"L40S\"\n    }\n  ]\n}",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlays-v1.json",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "{\n    \"schema_version\": \"asl-pilot-detector0-manual-contact-sheet-overlays/v1\",\n    \"mission\": \"M3HV - Detector 0 manual contact-sheet overlay packet no Brev\",\n    \"status\": \"manual_overlay_packet_reviewed_not_training_ready\",\n    \"created_at\": \"2026-05-29T20:10:50Z\",\n    \"current_commit\": \"2dfee5e41c716dea272e7298b58801bf8ea9caea\",\n    \"active_prompt\": \"docs/model/return-to-form-m3hv-detector0-manual-contact-sheet-overlay-packet-no-brev-goal-loop-prompt.md\",\n    \"purpose\": \"Turn the 18 M3HS source-bound table temporal-neighbor candidate rows into reviewable manual overlay evidence while keeping training, promotion, final gates, and claim surfaces unchanged.\",\n    \"source_files_inspected\": [\n        {\n            \"path\": \"GOAL.md\",\n            \"sha256\": \"c25c90a241582df8d1c5f3e3fa2d3ca05afc8e3581d19944f94593a5a07bece1\"\n        },\n        {\n            \"path\": \"docs/model/return-to-form-m3hv-detector0-manual-contact-sheet-overlay-packet-no-brev-goal-loop-prompt.md\",\n            \"sha256\": \"73a923489ffcac15319a0688b199e0608b297726136af6c66348ad8c5db53e58\"\n        },\n        {\n            \"path\": \"docs/model/return-to-form-plan.md\",\n            \"sha256\": \"8c3f6f4a57196984ad725dd1cea2286bb640d968238c4a3eb8b3b8fcd1d7c39f\"\n        },\n        {\n            \"path\": \"docs/model/return-to-form-detector0-fixed-baseline-gate-contract-review-v1.json\",\n            \"sha256\": \"adbc74cb6856a66a228d01e532709c4a3b8fdde0d499529e3fc5221262bd7283\"\n        },\n        {\n            \"path\": \"docs/validation/return-to-form-m3hu-detector0-fixed-baseline-gate-contract-review-no-brev-v1.json\",\n            \"sha256\": \"dc1296fe359a94450e6fd865294f38dc0d88442f81ba81b7ddfea239860d533e\"\n        },\n        {\n            \"path\": \"docs/session-logs/706-mission-3hu-detector0-fixed-baseline-gate-contract-review-no-brev.md\",\n            \"sha256\": \"8dbeabae828d5fd22dca57fdd7371fbf446b1b052707f83768b74cad381845c1\"\n        },\n        {\n            \"path\": \"docs/model/return-to-form-detector0-fixed-baseline-gat",
+      "stderr_excerpt": ""
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0,
+      "status": "passed",
+      "stdout_excerpt": "",
+      "stderr_excerpt": ""
+    }
+  ],
+  "command_summary": {
+    "total": 25,
+    "passed": 25,
+    "failed": 0
+  },
+  "brev_default_off_read_only_inventory": {
+    "command": "brev ls --json",
+    "lifecycle_command_run": false,
+    "remote_command_run": false,
+    "inventory": {
+      "workspaces": [
+        {
+          "name": "asl-pilot-m3eh-l40s-001",
+          "id": "3d58wpy9o",
+          "status": "STOPPED",
+          "build_status": "COMPLETED",
+          "shell_status": "NOT READY",
+          "health_status": "HEALTHY",
+          "instance_type": "l40s-48gb.1x",
+          "instance_kind": "gpu",
+          "gpu": "L40S"
+        }
+      ]
+    },
+    "cost_control_status": "read_only_inventory_only; retained workspace reported STOPPED/COMPLETED/NOT READY/HEALTHY when checked"
+  },
+  "files_inspected": [
+    {
+      "path": "GOAL.md",
+      "sha256": "c25c90a241582df8d1c5f3e3fa2d3ca05afc8e3581d19944f94593a5a07bece1"
+    },
+    {
+      "path": "docs/model/return-to-form-m3hv-detector0-manual-contact-sheet-overlay-packet-no-brev-goal-loop-prompt.md",
+      "sha256": "73a923489ffcac15319a0688b199e0608b297726136af6c66348ad8c5db53e58"
+    },
+    {
+      "path": "docs/model/return-to-form-plan.md",
+      "sha256": "8c3f6f4a57196984ad725dd1cea2286bb640d968238c4a3eb8b3b8fcd1d7c39f"
+    },
+    {
+      "path": "docs/model/return-to-form-detector0-fixed-baseline-gate-contract-review-v1.json",
+      "sha256": "adbc74cb6856a66a228d01e532709c4a3b8fdde0d499529e3fc5221262bd7283"
+    },
+    {
+      "path": "docs/validation/return-to-form-m3hu-detector0-fixed-baseline-gate-contract-review-no-brev-v1.json",
+      "sha256": "dc1296fe359a94450e6fd865294f38dc0d88442f81ba81b7ddfea239860d533e"
+    },
+    {
+      "path": "docs/session-logs/706-mission-3hu-detector0-fixed-baseline-gate-contract-review-no-brev.md",
+      "sha256": "8dbeabae828d5fd22dca57fdd7371fbf446b1b052707f83768b74cad381845c1"
+    },
+    {
+      "path": "docs/model/return-to-form-detector0-fixed-baseline-gate-contract-v1.json",
+      "sha256": "92f4650a50b562b3055bb455fe9b5ae30ad639fe843b5efd834cd24925142423"
+    },
+    {
+      "path": "docs/validation/return-to-form-m3ht-detector0-fixed-baseline-gate-contract-no-brev-v1.json",
+      "sha256": "81b99f8a9b9fbb47f0e08b20114ae396d6b878fa995748deb63aaa2863e20d95"
+    },
+    {
+      "path": "docs/validation/return-to-form-detector0-fullvshortcut-bakeoff-v1.json",
+      "sha256": "9d7ed27628d844665ebf05b698efe95d5c8c21d2eba0074561ef59bfec102dd2"
+    },
+    {
+      "path": "data/annotations/detector0/return-to-form-targeted-annotation-packet-expansion-v1.json",
+      "sha256": "79bb135a6e5c430f18a7f85dbabc617295e29ef7fdb95717de5e959381104f45"
+    },
+    {
+      "path": "docs/validation/return-to-form-m3hs-detector0-targeted-annotation-packet-expand-no-brev-v1.json",
+      "sha256": "3782d86a31bf69a45e5b7e2d5c6e5794239f5d1fca71f39cb9dacfd6af7ef45d"
+    },
+    {
+      "path": "docs/session-logs/703-mission-3hs-detector0-targeted-annotation-packet-expand-no-brev.md",
+      "sha256": "35ad93ab23c930fff40b72a5443e928095cd153f79b683276b7074f27a4c1e8b"
+    },
+    {
+      "path": "data/annotations/detector0/return-to-form-targeted-annotation-overlays-v1.json",
+      "sha256": "4b0ba6679d399a48514283a9583914b3444aa21cbaeaeacedf4929e9118c002d"
+    },
+    {
+      "path": "docs/validation/return-to-form-m3hq-detector0-packet-overlay-materialization-no-brev-v1.json",
+      "sha256": "86d1a52b30143c3e9f8f872b8a708f109bd1d4190abcc25142bf25ef52aacf74"
+    },
+    {
+      "path": "docs/session-logs/699-mission-3hq-detector0-packet-overlay-materialization-no-brev.md",
+      "sha256": "db6ac0d6d1e11118ffead39aa2539ff855e7df4f5ceca80150b9d09536b1641f"
+    },
+    {
+      "path": "data/annotations/detector0/return-to-form-targeted-annotation-packet-v1.json",
+      "sha256": "758c9dbc408e4ae02a042c08805d9baccf3bca6cc0a6d1e0e2d25dbd45a26f23"
+    },
+    {
+      "path": "docs/validation/return-to-form-m3hn-detector0-targeted-annotation-packet-authoring-no-brev-v1.json",
+      "sha256": "0f43e45f9fa7b4b09c0492bb521340481fa18da93ef6558a427dbafbb490c9b9"
+    },
+    {
+      "path": "docs/session-logs/693-mission-3hn-detector0-targeted-annotation-packet-authoring-no-brev.md",
+      "sha256": "d1c9506e24e4740d6fc1cd2b29db051f71c9f160a27ce6b2864d1491f25aeab0"
+    },
+    {
+      "path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d"
+    },
+    {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    {
+      "path": "data/manifests/return-to-form-tier0/train.json",
+      "sha256": "03ae563a5f2ef0d5b868f6c80f50acb64ae642e782cd541faa5c022d4d0af1de"
+    },
+    {
+      "path": "data/manifests/return-to-form-tier0/validation.json",
+      "sha256": "23da15a80ce2eee1dab1a7e64c08e2aefcf5d7dd48263677fdc49d1efb0ad808"
+    },
+    {
+      "path": "data/manifests/return-to-form-tier0/test.json",
+      "sha256": "b0c771b612ebb52beb375a98b4180ccd465aa642312a8c6c29d7ff225febd8ed"
+    },
+    {
+      "path": "data/manifests/negative-challenge.json",
+      "sha256": "b06c7990b9d0efbec908b8466064b87dd29bbf7c5d891e133c935c5c7ed02293"
+    },
+    {
+      "path": "web/public/model/detector0-card.json",
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929"
+    },
+    {
+      "path": "web/public/model/browser-model-bundle.json",
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9"
+    },
+    {
+      "path": "web/public/model/model-card.json",
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a"
+    },
+    {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546"
+    },
+    {
+      "path": "web/src/lib/detector0-types.ts",
+      "sha256": "f0ccbe9061cbf591e0fb79cbfd8933716d79fb202de7abd6d8c9e59dd83d518a"
+    },
+    {
+      "path": "docs/model/return-to-form-detector0-strict-gate-crop-normalization-contract.json",
+      "sha256": "3f188371aa1e445309ef8f518d22012ee628b34a79b2f87d0f28e5a5b3c99c3e"
+    },
+    {
+      "path": "docs/validation/return-to-form-tier0-remediation-contact-sheets/table.png",
+      "sha256": "f223eb2c92c85418c999c85d0c664d35241e0b4a24f31b8af3bb37c19426169e"
+    }
+  ],
+  "files_changed": [
+    {
+      "path": "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlays-v1.json",
+      "sha256": "9336f9b4047ce20499d560da6a8d2967a229aa87497eca28bc6f77fa4600e8fb"
+    },
+    {
+      "path": "docs/validation/return-to-form-m3hv-detector0-manual-contact-sheet-overlay-packet-no-brev-v1.json",
+      "sha256": null
+    },
+    {
+      "path": "docs/session-logs/708-mission-3hv-detector0-manual-contact-sheet-overlay-packet-no-brev.md",
+      "sha256": null
+    }
+  ],
+  "manual_overlay_packet": {
+    "path": "data/annotations/detector0/return-to-form-targeted-annotation-manual-contact-sheet-overlays-v1.json",
+    "sha256": "9336f9b4047ce20499d560da6a8d2967a229aa87497eca28bc6f77fa4600e8fb",
+    "row_count": 18
+  },
+  "candidate_row_coverage": {
+    "m3hs_selected_candidate_rows": 18,
+    "reviewed_rows_in_this_packet": 18,
+    "not_reviewed_rows": [],
+    "split_counts": {
+      "test": 6,
+      "train": 6,
+      "validation": 6
+    },
+    "review_status_counts": {
+      "manual_contact_sheet_overlay_authored": 17,
+      "blocked_insufficient_visual_evidence": 1
+    }
+  },
+  "authored_and_blocked_row_counts": {
+    "authored_rows": 17,
+    "blocked_insufficient_visual_evidence_rows": 1,
+    "not_reviewed_rows": 0
+  },
+  "target_by_target_split_counts": {
+    "left_or_first_hand": {
+      "total": {
+        "present": 17,
+        "insufficient_visual_evidence": 1
+      },
+      "by_split": {
+        "test": {
+          "present": 6
+        },
+        "train": {
+          "present": 6
+        },
+        "validation": {
+          "insufficient_visual_evidence": 1,
+          "present": 5
+        }
+      }
+    },
+    "right_or_second_hand": {
+      "total": {
+        "present": 17,
+        "insufficient_visual_evidence": 1
+      },
+      "by_split": {
+        "test": {
+          "present": 6
+        },
+        "train": {
+          "present": 6
+        },
+        "validation": {
+          "insufficient_visual_evidence": 1,
+          "present": 5
+        }
+      }
+    },
+    "table_two_hand_union_or_contact_region": {
+      "total": {
+        "present": 17,
+        "insufficient_visual_evidence": 1
+      },
+      "by_split": {
+        "test": {
+          "present": 6
+        },
+        "train": {
+          "present": 6
+        },
+        "validation": {
+          "insufficient_visual_evidence": 1,
+          "present": 5
+        }
+      }
+    }
+  },
+  "m3ht_gate_continuity_proof": {
+    "left_hand_iou_must_exceed": 0.4073,
+    "right_hand_iou_must_exceed": 0.6476,
+    "source": "docs/model/return-to-form-detector0-fixed-baseline-gate-contract-v1.json"
+  },
+  "source_provenance_no_pretrained_proof": {
+    "source_id": "popsign-v1-original-videos",
+    "source_rights_scope": "PopSign v1 original raw video/frame/tensor rows and project-authored manual boxes/regions with attribution and provenance, per existing source register and overlays.",
+    "source_register_path": "docs/model/dataset-source-register.json",
+    "source_register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+    "no_pretrained_attestation": "No pretrained detector, landmark model, feature extractor, backbone, teacher model, generated label, pseudo-label, source-provided landmark/pose, or pretrained feature cache was used. This packet is manual offline supervision evidence only and does not enter the promoted browser lane.",
+    "raw_learner_video_upload_used": false
+  },
+  "claim_surface_proof": {
+    "paths": [
+      {
+        "path": "web/public/model/detector0-card.json",
+        "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929"
+      },
+      {
+        "path": "web/public/model/browser-model-bundle.json",
+        "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9"
+      },
+      {
+        "path": "web/public/model/model-card.json",
+        "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a"
+      },
+      {
+        "path": "docs/model/active-vocabulary-claim.json",
+        "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546"
+      }
+    ],
+    "detector0_status": "not_trained",
+    "detector0_promotion_state": "research_only",
+    "browser_artifact": null,
+    "active_label_count": 0,
+    "claim_expansion_performed": false
+  },
+  "forbidden_action_proof": {
+    "brev_lifecycle_or_remote_command": false,
+    "paid_compute_started": false,
+    "detector0_training_or_evaluation": false,
+    "recognizer_training_or_evaluation": false,
+    "source_or_media_import": false,
+    "raw_learner_media_inspection": false,
+    "base_artifact_mutation": false,
+    "tensor_mutation": false,
+    "vocabulary_mutation": false,
+    "model_card_or_claim_surface_mutation": false,
+    "final_gate_change": false,
+    "export_or_browser_activation": false
+  },
+  "readiness_classification": {
+    "manual_overlay_packet_complete_for_m3hs_candidate_rows": true,
+    "manual_overlay_blocked_rows": 1,
+    "ready_for_full_scratch_detector0_training_evaluation": false,
+    "ready_for_browser_promotion": false,
+    "ready_for_final_gates_or_claim_expansion": false,
+    "claim_surfaces_remain_fail_closed": true,
+    "reason": "This packet adds manual overlay evidence for temporal table candidates only. It does not supply hard negatives, broad hand coverage, held-out gate metrics, browser artifacts, or a learned model that beats the fixed baseline."
+  },
+  "exactly_one_next_action": "continue_m3hw_detector0_manual_overlay_gap_repair_no_brev"
+}

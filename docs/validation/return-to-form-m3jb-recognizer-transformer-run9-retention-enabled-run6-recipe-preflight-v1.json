@@ -1,0 +1,248 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-run9-retention-enabled-run6-recipe-preflight/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_run9_retention_enabled_run6_recipe_preflight_no_brev",
+  "recorded_at_utc": "2026-06-04T10:25:53Z",
+  "head_before_slice": "eaba290e record(m3jb): retention-enabled research tuning",
+  "status": "passed_no_brev_run9_retention_enabled_run6_recipe_preflight",
+  "source_of_truth": {
+    "previous_research_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-retention-enabled-research-tuning-v1.json",
+    "previous_candidate_retention_preflight_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-candidate-checkpoint-retention-preflight-v1.json",
+    "previous_candidate_retention_dryrun_receipt": "docs/validation/m3jb-recognizer-candidate-checkpoint-retention-preflight-dryrun-v1.json",
+    "run6_base_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run6-verifselect-brev-v1.json",
+    "active_next_action_before_slice": "m3jb_recognizer_transformer_run9_retention_enabled_run6_recipe_preflight_no_brev",
+    "side_worktree_commit": "8e90c24d",
+    "side_hashes": {
+      "train_recognizer_distill_py": "47c8c9ca16696f998b8b2d99ef4e30e44bb54561083766eb264803e92da7e921",
+      "test_recognizer_distill_diagnostics_py": "a2b856f1e31951c88b1a37a36bea543154d40350125e8305ec3981aecd75d52e"
+    }
+  },
+  "run6_base": {
+    "reason": "Run6 remains the held-out verification running best and used monitor_verification_recall_far10 checkpoint selection, but old artifacts retained only epoch 14. Run9 keeps the run6 objective/envelope and adds candidate checkpoint retention so robust monitor-only selectors can be evaluated after a future fulltrain.",
+    "test_top1": 0.287,
+    "test_top5": 0.6399,
+    "verification_recall_at_far10": 0.8039,
+    "gate_verification_recall_at_far10": 0.85,
+    "best_monitor_epoch": 14,
+    "best_monitor_verification_recall_far10": 0.8169,
+    "final_epoch_monitor_verification_recall_far10": 0.7835,
+    "fail_closed": true
+  },
+  "execution": {
+    "dryrun_command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_recognizer_distill.py --student-arch transformer --student-data tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1 --seq-len 32 --teacher-data tools/detector0-annotator/.cache/handcrop-lm2 --teacher-checkpoint tools/detector0-annotator/output/recognizer-v1.pt --epochs 240 --batch 128 --lr 5e-4 --lr-scheduler cosine --warmup-steps 500 --min-lr 5e-5 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --eval-verification --eval-verification-every 1 --checkpoint-metric monitor_verification_recall_far10 --save-best-checkpoint --retain-candidate-checkpoints --candidate-checkpoint-epsilon 0.005 --candidate-checkpoint-window 5 --dry-run-forward --no-save-model --device cpu --seed 0 --out tools/detector0-annotator/output/m3jb-recognizer-run9-retention-enabled-run6-recipe-preflight-dryrun-v1.json",
+    "brev_used": false,
+    "brev_command_run": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "pt_files_created": false
+  },
+  "dryrun_receipt": {
+    "path": "docs/validation/m3jb-recognizer-run9-retention-enabled-run6-recipe-preflight-dryrun-v1.json",
+    "sha256": "b7319e59260c37f88c399ef3f8eee2816c376838853e27330b7cf8f3c660d4b3",
+    "schema_version": "asl-pilot-recognizer-distill/v1",
+    "training_mode": "dry_run_forward"
+  },
+  "dryrun_result": {
+    "train_clips": 7011,
+    "monitor_clips": 955,
+    "test_clips": 2369,
+    "student_cache": {
+      "data_dir": "tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1",
+      "clips": 10335,
+      "classes": 95,
+      "sequence_length": 32,
+      "tensor_sequence_length": 32,
+      "feature_dim": 90,
+      "length_min": 15,
+      "length_max": 32,
+      "split_counts": {
+        "test": 2369,
+        "train": 5591,
+        "validation": 2375
+      }
+    },
+    "teacher_covered_train": 2671,
+    "teacher_covered_total": 4560,
+    "optimizer_steps": 0,
+    "expected_optimizer_steps": 0,
+    "planned_optimizer_steps": 13200,
+    "steps_per_epoch": 55,
+    "dry_run_logits_shape": [
+      128,
+      95
+    ],
+    "dry_run_loss": 8.20553,
+    "weights": null,
+    "supcon": {
+      "enabled": false,
+      "weight": 0.0
+    },
+    "ovr_bce": {
+      "enabled": false,
+      "weight": 0.0,
+      "uses_test_mined_pairs_for_training": false
+    },
+    "checkpoint_selection": {
+      "metric_name": "monitor_verification_recall_far10",
+      "save_best_checkpoint": true,
+      "eval_verification": true,
+      "eval_verification_every": 1,
+      "best_epoch": null,
+      "best_score": null,
+      "checkpoint_written": false,
+      "metric_available_in_dry_run": true,
+      "monitor_verification_recall_far10": 0.11753850638525562,
+      "monitor_verification_classes_evaluable": 95
+    },
+    "candidate_checkpoint_retention": {
+      "enabled": true,
+      "retain_checkpoints": true,
+      "retain_logits": false,
+      "metric_name": "monitor_verification_recall_far10",
+      "epsilon": 0.005,
+      "window": 5,
+      "selectors": [
+        "argmax_monitor_verification",
+        "earliest_within_0_005_of_best_monitor_verification",
+        "latest_within_0_005_of_best_monitor_verification",
+        "trailing_mean_5_monitor_verification",
+        "trailing_median_5_monitor_verification"
+      ],
+      "requires_eval_verification": true,
+      "requires_eval_verification_every": 1,
+      "uses_test_mined_pairs_for_training": false,
+      "checkpoint_writes_allowed": false,
+      "checkpoint_write_blocker": "dry_run_forward",
+      "selector_candidates": [],
+      "selector_candidate_epochs": [],
+      "retention_events": [],
+      "retained_checkpoint_count": 0,
+      "retained_checkpoint_epochs": [],
+      "retained_checkpoint_paths": []
+    }
+  },
+  "future_run9_envelope": {
+    "launchable_now": false,
+    "blocked_until_brev_auth_and_inventory_visible": true,
+    "future_fulltrain_token_after_auth": "m3jb_recognizer_transformer_run9_retention_enabled_run6_fulltrain_brev_ok_after_auth",
+    "minimum_brev_prerequisites": [
+      "Brev CLI API auth recovered",
+      "successful brev ls --json",
+      "existing retained or equivalent NVIDIA worker visible as healthy",
+      "fresh SSH/CUDA/process preflight passes",
+      "no active conflicting training process"
+    ],
+    "planned_command": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && mkdir -p tools/detector0-annotator/output && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_recognizer_distill.py --student-arch transformer --student-data tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1 --seq-len 32 --teacher-data tools/detector0-annotator/.cache/handcrop-lm2 --teacher-checkpoint tools/detector0-annotator/output/recognizer-v1.pt --epochs 240 --batch 128 --lr 5e-4 --lr-scheduler cosine --warmup-steps 500 --min-lr 5e-5 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --eval-verification --eval-verification-every 1 --checkpoint-metric monitor_verification_recall_far10 --save-best-checkpoint --retain-candidate-checkpoints --candidate-checkpoint-epsilon 0.005 --candidate-checkpoint-window 5 --device cuda --seed 0 --out tools/detector0-annotator/output/m3jb-recognizer-run9-retention-enabled-run6-fulltrain-brev-v1.json\"",
+    "full_data_no_limit_flags": true,
+    "student_arch": "transformer",
+    "student_data": "tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1",
+    "teacher_data": "tools/detector0-annotator/.cache/handcrop-lm2",
+    "teacher_checkpoint": "tools/detector0-annotator/output/recognizer-v1.pt",
+    "seq_len": 32,
+    "epochs": 240,
+    "batch": 128,
+    "lr": 0.0005,
+    "lr_scheduler": {
+      "name": "cosine",
+      "warmup_steps": 500,
+      "min_lr": 0.00005
+    },
+    "d_model": 256,
+    "n_layers": 6,
+    "n_heads": 8,
+    "dropout": 0.0,
+    "alpha": 0.55,
+    "temperature": 3.0,
+    "jitter_std": 0.02,
+    "frame_drop": 0.10,
+    "classes": 95,
+    "train_clips": 7011,
+    "monitor_clips": 955,
+    "test_clips": 2369,
+    "planned_optimizer_steps": 13200,
+    "expected_optimizer_steps": 13200,
+    "eval_verification": true,
+    "eval_verification_every": 1,
+    "checkpoint_selection": {
+      "metric_name": "monitor_verification_recall_far10",
+      "save_best_checkpoint": true
+    },
+    "candidate_checkpoint_retention": {
+      "enabled": true,
+      "epsilon": 0.005,
+      "window": 5,
+      "retain_checkpoints": true,
+      "retain_logits": false
+    },
+    "supcon": {
+      "enabled": false,
+      "weight": 0.0
+    },
+    "ovr_bce": {
+      "enabled": false,
+      "weight": 0.0
+    },
+    "max_outer_runtime_seconds": 21600,
+    "max_inner_runtime_seconds": 20000,
+    "copyback_required": [
+      "tools/detector0-annotator/output/m3jb-recognizer-run9-retention-enabled-run6-fulltrain-brev-v1.json",
+      "tools/detector0-annotator/output/m3jb-recognizer-run9-retention-enabled-run6-fulltrain-brev-v1.pt",
+      "any retained candidate checkpoint files named by the receipt"
+    ],
+    "teardown_required": "Stop the worker after copyback, crash evidence capture, or an explicit preflight/run blocker, then verify stopped state with brev ls --json when auth is available."
+  },
+  "future_run9_kill_criteria": [
+    "Abort before launch if Brev auth is not recovered or brev ls --json cannot verify current worker state.",
+    "Abort before launch if a healthy existing or approved equivalent NVIDIA worker is not visible.",
+    "Abort before training if remote trainer/code/cache hashes do not match the scoped recognizer runnable set.",
+    "Abort before training if any --limit-* flag, row cap, smaller cache, smaller batch/epoch shortcut, OVR-BCE, SupCon, class balancing, T=40/cache/capacity change, calibration transform, runtime export, browser promotion, raw upload, pretrained runtime dependency, raw test-mined supervision, or final-gate change appears in the command.",
+    "Abort or fail closed if train/monitor/test counts are not 7011/955/2369 or classes are not 95.",
+    "Abort or fail closed if expected optimizer steps are not 13200.",
+    "Abort or fail closed if eval_verification is not enabled every epoch or checkpoint_metric is not monitor_verification_recall_far10.",
+    "Abort or fail closed if candidate checkpoint retention is inactive, epsilon is not 0.005, window is not 5, or candidate checkpoints are not retained during full training.",
+    "Abort or fail closed on NaNs, non-finite loss, missing verification metrics, missing best-checkpoint record, missing retained-candidate metadata, or artifact copyback failure.",
+    "Fail closed unless held-out verification recall@FAR10 reaches the 0.85 gate; compare against run6 0.8039 as running best."
+  ],
+  "decision": {
+    "run9_recipe_preflight_completed": true,
+    "dryrun_no_save_validation_completed": true,
+    "future_compute_envelope_recorded": true,
+    "future_kill_criteria_recorded": true,
+    "paid_recipe_selected": false,
+    "future_compute_blocked_until_brev_auth": true,
+    "browser_or_runtime_promotion_allowed": false,
+    "reason": "The run9 run6-base retention-enabled recipe is recorded and locally validated with zero optimizer/backward steps and no checkpoint output. A future paid launch is still blocked until Brev auth is recovered and brev ls --json succeeds.",
+    "next_action": {
+      "token": "m3jb_recognizer_transformer_run9_retention_enabled_brev_auth_visibility_refresh_no_spend",
+      "requires_brev_spend": false,
+      "reason": "Recover/verify Brev CLI visibility with a no-spend read-only inventory before any future run9 fulltrain can become launchable."
+    }
+  },
+  "boundaries": {
+    "brev_used": false,
+    "brev_lifecycle_or_exec": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "runtime_export": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "raw_test_mined_supervision": false,
+    "future_paid_recipe_selected": false,
+    "push": false
+  },
+  "validation": {
+    "commands": [
+      "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_recognizer_distill.py --student-arch transformer --student-data tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1 --seq-len 32 --teacher-data tools/detector0-annotator/.cache/handcrop-lm2 --teacher-checkpoint tools/detector0-annotator/output/recognizer-v1.pt --epochs 240 --batch 128 --lr 5e-4 --lr-scheduler cosine --warmup-steps 500 --min-lr 5e-5 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --eval-verification --eval-verification-every 1 --checkpoint-metric monitor_verification_recall_far10 --save-best-checkpoint --retain-candidate-checkpoints --candidate-checkpoint-epsilon 0.005 --candidate-checkpoint-window 5 --dry-run-forward --no-save-model --device cpu --seed 0 --out tools/detector0-annotator/output/m3jb-recognizer-run9-retention-enabled-run6-recipe-preflight-dryrun-v1.json",
+      "python3 -m json.tool docs/validation/m3jb-recognizer-run9-retention-enabled-run6-recipe-preflight-dryrun-v1.json >/dev/null",
+      "shasum -a 256 docs/validation/m3jb-recognizer-run9-retention-enabled-run6-recipe-preflight-dryrun-v1.json",
+      "find /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output -maxdepth 1 -type f -name 'm3jb-recognizer-run9-retention-enabled-run6-recipe-preflight-dryrun-v1*.pt' -print"
+    ],
+    "no_pt_files_created": true
+  }
+}

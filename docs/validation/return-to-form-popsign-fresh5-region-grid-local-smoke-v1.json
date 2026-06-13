@@ -1,0 +1,412 @@
+{
+  "schema_version": "asl-pilot-return-to-form-popsign-fresh5-region-grid-local-smoke/v1",
+  "mission": "Mission 3BU - PopSign fresh5 region-grid local smoke",
+  "status": "completed_local_smoke_weak",
+  "generated_at": "2026-05-27T19:11:37Z",
+  "generated_by": "Codex executor",
+  "active_prompt": "docs/model/return-to-form-popsign-fresh5-region-grid-local-smoke-goal-loop-prompt.md",
+  "scope": {
+    "exactly_one_local_classifier_smoke": true,
+    "local_only": true,
+    "no_brev_training_or_spend": true,
+    "no_remote_command": true,
+    "no_broad_training": true,
+    "no_fresh10_training": true,
+    "no_source_register_change": true,
+    "no_unreviewed_source_import": true,
+    "no_pretrained_dependency": true,
+    "no_pseudo_labels": true,
+    "no_export_or_browser_activation": true,
+    "no_model_card_promotion": true,
+    "no_final_gate_change": true
+  },
+  "source_of_truth": [
+    "GOAL.md",
+    "docs/model/return-to-form-popsign-fresh5-region-grid-local-smoke-goal-loop-prompt.md",
+    "docs/validation/return-to-form-popsign-fresh5-region-grid-materialization-v1.json",
+    "docs/session-logs/372-mission-3bt-popsign-fresh5-region-grid-materialization.md",
+    "docs/validation/return-to-form-popsign-fresh5-materialization-local-smoke-v1.json"
+  ],
+  "references": {
+    "active_prompt": {
+      "path": "docs/model/return-to-form-popsign-fresh5-region-grid-local-smoke-goal-loop-prompt.md",
+      "sha256": "978d0d84660898c3d48d075cb01fb931ae054d5b87e5df3b47813b9f6a08f8c9"
+    },
+    "m3bt_region_grid_materialization": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-region-grid-materialization-v1.json",
+      "sha256": "ff2de8d6047a6dfc735245fbe73989c90f370a32b9f35fbd3209186be10dba68"
+    },
+    "m3bs_full_frame_baseline": {
+      "path": "docs/validation/return-to-form-popsign-fresh5-materialization-local-smoke-v1.json",
+      "sha256": "510bce9946bf7afb145c5afb43e7b6492bb66e239511dfa91ade8ed3aca5f430"
+    },
+    "train_script": {
+      "path": "scripts/train_rawframe_model.py",
+      "sha256": "e1f6f2bc024fa24fd52b4fb799f1bf0afeae7fcd27951c6335a2bbb38354ce3f"
+    },
+    "evaluate_script": {
+      "path": "scripts/evaluate_rawframe_model.py",
+      "sha256": "889609cca9139a2f3d9a096eebd5aeba45e6eec3cf66af2adb0e72162d45666d"
+    }
+  },
+  "selected_labels": [
+    "thank_you",
+    "pen",
+    "home",
+    "who",
+    "morning"
+  ],
+  "m3bt_region_grid_inputs": {
+    "input_contract": "rgb_regions_grid_v1",
+    "tensor_count": 375,
+    "missing_file_count": 0,
+    "input_contract_observed_counts": {
+      "rgb_regions_grid_v1": 375
+    },
+    "manifests": {
+      "train": {
+        "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/train.json",
+        "sha256": "6cc8ca08bc127d8b42e55e03b604702a66c94d618821c07c23b6a9bd2b0f31ef",
+        "clip_count": 125,
+        "tensor_count": 125
+      },
+      "validation": {
+        "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/validation.json",
+        "sha256": "9e83e674ee9ee65508eb322b43fa0453ef7f5a76740735ebfa73a881ab3e0b40",
+        "clip_count": 125,
+        "tensor_count": 125
+      },
+      "test": {
+        "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/test.json",
+        "sha256": "fd1242c965ccf671384b38af8abf84333d107562a3700d30dfa6cd84720e4046",
+        "clip_count": 125,
+        "tensor_count": 125
+      }
+    }
+  },
+  "pre_training_input_contract_validation": {
+    "command": ".venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/return-to-form-popsign-fresh5-region-grid/train.json --validation-manifest data/manifests/return-to-form-popsign-fresh5-region-grid/validation.json --test-manifest data/manifests/return-to-form-popsign-fresh5-region-grid/test.json --output-dir output/return-to-form-popsign-fresh5-region-grid-dry-run --model-id asl-pilot-popsign-fresh5-region-grid-contract-v1 --allow-small-label-set --check-files --frame-count 16 --image-size 96 --dry-run --require-input-contract rgb_regions_grid_v1",
+    "status": "passed",
+    "training_status": "dry_run_only",
+    "total_clip_count": 375,
+    "total_observed_counts": {
+      "rgb_regions_grid_v1": 375
+    },
+    "fallback_to_rgb_frames": false
+  },
+  "local_smoke": {
+    "ran": true,
+    "command": ".venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/return-to-form-popsign-fresh5-region-grid/train.json --validation-manifest data/manifests/return-to-form-popsign-fresh5-region-grid/validation.json --test-manifest data/manifests/return-to-form-popsign-fresh5-region-grid/test.json --output-dir output/return-to-form-popsign-fresh5-region-grid-local-smoke --model-id asl-pilot-popsign-fresh5-region-grid-local-smoke-v1 --allow-small-label-set --check-files --frame-count 16 --image-size 96 --epochs 6 --batch-size 8 --learning-rate 0.001 --architecture motion_2d_temporal_cnn --training-augmentation mild --checkpoint-selection best_validation --max-train-batches 8 --max-validation-batches 4 --num-workers 0",
+    "status": "completed_smoke_weak",
+    "framework": {
+      "name": "pytorch",
+      "version": "2.12.0",
+      "python": "3.14.5",
+      "device": "mps"
+    },
+    "model_id": "asl-pilot-popsign-fresh5-region-grid-local-smoke-v1",
+    "output_dir": "output/return-to-form-popsign-fresh5-region-grid-local-smoke",
+    "wall_clock_seconds": null,
+    "wall_clock_note": "not measured in this executor turn; command completed normally before evaluation",
+    "seed": 20260519,
+    "hyperparameters": {
+      "epochs": 6,
+      "batch_size": 8,
+      "learning_rate": 0.001,
+      "optimizer": "adamw",
+      "weight_decay": 0.01,
+      "frame_count": 16,
+      "image_size": 96,
+      "architecture": "motion_2d_temporal_cnn",
+      "training_augmentation": "mild",
+      "checkpoint_selection": "best_validation",
+      "max_train_batches": 8,
+      "max_validation_batches": 4,
+      "num_workers": 0
+    },
+    "artifacts": {
+      "model_state": {
+        "path": "output/return-to-form-popsign-fresh5-region-grid-local-smoke/model_state.pt",
+        "sha256": "df7873a595f1f8a6058b431801005446bed8175bec59bf3582baf51bf57951c6"
+      },
+      "training_provenance": {
+        "path": "output/return-to-form-popsign-fresh5-region-grid-local-smoke/training-provenance.json",
+        "sha256": "27ed97b7fe4b1a6c241dc9853c521f7bc92e6923888a6cc57c85aa632de39069"
+      },
+      "validation_report": {
+        "path": "output/return-to-form-popsign-fresh5-region-grid-local-smoke/validation-report.json",
+        "sha256": "aaa6687d573c007bf9326337b9070994556275a48ca03f362b6bc2a988160e1a"
+      },
+      "prediction_sidecar": {
+        "path": "output/return-to-form-popsign-fresh5-region-grid-local-smoke/prediction-sidecar.json",
+        "sha256": "7846eaf0fc3d901224a0cb32ba5cba7ff489ac46eb4e59494692100c12058130"
+      },
+      "calibrated_provenance_smoke": {
+        "path": "output/return-to-form-popsign-fresh5-region-grid-local-smoke/calibrated-provenance-smoke.json",
+        "sha256": "799f30120d9aa323c2589c035bf4e78bc919a15f69b00a47c51ced6218a303b8"
+      }
+    },
+    "input_contract_evidence": {
+      "training_loader_consumed_key": "rgb_regions",
+      "derived_input_name": "rgb_regions_grid_v1",
+      "fallback_to_rgb_frames": false,
+      "source_region_axis": "T,R,H,W,C",
+      "source_shape": [
+        16,
+        5,
+        96,
+        96,
+        3
+      ],
+      "derived_shape_before_prepare": [
+        16,
+        192,
+        288,
+        3
+      ],
+      "prepared_model_input_shape": [
+        16,
+        3,
+        96,
+        96
+      ],
+      "sample_tensor_path": "data/tensors/return-to-form-popsign-fresh5-region-grid/train/popsign-v1-train-thank_you-000001-regions.pt"
+    },
+    "labels_to_index": {
+      "home": 0,
+      "morning": 1,
+      "pen": 2,
+      "thank_you": 3,
+      "who": 4
+    },
+    "best_validation_checkpoint": {
+      "selected_epoch": 4,
+      "capped_validation_accuracy": 0.625,
+      "capped_validation_examples": 32,
+      "capped_validation_batches": 4,
+      "loss": 1.1716297715902328
+    },
+    "training_loss_movement": {
+      "first_epoch_train_loss": 1.6903739869594574,
+      "final_epoch_train_loss": 1.1587065607309341,
+      "delta_train_loss": -0.5316674262285233,
+      "first_epoch_train_accuracy": 0.171875,
+      "final_epoch_train_accuracy": 0.578125,
+      "delta_train_accuracy": 0.40625
+    },
+    "history": [
+      {
+        "epoch": 1,
+        "train_accuracy": 0.171875,
+        "train_loss": 1.6903739869594574,
+        "validation_accuracy": 0.0,
+        "validation_loss": 1.579913169145584
+      },
+      {
+        "epoch": 2,
+        "train_accuracy": 0.34375,
+        "train_loss": 1.597111538052559,
+        "validation_accuracy": 0.03125,
+        "validation_loss": 1.6010660827159882
+      },
+      {
+        "epoch": 3,
+        "train_accuracy": 0.421875,
+        "train_loss": 1.4399262070655823,
+        "validation_accuracy": 0.46875,
+        "validation_loss": 1.4580265879631042
+      },
+      {
+        "epoch": 4,
+        "train_accuracy": 0.421875,
+        "train_loss": 1.3301530852913857,
+        "validation_accuracy": 0.625,
+        "validation_loss": 1.1716297715902328
+      },
+      {
+        "epoch": 5,
+        "train_accuracy": 0.46875,
+        "train_loss": 1.3899856805801392,
+        "validation_accuracy": 0.28125,
+        "validation_loss": 1.4204016029834747
+      },
+      {
+        "epoch": 6,
+        "train_accuracy": 0.578125,
+        "train_loss": 1.1587065607309341,
+        "validation_accuracy": 0.1875,
+        "validation_loss": 1.9968324303627014
+      }
+    ],
+    "train_sanity": {
+      "status": "partial_capped_train_signal_present",
+      "reason": "Capped train accuracy rose from 0.171875 to 0.578125 and capped train loss fell by 0.5316674262285233, but held-out metrics remain weak."
+    }
+  },
+  "smoke_evaluation": {
+    "ran": true,
+    "command": ".venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint output/return-to-form-popsign-fresh5-region-grid-local-smoke/model_state.pt --training-provenance output/return-to-form-popsign-fresh5-region-grid-local-smoke/training-provenance.json --train-manifest data/manifests/return-to-form-popsign-fresh5-region-grid/train.json --validation-manifest data/manifests/return-to-form-popsign-fresh5-region-grid/validation.json --test-manifest data/manifests/return-to-form-popsign-fresh5-region-grid/test.json --output-report output/return-to-form-popsign-fresh5-region-grid-local-smoke/validation-report.json --calibrated-provenance output/return-to-form-popsign-fresh5-region-grid-local-smoke/calibrated-provenance-smoke.json --prediction-sidecar output/return-to-form-popsign-fresh5-region-grid-local-smoke/prediction-sidecar.json --allow-smoke-eval --batch-size 8",
+    "status": "smoke_only",
+    "finality": "smoke_or_wiring_only_not_model_evidence",
+    "validation_metrics": {
+      "top1_accuracy": 0.224,
+      "macro_f1": 0.15837302833380346,
+      "zero_recall_labels": [
+        "home"
+      ],
+      "per_class": {
+        "home": {
+          "support": 25,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "morning": {
+          "support": 25,
+          "recall": 0.16,
+          "f1": 0.24242424242424243
+        },
+        "pen": {
+          "support": 25,
+          "recall": 0.04,
+          "f1": 0.06896551724137932
+        },
+        "thank_you": {
+          "support": 25,
+          "recall": 0.8,
+          "f1": 0.32258064516129037
+        },
+        "who": {
+          "support": 25,
+          "recall": 0.12,
+          "f1": 0.15789473684210525
+        }
+      }
+    },
+    "test_metrics": {
+      "top1_accuracy": 0.288,
+      "macro_f1": 0.2593486590038314,
+      "selected_threshold": 0.46,
+      "false_pass_rate": 0.064,
+      "accepted_accuracy": 0.5294117647058824,
+      "coverage": 0.136,
+      "zero_recall_labels": [],
+      "per_class": {
+        "home": {
+          "support": 25,
+          "recall": 0.16,
+          "f1": 0.2
+        },
+        "morning": {
+          "support": 25,
+          "recall": 0.2,
+          "f1": 0.25
+        },
+        "pen": {
+          "support": 25,
+          "recall": 0.04,
+          "f1": 0.06896551724137932
+        },
+        "thank_you": {
+          "support": 25,
+          "recall": 0.64,
+          "f1": 0.3333333333333333
+        },
+        "who": {
+          "support": 25,
+          "recall": 0.4,
+          "f1": 0.4444444444444445
+        }
+      }
+    },
+    "pass_status": {
+      "top1_accuracy": false,
+      "macro_f1": false,
+      "false_pass_rate": true,
+      "negative_challenge_false_pass_rate": true,
+      "confidence_threshold": true
+    },
+    "negative_challenge": null,
+    "hard_negative_status": "not_run_smoke_only_no_challenge_manifest",
+    "passes_targets": false
+  },
+  "baseline_comparison": {
+    "m3bs_full_frame_baseline": {
+      "validation_top1_accuracy": 0.192,
+      "validation_macro_f1": 0.10437062937062935,
+      "test_top1_accuracy": 0.272,
+      "test_macro_f1": 0.20170903619228636,
+      "test_false_pass_rate": 0.104,
+      "test_zero_recall_labels": [
+        "morning",
+        "pen"
+      ]
+    },
+    "m3bu_region_grid_smoke": {
+      "validation_top1_accuracy": 0.224,
+      "validation_macro_f1": 0.15837302833380346,
+      "test_top1_accuracy": 0.288,
+      "test_macro_f1": 0.2593486590038314,
+      "test_false_pass_rate": 0.064,
+      "test_zero_recall_labels": []
+    },
+    "deltas_region_grid_minus_full_frame": {
+      "validation_top1_accuracy": 0.032,
+      "validation_macro_f1": 0.0540023989631741,
+      "test_top1_accuracy": 0.01599999999999996,
+      "test_macro_f1": 0.05763962281154504,
+      "test_false_pass_rate": -0.04,
+      "test_zero_recall_label_count": -2
+    },
+    "interpretation": "Region-grid improved false-pass rate, macro F1, and zero-recall test-label coverage versus M3BS, but absolute held-out accuracy and macro F1 remain too weak for remote compute or promotion."
+  },
+  "decision": {
+    "local_region_grid_smoke_completed": true,
+    "local_region_grid_smoke_stronger_than_full_frame_baseline": true,
+    "local_region_grid_smoke_supports_brev_training_receipt_now": false,
+    "fresh10_region_grid_materialization_justified_now": false,
+    "detector0_or_crop_contract_required_now": false,
+    "local_model_data_design_ablation_justified_now": true,
+    "blocker": "Region-grid smoke shows some signal improvement but remains weak: test top1 0.288, macro F1 0.2593486590038314, and pen recall 0.04. A Brev compute receipt would be premature.",
+    "exactly_one_next_action": "continue_local_model_data_design_ablation",
+    "next_action_rationale": "The bounded smoke consumed rgb_regions_grid_v1 and improved on the full-frame baseline, but the result is still too weak for Brev or fresh10. The honest next step is one local model/input/data design ablation using the same approved fresh5 region-grid evidence."
+  },
+  "guardrails": {
+    "pretrained_components": [],
+    "pseudo_labels_generated": false,
+    "remote_training_run": false,
+    "brev_spend": false,
+    "source_register_mutation": false,
+    "browser_model_activation": false,
+    "model_card_promotion": false,
+    "final_readiness_claim": false,
+    "claim_state": "fail_closed_browser_model_remains_not_trained"
+  },
+  "local_artifacts_written_or_updated": [
+    "output/return-to-form-popsign-fresh5-region-grid-local-smoke/model_state.pt",
+    "output/return-to-form-popsign-fresh5-region-grid-local-smoke/training-provenance.json",
+    "output/return-to-form-popsign-fresh5-region-grid-local-smoke/validation-report.json",
+    "output/return-to-form-popsign-fresh5-region-grid-local-smoke/prediction-sidecar.json",
+    "output/return-to-form-popsign-fresh5-region-grid-local-smoke/calibrated-provenance-smoke.json"
+  ],
+  "tracked_files_changed": [
+    "docs/validation/return-to-form-popsign-fresh5-region-grid-local-smoke-v1.json",
+    "docs/session-logs/374-mission-3bu-popsign-fresh5-region-grid-local-smoke.md"
+  ],
+  "validation_commands": [
+    "git status --short --branch",
+    "git log -10 --oneline --decorate",
+    "node scripts/audit_loop_premise.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs --json",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "node scripts/audit_source_register.mjs",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-region-grid-materialization-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-materialization-local-smoke-v1.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/decode_raw_videos.py scripts/materialize_popsign_fresh5_region_grid.py",
+    ".venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/return-to-form-popsign-fresh5-region-grid/train.json --validation-manifest data/manifests/return-to-form-popsign-fresh5-region-grid/validation.json --test-manifest data/manifests/return-to-form-popsign-fresh5-region-grid/test.json --output-dir output/return-to-form-popsign-fresh5-region-grid-dry-run --model-id asl-pilot-popsign-fresh5-region-grid-contract-v1 --allow-small-label-set --check-files --frame-count 16 --image-size 96 --dry-run --require-input-contract rgb_regions_grid_v1",
+    ".venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/return-to-form-popsign-fresh5-region-grid/train.json --validation-manifest data/manifests/return-to-form-popsign-fresh5-region-grid/validation.json --test-manifest data/manifests/return-to-form-popsign-fresh5-region-grid/test.json --output-dir output/return-to-form-popsign-fresh5-region-grid-local-smoke --model-id asl-pilot-popsign-fresh5-region-grid-local-smoke-v1 --allow-small-label-set --check-files --frame-count 16 --image-size 96 --epochs 6 --batch-size 8 --learning-rate 0.001 --architecture motion_2d_temporal_cnn --training-augmentation mild --checkpoint-selection best_validation --max-train-batches 8 --max-validation-batches 4 --num-workers 0",
+    ".venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint output/return-to-form-popsign-fresh5-region-grid-local-smoke/model_state.pt --training-provenance output/return-to-form-popsign-fresh5-region-grid-local-smoke/training-provenance.json --train-manifest data/manifests/return-to-form-popsign-fresh5-region-grid/train.json --validation-manifest data/manifests/return-to-form-popsign-fresh5-region-grid/validation.json --test-manifest data/manifests/return-to-form-popsign-fresh5-region-grid/test.json --output-report output/return-to-form-popsign-fresh5-region-grid-local-smoke/validation-report.json --calibrated-provenance output/return-to-form-popsign-fresh5-region-grid-local-smoke/calibrated-provenance-smoke.json --prediction-sidecar output/return-to-form-popsign-fresh5-region-grid-local-smoke/prediction-sidecar.json --allow-smoke-eval --batch-size 8",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-region-grid-local-smoke-v1.json >/dev/null"
+  ],
+  "exactly_one_next_action": "continue_local_model_data_design_ablation"
+}

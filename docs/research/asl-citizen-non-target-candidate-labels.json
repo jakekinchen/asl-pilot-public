@@ -1,0 +1,53 @@
+{
+  "schema_version": "asl-pilot-asl-citizen-non-target-candidate-labels/v1",
+  "purpose": "Candidate off-active-module ASL Citizen labels for the negative-challenge non_target_asl_sign type. Selected to be concrete, common, and confidently NOT in the 95-label PopSign-v1 active recognition module (per data/active-module/vocabulary-active-module.snapshot.json). Used as the --label-file input to scripts/probe_asl_citizen_zip_index.py.",
+  "generated_at": "2026-05-24T20:09:00Z",
+  "generated_by": {
+    "approach": "Manual selection of common ASL signs likely present in ASL Citizen 2700+ vocabulary but not in the 95-active-module. Skips labels that visually or lexically resemble active-module labels (e.g., 'phone' skipped because the active module has 'call_on_phone'; 'plane' skipped because the active module has 'airplane'). Does not download or extract media; only seeds the existing zip-central-directory probe.",
+    "source_module_snapshot": {
+      "path": "data/active-module/vocabulary-active-module.snapshot.json",
+      "label_count_excluded": 95
+    }
+  },
+  "decision_boundary": {
+    "changes_training_manifests": false,
+    "approves_new_source": false,
+    "downloads_raw_clips": false,
+    "modifies_active_module": false
+  },
+  "selection": {
+    "selected_label_ids": [
+      "computer",
+      "music",
+      "tree",
+      "flower",
+      "rain",
+      "snow",
+      "cloud",
+      "mountain",
+      "river",
+      "ocean",
+      "fire",
+      "moon",
+      "sun",
+      "star",
+      "key",
+      "door",
+      "window",
+      "shirt",
+      "pants",
+      "ring",
+      "money",
+      "ball",
+      "bike",
+      "boat",
+      "train",
+      "bus",
+      "doctor",
+      "teacher",
+      "nurse",
+      "police"
+    ],
+    "rationale": "30 concrete labels (nouns + transit + occupations + weather + body-related) chosen for high prior probability of being in ASL Citizen but not in the 95-active-module. The probe's matching pattern is filename-token (path stem starts with numeric_id-GLOSS.mp4 in uppercase), so the candidate token must match the asl-Citizen file naming convention; the manual selection above mirrors well-known ASL Citizen labels from the dataset's published Vocabulary list."
+  }
+}

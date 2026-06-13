@@ -1,0 +1,136 @@
+{
+  "schema_version": "asl-pilot-m3jb-candidate-repair-targets/v1",
+  "receipt_id": "return-to-form-m3jb-candidate-repair-targets-v1",
+  "mission": "M3JB - Candidate repair targets",
+  "status": "prepared_fail_closed_not_gate_passing",
+  "checked_at": "2026-06-02T03:15:39Z",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "side_worktree": "/Users/kelly/Developer/asl-pilot-annotator",
+  "runtime_boundary": {
+    "eval_only": true,
+    "training_run": false,
+    "checkpoint_written": false,
+    "browser_exported": false,
+    "detector0_promoted": false,
+    "mediapipe_runtime_dependency_allowed": false,
+    "raw_learner_video_uploaded": false,
+    "brev_used": false,
+    "sign_model_run": false
+  },
+  "artifacts": {
+    "ranker_code": {
+      "path": "tools/detector0-annotator/train_hand_pair_ranker.py",
+      "side_worktree_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_hand_pair_ranker.py",
+      "sha256": "17e99f3fb7c79a751c2930e7286d8adb504543047a7f4668846e9057ae0d7fab",
+      "purpose": "Side-worktree pair ranker with oracle-only sweep and hard-target manifest support."
+    },
+    "side_repair_receipt": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-candidate-repair-targets-top40-nms050-v1.json",
+      "side_worktree_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-hand-candidate-repair-targets-top40-nms050-v1.json",
+      "sha256": "5d73d268bd0fb3681b1ab3aae6f61307e6014b070f6c7f76acddf632036e9975"
+    },
+    "side_contact_sheet": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-candidate-repair-targets-top40-nms050-v1.png",
+      "side_worktree_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-hand-candidate-repair-targets-top40-nms050-v1.png",
+      "sha256": "94ee407607f5a84f59722e39e541eb2381903a1c72fdee6057c9234d933d45fa",
+      "purpose": "Diagnostic contact sheet only; not a browser artifact."
+    },
+    "canonical_m3jb_audit": {
+      "path": "docs/validation/return-to-form-m3jb-hierarchical-hand-state-tracker-v1.json",
+      "status": "passed_fail_closed_not_gate_passing"
+    }
+  },
+  "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --repair-targets-only --real-data tools/detector0-annotator/.cache/autolabel-big --coarse-weights tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.pt --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-candidate-oracle-sweep --topk 40 --nms-iou 0.5 --coverage-iou 0.3 --device mps --out tools/detector0-annotator/output/m3jb-hand-candidate-repair-targets-top40-nms050-v1.json --repair-render tools/detector0-annotator/output/m3jb-hand-candidate-repair-targets-top40-nms050-v1.png",
+  "params": {
+    "coverage_iou": 0.3,
+    "topk": 40,
+    "nms_iou": 0.5,
+    "n_real_twohand": 84,
+    "candidate_limit_per_target": 12
+  },
+  "oracle_metrics": {
+    "coverage": 0.9642857142857143,
+    "distinct_assigned_coverage": 0.9642857142857143,
+    "collapse_rate": 0,
+    "coverage_failure_count": 3,
+    "distinct_assignment_failure_count": 3
+  },
+  "repair_targets": {
+    "target_count": 3,
+    "source_indices": [
+      12328,
+      12329,
+      12692
+    ],
+    "rows": [
+      {
+        "source_index": 12328,
+        "split": "test",
+        "clip_id": "gtsignstudy4a.8032-all-2023_01_29_16_08_13.417-0",
+        "label_id": "all",
+        "video_frame_index": 0,
+        "repair_tags": [
+          "proposal_missing_gt_hand"
+        ],
+        "best_candidate_iou_by_gt": [
+          0.19375978777097355,
+          0.6651922791684081
+        ]
+      },
+      {
+        "source_index": 12329,
+        "split": "test",
+        "clip_id": "gtsignstudy4a.8032-all-2023_01_29_16_08_13.417-0",
+        "label_id": "all",
+        "video_frame_index": 9,
+        "repair_tags": [
+          "proposal_missing_gt_hand"
+        ],
+        "best_candidate_iou_by_gt": [
+          0.2617848165784998,
+          0.7142354013742075
+        ]
+      },
+      {
+        "source_index": 12692,
+        "split": "test",
+        "clip_id": "gtsignstudy4a.8032-bad-2023_01_26_15_22_17.285-0",
+        "label_id": "bad",
+        "video_frame_index": 39,
+        "repair_tags": [
+          "tiny_gt_hand",
+          "proposal_missing_gt_hand"
+        ],
+        "best_candidate_iou_by_gt": [
+          0.05217726896415153,
+          0.7484371085467205
+        ]
+      }
+    ]
+  },
+  "selection": {
+    "selected_for_promotion": false,
+    "selected_as_hard_target_manifest": true,
+    "gate_status": "failed_open",
+    "gate_gap": {
+      "required_distinct_assigned_coverage": 0.98,
+      "current_head_oracle_distinct_assigned_coverage": 0.9642857142857143,
+      "remaining_assignment_failures": 3
+    },
+    "reason": "The manifest isolates the three test-split real two-hand frames still not recoverable by strict current-head top-40/NMS0.5 oracle pairing. Use them as failure patterns and review targets; do not train directly on them without a split/source decision."
+  },
+  "commands_run": [
+    "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_hand_pair_ranker.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --self-test",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --repair-targets-only --real-data tools/detector0-annotator/.cache/autolabel-big --coarse-weights tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.pt --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-candidate-oracle-sweep --topk 40 --nms-iou 0.5 --coverage-iou 0.3 --device mps --out tools/detector0-annotator/output/m3jb-hand-candidate-repair-targets-top40-nms050-v1.json --repair-render tools/detector0-annotator/output/m3jb-hand-candidate-repair-targets-top40-nms050-v1.png",
+    "node scripts/audit_m3jb_hand_state_tracker.mjs --write-receipt --json"
+  ],
+  "commands_intentionally_not_run": [
+    "No training run.",
+    "No checkpoint export or browser artifact promotion.",
+    "No Brev lifecycle, remote sync, or paid compute.",
+    "No raw learner video upload.",
+    "No sign/language model continuation."
+  ],
+  "next_action": "continue_m3jb_no_leak_proposal_head_repair_from_hard_target_patterns_no_brev"
+}

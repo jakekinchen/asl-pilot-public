@@ -1,0 +1,495 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3gl-brev-provider-recovery-and-completion-route/v1",
+  "mission": "Mission 3GL - Brev provider recovery and completion route",
+  "status": "completed_diagnostic_brev_training_evaluation_copyback_metrics_failed_default_off",
+  "checked_at": "2026-05-29T09:07:20Z",
+  "current_commit_before_slice_commit": "ec34757",
+  "active_prompt": "docs/model/return-to-form-m3gl-brev-provider-recovery-and-completion-route-goal-loop-prompt.md",
+  "user_approval_summary": {
+    "brev_spend_authorized": true,
+    "approval_source": "GOAL.md and the active M3GL prompt record current human approval for bounded Brev provider recovery and one high-signal region-grid TCN completion attempt.",
+    "bounded_scope": "one retained-worker recovery path first, at most one replacement worker if needed, one timed non-dry-run training command, at most one evaluation and copyback, final stop/default-off verification",
+    "actual_training_started": true,
+    "actual_training_commands_started_by_executor": 1,
+    "actual_evaluation_invocations_started_by_executor": 1
+  },
+  "compute_envelope": {
+    "primary_workspace": "asl-pilot-m3eh-l40s-001",
+    "primary_workspace_id": "3d58wpy9o",
+    "replacement_workspace": "asl-pilot-m3gl-l40s-001",
+    "price_guard_usd_per_hour": 5,
+    "refreshed_matching_price_usd_per_hour": 1.74,
+    "max_training_runtime_seconds": 7200,
+    "max_wall_time_after_first_start_minutes": 180,
+    "max_expected_spend_usd": 15,
+    "timed_training_command_limit": 1,
+    "evaluation_command_limit": 1,
+    "new_worker_limit": 1,
+    "worker_reset_limit": 1,
+    "worker_resets_performed": 0,
+    "replacement_workers_created": 0,
+    "package_install_commands": 0,
+    "mission_first_observed_worker_state": "RUNNING / COMPLETED / READY / HEALTHY",
+    "pre_existing_running_spend_before_turn": "unknown; the retained worker was already RUNNING when first observed by this executor turn",
+    "estimated_m3gl_observed_brev_window_minutes": 4,
+    "estimated_m3gl_observed_spend_usd_at_refreshed_price": 0.12,
+    "final_default_off_verified": true
+  },
+  "provider_recovery_summary": {
+    "m3gk_blocker": "M3GK timed out during the required SSH/CUDA safety probe against retained worker asl-pilot-m3eh-l40s-001 / 3d58wpy9o before remote sync or training, then stopped with final state STOPPED / COMPLETED / NOT READY / UNHEALTHY.",
+    "m3gl_recovery_path": "Retained worker was rechecked after local guards and had already recovered to RUNNING / COMPLETED / READY / HEALTHY; the prompt's reset condition did not apply, so no reset or replacement worker was used.",
+    "ssh_cuda_result": "Retained worker reached SSH, reported remote_home=/home/ubuntu, NVIDIA L40S with 46068 MiB total memory, 1 MiB used, 0 percent utilization, and no active torch/train process.",
+    "jupyter_process": "Only the base Brev jupyter-lab process and system python process were present; no training or torch process was active before this mission's training command."
+  },
+  "baseline_evidence": {
+    "m3gk_provider_blocker": {
+      "path": "docs/validation/return-to-form-m3gk-bounded-brev-completion-route-after-regenerated-evidence-v1.json",
+      "status": "blocked_before_remote_sync_or_training_by_brev_ssh_safety_probe_timeout",
+      "local_dry_run_passed": true,
+      "remote_sync_started": false,
+      "training_started": false,
+      "final_worker_state": "STOPPED / COMPLETED / NOT READY / UNHEALTHY"
+    },
+    "m3gj_regenerated_evaluator": {
+      "path": "docs/validation/return-to-form-m3gj-human-approved-evaluator-regeneration-v2-consumer-compatibility-v1.json",
+      "status": "completed_local_no_remote_no_training_evaluator_regeneration_with_v2_consumer_compatibility",
+      "sidecar_schema": "asl-pilot-rawframe-prediction-sidecar/v2",
+      "test_top1_accuracy": 0.25,
+      "test_macro_f1": 0.15634920634920638,
+      "selected_threshold": 0.49,
+      "passes_targets": false
+    },
+    "m3gb_brev_baseline": {
+      "path": "docs/validation/return-to-form-m3gb-human-approved-bounded-brev-composable-training-v1.json",
+      "status": "completed_training_evaluation_copyback_metrics_failed",
+      "validation_top1_accuracy": 0.37037037037037035,
+      "validation_macro_f1": 0.33209647495361777,
+      "test_top1_accuracy": 0.25,
+      "test_macro_f1": 0.15634920634920638,
+      "selected_threshold": 0.49,
+      "passes_targets": false
+    }
+  },
+  "local_output_guard_patch": {
+    "changed": true,
+    "file": "scripts/train_rawframe_model.py",
+    "summary": "Added output/m3gl-high-signal-region-grid-tcn-brev-seed20260530 to the existing region-grid TCN Brev smoke output allowlist and guard message only.",
+    "forbidden_policy_changes": false
+  },
+  "price_evidence": {
+    "command": "brev search --stoppable --min-vram 40 --sort price --json",
+    "exit_status": 0,
+    "selected_listed_type": "l40s-48gb.1x",
+    "selected_provider": "crusoe",
+    "selected_gpu": "L40S",
+    "selected_vram_gb": 48,
+    "selected_vcpus": 8,
+    "selected_ram_gb": 147,
+    "price_per_hour_usd": 1.74,
+    "under_guard": true,
+    "other_preferred_types_under_guard_seen": [
+      {
+        "type": "gpu-l40s-a.1gpu-8vcpu-32gb",
+        "provider": "nebius",
+        "price_per_hour_usd": 1.85808
+      },
+      {
+        "type": "gpu-l40s-a.1gpu-16vcpu-64gb",
+        "provider": "nebius",
+        "price_per_hour_usd": 2.09616
+      },
+      {
+        "type": "g6e.2xlarge",
+        "provider": "aws",
+        "price_per_hour_usd": 2.690496
+      }
+    ]
+  },
+  "selected_worker": {
+    "name": "asl-pilot-m3eh-l40s-001",
+    "id": "3d58wpy9o",
+    "instance_type": "l40s-48gb.1x",
+    "instance_kind": "gpu",
+    "gpu": "L40S",
+    "provider": "crusoe",
+    "selection": "retained_worker",
+    "reset": "not_run_condition_false_worker_already_running_ready_healthy",
+    "replacement": "not_created"
+  },
+  "brev_provider_states": {
+    "initial_current_turn": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "status": "RUNNING",
+      "build_status": "COMPLETED",
+      "shell_status": "READY",
+      "health_status": "HEALTHY",
+      "instance_type": "l40s-48gb.1x",
+      "gpu": "L40S"
+    },
+    "after_local_dry_run": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "status": "RUNNING",
+      "build_status": "COMPLETED",
+      "shell_status": "READY",
+      "health_status": "HEALTHY"
+    },
+    "after_stop": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "status": "STOPPED",
+      "build_status": "COMPLETED",
+      "shell_status": "NOT READY",
+      "health_status": "HEALTHY",
+      "instance_type": "l40s-48gb.1x",
+      "gpu": "L40S"
+    }
+  },
+  "local_checks": {
+    "git_status_short_branch": {
+      "exit_status": 0,
+      "summary": "clean before slice; branch compound-plan-m0 ahead of origin"
+    },
+    "git_log_14": {
+      "exit_status": 0,
+      "head": "ec34757 supervisor: unpark m3gl brev recovery"
+    },
+    "audit_loop_premise": {
+      "exit_status": 0,
+      "status": "passed",
+      "checked_at": "2026-05-29T09:01:01.103Z"
+    },
+    "audit_return_to_form_plan": {
+      "exit_status": 0,
+      "status": "passed",
+      "active_prompt": "docs/model/return-to-form-m3gl-brev-provider-recovery-and-completion-route-goal-loop-prompt.md"
+    },
+    "audit_source_register": {
+      "exit_status": 0,
+      "status": "passed",
+      "source_register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    "audit_no_pretrained_deps": {
+      "exit_status": 0,
+      "summary": "No banned pretrained-CV dependencies or source imports found."
+    },
+    "audit_no_pretrained_artifact_json": {
+      "exit_status": 0,
+      "status": "passed"
+    },
+    "json_checks": {
+      "exit_status": 0,
+      "paths": [
+        "docs/validation/return-to-form-m3gk-bounded-brev-completion-route-after-regenerated-evidence-v1.json",
+        "docs/validation/return-to-form-m3gj-human-approved-evaluator-regeneration-v2-consumer-compatibility-v1.json",
+        "docs/validation/return-to-form-m3gb-human-approved-bounded-brev-composable-training-v1.json",
+        "web/public/model/model-card.json",
+        "web/public/model/detector0-card.json",
+        "docs/model/active-vocabulary-claim.json",
+        "web/public/model/claim-matrix.json",
+        "docs/validation/final-claim-matrix.json"
+      ]
+    },
+    "py_compile": {
+      "exit_status": 0,
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py"
+    },
+    "brev_sync_bash_syntax": {
+      "exit_status": 0,
+      "command": "bash -n scripts/brev_sync_repo.sh"
+    },
+    "git_diff_check": {
+      "exit_status": 0
+    }
+  },
+  "local_dry_run": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3gl-high-signal-region-grid-tcn-brev-seed20260530 --model-id m3gl-high-signal-region-grid-tcn-brev-seed20260530 --seed 20260530 --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1",
+    "exit_status": 0,
+    "training_status": "dry_run_only",
+    "required_input_contract": "rgb_regions_grid_v1",
+    "observed_counts": {
+      "train": 84,
+      "validation": 27,
+      "test": 28,
+      "total": 139
+    },
+    "fallback_to_rgb_frames": false,
+    "output_written": false
+  },
+  "remote_safety_check": {
+    "command": "timeout 420s brev exec asl-pilot-m3eh-l40s-001 \"cd $HOME && printf 'remote_home=%s\\n' \\\"$HOME\\\" && nvidia-smi --query-gpu=name,memory.total,memory.used,utilization.gpu --format=csv,noheader && ps -eo pid,etime,pcpu,pmem,args | egrep 'python|torch|train|screen|tmux|jupyter' | grep -v egrep || true && test -d asl-pilot || true && test -x asl-pilot/.venv/bin/python || true\"",
+    "exit_status": 0,
+    "remote_home": "/home/ubuntu",
+    "gpu": "NVIDIA L40S",
+    "memory_total_mib": 46068,
+    "memory_used_mib": 1,
+    "gpu_utilization_percent": 0,
+    "process_evidence": [
+      "/home/ubuntu/.venv/bin/python3 /home/ubuntu/.venv/bin/jupyter-lab --ip=0.0.0.0 --no-browser --NotebookApp.token= --NotebookApp.password= --ServerApp.allow_remote_access=True",
+      "/usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers"
+    ],
+    "active_training_or_torch_process_before_training": false
+  },
+  "sync": {
+    "command": "bash scripts/brev_sync_repo.sh asl-pilot-m3eh-l40s-001",
+    "exit_status": 0,
+    "summary": "synced repo and rawframe training data allowlist to /home/ubuntu/asl-pilot"
+  },
+  "remote_environment": {
+    "precheck_command": "timeout 420s brev exec asl-pilot-m3eh-l40s-001 \"cd $HOME/asl-pilot && test -x .venv/bin/python && .venv/bin/python - <<'PY' ... PY\"",
+    "precheck_exit_status": 0,
+    "torch": "2.12.0+cu126",
+    "cuda_available": true,
+    "device_count": 1,
+    "device_name": "NVIDIA L40S",
+    "primary_bootstrap_run": false,
+    "requirements_fallback_run": false
+  },
+  "remote_hash_and_output_absence_check": {
+    "command": "timeout 420s brev exec asl-pilot-m3eh-l40s-001 \"cd $HOME/asl-pilot && sha256sum GOAL.md docs/model/return-to-form-m3gl-brev-provider-recovery-and-completion-route-goal-loop-prompt.md scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py data/manifests/lesson/high-signal-region-grid/train.json data/manifests/lesson/high-signal-region-grid/validation.json data/manifests/lesson/high-signal-region-grid/test.json && .venv/bin/python - <<'PY' ... PY && test ! -e output/m3gl-high-signal-region-grid-tcn-brev-seed20260530\"",
+    "exit_status": 0,
+    "hashes": {
+      "GOAL.md": "da12438c51e91acff29a8779470dc319ce447629a005320e6dce0415b92a1c29",
+      "docs/model/return-to-form-m3gl-brev-provider-recovery-and-completion-route-goal-loop-prompt.md": "5ec112318e8af6f99f6ea98d7499fcb7c22d2688fc6d4cfd2df656c469fac21a",
+      "scripts/train_rawframe_model.py": "4cbf76f0316f0896ed45992da1415d94e5a55b41c71f09b9a373bfb75b0324ae",
+      "scripts/evaluate_rawframe_model.py": "71f374b664837fce1e5eb92e04845b291db6cfbe9f79ccfca4655078c485ef87",
+      "data/manifests/lesson/high-signal-region-grid/train.json": "101455329ae04ad06a2c3fd4ca26a29c04ae945bb7925bee373cf3229594fc3d",
+      "data/manifests/lesson/high-signal-region-grid/validation.json": "16a4a64a8fd48a1384c4cfd2e01dddcaa45fb3b1f0588af9ec66f96668cc3a53",
+      "data/manifests/lesson/high-signal-region-grid/test.json": "5a315d49438242febb410287c4ff235ae8cd269a5aba5c3cf550950bae0359f8"
+    },
+    "cuda_available": true,
+    "device_name": "NVIDIA L40S",
+    "output_absent_before_training": true
+  },
+  "remote_dry_run": {
+    "command": "timeout 600s brev exec asl-pilot-m3eh-l40s-001 \"cd $HOME/asl-pilot && PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py ... --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1\"",
+    "exit_status": 0,
+    "training_status": "dry_run_only",
+    "required_input_contract": "rgb_regions_grid_v1",
+    "observed_counts": {
+      "train": 84,
+      "validation": 27,
+      "test": 28,
+      "total": 139
+    },
+    "fallback_to_rgb_frames": false
+  },
+  "timed_training": {
+    "command": "timeout 7800s brev exec asl-pilot-m3eh-l40s-001 \"cd $HOME/asl-pilot && timeout 7200 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3gl-high-signal-region-grid-tcn-brev-seed20260530 --model-id m3gl-high-signal-region-grid-tcn-brev-seed20260530 --seed 20260530 --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke\"",
+    "exit_status": 0,
+    "started_at": "2026-05-29T09:03:58Z",
+    "ended_at": "2026-05-29T09:04:31Z",
+    "runtime_seconds_approx": 33,
+    "timeout_status": "not_timed_out",
+    "device": "cuda",
+    "training_status": "completed",
+    "model_artifact": "output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/model_state.pt",
+    "training_provenance": "output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/training-provenance.json",
+    "checkpoint_selection": "best_validation",
+    "selected_epoch_by_best_validation_accuracy": 10,
+    "selected_epoch_metrics": {
+      "epoch": 10,
+      "train_accuracy": 0.35714285714285715,
+      "train_loss": 1.7078488781338645,
+      "validation_accuracy": 0.2962962962962963,
+      "validation_loss": 1.63769445154402
+    },
+    "history": [
+      {
+        "epoch": 1,
+        "train_accuracy": 0.15476190476190477,
+        "train_loss": 2.0963339919135686,
+        "validation_accuracy": 0.14814814814814814,
+        "validation_loss": 1.9558846244105585
+      },
+      {
+        "epoch": 2,
+        "train_accuracy": 0.10714285714285714,
+        "train_loss": 2.042748360406785,
+        "validation_accuracy": 0.14814814814814814,
+        "validation_loss": 2.0293863084581165
+      },
+      {
+        "epoch": 3,
+        "train_accuracy": 0.15476190476190477,
+        "train_loss": 1.9849403301874797,
+        "validation_accuracy": 0.14814814814814814,
+        "validation_loss": 2.345113021356088
+      },
+      {
+        "epoch": 4,
+        "train_accuracy": 0.19047619047619047,
+        "train_loss": 1.9495561577024914,
+        "validation_accuracy": 0.2222222222222222,
+        "validation_loss": 2.896928584134137
+      },
+      {
+        "epoch": 5,
+        "train_accuracy": 0.27380952380952384,
+        "train_loss": 1.8526948065984816,
+        "validation_accuracy": 0.2222222222222222,
+        "validation_loss": 1.8346956350185253
+      },
+      {
+        "epoch": 6,
+        "train_accuracy": 0.25,
+        "train_loss": 1.8312192190261114,
+        "validation_accuracy": 0.2222222222222222,
+        "validation_loss": 1.8901019714496754
+      },
+      {
+        "epoch": 7,
+        "train_accuracy": 0.32142857142857145,
+        "train_loss": 1.7227971724101476,
+        "validation_accuracy": 0.1111111111111111,
+        "validation_loss": 3.044484575589498
+      },
+      {
+        "epoch": 8,
+        "train_accuracy": 0.25,
+        "train_loss": 1.757630291439238,
+        "validation_accuracy": 0.1111111111111111,
+        "validation_loss": 5.7264748149447975
+      },
+      {
+        "epoch": 9,
+        "train_accuracy": 0.19047619047619047,
+        "train_loss": 1.7826570385978335,
+        "validation_accuracy": 0.2222222222222222,
+        "validation_loss": 2.2338014532018593
+      },
+      {
+        "epoch": 10,
+        "train_accuracy": 0.35714285714285715,
+        "train_loss": 1.7078488781338645,
+        "validation_accuracy": 0.2962962962962963,
+        "validation_loss": 1.63769445154402
+      },
+      {
+        "epoch": 11,
+        "train_accuracy": 0.42857142857142855,
+        "train_loss": 1.5566350164867582,
+        "validation_accuracy": 0.1111111111111111,
+        "validation_loss": 2.0129580321135343
+      },
+      {
+        "epoch": 12,
+        "train_accuracy": 0.3333333333333333,
+        "train_loss": 1.597693341118949,
+        "validation_accuracy": 0.2222222222222222,
+        "validation_loss": 6.288985548196016
+      }
+    ]
+  },
+  "evaluation": {
+    "command": "timeout 1800s brev exec asl-pilot-m3eh-l40s-001 \"cd $HOME/asl-pilot && .venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/model_state.pt --training-provenance output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/training-provenance.json --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-report output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/validation-report.json --calibrated-provenance output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/calibrated-provenance.json --prediction-sidecar output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/prediction-sidecar.json --batch-size 8 --num-workers 2 --region-grid-tcn-training-smoke\"",
+    "exit_status": 1,
+    "exit_status_interpretation": "expected diagnostic failure because promotion targets failed; no retry was issued by the executor",
+    "brev_cli_note": "The single user-issued evaluation invocation printed a transient connection check and two report summaries; the final copied report hash is recorded below.",
+    "status": "region_grid_tcn_training_smoke_completed",
+    "passes_targets": false,
+    "pass_status": {
+      "confidence_threshold": true,
+      "false_pass_rate": true,
+      "macro_f1": false,
+      "negative_challenge_false_pass_rate": false,
+      "top1_accuracy": false
+    },
+    "targets": {
+      "top1_accuracy": 0.7,
+      "macro_f1": 0.65,
+      "false_pass_rate_below": 0.1,
+      "negative_challenge_false_pass_rate_below": 0.05
+    },
+    "selected_threshold": 0.47,
+    "validation_top1_accuracy": 0.2962962962962963,
+    "validation_macro_f1": 0.2755102040816327,
+    "test_top1_accuracy": 0.14285714285714285,
+    "test_macro_f1": 0.09206349206349207,
+    "test_false_pass_rate": 0.07142857142857142,
+    "test_accepted_accuracy": 0.5,
+    "zero_correct_test_signer_count": 3,
+    "sidecar_schema": "asl-pilot-rawframe-prediction-sidecar/v2",
+    "calibrated_provenance_written": false
+  },
+  "metric_comparison": {
+    "m3gl_vs_m3gb_test_top1_delta": -0.10714285714285715,
+    "m3gl_vs_m3gb_test_macro_f1_delta": -0.06428571428571431,
+    "m3gl_vs_m3gj_test_top1_delta": -0.10714285714285715,
+    "m3gl_vs_m3gj_test_macro_f1_delta": -0.06428571428571431,
+    "classification": "diagnostic_model_evidence_failed_promotion_gates_and_regressed_against_m3gb_m3gj_test_metrics"
+  },
+  "copyback": {
+    "command": "brev copy asl-pilot-m3eh-l40s-001:/home/ubuntu/asl-pilot/output/m3gl-high-signal-region-grid-tcn-brev-seed20260530 output/",
+    "exit_status": 0,
+    "remote_path": "/home/ubuntu/asl-pilot/output/m3gl-high-signal-region-grid-tcn-brev-seed20260530",
+    "local_path": "output/m3gl-high-signal-region-grid-tcn-brev-seed20260530",
+    "output_git_status": "ignored",
+    "hashes": {
+      "output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/model_state.pt": "990b8b2c21f565eae695b19a8c2996fb46456df1134a0abb0e0be35bc7b07ee4",
+      "output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/prediction-sidecar.json": "937242b3e698486f6fe1694a0cdbf1eb961abe921345d95764a93d32f488b5b5",
+      "output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/training-provenance.json": "ee40774cd64c1454b3b1b589becb19c873a87a3152cb4768dd109cf04278b5bf",
+      "output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/validation-report.json": "706728be4b0b38097ca7a3a6688b9462e7e6fdcbb62864cba709137930e34ad4"
+    }
+  },
+  "final_stop_default_off": {
+    "stop_command": "brev stop asl-pilot-m3eh-l40s-001",
+    "stop_exit_status": 0,
+    "verify_command": "brev ls --json",
+    "verify_exit_status": 0,
+    "verified_state": "STOPPED / COMPLETED / NOT READY / HEALTHY",
+    "fallback_stop_by_id_run": false,
+    "stop_all_run": false
+  },
+  "claim_surfaces": {
+    "web/public/model/model-card.json": {
+      "status": "not_trained",
+      "model_id": "asl-pilot-rawframe-v0"
+    },
+    "web/public/model/detector0-card.json": {
+      "status": "not_trained",
+      "browser_artifact": null
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": []
+    },
+    "web/public/model/claim-matrix.json": {
+      "status": "no_active_claim_rawframe_not_trained"
+    },
+    "docs/validation/final-claim-matrix.json": {
+      "status": "no_active_claim_rawframe_not_trained"
+    },
+    "changed": false,
+    "classification": "fail_closed"
+  },
+  "forbidden_action_proof": {
+    "broad_label_sweep": false,
+    "detector0_training": false,
+    "source_or_media_import": false,
+    "source_approval_mutation": false,
+    "manifest_mutation": false,
+    "tensor_mutation": false,
+    "vocabulary_mutation": false,
+    "raw_video_manual_inspection_or_upload": false,
+    "pretrained_detector_landmark_backbone_embedding_or_weight_use": false,
+    "generated_labels_or_pseudo_labels": false,
+    "onnx_export": false,
+    "model_card_promotion": false,
+    "browser_recognition_activation": false,
+    "product_runtime_change": false,
+    "final_gate_change": false,
+    "claim_expansion": false,
+    "push": false,
+    "amend": false,
+    "no_verify": false
+  },
+  "pretrained_components": [],
+  "changed_files": [
+    "scripts/train_rawframe_model.py",
+    "docs/validation/return-to-form-m3gl-brev-provider-recovery-and-completion-route-v1.json",
+    "docs/session-logs/638-mission-3gl-brev-provider-recovery-and-completion-route.md"
+  ],
+  "next_action": "continue_m3gm_metric_triage_and_dataset_vocab_strategy_no_brev"
+}

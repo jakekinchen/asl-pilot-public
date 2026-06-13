@@ -1,0 +1,101 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-run9-brev-auth-human-login-boundary/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_run9_retention_enabled_await_brev_login_then_visibility_refresh_no_spend",
+  "recorded_at_utc": "2026-06-04T10:56:06Z",
+  "head_before_slice": "557329a1 record(m3jb): note run9 brev auth still blocked",
+  "status": "blocked_await_human_brev_login_confirmation_no_more_auto_retries",
+  "source_of_truth": {
+    "session_955_visibility_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run9-brev-auth-visibility-refresh-v1.json",
+    "session_956_visibility_retry_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run9-brev-auth-visibility-retry-v1.json",
+    "session_957_visibility_retry_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run9-brev-auth-visibility-retry-957-v1.json",
+    "active_next_action_before_slice": "m3jb_recognizer_transformer_run9_retention_enabled_await_brev_login_then_visibility_refresh_no_spend"
+  },
+  "latest_probe": {
+    "intent": "Final no-spend read-only Brev CLI inventory probe before parking future retries behind explicit human login confirmation.",
+    "command": "brev ls --json",
+    "exit_code": 1,
+    "stdout": "You are currently logged out, would you like to log in? [Y/n]: ",
+    "stderr_excerpt": [
+      "2026/06/04 05:56:07.291277 WARN RESTY [error]",
+      "github.com/brevdev/brev-cli/pkg/store.NewAuthHTTPClient.func1",
+      "github.com/brevdev/brev-cli/pkg/auth.LoginAuth.GetAccessToken",
+      "github.com/brevdev/brev-cli/pkg/auth.Auth.GetFreshAccessTokenOrLogin",
+      "github.com/brevdev/brev-cli/pkg/auth.Auth.PromptForLogin",
+      "github.com/brevdev/brev-cli/pkg/auth.shouldLogin",
+      "EOF, Attempt 1",
+      "2026/06/04 05:56:07.291699 ERROR RESTY [error]",
+      "github.com/brevdev/brev-cli/pkg/auth.Auth.PromptForLogin",
+      "github.com/brevdev/brev-cli/pkg/auth.shouldLogin",
+      "EOF"
+    ],
+    "evidence_tmp_paths": {
+      "stdout": "/tmp/asl-pilot-brev-958/brev-ls.json",
+      "stderr": "/tmp/asl-pilot-brev-958/brev-ls.stderr",
+      "exit": "/tmp/asl-pilot-brev-958/brev-ls.exit",
+      "checked_at": "/tmp/asl-pilot-brev-958/checked_at.txt"
+    },
+    "evidence_sha256": {
+      "stdout": "c8b00c2e4fb8df52a0902573b51291186223f42eb1d75b6304d65e35ab817290",
+      "stderr": "56e799a28a0e985b3e96a113ec45f1ca39b7f4f1d57b9c730ac1cb261086d53a"
+    }
+  },
+  "visibility_result": {
+    "auth_restored_since_session_957": false,
+    "brev_cli_auth_recovered": false,
+    "brev_ls_json_succeeded": false,
+    "inventory_available": false,
+    "worker_state_verified": false,
+    "retained_worker_name": "asl-pilot-m3eh-l40s-001",
+    "retained_worker_id": "3d58wpy9o",
+    "retained_worker_state": "unknown_auth_blocked",
+    "future_compute_launchable": false,
+    "reason": "Sessions 955, 956, 957, and 958 all show the Brev CLI logged out. The noninteractive login prompt exits EOF, so no JSON inventory is available and no worker state can be verified."
+  },
+  "decision": {
+    "auth_visibility_boundary_recorded": true,
+    "repeated_no_spend_visibility_retry_count": 4,
+    "auth_visibility_recovered": false,
+    "worker_inventory_verified": false,
+    "paid_compute_selected": false,
+    "future_run9_fulltrain_launchable": false,
+    "human_action_required": true,
+    "no_more_auto_brev_cli_retries_until_human_confirms_login": true,
+    "browser_or_runtime_promotion_allowed": false,
+    "reason": "Repeated no-spend probes show the same logged-out/EOF blocker. Park further automated Brev CLI retries until the human explicitly confirms Brev CLI login/auth has been restored.",
+    "next_action": {
+      "token": "m3jb_recognizer_transformer_run9_retention_enabled_wait_for_human_brev_login_confirmation",
+      "requires_brev_spend": false,
+      "requires_human_brev_login": true,
+      "follow_up_after_human_login_confirmation": "m3jb_recognizer_transformer_run9_retention_enabled_await_brev_login_then_visibility_refresh_no_spend",
+      "reason": "After the human confirms Brev CLI login/auth is restored, rerun the same no-spend read-only visibility refresh before any future run9 fulltrain can become launchable."
+    }
+  },
+  "boundaries": {
+    "brev_spend": false,
+    "brev_lifecycle_start_stop": false,
+    "brev_exec_or_sync": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "runtime_export": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "raw_test_mined_supervision": false,
+    "final_gate_changed": false,
+    "infrastructure_create_delete_reset_repair": false,
+    "push": false
+  },
+  "validation": {
+    "commands": [
+      "node scripts/audit_loop_premise.mjs --json",
+      "node scripts/audit_codex_pair_state.mjs --json",
+      "node scripts/audit_m3jb_hand_state_tracker.mjs --json",
+      "brev ls --json"
+    ],
+    "pair_state_warning": "node scripts/audit_codex_pair_state.mjs --json reported no live supervisor or executor process detected; this was noted as loop hygiene and did not block the no-spend evidence slice."
+  }
+}

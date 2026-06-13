@@ -1,0 +1,392 @@
+{
+  "schema_version": "asl-pilot-fail-closed-product-smoke-refresh/v1",
+  "generated_at": "2026-05-28T08:43:45Z",
+  "mission": "Mission 3DL - Fail-closed product smoke refresh",
+  "active_prompt": "docs/model/return-to-form-fail-closed-product-smoke-refresh-goal-loop-prompt.md",
+  "status": "completed_fail_closed_product_smoke_refresh",
+  "head": {
+    "short": "5060718",
+    "full": "5060718963ccfefeb48d23f41d10bf2c84f45796",
+    "subject": "observer: CONTINUE - fail closed product smoke handoff"
+  },
+  "scope": {
+    "slice_type": "local_no_spend_no_training_product_smoke_refresh",
+    "routes": ["/", "/lesson", "/validation"],
+    "product_feature_implementation": false,
+    "model_card_hand_edit": false,
+    "brev_commands": false,
+    "active_question": "Refresh fail-closed route smoke evidence for /, /lesson, and /validation against the current M3DK claim-status surfaces while preserving not-trained browser model truth."
+  },
+  "source_receipts": [
+    {
+      "path": "docs/validation/return-to-form-fail-closed-product-status-refresh-v1.json",
+      "role": "M3DK status refresh receipt",
+      "json_validated": true
+    },
+    {
+      "path": "docs/validation/return-to-form-fail-closed-non-recognition-learning-mvp-plan-v1.json",
+      "role": "M3DJ non-recognition product redirect packet",
+      "json_validated": true
+    }
+  ],
+  "files_and_routes_inspected": [
+    {
+      "route": "/",
+      "files": [
+        {
+          "path": "web/src/app/page.tsx",
+          "sha256": "f55185c947ad52a578734e404856a033a6e751a9399c7942e255605d70d64ed5"
+        },
+        {
+          "path": "web/src/components/PracticeApp.tsx",
+          "sha256": "7fdf1635cacf611c06d48b46421193ec25da27eca3f96105e55c32bf540bacea"
+        }
+      ],
+      "confirmation": "Practice remains a fail-closed beginner prompt surface. Camera frames are sampled locally, attempts persist metadata and counts, automatic checking is inactive while the model card is not_trained, and the normal UI does not claim live ASL correctness."
+    },
+    {
+      "route": "/lesson",
+      "files": [
+        {
+          "path": "web/src/app/lesson/page.tsx",
+          "sha256": "00913971f559bc6fcf9ca107af0fe7dcb1468489842438e8922530c354d1c8bf"
+        },
+        {
+          "path": "web/src/components/LessonApp.tsx",
+          "sha256": "17005c69d0fe2b9518ba0ffaa9106ec093309f8a5bcc87160886960f5c87e41f"
+        }
+      ],
+      "confirmation": "Lesson remains fail-closed. It renders inactive model/detector copy, saves metadata-only practice samples, keeps raw sampled frames out of the POST payload, and treats the robot as a visual timing aid rather than tracking or grading authority."
+    },
+    {
+      "route": "/validation",
+      "files": [
+        {
+          "path": "web/src/app/validation/page.tsx",
+          "sha256": "10d28220ff56b9a9626cf98ab53d7a74b4f744ff5109b8de787f81f3df05d7c5"
+        }
+      ],
+      "confirmation": "Validation reads web/public/model/claim-matrix.json, renders status no_active_claim_rawframe_not_trained, shows no active CV claim, and exposes no camera, sample, promotion, recognition-active, or final-readiness controls."
+    }
+  ],
+  "claim_surfaces": {
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "status": "not_trained",
+      "sha256_before": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "sha256_after": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "hand_edited_in_m3dl": false
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": [],
+      "evidenceArtifacts": [],
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546"
+    },
+    "browser_model_bundle": {
+      "path": "web/public/model/browser-model-bundle.json",
+      "recognition_enabled": false,
+      "detector0_tracking_enabled": false,
+      "box_driven_avatar_enabled": false,
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9"
+    },
+    "claim_matrices": {
+      "public_path": "web/public/model/claim-matrix.json",
+      "docs_path": "docs/validation/final-claim-matrix.json",
+      "sha256_public": "5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf",
+      "sha256_docs": "5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf",
+      "progress_ledger_label": "Mission 3DK",
+      "status": "no_active_claim_rawframe_not_trained",
+      "active_cv_claim": null,
+      "cv_supported_count": 0,
+      "learn_only_count": 100,
+      "current_validation_status_source": true
+    }
+  },
+  "smoke_static_and_browser_commands": [
+    {
+      "command": "node scripts/audit_validation_page_smoke.mjs",
+      "route": "/validation",
+      "kind": "static_receipt_audit",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_lesson_fail_closed.mjs",
+      "route": "/lesson",
+      "kind": "static_fail_closed_audit",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_avatar_no_recognition_claims.mjs",
+      "route": "/lesson",
+      "kind": "static_claim_audit",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_practice_screen_contract.mjs",
+      "route": "/",
+      "kind": "static_contract_audit",
+      "status": "passed"
+    },
+    {
+      "command": "npm --prefix web run build",
+      "route": "web app",
+      "kind": "local_production_build_for_smoke_runtime",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/run_practice_camera_behavior_smoke.mjs --write",
+      "route": "/",
+      "kind": "browser_smoke",
+      "status": "passed",
+      "receipt": "docs/validation/practice-camera-behavior-smoke.json",
+      "receipt_sha256": "b2afabc43b2415be2b7e88d76a7285d0ad2f9b6cdc93bd937c02c17ef2e997be"
+    },
+    {
+      "command": "node scripts/run_practice_progress_smoke.mjs --write",
+      "route": "/ and practice APIs",
+      "kind": "runtime_privacy_progress_smoke",
+      "status": "passed",
+      "receipt": "docs/validation/practice-progress-smoke.json",
+      "receipt_sha256": "68c8d2f666aede94af9a6ff2875e70dfb45494acd8bd7bce6e87d70762caff4b"
+    },
+    {
+      "command": "node scripts/run_practice_scope_copy_smoke.mjs --write",
+      "route": "/",
+      "kind": "browser_copy_scope_smoke",
+      "status": "passed",
+      "receipt": "docs/validation/practice-scope-copy-smoke.json",
+      "receipt_sha256": "f4020a7e0e96ba34a1a4dd077ea1108d9231224ffad111cc00cf9992eb61ae63"
+    },
+    {
+      "command": "node scripts/run_lesson_page_smoke.mjs --write",
+      "route": "/lesson",
+      "kind": "browser_smoke",
+      "status": "passed",
+      "receipt": "docs/validation/lesson-page-smoke.json",
+      "receipt_sha256": "7ae3a5cf3131381a93cf27a2a427e198a2c90167ca4edaf94b10db7a7def1c00"
+    },
+    {
+      "command": "node scripts/run_validation_page_smoke.mjs --write",
+      "route": "/validation",
+      "kind": "browser_smoke",
+      "status": "passed",
+      "receipt": "docs/validation/validation-page-smoke.json",
+      "receipt_sha256": "2cfb9fe89e9c0cb120afc5a120062b72f9cd6cb68c4f066011239c15e74d57c9"
+    },
+    {
+      "command": "node scripts/audit_practice_camera_behavior_smoke.mjs",
+      "kind": "smoke_receipt_audit",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_practice_progress_smoke.mjs",
+      "kind": "smoke_receipt_audit",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_practice_scope_copy_smoke.mjs",
+      "kind": "smoke_receipt_audit",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_lesson_page_smoke.mjs",
+      "kind": "smoke_receipt_audit",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_validation_page_smoke.mjs",
+      "kind": "smoke_receipt_audit",
+      "status": "passed"
+    }
+  ],
+  "fail_closed_confirmations": {
+    "practice_route_fail_closed": true,
+    "lesson_route_fail_closed": true,
+    "validation_route_fail_closed": true,
+    "browser_recognition_inactive": true,
+    "model_claims_not_trained": true,
+    "active_labels_promoted": false,
+    "raw_learner_video_uploaded_during_normal_practice": false,
+    "pretrained_cv_sign_landmark_or_model_dependency_introduced": false,
+    "validation_uses_m3dk_claim_matrices": true
+  },
+  "model_card_handling": {
+    "hand_edited_in_m3dl": false,
+    "unchanged_sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+    "status_remains": "not_trained",
+    "stale_provenance_note_remaining": true,
+    "handling": "M3DL left web/public/model/model-card.json unchanged because the active prompt forbids hand edits. The stale provenance-note wording remains a policy/generator-ownership blocker, while the status and limitations remain fail-closed."
+  },
+  "brev_status_handling": {
+    "m3dl_brev_commands_run": false,
+    "m3dl_brev_spend": false,
+    "inherited_blocker_source": "docs/session-logs/459-observer-redirect-fail-closed-non-recognition-mvp.md",
+    "worker_name": "asl-pilot-rawframe-001",
+    "worker_id": "2hl1hytty",
+    "last_recorded_stop_verification": "failed",
+    "last_recorded_status_after_stop_attempts": {
+      "status": "RUNNING",
+      "shell_status": "READY",
+      "health_status": "HEALTHY"
+    },
+    "handling": "No Brev command was run in M3DL. The unresolved stopped-state verification remains a human/provider cost-control blocker."
+  },
+  "negative_authorizations_reaffirmed": {
+    "training": false,
+    "fitting": false,
+    "tuning_or_sweep": false,
+    "optimizer_construction_for_fitting": false,
+    "backward": false,
+    "checkpoint_creation_or_update": false,
+    "new_train_eval_or_inference_extraction_run": false,
+    "brev_command_spend_remote_work_sync_copy_lifecycle_delete_reset_or_teardown": false,
+    "source_register_mutation": false,
+    "source_expansion_import_or_media_download": false,
+    "dataset_approval_change": false,
+    "manifest_mutation": false,
+    "tensor_mutation": false,
+    "label_or_vocabulary_mutation": false,
+    "pseudo_labeling_or_generated_labels": false,
+    "pretrained_dependency": false,
+    "product_feature_implementation": false,
+    "model_artifact_mutation": false,
+    "model_card_hand_edit": false,
+    "export_or_export_readiness_route": false,
+    "browser_activation": false,
+    "model_card_promotion": false,
+    "active_label_promotion": false,
+    "final_gate_weakening_or_final_readiness_claim": false,
+    "recognition_claim": false,
+    "asl_correctness_claim": false,
+    "unsupported_claim": false,
+    "push": false
+  },
+  "commands_run": [
+    "git status --short --branch",
+    "git log -10 --oneline --decorate",
+    "node scripts/audit_loop_premise.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs --json",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "node scripts/audit_source_register.mjs",
+    "python3 -m json.tool docs/validation/return-to-form-fail-closed-product-status-refresh-v1.json >/dev/null",
+    "node scripts/audit_final_claim_matrix.mjs",
+    "node scripts/audit_validation_page_smoke.mjs",
+    "node scripts/audit_lesson_fail_closed.mjs",
+    "node scripts/audit_avatar_no_recognition_claims.mjs",
+    "node scripts/audit_practice_screen_contract.mjs",
+    "command -v npx >/dev/null 2>&1",
+    "read-only sed/rg/jq/shasum inspections of route files, components, smoke scripts, claim surfaces, M3DK/M3DJ receipts, and the return-to-form plan",
+    "npm --prefix web run build",
+    "node scripts/run_practice_camera_behavior_smoke.mjs --write",
+    "node scripts/run_practice_progress_smoke.mjs --write",
+    "node scripts/run_practice_scope_copy_smoke.mjs --write",
+    "node scripts/run_lesson_page_smoke.mjs --write",
+    "node scripts/run_validation_page_smoke.mjs --write",
+    "python3 -m json.tool docs/validation/practice-camera-behavior-smoke.json >/dev/null",
+    "python3 -m json.tool docs/validation/practice-progress-smoke.json >/dev/null",
+    "python3 -m json.tool docs/validation/practice-scope-copy-smoke.json >/dev/null",
+    "python3 -m json.tool docs/validation/lesson-page-smoke.json >/dev/null",
+    "python3 -m json.tool docs/validation/validation-page-smoke.json >/dev/null",
+    "node scripts/audit_practice_camera_behavior_smoke.mjs",
+    "node scripts/audit_practice_progress_smoke.mjs",
+    "node scripts/audit_practice_scope_copy_smoke.mjs",
+    "node scripts/audit_lesson_page_smoke.mjs",
+    "node scripts/audit_validation_page_smoke.mjs",
+    "python3 -m json.tool docs/validation/return-to-form-fail-closed-product-smoke-refresh-v1.json >/dev/null",
+    "git diff --check"
+  ],
+  "commands_intentionally_not_run": [
+    "brev *",
+    "training/fitting/tuning/sweep commands",
+    "optimizer/backward/checkpoint-writing commands",
+    "new train/eval/extraction commands",
+    "source/media import commands",
+    "manifest/tensor/label/vocabulary mutation commands",
+    "product feature implementation commands",
+    "model-card edit or promotion commands",
+    "ONNX/export/browser activation/final-gate commands",
+    "git push"
+  ],
+  "validation_commands": [
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-fail-closed-product-smoke-refresh-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_final_claim_matrix.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_validation_page_smoke.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_lesson_fail_closed.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_avatar_no_recognition_claims.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_practice_screen_contract.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_practice_camera_behavior_smoke.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_practice_progress_smoke.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_practice_scope_copy_smoke.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_lesson_page_smoke.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_validation_page_smoke.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "blockers": [
+    "web/public/model/model-card.json provenance_note still has stale older-forward-path wording, but M3DL forbids hand-editing the model card and no generator-owned update was authorized.",
+    "Brev cost-control remains unresolved from observer 459: stop commands returned, but the A100 worker was last recorded as RUNNING, READY, and HEALTHY; M3DL ran no Brev commands."
+  ],
+  "decision": {
+    "selected_next_action": "stop_for_human_product_or_cost_control_review",
+    "rationale": "Route smoke evidence for /, /lesson, and /validation is refreshed and passing against current M3DK claim-status surfaces. The remaining blockers are explicit human/provider or policy ownership issues: model-card wording ownership and Brev stopped-state cost-control verification."
+  },
+  "exactly_one_next_action": "stop_for_human_product_or_cost_control_review"
+}

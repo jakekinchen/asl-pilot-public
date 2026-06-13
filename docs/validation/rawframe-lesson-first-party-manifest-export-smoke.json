@@ -1,0 +1,281 @@
+{
+  "schema_version": "asl-pilot-rawframe-lesson-manifest-export-smoke/v1",
+  "status": "passed",
+  "generated_at": "2026-05-21T16:49:35.574Z",
+  "generated_by": {
+    "tool": "node",
+    "command": [
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/Users/kelly/Developer/asl-pilot/scripts/run_rawframe_lesson_manifest_export_smoke.mjs",
+      "--write"
+    ],
+    "script": {
+      "path": "scripts/run_rawframe_lesson_manifest_export_smoke.mjs",
+      "exists": true,
+      "sha256": "e479ce05f976797782550197a7135fd6b271f0d3e543c1c65597bfaf63b64e2c"
+    }
+  },
+  "final_model_evidence": false,
+  "smoke_only": true,
+  "decision_boundary": {
+    "changes_real_store": false,
+    "changes_final_manifests": false,
+    "approves_source": false,
+    "final_model_evidence": false,
+    "proves_positive_exporter_path_with_fixture_only": true
+  },
+  "retained_outputs": {
+    "directory": "output/rawframe-lesson-manifest-export-smoke",
+    "packet": {
+      "path": "output/rawframe-lesson-manifest-export-smoke/packet.json",
+      "exists": true,
+      "sha256": "de41247083c1b53673f09e8a7031209708c3da5a778ff03477bd19548ca66451"
+    },
+    "store": {
+      "path": "output/rawframe-lesson-manifest-export-smoke/store.json",
+      "exists": true,
+      "sha256": "a4981534aea52a3a32ab7dc13353217d8e854b1d8e442c73d7b3a969b54be831"
+    },
+    "readiness": {
+      "path": "output/rawframe-lesson-manifest-export-smoke/readiness.json",
+      "exists": true,
+      "sha256": "401a81373a96f87659c472cd58f311d68680b2b17699337e26ecf2328ee90e1d"
+    },
+    "exporter_summary": {
+      "path": "output/rawframe-lesson-manifest-export-smoke/manifest-export.json",
+      "exists": true,
+      "sha256": "b29e89108cdcc8cb3a57d814e22682f99bc6d096aff7727ce545c5f7c58468c3"
+    },
+    "manifest_dir": "output/rawframe-lesson-manifest-export-smoke/manifests",
+    "manifest_files": [
+      {
+        "path": "output/rawframe-lesson-manifest-export-smoke/manifests/negative-challenge.json",
+        "exists": true,
+        "sha256": "b042e350b5543e5edfbe68f81ee999b6643539a9e7a98f7500f9be4e9dfffde5"
+      },
+      {
+        "path": "output/rawframe-lesson-manifest-export-smoke/manifests/test.json",
+        "exists": true,
+        "sha256": "7b965dc6690e25ae64e4dc9d0dbcf6788c4d3109f9f822ac8c8d4ea409c48f09"
+      },
+      {
+        "path": "output/rawframe-lesson-manifest-export-smoke/manifests/train.json",
+        "exists": true,
+        "sha256": "1c721b0feb844bb568388d159f92d4007fe69302f71195c1812ba1e0832004de"
+      },
+      {
+        "path": "output/rawframe-lesson-manifest-export-smoke/manifests/validation.json",
+        "exists": true,
+        "sha256": "ba6c5650ae9eab3aca7c2268fb007e8933282fa0addcb17165c22eb02cada2d3"
+      }
+    ],
+    "fixture_clip_files": [
+      {
+        "path": "data/dataset/clips/rawframe-lesson-export-smoke-smoke-vocabulary-train.webm",
+        "exists": true,
+        "sha256": "61717f2ff07c34de9bc3db34b1eaa2951c64294a5da895dc5dbc687cc0173d45"
+      },
+      {
+        "path": "data/dataset/clips/rawframe-lesson-export-smoke-smoke-vocabulary-validation.webm",
+        "exists": true,
+        "sha256": "aa1054b647cc75c72a5f60759f05ed358f4c6f863eb8eb1d8732e65eab70192b"
+      },
+      {
+        "path": "data/dataset/clips/rawframe-lesson-export-smoke-smoke-vocabulary-test.webm",
+        "exists": true,
+        "sha256": "b83ae4c5ed952c0b47dba89f676dfc16124b95feae186f4fb8a8faf48beebc86"
+      },
+      {
+        "path": "data/dataset/clips/rawframe-lesson-export-smoke-smoke-challenge-idle_hands.webm",
+        "exists": true,
+        "sha256": "4800a71bd2cc6d9c6f1245289cf5c154a822537e2d201a22c3d01ab98e426909"
+      }
+    ]
+  },
+  "commands": {
+    "readiness": {
+      "command": [
+        "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+        "scripts/audit_rawframe_lesson_collection_readiness.mjs",
+        "--packet",
+        "output/rawframe-lesson-manifest-export-smoke/packet.json",
+        "--store",
+        "output/rawframe-lesson-manifest-export-smoke/store.json",
+        "--output",
+        "output/rawframe-lesson-manifest-export-smoke/readiness.json",
+        "--write"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"ready_for_lesson_manifest_export\",\n  \"wrote\": true,\n  \"output\": \"output/rawframe-lesson-manifest-export-smoke/readiness.json\",\n  \"store_exists\": true,\n  \"expected_assignments\": 4,\n  \"observed_approved_assignments\": 4,\n  \"missing_approved_assignment_count\": 0,\n  \"blockers\": []\n}",
+      "stderr": ""
+    },
+    "export": {
+      "command": [
+        "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+        "scripts/export_rawframe_lesson_first_party_manifests.mjs",
+        "--packet",
+        "output/rawframe-lesson-manifest-export-smoke/packet.json",
+        "--readiness",
+        "output/rawframe-lesson-manifest-export-smoke/readiness.json",
+        "--store",
+        "output/rawframe-lesson-manifest-export-smoke/store.json",
+        "--output-dir",
+        "output/rawframe-lesson-manifest-export-smoke/manifests",
+        "--summary-output",
+        "output/rawframe-lesson-manifest-export-smoke/manifest-export.json",
+        "--write"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"lesson_first_party_manifests_export_ready\",\n  \"wrote\": true,\n  \"summary_output\": \"output/rawframe-lesson-manifest-export-smoke/manifest-export.json\",\n  \"output_dir\": \"output/rawframe-lesson-manifest-export-smoke/manifests\",\n  \"blockers\": [],\n  \"manifest_export\": {\n    \"output_dir\": \"output/rawframe-lesson-manifest-export-smoke/manifests\",\n    \"files\": [\n      {\n        \"path\": \"output/rawframe-lesson-manifest-export-smoke/manifests/train.json\",\n        \"exists\": true,\n        \"sha256\": \"1c721b0feb844bb568388d159f92d4007fe69302f71195c1812ba1e0832004de\"\n      },\n      {\n        \"path\": \"output/rawframe-lesson-manifest-export-smoke/manifests/validation.json\",\n        \"exists\": true,\n        \"sha256\": \"ba6c5650ae9eab3aca7c2268fb007e8933282fa0addcb17165c22eb02cada2d3\"\n      },\n      {\n        \"path\": \"output/rawframe-lesson-manifest-export-smoke/manifests/test.json\",\n        \"exists\": true,\n        \"sha256\": \"7b965dc6690e25ae64e4dc9d0dbcf6788c4d3109f9f822ac8c8d4ea409c48f09\"\n      },\n      {\n        \"path\": \"output/rawframe-lesson-manifest-export-smoke/manifests/negative-challenge.json\",\n        \"exists\": true,\n        \"sha256\": \"b042e350b5543e5edfbe68f81ee999b6643539a9e7a98f7500f9be4e9dfffde5\"\n      }\n    ],\n    \"counts\": {\n      \"train\": 1,\n      \"validation\": 1,\n      \"test\": 1,\n      \"negative_challenge\": 1\n    }\n  }\n}",
+      "stderr": ""
+    },
+    "downstream_manifest_validation": {
+      "command": [
+        ".venv/bin/python",
+        "-c",
+        "\nfrom pathlib import Path\nfrom decode_raw_videos import validate_negative_challenge_manifest_for_decode\nfrom train_rawframe_model import validate_manifest\n\ntrain = validate_manifest(Path(\"output/rawframe-lesson-manifest-export-smoke/manifests/train.json\"), \"train\", True, True)\nvalidation = validate_manifest(Path(\"output/rawframe-lesson-manifest-export-smoke/manifests/validation.json\"), \"validation\", True, True)\ntest = validate_manifest(Path(\"output/rawframe-lesson-manifest-export-smoke/manifests/test.json\"), \"test\", True, True)\nnegative = validate_negative_challenge_manifest_for_decode(\n    Path(\"output/rawframe-lesson-manifest-export-smoke/manifests/negative-challenge.json\"),\n    True,\n)\nprint({\n    \"status\": \"passed\",\n    \"train_clip_count\": train[\"clip_count\"],\n    \"validation_clip_count\": validation[\"clip_count\"],\n    \"test_clip_count\": test[\"clip_count\"],\n    \"negative_challenge_clip_count\": negative[\"clip_count\"],\n})\n"
+      ],
+      "exit_code": 0,
+      "stdout": "{'status': 'passed', 'train_clip_count': 1, 'validation_clip_count': 1, 'test_clip_count': 1, 'negative_challenge_clip_count': 1}",
+      "stderr": ""
+    },
+    "decode_dry_run": {
+      "command": [
+        ".venv/bin/python",
+        "scripts/decode_raw_videos.py",
+        "--manifest",
+        "output/rawframe-lesson-manifest-export-smoke/manifests/train.json",
+        "--manifest",
+        "output/rawframe-lesson-manifest-export-smoke/manifests/validation.json",
+        "--manifest",
+        "output/rawframe-lesson-manifest-export-smoke/manifests/test.json",
+        "--manifest",
+        "output/rawframe-lesson-manifest-export-smoke/manifests/negative-challenge.json",
+        "--dry-run",
+        "--allow-small-label-set"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout_parse_status": "parsed",
+      "stdout_sha256": "adafb92d286c4e2effe2dd01a450f1ff6eae502acc1218b9284b4847d4837310",
+      "status": "validated",
+      "manifests": [
+        {
+          "manifest": "output/rawframe-lesson-manifest-export-smoke/manifests/train.json",
+          "split": "train",
+          "dry_run": true,
+          "clips_decoded": 1,
+          "tensor_root": "data/tensors/train"
+        },
+        {
+          "manifest": "output/rawframe-lesson-manifest-export-smoke/manifests/validation.json",
+          "split": "validation",
+          "dry_run": true,
+          "clips_decoded": 1,
+          "tensor_root": "data/tensors/validation"
+        },
+        {
+          "manifest": "output/rawframe-lesson-manifest-export-smoke/manifests/test.json",
+          "split": "test",
+          "dry_run": true,
+          "clips_decoded": 1,
+          "tensor_root": "data/tensors/test"
+        },
+        {
+          "manifest": "output/rawframe-lesson-manifest-export-smoke/manifests/negative-challenge.json",
+          "split": "negative_challenge",
+          "dry_run": true,
+          "clips_decoded": 1,
+          "tensor_root": "data/tensors/negative_challenge"
+        }
+      ],
+      "raw_rgb_component_inventory_empty": true
+    }
+  },
+  "readiness": {
+    "status": "ready_for_lesson_manifest_export",
+    "expected_assignments": {
+      "total": 4,
+      "by_role": {
+        "target": 3,
+        "current_app_hard_negative": 1
+      },
+      "by_split": {
+        "train": 1,
+        "validation": 1,
+        "test": 1,
+        "negative_challenge": 1
+      },
+      "by_challenge_type": {
+        "idle_hands": 1
+      },
+      "label_count": 1
+    },
+    "observed_assignments": {
+      "consented_assignment_count": 4,
+      "approved_assignment_count": 4,
+      "consented_by_role": {
+        "target": 3,
+        "current_app_hard_negative": 1
+      },
+      "approved_by_role": {
+        "target": 3,
+        "current_app_hard_negative": 1
+      },
+      "consented_by_split": {
+        "train": 1,
+        "validation": 1,
+        "test": 1,
+        "negative_challenge": 1
+      },
+      "approved_by_split": {
+        "train": 1,
+        "validation": 1,
+        "test": 1,
+        "negative_challenge": 1
+      },
+      "consented_by_challenge_type": {
+        "idle_hands": 1
+      },
+      "approved_by_challenge_type": {
+        "idle_hands": 1
+      },
+      "pending_review_assignment_count": 0,
+      "rejected_assignment_count": 0,
+      "unexpected_assignment_count": 0
+    },
+    "blockers": []
+  },
+  "manifest_export": {
+    "output_dir": "output/rawframe-lesson-manifest-export-smoke/manifests",
+    "files": [
+      {
+        "path": "output/rawframe-lesson-manifest-export-smoke/manifests/train.json",
+        "exists": true,
+        "sha256": "1c721b0feb844bb568388d159f92d4007fe69302f71195c1812ba1e0832004de"
+      },
+      {
+        "path": "output/rawframe-lesson-manifest-export-smoke/manifests/validation.json",
+        "exists": true,
+        "sha256": "ba6c5650ae9eab3aca7c2268fb007e8933282fa0addcb17165c22eb02cada2d3"
+      },
+      {
+        "path": "output/rawframe-lesson-manifest-export-smoke/manifests/test.json",
+        "exists": true,
+        "sha256": "7b965dc6690e25ae64e4dc9d0dbcf6788c4d3109f9f822ac8c8d4ea409c48f09"
+      },
+      {
+        "path": "output/rawframe-lesson-manifest-export-smoke/manifests/negative-challenge.json",
+        "exists": true,
+        "sha256": "b042e350b5543e5edfbe68f81ee999b6643539a9e7a98f7500f9be4e9dfffde5"
+      }
+    ],
+    "counts": {
+      "train": 1,
+      "validation": 1,
+      "test": 1,
+      "negative_challenge": 1
+    }
+  },
+  "failures": []
+}

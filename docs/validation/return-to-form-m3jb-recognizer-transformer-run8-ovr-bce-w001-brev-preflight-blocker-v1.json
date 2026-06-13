@@ -1,0 +1,233 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-run8-ovr-bce-w001-brev-preflight-blocker/v1",
+  "status": "blocked_ssh_preflight_then_late_worker_recovered_no_training",
+  "slice": "m3jb_recognizer_transformer_run8_ovr_bce_w001_fulltrain_brev_ok",
+  "completed_at_utc": "2026-06-04T08:08:41Z",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "inputs": {
+    "preflight_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run8-ovr-bce-w001-preflight-v1.json",
+    "accepted_dryrun_receipt": "docs/validation/m3jb-recognizer-run8-ovr-bce-w001-preflight-dryrun-v1.json",
+    "preflight_side_commit_short": "bfd1e783",
+    "bounded_run8_fulltrain_envelope_source": "session 945 receipt",
+    "running_best_test_verification_recall_far10": 0.8038559556786704,
+    "gate_test_verification_recall_far10": 0.85
+  },
+  "approval": {
+    "recorded_in_goal_and_active_prompt": true,
+    "recognizer_campaign_approval_text": "we have infinite Brev compute, don't artificially handicap yourself if more compute would help",
+    "bounded_to_run8_preflight_receipt_envelope": true,
+    "infrastructure_create_delete_reset_repair_approved": false
+  },
+  "worker": {
+    "name": "asl-pilot-m3eh-l40s-001",
+    "id": "3d58wpy9o",
+    "instance_type": "l40s-48gb.1x",
+    "gpu": "L40S"
+  },
+  "brev_lifecycle": {
+    "initial_read_only_ls": {
+      "command": "timeout 300 brev ls --json",
+      "workspaces": [
+        {
+          "name": "asl-pilot-m3jb-pairrank-l40s-001",
+          "id": "h15cj91es",
+          "status": "STOPPED",
+          "shell_status": "NOT READY",
+          "health_status": "UNHEALTHY",
+          "gpu": "L40S"
+        },
+        {
+          "name": "asl-pilot-m3eh-l40s-001",
+          "id": "3d58wpy9o",
+          "status": "STOPPED",
+          "shell_status": "NOT READY",
+          "health_status": "HEALTHY",
+          "gpu": "L40S"
+        }
+      ]
+    },
+    "start": {
+      "command": "timeout 900 brev start asl-pilot-m3eh-l40s-001 && brev ls --json",
+      "exit_code": 0,
+      "post_start_retained_state": {
+        "status": "RUNNING",
+        "shell_status": "READY",
+        "health_status": "UNAVAILABLE"
+      }
+    },
+    "ssh_cuda_process_preflight": {
+      "command_summary": "Five attempts of timeout 90 brev exec asl-pilot-m3eh-l40s-001 true, followed by CUDA/process preflight only if SSH became reachable.",
+      "exit_code": 124,
+      "result": "ssh_preflight_failed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "retained_state_before_exec": {
+            "status": "RUNNING",
+            "shell_status": "READY",
+            "health_status": "UNAVAILABLE"
+          },
+          "ssh_result": "timed_out",
+          "evidence": "ssh: connect to host 204.52.29.217 port 22: Operation timed out"
+        },
+        {
+          "attempt": 2,
+          "retained_state_before_exec": {
+            "status": "UNHEALTHY",
+            "shell_status": "READY",
+            "health_status": "UNHEALTHY"
+          },
+          "ssh_result": "timed_out"
+        },
+        {
+          "attempt": 3,
+          "retained_state_before_exec": {
+            "status": "UNHEALTHY",
+            "shell_status": "READY",
+            "health_status": "UNHEALTHY"
+          },
+          "ssh_result": "timed_out"
+        },
+        {
+          "attempt": 4,
+          "retained_state_before_exec": {
+            "status": "UNHEALTHY",
+            "shell_status": "READY",
+            "health_status": "UNHEALTHY"
+          },
+          "ssh_result": "timed_out"
+        },
+        {
+          "attempt": 5,
+          "retained_state_before_exec": {
+            "status": "UNHEALTHY",
+            "shell_status": "READY",
+            "health_status": "UNHEALTHY"
+          },
+          "ssh_result": "timed_out"
+        }
+      ],
+      "cuda_check": "not_run",
+      "process_check": "not_run"
+    },
+    "post_preflight_ls": {
+      "command": "timeout 300 brev ls --json",
+      "retained_state": {
+        "status": "UNHEALTHY",
+        "shell_status": "READY",
+        "health_status": "UNHEALTHY"
+      }
+    },
+    "teardown": {
+      "stop_by_name": {
+        "command": "timeout 300 brev stop asl-pilot-m3eh-l40s-001",
+        "exit_code": 0,
+        "output": "asl-pilot-m3eh-l40s-001"
+      },
+      "state_after_stop_by_name_settle": {
+        "status": "STOPPING",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY"
+      },
+      "stop_by_id": {
+        "command": "timeout 300 brev stop 3d58wpy9o",
+        "exit_code": 0,
+        "output": "3d58wpy9o"
+      },
+      "state_after_stop_by_id_settle": {
+        "status": "STOPPING",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY"
+      },
+      "stop_all": {
+        "command": "timeout 300 brev stop --all",
+        "exit_code": 0,
+        "output": ""
+      },
+      "final_ls": {
+        "command": "sleep 30 && timeout 300 brev ls --json",
+        "workspaces": [
+          {
+            "name": "asl-pilot-m3jb-pairrank-l40s-001",
+            "id": "h15cj91es",
+            "status": "STOPPED",
+            "shell_status": "NOT READY",
+            "health_status": "UNHEALTHY",
+            "gpu": "L40S"
+          },
+          {
+            "name": "asl-pilot-m3eh-l40s-001",
+            "id": "3d58wpy9o",
+            "status": "STOPPED",
+            "shell_status": "NOT READY",
+            "health_status": "UNHEALTHY",
+            "gpu": "L40S"
+          }
+        ]
+      },
+      "late_read_only_recovery_ls": {
+        "command": "timeout 300 brev ls --json",
+        "observed_after_initial_commit_before_final_response": true,
+        "worker_stop_not_repeated_because_approved_work_remains_queued": true,
+        "workspaces": [
+          {
+            "name": "asl-pilot-m3jb-pairrank-l40s-001",
+            "id": "h15cj91es",
+            "status": "STOPPED",
+            "shell_status": "NOT READY",
+            "health_status": "UNHEALTHY",
+            "gpu": "L40S"
+          },
+          {
+            "name": "asl-pilot-m3eh-l40s-001",
+            "id": "3d58wpy9o",
+            "status": "RUNNING",
+            "shell_status": "READY",
+            "health_status": "HEALTHY",
+            "gpu": "L40S"
+          }
+        ]
+      }
+    }
+  },
+  "remote_work": {
+    "remote_exec_reached": false,
+    "sync_or_hash_verify": "not_run",
+    "cuda_dryrun": "not_run",
+    "fulltrain_command": "not_run",
+    "optimizer_steps": 0,
+    "checkpoint_written": false,
+    "copyback": "not_run"
+  },
+  "boundaries": {
+    "brev_lifecycle_start_stop": true,
+    "brev_remote_exec_success": false,
+    "remote_mutation": false,
+    "sync": false,
+    "training_run": false,
+    "optimizer_backward": false,
+    "checkpoint_written": false,
+    "runtime_export": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "push": false,
+    "infrastructure_create_delete_reset_repair": false,
+    "retained_worker_left_running_under_approved_queued_work": true
+  },
+  "decision": {
+    "run8_fulltrain_started": false,
+    "run8_result_available": false,
+    "gate_status": "not_evaluated_no_training",
+    "reason": "The retained worker did not pass SSH preflight and degraded to UNHEALTHY before CUDA/process preflight, sync, dry-run, or training could begin. A later read-only Brev inventory found the retained existing worker recovered to RUNNING / READY / HEALTHY, so the worker was not stopped merely because approved run8 work remains queued."
+  },
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_run8_ovr_bce_w001_fulltrain_brev_ok",
+    "instructions": [
+      "Retry the bounded run8 OVR-BCE weight 0.01 fulltrain envelope on the recovered existing NVIDIA worker only after fresh SSH/CUDA/process preflight passes.",
+      "Do not create, delete, reset, or repair Brev infrastructure without explicit human approval.",
+      "If the existing worker is unhealthy or unreachable again, record the blocker and follow the recorded teardown rules."
+    ]
+  }
+}

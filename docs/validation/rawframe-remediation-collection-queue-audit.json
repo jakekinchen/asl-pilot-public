@@ -1,0 +1,101 @@
+{
+  "schema_version": "asl-pilot-rawframe-remediation-collection-queue-audit/v1",
+  "status": "passed_nonfinal_queue_audit",
+  "checked_at": "2026-05-25T16:26:28.496Z",
+  "generated_by": {
+    "tool": "node",
+    "command": [
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/Users/kelly/Developer/asl-pilot/scripts/audit_rawframe_remediation_collection_queue.mjs",
+      "--queue",
+      "docs/validation/rawframe-remediation-collection-queue.json",
+      "--write"
+    ],
+    "script": {
+      "path": "scripts/audit_rawframe_remediation_collection_queue.mjs",
+      "sha256": "69f34a5c29e277c69ce5d933c89a91ad8d04ad829ca38825f0b344d59c908d47"
+    }
+  },
+  "inputs": {
+    "queue": {
+      "path": "docs/validation/rawframe-remediation-collection-queue.json",
+      "sha256": "20eb00f76192073fa18c4350b2ce00be04fd4b402e20f5aa2b8a56864e4d7f0d"
+    },
+    "remediation_plan": {
+      "path": "docs/validation/rawframe-data-remediation-plan.json",
+      "sha256": "7cad882b21e240736ab4cf7b596c8fa6e1c49bd5e0e783da826c00c67b83a30a"
+    },
+    "collection_plan": {
+      "path": "data/dataset/collection-plan.json",
+      "sha256": "4ce4ad70954ade1d5f7f49a003696ee37e3a3013dcb9f09fd1f9a37af870feb5"
+    }
+  },
+  "decision_boundary": {
+    "changes_store": false,
+    "changes_manifests": false,
+    "approves_source": false,
+    "final_evidence": false
+  },
+  "queue_summary": {
+    "assignment_count": 1585,
+    "vocabulary_assignment_count": 1500,
+    "negative_challenge_assignment_count": 85,
+    "label_count": 100,
+    "priority_label_count": 80,
+    "assignment_counts_by_split": {
+      "train": 500,
+      "validation": 500,
+      "test": 500,
+      "negative_challenge": 85
+    },
+    "assignment_counts_by_bucket": {
+      "zero_recall_validation_and_test": 375,
+      "zero_recall_test": 375,
+      "zero_recall_validation": 135,
+      "top_confusion_true_label": 165,
+      "other_priority": 150,
+      "standard": 300,
+      "negative_challenge_required": 85
+    }
+  },
+  "expected_summary": {
+    "assignment_count": 1585,
+    "vocabulary_assignment_count": 1500,
+    "negative_challenge_assignment_count": 85,
+    "label_count": 100,
+    "priority_label_count": 80,
+    "assignment_counts_by_split": {
+      "train": 500,
+      "validation": 500,
+      "test": 500,
+      "negative_challenge": 85
+    },
+    "assignment_counts_by_bucket": {
+      "other_priority": 150,
+      "zero_recall_validation_and_test": 375,
+      "standard": 300,
+      "top_confusion_true_label": 165,
+      "zero_recall_test": 375,
+      "zero_recall_validation": 135,
+      "negative_challenge_required": 85
+    }
+  },
+  "coverage": {
+    "all_collection_assignments_present": true,
+    "no_extra_queue_assignments": true,
+    "queue_index_continuous": true,
+    "assignment_keys_valid": true,
+    "queue_order_valid": true
+  },
+  "collection_store": {
+    "path": "data/asl-pilot-store.json",
+    "exists": false,
+    "counted_clips": 0,
+    "counted_negative_challenge_clips": 0
+  },
+  "blockers": [
+    "First-party collection store is absent: data/asl-pilot-store.json",
+    "NVIDIA is not ready for source-register review; metadata audit is not metadata_review_ready_not_approved"
+  ],
+  "findings": []
+}

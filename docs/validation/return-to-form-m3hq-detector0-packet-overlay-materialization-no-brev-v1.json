@@ -1,0 +1,753 @@
+{
+  "schema_version": "asl-pilot-m3hq-detector0-packet-overlay-materialization-receipt/v1",
+  "mission": "M3HQ",
+  "role": "Codex executor",
+  "status": "completed_overlay_materialization_not_training_ready",
+  "created_at": "2026-05-29T18:38:36Z",
+  "current_commit": "7bc9bcb04b1beccdd8eeb06dd07e6254bbe835c1",
+  "active_prompt": "docs/model/return-to-form-m3hq-detector0-packet-overlay-materialization-no-brev-goal-loop-prompt.md",
+  "slice": "one local/no-remote/no-Brev/no-paid-compute/no-training Detector 0 packet overlay materialization slice",
+  "commands_run": [
+    {
+      "command": "git status --short --branch",
+      "exit_status": 0,
+      "summary": "clean; branch compound-plan-m0 ahead of origin"
+    },
+    {
+      "command": "git log -14 --oneline --decorate",
+      "exit_status": 0,
+      "summary": "HEAD 7bc9bcb observer handoff to M3HQ; previous executor fa42c47 M3HP"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_status": 0,
+      "summary": "passed with no blockers"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_status": 0,
+      "summary": "passed; GOAL.md points at M3HQ active prompt"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "exit_status": 0,
+      "summary": "passed; source register hash b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_status": 0,
+      "summary": "passed; no banned pretrained-CV dependencies or source imports found"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_status": 0,
+      "summary": "passed; no findings"
+    },
+    {
+      "command": "node scripts/audit_detector0_manifest_contract.mjs",
+      "exit_status": 0,
+      "summary": "passed; Detector 0 card remains not_trained/research_only and runtime gates disabled"
+    },
+    {
+      "command": "node scripts/audit_detector0_strict_gate_crop_contract.mjs --json",
+      "exit_status": 0,
+      "summary": "passed; strict gate remains diagnostic only and fail-closed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/return-to-form-detector0-target-policy-review-v1.json >/dev/null",
+      "exit_status": 0,
+      "summary": "parsed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3hp-detector0-target-policy-review-no-brev-v1.json >/dev/null",
+      "exit_status": 0,
+      "summary": "parsed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3ho-detector0-annotation-packet-review-no-brev-v1.json >/dev/null",
+      "exit_status": 0,
+      "summary": "parsed"
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-targeted-annotation-packet-v1.json >/dev/null",
+      "exit_status": 0,
+      "summary": "parsed"
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json >/dev/null",
+      "exit_status": 0,
+      "summary": "parsed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/return-to-form-detector0-targeted-annotation-packet-plan-v1.json >/dev/null",
+      "exit_status": 0,
+      "summary": "parsed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/return-to-form-detector0-manifest-label-training-evaluation-contract-v1.json >/dev/null",
+      "exit_status": 0,
+      "summary": "parsed"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/detector0-card.json >/dev/null",
+      "exit_status": 0,
+      "summary": "parsed"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/browser-model-bundle.json >/dev/null",
+      "exit_status": 0,
+      "summary": "parsed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/dataset-source-register.json >/dev/null",
+      "exit_status": 0,
+      "summary": "parsed"
+    },
+    {
+      "command": "python3 -m json.tool data/manifests/return-to-form-tier0/train.json >/dev/null",
+      "exit_status": 0,
+      "summary": "parsed"
+    },
+    {
+      "command": "python3 -m json.tool data/manifests/return-to-form-tier0/validation.json >/dev/null",
+      "exit_status": 0,
+      "summary": "parsed"
+    },
+    {
+      "command": "python3 -m json.tool data/manifests/return-to-form-tier0/test.json >/dev/null",
+      "exit_status": 0,
+      "summary": "parsed"
+    },
+    {
+      "command": "python3 -m json.tool data/manifests/negative-challenge.json >/dev/null",
+      "exit_status": 0,
+      "summary": "parsed"
+    },
+    {
+      "command": "brev ls --json",
+      "exit_status": 0,
+      "summary": "read-only inventory reported retained worker STOPPED / COMPLETED / NOT READY / HEALTHY"
+    },
+    {
+      "command": "git diff --check",
+      "exit_status": 0,
+      "summary": "passed before edits"
+    },
+    {
+      "command": "node scripts/audit_codex_pair_state.mjs --json",
+      "exit_status": 0,
+      "summary": "warning status; no live executor/observer process, supervisor loop present, active prompt M3HQ"
+    }
+  ],
+  "post_edit_validation_commands": [
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-targeted-annotation-overlays-v1.json >/dev/null",
+      "exit_status": 0,
+      "summary": "overlay artifact parsed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3hq-detector0-packet-overlay-materialization-no-brev-v1.json >/dev/null",
+      "exit_status": 0,
+      "summary": "receipt parsed"
+    },
+    {
+      "command": "git diff --check",
+      "exit_status": 0,
+      "summary": "passed after writing overlay and receipt"
+    },
+    {
+      "command": "node one-off M3HQ overlay materialization sanity check",
+      "exit_status": 0,
+      "summary": "32 overlay rows exactly match M3HN review-ready references; every target has target_applicability, every false target has absence_reason, every target uses canonical coordinate_space, pretrained_or_generated_label_use is false for every row"
+    }
+  ],
+  "brev_default_off_inventory": {
+    "command": "brev ls --json",
+    "read_only": true,
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ],
+    "lifecycle_or_remote_command_run": false
+  },
+  "files_inspected": [
+    {
+      "path": "GOAL.md",
+      "sha256": "954335fcbb572da6450356a124fe607f3131eb40cdb1bf95f23c4adf089f8fe6"
+    },
+    {
+      "path": "docs/model/return-to-form-m3hq-detector0-packet-overlay-materialization-no-brev-goal-loop-prompt.md",
+      "sha256": "a2363fdb07fe7fc0aaa3057b15ff83f8a7068144687bdd810145ea90546be7ec"
+    },
+    {
+      "path": "docs/model/return-to-form-plan.md",
+      "sha256": "b6bf8a9f05e8bfada0ec345653a9daff7920320301a6e4436a5bd4443956644e"
+    },
+    {
+      "path": "docs/model/return-to-form-detector0-target-policy-review-v1.json",
+      "sha256": "6126f06d3d219086b8a8dd4ea20ca470efef699d34be65276f83c47c873c4fec"
+    },
+    {
+      "path": "docs/validation/return-to-form-m3hp-detector0-target-policy-review-no-brev-v1.json",
+      "sha256": "fdcc9f4219445206787653028044a2f230f5677b5d0607a1d09829dc0993342d"
+    },
+    {
+      "path": "docs/session-logs/697-mission-3hp-detector0-target-policy-review-no-brev.md",
+      "sha256": "f33affef20515d00a2a8284a52e0957ffd67061d3266c97389d331370eff9344"
+    },
+    {
+      "path": "docs/validation/return-to-form-m3ho-detector0-annotation-packet-review-no-brev-v1.json",
+      "sha256": "61b83b1e0a543e24260ee2eb582a4140690d5e6db591aec035d1ad8964e26584"
+    },
+    {
+      "path": "docs/session-logs/695-mission-3ho-detector0-annotation-packet-review-no-brev.md",
+      "sha256": "40467bcf382d0a066e4e9439a8293983c5349ed69220b85e5a88c058c817f005"
+    },
+    {
+      "path": "data/annotations/detector0/return-to-form-targeted-annotation-packet-v1.json",
+      "sha256": "758c9dbc408e4ae02a042c08805d9baccf3bca6cc0a6d1e0e2d25dbd45a26f23"
+    },
+    {
+      "path": "docs/validation/return-to-form-m3hn-detector0-targeted-annotation-packet-authoring-no-brev-v1.json",
+      "sha256": "0f43e45f9fa7b4b09c0492bb521340481fa18da93ef6558a427dbafbb490c9b9"
+    },
+    {
+      "path": "docs/session-logs/693-mission-3hn-detector0-targeted-annotation-packet-authoring-no-brev.md",
+      "sha256": "d1c9506e24e4740d6fc1cd2b29db051f71c9f160a27ce6b2864d1491f25aeab0"
+    },
+    {
+      "path": "docs/model/return-to-form-detector0-targeted-annotation-packet-plan-v1.json",
+      "sha256": "861da19e244f6404d078277a3bf8158340fcb242b0c89973012afb2dac4d6a18"
+    },
+    {
+      "path": "docs/model/return-to-form-detector0-manifest-label-training-evaluation-contract-v1.json",
+      "sha256": "cd70aa2bc8568e50b3e5e3b53758bd595dbf480a1b24a5655a23c872f6d57b71"
+    },
+    {
+      "path": "web/public/model/detector0-card.json",
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929"
+    },
+    {
+      "path": "web/public/model/browser-model-bundle.json",
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9"
+    },
+    {
+      "path": "web/public/model/model-card.json",
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a"
+    },
+    {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546"
+    },
+    {
+      "path": "web/src/lib/detector0-types.ts",
+      "sha256": "f0ccbe9061cbf591e0fb79cbfd8933716d79fb202de7abd6d8c9e59dd83d518a"
+    },
+    {
+      "path": "docs/model/return-to-form-detector0-strict-gate-crop-normalization-contract.json",
+      "sha256": "3f188371aa1e445309ef8f518d22012ee628b34a79b2f87d0f28e5a5b3c99c3e"
+    },
+    {
+      "path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d"
+    },
+    {
+      "path": "data/manifests/return-to-form-tier0/train.json",
+      "sha256": "03ae563a5f2ef0d5b868f6c80f50acb64ae642e782cd541faa5c022d4d0af1de"
+    },
+    {
+      "path": "data/manifests/return-to-form-tier0/validation.json",
+      "sha256": "23da15a80ce2eee1dab1a7e64c08e2aefcf5d7dd48263677fdc49d1efb0ad808"
+    },
+    {
+      "path": "data/manifests/return-to-form-tier0/test.json",
+      "sha256": "b0c771b612ebb52beb375a98b4180ccd465aa642312a8c6c29d7ff225febd8ed"
+    },
+    {
+      "path": "data/manifests/negative-challenge.json",
+      "sha256": "b06c7990b9d0efbec908b8466064b87dd29bbf7c5d891e133c935c5c7ed02293"
+    },
+    {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    {
+      "path": "scripts/audit_source_register.mjs",
+      "sha256": "9a38a7b6bc73d8018b406110a87867fa8d56e7fbdf9da591e3a6b2a53a7c3225"
+    },
+    {
+      "path": "scripts/audit_no_pretrained_deps.mjs",
+      "sha256": "58cb39688067acb314847b044d831a1ad3aee1bebcab722cb96ad4eb2b6dfe4f"
+    },
+    {
+      "path": "scripts/audit_no_pretrained_artifact_json.mjs",
+      "sha256": "c767e523a47488206dcb9efa69fbde491b15a1eea1a7cb2f822cef95ba78663e"
+    },
+    {
+      "path": "scripts/audit_detector0_manifest_contract.mjs",
+      "sha256": "74f9c68f6285ab12b479496ca8e9257f5ba11b74337672eda202ba80dd23ea64"
+    },
+    {
+      "path": "scripts/audit_detector0_strict_gate_crop_contract.mjs",
+      "sha256": "fc9d587dc01bf03fc63e3925b1bb780d2bbe846cdb1948cbef4de97f76d5f67b"
+    }
+  ],
+  "files_changed": [
+    "data/annotations/detector0/return-to-form-targeted-annotation-overlays-v1.json",
+    "docs/validation/return-to-form-m3hq-detector0-packet-overlay-materialization-no-brev-v1.json",
+    "docs/session-logs/699-mission-3hq-detector0-packet-overlay-materialization-no-brev.md"
+  ],
+  "m3hp_policy_artifact": {
+    "path": "docs/model/return-to-form-detector0-target-policy-review-v1.json",
+    "sha256": "6126f06d3d219086b8a8dd4ea20ca470efef699d34be65276f83c47c873c4fec",
+    "applied_policy_summary": {
+      "preserved_promoted_target_ids": [
+        "left_or_first_hand",
+        "right_or_second_hand",
+        "head_or_face",
+        "upper_body_or_signing_space"
+      ],
+      "auxiliary_targets_not_promoted": [
+        "table_two_hand_union_or_contact_region"
+      ],
+      "right_or_second_hand_absence_reason_for_current_false_rows": "reviewed_not_visible_in_frame",
+      "table_auxiliary_false_absence_reason": "outside_auxiliary_table_contact_target_scope",
+      "canonical_coordinate_space": "normalized_full_frame_top_left_xyxy"
+    }
+  },
+  "m3hn_packet": {
+    "path": "data/annotations/detector0/return-to-form-targeted-annotation-packet-v1.json",
+    "sha256": "758c9dbc408e4ae02a042c08805d9baccf3bca6cc0a6d1e0e2d25dbd45a26f23",
+    "row_reference_proof": {
+      "m3hn_review_ready_row_count": 32,
+      "overlay_row_count": 32,
+      "expected_split_counts": {
+        "train": 11,
+        "validation": 11,
+        "test": 10
+      },
+      "overlay_split_counts": {
+        "train": 11,
+        "validation": 11,
+        "test": 10
+      },
+      "referenced_row_ids": [
+        "det0-v0-train-please-000076-f010",
+        "det0-v0-train-table-000376-f010",
+        "det0-v0-train-dad-000826-f010",
+        "det0-v0-train-grandpa-000951-f010",
+        "det0-v0-train-hat-001976-f010",
+        "det0-v0-train-table-000379-f008",
+        "det0-v0-train-table-000386-f008",
+        "det0-v0-train-table-000391-f010",
+        "det0-v0-train-table-000392-f008",
+        "det0-v0-train-table-000396-f008",
+        "det0-v0-train-table-000400-f008",
+        "det0-v0-validation-please-000076-f005",
+        "det0-v0-validation-table-000376-f005",
+        "det0-v0-validation-dad-000826-f005",
+        "det0-v0-validation-grandpa-000952-f005",
+        "det0-v0-validation-hat-001976-f005",
+        "det0-v0-validation-table-000379-f008",
+        "det0-v0-validation-table-000383-f010",
+        "det0-v0-validation-table-000385-f008",
+        "det0-v0-validation-table-000388-f008",
+        "det0-v0-validation-table-000393-f008",
+        "det0-v0-validation-table-000397-f008",
+        "det0-v0-test-please-000058-f010",
+        "det0-v0-test-table-000286-f005",
+        "det0-v0-test-dad-000628-f005",
+        "det0-v0-test-grandpa-000723-f005",
+        "det0-v0-test-hat-001503-f010",
+        "det0-v0-test-table-000288-f008",
+        "det0-v0-test-table-000290-f008",
+        "det0-v0-test-table-000294-f008",
+        "det0-v0-test-table-000297-f008",
+        "det0-v0-test-table-000301-f008"
+      ],
+      "all_references_found_in_v0_packet": true,
+      "duplicate_row_ids": [],
+      "mismatches_or_blockers": []
+    }
+  },
+  "v0_packet": {
+    "path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+    "sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d",
+    "row_copy_source_provenance_proof": {
+      "all_overlay_rows_copy_existing_v0_reviewed_targets": true,
+      "copied_target_fields": [
+        "presence",
+        "center_xy_norm",
+        "box_xyxy_norm",
+        "visibility_confidence",
+        "occlusion_flag",
+        "truncation_flag"
+      ],
+      "raw_media_inspection_performed": false,
+      "boxes_redrawn": false,
+      "imported_media": false
+    }
+  },
+  "m3ho_receipt": {
+    "path": "docs/validation/return-to-form-m3ho-detector0-annotation-packet-review-no-brev-v1.json",
+    "sha256": "61b83b1e0a543e24260ee2eb582a4140690d5e6db591aec035d1ad8964e26584"
+  },
+  "overlay_artifact": {
+    "path": "data/annotations/detector0/return-to-form-targeted-annotation-overlays-v1.json",
+    "sha256": "4b0ba6679d399a48514283a9583914b3444aa21cbaeaeacedf4929e9118c002d",
+    "row_count": 32
+  },
+  "target_by_target_overlay_counts_and_absence_applicability_decisions": {
+    "left_or_first_hand": {
+      "total": {
+        "present": 32,
+        "absent": 0,
+        "target_applicability_counts": {
+          "promoted_visual_target_applicable_if_visible": 32
+        },
+        "absence_reason_counts": {}
+      },
+      "by_split": {
+        "train": {
+          "present": 11,
+          "absent": 0,
+          "target_applicability_counts": {
+            "promoted_visual_target_applicable_if_visible": 11
+          },
+          "absence_reason_counts": {}
+        },
+        "validation": {
+          "present": 11,
+          "absent": 0,
+          "target_applicability_counts": {
+            "promoted_visual_target_applicable_if_visible": 11
+          },
+          "absence_reason_counts": {}
+        },
+        "test": {
+          "present": 10,
+          "absent": 0,
+          "target_applicability_counts": {
+            "promoted_visual_target_applicable_if_visible": 10
+          },
+          "absence_reason_counts": {}
+        }
+      }
+    },
+    "right_or_second_hand": {
+      "total": {
+        "present": 20,
+        "absent": 12,
+        "target_applicability_counts": {
+          "promoted_visual_target_applicable_if_visible": 32
+        },
+        "absence_reason_counts": {
+          "reviewed_not_visible_in_frame": 12
+        }
+      },
+      "by_split": {
+        "train": {
+          "present": 7,
+          "absent": 4,
+          "target_applicability_counts": {
+            "promoted_visual_target_applicable_if_visible": 11
+          },
+          "absence_reason_counts": {
+            "reviewed_not_visible_in_frame": 4
+          }
+        },
+        "validation": {
+          "present": 7,
+          "absent": 4,
+          "target_applicability_counts": {
+            "promoted_visual_target_applicable_if_visible": 11
+          },
+          "absence_reason_counts": {
+            "reviewed_not_visible_in_frame": 4
+          }
+        },
+        "test": {
+          "present": 6,
+          "absent": 4,
+          "target_applicability_counts": {
+            "promoted_visual_target_applicable_if_visible": 10
+          },
+          "absence_reason_counts": {
+            "reviewed_not_visible_in_frame": 4
+          }
+        }
+      }
+    },
+    "head_or_face": {
+      "total": {
+        "present": 32,
+        "absent": 0,
+        "target_applicability_counts": {
+          "promoted_context_target_applicable": 32
+        },
+        "absence_reason_counts": {}
+      },
+      "by_split": {
+        "train": {
+          "present": 11,
+          "absent": 0,
+          "target_applicability_counts": {
+            "promoted_context_target_applicable": 11
+          },
+          "absence_reason_counts": {}
+        },
+        "validation": {
+          "present": 11,
+          "absent": 0,
+          "target_applicability_counts": {
+            "promoted_context_target_applicable": 11
+          },
+          "absence_reason_counts": {}
+        },
+        "test": {
+          "present": 10,
+          "absent": 0,
+          "target_applicability_counts": {
+            "promoted_context_target_applicable": 10
+          },
+          "absence_reason_counts": {}
+        }
+      }
+    },
+    "upper_body_or_signing_space": {
+      "total": {
+        "present": 32,
+        "absent": 0,
+        "target_applicability_counts": {
+          "promoted_context_target_applicable": 32
+        },
+        "absence_reason_counts": {}
+      },
+      "by_split": {
+        "train": {
+          "present": 11,
+          "absent": 0,
+          "target_applicability_counts": {
+            "promoted_context_target_applicable": 11
+          },
+          "absence_reason_counts": {}
+        },
+        "validation": {
+          "present": 11,
+          "absent": 0,
+          "target_applicability_counts": {
+            "promoted_context_target_applicable": 11
+          },
+          "absence_reason_counts": {}
+        },
+        "test": {
+          "present": 10,
+          "absent": 0,
+          "target_applicability_counts": {
+            "promoted_context_target_applicable": 10
+          },
+          "absence_reason_counts": {}
+        }
+      }
+    },
+    "table_two_hand_union_or_contact_region": {
+      "total": {
+        "present": 20,
+        "absent": 12,
+        "target_applicability_counts": {
+          "not_applicable_by_label": 12,
+          "auxiliary_table_contact_target_applicable": 20
+        },
+        "absence_reason_counts": {
+          "outside_auxiliary_table_contact_target_scope": 12
+        }
+      },
+      "by_split": {
+        "train": {
+          "present": 7,
+          "absent": 4,
+          "target_applicability_counts": {
+            "not_applicable_by_label": 4,
+            "auxiliary_table_contact_target_applicable": 7
+          },
+          "absence_reason_counts": {
+            "outside_auxiliary_table_contact_target_scope": 4
+          }
+        },
+        "validation": {
+          "present": 7,
+          "absent": 4,
+          "target_applicability_counts": {
+            "not_applicable_by_label": 4,
+            "auxiliary_table_contact_target_applicable": 7
+          },
+          "absence_reason_counts": {
+            "outside_auxiliary_table_contact_target_scope": 4
+          }
+        },
+        "test": {
+          "present": 6,
+          "absent": 4,
+          "target_applicability_counts": {
+            "not_applicable_by_label": 4,
+            "auxiliary_table_contact_target_applicable": 6
+          },
+          "absence_reason_counts": {
+            "outside_auxiliary_table_contact_target_scope": 4
+          }
+        }
+      }
+    }
+  },
+  "source_provenance_no_pretrained_requirements": {
+    "source_license_overlays_materialized": {
+      "popsign-v1-original-videos": {
+        "source_id": "popsign-v1-original-videos",
+        "display_name": "PopSign ASL v1.0 original game videos",
+        "source_kind": "public_reference_dataset",
+        "source_license_decision": "approved_popsign_v1_original_videos_2026_05_20",
+        "source_license_review_status": "approved_cc_by_4_raw_video_with_attribution",
+        "allowed_for_model_training": true,
+        "allowed_for_validation": true,
+        "allowed_for_pilot_submission": true,
+        "allowed_label_annotation_scope": "raw video/frame/tensor rows and project-authored manual boxes/regions with attribution and provenance",
+        "source_specific_derivative_restrictions": [
+          "preview_videos",
+          "source_provided_pose_or_landmarks",
+          "source_provided_embeddings_or_feature_caches",
+          "pretrained_detector_outputs",
+          "generated_or_pseudo_labels"
+        ],
+        "source_specific_restrictions": [
+          "must cite and attribute PopSign ASL v1.0 under CC BY 4.0",
+          "only original game-category raw video archives may be imported",
+          "preview videos and derived pose, landmark, embedding, detector, feature, or pretrained artifacts are disallowed",
+          "source train, validation, and test split boundaries must be preserved",
+          "source signer identifiers must remain pseudonymous in ASL Pilot manifests"
+        ],
+        "primary_source_url": "https://signdata.cc.gatech.edu/view/datasets/popsign_v1_0/",
+        "source_review_receipt": {
+          "path": "docs/research/popsign-v1-external-rights-review-receipt.json",
+          "sha256": "f2c7bf3d6b543bfb5df92b6e1f6669bfe52d7bd7161b2c248b1b414cff843c60"
+        }
+      }
+    },
+    "required_row_fields_materialized": [
+      "source_id",
+      "source_record_id",
+      "source_video_sha256",
+      "signer_identity_hash",
+      "frame_index",
+      "timestamp_sec",
+      "frame_tensor_path",
+      "frame_tensor_sha256",
+      "tensor_digest_sha256",
+      "label_source",
+      "annotation_source",
+      "annotator",
+      "reviewer",
+      "reviewed_at",
+      "review_status",
+      "source_license_decision",
+      "source_license_review_status",
+      "allowed_for_model_training",
+      "allowed_for_validation",
+      "allowed_label_annotation_scope",
+      "pretrained_or_generated_label_use=false",
+      "no_pretrained_attestation"
+    ],
+    "pretrained_or_generated_label_use_for_every_row": false,
+    "no_pretrained_attestation_for_every_row": true,
+    "promoted_lane_disallowed": [
+      "MediaPipe",
+      "OpenPose",
+      "YOLO",
+      "SAM",
+      "DINO",
+      "CLIP",
+      "RTMPose",
+      "from_pretrained",
+      "pretrained=True",
+      "pretrained detector outputs",
+      "pretrained landmark outputs",
+      "pretrained feature caches",
+      "generated labels",
+      "pseudo-labels",
+      "raw learner video upload during normal practice"
+    ]
+  },
+  "forbidden_action_proof": {
+    "brev_lifecycle_or_remote_command_run": false,
+    "paid_compute_started_or_stopped": false,
+    "recognizer_training_or_evaluation_run": false,
+    "detector0_training_run": false,
+    "source_or_media_imported": false,
+    "raw_learner_media_inspected": false,
+    "m3hn_packet_mutated": false,
+    "v0_packet_mutated": false,
+    "source_register_or_manifests_mutated": false,
+    "labels_tensors_vocabulary_mutated": false,
+    "model_cards_runtime_final_gates_or_claim_surfaces_mutated": false,
+    "export_promotion_browser_activation_or_claim_expansion": false,
+    "pretrained_detector_landmark_backbone_embedding_or_generated_label_used": false
+  },
+  "claim_surface_proof": {
+    "detector0_card": {
+      "path": "web/public/model/detector0-card.json",
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null,
+      "target_ids": [
+        "left_or_first_hand",
+        "right_or_second_hand",
+        "head_or_face",
+        "upper_body_or_signing_space"
+      ],
+      "table_auxiliary_target_promoted": false
+    },
+    "browser_model_bundle": {
+      "path": "web/public/model/browser-model-bundle.json",
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9",
+      "recognition_enabled": false,
+      "detector0_tracking_enabled": false,
+      "box_driven_avatar_enabled": false
+    },
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "status": "not_trained"
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "active_label_count": 0
+    }
+  },
+  "readiness_classification": {
+    "overlay_materialized_for_current_m3hn_rows": true,
+    "ready_for_full_scratch_detector0_training_evaluation": false,
+    "ready_for_browser_promotion": false,
+    "ready_for_final_gates_or_claim_expansion": false,
+    "detector0_claim_surfaces_remain_fail_closed": true,
+    "next_action": "continue_m3hr_detector0_overlay_readiness_review_no_brev"
+  },
+  "remaining_gaps_before_training_evaluation_browser_promotion_final_gates_or_claim_expansion": [
+    "Current reviewed rows are sparse single-frame seed overlays, not a complete Detector 0 training/evaluation manifest.",
+    "right_or_second_hand positive support remains table-only in this packet and needs broader reviewed positive/absent/occluded/truncated support before general detector claims.",
+    "Training-approved hard negatives or first-party negative rows remain missing; current negative-challenge rows are validation/test reject candidates only.",
+    "Temporal sequence rows, held-out IoU 0.30/0.50 accounting, false no-hand, false trigger, and browser-latency evidence remain missing.",
+    "No Detector 0 training, evaluation, browser artifact, export, promotion, final-gate change, or claim expansion happened in M3HQ."
+  ],
+  "exactly_one_next_action": "continue_m3hr_detector0_overlay_readiness_review_no_brev",
+  "updated_after_post_edit_validation_at": "2026-05-29T18:39:07Z"
+}

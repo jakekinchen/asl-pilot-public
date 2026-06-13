@@ -1,0 +1,292 @@
+{
+  "schema_version": "asl-pilot-m3du-brev-smoke-after-input-contract-fix/v1",
+  "created_at": "2026-05-28T11:30:43Z",
+  "mission": "M3DU - Region-grid TCN M3DQ Brev smoke after input-contract fix",
+  "active_prompt": "docs/model/return-to-form-region-grid-tcn-m3dq-brev-smoke-after-input-contract-fix-goal-loop-prompt.md",
+  "authorization": {
+    "brev_spend_authorized": true,
+    "authorization_source": "Current supervising user objective plus GOAL.md Mission 3DU activation on 2026-05-28.",
+    "workspace": "asl-pilot-rawframe-001",
+    "workspace_id": "2hl1hytty",
+    "max_training_runtime_seconds": 3600,
+    "max_spend_usd": 35,
+    "timed_training_command_limit": 1,
+    "timed_training_commands_run": 1,
+    "duplicate_worker_created": false,
+    "worker_delete_or_reset_attempted": false
+  },
+  "local_checks": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "## compound-plan-m0...origin/compound-plan-m0 [ahead 126]"
+    },
+    {
+      "command": "git log -10 --oneline",
+      "status": "passed",
+      "head": "cb850b5 supervisor: activate m3du brev smoke"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed",
+      "active_prompt": "docs/model/return-to-form-region-grid-tcn-m3dq-brev-smoke-after-input-contract-fix-goal-loop-prompt.md"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed",
+      "source_register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-region-grid-tcn-m3ds-input-contract-command-diagnosis-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-region-grid-tcn-m3dq-brev-smoke-approved-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-region-grid-tcn-m3dq-output-guard-fix-v1.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "status": "passed"
+    }
+  ],
+  "initial_brev_provider_state": {
+    "command": "brev ls --json",
+    "status": "passed",
+    "workspaces": [
+      {
+        "name": "asl-pilot-rawframe-001",
+        "id": "2hl1hytty",
+        "status": "RUNNING",
+        "build_status": "COMPLETED",
+        "shell_status": "READY",
+        "health_status": "HEALTHY",
+        "instance_type": "massedcompute_A100_sxm4_80G_DGX",
+        "instance_kind": "gpu",
+        "gpu": "A100"
+      }
+    ]
+  },
+  "remote_process_safety": {
+    "command": "brev exec asl-pilot-rawframe-001 \"nvidia-smi --query-gpu=name,memory.total,memory.used,utilization.gpu --format=csv,noheader && ps -eo pid,etime,pcpu,pmem,args | egrep 'python|torch|train|screen|tmux|jupyter' | grep -v egrep || true\"",
+    "status": "passed",
+    "gpu": {
+      "name": "NVIDIA A100-SXM4-80GB",
+      "memory_total_mib": 81920,
+      "memory_used_mib": 0,
+      "utilization_gpu_percent": 0
+    },
+    "duplicate_training_process_found": false,
+    "gpu_memory_unexpectedly_in_use": false,
+    "noted_processes": [
+      "/usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers",
+      "/home/shadeform/.venv/bin/python3 /home/shadeform/.venv/bin/jupyter-lab --ip=0.0.0.0 --no-browser --NotebookApp.token= --NotebookApp.password= --ServerApp.allow_remote_access=True"
+    ]
+  },
+  "sync": {
+    "command": "bash scripts/brev_sync_repo.sh asl-pilot-rawframe-001",
+    "status": "passed",
+    "summary": "Synced repo plus rawframe training data allowlists to /home/shadeform/asl-pilot on the existing worker."
+  },
+  "remote_dry_run": {
+    "command": "brev exec asl-pilot-rawframe-001 \"cd /home/shadeform/asl-pilot && /home/shadeform/asl-pilot/.venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3dq-high-signal-region-grid-tcn-brev --model-id m3dq-high-signal-region-grid-tcn-brev --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1\"",
+    "status": "passed",
+    "training_status": "dry_run_only",
+    "required_input_contract": "rgb_regions_grid_v1",
+    "total_clip_count": 139,
+    "observed_contract_counts": {
+      "rgb_regions_grid_v1": 139
+    },
+    "fallback_to_rgb_frames": false,
+    "output_dir_guard_repaired": true,
+    "input_contract_guard_repaired_for_training_command": true
+  },
+  "timed_training": {
+    "command": "brev exec asl-pilot-rawframe-001 \"cd /home/shadeform/asl-pilot && timeout 3600 /home/shadeform/asl-pilot/.venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3dq-high-signal-region-grid-tcn-brev --model-id m3dq-high-signal-region-grid-tcn-brev --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke\"",
+    "status": "completed",
+    "remote_exit_code": 0,
+    "timeout_seconds": 3600,
+    "device": "cuda",
+    "training_status": "completed",
+    "epochs_completed": 12,
+    "first_epoch": {
+      "epoch": 1,
+      "train_accuracy": 0.11904761904761904,
+      "train_loss": 2.0468504428863525,
+      "validation_accuracy": 0.07407407407407407,
+      "validation_loss": 1.9498255694354023
+    },
+    "best_validation_epoch": 3,
+    "best_validation_accuracy": 0.25925925925925924,
+    "last_epoch": {
+      "epoch": 12,
+      "train_accuracy": 0.4880952380952381,
+      "train_loss": 1.334383209546407,
+      "validation_accuracy": 0.1111111111111111,
+      "validation_loss": 3.0377095452061407
+    },
+    "artifacts_written": [
+      "output/m3dq-high-signal-region-grid-tcn-brev/model_state.pt",
+      "output/m3dq-high-signal-region-grid-tcn-brev/training-provenance.json"
+    ],
+    "input_contract_guard_repeated": false,
+    "m3dq_output_dir_guard_repeated": false,
+    "five_d_augmentation_failure_repeated": false
+  },
+  "evaluation": {
+    "command": "brev exec asl-pilot-rawframe-001 \"cd /home/shadeform/asl-pilot && /home/shadeform/asl-pilot/.venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint output/m3dq-high-signal-region-grid-tcn-brev/model_state.pt --training-provenance output/m3dq-high-signal-region-grid-tcn-brev/training-provenance.json --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-report output/m3dq-high-signal-region-grid-tcn-brev/validation-report.json --calibrated-provenance output/m3dq-high-signal-region-grid-tcn-brev/calibrated-provenance.json --prediction-sidecar output/m3dq-high-signal-region-grid-tcn-brev/prediction-sidecar.json --batch-size 8 --num-workers 2 --region-grid-tcn-training-smoke\"",
+    "status": "completed_failed_targets",
+    "remote_exit_code": 1,
+    "exit_code_reason": "Evaluation wrote the validation report and prediction sidecar, then exited non-zero because target gates did not pass.",
+    "report_status": "region_grid_tcn_training_smoke_completed",
+    "validation_top1_accuracy": 0.25925925925925924,
+    "validation_macro_f1": 0.15359477124183005,
+    "test_top1_accuracy": 0.17857142857142858,
+    "test_macro_f1": 0.09777777777777777,
+    "selected_threshold": 0.28,
+    "test_false_pass_rate": 0.03571428571428571,
+    "passes_targets": {
+      "top1_accuracy": false,
+      "macro_f1": false,
+      "false_pass_rate": true,
+      "negative_challenge_false_pass_rate": false
+    },
+    "region_grid_tcn_training_smoke_evidence": false
+  },
+  "copyback": {
+    "status": "passed",
+    "remote_ls_files": [
+      "model_state.pt",
+      "prediction-sidecar.json",
+      "training-provenance.json",
+      "validation-report.json"
+    ],
+    "command": "brev copy asl-pilot-rawframe-001:/home/shadeform/asl-pilot/output/m3dq-high-signal-region-grid-tcn-brev output/",
+    "local_output_dir": "output/m3dq-high-signal-region-grid-tcn-brev",
+    "local_files": [
+      {
+        "path": "output/m3dq-high-signal-region-grid-tcn-brev/model_state.pt",
+        "sha256": "ca4c6f196afcf0365b5617e1d7356617fe312286192a714e3361c9bee635dde3"
+      },
+      {
+        "path": "output/m3dq-high-signal-region-grid-tcn-brev/prediction-sidecar.json",
+        "sha256": "62a33e98eba3d0995e787630ce7c501581309d2828b6209ca5761f57a64112a1"
+      },
+      {
+        "path": "output/m3dq-high-signal-region-grid-tcn-brev/training-provenance.json",
+        "sha256": "6940f418d7a3dd11498f76df379cb2f1c4588b4408697862cc4f095f77ab6435"
+      },
+      {
+        "path": "output/m3dq-high-signal-region-grid-tcn-brev/validation-report.json",
+        "sha256": "4b505ab4388fc56dea2a67b8639b7be647deb9730a710dd2522c882b55a2a802"
+      }
+    ],
+    "tracked_by_git": false,
+    "gitignore_reason": ".gitignore ignores output/"
+  },
+  "brev_default_off": {
+    "status": "attempted_provider_still_running",
+    "process_check_before_stop": {
+      "command": "brev exec asl-pilot-rawframe-001 \"ps -eo pid,etime,pcpu,pmem,args | egrep 'python|torch|train|screen|tmux' | grep -v egrep || true\"",
+      "training_process_found": false,
+      "noted_processes": [
+        "/usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers",
+        "/home/shadeform/.venv/bin/python3 /home/shadeform/.venv/bin/jupyter-lab --ip=0.0.0.0 --no-browser --NotebookApp.token= --NotebookApp.password= --ServerApp.allow_remote_access=True"
+      ]
+    },
+    "stop_attempts": [
+      {
+        "command": "brev stop asl-pilot-rawframe-001",
+        "returned": true,
+        "provider_state_after_sleep": "RUNNING"
+      },
+      {
+        "command": "brev stop 2hl1hytty",
+        "returned": true,
+        "provider_state_after_sleep": "RUNNING"
+      },
+      {
+        "command": "brev stop --all",
+        "returned": true,
+        "provider_state_after_sleep": "first final check failed with Brev API unexpected EOF; rerun provider-state check succeeded"
+      }
+    ],
+    "final_provider_state_command": "brev ls --json",
+    "final_provider_state": {
+      "name": "asl-pilot-rawframe-001",
+      "id": "2hl1hytty",
+      "status": "RUNNING",
+      "build_status": "COMPLETED",
+      "shell_status": "READY",
+      "health_status": "HEALTHY",
+      "instance_type": "massedcompute_A100_sxm4_80G_DGX",
+      "instance_kind": "gpu",
+      "gpu": "A100"
+    },
+    "worker_delete_or_reset_attempted": false
+  },
+  "pretrained_components": [],
+  "negative_authorizations": {
+    "broad_label_training": false,
+    "pretrained_detector_landmark_backbone_embedding_or_pseudolabel": false,
+    "source_import_or_source_register_change": false,
+    "manifest_tensor_or_vocabulary_mutation": false,
+    "duplicate_worker_creation": false,
+    "worker_delete_or_reset": false,
+    "model_card_promotion": false,
+    "onnx_export": false,
+    "browser_activation": false,
+    "threshold_promotion": false,
+    "final_readiness_claim": false,
+    "positive_asl_correctness_claim": false,
+    "raw_learner_video_upload": false,
+    "push": false,
+    "amend_or_no_verify": false
+  },
+  "claim_boundary": {
+    "browser_product_status": "fail_closed_not_trained",
+    "model_card_changed": false,
+    "active_vocabulary_changed": false,
+    "supported_product_claim": "A bounded remote training/evaluation smoke completed and produced weak metric evidence only.",
+    "unsupported_claims": [
+      "trained browser recognition",
+      "ASL correctness",
+      "final readiness",
+      "promotable model"
+    ]
+  },
+  "changed_files": {
+    "tracked": [
+      "docs/validation/return-to-form-region-grid-tcn-m3dq-brev-smoke-after-input-contract-fix-v1.json",
+      "docs/session-logs/482-mission-3du-region-grid-tcn-m3dq-brev-smoke-after-input-contract-fix.md"
+    ],
+    "ignored_artifacts_copied_back": [
+      "output/m3dq-high-signal-region-grid-tcn-brev/model_state.pt",
+      "output/m3dq-high-signal-region-grid-tcn-brev/prediction-sidecar.json",
+      "output/m3dq-high-signal-region-grid-tcn-brev/training-provenance.json",
+      "output/m3dq-high-signal-region-grid-tcn-brev/validation-report.json"
+    ]
+  },
+  "blockers": [
+    "Metrics failed the top-1 and macro-F1 gates; this artifact is not promotable.",
+    "Brev provider still reports the existing worker RUNNING after stop by name, stop by id, and stop-all."
+  ],
+  "next_actions": [
+    "continue_m3dq_metric_triage_no_remote"
+  ]
+}

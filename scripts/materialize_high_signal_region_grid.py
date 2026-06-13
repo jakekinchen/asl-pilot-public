@@ -1,0 +1,805 @@
+#!/usr/bin/env python3
+"""Materialize ASL Citizen high-signal fixed-crop region-grid tensors."""
+
+from __future__ import annotations
+
+import argparse
+import copy
+import datetime as dt
+import hashlib
+import json
+import os
+import subprocess
+import sys
+from collections import Counter
+from pathlib import Path
+from typing import Any
+
+from rawframe_decode_provenance import (
+    ensure_ffmpeg,
+    ffmpeg_filter,
+    ffmpeg_version,
+    run_ffmpeg_decode,
+    sha256_bytes,
+    tensor_from_raw_rgb,
+)
+from train_rawframe_model import (
+    ASL_CITIZEN_SOURCE_ID,
+    HIGH_SIGNAL_REGION_GRID_PROVENANCE_SCHEMA_VERSION,
+    HIGH_SIGNAL_REGION_GRID_TEST_MANIFEST_RELATIVE,
+    HIGH_SIGNAL_REGION_GRID_TRAIN_MANIFEST_RELATIVE,
+    HIGH_SIGNAL_REGION_GRID_VALIDATION_MANIFEST_RELATIVE,
+    REDUCED_REAL_DATA_TEST_MANIFEST_RELATIVE,
+    REDUCED_REAL_DATA_TRAIN_MANIFEST_RELATIVE,
+    REDUCED_REAL_DATA_VALIDATION_MANIFEST_RELATIVE,
+    REGION_AWARE_DERIVED_INPUT,
+    ManifestError,
+    TrainingError,
+    validate_manifest,
+    validate_required_input_contracts,
+)
+
+
+ROOT = Path(__file__).resolve().parents[1]
+CROP_CONFIG_PATH = Path("docs/model/return-to-form-fixed-crop-config.json")
+SOURCE_REGISTER_PATH = Path("docs/model/dataset-source-register.json")
+OUTPUT_MANIFEST_DIR = Path("data/manifests/lesson/high-signal-region-grid")
+OUTPUT_TENSOR_ROOT = Path("data/tensors/asl-citizen-high-signal-region-grid")
+OUTPUT_RECEIPT_PATH = Path("docs/validation/return-to-form-high-signal-region-grid-materialization-v1.json")
+SEED_MANIFESTS = {
+    "train": Path(REDUCED_REAL_DATA_TRAIN_MANIFEST_RELATIVE),
+    "validation": Path(REDUCED_REAL_DATA_VALIDATION_MANIFEST_RELATIVE),
+    "test": Path(REDUCED_REAL_DATA_TEST_MANIFEST_RELATIVE),
+}
+OUTPUT_MANIFESTS = {
+    "train": Path(HIGH_SIGNAL_REGION_GRID_TRAIN_MANIFEST_RELATIVE),
+    "validation": Path(HIGH_SIGNAL_REGION_GRID_VALIDATION_MANIFEST_RELATIVE),
+    "test": Path(HIGH_SIGNAL_REGION_GRID_TEST_MANIFEST_RELATIVE),
+}
+TENSOR_SCHEMA_VERSION = "asl-pilot-return-to-form-high-signal-region-grid-tensor/v1"
+RECEIPT_SCHEMA_VERSION = "asl-pilot-return-to-form-high-signal-region-grid-materialization/v1"
+MANIFEST_BINDING_SCHEMA_VERSION = "asl-pilot-high-signal-region-grid-manifest-binding/v1"
+
+
+class RegionGridMaterializationError(RuntimeError):
+    """Raised when the high-signal region-grid slice cannot be materialized."""
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--write",
+        action="store_true",
+        help="Regenerate ignored high-signal region-grid manifests/tensors and write the tracked receipt.",
+    )
+    parser.add_argument(
+        "--batch-size",
+        type=int,
+        default=4,
+        help="Batch size for the no-training tensor loader proof.",
+    )
+    parser.add_argument(
+        "--receipt",
+        type=Path,
+        default=OUTPUT_RECEIPT_PATH,
+        help=f"Receipt path. Default: {OUTPUT_RECEIPT_PATH}",
+    )
+    return parser.parse_args()
+
+
+def project_path(relative: Path) -> Path:
+    resolved = (ROOT / relative).resolve()
+    try:
+        resolved.relative_to(ROOT)
+    except ValueError as error:
+        raise RegionGridMaterializationError(f"path escapes project root: {relative}") from error
+    return resolved
+
+
+def project_relative(path: Path) -> str:
+    return path.resolve().relative_to(ROOT).as_posix()
+
+
+def manifest_relative(manifest_path: Path, target_path: Path) -> str:
+    return Path(os.path.relpath(target_path.resolve(), manifest_path.resolve().parent)).as_posix()
+
+
+def resolve_manifest_relative(manifest_path: Path, value: str) -> Path:
+    candidate = Path(value)
+    if candidate.is_absolute():
+        raise RegionGridMaterializationError(
+            f"{manifest_path}: manifest-relative path must not be absolute: {value}"
+        )
+    resolved = (manifest_path.parent / candidate).resolve()
+    try:
+        resolved.relative_to(ROOT)
+    except ValueError as error:
+        raise RegionGridMaterializationError(f"{manifest_path}: path escapes project root: {value}") from error
+    return resolved
+
+
+def read_json(relative: Path) -> dict[str, Any]:
+    path = project_path(relative)
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as error:
+        raise RegionGridMaterializationError(f"{relative} is not valid JSON: {error}") from error
+    if not isinstance(data, dict):
+        raise RegionGridMaterializationError(f"{relative} must be a JSON object")
+    return data
+
+
+def write_json(relative: Path, value: dict[str, Any]) -> None:
+    path = project_path(relative)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def json_ready(value: Any) -> Any:
+    if isinstance(value, dict):
+        return {str(key): json_ready(child) for key, child in value.items()}
+    if isinstance(value, list):
+        return [json_ready(child) for child in value]
+    if isinstance(value, tuple):
+        return [json_ready(child) for child in value]
+    if isinstance(value, set):
+        return sorted(json_ready(child) for child in value)
+    if isinstance(value, Path):
+        return value.as_posix()
+    return value
+
+
+def sha256_file(relative_or_absolute: Path) -> str:
+    path = relative_or_absolute if relative_or_absolute.is_absolute() else project_path(relative_or_absolute)
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def import_torch() -> Any:
+    try:
+        import torch  # type: ignore[import-not-found]
+    except ImportError as error:
+        raise RegionGridMaterializationError("PyTorch is required for high-signal region-grid materialization") from error
+    return torch
+
+
+def load_tensor_payload(torch: Any, path: Path) -> dict[str, Any]:
+    try:
+        payload = torch.load(path, map_location="cpu", weights_only=True)
+    except TypeError:
+        payload = torch.load(path, map_location="cpu")
+    if not isinstance(payload, dict):
+        raise RegionGridMaterializationError(f"tensor payload must be a dict: {project_relative(path)}")
+    return payload
+
+
+def tensor_digest(torch: Any, tensor: Any, layout: str) -> dict[str, Any]:
+    if not torch.is_tensor(tensor):
+        raise RegionGridMaterializationError("tensor digest input is not a tensor")
+    contiguous = tensor.detach().cpu().contiguous()
+    return {
+        "dtype": str(contiguous.dtype).replace("torch.", ""),
+        "layout": layout,
+        "shape": list(contiguous.shape),
+        "sha256": sha256_bytes(contiguous.numpy().tobytes()),
+    }
+
+
+def crop_regions(torch: Any, frames: Any, crop_config: dict[str, Any]) -> tuple[Any, list[dict[str, Any]]]:
+    contract = crop_config.get("expected_tensor_contract")
+    if not isinstance(contract, dict):
+        raise RegionGridMaterializationError("crop config is missing expected_tensor_contract")
+    region_ids = [
+        *contract.get("per_clip_regions", []),
+        *contract.get("audit_reference_regions", []),
+    ]
+    regions_by_id = {
+        str(region.get("region_id")): region
+        for region in crop_config.get("regions", [])
+        if isinstance(region, dict)
+    }
+    if not region_ids or any(region_id not in regions_by_id for region_id in region_ids):
+        raise RegionGridMaterializationError("crop config tensor contract references unknown regions")
+
+    height = int(frames.shape[1])
+    width = int(frames.shape[2])
+    tensors = []
+    metadata = []
+    for axis, region_id in enumerate(region_ids):
+        region = regions_by_id[region_id]
+        xyxy = region.get("xyxy")
+        output_size = region.get("output_size_px")
+        if (
+            not isinstance(xyxy, list)
+            or len(xyxy) != 4
+            or not isinstance(output_size, list)
+            or len(output_size) != 2
+        ):
+            raise RegionGridMaterializationError(f"invalid crop region config: {region_id}")
+        x1 = max(0, min(width - 1, int(float(xyxy[0]) * width)))
+        y1 = max(0, min(height - 1, int(float(xyxy[1]) * height)))
+        x2 = max(x1 + 1, min(width, int(round(float(xyxy[2]) * width))))
+        y2 = max(y1 + 1, min(height, int(round(float(xyxy[3]) * height))))
+        output_width = int(output_size[0])
+        output_height = int(output_size[1])
+        crop = frames[:, y1:y2, x1:x2, :].permute(0, 3, 1, 2).to(dtype=torch.float32)
+        resized = torch.nn.functional.interpolate(
+            crop,
+            size=(output_height, output_width),
+            mode="bilinear",
+            align_corners=False,
+        )
+        tensor = resized.round().clamp(0, 255).to(dtype=torch.uint8).permute(0, 2, 3, 1)
+        tensors.append(tensor.contiguous())
+        metadata.append(
+            {
+                "region_id": region_id,
+                "semantic_role": region.get("semantic_role"),
+                "xyxy": xyxy,
+                "output_size_px": output_size,
+                "tensor_axis": axis,
+            }
+        )
+    return torch.stack(tensors, dim=1).contiguous(), metadata
+
+
+def build_tensor_payload(
+    regions_tensor: Any,
+    crop_config_reference: dict[str, str],
+    region_metadata: list[dict[str, Any]],
+) -> dict[str, Any]:
+    region_ids = [item["region_id"] for item in region_metadata]
+    compat_region = "upper_body_signing_space"
+    compat_index = region_ids.index(compat_region)
+    return {
+        "schema_version": TENSOR_SCHEMA_VERSION,
+        "crop_config": crop_config_reference,
+        "region_ids": region_ids,
+        "region_axis": "T,R,H,W,C",
+        "rgb_regions": regions_tensor,
+        "rgb_frames_region_id": compat_region,
+        "rgb_frames": regions_tensor[:, compat_index, :, :, :].contiguous(),
+    }
+
+
+def write_tensor(torch: Any, tensor_path: Path, payload: dict[str, Any]) -> str:
+    tensor_path.parent.mkdir(parents=True, exist_ok=True)
+    torch.save(payload, tensor_path)
+    return sha256_file(tensor_path)
+
+
+def build_provenance(
+    torch: Any,
+    ffmpeg: str,
+    manifest_path: Path,
+    clip: dict[str, Any],
+    raw_rgb: bytes,
+    regions_tensor: Any,
+    crop_config_reference: dict[str, str],
+    region_metadata: list[dict[str, Any]],
+    crop_config: dict[str, Any],
+) -> dict[str, Any]:
+    relative_video_path = str(clip["relative_video_path"])
+    video_path = resolve_manifest_relative(manifest_path, relative_video_path)
+    frame_count = int(crop_config["frame_sampling_assumption"]["temporal_sample_count"])
+    image_size = int(crop_config["frame_sampling_assumption"]["pre_crop_square_frame_px"])
+    decode_fps = float(crop_config["frame_sampling_assumption"]["decode_fps"])
+    return {
+        "schema_version": HIGH_SIGNAL_REGION_GRID_PROVENANCE_SCHEMA_VERSION,
+        "source_video": {
+            "relative_video_path": relative_video_path,
+            "path": project_relative(video_path),
+            "sha256": sha256_file(video_path),
+        },
+        "decode": {
+            **ffmpeg_filter(frame_count, image_size, decode_fps),
+            "pre_crop_square_frame_px": image_size,
+        },
+        "crop_config": {
+            **crop_config_reference,
+            "region_ids": [item["region_id"] for item in region_metadata],
+            "region_axis": "T,R,H,W,C",
+        },
+        "ffmpeg": {
+            "path": str(Path(ffmpeg).resolve()),
+            "sha256": sha256_file(Path(ffmpeg).resolve()),
+            "version": ffmpeg_version(ffmpeg),
+        },
+        "decoded_raw_rgb": {
+            "bytes": len(raw_rgb),
+            "sha256": sha256_bytes(raw_rgb),
+        },
+        "tensor_digest": tensor_digest(torch, regions_tensor, "T,R,H,W,C"),
+    }
+
+
+def labels_for_manifest(manifest: dict[str, Any]) -> list[str]:
+    return [str(item.get("label_id")) for item in manifest.get("labels", [])]
+
+
+def build_references() -> dict[str, dict[str, str]]:
+    return {
+        "source_register": {
+            "path": SOURCE_REGISTER_PATH.as_posix(),
+            "sha256": sha256_file(SOURCE_REGISTER_PATH),
+        },
+        "crop_config": {
+            "path": CROP_CONFIG_PATH.as_posix(),
+            "sha256": sha256_file(CROP_CONFIG_PATH),
+        },
+    }
+
+
+def training_dry_run_command() -> list[str]:
+    return [
+        sys.executable,
+        "scripts/train_rawframe_model.py",
+        "--train-manifest",
+        HIGH_SIGNAL_REGION_GRID_TRAIN_MANIFEST_RELATIVE,
+        "--validation-manifest",
+        HIGH_SIGNAL_REGION_GRID_VALIDATION_MANIFEST_RELATIVE,
+        "--test-manifest",
+        HIGH_SIGNAL_REGION_GRID_TEST_MANIFEST_RELATIVE,
+        "--output-dir",
+        "artifacts/rawframe-high-signal-module",
+        "--model-id",
+        "asl-pilot-asl-citizen-high-signal-region-grid-contract-v1",
+        "--architecture",
+        "motion_2d_temporal_cnn",
+        "--check-files",
+        "--frame-count",
+        "16",
+        "--image-size",
+        "96",
+        "--reduced-real-data-module",
+        "--dry-run",
+        "--require-input-contract",
+        REGION_AWARE_DERIVED_INPUT,
+    ]
+
+
+def run_training_dry_run_validation() -> dict[str, Any]:
+    command = training_dry_run_command()
+    result = subprocess.run(
+        command,
+        check=False,
+        cwd=ROOT,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        encoding="utf-8",
+    )
+    report: dict[str, Any] = {
+        "command": command,
+        "exit_code": result.returncode,
+        "stdout_sha256": hashlib.sha256(result.stdout.encode("utf-8")).hexdigest(),
+        "stderr": result.stderr.strip(),
+    }
+    try:
+        parsed_stdout = json.loads(result.stdout) if result.stdout.strip() else {}
+    except json.JSONDecodeError:
+        parsed_stdout = {}
+    if isinstance(parsed_stdout, dict):
+        input_contract = parsed_stdout.get("input_contract_report")
+        if isinstance(input_contract, dict):
+            report["required_contract"] = input_contract.get("required_contract")
+            report["total_clip_count"] = input_contract.get("total_clip_count")
+            report["total_observed_counts"] = input_contract.get("total_observed_counts")
+            report["status"] = input_contract.get("status")
+        report["training_status"] = parsed_stdout.get("training_status")
+    if result.returncode != 0:
+        raise RegionGridMaterializationError(
+            "training dry-run region-grid validation failed: "
+            + (result.stderr.strip() or result.stdout.strip()[:1000])
+        )
+    return report
+
+
+def build_manifest_for_split(
+    torch: Any,
+    ffmpeg: str,
+    split: str,
+    generated_at: str,
+    crop_config: dict[str, Any],
+    references: dict[str, dict[str, str]],
+) -> dict[str, Any]:
+    source_relative = SEED_MANIFESTS[split]
+    output_relative = OUTPUT_MANIFESTS[split]
+    source_path = project_path(source_relative)
+    output_path = project_path(output_relative)
+    tensor_root = project_path(OUTPUT_TENSOR_ROOT / split)
+    source_manifest = read_json(source_relative)
+    source_labels = labels_for_manifest(source_manifest)
+
+    manifest = copy.deepcopy(source_manifest)
+    manifest["created_at"] = generated_at
+    manifest["source_register"] = references["source_register"]
+    manifest["region_grid_materialization"] = {
+        "schema_version": MANIFEST_BINDING_SCHEMA_VERSION,
+        "mission": "M3AU",
+        "status": "materialized_high_signal_region_grid_tensors",
+        "source_id": ASL_CITIZEN_SOURCE_ID,
+        "selected_labels": source_labels,
+        "source_manifest": {
+            "path": project_relative(source_path),
+            "sha256": sha256_file(source_path),
+        },
+        "crop_config": references["crop_config"],
+        "tensor_schema_version": TENSOR_SCHEMA_VERSION,
+        "provenance_schema_version": HIGH_SIGNAL_REGION_GRID_PROVENANCE_SCHEMA_VERSION,
+        "input_contract": REGION_AWARE_DERIVED_INPUT,
+    }
+    manifest["crop_config"] = {
+        **references["crop_config"],
+        "region_axis": "T,R,H,W,C",
+    }
+    existing_steps = manifest.get("preprocessing", {}).get("allowed_steps", [])
+    if not isinstance(existing_steps, list):
+        raise RegionGridMaterializationError(f"{source_relative}: preprocessing.allowed_steps must be an array")
+    manifest["preprocessing"] = {
+        **manifest.get("preprocessing", {}),
+        "allowed_steps": [
+            *existing_steps,
+            "fixed_region_crop",
+            "hash_tensor",
+        ],
+    }
+
+    updated_clips = []
+    frame_count = int(crop_config["frame_sampling_assumption"]["temporal_sample_count"])
+    image_size = int(crop_config["frame_sampling_assumption"]["pre_crop_square_frame_px"])
+    decode_fps = float(crop_config["frame_sampling_assumption"]["decode_fps"])
+    for index, source_clip in enumerate(source_manifest["clips"]):
+        if source_clip.get("source_id") != ASL_CITIZEN_SOURCE_ID:
+            raise RegionGridMaterializationError(f"{source_relative}: clips[{index}] source_id is not ASL Citizen")
+        source_video = resolve_manifest_relative(source_path, str(source_clip["relative_video_path"]))
+        clip = copy.deepcopy(source_clip)
+        clip["relative_video_path"] = manifest_relative(output_path, source_video)
+        tensor_path = tensor_root / f"{clip['clip_id']}-regions.pt"
+        raw_rgb = run_ffmpeg_decode(ffmpeg, source_video, frame_count, image_size, decode_fps)
+        frames = tensor_from_raw_rgb(torch, raw_rgb, frame_count, image_size, f"{split}:{clip['clip_id']}")
+        regions_tensor, region_metadata = crop_regions(torch, frames, crop_config)
+        payload = build_tensor_payload(regions_tensor, references["crop_config"], region_metadata)
+        clip["relative_frame_tensor_path"] = manifest_relative(output_path, tensor_path)
+        clip["frame_tensor_sha256"] = write_tensor(torch, tensor_path, payload)
+        clip["frame_tensor_provenance"] = build_provenance(
+            torch,
+            ffmpeg,
+            output_path,
+            clip,
+            raw_rgb,
+            regions_tensor,
+            references["crop_config"],
+            region_metadata,
+            crop_config,
+        )
+        clip["crop_regions"] = region_metadata
+        clip["crop_config"] = references["crop_config"]
+        updated_clips.append(clip)
+
+    manifest["clips"] = updated_clips
+    write_json(output_relative, manifest)
+    return manifest
+
+
+class RegionDataset:
+    def __init__(self, torch: Any, manifest_relative_path: Path, label_to_index: dict[str, int]) -> None:
+        self.torch = torch
+        self.manifest_path = project_path(manifest_relative_path)
+        self.manifest = read_json(manifest_relative_path)
+        self.clips = self.manifest["clips"]
+        self.label_to_index = label_to_index
+
+    def __len__(self) -> int:
+        return len(self.clips)
+
+    def __getitem__(self, index: int) -> tuple[Any, Any]:
+        clip = self.clips[index]
+        tensor_path = resolve_manifest_relative(self.manifest_path, clip["relative_frame_tensor_path"])
+        payload = load_tensor_payload(self.torch, tensor_path)
+        regions = payload.get("rgb_regions")
+        if not self.torch.is_tensor(regions):
+            raise RegionGridMaterializationError(f"rgb_regions tensor missing: {project_relative(tensor_path)}")
+        label = self.torch.tensor(self.label_to_index[clip["label_id"]], dtype=self.torch.long)
+        return regions, label
+
+
+def summarize_manifest(
+    torch: Any,
+    split: str,
+    references: dict[str, dict[str, str]],
+    batch_size: int,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    manifest_relative_path = OUTPUT_MANIFESTS[split]
+    manifest_path = project_path(manifest_relative_path)
+    try:
+        validation_summary = validate_manifest(
+            manifest_path,
+            split,
+            check_files=True,
+            allow_small_label_set=False,
+            allow_lesson_label_set=False,
+            allow_source_split_mismatch=False,
+            allow_reduced_real_data_label_set=True,
+        )
+    except ManifestError as error:
+        raise RegionGridMaterializationError(str(error)) from error
+
+    manifest = read_json(manifest_relative_path)
+    labels = labels_for_manifest(manifest)
+    binding = manifest.get("region_grid_materialization")
+    if not isinstance(binding, dict):
+        raise RegionGridMaterializationError(f"{manifest_relative_path}: missing region_grid_materialization binding")
+    if binding.get("crop_config") != references["crop_config"]:
+        raise RegionGridMaterializationError(f"{manifest_relative_path}: crop_config binding mismatch")
+    if binding.get("input_contract") != REGION_AWARE_DERIVED_INPUT:
+        raise RegionGridMaterializationError(f"{manifest_relative_path}: input contract binding mismatch")
+    if manifest.get("crop_config", {}).get("sha256") != references["crop_config"]["sha256"]:
+        raise RegionGridMaterializationError(f"{manifest_relative_path}: crop_config hash mismatch")
+
+    label_counts = Counter()
+    source_ids = set()
+    tensor_shapes = Counter()
+    region_ids_seen: set[tuple[str, ...]] = set()
+    missing_file_count = 0
+    for index, clip in enumerate(manifest["clips"]):
+        context = f"{manifest_relative_path}: clips[{index}]"
+        if clip.get("source_id") != ASL_CITIZEN_SOURCE_ID:
+            raise RegionGridMaterializationError(f"{context}: source_id must be {ASL_CITIZEN_SOURCE_ID}")
+        if clip.get("crop_config") != references["crop_config"]:
+            raise RegionGridMaterializationError(f"{context}: crop_config binding mismatch")
+        if not isinstance(clip.get("crop_regions"), list) or not clip["crop_regions"]:
+            raise RegionGridMaterializationError(f"{context}: crop_regions missing")
+        tensor_relative = clip.get("relative_frame_tensor_path")
+        if not isinstance(tensor_relative, str) or not tensor_relative:
+            raise RegionGridMaterializationError(f"{context}: relative_frame_tensor_path missing")
+        tensor_path = resolve_manifest_relative(manifest_path, tensor_relative)
+        if not tensor_path.exists():
+            missing_file_count += 1
+            continue
+        if sha256_file(tensor_path) != clip.get("frame_tensor_sha256"):
+            raise RegionGridMaterializationError(f"{context}: frame_tensor_sha256 mismatch")
+        payload = load_tensor_payload(torch, tensor_path)
+        if payload.get("schema_version") != TENSOR_SCHEMA_VERSION:
+            raise RegionGridMaterializationError(f"{context}: tensor schema mismatch")
+        if payload.get("crop_config") != references["crop_config"]:
+            raise RegionGridMaterializationError(f"{context}: tensor crop_config mismatch")
+        regions = payload.get("rgb_regions")
+        if not torch.is_tensor(regions):
+            raise RegionGridMaterializationError(f"{context}: tensor payload missing rgb_regions")
+        digest = tensor_digest(torch, regions, "T,R,H,W,C")
+        provenance = clip.get("frame_tensor_provenance")
+        if (
+            not isinstance(provenance, dict)
+            or provenance.get("schema_version") != HIGH_SIGNAL_REGION_GRID_PROVENANCE_SCHEMA_VERSION
+        ):
+            raise RegionGridMaterializationError(f"{context}: region-grid provenance missing")
+        if provenance.get("tensor_digest") != digest:
+            raise RegionGridMaterializationError(f"{context}: tensor digest mismatch")
+        if provenance.get("crop_config", {}).get("sha256") != references["crop_config"]["sha256"]:
+            raise RegionGridMaterializationError(f"{context}: provenance crop_config hash mismatch")
+        label_counts[str(clip["label_id"])] += 1
+        source_ids.add(str(clip["source_id"]))
+        tensor_shapes[tuple(regions.shape)] += 1
+        region_ids_seen.add(tuple(payload.get("region_ids", [])))
+    if missing_file_count:
+        raise RegionGridMaterializationError(f"{manifest_relative_path}: {missing_file_count} tensor files are missing")
+
+    label_to_index = {label_id: index for index, label_id in enumerate(labels)}
+    dataset = RegionDataset(torch, manifest_relative_path, label_to_index)
+    loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=0)
+    batch_regions, batch_labels = next(iter(loader))
+    return (
+        {
+            "path": project_relative(manifest_path),
+            "sha256": sha256_file(manifest_path),
+            "split": split,
+            "clip_count": len(manifest["clips"]),
+            "labels": labels,
+            "label_clip_counts": dict(sorted(label_counts.items())),
+            "source_ids": sorted(source_ids),
+            "tensor_count": sum(tensor_shapes.values()),
+            "missing_file_count": missing_file_count,
+            "tensor_shapes": [
+                {"shape": list(shape), "count": count}
+                for shape, count in sorted(tensor_shapes.items())
+            ],
+            "region_ids": [list(items) for items in sorted(region_ids_seen)],
+            "dataloader_batch": {
+                "batch_size": batch_size,
+                "regions_shape": list(batch_regions.shape),
+                "labels_shape": list(batch_labels.shape),
+                "labels": batch_labels.tolist(),
+                "dtype": str(batch_regions.dtype).replace("torch.", ""),
+            },
+        },
+        validation_summary,
+    )
+
+
+def build_receipt(
+    split_summaries: dict[str, dict[str, Any]],
+    manifest_validation_summaries: list[dict[str, Any]],
+    input_contract_report: dict[str, Any],
+    training_dry_run_validation: dict[str, Any],
+    references: dict[str, dict[str, str]],
+    ffmpeg: str,
+    generated_at: str,
+) -> dict[str, Any]:
+    crop_config = read_json(CROP_CONFIG_PATH)
+    total_tensors = sum(summary["tensor_count"] for summary in split_summaries.values())
+    total_missing = sum(summary["missing_file_count"] for summary in split_summaries.values())
+    return {
+        "schema_version": RECEIPT_SCHEMA_VERSION,
+        "status": "passed",
+        "generated_at": generated_at,
+        "mission": "M3AU",
+        "active_prompt": "docs/model/return-to-form-high-signal-region-grid-materialization-goal-loop-prompt.md",
+        "generated_by": {
+            "script": {
+                "path": "scripts/materialize_high_signal_region_grid.py",
+                "sha256": sha256_file(Path("scripts/materialize_high_signal_region_grid.py")),
+            },
+            "command": [sys.executable, *sys.argv],
+        },
+        "changed_files": [
+            {
+                "path": "scripts/materialize_high_signal_region_grid.py",
+                "sha256": sha256_file(Path("scripts/materialize_high_signal_region_grid.py")),
+                "changes": [
+                    "added ASL Citizen high-signal region-grid materialization from approved raw videos",
+                    "writes ignored high-signal region-grid manifests/tensors",
+                    "writes this tracked materialization receipt",
+                ],
+            },
+            {
+                "path": "scripts/train_rawframe_model.py",
+                "sha256": sha256_file(Path("scripts/train_rawframe_model.py")),
+                "changes": [
+                    "accepts the generated high-signal region-grid manifest paths for explicit rgb_regions_grid_v1 dry-run validation",
+                    "validates fixed-crop region-grid tensor provenance without weakening raw rgb_frames provenance",
+                ],
+            },
+            {
+                "path": OUTPUT_RECEIPT_PATH.as_posix(),
+                "changes": [
+                    "records materialized ignored manifests/tensors, tensor counts, input-contract proof, and next action",
+                ],
+            },
+        ],
+        "source_ids": [ASL_CITIZEN_SOURCE_ID],
+        "input_contract": REGION_AWARE_DERIVED_INPUT,
+        "tensor_schema_version": TENSOR_SCHEMA_VERSION,
+        "provenance_schema_version": HIGH_SIGNAL_REGION_GRID_PROVENANCE_SCHEMA_VERSION,
+        "references": references,
+        "decode_ffmpeg_provenance": {
+            "ffmpeg": {
+                "path": str(Path(ffmpeg).resolve()),
+                "sha256": sha256_file(Path(ffmpeg).resolve()),
+                "version": ffmpeg_version(ffmpeg),
+            },
+            "frame_sampling": crop_config["frame_sampling_assumption"],
+            "region_axis": "T,R,H,W,C",
+        },
+        "manifests": split_summaries,
+        "aggregate": {
+            "tensor_count": total_tensors,
+            "missing_file_count": total_missing,
+            "clips_by_split": {
+                split: summary["clip_count"] for split, summary in split_summaries.items()
+            },
+        },
+        "input_contract_validation": json_ready(input_contract_report),
+        "training_dry_run_validation": training_dry_run_validation,
+        "validation_commands": [
+            {
+                "command": [sys.executable, *sys.argv],
+                "exit_code": 0,
+                "result": (
+                    "materialized 139 high-signal ASL Citizen region-grid tensors and wrote "
+                    "ignored manifests/tensors plus this tracked receipt"
+                ),
+            },
+            training_dry_run_validation,
+        ],
+        "manifest_validation_summaries": json_ready(manifest_validation_summaries),
+        "boundaries": {
+            "training_run": False,
+            "brev_checked": False,
+            "paid_compute": False,
+            "source_import": False,
+            "generated_labels": False,
+            "detector_or_landmark_revival": False,
+            "onnx_export": False,
+            "model_card_or_browser_claim_change": False,
+            "final_gate_change": False,
+            "push": False,
+        },
+        "non_actions": [
+            "no training",
+            "no Brev check",
+            "no paid compute",
+            "no source import",
+            "no generated labels",
+            "no ONNX export",
+            "no model-card promotion",
+            "no final-gate change",
+            "no push",
+        ],
+        "exactly_one_next_action": "add_true_tcn_architecture_scaffold",
+        "next_action_rationale": (
+            "Generated high-signal ASL Citizen manifests now materialize rgb_regions tensors "
+            "and the local input-contract audit observes rgb_regions_grid_v1 for every selected clip."
+        ),
+    }
+
+
+def main() -> int:
+    args = parse_args()
+    generated_at = dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    try:
+        torch = import_torch()
+        ffmpeg = ensure_ffmpeg()
+        references = build_references()
+        crop_config = read_json(CROP_CONFIG_PATH)
+        if args.write:
+            for split in ("train", "validation", "test"):
+                build_manifest_for_split(torch, ffmpeg, split, generated_at, crop_config, references)
+        split_summaries: dict[str, dict[str, Any]] = {}
+        manifest_validation_summaries = []
+        for split in ("train", "validation", "test"):
+            split_summary, validation_summary = summarize_manifest(torch, split, references, args.batch_size)
+            split_summaries[split] = split_summary
+            manifest_validation_summaries.append(validation_summary)
+        try:
+            input_contract_report = validate_required_input_contracts(
+                torch,
+                REGION_AWARE_DERIVED_INPUT,
+                manifest_validation_summaries,
+            )
+        except TrainingError as error:
+            raise RegionGridMaterializationError(str(error)) from error
+        training_dry_run_validation = run_training_dry_run_validation()
+        receipt = build_receipt(
+            split_summaries,
+            manifest_validation_summaries,
+            input_contract_report,
+            training_dry_run_validation,
+            references,
+            ffmpeg,
+            generated_at,
+        )
+        if args.write:
+            write_json(args.receipt, receipt)
+        print(
+            json.dumps(
+                {
+                    "status": receipt["status"],
+                    "write": args.write,
+                    "receipt": args.receipt.as_posix(),
+                    "manifests": {
+                        split: summary["path"] for split, summary in split_summaries.items()
+                    },
+                    "tensor_count": receipt["aggregate"]["tensor_count"],
+                    "missing_file_count": receipt["aggregate"]["missing_file_count"],
+                    "input_contract_counts": input_contract_report["total_observed_counts"],
+                    "training_dry_run_exit_code": training_dry_run_validation["exit_code"],
+                    "dataloader_batch_shapes": {
+                        split: summary["dataloader_batch"]["regions_shape"]
+                        for split, summary in split_summaries.items()
+                    },
+                },
+                indent=2,
+                sort_keys=True,
+            )
+        )
+    except RegionGridMaterializationError as error:
+        print(f"M3AU materialization failed: {error}", file=sys.stderr)
+        return 2
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

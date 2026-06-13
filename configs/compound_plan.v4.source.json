@@ -1,0 +1,406 @@
+{
+  "generated_at": "2026-05-23",
+  "project": "ASL research-only isolated-sign recognizer",
+  "north_star": "Guided isolated-sign practice/dictionary retrieval with active modules, crop control, top-k output, abstention, and avatar/overlay guidance.",
+  "milestones": [
+    {
+      "id": "M0",
+      "name": "Agent harness and repository contract",
+      "prerequisites": [],
+      "codex_prompt": "codex_goal_loops/M0_agent_harness.md",
+      "evidence": [
+        "AGENTS.md",
+        "docs/research/compound-engineering-execution-contract.md",
+        "docs/validation/milestone-status.json",
+        "docs/validation/project-readiness-report.json",
+        "scripts/start_run_manifest.py",
+        "scripts/end_run_manifest.py",
+        "scripts/check_open_gpu_runs.mjs"
+      ],
+      "exit_criteria": [
+        "check_project_ready orchestrates existing audits and passes required checks",
+        "GPU run-manifest scripts exist before M3/M4/M5",
+        "M0-M8 status initialized"
+      ]
+    },
+    {
+      "id": "M1",
+      "name": "Source rights, provenance, vocabulary inventory",
+      "prerequisites": [
+        "M0"
+      ],
+      "codex_prompt": "codex_goal_loops/M1_source_inventory.md",
+      "evidence": [
+        "docs/research/asl-source-rights-matrix.json",
+        "docs/research/annotation-provenance-policy.json",
+        "docs/research/sign-source-inventory.json",
+        "docs/research/active-sign-modules.json",
+        "docs/research/source-access-verification.json",
+        "docs/research/phonology-source-rights.json"
+      ],
+      "exit_criteria": [
+        ">=10 labels clear initial source/support gates or failure documented",
+        "annotation provenance policy enforced",
+        "source access verification distinguishes license review from download/decode readiness"
+      ]
+    },
+    {
+      "id": "M2",
+      "name": "Capture protocol, manifests, crop configs",
+      "prerequisites": [
+        "M1"
+      ],
+      "codex_prompt": "codex_goal_loops/M2_data_crops.md",
+      "evidence": [
+        "docs/model/capture-protocol.json",
+        "docs/model/crop-config.fixed.json",
+        "docs/model/crop-config.detector.json",
+        "docs/research/dataset-subset-manifest.10sign.json"
+      ],
+      "exit_criteria": [
+        "frame decode/crop dry-run passes",
+        "dataset readiness audit runs"
+      ]
+    },
+    {
+      "id": "M3",
+      "name": "Detector 0 scratch HandBoxNet",
+      "prerequisites": [
+        "M1",
+        "M2"
+      ],
+      "codex_prompt": "codex_goal_loops/M3_handboxnet.md",
+      "evidence": [
+        "models/detector/handboxnet_v0.pt",
+        "docs/validation/handboxnet_v0_report.json",
+        "docs/validation/handboxnet_kill_switch_decision.json",
+        "docs/research/hagrid-subset-manifest.json"
+      ],
+      "exit_criteria": [
+        "bounded box-only HaGRID subset documented",
+        "recall@IoU0.30 >= 0.98 if detector promoted, or fixed-crop fallback active",
+        "false hand-trigger rate <= 0.05 on negatives if detector promoted",
+        "no pretrained detector weights"
+      ],
+      "kill_switches": [
+        "freeze_detector_after_20_gpu_hours_without_useful_recall_and_use_fixed_crops_primary"
+      ]
+    },
+    {
+      "id": "M4",
+      "name": "Baseline sign recognizers",
+      "prerequisites": [
+        "M2"
+      ],
+      "codex_prompt": "codex_goal_loops/M4_baseline_recognizers.md",
+      "evidence": [
+        "docs/validation/baseline_10sign_report.json"
+      ],
+      "exit_criteria": [
+        "10-sign baseline completes or failure report written",
+        "signer-disjoint report generated",
+        "easy-split sanity pass requires >=50% loss drop and >=0.80 macro recall, otherwise failure report"
+      ]
+    },
+    {
+      "id": "M5",
+      "name": "GuidedCropSignNet v1",
+      "prerequisites": [
+        "M4",
+        "M3_pass_or_kill_switch_decision"
+      ],
+      "codex_prompt": "codex_goal_loops/M5_guidedcrop_signnet.md",
+      "evidence": [
+        "models/sign/guided_crop_signnet_v1.pt",
+        "docs/validation/guided_crop_signnet_v1_report.json",
+        "docs/validation/fixed_vs_detector_crop_ablation.json"
+      ],
+      "exit_criteria": [
+        "fixed-vs-detector ablation completed",
+        "Tier 1 gate attempted",
+        "M5 may proceed if detector passed or kill-switch/fallback decision exists"
+      ]
+    },
+    {
+      "id": "M6",
+      "name": "Post-processing, phonology, abstention",
+      "prerequisites": [
+        "M5"
+      ],
+      "codex_prompt": "codex_goal_loops/M6_postprocess_phonology.md",
+      "evidence": [
+        "docs/validation/abstention-calibration.json",
+        "docs/validation/hard-negative-report.json",
+        "docs/model/active-vocabulary-claim.json",
+        "docs/model/promoted-artifact-selection.json"
+      ],
+      "exit_criteria": [
+        "hard-negative FAR <= 0.05 for promoted module or failure documented",
+        "no zero-accepted-true classes or downscope",
+        "promoted-artifact-selection.json resolves fixed vs detector runtime path"
+      ],
+      "subloops": {
+        "M6a_required": "abstention_thresholds_and_hard_negative_FAR",
+        "M6b_required": "active_module_topk_decision_rule",
+        "M6c_optional_timeboxed": "phonology_reranker_ablation_disable_if_not_positive"
+      },
+      "optional_evidence": [
+        "docs/research/phonology-source-rights.json",
+        "docs/research/sign-phonology-distance-matrix.json",
+        "docs/validation/phonology_reranker_ablation.json"
+      ]
+    },
+    {
+      "id": "M7",
+      "name": "Browser integration and avatar guide",
+      "prerequisites": [
+        "M6"
+      ],
+      "codex_prompt": "codex_goal_loops/M7_browser_avatar.md",
+      "evidence": [
+        "web/public/model/guided_crop_signnet.onnx",
+        "docs/validation/browser-latency-report.json",
+        "docs/validation/avatar-lane-scope.md",
+        "docs/validation/runtime-path-report.json"
+      ],
+      "exit_criteria": [
+        "ONNX export succeeds",
+        "browser smoke test recorded",
+        "capture overlay implemented",
+        "existing browser ONNX smoke/compat audits pass or skipped_with_reason recorded"
+      ],
+      "kill_switches": [
+        "cut_avatar_level_1_if_tier1_gates_slip_by_day4"
+      ],
+      "conditional_evidence": [
+        "web/public/model/handboxnet.onnx if detector_crops promoted",
+        "docs/validation/browser-onnx-audit-results.json"
+      ]
+    },
+    {
+      "id": "M8",
+      "name": "Final audit and promotion",
+      "prerequisites": [
+        "M6",
+        "M7"
+      ],
+      "codex_prompt": "codex_goal_loops/M8_final_audit_promotion.md",
+      "evidence": [
+        "docs/validation/final-validation-report.json",
+        "docs/validation/final-claim-matrix.json",
+        "docs/model/final-model-card.md",
+        "docs/validation/no-pretrained-lane-audit.json",
+        "docs/validation/research-only-rights-audit.json"
+      ],
+      "exit_criteria": [
+        "highest honest tier selected",
+        "model card limitations explicit",
+        "audits pass or lane is renamed honestly"
+      ],
+      "required_dispositions": [
+        "Stage A / 75-label DTW + MediaPipe teacher preserved evidence / relaxed-lane comparison",
+        "PrimaryMath / 22-label DTW academic keypoint claim preserved as supporting research-only strict-compliant evidence",
+        "First-party collection infrastructure repurposed_limited_scope"
+      ]
+    }
+  ],
+  "workstreams": {
+    "A_source_rights_vocab": [
+      "M1",
+      "M8"
+    ],
+    "B_data_decode_crops": [
+      "M2",
+      "M5"
+    ],
+    "C_detector_cropper": [
+      "M3",
+      "M5",
+      "M7"
+    ],
+    "D_recognizer_models": [
+      "M4",
+      "M5"
+    ],
+    "E_postprocess_validation": [
+      "M6",
+      "M8"
+    ],
+    "F_browser_avatar": [
+      "M7",
+      "M8"
+    ]
+  },
+  "claim_tiers": {
+    "tier_1": {
+      "labels": "5-10",
+      "signer_disjoint_macro_recall_min": 0.75,
+      "hard_negative_far_max": 0.05,
+      "no_zero_accepted_true_classes": true
+    },
+    "tier_2": {
+      "labels": "20",
+      "signer_disjoint_macro_recall_min": 0.7,
+      "hard_negative_far_max": 0.05,
+      "no_zero_accepted_true_classes": true
+    },
+    "tier_3": {
+      "labels": "40",
+      "signer_disjoint_macro_recall_min": 0.65,
+      "top3_recall_min": 0.85,
+      "hard_negative_far_max": 0.05
+    },
+    "tier_4": {
+      "labels": "80",
+      "stretch_only": true,
+      "signer_disjoint_macro_recall_min": 0.7,
+      "hard_negative_far_max": 0.05
+    }
+  },
+  "budget_usd": {
+    "total": 450,
+    "recommended": {
+      "cloud_gpu_compute_and_storage": "175-250",
+      "capture_kit": "120-220",
+      "contingency": "25-50"
+    }
+  },
+  "prohibited_in_promoted_clean_lane": [
+    "third-party pretrained detector/runtime weights",
+    "MediaPipe/OpenPose/YOLO/RTMPose-derived labels accepted without manual review",
+    "unknown-provenance annotations",
+    "identity recognition or sensitive-attribute inference",
+    "continuous ASL translation/interpreter replacement claims"
+  ],
+  "revision": "v3_repo_integration_and_gap_closure",
+  "binding_review_controls": {
+    "parallel_gpu_required_for_5_day_calendar": true,
+    "execution_modes": [
+      "calendar_fast_2_to_3_parallel_gpus",
+      "budget_conservative_serial_gpu_accept_calendar_slip"
+    ],
+    "handboxnet_kill_switch_gpu_hours": 20,
+    "m6_required_subloops": [
+      "abstention_thresholds_and_hard_negatives",
+      "active_module_topk_decision_rule"
+    ],
+    "m6_optional_subloops": [
+      "phonology_reranker_ablation"
+    ],
+    "stage_a_disposition": "demote_to_preserved_evidence_relaxed_lane_comparison_if_new_claim_promoted",
+    "avatar_level_1_cut_rule": "cut_if_tier1_model_gates_slip_by_day4",
+    "check_project_ready_orchestrates_existing_audits": true,
+    "first_party_collection_disposition": "repurposed_limited_scope_for_hard_negatives_capture_qa_smoke_optional_calibration_and_consent_cleared_supplemental_clips",
+    "primarymath_disposition": "preserve_as_supporting_evidence_research_only_strict_compliant",
+    "hagrid_full_native_download_out_of_scope": true,
+    "hagrid_default_subset_total_images": "20000-50000",
+    "m6c_phonology_rights_trace_required_if_enabled": true,
+    "calendar_fast_human_merge_budget_hours_per_day": "1-2",
+    "m7_existing_browser_audits_required_when_present": true
+  },
+  "legacy_claim_dispositions": {
+    "stage_a_dtw_mediapipe_teacher": {
+      "status": "preserved_evidence_relaxed_lane_comparison",
+      "active_promoted_claim": false
+    },
+    "primarymath_22_label_dtw_academic_keypoint": {
+      "status": "supporting_evidence_research_only_strict_compliant",
+      "active_promoted_claim": false
+    },
+    "first_party_collection_pipeline": {
+      "status": "repurposed_limited_scope",
+      "active_uses": [
+        "hard_negatives",
+        "capture_qa",
+        "browser_smoke",
+        "optional_calibration",
+        "optional_consent_cleared_supplemental_clips"
+      ],
+      "not_active_uses": [
+        "full_stage_b_primary_training_corpus"
+      ]
+    }
+  },
+  "existing_repo_audits_to_orchestrate": [
+    "scripts/audit_no_pretrained_deps.mjs",
+    "scripts/audit_no_pretrained_artifact_json.mjs",
+    "scripts/audit_completion_readiness.mjs",
+    "scripts/audit_model_artifacts.mjs --require-trained",
+    "scripts/audit_final_claim_matrix.mjs",
+    "scripts/audit_dataset_collection_readiness.mjs",
+    "scripts/audit_browser_onnx_wiring_smoke.mjs",
+    "scripts/audit_final_browser_onnx_smoke.mjs",
+    "scripts/audit_final_browser_compatibility.mjs"
+  ],
+  "execution_mode": "brev_only_48h_v4",
+  "local_storage_plan": {
+    "local_root_env": "ASL_ROOT",
+    "expected_working_set_gb": [
+      180,
+      450
+    ],
+    "stop_threshold_gb": 650,
+    "min_free_space_gb": 250,
+    "forbidden_downloads": [
+      "full PopSign v1.0 1.1TB",
+      "full HaGRID v2 1.5TB"
+    ],
+    "preferred_large_pulls": [
+      "ASL Citizen 42.8GB only if useful",
+      "PopSign per selected sign/category/split tar files",
+      "HaGRID v2 512px 119.4GB or bounded subset"
+    ]
+  },
+  "brev": {
+    "required": true,
+    "install": [
+      "brew install brevdev/homebrew-brev/brev",
+      "brev login",
+      "brev agent-skill install"
+    ],
+    "instances": [
+      "asl-m3-handboxnet",
+      "asl-m4-baselines",
+      "asl-m5-guidedcrop"
+    ],
+    "optional_instances": [
+      "asl-burst-ablation"
+    ],
+    "preferred_gpu": "L40S",
+    "fallback_gpu_order": [
+      "L40S",
+      "A100 40GB",
+      "A40/RTX A6000 48GB",
+      "RTX 4090 24GB",
+      "A10/L4 smoke only"
+    ],
+    "min_disk_gb": {
+      "asl-m3-handboxnet": 300,
+      "asl-m4-baselines": 300,
+      "asl-m5-guidedcrop": 300,
+      "asl-burst-ablation": 200
+    },
+    "helper_doc": "12_brev_48h_storage_execution.md",
+    "helper_scripts": [
+      "scripts/brev_bootstrap_gpu.sh",
+      "scripts/brev_create_48h.sh",
+      "scripts/brev_sync_repo.sh",
+      "scripts/brev_sync_shard.sh",
+      "scripts/brev_collect_artifacts.sh",
+      "scripts/brev_stop_all_training.sh",
+      "scripts/storage_budget_check.sh"
+    ]
+  },
+  "small_batch_first_policy": {
+    "smoke_max_clips_per_class": 10,
+    "smoke_epochs": 2,
+    "full_run_forbidden_until": [
+      "source-access-verification.json exists",
+      "active-sign-modules.json exists",
+      "storage free >=250GB",
+      "dataloader smoke passes",
+      "loss decreases in smoke",
+      "GPU run manifest exists"
+    ]
+  }
+}

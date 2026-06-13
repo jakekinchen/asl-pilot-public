@@ -1,0 +1,653 @@
+{
+  "baseline_comparison": {
+    "m3ae_g_train_macro_recall": 0.312,
+    "m3ae_g_train_top1": 0.312,
+    "m3ae_g_zero_recall_labels": [
+      "dad",
+      "grandpa"
+    ],
+    "microprobe_train_macro_recall": 1.0,
+    "microprobe_train_top1": 1.0,
+    "random_top1_chance": 0.2
+  },
+  "boundaries": {
+    "brev_stop": false,
+    "controlled_clip_heldout_evaluation": false,
+    "final_readiness_claim": false,
+    "full_train_set_parameter_tweak": false,
+    "microprobe_training_jobs_run": 1,
+    "model_card_promotion": false,
+    "onnx_export": false,
+    "second_microprobe_run": false,
+    "source_approval": false
+  },
+  "checked_at": "2026-05-25T21:57:06Z",
+  "command": "/Users/kelly/Developer/asl-pilot/.venv/bin/python scripts/run_return_to_form_tier0_model_architecture_microprobe.py",
+  "configuration": {
+    "batching": "full tiny subset in one batch",
+    "early_stop_loss": 0.02,
+    "epochs_ran": 5,
+    "feature_spatial_size": 12,
+    "hidden_dim": 512,
+    "label_order": [
+      "dad",
+      "grandpa",
+      "hat",
+      "please",
+      "table"
+    ],
+    "learning_rate": 0.003,
+    "loss": "CrossEntropyLoss",
+    "max_epochs": 600,
+    "optimizer": "AdamW(weight_decay=0.0)",
+    "samples_per_label": 2
+  },
+  "crop_identity_preservation": {
+    "does_not_use": [
+      "rgb_regions_grid_v1",
+      "rgb_frames compatibility tensor",
+      "pretrained features"
+    ],
+    "input_evidence": {
+      "feature_tensor_shapes": [
+        [
+          16,
+          5,
+          3,
+          12,
+          12
+        ]
+      ],
+      "normalization": "per-feature z-score computed over the tiny train subset only",
+      "original_rgb_regions_shapes": [
+        [
+          16,
+          5,
+          96,
+          96,
+          3
+        ]
+      ],
+      "region_orders": [
+        [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ]
+      ],
+      "source_ids": [
+        "popsign-v1-original-videos"
+      ]
+    },
+    "method": "Load rgb_regions directly as T,R,H,W,C, keep R as an explicit crop stream, resize each crop independently to the feature spatial size, then flatten the ordered T,R,C,H,W tensor for a random-init classifier.",
+    "preserved": true
+  },
+  "device": "mps",
+  "hard_negative_and_calibration_blockers": {
+    "assessed_in_this_probe": false,
+    "calibration_blocker": "unchanged; no model promotion or ONNX export authorized",
+    "final_promotion_negative_challenge_blocker": "unchanged and separate from this tiny overfit diagnostic"
+  },
+  "input_contract_evidence": {
+    "consumed_tensor_keys": [
+      "rgb_regions"
+    ],
+    "derived_inputs_in_main_loader": [
+      "rgb_regions_grid_v1"
+    ],
+    "fallback_to_rgb_frames_count": 0,
+    "m3ae_f_status": "passed",
+    "microprobe_consumed_tensor_key": "rgb_regions",
+    "microprobe_derived_input": "region_identity_downsample_v1",
+    "sample_count": 45
+  },
+  "mission": "M3AE-I Tier 0 model architecture microprobe",
+  "model": {
+    "description": "Random-init MLP over downsampled per-region tensors. The region axis is kept explicit and flattened only after per-region spatial resizing; no rgb_regions_grid_v1 mosaic is used.",
+    "model_id": "region_identity_mlp_v1",
+    "parameter_count": 17697797,
+    "pretrained_components": [],
+    "random_initialization": true
+  },
+  "next_action": {
+    "description": "Run one bounded Tier 0 smoke using this crop-identity-preserving microprobe configuration before any product promotion.",
+    "id": "rerun_tier0_smoke_with_microprobe_config"
+  },
+  "output": {
+    "directory": "docs/validation",
+    "model_artifact_saved": false,
+    "path": "docs/validation/return-to-form-tier0-model-architecture-microprobe.json",
+    "reason_model_artifact_not_saved": "diagnostic tiny-overfit probe embeds metrics and does not promote or export a model"
+  },
+  "schema_version": "asl-pilot-return-to-form-tier0-model-architecture-microprobe/v1",
+  "seed": 314159,
+  "source_artifacts": {
+    "api_strategy_memo": {
+      "path": "artifacts/research/observer-195-tier0-strategy-api-response.md",
+      "sha256": "7fcd771d7b3db62cf314c4163361b87b4351449cf8d56f5a4175bd1f6880865d"
+    },
+    "crop_config": {
+      "path": "docs/model/return-to-form-fixed-crop-config.json",
+      "sha256": "dbc735dad34fa9df1174a40374037976f9c88d789012634b2b22743ae0802b29"
+    },
+    "decode_dataloader": {
+      "path": "docs/validation/return-to-form-tier0-decode-dataloader.json",
+      "sha256": "d64c0b46500075d94207ef2197a6f6d8f1570cf548da8b08ca16dc520ba386c2"
+    },
+    "m3ae_f_tensor_contract": {
+      "path": "docs/validation/return-to-form-tier0-tensor-contract.json",
+      "sha256": "0f2ea12cf9a6517bafb67876ba4b0e4951ce821b61b27a740d45f6d1e36b3cd3"
+    },
+    "m3ae_g_baseline": {
+      "path": "docs/validation/return-to-form-tier0-learnability-smoke-rerun.json",
+      "sha256": "917fa9b5beb0415dc593e8e44bbdd9c2656659fff52251fe3c364464106bf6a1"
+    },
+    "m3ae_h_triage": {
+      "path": "docs/validation/return-to-form-tier0-failure-remediation-triage.json",
+      "sha256": "1e0e8e429af6d4dddb132fd1ee8355761dcc6845b2bfb28f87de0c508f19e091"
+    },
+    "pre_training_gates": {
+      "path": "docs/validation/return-to-form-tier0-gates.json",
+      "sha256": "2cc000d3f90e9be236cf64768530bf9786fc61fe6605c774b9c1e8ab123d9d97"
+    },
+    "source_coverage": {
+      "path": "docs/research/return-to-form-tier0-source-coverage.json",
+      "sha256": "1ff7da89a51e62f9efbeb08cf6361784e160ed862ac579f9e40db332fa576378"
+    }
+  },
+  "source_decision": {
+    "allowed_source_ids": [
+      "popsign-v1-original-videos"
+    ],
+    "expected_source_id": "popsign-v1-original-videos",
+    "label_expansion": false,
+    "source_expansion": false,
+    "unapproved_media_import": false
+  },
+  "status": "passed",
+  "tiny_subset": {
+    "manifest": {
+      "path": "data/manifests/return-to-form-tier0/train.json",
+      "sha256": "03ae563a5f2ef0d5b868f6c80f50acb64ae642e782cd541faa5c022d4d0af1de"
+    },
+    "per_label_counts": {
+      "dad": 2,
+      "grandpa": 2,
+      "hat": 2,
+      "please": 2,
+      "table": 2
+    },
+    "records": [
+      {
+        "clip_id": "popsign-v1-train-dad-000826",
+        "feature_shape": [
+          16,
+          5,
+          3,
+          12,
+          12
+        ],
+        "label_id": "dad",
+        "region_ids": [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ],
+        "rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+        "source_id": "popsign-v1-original-videos",
+        "source_record_id": "popsign_v1_0/game/train/dad/4a.6001-dad-2022_12_16_00_25_40.042-0.mp4",
+        "source_split": "train",
+        "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-dad-000826-regions.pt",
+        "tensor_sha256": "b2bbf8085a902b2ad929bbac86bfd4d49150b7c1d569c7e56a8893bb633bee06"
+      },
+      {
+        "clip_id": "popsign-v1-train-dad-000827",
+        "feature_shape": [
+          16,
+          5,
+          3,
+          12,
+          12
+        ],
+        "label_id": "dad",
+        "region_ids": [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ],
+        "rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+        "source_id": "popsign-v1-original-videos",
+        "source_record_id": "popsign_v1_0/game/train/dad/4a.6001-dad-2023_01_04_12_49_07.264-0.mp4",
+        "source_split": "train",
+        "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-dad-000827-regions.pt",
+        "tensor_sha256": "9ef0b068329377e27577968adb22329027944f49c2ba83e853ee3b0b35d09482"
+      },
+      {
+        "clip_id": "popsign-v1-train-grandpa-000951",
+        "feature_shape": [
+          16,
+          5,
+          3,
+          12,
+          12
+        ],
+        "label_id": "grandpa",
+        "region_ids": [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ],
+        "rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+        "source_id": "popsign-v1-original-videos",
+        "source_record_id": "popsign_v1_0/game/train/grandpa/4a.6001-grandpa-2023_01_04_22_16_58.202-0.mp4",
+        "source_split": "train",
+        "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-grandpa-000951-regions.pt",
+        "tensor_sha256": "4e02571b24d5d0f2377271ae1df0e780a261f1355201fd9dabf743b7fc4f282d"
+      },
+      {
+        "clip_id": "popsign-v1-train-grandpa-000952",
+        "feature_shape": [
+          16,
+          5,
+          3,
+          12,
+          12
+        ],
+        "label_id": "grandpa",
+        "region_ids": [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ],
+        "rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+        "source_id": "popsign-v1-original-videos",
+        "source_record_id": "popsign_v1_0/game/train/grandpa/4a.6001-grandpa-2023_01_04_22_22_22.959-0.mp4",
+        "source_split": "train",
+        "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-grandpa-000952-regions.pt",
+        "tensor_sha256": "769b0e564a2b4328105248d7e7f5e81a965d7ff95cefd0cf17c172f9d35cd923"
+      },
+      {
+        "clip_id": "popsign-v1-train-hat-001976",
+        "feature_shape": [
+          16,
+          5,
+          3,
+          12,
+          12
+        ],
+        "label_id": "hat",
+        "region_ids": [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ],
+        "rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+        "source_id": "popsign-v1-original-videos",
+        "source_record_id": "popsign_v1_0/game/train/hat/4a.6001-hat-2022_12_16_00_17_27.405-0.mp4",
+        "source_split": "train",
+        "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-hat-001976-regions.pt",
+        "tensor_sha256": "66baceb8014d3315900727244ae85562f8cf4f676231e795dcd1e438edc1f5ba"
+      },
+      {
+        "clip_id": "popsign-v1-train-hat-001977",
+        "feature_shape": [
+          16,
+          5,
+          3,
+          12,
+          12
+        ],
+        "label_id": "hat",
+        "region_ids": [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ],
+        "rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+        "source_id": "popsign-v1-original-videos",
+        "source_record_id": "popsign_v1_0/game/train/hat/4a.6001-hat-2023_01_04_22_25_50.307-0.mp4",
+        "source_split": "train",
+        "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-hat-001977-regions.pt",
+        "tensor_sha256": "93dd4e0ac616fed4e94661f0ae7e5686f0c79017b254988cf16ae56dd0ba8249"
+      },
+      {
+        "clip_id": "popsign-v1-train-please-000076",
+        "feature_shape": [
+          16,
+          5,
+          3,
+          12,
+          12
+        ],
+        "label_id": "please",
+        "region_ids": [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ],
+        "rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "signer_identity_hash": "7c01a9b7c2b20c7f1bb084d66ac6e7a2967d08a093077b9497d55131a1cd67bc",
+        "source_id": "popsign-v1-original-videos",
+        "source_record_id": "popsign_v1_0/game/train/please/4a.7003-please-2022_12_16_20_37_37.252-0.mp4",
+        "source_split": "train",
+        "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-please-000076-regions.pt",
+        "tensor_sha256": "32dadc44d38225766957f2804cc9f9f15b6033ca9da77259fe1ded5b32185fa3"
+      },
+      {
+        "clip_id": "popsign-v1-train-please-000077",
+        "feature_shape": [
+          16,
+          5,
+          3,
+          12,
+          12
+        ],
+        "label_id": "please",
+        "region_ids": [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ],
+        "rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "signer_identity_hash": "27276bcbef84091a71d51eefa64efd320cd1ee6ec759d6e3c5351b4c59781553",
+        "source_id": "popsign-v1-original-videos",
+        "source_record_id": "popsign_v1_0/game/train/please/4a.7005-please-2023_01_06_21_12_11.948-0.mp4",
+        "source_split": "train",
+        "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-please-000077-regions.pt",
+        "tensor_sha256": "f0b26e4690c25a1c21d4293e6b8a2267c4fb1a296022b4be715b3b43deaaa31f"
+      },
+      {
+        "clip_id": "popsign-v1-train-table-000376",
+        "feature_shape": [
+          16,
+          5,
+          3,
+          12,
+          12
+        ],
+        "label_id": "table",
+        "region_ids": [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ],
+        "rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+        "source_id": "popsign-v1-original-videos",
+        "source_record_id": "popsign_v1_0/game/train/table/4a.6001-table-2022_12_16_00_17_47.002-0.mp4",
+        "source_split": "train",
+        "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-table-000376-regions.pt",
+        "tensor_sha256": "22a4a8b0db326286320be86e0caf526d8dbec3761d8bb431d556224230c41035"
+      },
+      {
+        "clip_id": "popsign-v1-train-table-000377",
+        "feature_shape": [
+          16,
+          5,
+          3,
+          12,
+          12
+        ],
+        "label_id": "table",
+        "region_ids": [
+          "viewer_left_hand_context",
+          "viewer_right_hand_context",
+          "upper_body_signing_space",
+          "head_context",
+          "full_frame_reference"
+        ],
+        "rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+        "source_id": "popsign-v1-original-videos",
+        "source_record_id": "popsign_v1_0/game/train/table/4a.6001-table-2023_01_04_12_38_11.438-0.mp4",
+        "source_split": "train",
+        "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-table-000377-regions.pt",
+        "tensor_sha256": "b79f3bb248354c3e4a69c962a6ce9fdb6b733816e6c746a9dd1721d2befe0fa6"
+      }
+    ],
+    "sample_count": 10,
+    "selection_rule": "first N clips per label after sorting train manifest records by clip_id"
+  },
+  "training": {
+    "classification": "tiny_identity_preserving_probe_overfit",
+    "history": [
+      {
+        "epoch": 0,
+        "loss": 1.6026442050933838,
+        "macro_recall": 0.1,
+        "top1_accuracy": 0.1
+      },
+      {
+        "epoch": 1,
+        "loss": 5.473166465759277,
+        "macro_recall": 0.9,
+        "top1_accuracy": 0.9
+      },
+      {
+        "epoch": 2,
+        "loss": 1.1572679281234741,
+        "macro_recall": 0.9,
+        "top1_accuracy": 0.9
+      },
+      {
+        "epoch": 3,
+        "loss": 7.582693576812744,
+        "macro_recall": 0.9,
+        "top1_accuracy": 0.9
+      },
+      {
+        "epoch": 4,
+        "loss": 1.1517099142074585,
+        "macro_recall": 0.9,
+        "top1_accuracy": 0.9
+      },
+      {
+        "epoch": 5,
+        "loss": 0.0,
+        "macro_recall": 1.0,
+        "top1_accuracy": 1.0
+      }
+    ],
+    "initial_metrics": {
+      "loss": 1.6026442050933838,
+      "macro_recall": 0.1,
+      "top1_accuracy": 0.1
+    },
+    "loss_movement": {
+      "delta": -1.6026442050933838,
+      "final_loss": 0.0,
+      "initial_loss": 1.6026442050933838,
+      "relative_change": -1.0
+    },
+    "test_metrics": null,
+    "tiny_subset_train_metrics": {
+      "confusion_matrix": [
+        [
+          2,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          2,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          2,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      ],
+      "confusion_matrix_labels": [
+        "dad",
+        "grandpa",
+        "hat",
+        "please",
+        "table"
+      ],
+      "examples": 10,
+      "loss": 0.0,
+      "macro_f1": 1.0,
+      "macro_recall": 1.0,
+      "per_label": [
+        {
+          "f1": 1.0,
+          "label_id": "dad",
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 2,
+          "true_positive": 2
+        },
+        {
+          "f1": 1.0,
+          "label_id": "grandpa",
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 2,
+          "true_positive": 2
+        },
+        {
+          "f1": 1.0,
+          "label_id": "hat",
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 2,
+          "true_positive": 2
+        },
+        {
+          "f1": 1.0,
+          "label_id": "please",
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 2,
+          "true_positive": 2
+        },
+        {
+          "f1": 1.0,
+          "label_id": "table",
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 2,
+          "true_positive": 2
+        }
+      ],
+      "top1_accuracy": 1.0
+    },
+    "train_fit_gate": "passed",
+    "validation_metrics": null,
+    "validation_test_note": "Not computed in this one-job tiny overfit probe; the gate here is train fit on the sampled subset only."
+  },
+  "triage_source": {
+    "next_action_entering_microprobe": {
+      "description": "Run a bounded no-label-expansion microprobe that isolates the train-fit bottleneck: keep the same Tier 0 manifests and approved PopSign tensors, no new media or source approvals, and compare a minimally changed input/model/training configuration against the current compact rgb_regions_grid_v1 smoke before any label expansion.",
+      "id": "model_architecture_microprobe"
+    },
+    "selected_blocker": "model_architecture_microprobe"
+  }
+}

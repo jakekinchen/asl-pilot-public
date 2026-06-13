@@ -1,0 +1,99 @@
+{
+  "schema_version": "asl-pilot-final-browser-onnx-smoke/v1",
+  "status": "template_needs_evidence",
+  "tested_at": "YYYY-MM-DDTHH:mm:ss.sssZ",
+  "runner": {
+    "tool": "replace-with-browser-automation-tool",
+    "browser": "replace-with-browser-and-version",
+    "app_url": "http://127.0.0.1:3025/smoke/browser-onnx?mode=final"
+  },
+  "model_card": {
+    "path": "web/public/model/model-card.json",
+    "sha256": "replace-with-current-sha256"
+  },
+  "onnx_export_provenance": {
+    "path": "web/public/model/asl-pilot-rawframe-v0-export-provenance.json",
+    "sha256": "replace-with-current-sha256"
+  },
+  "browser_artifact": {
+    "path": "web/public/model/asl-pilot-rawframe-v0.onnx",
+    "sha256": "replace-with-current-sha256"
+  },
+  "runtime": {
+    "package": "onnxruntime-web",
+    "version": "replace-with-installed-version",
+    "execution_provider": "wasm"
+  },
+  "inference": {
+    "ran_browser_inference": true,
+    "client_model_path": "web/src/lib/client-model.ts",
+    "app_route": "/smoke/browser-onnx?mode=final",
+    "mode": "final_artifact",
+    "app_wasm_route": "/api/ort/",
+    "model_id": "asl-pilot-rawframe-v0",
+    "artifact_path": "web/public/model/asl-pilot-rawframe-v0.onnx",
+    "input_shape": [1, 16, 3, 96, 96],
+    "logits_shape": [1, 83],
+    "latency_ms": 0,
+    "session_input_names": [],
+    "session_output_names": [],
+    "output_type": "",
+    "predicted_id": "replace-with-top-label-id",
+    "confidence": 0,
+    "frame_count": 16,
+    "image_size": 96,
+    "label_count": 83,
+    "browser_fetched_artifact_sha256": "replace-with-browser-fetched-onnx-sha256"
+  },
+  "network": {
+    "unexpected_external_requests": [],
+    "final_onnx_request_count": 1,
+    "ort_wasm_request_count": 1
+  },
+  "evidence": {
+    "browser_files": [
+      {
+        "type": "screenshot",
+        "path": "output/final-browser-evidence/final-browser-onnx-smoke.png",
+        "sha256": "replace-with-current-sha256",
+        "purpose": "Rendered app page during final browser ONNX runtime smoke"
+      },
+      {
+        "type": "network_log",
+        "path": "output/final-browser-evidence/final-browser-onnx-smoke-network-log.json",
+        "sha256": "replace-with-current-sha256",
+        "purpose": "Schema v2 log of final ONNX and ONNX Runtime WASM browser fetches during final browser ONNX runtime smoke"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "scripts/run_final_browser_onnx_smoke.mjs",
+        "sha256": "replace-with-current-sha256"
+      },
+      {
+        "path": "web/src/lib/client-model.ts",
+        "sha256": "replace-with-current-sha256"
+      },
+      {
+        "path": "web/src/app/smoke/browser-onnx/page.tsx",
+        "sha256": "replace-with-current-sha256"
+      },
+      {
+        "path": "web/src/app/api/ort/[file]/route.ts",
+        "sha256": "replace-with-current-sha256"
+      },
+      {
+        "path": "web/public/model/model-card.json",
+        "sha256": "replace-with-current-sha256"
+      },
+      {
+        "path": "web/public/model/asl-pilot-rawframe-v0-export-provenance.json",
+        "sha256": "replace-with-current-sha256"
+      },
+      {
+        "path": "web/package-lock.json",
+        "sha256": "replace-with-current-sha256"
+      }
+    ]
+  }
+}

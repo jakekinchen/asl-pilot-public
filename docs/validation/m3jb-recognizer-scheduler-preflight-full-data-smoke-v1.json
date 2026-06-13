@@ -1,0 +1,45 @@
+{
+ "schema_version": "asl-pilot-recognizer-distill/v1",
+ "teacher": "checkpoint:/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/recognizer-v1.pt",
+ "teacher_data": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/handcrop-lm2",
+ "student_data": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/recog-seq-w64-merged",
+ "classes": 95,
+ "student_arch": "transformer",
+ "epochs": 1,
+ "alpha": 0.55,
+ "temperature": 3.0,
+ "jitter_std": 0.02,
+ "frame_drop": 0.1,
+ "teacher_covered_train": 2668,
+ "teacher_covered_total": 4560,
+ "train_clips": 7011,
+ "monitor_clips": 955,
+ "test_clips": 2369,
+ "optimizer_steps": 55,
+ "expected_optimizer_steps": 55,
+ "steps_per_epoch": 55,
+ "lr_scheduler": {
+  "name": "cosine",
+  "base_lr": 0.0005,
+  "warmup_steps": 1,
+  "min_lr": 5e-05
+ },
+ "eval_train": false,
+ "diagnostics": false,
+ "no_save_model": true,
+ "history": [
+  {
+   "epoch": 0,
+   "loss": 8.5753,
+   "monitor_top1": 0.0188,
+   "monitor_top5": 0.089,
+   "lr_first": 0.0005,
+   "lr_last": 5e-05
+  }
+ ],
+ "test_top1": 0.008,
+ "test_top5": 0.0502,
+ "verification_recall_at_far10": 0.1194,
+ "chance": 0.0105,
+ "weights": null
+}

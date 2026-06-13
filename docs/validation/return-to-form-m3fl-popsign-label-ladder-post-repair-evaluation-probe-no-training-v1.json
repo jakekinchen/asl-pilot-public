@@ -1,0 +1,256 @@
+{
+  "schema_version": "asl-pilot-m3fl-popsign-label-ladder-post-repair-evaluation-probe-no-training/v1",
+  "mission": "M3FL - PopSign label-ladder post-repair evaluation probe no training",
+  "status": "completed_one_local_evaluator_probe",
+  "generated_at": "2026-05-29T00:53:39Z",
+  "generated_by": {
+    "role": "Codex executor",
+    "start_commit": "d4c0312",
+    "active_prompt": "docs/model/return-to-form-m3fl-popsign-label-ladder-post-repair-evaluation-probe-no-training-goal-loop-prompt.md"
+  },
+  "m3fk_repair": {
+    "commit": "fc5d94e",
+    "receipt": "docs/validation/return-to-form-m3fk-popsign-label-ladder-evaluation-manifest-evidence-contract-repair-no-training-v1.json",
+    "receipt_sha256": "0921b393d9d2e1f375338a0368fd488cf5e3bec7408cc8c36b2a7c0f98cb7679",
+    "changed_source_symbol": "scripts/evaluate_rawframe_model.py::validate_finality",
+    "selected_next_action": "continue_popsign_label_ladder_post_repair_evaluation_probe_no_training"
+  },
+  "preflight": {
+    "checkpoint": {
+      "path": "output/m3ff-popsign-label-ladder-local-sanity/model_state.pt",
+      "present": true,
+      "sha256": "7fd2946ff527dfb47f50eba39e0601cec28ab5bae617fb88e1b7e1452a1c6b5f",
+      "matches_m3fi_m3fj_expected_hash": true
+    },
+    "training_provenance": {
+      "path": "output/m3ff-popsign-label-ladder-local-sanity/training-provenance.json",
+      "present": true,
+      "sha256": "999aa26ed56799156eca03042be94d1ecbac39a5e103f1044daa419c3659cd95",
+      "matches_m3fi_m3fj_expected_hash": true,
+      "json_valid": true
+    },
+    "output_paths_absent_before_probe": {
+      "validation_report": {
+        "path": "output/m3ff-popsign-label-ladder-local-sanity/validation-report.json",
+        "absent": true
+      },
+      "calibrated_provenance": {
+        "path": "output/m3ff-popsign-label-ladder-local-sanity/calibrated-provenance.json",
+        "absent": true
+      }
+    },
+    "timeout_tool": {
+      "path": "/opt/homebrew/bin/gtimeout",
+      "executable": true
+    }
+  },
+  "evaluator_probe": {
+    "attempt_count": 1,
+    "command": "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/gtimeout 1200s .venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint output/m3ff-popsign-label-ladder-local-sanity/model_state.pt --training-provenance output/m3ff-popsign-label-ladder-local-sanity/training-provenance.json --train-manifest data/manifests/diagnostics/popsign-label-ladder/095-labels/train.json --validation-manifest data/manifests/diagnostics/popsign-label-ladder/095-labels/validation.json --test-manifest data/manifests/diagnostics/popsign-label-ladder/095-labels/test.json --output-report output/m3ff-popsign-label-ladder-local-sanity/validation-report.json --calibrated-provenance output/m3ff-popsign-label-ladder-local-sanity/calibrated-provenance.json --batch-size 4 --num-workers 0 --popsign-label-ladder-training-smoke",
+    "wrapper_exit_status": 1,
+    "evaluator_exit_status": "not_captured",
+    "exit_status_capture_blocker": "The evaluator command was run once inside a zsh metadata wrapper; after stdout/report creation the wrapper attempted to assign to zsh's read-only status parameter and exited with `zsh:16: read-only variable: status`. The evaluator was not rerun.",
+    "observed_start_from_stdout_birth": "2026-05-29T00:51:39Z",
+    "observed_end_from_stdout_and_report_mtime": "2026-05-29T00:52:14Z",
+    "observed_duration_seconds_from_file_times": 35,
+    "stdout_path": "/tmp/asl-pilot-m3fl-evaluator-stdout.txt",
+    "stdout_sha256": "93517094c7a6cfaba397141c52dab072f4258879e4fdfc9d9a361084cee8858d",
+    "stderr_path": "/tmp/asl-pilot-m3fl-evaluator-stderr.txt",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_empty": true,
+    "passed_previous_vocabulary_review_gate": true,
+    "completion_evidence": {
+      "stdout_status": "popsign_label_ladder_training_smoke_completed",
+      "report_status": "popsign_label_ladder_training_smoke_completed",
+      "report_created": true,
+      "calibrated_provenance_created": false
+    }
+  },
+  "probe_outputs": {
+    "validation_report": {
+      "path": "output/m3ff-popsign-label-ladder-local-sanity/validation-report.json",
+      "created": true,
+      "tracked": false,
+      "gitignore_rule": ".gitignore:27:output/",
+      "sha256": "24cc76caec4453d8a7ea266f9eb39108c368aa5df5858981d344c59160928065",
+      "json_valid": true
+    },
+    "calibrated_provenance": {
+      "path": "output/m3ff-popsign-label-ladder-local-sanity/calibrated-provenance.json",
+      "created": false,
+      "sha256": null,
+      "reason": "The PopSign label-ladder training-smoke evaluator completed without a negative-challenge manifest; stdout reported calibrated_provenance null and the report records no negative_challenge."
+    }
+  },
+  "metric_summary": {
+    "classification": "diagnostic_non_final_non_browser_non_product_non_promotion_not_readiness_evidence",
+    "status": "popsign_label_ladder_training_smoke_completed",
+    "evidence_mode": "popsign_label_ladder_training_smoke",
+    "finality": "popsign_label_ladder_training_smoke_not_final_or_lesson_evidence",
+    "passes_targets": false,
+    "pass_status": {
+      "confidence_threshold": true,
+      "false_pass_rate": true,
+      "macro_f1": false,
+      "negative_challenge_false_pass_rate": false,
+      "top1_accuracy": false
+    },
+    "validation": {
+      "top1_accuracy": 0.010105263157894737,
+      "macro_f1": 0.0006163321188634017,
+      "zero_recall_label_count": 92
+    },
+    "test": {
+      "top1_accuracy": 0.012742382271468145,
+      "macro_f1": 0.0017700006858916142,
+      "zero_recall_label_count": 91,
+      "selected_threshold": 0.54,
+      "threshold_false_pass_rate": 0.009972299168975069,
+      "threshold_coverage": 0.009972299168975069,
+      "threshold_accepted_accuracy": 0.0
+    },
+    "negative_challenge_false_pass_rate": null,
+    "limitations": [
+      "Missing vocabulary_review is recorded as a diagnostic/non-final limitation for this PopSign label-ladder training-smoke only.",
+      "The training smoke was capped with max_train_batches and max_validation_batches by design.",
+      "No negative-challenge manifest was provided, so this is not threshold-calibration evidence.",
+      "The metrics do not support export, promotion, browser activation, product readiness, trainability, or ASL correctness claims."
+    ]
+  },
+  "manifest_check": {
+    "command": "PYTHONPATH=scripts PYTHONDONTWRITEBYTECODE=1 .venv/bin/python - <<'PY' ... validate_manifest over data/manifests/diagnostics/popsign-label-ladder ... PY",
+    "exit_status": 0,
+    "output_path": "/tmp/asl-pilot-m3fl-manifest-vocabulary-review-status.json",
+    "output_sha256": "c0f9c529f2e191cd452386e268c13b6902f0b4331aa1c78414b6a6069610c5ae",
+    "canonical_summary_sha256": "19bcc3692607e6b264b2a91e708502912b144fc821337edc76df71b9e8e9d62c",
+    "manifest_count": 15,
+    "label_counts": [
+      5,
+      10,
+      25,
+      50,
+      95
+    ],
+    "all_source_register_hashes_match_current": true,
+    "source_register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+    "all_diagnostic_finality_ok": true,
+    "vocabulary_review_present_count": 0,
+    "vocabulary_review_missing_count": 15
+  },
+  "read_only_brev_state": {
+    "command": "brev ls --json",
+    "exit_status": 0,
+    "workspace": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "status": "STOPPED",
+      "build_status": "COMPLETED",
+      "shell_status": "NOT READY",
+      "health_status": "HEALTHY",
+      "instance_type": "l40s-48gb.1x",
+      "instance_kind": "gpu",
+      "gpu": "L40S"
+    },
+    "lifecycle_or_spend_action": false
+  },
+  "fail_closed_claim_surfaces": {
+    "before": {
+      "web_public_model_model_card_status": "not_trained",
+      "docs_model_active_vocabulary_claim_active_labels": []
+    },
+    "after": {
+      "web_public_model_model_card_status": "not_trained",
+      "web_public_model_model_card_sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "docs_model_active_vocabulary_claim_active_labels": [],
+      "docs_model_active_vocabulary_claim_sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546"
+    },
+    "unchanged": true
+  },
+  "forbidden_actions_proof": {
+    "training_or_fitting": false,
+    "optimizer_or_backward_pass": false,
+    "checkpoint_creation": false,
+    "second_evaluator_attempt": false,
+    "brev_lifecycle_spend_remote_sync_copy": false,
+    "source_register_edit": false,
+    "source_media_import": false,
+    "manifest_tensor_vocabulary_packet_mutation": false,
+    "package_or_dependency_mutation": false,
+    "generated_labels_or_pretrained_path": false,
+    "raw_learner_upload": false,
+    "export_promotion_browser_activation": false,
+    "model_card_or_active_vocabulary_promotion": false,
+    "final_gate_weakening": false,
+    "product_readiness_trainability_or_asl_correctness_claim": false,
+    "push": false,
+    "amend_or_no_verify": false
+  },
+  "validation_commands": [
+    {
+      "command": "git status --short --branch",
+      "exit_status": 0
+    },
+    {
+      "command": "git log -12 --oneline --decorate",
+      "exit_status": 0
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_status": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_status": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "exit_status": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_status": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_status": 0,
+      "status": "passed"
+    },
+    {
+      "command": ".venv/bin/python -m json.tool docs/validation/return-to-form-m3fk-popsign-label-ladder-evaluation-manifest-evidence-contract-repair-no-training-v1.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": ".venv/bin/python -m json.tool docs/validation/return-to-form-m3fj-popsign-label-ladder-result-diagnosis-no-training-v1.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": ".venv/bin/python -m json.tool docs/validation/return-to-form-m3fi-popsign-label-ladder-local-fitting-sanity-after-approval-v1.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": ".venv/bin/python -m json.tool docs/validation/popsign-label-ladder-manifests.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": ".venv/bin/python -m json.tool web/public/model/model-card.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": ".venv/bin/python -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "exit_status": 0
+    },
+    {
+      "command": "git diff --check",
+      "exit_status": 0
+    }
+  ],
+  "next_action": "continue_popsign_label_ladder_metric_triage_no_training"
+}

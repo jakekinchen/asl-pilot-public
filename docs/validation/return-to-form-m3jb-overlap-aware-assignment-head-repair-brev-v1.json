@@ -1,0 +1,246 @@
+{
+  "schema_version": "asl-pilot-m3jb-overlap-aware-assignment-head-repair-brev/v1",
+  "status": "assignment_head_repair_full_scope_brev_completed_fail_closed_rejected",
+  "checked_at": "2026-06-02T07:00:18Z",
+  "mission": "M3JB - Hierarchical hand-state tracker",
+  "purpose": "After the direct pair-scorer failure audit found high-overlap GT hand pairs dominated sampled distinct-assignment failures, add an overlap-aware assignment head to the direct pair scorer, prove it locally, run full-scope Brev variants, and record the fail-closed result without downscoping for local runtime.",
+  "code": {
+    "path": "tools/detector0-annotator/train_hand_pair_ranker.py",
+    "sha256": "f96cdf2d3175d014ed84e5461e92ae852fdf87b472a9aeda17290639a997d4d0",
+    "summary": "Added AssignmentPairRanker with a shared trunk, scalar pair score head, and three-class assignment head for none/direct/swapped. Candidate pair packs now carry assignment_targets and assignment_weights, with optional positive-pair and high-overlap-GT weighting. Pair scoring can add assignment-head evidence when requested."
+  },
+  "local_validation": [
+    {
+      "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --self-test",
+      "result": "passed: self-test ok: candidate head, cached candidate pack, listwise pair ranker, and pair-margin loss"
+    },
+    {
+      "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_hand_pair_ranker.py",
+      "result": "passed"
+    }
+  ],
+  "local_smoke": {
+    "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+    "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --train-subproposal-candidates --topk 40 --subproposal-source-topk 4 --subproposal-max-topk 16 --max-train-rows 32 --epochs 1 --batch-groups 16 --select-by-validation --eval-every 1 --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --candidate-feature-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --device mps --landmark-device mps --ranker-device cpu --target-temperature 0.05 --aux-bce-weight 0.3 --box-quality-target-weight 0.5 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 1.0 --hard-negative-bce-weight 3.0 --assignment-head-loss-weight 0.5 --assignment-head-score-weight 0.5 --assignment-head-positive-weight 2.0 --assignment-head-overlap-boost 2.0 --out tools/detector0-annotator/output/m3jb-hand-pair-ranker-assignmenthead-croppose-top40-src4-aug16-train32-e1-smoke-v1.json",
+    "exit_status": 0,
+    "scope_guard": "Diagnostic smoke only: --max-train-rows 32, source topk 4, subproposal max topk 16, epochs 1. This is not gate evidence and must not replace full-scope Brev runs.",
+    "artifacts": {
+      "receipt": {
+        "path": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-assignmenthead-croppose-top40-src4-aug16-train32-e1-smoke-v1.json",
+        "sha256": "86db1b3f4a80a52e298baf4640e4bc601542976d85323257bd75114b1a59a935"
+      },
+      "weights": {
+        "path": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-assignmenthead-croppose-top40-src4-aug16-train32-e1-smoke-v1.pt",
+        "sha256": "1d6b719302f5ef2bcecc1096a404772c03b44678af5376d6c7e2bc6ccc40ad72"
+      }
+    },
+    "metrics": {
+      "validation_selected": {
+        "selection_score": 0.4109,
+        "coverage": 0.382,
+        "distinct_assigned_coverage": 0.366,
+        "collapse_rate": 0.051
+      },
+      "real_twohand_selected": {
+        "coverage": 0.798,
+        "distinct_assigned_coverage": 0.464,
+        "collapse_rate": 0.071
+      },
+      "real_twohand_oracle": {
+        "distinct_assigned_coverage": 0.988
+      }
+    }
+  },
+  "brev_worker": {
+    "name": "asl-pilot-m3eh-l40s-001",
+    "id": "3d58wpy9o",
+    "instance_type": "l40s-48gb.1x",
+    "gpu": "NVIDIA L40S",
+    "memory_total_mib": 46068,
+    "safety_probe": {
+      "gpu_memory_used_mib_before_run": 1,
+      "active_training_process_before_run": false,
+      "script_sha256": "f96cdf2d3175d014ed84e5461e92ae852fdf87b472a9aeda17290639a997d4d0",
+      "py_compile": "passed",
+      "self_test": "passed"
+    }
+  },
+  "full_scope_runs": [
+    {
+      "id": "score_and_loss",
+      "status": "completed_fail_closed_rejected",
+      "command": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd \\$HOME/asl-pilot && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --train-subproposal-candidates --topk 40 --subproposal-source-topk 8 --subproposal-max-topk 24 --max-train-rows 0 --epochs 36 --batch-groups 512 --select-by-validation --eval-every 3 --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --candidate-feature-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --device cuda --landmark-device cuda --ranker-device cuda --target-temperature 0.05 --aux-bce-weight 0.3 --box-quality-target-weight 0.5 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 1.0 --hard-negative-bce-weight 3.0 --assignment-head-loss-weight 0.5 --assignment-head-score-weight 0.5 --assignment-head-positive-weight 2.0 --assignment-head-overlap-boost 2.0 --out tools/detector0-annotator/output/m3jb-hand-pair-ranker-assignmenthead-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.json\"",
+      "critical_scope_guard": "--max-train-rows 0; the run used all 2535 train groups, source topk 8, subproposal max topk 24, 36 epochs, 699660 train pairs, and CUDA.",
+      "artifacts": {
+        "receipt": {
+          "path": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-assignmenthead-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.json",
+          "sha256": "f0b3445e2a4bbde74967ad04f6f61fbfe2591092195093b6ecd50944466f9121"
+        },
+        "weights": {
+          "path": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-assignmenthead-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.pt",
+          "sha256": "f3a462572756c7ab757361802efcdb1689c78dadf8fe5d52fe64242b471d4e14"
+        }
+      },
+      "metrics": {
+        "train_groups": 2535,
+        "train_pairs": 699660,
+        "train_positive_pairs": 172499,
+        "validation_selected": {
+          "epoch": 35,
+          "selection_score": 0.819976076555024,
+          "coverage": 0.6626794258373205,
+          "distinct_assigned_coverage": 0.6562998405103668,
+          "collapse_rate": 0.001993620414673046
+        },
+        "real_twohand_selected": {
+          "n": 84,
+          "coverage": 0.8690476190476191,
+          "distinct_assigned_coverage": 0.6428571428571429,
+          "collapse_rate": 0.023809523809523808,
+          "coverage_failure_count": 11,
+          "distinct_assignment_failure_count": 30
+        },
+        "real_twohand_oracle": {
+          "n": 84,
+          "coverage": 0.9880952380952381,
+          "distinct_assigned_coverage": 0.9880952380952381,
+          "collapse_rate": 0.0,
+          "coverage_failure_count": 1,
+          "distinct_assignment_failure_count": 1
+        }
+      }
+    },
+    {
+      "id": "loss_only",
+      "status": "completed_fail_closed_rejected",
+      "command": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd \\$HOME/asl-pilot && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --train-subproposal-candidates --topk 40 --subproposal-source-topk 8 --subproposal-max-topk 24 --max-train-rows 0 --epochs 36 --batch-groups 512 --select-by-validation --eval-every 3 --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --candidate-feature-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --device cuda --landmark-device cuda --ranker-device cuda --target-temperature 0.05 --aux-bce-weight 0.3 --box-quality-target-weight 0.5 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 1.0 --hard-negative-bce-weight 3.0 --assignment-head-loss-weight 0.5 --assignment-head-score-weight 0.0 --assignment-head-positive-weight 2.0 --assignment-head-overlap-boost 2.0 --out tools/detector0-annotator/output/m3jb-hand-pair-ranker-assignmenthead-lossonly-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.json\"",
+      "critical_scope_guard": "--max-train-rows 0; the run used all 2535 train groups, source topk 8, subproposal max topk 24, 36 epochs, 699660 train pairs, and CUDA.",
+      "artifacts": {
+        "receipt": {
+          "path": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-assignmenthead-lossonly-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.json",
+          "sha256": "af1f74046034f670d42b201e77aee0442a920c905b7d40af7507f0736a29b6d3"
+        },
+        "weights": {
+          "path": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-assignmenthead-lossonly-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.pt",
+          "sha256": "0e8d0e08c3fb02a3b3a6a3bc6f842c751e8e25fedd68e09a1848c109dd6853eb"
+        }
+      },
+      "metrics": {
+        "train_groups": 2535,
+        "train_pairs": 699660,
+        "train_positive_pairs": 172499,
+        "validation_selected": {
+          "epoch": 35,
+          "selection_score": 0.8157894736842106,
+          "coverage": 0.6602870813397129,
+          "distinct_assigned_coverage": 0.65311004784689,
+          "collapse_rate": 0.0023923444976076554
+        },
+        "real_twohand_selected": {
+          "n": 84,
+          "coverage": 0.9166666666666666,
+          "distinct_assigned_coverage": 0.6785714285714286,
+          "collapse_rate": 0.023809523809523808,
+          "coverage_failure_count": 7,
+          "distinct_assignment_failure_count": 27
+        },
+        "real_twohand_oracle": {
+          "n": 84,
+          "coverage": 0.9880952380952381,
+          "distinct_assigned_coverage": 0.9880952380952381,
+          "collapse_rate": 0.0,
+          "coverage_failure_count": 1,
+          "distinct_assignment_failure_count": 1
+        }
+      }
+    }
+  ],
+  "comparison": {
+    "direct_pair_scorer_full_scope": {
+      "receipt": "tools/detector0-annotator/output/m3jb-hand-pair-ranker-directpair-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.json",
+      "real_twohand_selected": {
+        "coverage": 0.9285714285714286,
+        "distinct_assigned_coverage": 0.6904761904761905,
+        "collapse_rate": 0.011904761904761904
+      }
+    },
+    "score_and_loss_delta_vs_direct_pair": {
+      "coverage": -0.05952380952380953,
+      "distinct_assigned_coverage": -0.04761904761904756,
+      "collapse_rate": 0.011904761904761904
+    },
+    "loss_only_delta_vs_direct_pair": {
+      "coverage": -0.011904761904761973,
+      "distinct_assigned_coverage": -0.011904761904761862,
+      "collapse_rate": 0.011904761904761904
+    },
+    "interpretation": "Auxiliary assignment targets did not repair the high-overlap GT assignment failures. Score+loss and loss-only both regress from the rejected direct pair scorer, and both remain far below the 0.98 distinct-assignment gate."
+  },
+  "brev_cleanup": {
+    "commands": [
+      {
+        "command": "brev copy remote assignment-head score+loss JSON/PT and loss-only JSON/PT back to /Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/",
+        "exit_status": 0,
+        "summary": "all four artifact copybacks succeeded"
+      },
+      {
+        "command": "brev stop asl-pilot-m3eh-l40s-001",
+        "exit_status": 0,
+        "summary": "stopped retained worker after assignment-head copyback"
+      },
+      {
+        "command": "sleep 20 && brev ls --json",
+        "exit_status": 0,
+        "summary": "both observed L40S workers ended STOPPED"
+      },
+      {
+        "command": "ps -eo pid,etime,command | rg 'brev (exec|copy)|train_hand_pair_ranker|asl-pilot-m3eh-l40s-001' || true",
+        "exit_status": 0,
+        "summary": "no local Brev exec/copy or train_hand_pair_ranker process remained"
+      }
+    ],
+    "final_observed_workers": [
+      {
+        "name": "asl-pilot-m3jb-pairrank-l40s-001",
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "gpu": "L40S"
+      },
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "gpu": "L40S"
+      }
+    ]
+  },
+  "runtime_boundary": {
+    "local_smoke_training_run": true,
+    "full_scope_training_runs": 2,
+    "checkpoint_written": true,
+    "browser_exported": false,
+    "model_card_promoted": false,
+    "mediapipe_runtime_dependency": false,
+    "raw_learner_video_uploaded": false,
+    "brev_lifecycle_used": true,
+    "all_observed_brev_workers_stopped": true
+  },
+  "selection": {
+    "gate_status": "not_gate_passing_assignment_head_rejected",
+    "required_distinct_assigned_coverage": 0.98,
+    "best_assignment_head_distinct_assigned_coverage": 0.6785714285714286,
+    "direct_pair_scorer_distinct_assigned_coverage": 0.6904761904761905,
+    "real_twohand_oracle_distinct_assigned_coverage": 0.9880952380952381,
+    "reason": "The overlap-aware assignment-head repair did not beat the direct pair scorer and remains below the box gate. Keep all checkpoints research-only and fail-closed."
+  },
+  "next_action": "continue_m3jb_coverage_tinyhand_and_overlap_slot_repair_after_assignmenthead_rejection"
+}

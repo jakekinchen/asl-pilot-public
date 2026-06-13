@@ -1,0 +1,193 @@
+{
+  "schema_version": "asl-pilot-region-grid-tcn-brev-guard-fix/v1",
+  "status": "completed",
+  "mission": "M3DN",
+  "active_prompt": "docs/model/return-to-form-region-grid-tcn-brev-guard-fix-goal-loop-prompt.md",
+  "generated_at": "2026-05-28T09:24:03Z",
+  "generated_by": "codex_executor",
+  "local_head_before_slice": {
+    "commit": "c24d8e2",
+    "subject": "goal: redirect to tcn brev guard fix",
+    "branch": "compound-plan-m0",
+    "ahead_of_origin": 109
+  },
+  "changed_files": [
+    {
+      "path": "scripts/train_rawframe_model.py",
+      "sha256": "7c120307d77ca1ca5dc73ae3c0cbaca4962fd006702ce8bc583a2272ef4e1136",
+      "changes": [
+        "kept the existing public --region-grid-tcn-training-smoke mode",
+        "added output/m3dm-high-signal-region-grid-tcn-brev as an explicit M3DM Brev-smoke policy output",
+        "preserved the old output/m3aw-region-grid-tcn-local-smoke caps and required max batch caps",
+        "bounded the M3DM policy to exact high-signal region-grid manifests, --check-files, frame_count 16, image_size 96, epochs <= 12, batch_size <= 8, num_workers <= 2, no max train/validation batch caps, --training-augmentation mild, and --checkpoint-selection best_validation",
+        "allowed mild augmentation for region-axis-preserving tensors so the M3DM policy does not pass dry-run while leaving a known training-time constructor blocker",
+        "updated the argument help from local capped smoke wording to bounded region-grid TCN smoke wording"
+      ]
+    },
+    {
+      "path": "scripts/evaluate_rawframe_model.py",
+      "sha256": "dfd23c55e09a360f15acb4d432c816508e1ebf536339892c0dded28d20ffbf5c",
+      "changes": [
+        "kept the existing region_grid_tcn_training_smoke evidence mode",
+        "updated non-final report wording so future full-split M3DM evaluation is not described as capped merely because it uses the region-grid TCN smoke evidence mode"
+      ]
+    }
+  ],
+  "local_checks": [
+    {
+      "command": "git status --short --branch",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "git log -5 --oneline",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "exit_code": 0,
+      "status": "passed"
+    }
+  ],
+  "m3aw_regression_dry_run": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3aw-region-grid-tcn-local-smoke --model-id asl-pilot-asl-citizen-high-signal-region-grid-tcn-smoke-v1 --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 0 --epochs 2 --batch-size 4 --max-train-batches 12 --max-validation-batches 8 --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1",
+    "exit_code": 0,
+    "status": "passed",
+    "evidence_mode": "region_grid_tcn_training_smoke",
+    "training_status": "dry_run_only",
+    "output_dir": "output/m3aw-region-grid-tcn-local-smoke",
+    "hyperparameters": {
+      "epochs": 2,
+      "batch_size": 4,
+      "num_workers": 0,
+      "max_train_batches": 12,
+      "max_validation_batches": 8,
+      "training_augmentation": "none",
+      "checkpoint_selection": "final",
+      "preserve_region_axis": true
+    },
+    "input_contract": {
+      "required_contract": "rgb_regions_grid_v1",
+      "status": "passed",
+      "total_clip_count": 139,
+      "observed_counts": {
+        "rgb_regions_grid_v1": 139
+      },
+      "split_clip_counts": {
+        "train": 84,
+        "validation": 27,
+        "test": 28
+      }
+    }
+  },
+  "m3dm_brev_dry_run": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3dm-high-signal-region-grid-tcn-brev --model-id m3dm-high-signal-region-grid-tcn-brev --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1",
+    "exit_code": 0,
+    "status": "passed",
+    "evidence_mode": "region_grid_tcn_training_smoke",
+    "training_status": "dry_run_only",
+    "output_dir": "output/m3dm-high-signal-region-grid-tcn-brev",
+    "hyperparameters": {
+      "epochs": 12,
+      "batch_size": 8,
+      "num_workers": 2,
+      "max_train_batches": null,
+      "max_validation_batches": null,
+      "training_augmentation": "mild",
+      "checkpoint_selection": "best_validation",
+      "preserve_region_axis": true
+    },
+    "input_contract": {
+      "required_contract": "rgb_regions_grid_v1",
+      "status": "passed",
+      "total_clip_count": 139,
+      "observed_counts": {
+        "rgb_regions_grid_v1": 139
+      },
+      "split_clip_counts": {
+        "train": 84,
+        "validation": 27,
+        "test": 28
+      }
+    }
+  },
+  "evaluation_source": {
+    "changed": true,
+    "new_mode_or_evidence_name_introduced": false,
+    "reason": "The training fix kept the existing region_grid_tcn_training_smoke evidence mode. Evaluation only needed wording adjusted so future full-split M3DM reports remain explicitly non-final without incorrectly calling all region-grid TCN smoke capped.",
+    "m3do_evaluation_contract": "The already-authored M3DO prompt can continue to use scripts/evaluate_rawframe_model.py --region-grid-tcn-training-smoke without a new flag or mode."
+  },
+  "brev_state": {
+    "inspected": true,
+    "command": "brev ls --json",
+    "exit_code": 0,
+    "workspace": {
+      "name": "asl-pilot-rawframe-001",
+      "id": "2hl1hytty",
+      "status": "RUNNING",
+      "build_status": "COMPLETED",
+      "shell_status": "READY",
+      "health_status": "HEALTHY",
+      "instance_type": "massedcompute_A100_sxm4_80G_DGX",
+      "instance_kind": "gpu",
+      "gpu": "A100"
+    },
+    "remote_exec_run": false,
+    "sync_run": false,
+    "training_run": false,
+    "stop_or_lifecycle_command_run": false,
+    "note": "Mission 3DN used read-only Brev visibility only. The prompt forbids timed remote training in this mission and says not to stop merely because the approved worker still reports RUNNING."
+  },
+  "pretrained_components": [],
+  "boundaries": {
+    "no_timed_brev_training": true,
+    "no_broad_label_training_or_evaluation": true,
+    "no_new_dataset_import": true,
+    "no_source_register_approval_change": true,
+    "no_manifest_mutation": true,
+    "no_tensor_mutation": true,
+    "no_vocabulary_change": true,
+    "no_pseudo_labels": true,
+    "no_raw_learner_video_upload": true,
+    "no_pretrained_detector_landmark_backbone_embedding_or_generated_label": true,
+    "no_model_card_promotion": true,
+    "no_onnx_export": true,
+    "no_browser_recognition_activation": true,
+    "no_threshold_promotion": true,
+    "no_final_readiness_claim": true,
+    "no_positive_asl_correctness_claim": true,
+    "no_duplicate_worker": true,
+    "no_worker_delete_or_reset": true,
+    "no_push": true,
+    "no_amend": true,
+    "no_no_verify": true
+  },
+  "conclusion": "The local source guard now accepts the intended M3DM high-signal region-grid true-TCN dry-run while preserving the older M3AW capped local-smoke dry-run. No remote training, sync, copyback, promotion, export, browser activation, final gate change, data/source mutation, or push occurred.",
+  "exactly_one_next_action": "continue_bounded_brev_tcn_smoke_after_guard_fix"
+}

@@ -1,0 +1,154 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-candidate-checkpoint-retention-preflight/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_candidate_checkpoint_retention_preflight_no_brev",
+  "recorded_at_utc": "2026-06-04T10:05:01Z",
+  "head_before_slice": "fca0bf9c record(m3jb): run6 monitor selection preflight",
+  "status": "passed_no_brev_candidate_checkpoint_retention_preflight",
+  "source_of_truth": {
+    "previous_preflight_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run6-monitor-selection-stability-preflight-v1.json",
+    "previous_detailed_receipt": "docs/validation/m3jb-recognizer-run6-monitor-selection-stability-preflight-v1.json",
+    "active_next_action_before_slice": "m3jb_recognizer_transformer_candidate_checkpoint_retention_preflight_no_brev",
+    "side_worktree_commit": "8e90c24d",
+    "side_hashes": {
+      "train_recognizer_distill_py": "47c8c9ca16696f998b8b2d99ef4e30e44bb54561083766eb264803e92da7e921",
+      "test_recognizer_distill_diagnostics_py": "a2b856f1e31951c88b1a37a36bea543154d40350125e8305ec3981aecd75d52e"
+    }
+  },
+  "implementation": {
+    "default_off_cli_flags": [
+      "--retain-candidate-checkpoints",
+      "--candidate-checkpoint-epsilon",
+      "--candidate-checkpoint-window"
+    ],
+    "selector_policy": [
+      "argmax_monitor_verification",
+      "earliest_within_0_005_of_best_monitor_verification",
+      "latest_within_0_005_of_best_monitor_verification",
+      "trailing_mean_5_monitor_verification",
+      "trailing_median_5_monitor_verification"
+    ],
+    "checkpoint_retention_behavior": "future train runs save candidate epoch checkpoints as monitor-only selector candidates emerge; dry-run and no-save paths report the retention contract without writing checkpoints",
+    "retain_logits": false,
+    "uses_test_mined_pairs_for_training": false
+  },
+  "execution": {
+    "dryrun_command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_recognizer_distill.py --student-arch transformer --student-data tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1 --seq-len 32 --teacher-data tools/detector0-annotator/.cache/handcrop-lm2 --teacher-checkpoint tools/detector0-annotator/output/recognizer-v1.pt --epochs 240 --batch 128 --lr 5e-4 --lr-scheduler cosine --warmup-steps 500 --min-lr 5e-5 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --eval-verification --checkpoint-metric monitor_verification_recall_far10 --save-best-checkpoint --retain-candidate-checkpoints --dry-run-forward --no-save-model --device cpu --seed 0 --out tools/detector0-annotator/output/m3jb-recognizer-candidate-checkpoint-retention-preflight-dryrun-v1.json",
+    "brev_used": false,
+    "training_run": false,
+    "checkpoint_written": false
+  },
+  "dryrun_receipt": {
+    "path": "docs/validation/m3jb-recognizer-candidate-checkpoint-retention-preflight-dryrun-v1.json",
+    "sha256": "b7319e59260c37f88c399ef3f8eee2816c376838853e27330b7cf8f3c660d4b3",
+    "schema_version": "asl-pilot-recognizer-distill/v1",
+    "training_mode": "dry_run_forward"
+  },
+  "dryrun_result": {
+    "train_clips": 7011,
+    "monitor_clips": 955,
+    "test_clips": 2369,
+    "student_cache": {
+      "data_dir": "tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1",
+      "clips": 10335,
+      "classes": 95,
+      "sequence_length": 32,
+      "tensor_sequence_length": 32,
+      "feature_dim": 90,
+      "length_min": 15,
+      "length_max": 32,
+      "split_counts": {
+        "test": 2369,
+        "train": 5591,
+        "validation": 2375
+      }
+    },
+    "optimizer_steps": 0,
+    "expected_optimizer_steps": 0,
+    "planned_optimizer_steps": 13200,
+    "dry_run_logits_shape": [
+      128,
+      95
+    ],
+    "weights": null,
+    "checkpoint_selection": {
+      "metric_name": "monitor_verification_recall_far10",
+      "save_best_checkpoint": true,
+      "eval_verification": true,
+      "eval_verification_every": 1,
+      "best_epoch": null,
+      "best_score": null,
+      "checkpoint_written": false,
+      "metric_available_in_dry_run": true,
+      "monitor_verification_recall_far10": 0.11753850638525562,
+      "monitor_verification_classes_evaluable": 95
+    },
+    "candidate_checkpoint_retention": {
+      "enabled": true,
+      "retain_checkpoints": true,
+      "retain_logits": false,
+      "metric_name": "monitor_verification_recall_far10",
+      "epsilon": 0.005,
+      "window": 5,
+      "selectors": [
+        "argmax_monitor_verification",
+        "earliest_within_0_005_of_best_monitor_verification",
+        "latest_within_0_005_of_best_monitor_verification",
+        "trailing_mean_5_monitor_verification",
+        "trailing_median_5_monitor_verification"
+      ],
+      "requires_eval_verification": true,
+      "requires_eval_verification_every": 1,
+      "uses_test_mined_pairs_for_training": false,
+      "checkpoint_writes_allowed": false,
+      "checkpoint_write_blocker": "dry_run_forward",
+      "selector_candidates": [],
+      "selector_candidate_epochs": [],
+      "retention_events": [],
+      "retained_checkpoint_count": 0,
+      "retained_checkpoint_epochs": [],
+      "retained_checkpoint_paths": [],
+      "final_candidate_checkpoint_coverage": {
+        "candidate_epochs": [],
+        "retained_epochs": [],
+        "all_final_candidate_epochs_retained": false
+      }
+    }
+  },
+  "decision": {
+    "candidate_checkpoint_retention_preflight_completed": true,
+    "candidate_checkpoint_writes_validated_by_dryrun_contract": true,
+    "paid_recipe_selected": false,
+    "future_paid_recipe_ready": false,
+    "browser_or_runtime_promotion_allowed": false,
+    "reason": "Trainer now exposes default-off candidate checkpoint retention and the full-cache dry-run proves the retention contract without training or checkpoint output; a separate no-Brev research/tuning pass must select any future paid recipe.",
+    "next_action": {
+      "token": "m3jb_recognizer_transformer_retention_enabled_research_guided_tuning_no_brev",
+      "reason": "Use research/tuning to choose any next recipe now that future runs can retain robust monitor-selector candidate checkpoints."
+    }
+  },
+  "boundaries": {
+    "brev_used": false,
+    "brev_lifecycle_or_exec": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "runtime_export": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "raw_test_mined_supervision": false
+  },
+  "validation": {
+    "side_test_red_then_green": true,
+    "commands": [
+      "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/test_recognizer_distill_diagnostics.py",
+      "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_recognizer_distill.py tools/detector0-annotator/test_recognizer_distill_diagnostics.py",
+      "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_recognizer_distill.py --student-arch transformer --student-data tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1 --seq-len 32 --teacher-data tools/detector0-annotator/.cache/handcrop-lm2 --teacher-checkpoint tools/detector0-annotator/output/recognizer-v1.pt --epochs 240 --batch 128 --lr 5e-4 --lr-scheduler cosine --warmup-steps 500 --min-lr 5e-5 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --eval-verification --checkpoint-metric monitor_verification_recall_far10 --save-best-checkpoint --retain-candidate-checkpoints --dry-run-forward --no-save-model --device cpu --seed 0 --out tools/detector0-annotator/output/m3jb-recognizer-candidate-checkpoint-retention-preflight-dryrun-v1.json"
+    ],
+    "no_candidate_checkpoint_files": "find tools/detector0-annotator/output -maxdepth 1 -type f -name m3jb-recognizer-candidate-checkpoint-retention-preflight-dryrun-v1*.pt returned no files"
+  }
+}

@@ -1,0 +1,548 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3gm-metric-triage-dataset-vocab-model-input-strategy-no-brev/v1",
+  "mission": "Mission 3GM - metric triage and dataset/vocabulary/model-input strategy no Brev",
+  "status": "completed_local_no_remote_no_training_strategy_receipt",
+  "generated_at": "2026-05-29T09:28:09Z",
+  "current_commit_before_slice_commit": "1f2e717",
+  "active_prompt": "docs/model/return-to-form-m3gm-metric-triage-dataset-vocab-model-input-strategy-no-brev-goal-loop-prompt.md",
+  "commands_run": [
+    "git status --short --branch",
+    "git log -14 --oneline --decorate",
+    "node scripts/audit_loop_premise.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs --json",
+    "node scripts/audit_source_register.mjs",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "python3 -m json.tool docs/validation/return-to-form-m3gl-brev-provider-recovery-and-completion-route-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-m3gj-human-approved-evaluator-regeneration-v2-consumer-compatibility-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-m3gb-human-approved-bounded-brev-composable-training-v1.json >/dev/null",
+    "python3 -m json.tool docs/model/dataset-source-register.json >/dev/null",
+    "python3 -m json.tool data/manifests/lesson/high-signal-region-grid/train.json >/dev/null",
+    "python3 -m json.tool data/manifests/lesson/high-signal-region-grid/validation.json >/dev/null",
+    "python3 -m json.tool data/manifests/lesson/high-signal-region-grid/test.json >/dev/null",
+    "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+    "python3 -m json.tool web/public/model/detector0-card.json >/dev/null",
+    "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+    "python3 -m json.tool web/public/model/claim-matrix.json >/dev/null",
+    "python3 -m json.tool docs/validation/final-claim-matrix.json >/dev/null",
+    "brev ls --json",
+    "git diff --check",
+    "python3 -m json.tool output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/training-provenance.json >/dev/null",
+    "python3 -m json.tool output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/validation-report.json >/dev/null",
+    "python3 -m json.tool output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/prediction-sidecar.json >/dev/null",
+    "python3 -m json.tool output/m3gb-high-signal-region-grid-tcn-brev/training-provenance.json >/dev/null",
+    "python3 -m json.tool output/m3gb-high-signal-region-grid-tcn-brev/validation-report.json >/dev/null",
+    "python3 -m json.tool output/m3gb-high-signal-region-grid-tcn-brev/prediction-sidecar.json >/dev/null",
+    "shasum -a 256 output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/training-provenance.json output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/validation-report.json output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/prediction-sidecar.json output/m3gb-high-signal-region-grid-tcn-brev/training-provenance.json output/m3gb-high-signal-region-grid-tcn-brev/validation-report.json output/m3gb-high-signal-region-grid-tcn-brev/prediction-sidecar.json",
+    "jq read-only receipt, report, manifest, claim-surface, and strategy-memo extraction commands",
+    "node read-only sidecar/manifests metric extraction script"
+  ],
+  "command_results_summary": {
+    "git_status_before_slice": "## compound-plan-m0...origin/compound-plan-m0 [ahead 306]",
+    "required_audits": {
+      "audit_loop_premise": "passed",
+      "audit_return_to_form_plan": "passed",
+      "audit_source_register": "passed",
+      "audit_no_pretrained_deps": "passed",
+      "audit_no_pretrained_artifact_json": "passed"
+    },
+    "required_json_validation": "passed for M3GL, M3GJ, M3GB receipts; dataset source register; train/validation/test manifests; model-card, detector0-card, active-vocabulary claim, web claim matrix, and final claim matrix",
+    "copied_back_json_validation": "passed for present ignored M3GL and current M3GB/M3GJ output JSON files",
+    "git_diff_check_before_edits": "passed",
+    "read_only_analysis_notes": [
+      "One exploratory jq manifest sample command failed because the manifest root is an object, not an array; it was read-only and was replaced with object-aware jq extraction.",
+      "One exploratory node extraction script failed with a local ReferenceError before producing data; it was read-only and was rerun successfully with explicit threshold arguments."
+    ]
+  },
+  "read_only_brev_default_off_state": {
+    "command": "brev ls --json",
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ],
+    "lifecycle_or_remote_commands_run": []
+  },
+  "source_receipts_and_sessions": {
+    "m3gl": {
+      "receipt": "docs/validation/return-to-form-m3gl-brev-provider-recovery-and-completion-route-v1.json",
+      "session_log": "docs/session-logs/638-mission-3gl-brev-provider-recovery-and-completion-route.md",
+      "summary": "M3GL recovered the retained L40S worker without reset/replacement, ran one timed CUDA high-signal region-grid TCN training command and one evaluator command, copied back ignored diagnostic outputs, verified final STOPPED/HEALTHY state, and left claim surfaces fail-closed. Metrics regressed and gates failed."
+    },
+    "m3gj": {
+      "receipt": "docs/validation/return-to-form-m3gj-human-approved-evaluator-regeneration-v2-consumer-compatibility-v1.json",
+      "session_log": "docs/session-logs/633-mission-3gj-human-approved-evaluator-regeneration-v2-consumer-compatibility.md",
+      "summary": "M3GJ patched local prediction-sidecar consumers for v1/v2 compatibility and regenerated the M3GB report/sidecar once under human approval. The current ignored M3GB sidecar is v2 and carries probability_by_label, true_label_probability, manifest, tensor, source, review, and crop metadata. Metrics still failed."
+    },
+    "m3gb": {
+      "receipt": "docs/validation/return-to-form-m3gb-human-approved-bounded-brev-composable-training-v1.json",
+      "session_log": "docs/session-logs/613-mission-3gb-human-approved-bounded-brev-composable-training.md",
+      "summary": "M3GB ran one human-approved retained-worker L40S training/evaluation/copyback slice. The original run completed but failed top-1, macro-F1, and negative-challenge gates; M3GJ later regenerated its ignored report and sidecar into the current v2 diagnostic form."
+    },
+    "local_post_m3gb_triage": [
+      "docs/validation/return-to-form-m3gc-m3gb-metric-triage-no-remote-v1.json",
+      "docs/validation/return-to-form-m3gd-m3gb-error-pattern-analysis-no-remote-v1.json",
+      "docs/validation/return-to-form-m3ge-m3gb-source-split-metadata-contract-no-remote-v1.json",
+      "docs/validation/return-to-form-m3gf-m3gb-source-split-manifest-accounting-repair-no-remote-v1.json",
+      "docs/validation/return-to-form-m3gg-m3gb-report-sidecar-contract-gap-patch-plan-no-remote-v1.json",
+      "docs/validation/return-to-form-m3gh-m3gb-evaluator-sidecar-contract-repair-no-remote-v1.json"
+    ]
+  },
+  "copied_back_output_file_presence_and_hashes": {
+    "m3gl_current_ignored_outputs": [
+      {
+        "path": "output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/training-provenance.json",
+        "exists": true,
+        "json_valid": true,
+        "sha256": "ee40774cd64c1454b3b1b589becb19c873a87a3152cb4768dd109cf04278b5bf"
+      },
+      {
+        "path": "output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/validation-report.json",
+        "exists": true,
+        "json_valid": true,
+        "sha256": "706728be4b0b38097ca7a3a6688b9462e7e6fdcbb62864cba709137930e34ad4"
+      },
+      {
+        "path": "output/m3gl-high-signal-region-grid-tcn-brev-seed20260530/prediction-sidecar.json",
+        "exists": true,
+        "json_valid": true,
+        "sha256": "937242b3e698486f6fe1694a0cdbf1eb961abe921345d95764a93d32f488b5b5"
+      }
+    ],
+    "m3gb_m3gj_current_ignored_outputs": [
+      {
+        "path": "output/m3gb-high-signal-region-grid-tcn-brev/training-provenance.json",
+        "exists": true,
+        "json_valid": true,
+        "sha256": "16a76df276831437e3e6020ec0c05c399b0ffaca1dbcd70f749090143fab4f99",
+        "note": "Same training provenance as original M3GB."
+      },
+      {
+        "path": "output/m3gb-high-signal-region-grid-tcn-brev/validation-report.json",
+        "exists": true,
+        "json_valid": true,
+        "sha256": "35065aec48798d02e7d887398cd1634a4b50a1c70f455098161fbb584fb847de",
+        "note": "Current post-M3GJ regenerated report; original M3GB report hash was d9a08ae412b071e1a009501f3e996841ed558366030dddd5b412f5d0f5a53202."
+      },
+      {
+        "path": "output/m3gb-high-signal-region-grid-tcn-brev/prediction-sidecar.json",
+        "exists": true,
+        "json_valid": true,
+        "sha256": "733fb93cf1e79b81cfe8c4c21835db98f0ffdc1e6464f59662103ff688c29e48",
+        "note": "Current post-M3GJ regenerated v2 sidecar; original M3GB sidecar hash was cabfdeb0c28f5ba8bcc95fbf0d310817a046512de13383515cf8a485b812494a."
+      }
+    ],
+    "tracked_status": "All output/ files remain ignored diagnostic evidence and were not staged."
+  },
+  "metric_comparison_table": [
+    {
+      "run": "M3GB original training with current M3GJ regenerated evaluator output",
+      "seed": 20260519,
+      "architecture": "true_temporal_convnet_region_grid",
+      "input_contract": "rgb_regions_grid_v1",
+      "selected_epoch": 5,
+      "selected_epoch_train_accuracy": 0.34523809523809523,
+      "selected_epoch_validation_accuracy": 0.37037037037037035,
+      "last_epoch_train_accuracy": 0.4642857142857143,
+      "last_epoch_validation_accuracy": 0.25925925925925924,
+      "validation_top1": 0.37037037037037035,
+      "validation_macro_f1": 0.3320964749536178,
+      "test_top1": 0.25,
+      "test_macro_f1": 0.15634920634920638,
+      "selected_threshold": 0.49,
+      "validation_selected_false_pass_rate": 0.037037037037037035,
+      "validation_selected_coverage": 0.1111111111111111,
+      "test_false_pass_rate": 0.0,
+      "negative_challenge": null,
+      "failed_gates": [
+        "top1_accuracy",
+        "macro_f1",
+        "negative_challenge_false_pass_rate"
+      ],
+      "classification": "diagnostic_only_failed_gates"
+    },
+    {
+      "run": "M3GJ regenerated v2 sidecar/report",
+      "seed": 20260519,
+      "architecture": "true_temporal_convnet_region_grid",
+      "input_contract": "rgb_regions_grid_v1",
+      "selected_epoch": 5,
+      "validation_top1": 0.37037037037037035,
+      "validation_macro_f1": 0.3320964749536178,
+      "test_top1": 0.25,
+      "test_macro_f1": 0.15634920634920638,
+      "selected_threshold": 0.49,
+      "validation_selected_false_pass_rate": 0.037037037037037035,
+      "validation_selected_coverage": 0.1111111111111111,
+      "test_false_pass_rate": 0.0,
+      "negative_challenge": null,
+      "failed_gates": [
+        "top1_accuracy",
+        "macro_f1",
+        "negative_challenge_false_pass_rate"
+      ],
+      "classification": "same_metric_failure_with_better_sidecar_contract"
+    },
+    {
+      "run": "M3GL independent-seed Brev completion route",
+      "seed": 20260530,
+      "architecture": "true_temporal_convnet_region_grid",
+      "input_contract": "rgb_regions_grid_v1",
+      "selected_epoch": 10,
+      "selected_epoch_train_accuracy": 0.35714285714285715,
+      "selected_epoch_validation_accuracy": 0.2962962962962963,
+      "last_epoch_train_accuracy": 0.3333333333333333,
+      "last_epoch_validation_accuracy": 0.2222222222222222,
+      "validation_top1": 0.2962962962962963,
+      "validation_macro_f1": 0.2755102040816327,
+      "test_top1": 0.14285714285714285,
+      "test_macro_f1": 0.09206349206349207,
+      "selected_threshold": 0.47,
+      "validation_selected_false_pass_rate": 0.037037037037037035,
+      "validation_selected_coverage": 0.1111111111111111,
+      "test_false_pass_rate": 0.07142857142857142,
+      "negative_challenge": null,
+      "failed_gates": [
+        "top1_accuracy",
+        "macro_f1",
+        "negative_challenge_false_pass_rate"
+      ],
+      "classification": "regression_against_m3gb_m3gj_and_failed_gates"
+    }
+  ],
+  "metric_deltas_m3gl_minus_m3gj": {
+    "validation_top1": -0.07407407407407407,
+    "validation_macro_f1": -0.056586270871985145,
+    "test_top1": -0.10714285714285715,
+    "test_macro_f1": -0.06428571428571431,
+    "interpretation": "M3GL is a regression, not promotion noise. It used the same 7-label high-signal region-grid manifests, same region-preserving TCN family, and same input contract, but a new seed shifted class bias and reduced held-out test performance."
+  },
+  "per_label_and_example_patterns": {
+    "m3gj_current_m3gb_baseline": {
+      "validation_zero_or_weak_recall": {
+        "black": 0.0,
+        "table": 0.0,
+        "hello": 0.25
+      },
+      "test_zero_or_weak_recall": {
+        "black": 0.0,
+        "please": 0.0,
+        "table": 0.0,
+        "white": 0.0,
+        "hello": 0.25
+      },
+      "test_predicted_label_counts": {
+        "sad": 14,
+        "uncle": 6,
+        "hello": 4,
+        "white": 2,
+        "please": 1,
+        "table": 1
+      },
+      "notable_pattern": "M3GJ/M3GB current outputs overpredict sad on test and leave black, please, table, and white at zero test recall."
+    },
+    "m3gl": {
+      "validation_zero_or_weak_recall": {
+        "please": 0.0,
+        "sad": 0.0,
+        "white": 0.25,
+        "black": 0.25,
+        "hello": 0.25
+      },
+      "test_zero_or_weak_recall": {
+        "black": 0.0,
+        "hello": 0.0,
+        "please": 0.0,
+        "sad": 0.0,
+        "uncle": 0.25,
+        "white": 0.25
+      },
+      "test_predicted_label_counts": {
+        "table": 14,
+        "uncle": 6,
+        "white": 5,
+        "sad": 2,
+        "black": 1
+      },
+      "notable_pattern": "M3GL shifts from the M3GB/M3GJ sad-heavy test bias to table-heavy test predictions. Table improves to 0.5 recall on validation and test, but sad collapses from 1.0 test recall in M3GJ to 0.0 in M3GL, and hello/please are never predicted on test."
+    },
+    "joined_clip_change_counts": {
+      "validation_rows_joined": 27,
+      "validation_changed_prediction_or_correctness_count": 18,
+      "test_rows_joined": 28,
+      "test_changed_prediction_or_correctness_count": 22,
+      "interpretation": "The same validation/test clips produce substantially different predictions between the two seeds, which points to unstable class-boundary learning under the current dataset/vocabulary/input contract rather than a single deterministic evaluator-accounting issue."
+    },
+    "signer_patterns_m3gl": {
+      "validation_lowest_accuracy": {
+        "asl-citizen-participant-P5": 0.0,
+        "asl-citizen-participant-P39": 0.16666666666666666,
+        "asl-citizen-participant-P12": 0.2
+      },
+      "test_lowest_accuracy": {
+        "asl-citizen-participant-P35": 0.0,
+        "asl-citizen-participant-P18": 0.0,
+        "asl-citizen-participant-P48": 0.0,
+        "asl-citizen-participant-P22": 0.14285714285714285,
+        "asl-citizen-participant-P49": 0.14285714285714285
+      },
+      "interpretation": "Signer/split effects remain plausible, but rows per signer are small and do not prove signer causality without a contract that separates signer coverage, source capture, and vocabulary composition."
+    }
+  },
+  "dataset_vocabulary_model_input_findings": {
+    "current_dataset_contract": {
+      "source_family": "asl-citizen-school-assignment-raw-videos",
+      "license_review_status": "approved_noncommercial_school_assignment_raw_video_only",
+      "train_rows": 84,
+      "validation_rows": 27,
+      "test_rows": 28,
+      "labels": [
+        "black",
+        "hello",
+        "please",
+        "sad",
+        "table",
+        "uncle",
+        "white"
+      ],
+      "train_label_balance": "12 rows per label",
+      "validation_label_balance": "4 rows per label except uncle with 3 rows",
+      "test_label_balance": "4 rows per label",
+      "signer_counts": {
+        "train": 19,
+        "validation": 5,
+        "test": 7
+      },
+      "signer_overlap": "No train/validation/test signer overlap was recorded by M3GE.",
+      "source_family_contrast_available": false
+    },
+    "input_contract": {
+      "name": "rgb_regions_grid_v1",
+      "shape": [
+        16,
+        5,
+        96,
+        96,
+        3
+      ],
+      "region_order": [
+        "viewer_left_hand_context",
+        "viewer_right_hand_context",
+        "upper_body_signing_space",
+        "head_context",
+        "full_frame_reference"
+      ],
+      "region_axis_preserved_by_training": true,
+      "alignment_assessment": "The loader/evaluator contract appears wired correctly and self-contained after M3GJ/M3GH; the evidence does not show a serialization or tensor-path blocker. However, the current static fixed-region representation is not proven aligned with this 7-label vocabulary under signer-disjoint held-out splits because it lacks per-row crop/visibility/hand-contact/motion quality fields and shows seed-unstable class bias."
+    },
+    "supported_explanations": [
+      {
+        "explanation": "unstable class-boundary/generalization under current 7-label vocabulary plus rgb_regions_grid_v1 input",
+        "support": "strong",
+        "evidence": "M3GL regressed versus M3GJ/M3GB, changed 22/28 joined test predictions, shifted the dominant wrong class from sad to table, and failed top-1/macro-F1/negative-challenge gates."
+      },
+      {
+        "explanation": "threshold/calibration cannot rescue the model",
+        "support": "strong",
+        "evidence": "Both M3GJ and M3GL select thresholds with only 0.1111111111111111 validation coverage and 0.07407407407407407 validation correct-pass rate. M3GL test false-pass is still 0.07142857142857142 with only 0.14285714285714285 coverage."
+      },
+      {
+        "explanation": "evaluation/reporting contract is no longer the primary blocker for validation/test accounting",
+        "support": "strong",
+        "evidence": "M3GJ regenerated v2 sidecars with probability_by_label, true_label_probability, manifest, tensor, source, review, and crop metadata; current M3GM JSON validation and read-only analysis consumed those fields."
+      }
+    ],
+    "weakly_suggested_explanations": [
+      {
+        "explanation": "dataset/source/split or signer coverage limitations",
+        "support": "plausible_unproven",
+        "evidence": "Splits are signer-disjoint with 5 validation and 7 test signers, sparse one/two-row signers exist, and M3GL test includes three zero-correct sparse signers plus weak multi-label signers. Current evidence does not isolate signer/source/split from vocabulary, crop/input, or objective."
+      },
+      {
+        "explanation": "vocabulary composition not aligned with current fixed regions",
+        "support": "plausible_unproven",
+        "evidence": "Different labels collapse across seeds: M3GJ/M3GB zero-recall labels include black, please, table, white on test; M3GL zero-recall labels include black, hello, please, sad on test, with table becoming overpredicted. This suggests vocabulary/input interaction rather than one weak class only."
+      },
+      {
+        "explanation": "crop/input/coverage or temporal-motion blind spot",
+        "support": "plausible_unproven",
+        "evidence": "The current JSON has fixed crop metadata but no per-row visibility, occlusion, hand/contact, blur, motion, or region-content quality scores. Raw video, crop thumbnail generation, tensor generation, and input mutation were forbidden and not performed."
+      },
+      {
+        "explanation": "architecture/objective fit",
+        "support": "plausible_unproven",
+        "evidence": "Training loss moved but validation did not generalize reliably, and M3GL selected a later checkpoint with lower validation/test metrics than M3GB. No architecture search or objective change is authorized by this receipt."
+      }
+    ],
+    "still_unproven": [
+      "Whether source capture conditions or label quality explain specific weak rows.",
+      "Whether an alternate vocabulary subset would learn with the same input contract.",
+      "Whether per-region crop/visibility/hand-contact or motion diagnostics would identify an input repair.",
+      "Whether architecture/objective changes would help without changing source, vocabulary, or input representation.",
+      "Whether any future compute would produce a useful signal before a contract narrows the next hypothesis."
+    ]
+  },
+  "strategy_memo_coverage_assessment": [
+    {
+      "memo": "artifacts/research/observer-547-m3ew-post-tcn-strategy/response.md",
+      "coverage": "partially_covers_guardrails_not_exact_m3gl_evidence",
+      "assessment": "The memo already says repeated weak TCN learnability does not justify more autonomous training or GPU spend and recommends fail-closed strategy. It predates M3GJ v2 sidecars and M3GL independent-seed regression, so it does not choose a dataset/vocabulary/model-input contract for this exact evidence."
+    },
+    {
+      "memo": "artifacts/research/observer-584-m3fm-popsign-label-ladder-strategy/response.md",
+      "coverage": "partially_covers_no_training_and_vocab_review_posture",
+      "assessment": "The memo supports the same fail-closed/no-autonomous-training posture and points out vocabulary/source/strategy approval needs, but it is about PopSign label-ladder evidence and does not directly resolve the ASL Citizen high-signal region-grid M3GL failure mode."
+    },
+    {
+      "memo": "artifacts/research/observer-597-m3fs-detector0-strict-gate-strategy/response.md",
+      "coverage": "partially_covers_crop_input_detector0_escalation_boundaries",
+      "assessment": "The memo says crop/input/Detector 0 strategy changes need approval and fail-closed product claims must remain. It does not authorize a crop/input mutation or train/eval route for M3GL."
+    }
+  ],
+  "no_spend_strategy": {
+    "recommended_next_artifact": "M3GN dataset/vocabulary/model-input contract",
+    "reason": "The next smallest useful action is not compute, training, evaluator rerun, source mutation, or product hardening. It is a local contract that turns M3GL/M3GJ/M3GB evidence into explicit candidate hypotheses, allowed read-only evidence fields, approval-gated future checks, and stop/escalation rules before any source, vocabulary, input, architecture, or compute change.",
+    "must_include": [
+      "current 7-label ASL Citizen high-signal region-grid manifest and signer/split accounting",
+      "labels that are unstable or weak across M3GB/M3GJ/M3GL",
+      "which future checks can be read-only JSON accounting only",
+      "which future checks require human approval because they inspect media, generate crops/tensors, mutate source/manifests/vocabulary/input, change architecture/objective, rerun evaluation, or use Brev",
+      "criteria for selecting research/human strategy review instead of another training-style spend"
+    ],
+    "must_not_do": [
+      "run training or evaluation",
+      "run Brev lifecycle, remote, sync, copy, or exec commands",
+      "inspect raw video or generate crop thumbnails",
+      "mutate source register, manifests, tensors, vocabulary, input implementation, runtime, model card, claim matrix, or final gates",
+      "export, promote, activate browser recognition, or claim ASL correctness"
+    ]
+  },
+  "rejected_actions": [
+    {
+      "action": "continue_openai_or_gpt_pro_research_with_m3gl_evidence",
+      "rejected": true,
+      "reason": "A local no-spend M3GN contract can still reduce uncertainty without transmitting evidence outside the repo. Research becomes appropriate if M3GN must choose architecture, input representation, target schema, source scope, vocabulary, training budget, compute, privacy posture, or claim-surface changes beyond current memos."
+    },
+    {
+      "action": "prepare_followup_compute_receipt_for_human_approval",
+      "rejected": true,
+      "reason": "M3GL regressed and did not isolate a compute-worthy repair. A compute receipt is premature before a dataset/vocabulary/model-input contract states the exact hypothesis and expected metric signal."
+    },
+    {
+      "action": "continue_fail_closed_interactive_product_hardening_no_model_promotion",
+      "rejected": true,
+      "reason": "Claim surfaces already remain fail-closed and unchanged. The active M3GM lane still has a smaller local ML-strategy artifact to write before switching to product hardening."
+    },
+    {
+      "action": "stop_for_human_dataset_vocab_model_input_strategy_choice",
+      "rejected": true,
+      "reason": "The next selected action is a no-spend contract artifact, not a dataset/vocabulary/input mutation or human strategy choice. Human approval is required before acting on any contract choice that changes artifacts or spends compute."
+    },
+    {
+      "action": "run_another_brev_training_or_evaluation",
+      "rejected": true,
+      "reason": "Forbidden by M3GM and unjustified by the regression."
+    },
+    {
+      "action": "mutate_source_manifest_tensor_vocabulary_or_input",
+      "rejected": true,
+      "reason": "Forbidden by M3GM; evidence supports planning a contract only."
+    }
+  ],
+  "approval_escalation_gates": {
+    "future_training_evaluation_or_compute": {
+      "requires_fresh_human_approval": true,
+      "requires_receipt_proposal_first": true,
+      "required_fields": [
+        "exact command",
+        "workspace name and id",
+        "instance type and price",
+        "max runtime",
+        "max spend",
+        "kill condition",
+        "expected metric signal",
+        "copyback boundaries",
+        "teardown and stopped-state verification"
+      ]
+    },
+    "future_source_vocabulary_manifest_tensor_or_input_change": {
+      "requires_human_approval_or_new_active_prompt": true,
+      "reason": "M3GM is read-only strategy and cannot mutate source approvals, manifests, tensors, vocabulary, crop/input implementation, runtime, or claim surfaces."
+    },
+    "future_raw_video_crop_quality_or_detector_proxy": {
+      "requires_human_source_privacy_approval": true,
+      "reason": "Raw-video inspection, thumbnail generation, tensor/crop generation, and Detector 0 proxy output creation were forbidden and remain approval-gated."
+    },
+    "future_architecture_objective_target_schema_or_motion_descriptor_change": {
+      "requires_research_or_human_strategy_approval": true,
+      "reason": "Existing memos cover guardrails but do not authorize an M3GL-specific architecture/input/target-schema change."
+    },
+    "future_claim_or_final_gate_change": {
+      "requires_human_approval": true,
+      "reason": "Top-1, macro-F1, and negative-challenge gates failed, and claim surfaces remain fail-closed."
+    }
+  },
+  "claim_surface_status": {
+    "classification": "fail_closed_unchanged",
+    "web/public/model/model-card.json": {
+      "status": "not_trained",
+      "model_id": "asl-pilot-rawframe-v0"
+    },
+    "web/public/model/detector0-card.json": {
+      "status": "not_trained",
+      "browser_artifact": null
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": []
+    },
+    "web/public/model/claim-matrix.json": {
+      "status": "no_active_claim_rawframe_not_trained"
+    },
+    "docs/validation/final-claim-matrix.json": {
+      "status": "no_active_claim_rawframe_not_trained"
+    }
+  },
+  "explicit_forbidden_action_proof": {
+    "brev_lifecycle_commands": [],
+    "brev_remote_exec_sync_copy_commands": [],
+    "training_or_fitting_commands": [],
+    "evaluator_rerun_commands": [],
+    "browser_or_product_smoke_commands": [],
+    "raw_video_inspection": false,
+    "raw_learner_video_upload": false,
+    "source_or_media_import": false,
+    "source_register_mutation": false,
+    "manifest_tensor_vocabulary_mutation": false,
+    "crop_or_input_implementation_change": false,
+    "dependency_mutation": false,
+    "generated_labels_or_pseudolabels": false,
+    "pretrained_detector_landmark_backbone_embedding_feature_extractor_or_teacher_logits": false,
+    "model_card_promotion": false,
+    "onnx_export": false,
+    "browser_recognition_activation": false,
+    "threshold_promotion": false,
+    "final_gate_change": false,
+    "final_readiness_claim": false,
+    "positive_asl_correctness_claim": false,
+    "product_runtime_mutation": false,
+    "push": false,
+    "amend": false,
+    "no_verify": false
+  },
+  "pretrained_components": [],
+  "changed_files": [
+    "docs/validation/return-to-form-m3gm-metric-triage-dataset-vocab-model-input-strategy-no-brev-v1.json",
+    "docs/session-logs/640-mission-3gm-metric-triage-dataset-vocab-model-input-strategy-no-brev.md"
+  ],
+  "next_action": "continue_m3gn_dataset_vocab_model_input_contract_no_brev",
+  "exactly_one_next_action": true
+}

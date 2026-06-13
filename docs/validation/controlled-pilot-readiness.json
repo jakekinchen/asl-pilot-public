@@ -1,0 +1,674 @@
+{
+  "schema_version": "asl-pilot-controlled-pilot-readiness/v1",
+  "status": "incomplete_controlled_pilot",
+  "generated_at": "2026-05-22T16:33:46.626Z",
+  "source_of_truth": {
+    "pdf": {
+      "path": "superbuilders-partner-project-asl-learning-with-computer-vision.pdf",
+      "exists": true,
+      "sha256": "ae0604d350d3cc4043d8d740abe828ba889bdf88e3b7fe40d5dae275de07171a"
+    },
+    "extracted_text": {
+      "path": "docs/source-materials/pdf-extracted-text.md",
+      "exists": true,
+      "sha256": "9c20df093d00304276a4a61827f08f27581b00ea243cc9c50202c0db0464512d"
+    },
+    "requirements_matrix": {
+      "path": "docs/source-materials/requirements-matrix.md",
+      "exists": true,
+      "sha256": "b4068700824693a4b21754663b4895190d6b448acc0c3bff5494118e74cc3263"
+    },
+    "goal_prompt": {
+      "path": "docs/model/goal.md",
+      "hash_pinned": false,
+      "reason": "The goal prompt is an append-only progress ledger and changes after this audit writes evidence."
+    }
+  },
+  "summary": {
+    "passed": 4,
+    "failed": 4,
+    "blocker_count": 8
+  },
+  "controlled_pilot_blockers": [
+    {
+      "id": "practice_product_flow",
+      "label": "Practice UI exposes login, prompt, camera, pass/fail, hints, retry/next, and progress",
+      "requirement_ids": [
+        "R1",
+        "R3",
+        "R6",
+        "R12",
+        "R13",
+        "R28",
+        "R30",
+        "R32",
+        "R33",
+        "R36",
+        "R37",
+        "D1",
+        "D5",
+        "D6"
+      ],
+      "blockers": [
+        "missing practice UI strings: Create account"
+      ]
+    },
+    {
+      "id": "camera_behavior_runtime",
+      "label": "Runtime camera behavior covers success and browser error states",
+      "requirement_ids": [
+        "R13",
+        "R14",
+        "D6"
+      ],
+      "blockers": [
+        "practice camera behavior smoke must pass"
+      ]
+    },
+    {
+      "id": "trained_browser_model",
+      "label": "A trained-from-scratch browser-local pass/fail model is promoted for 75-100 signs",
+      "requirement_ids": [
+        "R15",
+        "R18",
+        "R19",
+        "R20",
+        "R23",
+        "R26",
+        "R27",
+        "D2"
+      ],
+      "blockers": [
+        "model-card status is not_trained",
+        "model label count must be 75-100; found 0",
+        "model-card browser_artifact is missing",
+        "current browser export provenance is smoke_only"
+      ]
+    },
+    {
+      "id": "controlled_validation_report",
+      "label": "Validation report documents controlled conditions, metrics, thresholds, limitations, and passing model evidence",
+      "requirement_ids": [
+        "R19",
+        "R24",
+        "R25",
+        "R27",
+        "R38",
+        "D3",
+        "D4"
+      ],
+      "blockers": [
+        "controlled-pilot validation status is controlled_pilot_validation_failed; controlled clip-heldout status is controlled_clip_heldout_validation_failed",
+        "per-label threshold diagnostic status is incomplete_per_label_thresholds_from_controlled_pilot_evidence"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "vocabulary_75_100",
+      "label": "75-100 beginner ASL vocabulary prompts are available",
+      "status": "passed",
+      "requirement_ids": [
+        "R9",
+        "R10",
+        "D1"
+      ],
+      "evidence": {
+        "vocabulary_path": {
+          "path": "web/src/lib/vocabulary.ts",
+          "exists": true,
+          "sha256": "9c4d7468d8ad8d47fa2892062614af5422194e6aa9d67cbfdeb2be57d569d245"
+        },
+        "vocabulary_count": 100,
+        "duplicate_ids": [],
+        "review_status": "source_curated"
+      },
+      "blockers": []
+    },
+    {
+      "id": "practice_product_flow",
+      "label": "Practice UI exposes login, prompt, camera, pass/fail, hints, retry/next, and progress",
+      "status": "failed",
+      "requirement_ids": [
+        "R1",
+        "R3",
+        "R6",
+        "R12",
+        "R13",
+        "R28",
+        "R30",
+        "R32",
+        "R33",
+        "R36",
+        "R37",
+        "D1",
+        "D5",
+        "D6"
+      ],
+      "evidence": {
+        "practice_app": {
+          "path": "web/src/components/PracticeApp.tsx",
+          "exists": true,
+          "sha256": "35a4dc2a3a65bf7db5b0a266c42616ad177497a0902c125a8dfa362e9b4ec64e"
+        },
+        "api_routes": [
+          {
+            "path": "web/src/app/api/auth/register/route.ts",
+            "exists": true,
+            "sha256": "30aac856dac515acf66662acdd44e84592b449cd86f6b864d37688c5ce050245"
+          },
+          {
+            "path": "web/src/app/api/auth/login/route.ts",
+            "exists": true,
+            "sha256": "211d427fc986b63a0a36dc9b4ffe6b2d2de7fbed6edf949930184c5cc6397c19"
+          },
+          {
+            "path": "web/src/app/api/auth/logout/route.ts",
+            "exists": true,
+            "sha256": "40620134b1a55c4d29c217dce4040f19987a10838bdb8847de4a4f1fdeba60d1"
+          },
+          {
+            "path": "web/src/app/api/attempts/route.ts",
+            "exists": true,
+            "sha256": "30be146630620bcee956a8f47662a8b501a1f61cad411e898c5bc3c0630f8c41"
+          },
+          {
+            "path": "web/src/app/api/progress/route.ts",
+            "exists": true,
+            "sha256": "378c47f1da0a783383421e4ec75b55984a1fb31022afa019d538f4a6cb7c1239"
+          }
+        ],
+        "required_strings": [
+          "Create account",
+          "Start camera",
+          "Submit attempt",
+          "Next prompt",
+          "Try again",
+          "Progress"
+        ],
+        "missing_strings": [
+          "Create account"
+        ],
+        "missing_routes": []
+      },
+      "blockers": [
+        "missing practice UI strings: Create account"
+      ]
+    },
+    {
+      "id": "camera_behavior_runtime",
+      "label": "Runtime camera behavior covers success and browser error states",
+      "status": "failed",
+      "requirement_ids": [
+        "R13",
+        "R14",
+        "D6"
+      ],
+      "evidence": {
+        "report": {
+          "path": "docs/validation/practice-camera-behavior-smoke.json",
+          "exists": true,
+          "sha256": "820cd01f31d5b59494a3ba78dced7daaecd85bcf23d03c11c732151f8bd681ea"
+        },
+        "status": "failed",
+        "check_count": 0
+      },
+      "blockers": [
+        "practice camera behavior smoke must pass"
+      ]
+    },
+    {
+      "id": "account_progress_runtime",
+      "label": "Runtime account and saved progress smoke passes",
+      "status": "passed",
+      "requirement_ids": [
+        "R30",
+        "R32",
+        "R33",
+        "D5"
+      ],
+      "evidence": {
+        "report": {
+          "path": "docs/validation/practice-progress-smoke.json",
+          "exists": true,
+          "sha256": "554491c66957f1d93d08194382d4e99c5f583e12490d309cc3486b468c69c34d"
+        },
+        "status": "passed",
+        "check_count": 12
+      },
+      "blockers": []
+    },
+    {
+      "id": "privacy_runtime",
+      "label": "Normal practice keeps raw camera payloads local and disables dataset collection by default",
+      "status": "passed",
+      "requirement_ids": [
+        "R16",
+        "R34",
+        "R35",
+        "D7"
+      ],
+      "evidence": {
+        "report": {
+          "path": "docs/privacy/final-privacy-smoke.json",
+          "exists": true,
+          "sha256": "54fc47c10c43dbb564a839fcc90a4d87ae6910018964fd53def09f3d0b803d65"
+        },
+        "status": "passed",
+        "normal_practice_findings": {
+          "raw_video_uploads_observed": false,
+          "raw_frame_uploads_observed": false,
+          "image_or_blob_payloads_observed": false,
+          "analytics_or_session_replay_observed": false
+        },
+        "live_http": {
+          "app_reachable": true,
+          "root_page_status": 200,
+          "root_error": null,
+          "root_content_type": "text/html; charset=utf-8",
+          "attempt_raw_payload_post_status": 400,
+          "attempt_raw_payload_error_mentions_raw_camera": true,
+          "normal_practice_raw_payload_rejected": true,
+          "dataset_clip_post_status": 403,
+          "dataset_coverage_get_status": 403,
+          "dataset_collection_default_disabled": true,
+          "root_inspection": {
+            "blocked_analytics_or_replay_hosts": [],
+            "script_srcs": [
+              "/_next/static/chunks/03cnjj9mnzy_p.js",
+              "/_next/static/chunks/07lhk_q6pmm3r.js",
+              "/_next/static/chunks/turbopack-0bxcrz71-nfi1.js",
+              "/_next/static/chunks/0dbhjjzl8qfwv.js",
+              "/_next/static/chunks/16cqkfwxysin0.js",
+              "/_next/static/chunks/0l2odaz74-iht.js",
+              "/_next/static/chunks/03~yq9q893hmn.js",
+              "/_next/static/chunks/0ht900cau6_ur.js"
+            ],
+            "analytics_or_session_replay_observed": false
+          }
+        }
+      },
+      "blockers": []
+    },
+    {
+      "id": "no_pretrained_static",
+      "label": "No-pretrained dependency and artifact JSON audits pass",
+      "status": "passed",
+      "requirement_ids": [
+        "R18",
+        "R20",
+        "R21",
+        "R22",
+        "R23",
+        "D3"
+      ],
+      "evidence": {
+        "dependency_audit": {
+          "command": [
+            "node",
+            "scripts/audit_no_pretrained_deps.mjs"
+          ],
+          "status_code": 0,
+          "status": "passed",
+          "stdout": "No banned pretrained-CV dependencies or source imports found.",
+          "stderr": ""
+        },
+        "artifact_json_audit": {
+          "command": [
+            "node",
+            "scripts/audit_no_pretrained_artifact_json.mjs"
+          ],
+          "status_code": 0,
+          "status": "passed",
+          "stdout": "{\n  \"status\": \"passed\",\n  \"checked_at\": \"2026-05-22T16:33:46.559Z\",\n  \"scanned_roots\": [\n    \"web/public/model/model-card.json\",\n    \"docs/validation/academic-benchmark-summary.json\",\n    \"docs/validation/supported-label-registry.json\",\n    \"docs/validation/hand-only-primarymath-keypoint-tier-ladder-status.json\",\n    \"docs/validation/goal-loop-prompt-task-progress.json\",\n    \"artifacts/rawframe-model-diagnostics/dtw-verifier-hand-only-tier3-primarymath-high-support-22-keypoints-f32-prefilter-k1-c12/validation-report.json\",\n    \"artifacts/rawframe-model-diagnostics/dtw-verifier-hand-only-tier3-primarymath-high-support-25-keypoints-f32-prefilter-k1-c12/validation-report.json\",\n    \"artifacts/rawframe-model-diagnostics/hand-only-tier3-primarymath-high-support-21-keypoints-lstm-classloss-e80/validation-report.json\",\n    \"artifacts/rawframe-model-diagnostics/template-verifier-hand-only-tier3-primarymath-high-support-21-keypoints-f32-k1/validation-report.json\"\n  ],\n  \"scanned_json_files\": [\n    \"artifacts/rawframe-model-diagnostics/dtw-verifier-hand-only-tier3-primarymath-high-support-22-keypoints-f32-prefilter-k1-c12/validation-report.json\",\n    \"artifacts/rawframe-model-diagnostics/dtw-verifier-hand-only-tier3-primarymath-high-support-25-keypoints-f32-prefilter-k1-c12/validation-report.json\",\n    \"artifacts/rawframe-model-diagnostics/hand-only-tier3-primarymath-high-support-21-keypoints-lstm-classloss-e80/validation-report.json\",\n    \"artifacts/rawframe-model-diagnostics/template-verifier-hand-only-tier3-primarymath-high-support-21-keypoints-f32-k1/validation-report.json\",\n    \"docs/validation/academic-benchmark-summary.json\",\n    \"docs/validation/goal-loop-prompt-task-progress.json\",\n    \"docs/validation/hand-only-primarymath-keypoint-tier-ladder-status.json\",\n    \"docs/validation/supported-label-registry.json\",\n    \"web/public/model/model-card.json\"\n  ],\n  \"findings\": []\n}",
+          "stderr": ""
+        }
+      },
+      "blockers": []
+    },
+    {
+      "id": "trained_browser_model",
+      "label": "A trained-from-scratch browser-local pass/fail model is promoted for 75-100 signs",
+      "status": "failed",
+      "requirement_ids": [
+        "R15",
+        "R18",
+        "R19",
+        "R20",
+        "R23",
+        "R26",
+        "R27",
+        "D2"
+      ],
+      "evidence": {
+        "model_card": {
+          "path": "web/public/model/model-card.json",
+          "exists": true,
+          "sha256": "8b66ff0b83abce073b09b8eb8a826094a49eca4cf28e15fdc009bb1fb644512e"
+        },
+        "model_card_status": "not_trained",
+        "model_label_count": 0,
+        "browser_artifact": null,
+        "model_artifact_audit": {
+          "command": [
+            "node",
+            "scripts/audit_model_artifacts.mjs"
+          ],
+          "status_code": 0,
+          "status": "passed",
+          "stdout": "Model artifact audit passed for the current model-card status.",
+          "stderr": ""
+        },
+        "export_provenance": {
+          "file": {
+            "path": "web/public/model/asl-pilot-rawframe-v0-export-provenance.json",
+            "exists": true,
+            "sha256": "553f4cb976b2abb075cae51e965409c3274392540864e9f5d1e7dc397d2c797f"
+          },
+          "finality": "smoke_only",
+          "evidence_mode": "smoke"
+        }
+      },
+      "blockers": [
+        "model-card status is not_trained",
+        "model label count must be 75-100; found 0",
+        "model-card browser_artifact is missing",
+        "current browser export provenance is smoke_only"
+      ]
+    },
+    {
+      "id": "controlled_validation_report",
+      "label": "Validation report documents controlled conditions, metrics, thresholds, limitations, and passing model evidence",
+      "status": "failed",
+      "requirement_ids": [
+        "R19",
+        "R24",
+        "R25",
+        "R27",
+        "R38",
+        "D3",
+        "D4"
+      ],
+      "evidence": {
+        "validation_report_doc": {
+          "path": "docs/validation/validation-report.md",
+          "exists": true,
+          "sha256": "8df0de17de9945a91ef5e136d2ae01224503c4b71a4b192ba31ea51d39452d51"
+        },
+        "rawframe_validation_report": {
+          "path": "artifacts/rawframe-model/validation-report.json",
+          "exists": true,
+          "sha256": "8ff8417201ae0fb3266b3adc105c2ce514380fb2422388f0fcc602d080d02ce9"
+        },
+        "controlled_pilot_validation_report": {
+          "path": "artifacts/rawframe-model/controlled-pilot-validation-report.json",
+          "exists": true,
+          "sha256": "f74a0cb7a9459ee9620d62b6a8a3b6593d5af77d9ef46ac5f025db0d605fc10c"
+        },
+        "controlled_clip_heldout_manifest_summary": {
+          "path": "docs/validation/controlled-pilot-clip-heldout-manifests.json",
+          "exists": true,
+          "sha256": "1e5426f6c3a988693a5025a7eb187347d2aec18e35766ac2954e9ed9228a35d3"
+        },
+        "controlled_clip_heldout_validation_report": {
+          "path": "artifacts/rawframe-model-clip-heldout/validation-report.json",
+          "exists": true,
+          "sha256": "b53481f9719fc93f05a1cd44c899366ebe0cadc1133b58c80c5d77d81e8145d8"
+        },
+        "controlled_pilot_threshold_diagnostic": {
+          "path": "docs/validation/controlled-pilot-per-label-threshold-diagnostic.json",
+          "exists": true,
+          "sha256": "20f28258529d95e77eaefbe169e3599750caf98be8ebcb0d2539a4bcb9f355b4"
+        },
+        "controlled_pilot_model_strategy_triage": {
+          "path": "docs/validation/controlled-pilot-model-strategy-triage.json",
+          "exists": true,
+          "status": "blocked_model_only_lanes_exhausted_waiting_for_approved_source_evidence"
+        },
+        "metric_summary": {
+          "status": "candidate_final_validation_failed",
+          "evidence_mode": "final",
+          "validation_top1_accuracy": 0.07789473684210527,
+          "validation_macro_f1": 0.06776494164679056,
+          "test_top1_accuracy": 0.08919667590027701,
+          "test_macro_f1": 0.08252574184488487,
+          "negative_challenge_false_pass_rate": 0.3,
+          "pass_status": {
+            "confidence_threshold": true,
+            "false_pass_rate": false,
+            "macro_f1": false,
+            "negative_challenge_false_pass_rate": false,
+            "top1_accuracy": false
+          }
+        },
+        "controlled_pilot_metric_summary": {
+          "status": "controlled_pilot_validation_failed",
+          "evidence_mode": "controlled_pilot",
+          "validation_top1_accuracy": 0.03536842105263158,
+          "validation_macro_f1": 0.016454607686159944,
+          "test_top1_accuracy": 0.05263157894736842,
+          "test_macro_f1": 0.02831105044207842,
+          "negative_challenge_false_pass_rate": 0.3,
+          "pass_status": {
+            "confidence_threshold": true,
+            "false_pass_rate": false,
+            "macro_f1": false,
+            "negative_challenge_false_pass_rate": false,
+            "top1_accuracy": false
+          }
+        },
+        "controlled_clip_heldout_metric_summary": {
+          "status": "controlled_clip_heldout_validation_failed",
+          "evidence_mode": "controlled_clip_heldout",
+          "validation_top1_accuracy": 0.06299212598425197,
+          "validation_macro_f1": 0.03613189014048743,
+          "test_top1_accuracy": 0.05833905284831846,
+          "test_macro_f1": 0.03949393963832734,
+          "negative_challenge_false_pass_rate": 0.05,
+          "pass_status": {
+            "confidence_threshold": true,
+            "false_pass_rate": true,
+            "macro_f1": false,
+            "negative_challenge_false_pass_rate": false,
+            "top1_accuracy": false
+          }
+        },
+        "model_strategy_triage_summary": {
+          "retained_candidate_count": 12,
+          "promotable_candidate_count": 0,
+          "passing_controlled_candidate_id": null,
+          "best_75_95_label_test_top1": {
+            "candidate_id": "final_signer_disjoint_motion",
+            "value": 0.08919667590027701
+          },
+          "best_reduced_label_test_top1": {
+            "candidate_id": "template_ladder_005",
+            "value": 0.4
+          },
+          "best_prompt_true_accept_rate": {
+            "candidate_id": "template_95_f16_k3_relaxed",
+            "value": 0.04986149584487535
+          },
+          "readiness_status": "incomplete_controlled_pilot",
+          "readiness_failed_checks": [
+            "trained_browser_model",
+            "controlled_validation_report"
+          ],
+          "source_remediation_status": "blocked_waiting_for_training_or_validation",
+          "first_party_capture_ready": true,
+          "first_party_store_exists": false,
+          "nvidia_source_register_status": "not_registered",
+          "clip_heldout_split_policy": "controlled_clip_heldout_not_signer_disjoint"
+        },
+        "controlled_clip_heldout_split_policy": {
+          "type": "controlled_clip_heldout_not_signer_disjoint",
+          "source": "approved PopSign v1 train/validation/test clips pooled by label and deterministically repartitioned at clip level, optionally augmented with WLASL academic selected raw clips for overlapping labels",
+          "train_fraction": 0.6,
+          "validation_fraction": 0.2,
+          "test_fraction": 0.2,
+          "limitation": "This is a controlled-pilot fallback split. It does not prove signer-disjoint generalization."
+        },
+        "controlled_clip_heldout_signer_overlap": [
+          {
+            "splits": [
+              "train",
+              "validation"
+            ],
+            "overlap_count": 46,
+            "sample_signer_identity_hashes": [
+              "011bf948349592747506599333e34ba11de2a969b51e99890dbf5f552ac4d209",
+              "028c32e46a320bf6aefbcc698ec2c68f32168c32b01e359db9225d3f9e50522d",
+              "0a4c034271536723f6b9253752108a6bba85a26dea7185e2c8c25eea2493b920",
+              "23afa7fd27999c7f8d65e30542bf66098e7ed7351c3d6a92b6e856ea00fa490e",
+              "25e2a7cb4ea13002c98f7f91d8e3a6c6acf9669b59115ea3e2efd29c199af481",
+              "27276bcbef84091a71d51eefa64efd320cd1ee6ec759d6e3c5351b4c59781553",
+              "30132f3fd3bc05eda5a491afa1802072649326f4a39e6a24ba7f2351b841f4a5",
+              "3660c753560b193daec1e61e3060fb0d2cab427ab3b6760f545fbc9f682c896b",
+              "391ee50587a25f5d3240faa6a3f4f6ad3368b5ce0541b7a3f4242de1d3afa343",
+              "3a995a2cdfb711ce172cb951cf94fcfffc7647c81733570068d3352f8c4abf9b"
+            ]
+          },
+          {
+            "splits": [
+              "train",
+              "test"
+            ],
+            "overlap_count": 47,
+            "sample_signer_identity_hashes": [
+              "011bf948349592747506599333e34ba11de2a969b51e99890dbf5f552ac4d209",
+              "028c32e46a320bf6aefbcc698ec2c68f32168c32b01e359db9225d3f9e50522d",
+              "0a4c034271536723f6b9253752108a6bba85a26dea7185e2c8c25eea2493b920",
+              "23afa7fd27999c7f8d65e30542bf66098e7ed7351c3d6a92b6e856ea00fa490e",
+              "25e2a7cb4ea13002c98f7f91d8e3a6c6acf9669b59115ea3e2efd29c199af481",
+              "27276bcbef84091a71d51eefa64efd320cd1ee6ec759d6e3c5351b4c59781553",
+              "30132f3fd3bc05eda5a491afa1802072649326f4a39e6a24ba7f2351b841f4a5",
+              "3660c753560b193daec1e61e3060fb0d2cab427ab3b6760f545fbc9f682c896b",
+              "391ee50587a25f5d3240faa6a3f4f6ad3368b5ce0541b7a3f4242de1d3afa343",
+              "3a995a2cdfb711ce172cb951cf94fcfffc7647c81733570068d3352f8c4abf9b"
+            ]
+          },
+          {
+            "splits": [
+              "validation",
+              "test"
+            ],
+            "overlap_count": 46,
+            "sample_signer_identity_hashes": [
+              "011bf948349592747506599333e34ba11de2a969b51e99890dbf5f552ac4d209",
+              "028c32e46a320bf6aefbcc698ec2c68f32168c32b01e359db9225d3f9e50522d",
+              "0a4c034271536723f6b9253752108a6bba85a26dea7185e2c8c25eea2493b920",
+              "23afa7fd27999c7f8d65e30542bf66098e7ed7351c3d6a92b6e856ea00fa490e",
+              "25e2a7cb4ea13002c98f7f91d8e3a6c6acf9669b59115ea3e2efd29c199af481",
+              "27276bcbef84091a71d51eefa64efd320cd1ee6ec759d6e3c5351b4c59781553",
+              "30132f3fd3bc05eda5a491afa1802072649326f4a39e6a24ba7f2351b841f4a5",
+              "3660c753560b193daec1e61e3060fb0d2cab427ab3b6760f545fbc9f682c896b",
+              "391ee50587a25f5d3240faa6a3f4f6ad3368b5ce0541b7a3f4242de1d3afa343",
+              "3a995a2cdfb711ce172cb951cf94fcfffc7647c81733570068d3352f8c4abf9b"
+            ]
+          }
+        ],
+        "threshold_diagnostic_summary": {
+          "label_count": 95,
+          "selected_threshold_count": 4,
+          "fail_closed_label_count": 91,
+          "validation": {
+            "examples": 2375,
+            "true_accept_count": 4,
+            "false_accept_count": 0,
+            "accepted_count": 4,
+            "coverage": 0.0016842105263157896,
+            "accepted_precision": 1,
+            "false_pass_rate": 0
+          },
+          "test": {
+            "examples": 1805,
+            "true_accept_count": 1,
+            "false_accept_count": 8,
+            "accepted_count": 9,
+            "coverage": 0.000554016620498615,
+            "accepted_precision": 0.1111111111111111,
+            "false_pass_rate": 0.00443213296398892
+          },
+          "negative_challenge": {
+            "examples": 20,
+            "false_pass_count": 0,
+            "false_pass_rate": 0
+          },
+          "global_threshold": {
+            "status": "threshold_selected",
+            "selected": {
+              "threshold": 0.335521,
+              "validation": {
+                "threshold": 0.335521,
+                "examples": 2375,
+                "true_accept_count": 1,
+                "false_accept_count": 0,
+                "accepted_count": 1,
+                "coverage": 0.0004210526315789474,
+                "accepted_precision": 1,
+                "false_pass_rate": 0
+              },
+              "test": {
+                "threshold": 0.335521,
+                "examples": 1805,
+                "true_accept_count": 3,
+                "false_accept_count": 0,
+                "accepted_count": 3,
+                "coverage": 0.0016620498614958448,
+                "accepted_precision": 1,
+                "false_pass_rate": 0
+              },
+              "negative_challenge": {
+                "threshold": 0.335521,
+                "examples": 20,
+                "false_pass_count": 1,
+                "false_pass_rate": 0.05
+              }
+            },
+            "best_available": {
+              "threshold": 0.025412,
+              "validation": {
+                "threshold": 0.025412,
+                "examples": 2375,
+                "true_accept_count": 84,
+                "false_accept_count": 2259,
+                "accepted_count": 2343,
+                "coverage": 0.03536842105263158,
+                "accepted_precision": 0.03585147247119078,
+                "false_pass_rate": 0.9511578947368421
+              },
+              "test": {
+                "threshold": 0.025412,
+                "examples": 1805,
+                "true_accept_count": 95,
+                "false_accept_count": 1684,
+                "accepted_count": 1779,
+                "coverage": 0.05263157894736842,
+                "accepted_precision": 0.05340078695896571,
+                "false_pass_rate": 0.9329639889196676
+              },
+              "negative_challenge": {
+                "threshold": 0.025412,
+                "examples": 20,
+                "false_pass_count": 20,
+                "false_pass_rate": 1
+              }
+            }
+          }
+        },
+        "contains_controlled_conditions": true,
+        "contains_incomplete_language": false
+      },
+      "blockers": [
+        "controlled-pilot validation status is controlled_pilot_validation_failed; controlled clip-heldout status is controlled_clip_heldout_validation_failed",
+        "per-label threshold diagnostic status is incomplete_per_label_thresholds_from_controlled_pilot_evidence"
+      ]
+    }
+  ],
+  "next_required_steps": [
+    "Promote or train a compliant from-scratch browser-local pass/fail model for the 75-100 sign vocabulary.",
+    "Produce controlled-pilot validation evidence with thresholds, metrics, known limitations, and no-pretrained provenance.",
+    "Promote web/public/model/model-card.json only when the trained browser artifact and validation evidence are current.",
+    "Regenerate the human validation report from controlled-pilot evidence and remove stale research-grade-only blocker language."
+  ]
+}

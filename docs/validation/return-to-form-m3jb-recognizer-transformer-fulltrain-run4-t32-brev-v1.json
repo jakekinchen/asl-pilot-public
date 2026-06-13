@@ -1,0 +1,327 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-fulltrain-run4-t32-brev/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_run4_t32_fulltrain_brev_ok",
+  "recorded_at_utc": "2026-06-04T01:55:06Z",
+  "head_before_slice": "d8f70e0a",
+  "status": "completed_improved_running_best_rejected_fail_closed_below_gate",
+  "source_of_truth": {
+    "previous_health_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run4-t32-brev-health-refresh-v1.json",
+    "previous_preflight_blocker_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run4-t32-brev-preflight-blocker-v1.json",
+    "t32_full_cache_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-t32-full-cache-validate-v1.json",
+    "selected_step": "Use the recorded recognizer-campaign Brev approval to preflight the recovered retained worker, sync/hash-verify T=32 run4 inputs, run the full-data CUDA recipe, copy artifacts back, and stop the worker."
+  },
+  "approval": {
+    "source": "GOAL.md and active prompt",
+    "summary": "Recognizer campaign records current 2026-06-03 user approval for unconstrained Brev/NVIDIA training compute on retained worker asl-pilot-m3eh-l40s-001 / 3d58wpy9o or any healthy NVIDIA worker.",
+    "max_outer_runtime_seconds": 21600,
+    "max_remote_runtime_seconds": 20000,
+    "max_spend": "No artificial cap for the recognizer campaign is recorded; no new worker was created and no infrastructure delete/reset/repair was performed."
+  },
+  "worker": {
+    "name": "asl-pilot-m3eh-l40s-001",
+    "id": "3d58wpy9o",
+    "gpu": "L40S",
+    "instance_type": "l40s-48gb.1x",
+    "initial_brev_ls": {
+      "retained": {
+        "status": "RUNNING",
+        "shell_status": "READY",
+        "health_status": "HEALTHY"
+      },
+      "other_l40s": {
+        "name": "asl-pilot-m3jb-pairrank-l40s-001",
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY"
+      }
+    },
+    "preflight": {
+      "command": "timeout 300s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && printf 'remote_cwd=' && pwd && nvidia-smi --query-gpu=name,memory.total,memory.used,utilization.gpu --format=csv,noheader && .venv/bin/python - <<'PY' ... PY && ps -eo pid=,etime=,pcpu=,pmem=,args= | grep -E 'python|torch|train|screen|tmux|jupyter' | grep -v grep || true\"",
+      "exit_code": 0,
+      "ssh_available": true,
+      "cuda_available": true,
+      "torch": "2.12.0+cu126",
+      "cuda_device_count": 1,
+      "cuda_device_name": "NVIDIA L40S",
+      "nvidia_smi": {
+        "gpu": "NVIDIA L40S",
+        "memory_total_mib": 46068,
+        "memory_used_mib": 1,
+        "utilization_gpu_percent": 0
+      },
+      "conflicting_training_process_found": false,
+      "observed_processes": [
+        "/home/ubuntu/.venv/bin/python3 /home/ubuntu/.venv/bin/jupyter-lab --ip=0.0.0.0 --no-browser --NotebookApp.token= --NotebookApp.password= --ServerApp.allow_remote_access=True",
+        "/usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers"
+      ]
+    },
+    "teardown": {
+      "stop_by_name": {
+        "command": "brev stop asl-pilot-m3eh-l40s-001",
+        "exit_code": 0,
+        "output": "asl-pilot-m3eh-l40s-001"
+      },
+      "final_wait_seconds": 20,
+      "destructive_infrastructure_action": false
+    },
+    "final_brev_ls": {
+      "other_l40s": {
+        "name": "asl-pilot-m3jb-pairrank-l40s-001",
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY"
+      },
+      "retained": {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY"
+      }
+    }
+  },
+  "sync": {
+    "mkdir_command": "timeout 300s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && mkdir -p tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1 tools/detector0-annotator/output\"",
+    "copied_to_remote": [
+      "tools/detector0-annotator/train_recognizer_distill.py",
+      "tools/detector0-annotator/test_recognizer_distill_diagnostics.py",
+      "tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1/rows.json"
+    ],
+    "remote_hash_verification_attempted": true,
+    "remote_hashes": {
+      "train_recognizer_distill.py": "a45f3294a7d227beacf069638bf0589c66c3d960ad87d1b912ced17ceeec1186",
+      "seq_transformer.py": "0d57f8b567d4b5f801164ef3e5b8ca34406cffed05f37c138290674906923eea",
+      "verification.py": "f77659fa62300eb67f3eefc1b6a79fd9944d52a566f09fbec0cee33cc9914b29",
+      "test_verification.py": "0c4f3fdf3a95a5e93019187d52cacdb73fc364e27b621601a22af5d6d518a125",
+      "test_recognizer_distill_diagnostics.py": "e49d65005fa7d8e51fb95a3e47121fab5f7afabd7b705599cf9c11210561bf6c",
+      "output/recognizer-v1.pt": "68e3292ea76b6bd3f5d39ea1d706d6a64defc9f5351ae18a94b9ad58757b389a",
+      "output/recognizer-distill.json": "71f53d59c574e99e2b213afbbce62ff9c2da42187690d76969c1b8c41f7af5ca",
+      "output/recognizer-distill.pt": "ef32effd6d11abf80304e0ccbc3526560f2437a8cba7e071b3bf2912213a08a0",
+      ".cache/handcrop-lm2/rows.json": "7f5a94acf79f5ba97acaf1bf7a9be5f797496e979ba22f9a5a990ba84f18cc52",
+      ".cache/handcrop-lm2/frames.npy": "d2feee06ef5b1d472b5701e3cf0c8f7eca3e18eb100f7486a96864a193b5b3fc",
+      ".cache/recog-seq-w64-t32-merged-v1/rows.json": "4dc3f61018a0faf7dccdc7f3653075650683b741bf7d6f7ebde2be878dd9eb9f"
+    },
+    "local_hashes_match_remote": true
+  },
+  "dryrun": {
+    "command": "env PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_recognizer_distill.py --student-data tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1 --teacher-data tools/detector0-annotator/.cache/handcrop-lm2 --teacher-checkpoint tools/detector0-annotator/output/recognizer-v1.pt --student-arch transformer --seq-len 32 --dry-run-forward --device cuda --epochs 240 --batch 128 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --lr 5e-4 --lr-scheduler cosine --warmup-steps 500 --min-lr 5e-5 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --receipt tools/detector0-annotator/output/m3jb-recognizer-transformer-run4-t32-pretrain-dryrun-v1.json",
+    "receipt_remote_path": "tools/detector0-annotator/output/m3jb-recognizer-transformer-run4-t32-pretrain-dryrun-v1.json",
+    "receipt_local_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run4-t32-pretrain-dryrun-v1.json",
+    "student_cache": {
+      "clips": 10335,
+      "classes": 95,
+      "sequence_length": 32,
+      "tensor_sequence_length": 32,
+      "feature_dim": 90,
+      "length_min": 15,
+      "length_max": 32,
+      "split_counts": {
+        "test": 2369,
+        "train": 5591,
+        "validation": 2375
+      }
+    },
+    "train_clips": 7011,
+    "monitor_clips": 955,
+    "test_clips": 2369,
+    "teacher_covered_train": 2671,
+    "teacher_covered_total": 4560,
+    "batch": 128,
+    "logits_shape": [
+      128,
+      95
+    ],
+    "loss": 8.205649,
+    "optimizer_steps": 0,
+    "expected_optimizer_steps": 0,
+    "planned_optimizer_steps": 13200,
+    "checkpoint_written": false,
+    "weights": null
+  },
+  "run": {
+    "command": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && mkdir -p tools/detector0-annotator/output && timeout 20000 bash -lc 'set -o pipefail; env PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_recognizer_distill.py --student-data tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1 --teacher-data tools/detector0-annotator/.cache/handcrop-lm2 --teacher-checkpoint tools/detector0-annotator/output/recognizer-v1.pt --student-arch transformer --seq-len 32 --device cuda --epochs 240 --batch 128 --lr 5e-4 --lr-scheduler cosine --warmup-steps 500 --min-lr 5e-5 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --out tools/detector0-annotator/output/m3jb-recognizer-transformer-run4-t32-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.json 2>&1 | tee tools/detector0-annotator/output/m3jb-recognizer-transformer-run4-t32-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.log'\"",
+    "exit_code": 0,
+    "training_launched": true,
+    "no_limit_flags": true,
+    "student_data": "tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1",
+    "teacher_data": "tools/detector0-annotator/.cache/handcrop-lm2",
+    "teacher_checkpoint": "tools/detector0-annotator/output/recognizer-v1.pt",
+    "student_arch": "transformer",
+    "seq_len": 32,
+    "device": "cuda",
+    "epochs": 240,
+    "batch": 128,
+    "lr": 0.0005,
+    "lr_scheduler": {
+      "name": "cosine",
+      "base_lr": 0.0005,
+      "warmup_steps": 500,
+      "min_lr": 0.00005
+    },
+    "d_model": 256,
+    "n_layers": 6,
+    "n_heads": 8,
+    "dropout": 0.0,
+    "alpha": 0.55,
+    "temperature": 3.0,
+    "jitter_std": 0.02,
+    "frame_drop": 0.10,
+    "steps_per_epoch": 55,
+    "optimizer_steps": 13200,
+    "expected_optimizer_steps": 13200,
+    "planned_optimizer_steps": 13200,
+    "checkpoint_written": true,
+    "receipt_written": true,
+    "log_written": true
+  },
+  "metrics": {
+    "baseline_gru": {
+      "test_top1": 0.232,
+      "test_top5": 0.567,
+      "verification_recall_at_far10_approx": 0.7
+    },
+    "run2": {
+      "verification_recall_at_far10": 0.686
+    },
+    "run3": {
+      "test_top1": 0.2984,
+      "test_top5": 0.6036,
+      "verification_recall_at_far10": 0.7316,
+      "best_monitor_top1": 0.378
+    },
+    "run4": {
+      "test_top1": 0.3132,
+      "test_top5": 0.6214,
+      "verification_recall_at_far10": 0.7626,
+      "best_monitor_top1": 0.3927,
+      "best_monitor_epoch": 226,
+      "final_monitor_top1": 0.3707,
+      "final_monitor_top5": 0.6482,
+      "final_loss": 0.0644
+    },
+    "test_top1": 0.3132,
+    "test_top5": 0.6214,
+    "verification_recall_at_far10": 0.7626,
+    "beats_gru_top1": true,
+    "beats_gru_top5": true,
+    "beats_gru_recall_approx": true,
+    "beats_run3_recall": true,
+    "beats_run3_top1": true,
+    "beats_run3_top5": true,
+    "primary_gate": 0.85,
+    "passes_primary_gate": false,
+    "decision": "rejected_fail_closed_below_verification_gate"
+  },
+  "artifacts": {
+    "remote_paths": {
+      "json": "tools/detector0-annotator/output/m3jb-recognizer-transformer-run4-t32-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.json",
+      "checkpoint": "tools/detector0-annotator/output/m3jb-recognizer-transformer-run4-t32-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.pt",
+      "log": "tools/detector0-annotator/output/m3jb-recognizer-transformer-run4-t32-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.log",
+      "pretrain_dryrun": "tools/detector0-annotator/output/m3jb-recognizer-transformer-run4-t32-pretrain-dryrun-v1.json"
+    },
+    "local_paths": {
+      "json": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run4-t32-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.json",
+      "checkpoint": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run4-t32-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.pt",
+      "log": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run4-t32-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.log",
+      "pretrain_dryrun": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run4-t32-pretrain-dryrun-v1.json"
+    },
+    "remote_hashes": {
+      "json": "7ac36c2517d3448526944a21386bee45957e659904bd2d9e6430690f0b71f279",
+      "checkpoint": "8ffc6fa5ccc01361a3b466a3c65c1f058ab125db1e9fb8cfc977474ef8ab2dc4",
+      "log": "5598205d6fe70bd3c3890c9bbae2db92666916477235281619df4c18312f342e",
+      "pretrain_dryrun": "47cb4aafc8d72d92136b3ebb2ca2db36c2a1d56c457722b5e84201e5d243213a"
+    },
+    "local_hashes": {
+      "json": "7ac36c2517d3448526944a21386bee45957e659904bd2d9e6430690f0b71f279",
+      "checkpoint": "8ffc6fa5ccc01361a3b466a3c65c1f058ab125db1e9fb8cfc977474ef8ab2dc4",
+      "log": "5598205d6fe70bd3c3890c9bbae2db92666916477235281619df4c18312f342e",
+      "pretrain_dryrun": "47cb4aafc8d72d92136b3ebb2ca2db36c2a1d56c457722b5e84201e5d243213a"
+    },
+    "copyback_verified": true,
+    "browser_promoted": false
+  },
+  "runtime_boundary": {
+    "brev_used": true,
+    "brev_lifecycle_or_exec": true,
+    "remote_mutation": true,
+    "remote_sync_attempted": true,
+    "remote_hash_verification_attempted": true,
+    "training_run": true,
+    "optimizer_or_backward_step": true,
+    "checkpoint_written": true,
+    "artifacts_copied_back": true,
+    "worker_stopped_after_run": true,
+    "worker_final_health_status": "HEALTHY",
+    "browser_artifact_promoted": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "push": false
+  },
+  "validation": [
+    {
+      "command": "git log -1 --oneline",
+      "status": "passed",
+      "summary": "d8f70e0 record(m3jb): refresh recognizer run4 t32 worker health"
+    },
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "clean before slice"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed"
+    },
+    {
+      "command": "brev ls --json",
+      "status": "passed",
+      "summary": "retained worker RUNNING / READY / HEALTHY; other L40S STOPPED / NOT READY / UNHEALTHY"
+    },
+    {
+      "command": "timeout 300s brev exec asl-pilot-m3eh-l40s-001 <remote SSH/CUDA/process preflight>",
+      "status": "passed",
+      "summary": "NVIDIA L40S, PyTorch 2.12.0+cu126, cuda_available true, no conflicting training process"
+    },
+    {
+      "command": "brev copy <trainer, diagnostics helper, T32 rows.json> to retained worker",
+      "status": "passed"
+    },
+    {
+      "command": "sha256sum <scoped remote recognizer files/caches>",
+      "status": "passed"
+    },
+    {
+      "command": "train_recognizer_distill.py --dry-run-forward --seq-len 32 --device cuda",
+      "status": "passed",
+      "summary": "logits [128,95], optimizer_steps 0, expected_optimizer_steps 0, planned_optimizer_steps 13200"
+    },
+    {
+      "command": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 <run4 fulltrain command>",
+      "status": "passed",
+      "summary": "verification_recall_at_far10 0.7626, test_top1 0.3132, test_top5 0.6214"
+    },
+    {
+      "command": "brev copy <json, pt, log, pretrain dryrun receipt> to side worktree",
+      "status": "passed"
+    },
+    {
+      "command": "shasum -a 256 <local copied artifacts> and sha256sum <remote artifacts>",
+      "status": "passed",
+      "summary": "remote and local hashes match"
+    },
+    {
+      "command": "brev stop asl-pilot-m3eh-l40s-001 && sleep 20 && brev ls --json",
+      "status": "passed",
+      "summary": "retained worker final STOPPED / NOT READY / HEALTHY"
+    }
+  ],
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_run4_research_guided_tuning_no_brev",
+    "reason": "Run4 improved the recognizer running best but still missed the 0.85 verification recall@FAR10 gate. Use the prompt-authorized research escalation before any further paid run, and keep browser/runtime promotion fail-closed."
+  }
+}

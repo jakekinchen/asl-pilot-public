@@ -1,0 +1,2159 @@
+{
+  "active_prompt": "docs/model/return-to-form-popsign-fresh5-data-vocabulary-separability-goal-loop-prompt.md",
+  "baseline_comparison": {
+    "m3bs_full_frame_smoke": {
+      "test_false_pass_rate": 0.104,
+      "test_macro_f1": 0.20170903619228636,
+      "test_top1_accuracy": 0.272
+    },
+    "m3bt_region_grid_materialization": {
+      "input_contract": "rgb_regions_grid_v1",
+      "tensor_count": 375
+    },
+    "m3bu_region_grid_mosaic_smoke": {
+      "pen_test_recall": 0.04,
+      "preserve_region_axis": false,
+      "test_false_pass_rate": 0.064,
+      "test_macro_f1": 0.2593486590038314,
+      "test_top1_accuracy": 0.288
+    },
+    "m3bv_preserved_region_tiny_overfit": {
+      "final_accuracy": 1.0,
+      "held_out_success": false,
+      "preserve_region_axis": true,
+      "zero_recall_labels": []
+    }
+  },
+  "commands": {
+    "diagnosis": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/diagnose_popsign_fresh5_data_vocabulary_separability.py",
+      "--receipt",
+      "docs/validation/return-to-form-popsign-fresh5-data-vocabulary-separability-v1.json",
+      "--write-receipt"
+    ],
+    "json_validation": [
+      "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-data-vocabulary-separability-v1.json >/dev/null"
+    ]
+  },
+  "decision": {
+    "blocker_classification": "data_vocabulary_split_source_distribution",
+    "brev_training_receipt_justified_now": false,
+    "detector0_or_crop_contract_justified_now": false,
+    "exactly_one_next_action": "continue_fresh5_vocab_split_remediation_packet",
+    "fresh10_materialization_justified_now": false,
+    "fresh5_vocab_split_remediation_packet_justified_now": true,
+    "next_action_rationale": "The next useful slice should design a no-training fresh5 vocabulary/split/source-quality remediation packet before any Brev, fresh10, export, or promotion step.",
+    "rationale": [
+      "M3BV proved train-fit on the intended preserved-region path, so the blocker is not a total loader/model break.",
+      "M3BU test recall for pen is 0.04, and thank_you absorbs 0.568 of test predictions.",
+      "Train-vs-validation signer overlap is 0; train-vs-test signer overlap is 0.",
+      "Tensor motion summaries do not show a decisive empty-hand-region failure across the packet."
+    ],
+    "secondary_risks": [],
+    "stop_justified_now": false
+  },
+  "descriptive_separability": {
+    "test": {
+      "description": "Descriptive centroid distances over fixed tensor summary features only; not model fitting and not a classifier.",
+      "nearest_interlabel_to_median_within_ratio": 0.109615,
+      "nearest_label_pairs": [
+        {
+          "centroid_distance": 0.011264,
+          "labels": [
+            "home",
+            "pen"
+          ]
+        },
+        {
+          "centroid_distance": 0.013301,
+          "labels": [
+            "home",
+            "who"
+          ]
+        },
+        {
+          "centroid_distance": 0.018363,
+          "labels": [
+            "pen",
+            "who"
+          ]
+        },
+        {
+          "centroid_distance": 0.026695,
+          "labels": [
+            "pen",
+            "thank_you"
+          ]
+        },
+        {
+          "centroid_distance": 0.031788,
+          "labels": [
+            "home",
+            "thank_you"
+          ]
+        }
+      ],
+      "within_label_mean_distance": {
+        "home": 0.076339,
+        "morning": 0.112349,
+        "pen": 0.103895,
+        "thank_you": 0.094019,
+        "who": 0.10276
+      }
+    },
+    "train": {
+      "description": "Descriptive centroid distances over fixed tensor summary features only; not model fitting and not a classifier.",
+      "nearest_interlabel_to_median_within_ratio": 0.101318,
+      "nearest_label_pairs": [
+        {
+          "centroid_distance": 0.008463,
+          "labels": [
+            "thank_you",
+            "who"
+          ]
+        },
+        {
+          "centroid_distance": 0.013638,
+          "labels": [
+            "pen",
+            "who"
+          ]
+        },
+        {
+          "centroid_distance": 0.017006,
+          "labels": [
+            "pen",
+            "thank_you"
+          ]
+        },
+        {
+          "centroid_distance": 0.017649,
+          "labels": [
+            "home",
+            "thank_you"
+          ]
+        },
+        {
+          "centroid_distance": 0.019907,
+          "labels": [
+            "morning",
+            "pen"
+          ]
+        }
+      ],
+      "within_label_mean_distance": {
+        "home": 0.083529,
+        "morning": 0.079443,
+        "pen": 0.08567,
+        "thank_you": 0.091979,
+        "who": 0.080752
+      }
+    },
+    "validation": {
+      "description": "Descriptive centroid distances over fixed tensor summary features only; not model fitting and not a classifier.",
+      "nearest_interlabel_to_median_within_ratio": 0.148008,
+      "nearest_label_pairs": [
+        {
+          "centroid_distance": 0.013275,
+          "labels": [
+            "home",
+            "pen"
+          ]
+        },
+        {
+          "centroid_distance": 0.017343,
+          "labels": [
+            "home",
+            "thank_you"
+          ]
+        },
+        {
+          "centroid_distance": 0.026728,
+          "labels": [
+            "morning",
+            "who"
+          ]
+        },
+        {
+          "centroid_distance": 0.026956,
+          "labels": [
+            "pen",
+            "thank_you"
+          ]
+        },
+        {
+          "centroid_distance": 0.027475,
+          "labels": [
+            "pen",
+            "who"
+          ]
+        }
+      ],
+      "within_label_mean_distance": {
+        "home": 0.087296,
+        "morning": 0.09944,
+        "pen": 0.086811,
+        "thank_you": 0.105236,
+        "who": 0.089691
+      }
+    }
+  },
+  "diagnosis": {
+    "classification": {
+      "blocker_classification": "data_vocabulary_split_source_distribution",
+      "brev_training_receipt_justified_now": false,
+      "detector0_or_crop_contract_justified_now": false,
+      "exactly_one_next_action": "continue_fresh5_vocab_split_remediation_packet",
+      "fresh10_materialization_justified_now": false,
+      "fresh5_vocab_split_remediation_packet_justified_now": true,
+      "rationale": [
+        "M3BV proved train-fit on the intended preserved-region path, so the blocker is not a total loader/model break.",
+        "M3BU test recall for pen is 0.04, and thank_you absorbs 0.568 of test predictions.",
+        "Train-vs-validation signer overlap is 0; train-vs-test signer overlap is 0.",
+        "Tensor motion summaries do not show a decisive empty-hand-region failure across the packet."
+      ],
+      "secondary_risks": [],
+      "stop_justified_now": false
+    },
+    "m3bv_provenance_check": {
+      "input_contract": {
+        "batched_model_input_axis": "B,T,R,C,H,W",
+        "batched_model_input_shape": [
+          5,
+          16,
+          5,
+          3,
+          96,
+          96
+        ],
+        "logits_shape": [
+          5,
+          5
+        ],
+        "no_mosaic_training_path": true,
+        "prepared_model_input_axis": "T,R,C,H,W",
+        "prepared_model_input_shape": [
+          16,
+          5,
+          3,
+          96,
+          96
+        ],
+        "raw_rgb_regions_shape": [
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "required_contract": "rgb_regions_grid_v1"
+      },
+      "training_result": {
+        "accuracy": 1.0,
+        "correct": 5,
+        "examples": 5,
+        "loss": 5.006787091588194e-07,
+        "per_label": {
+          "home": {
+            "correct": 1,
+            "recall": 1.0,
+            "support": 1
+          },
+          "morning": {
+            "correct": 1,
+            "recall": 1.0,
+            "support": 1
+          },
+          "pen": {
+            "correct": 1,
+            "recall": 1.0,
+            "support": 1
+          },
+          "thank_you": {
+            "correct": 1,
+            "recall": 1.0,
+            "support": 1
+          },
+          "who": {
+            "correct": 1,
+            "recall": 1.0,
+            "support": 1
+          }
+        },
+        "predictions": [
+          {
+            "confidence": 1.0,
+            "correct": true,
+            "predicted_label": "home",
+            "row_index": 0,
+            "true_label": "home"
+          },
+          {
+            "confidence": 1.0,
+            "correct": true,
+            "predicted_label": "morning",
+            "row_index": 1,
+            "true_label": "morning"
+          },
+          {
+            "confidence": 1.0,
+            "correct": true,
+            "predicted_label": "pen",
+            "row_index": 2,
+            "true_label": "pen"
+          },
+          {
+            "confidence": 0.9999985694885254,
+            "correct": true,
+            "predicted_label": "thank_you",
+            "row_index": 3,
+            "true_label": "thank_you"
+          },
+          {
+            "confidence": 0.999998927116394,
+            "correct": true,
+            "predicted_label": "who",
+            "row_index": 4,
+            "true_label": "who"
+          }
+        ],
+        "zero_recall_labels": []
+      }
+    },
+    "why_memorization_and_heldout_diverge": [
+      "M3BV used one deterministic train clip per label and measured train-fit only.",
+      "M3BU evaluated unseen validation/test clips and signer-disjoint source splits.",
+      "M3BU test predictions are biased toward thank_you and leave pen with very low recall.",
+      "The tensor inventory is complete, so the failure is not missing rgb_regions_grid_v1 tensors."
+    ]
+  },
+  "exactly_one_next_action": "continue_fresh5_vocab_split_remediation_packet",
+  "generated_at": "2026-05-27T19:50:49.118568+00:00",
+  "generated_by": {
+    "command": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/diagnose_popsign_fresh5_data_vocabulary_separability.py",
+      "--receipt",
+      "docs/validation/return-to-form-popsign-fresh5-data-vocabulary-separability-v1.json",
+      "--write-receipt"
+    ],
+    "python_executable": "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+    "script": {
+      "path": "scripts/diagnose_popsign_fresh5_data_vocabulary_separability.py",
+      "sha256": "019a7365091b27f7f7f1ac60f53d02c158773590ca6d82515a21117c0b87fb1a"
+    },
+    "tool": "scripts/diagnose_popsign_fresh5_data_vocabulary_separability.py",
+    "torch_version_for_tensor_reads_only": "2.12.0"
+  },
+  "guardrails": {
+    "brev_spend": false,
+    "browser_model_activation": false,
+    "checkpoint_created": false,
+    "claim_state": "fail_closed_browser_model_remains_not_trained",
+    "final_readiness_claim": false,
+    "model_card_promotion": false,
+    "model_fitting": false,
+    "pretrained_components": [],
+    "pseudo_labels_generated": false,
+    "remote_training_run": false,
+    "source_import_or_media_download": false,
+    "source_register_mutation": false,
+    "training_run": false
+  },
+  "input_artifacts": {
+    "m3bu_outputs": {
+      "prediction_sidecar": {
+        "path": "output/return-to-form-popsign-fresh5-region-grid-local-smoke/prediction-sidecar.json",
+        "sha256": "7846eaf0fc3d901224a0cb32ba5cba7ff489ac46eb4e59494692100c12058130"
+      },
+      "validation_report": {
+        "path": "output/return-to-form-popsign-fresh5-region-grid-local-smoke/validation-report.json",
+        "sha256": "aaa6687d573c007bf9326337b9070994556275a48ca03f362b6bc2a988160e1a"
+      }
+    },
+    "m3bv_outputs": {
+      "tiny_overfit_provenance": {
+        "path": "output/m3bv-popsign-fresh5-region-grid-tcn-tiny-overfit/tiny-overfit-provenance.json",
+        "sha256": "4af1d0202a96ad79d4db3306cb0f038502bd9e6e738b108f0e0441dec0b588da"
+      }
+    },
+    "manifests": {
+      "test": {
+        "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/test.json",
+        "sha256": "fd1242c965ccf671384b38af8abf84333d107562a3700d30dfa6cd84720e4046"
+      },
+      "train": {
+        "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/train.json",
+        "sha256": "6cc8ca08bc127d8b42e55e03b604702a66c94d618821c07c23b6a9bd2b0f31ef"
+      },
+      "validation": {
+        "path": "data/manifests/return-to-form-popsign-fresh5-region-grid/validation.json",
+        "sha256": "9e83e674ee9ee65508eb322b43fa0453ef7f5a76740735ebfa73a881ab3e0b40"
+      }
+    },
+    "receipts": {
+      "m3bs": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-materialization-local-smoke-v1.json",
+        "sha256": "510bce9946bf7afb145c5afb43e7b6492bb66e239511dfa91ade8ed3aca5f430"
+      },
+      "m3bt": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-region-grid-materialization-v1.json",
+        "sha256": "ff2de8d6047a6dfc735245fbe73989c90f370a32b9f35fbd3209186be10dba68"
+      },
+      "m3bu": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-region-grid-local-smoke-v1.json",
+        "sha256": "417664f34e8785d16979a3741d87a92222d20aaea6e9f789da223afaab1fcba2"
+      },
+      "m3bv": {
+        "path": "docs/validation/return-to-form-popsign-fresh5-model-data-design-ablation-v1.json",
+        "sha256": "74590b35b59e7696bc2e4f46e5fd2ae0281935aa8d7360f6efeb563453b4effe"
+      }
+    },
+    "source_register": {
+      "allowed_for_model_training": true,
+      "decision_id": "approved_popsign_v1_original_videos_2026_05_20",
+      "found": true,
+      "license_review_status": "approved_cc_by_4_raw_video_with_attribution",
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+      "source_id": "popsign-v1-original-videos"
+    }
+  },
+  "m3bu_error_concentration": {
+    "accepted_predictions_by_true_label": {
+      "home": {
+        "thank_you": 2
+      },
+      "morning": {
+        "morning": 3,
+        "thank_you": 2
+      },
+      "pen": {
+        "thank_you": 1
+      },
+      "thank_you": {
+        "thank_you": 2
+      },
+      "who": {
+        "thank_you": 3,
+        "who": 4
+      }
+    },
+    "false_accept_count_by_true_label": {
+      "home": 2,
+      "morning": 2,
+      "pen": 1,
+      "who": 3
+    },
+    "per_true_label": {
+      "home": {
+        "all_wrong_predictions": [
+          {
+            "count": 15,
+            "predicted_label": "thank_you"
+          },
+          {
+            "count": 4,
+            "predicted_label": "morning"
+          },
+          {
+            "count": 1,
+            "predicted_label": "pen"
+          },
+          {
+            "count": 1,
+            "predicted_label": "who"
+          }
+        ],
+        "correct": 4,
+        "dominant_wrong_prediction": {
+          "count": 15,
+          "predicted_label": "thank_you"
+        },
+        "recall": 0.16,
+        "support": 25
+      },
+      "morning": {
+        "all_wrong_predictions": [
+          {
+            "count": 12,
+            "predicted_label": "thank_you"
+          },
+          {
+            "count": 4,
+            "predicted_label": "home"
+          },
+          {
+            "count": 3,
+            "predicted_label": "who"
+          },
+          {
+            "count": 1,
+            "predicted_label": "pen"
+          }
+        ],
+        "correct": 5,
+        "dominant_wrong_prediction": {
+          "count": 12,
+          "predicted_label": "thank_you"
+        },
+        "recall": 0.2,
+        "support": 25
+      },
+      "pen": {
+        "all_wrong_predictions": [
+          {
+            "count": 18,
+            "predicted_label": "thank_you"
+          },
+          {
+            "count": 3,
+            "predicted_label": "who"
+          },
+          {
+            "count": 2,
+            "predicted_label": "home"
+          },
+          {
+            "count": 1,
+            "predicted_label": "morning"
+          }
+        ],
+        "correct": 1,
+        "dominant_wrong_prediction": {
+          "count": 18,
+          "predicted_label": "thank_you"
+        },
+        "recall": 0.04,
+        "support": 25
+      },
+      "thank_you": {
+        "all_wrong_predictions": [
+          {
+            "count": 3,
+            "predicted_label": "home"
+          },
+          {
+            "count": 3,
+            "predicted_label": "who"
+          },
+          {
+            "count": 2,
+            "predicted_label": "morning"
+          },
+          {
+            "count": 1,
+            "predicted_label": "pen"
+          }
+        ],
+        "correct": 16,
+        "dominant_wrong_prediction": {
+          "count": 3,
+          "predicted_label": "home"
+        },
+        "recall": 0.64,
+        "support": 25
+      },
+      "who": {
+        "all_wrong_predictions": [
+          {
+            "count": 10,
+            "predicted_label": "thank_you"
+          },
+          {
+            "count": 3,
+            "predicted_label": "morning"
+          },
+          {
+            "count": 2,
+            "predicted_label": "home"
+          }
+        ],
+        "correct": 10,
+        "dominant_wrong_prediction": {
+          "count": 10,
+          "predicted_label": "thank_you"
+        },
+        "recall": 0.4,
+        "support": 25
+      }
+    },
+    "predicted_label_fraction": {
+      "home": 0.12,
+      "morning": 0.12,
+      "pen": 0.032,
+      "thank_you": 0.568,
+      "who": 0.16
+    },
+    "predicted_label_totals": {
+      "home": 15,
+      "morning": 15,
+      "pen": 4,
+      "thank_you": 71,
+      "who": 20
+    },
+    "selected_threshold": 0.46,
+    "signer_metrics": {
+      "by_signer": [
+        {
+          "accuracy": 0.16666666666666666,
+          "correct": 2,
+          "examples": 12,
+          "label_count": 5,
+          "labels": [
+            "home",
+            "morning",
+            "pen",
+            "thank_you",
+            "who"
+          ],
+          "max_confidence": 0.5100170373916626,
+          "mean_confidence": 0.3738621473312378,
+          "signer_id": "popsign-signer-87eb8dfc14c85f7d",
+          "zero_correct": false
+        },
+        {
+          "accuracy": 0.2,
+          "correct": 4,
+          "examples": 20,
+          "label_count": 5,
+          "labels": [
+            "home",
+            "morning",
+            "pen",
+            "thank_you",
+            "who"
+          ],
+          "max_confidence": 0.43992435932159424,
+          "mean_confidence": 0.3088210314512253,
+          "signer_id": "popsign-signer-f2225747b02727cc",
+          "zero_correct": false
+        },
+        {
+          "accuracy": 0.2,
+          "correct": 3,
+          "examples": 15,
+          "label_count": 5,
+          "labels": [
+            "home",
+            "morning",
+            "pen",
+            "thank_you",
+            "who"
+          ],
+          "max_confidence": 0.5155061483383179,
+          "mean_confidence": 0.3883929530779521,
+          "signer_id": "popsign-signer-e0940122312d361a",
+          "zero_correct": false
+        },
+        {
+          "accuracy": 0.2777777777777778,
+          "correct": 5,
+          "examples": 18,
+          "label_count": 5,
+          "labels": [
+            "home",
+            "morning",
+            "pen",
+            "thank_you",
+            "who"
+          ],
+          "max_confidence": 0.4585130512714386,
+          "mean_confidence": 0.35021072377761203,
+          "signer_id": "popsign-signer-dea2b45d14f9aa79",
+          "zero_correct": false
+        },
+        {
+          "accuracy": 0.3333333333333333,
+          "correct": 4,
+          "examples": 12,
+          "label_count": 5,
+          "labels": [
+            "home",
+            "morning",
+            "pen",
+            "thank_you",
+            "who"
+          ],
+          "max_confidence": 0.5158929824829102,
+          "mean_confidence": 0.37331141034762066,
+          "signer_id": "popsign-signer-abb19b30e7af50c6",
+          "zero_correct": false
+        },
+        {
+          "accuracy": 0.35294117647058826,
+          "correct": 6,
+          "examples": 17,
+          "label_count": 5,
+          "labels": [
+            "home",
+            "morning",
+            "pen",
+            "thank_you",
+            "who"
+          ],
+          "max_confidence": 0.8980347514152527,
+          "mean_confidence": 0.40123170789550333,
+          "signer_id": "popsign-signer-0a4c034271536723",
+          "zero_correct": false
+        },
+        {
+          "accuracy": 0.35714285714285715,
+          "correct": 5,
+          "examples": 14,
+          "label_count": 4,
+          "labels": [
+            "morning",
+            "pen",
+            "thank_you",
+            "who"
+          ],
+          "max_confidence": 0.541163980960846,
+          "mean_confidence": 0.39745392224618364,
+          "signer_id": "popsign-signer-3660c753560b193d",
+          "zero_correct": false
+        },
+        {
+          "accuracy": 0.4117647058823529,
+          "correct": 7,
+          "examples": 17,
+          "label_count": 5,
+          "labels": [
+            "home",
+            "morning",
+            "pen",
+            "thank_you",
+            "who"
+          ],
+          "max_confidence": 0.5192590951919556,
+          "mean_confidence": 0.3581735965083627,
+          "signer_id": "popsign-signer-4027e4c04fcfc294",
+          "zero_correct": false
+        }
+      ],
+      "highest_accuracy": [
+        {
+          "accuracy": 0.4117647058823529,
+          "correct": 7,
+          "examples": 17,
+          "label_count": 5,
+          "labels": [
+            "home",
+            "morning",
+            "pen",
+            "thank_you",
+            "who"
+          ],
+          "max_confidence": 0.5192590951919556,
+          "mean_confidence": 0.3581735965083627,
+          "signer_id": "popsign-signer-4027e4c04fcfc294",
+          "zero_correct": false
+        },
+        {
+          "accuracy": 0.35714285714285715,
+          "correct": 5,
+          "examples": 14,
+          "label_count": 4,
+          "labels": [
+            "morning",
+            "pen",
+            "thank_you",
+            "who"
+          ],
+          "max_confidence": 0.541163980960846,
+          "mean_confidence": 0.39745392224618364,
+          "signer_id": "popsign-signer-3660c753560b193d",
+          "zero_correct": false
+        },
+        {
+          "accuracy": 0.35294117647058826,
+          "correct": 6,
+          "examples": 17,
+          "label_count": 5,
+          "labels": [
+            "home",
+            "morning",
+            "pen",
+            "thank_you",
+            "who"
+          ],
+          "max_confidence": 0.8980347514152527,
+          "mean_confidence": 0.40123170789550333,
+          "signer_id": "popsign-signer-0a4c034271536723",
+          "zero_correct": false
+        },
+        {
+          "accuracy": 0.3333333333333333,
+          "correct": 4,
+          "examples": 12,
+          "label_count": 5,
+          "labels": [
+            "home",
+            "morning",
+            "pen",
+            "thank_you",
+            "who"
+          ],
+          "max_confidence": 0.5158929824829102,
+          "mean_confidence": 0.37331141034762066,
+          "signer_id": "popsign-signer-abb19b30e7af50c6",
+          "zero_correct": false
+        },
+        {
+          "accuracy": 0.2777777777777778,
+          "correct": 5,
+          "examples": 18,
+          "label_count": 5,
+          "labels": [
+            "home",
+            "morning",
+            "pen",
+            "thank_you",
+            "who"
+          ],
+          "max_confidence": 0.4585130512714386,
+          "mean_confidence": 0.35021072377761203,
+          "signer_id": "popsign-signer-dea2b45d14f9aa79",
+          "zero_correct": false
+        }
+      ],
+      "lowest_accuracy": [
+        {
+          "accuracy": 0.16666666666666666,
+          "correct": 2,
+          "examples": 12,
+          "label_count": 5,
+          "labels": [
+            "home",
+            "morning",
+            "pen",
+            "thank_you",
+            "who"
+          ],
+          "max_confidence": 0.5100170373916626,
+          "mean_confidence": 0.3738621473312378,
+          "signer_id": "popsign-signer-87eb8dfc14c85f7d",
+          "zero_correct": false
+        },
+        {
+          "accuracy": 0.2,
+          "correct": 4,
+          "examples": 20,
+          "label_count": 5,
+          "labels": [
+            "home",
+            "morning",
+            "pen",
+            "thank_you",
+            "who"
+          ],
+          "max_confidence": 0.43992435932159424,
+          "mean_confidence": 0.3088210314512253,
+          "signer_id": "popsign-signer-f2225747b02727cc",
+          "zero_correct": false
+        },
+        {
+          "accuracy": 0.2,
+          "correct": 3,
+          "examples": 15,
+          "label_count": 5,
+          "labels": [
+            "home",
+            "morning",
+            "pen",
+            "thank_you",
+            "who"
+          ],
+          "max_confidence": 0.5155061483383179,
+          "mean_confidence": 0.3883929530779521,
+          "signer_id": "popsign-signer-e0940122312d361a",
+          "zero_correct": false
+        },
+        {
+          "accuracy": 0.2777777777777778,
+          "correct": 5,
+          "examples": 18,
+          "label_count": 5,
+          "labels": [
+            "home",
+            "morning",
+            "pen",
+            "thank_you",
+            "who"
+          ],
+          "max_confidence": 0.4585130512714386,
+          "mean_confidence": 0.35021072377761203,
+          "signer_id": "popsign-signer-dea2b45d14f9aa79",
+          "zero_correct": false
+        },
+        {
+          "accuracy": 0.3333333333333333,
+          "correct": 4,
+          "examples": 12,
+          "label_count": 5,
+          "labels": [
+            "home",
+            "morning",
+            "pen",
+            "thank_you",
+            "who"
+          ],
+          "max_confidence": 0.5158929824829102,
+          "mean_confidence": 0.37331141034762066,
+          "signer_id": "popsign-signer-abb19b30e7af50c6",
+          "zero_correct": false
+        }
+      ],
+      "signer_count": 8,
+      "zero_correct_signer_count": 0
+    },
+    "test_false_pass_rate": 0.064,
+    "test_macro_f1": 0.2593486590038314,
+    "test_top1_accuracy": 0.288
+  },
+  "m3bv_tiny_subset_representativeness": {
+    "clips": [
+      {
+        "clip_id": "popsign-v1-train-home-000051",
+        "hand_motion": 0.049531,
+        "label_id": "home",
+        "manifest_index": 50,
+        "mean_intensity": 0.347173,
+        "percentiles_within_train_label": {
+          "hand_motion": 0.72,
+          "mean_intensity": 0.12,
+          "total_motion": 0.72
+        },
+        "total_motion": 0.044459
+      },
+      {
+        "clip_id": "popsign-v1-train-morning-000101",
+        "hand_motion": 0.041217,
+        "label_id": "morning",
+        "manifest_index": 100,
+        "mean_intensity": 0.545045,
+        "percentiles_within_train_label": {
+          "hand_motion": 0.4,
+          "mean_intensity": 0.68,
+          "total_motion": 0.48
+        },
+        "total_motion": 0.040962
+      },
+      {
+        "clip_id": "popsign-v1-train-pen-000026",
+        "hand_motion": 0.080705,
+        "label_id": "pen",
+        "manifest_index": 25,
+        "mean_intensity": 0.591504,
+        "percentiles_within_train_label": {
+          "hand_motion": 1.0,
+          "mean_intensity": 0.88,
+          "total_motion": 1.0
+        },
+        "total_motion": 0.08376
+      },
+      {
+        "clip_id": "popsign-v1-train-thank_you-000001",
+        "hand_motion": 0.031947,
+        "label_id": "thank_you",
+        "manifest_index": 0,
+        "mean_intensity": 0.535814,
+        "percentiles_within_train_label": {
+          "hand_motion": 0.2,
+          "mean_intensity": 0.72,
+          "total_motion": 0.2
+        },
+        "total_motion": 0.028146
+      },
+      {
+        "clip_id": "popsign-v1-train-who-000076",
+        "hand_motion": 0.04467,
+        "label_id": "who",
+        "manifest_index": 75,
+        "mean_intensity": 0.487634,
+        "percentiles_within_train_label": {
+          "hand_motion": 0.6,
+          "mean_intensity": 0.6,
+          "total_motion": 0.56
+        },
+        "total_motion": 0.040126
+      }
+    ],
+    "interpretation": "The M3BV subset is one deterministic lexicographic train clip per label. It is valid for model/input memorization, but these percentiles show it is not a held-out or representative distribution proof."
+  },
+  "mission": "Mission 3BW - PopSign fresh5 data/vocabulary separability packet",
+  "schema_version": "asl-pilot-popsign-fresh5-data-vocabulary-separability/v1",
+  "scope": {
+    "existing_artifacts_only": true,
+    "local_only": true,
+    "no_brev_training_or_spend": true,
+    "no_broad_training": true,
+    "no_export_or_browser_activation": true,
+    "no_final_gate_change": true,
+    "no_fresh10_training": true,
+    "no_model_card_promotion": true,
+    "no_optimizer_backward_or_checkpoint": true,
+    "no_pretrained_dependency": true,
+    "no_pseudo_labels": true,
+    "no_remote_command": true,
+    "no_source_register_change": true,
+    "no_training_or_fitting": true,
+    "no_unreviewed_source_import": true
+  },
+  "split_and_source_distribution": {
+    "signer_overlap": {
+      "train_vs_test": {
+        "label_shared_signer_identity_hash_count": {
+          "home": 0,
+          "morning": 0,
+          "pen": 0,
+          "thank_you": 0,
+          "who": 0
+        },
+        "shared_signer_identity_hash_count": 0
+      },
+      "train_vs_validation": {
+        "label_shared_signer_identity_hash_count": {
+          "home": 0,
+          "morning": 0,
+          "pen": 0,
+          "thank_you": 0,
+          "who": 0
+        },
+        "shared_signer_identity_hash_count": 0
+      },
+      "validation_vs_test": {
+        "label_shared_signer_identity_hash_count": {
+          "home": 0,
+          "morning": 0,
+          "pen": 0,
+          "thank_you": 0,
+          "who": 0
+        },
+        "shared_signer_identity_hash_count": 0
+      }
+    },
+    "splits": {
+      "test": {
+        "clip_count": 125,
+        "label_counts": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "signer_identity_hash_count": 8,
+        "signer_identity_hash_count_by_label": {
+          "home": 7,
+          "morning": 8,
+          "pen": 8,
+          "thank_you": 8,
+          "who": 8
+        },
+        "source_sign_slug_counts": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thankyou": 25,
+          "who": 25
+        },
+        "source_split_counts": {
+          "test": 125
+        },
+        "source_split_counts_by_label": {
+          "home": {
+            "test": 25
+          },
+          "morning": {
+            "test": 25
+          },
+          "pen": {
+            "test": 25
+          },
+          "thank_you": {
+            "test": 25
+          },
+          "who": {
+            "test": 25
+          }
+        }
+      },
+      "train": {
+        "clip_count": 125,
+        "label_counts": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "signer_identity_hash_count": 31,
+        "signer_identity_hash_count_by_label": {
+          "home": 18,
+          "morning": 15,
+          "pen": 14,
+          "thank_you": 18,
+          "who": 18
+        },
+        "source_sign_slug_counts": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thankyou": 25,
+          "who": 25
+        },
+        "source_split_counts": {
+          "train": 125
+        },
+        "source_split_counts_by_label": {
+          "home": {
+            "train": 25
+          },
+          "morning": {
+            "train": 25
+          },
+          "pen": {
+            "train": 25
+          },
+          "thank_you": {
+            "train": 25
+          },
+          "who": {
+            "train": 25
+          }
+        }
+      },
+      "validation": {
+        "clip_count": 125,
+        "label_counts": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thank_you": 25,
+          "who": 25
+        },
+        "signer_identity_hash_count": 8,
+        "signer_identity_hash_count_by_label": {
+          "home": 8,
+          "morning": 7,
+          "pen": 6,
+          "thank_you": 8,
+          "who": 8
+        },
+        "source_sign_slug_counts": {
+          "home": 25,
+          "morning": 25,
+          "pen": 25,
+          "thankyou": 25,
+          "who": 25
+        },
+        "source_split_counts": {
+          "val": 125
+        },
+        "source_split_counts_by_label": {
+          "home": {
+            "val": 25
+          },
+          "morning": {
+            "val": 25
+          },
+          "pen": {
+            "val": 25
+          },
+          "thank_you": {
+            "val": 25
+          },
+          "who": {
+            "val": 25
+          }
+        }
+      }
+    }
+  },
+  "status": "completed_no_training_diagnosis",
+  "tensor_motion_region_summary": {
+    "test:home": {
+      "clip_count": 25,
+      "hand_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.072448,
+        "mean": 0.049029,
+        "median": 0.049013,
+        "min": 0.023474
+      },
+      "low_hand_motion_clip_count": 0,
+      "low_hand_motion_fraction": 0.0,
+      "low_hand_motion_threshold": 0.01,
+      "mean_intensity": {
+        "count": 25,
+        "max": 0.552217,
+        "mean": 0.431138,
+        "median": 0.425597,
+        "min": 0.297319
+      },
+      "per_region_frame_absdiff_mean": {
+        "full_frame_reference": {
+          "count": 25,
+          "max": 0.069156,
+          "mean": 0.041914,
+          "median": 0.042024,
+          "min": 0.021073
+        },
+        "head_context": {
+          "count": 25,
+          "max": 0.09231,
+          "mean": 0.045963,
+          "median": 0.043538,
+          "min": 0.015828
+        },
+        "upper_body_signing_space": {
+          "count": 25,
+          "max": 0.076514,
+          "mean": 0.050398,
+          "median": 0.050276,
+          "min": 0.02508
+        },
+        "viewer_left_hand_context": {
+          "count": 25,
+          "max": 0.077937,
+          "mean": 0.051655,
+          "median": 0.051418,
+          "min": 0.012745
+        },
+        "viewer_right_hand_context": {
+          "count": 25,
+          "max": 0.089942,
+          "mean": 0.046403,
+          "median": 0.043022,
+          "min": 0.020407
+        }
+      },
+      "total_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.076575,
+        "mean": 0.047266,
+        "median": 0.048429,
+        "min": 0.024136
+      }
+    },
+    "test:morning": {
+      "clip_count": 25,
+      "hand_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.097875,
+        "mean": 0.057207,
+        "median": 0.05502,
+        "min": 0.027002
+      },
+      "low_hand_motion_clip_count": 0,
+      "low_hand_motion_fraction": 0.0,
+      "low_hand_motion_threshold": 0.01,
+      "mean_intensity": {
+        "count": 25,
+        "max": 0.650764,
+        "mean": 0.40492,
+        "median": 0.414646,
+        "min": 0.181092
+      },
+      "per_region_frame_absdiff_mean": {
+        "full_frame_reference": {
+          "count": 25,
+          "max": 0.086472,
+          "mean": 0.049411,
+          "median": 0.044723,
+          "min": 0.022553
+        },
+        "head_context": {
+          "count": 25,
+          "max": 0.1147,
+          "mean": 0.052867,
+          "median": 0.044325,
+          "min": 0.011792
+        },
+        "upper_body_signing_space": {
+          "count": 25,
+          "max": 0.099103,
+          "mean": 0.058508,
+          "median": 0.053136,
+          "min": 0.027512
+        },
+        "viewer_left_hand_context": {
+          "count": 25,
+          "max": 0.093485,
+          "mean": 0.053751,
+          "median": 0.052806,
+          "min": 0.026226
+        },
+        "viewer_right_hand_context": {
+          "count": 25,
+          "max": 0.13617,
+          "mean": 0.060663,
+          "median": 0.048165,
+          "min": 0.014951
+        }
+      },
+      "total_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.095302,
+        "mean": 0.05504,
+        "median": 0.050019,
+        "min": 0.023172
+      }
+    },
+    "test:pen": {
+      "clip_count": 25,
+      "hand_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.098002,
+        "mean": 0.052519,
+        "median": 0.049372,
+        "min": 0.026538
+      },
+      "low_hand_motion_clip_count": 0,
+      "low_hand_motion_fraction": 0.0,
+      "low_hand_motion_threshold": 0.01,
+      "mean_intensity": {
+        "count": 25,
+        "max": 0.608712,
+        "mean": 0.43624,
+        "median": 0.441099,
+        "min": 0.257666
+      },
+      "per_region_frame_absdiff_mean": {
+        "full_frame_reference": {
+          "count": 25,
+          "max": 0.083577,
+          "mean": 0.04447,
+          "median": 0.043326,
+          "min": 0.021938
+        },
+        "head_context": {
+          "count": 25,
+          "max": 0.074914,
+          "mean": 0.038641,
+          "median": 0.039285,
+          "min": 0.011572
+        },
+        "upper_body_signing_space": {
+          "count": 25,
+          "max": 0.095467,
+          "mean": 0.052053,
+          "median": 0.05235,
+          "min": 0.025533
+        },
+        "viewer_left_hand_context": {
+          "count": 25,
+          "max": 0.109355,
+          "mean": 0.054506,
+          "median": 0.049122,
+          "min": 0.029639
+        },
+        "viewer_right_hand_context": {
+          "count": 25,
+          "max": 0.126016,
+          "mean": 0.050533,
+          "median": 0.041032,
+          "min": 0.017964
+        }
+      },
+      "total_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.089992,
+        "mean": 0.048041,
+        "median": 0.048202,
+        "min": 0.023094
+      }
+    },
+    "test:thank_you": {
+      "clip_count": 25,
+      "hand_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.083856,
+        "mean": 0.049418,
+        "median": 0.046704,
+        "min": 0.015196
+      },
+      "low_hand_motion_clip_count": 0,
+      "low_hand_motion_fraction": 0.0,
+      "low_hand_motion_threshold": 0.01,
+      "mean_intensity": {
+        "count": 25,
+        "max": 0.620282,
+        "mean": 0.462,
+        "median": 0.47588,
+        "min": 0.183823
+      },
+      "per_region_frame_absdiff_mean": {
+        "full_frame_reference": {
+          "count": 25,
+          "max": 0.076858,
+          "mean": 0.042279,
+          "median": 0.038329,
+          "min": 0.012647
+        },
+        "head_context": {
+          "count": 25,
+          "max": 0.0819,
+          "mean": 0.039111,
+          "median": 0.03539,
+          "min": 0.007024
+        },
+        "upper_body_signing_space": {
+          "count": 25,
+          "max": 0.089832,
+          "mean": 0.049373,
+          "median": 0.046713,
+          "min": 0.014708
+        },
+        "viewer_left_hand_context": {
+          "count": 25,
+          "max": 0.088111,
+          "mean": 0.050086,
+          "median": 0.049501,
+          "min": 0.017964
+        },
+        "viewer_right_hand_context": {
+          "count": 25,
+          "max": 0.103441,
+          "mean": 0.048749,
+          "median": 0.043589,
+          "min": 0.012428
+        }
+      },
+      "total_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.08326,
+        "mean": 0.045919,
+        "median": 0.04274,
+        "min": 0.012954
+      }
+    },
+    "test:who": {
+      "clip_count": 25,
+      "hand_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.093786,
+        "mean": 0.047713,
+        "median": 0.043228,
+        "min": 0.023248
+      },
+      "low_hand_motion_clip_count": 0,
+      "low_hand_motion_fraction": 0.0,
+      "low_hand_motion_threshold": 0.01,
+      "mean_intensity": {
+        "count": 25,
+        "max": 0.560798,
+        "mean": 0.422587,
+        "median": 0.41523,
+        "min": 0.125714
+      },
+      "per_region_frame_absdiff_mean": {
+        "full_frame_reference": {
+          "count": 25,
+          "max": 0.074296,
+          "mean": 0.03965,
+          "median": 0.037289,
+          "min": 0.020298
+        },
+        "head_context": {
+          "count": 25,
+          "max": 0.083019,
+          "mean": 0.039312,
+          "median": 0.039808,
+          "min": 0.012996
+        },
+        "upper_body_signing_space": {
+          "count": 25,
+          "max": 0.090717,
+          "mean": 0.047363,
+          "median": 0.043219,
+          "min": 0.023848
+        },
+        "viewer_left_hand_context": {
+          "count": 25,
+          "max": 0.091049,
+          "mean": 0.04637,
+          "median": 0.043406,
+          "min": 0.020434
+        },
+        "viewer_right_hand_context": {
+          "count": 25,
+          "max": 0.113259,
+          "mean": 0.049056,
+          "median": 0.048243,
+          "min": 0.015378
+        }
+      },
+      "total_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.080888,
+        "mean": 0.04435,
+        "median": 0.041319,
+        "min": 0.020728
+      }
+    },
+    "train:home": {
+      "clip_count": 25,
+      "hand_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.09284,
+        "mean": 0.047533,
+        "median": 0.043218,
+        "min": 0.026942
+      },
+      "low_hand_motion_clip_count": 0,
+      "low_hand_motion_fraction": 0.0,
+      "low_hand_motion_threshold": 0.01,
+      "mean_intensity": {
+        "count": 25,
+        "max": 0.581126,
+        "mean": 0.452889,
+        "median": 0.446568,
+        "min": 0.285729
+      },
+      "per_region_frame_absdiff_mean": {
+        "full_frame_reference": {
+          "count": 25,
+          "max": 0.087237,
+          "mean": 0.041091,
+          "median": 0.036353,
+          "min": 0.022643
+        },
+        "head_context": {
+          "count": 25,
+          "max": 0.097146,
+          "mean": 0.037177,
+          "median": 0.034509,
+          "min": 0.012982
+        },
+        "upper_body_signing_space": {
+          "count": 25,
+          "max": 0.08842,
+          "mean": 0.046899,
+          "median": 0.039976,
+          "min": 0.029799
+        },
+        "viewer_left_hand_context": {
+          "count": 25,
+          "max": 0.095505,
+          "mean": 0.05676,
+          "median": 0.053919,
+          "min": 0.018058
+        },
+        "viewer_right_hand_context": {
+          "count": 25,
+          "max": 0.102733,
+          "mean": 0.038305,
+          "median": 0.028819,
+          "min": 0.012284
+        }
+      },
+      "total_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.091697,
+        "mean": 0.044046,
+        "median": 0.037981,
+        "min": 0.025269
+      }
+    },
+    "train:morning": {
+      "clip_count": 25,
+      "hand_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.073475,
+        "mean": 0.047029,
+        "median": 0.04621,
+        "min": 0.030424
+      },
+      "low_hand_motion_clip_count": 0,
+      "low_hand_motion_fraction": 0.0,
+      "low_hand_motion_threshold": 0.01,
+      "mean_intensity": {
+        "count": 25,
+        "max": 0.619359,
+        "mean": 0.497762,
+        "median": 0.497059,
+        "min": 0.367306
+      },
+      "per_region_frame_absdiff_mean": {
+        "full_frame_reference": {
+          "count": 25,
+          "max": 0.069604,
+          "mean": 0.041126,
+          "median": 0.03929,
+          "min": 0.02737
+        },
+        "head_context": {
+          "count": 25,
+          "max": 0.085121,
+          "mean": 0.041999,
+          "median": 0.038519,
+          "min": 0.018507
+        },
+        "upper_body_signing_space": {
+          "count": 25,
+          "max": 0.077085,
+          "mean": 0.047081,
+          "median": 0.044403,
+          "min": 0.031447
+        },
+        "viewer_left_hand_context": {
+          "count": 25,
+          "max": 0.092577,
+          "mean": 0.05463,
+          "median": 0.052243,
+          "min": 0.025709
+        },
+        "viewer_right_hand_context": {
+          "count": 25,
+          "max": 0.081473,
+          "mean": 0.039428,
+          "median": 0.040016,
+          "min": 0.013825
+        }
+      },
+      "total_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.072302,
+        "mean": 0.044853,
+        "median": 0.042688,
+        "min": 0.030436
+      }
+    },
+    "train:pen": {
+      "clip_count": 25,
+      "hand_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.080705,
+        "mean": 0.043078,
+        "median": 0.043529,
+        "min": 0.019089
+      },
+      "low_hand_motion_clip_count": 0,
+      "low_hand_motion_fraction": 0.0,
+      "low_hand_motion_threshold": 0.01,
+      "mean_intensity": {
+        "count": 25,
+        "max": 0.638026,
+        "mean": 0.482988,
+        "median": 0.457354,
+        "min": 0.283645
+      },
+      "per_region_frame_absdiff_mean": {
+        "full_frame_reference": {
+          "count": 25,
+          "max": 0.076268,
+          "mean": 0.037324,
+          "median": 0.03678,
+          "min": 0.016054
+        },
+        "head_context": {
+          "count": 25,
+          "max": 0.094904,
+          "mean": 0.034431,
+          "median": 0.029755,
+          "min": 0.018133
+        },
+        "upper_body_signing_space": {
+          "count": 25,
+          "max": 0.086216,
+          "mean": 0.042999,
+          "median": 0.042392,
+          "min": 0.020197
+        },
+        "viewer_left_hand_context": {
+          "count": 25,
+          "max": 0.096523,
+          "mean": 0.047439,
+          "median": 0.052088,
+          "min": 0.015016
+        },
+        "viewer_right_hand_context": {
+          "count": 25,
+          "max": 0.064886,
+          "mean": 0.038717,
+          "median": 0.038192,
+          "min": 0.012212
+        }
+      },
+      "total_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.08376,
+        "mean": 0.040182,
+        "median": 0.039298,
+        "min": 0.018808
+      }
+    },
+    "train:thank_you": {
+      "clip_count": 25,
+      "hand_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.080062,
+        "mean": 0.047856,
+        "median": 0.050155,
+        "min": 0.024029
+      },
+      "low_hand_motion_clip_count": 0,
+      "low_hand_motion_fraction": 0.0,
+      "low_hand_motion_threshold": 0.01,
+      "mean_intensity": {
+        "count": 25,
+        "max": 0.606432,
+        "mean": 0.469808,
+        "median": 0.465848,
+        "min": 0.270011
+      },
+      "per_region_frame_absdiff_mean": {
+        "full_frame_reference": {
+          "count": 25,
+          "max": 0.069018,
+          "mean": 0.040682,
+          "median": 0.042237,
+          "min": 0.019331
+        },
+        "head_context": {
+          "count": 25,
+          "max": 0.069003,
+          "mean": 0.035697,
+          "median": 0.02978,
+          "min": 0.011304
+        },
+        "upper_body_signing_space": {
+          "count": 25,
+          "max": 0.081851,
+          "mean": 0.047034,
+          "median": 0.048676,
+          "min": 0.02172
+        },
+        "viewer_left_hand_context": {
+          "count": 25,
+          "max": 0.09089,
+          "mean": 0.05373,
+          "median": 0.048903,
+          "min": 0.021976
+        },
+        "viewer_right_hand_context": {
+          "count": 25,
+          "max": 0.071013,
+          "mean": 0.041982,
+          "median": 0.03981,
+          "min": 0.015244
+        }
+      },
+      "total_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.07596,
+        "mean": 0.043825,
+        "median": 0.044594,
+        "min": 0.020353
+      }
+    },
+    "train:who": {
+      "clip_count": 25,
+      "hand_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.065925,
+        "mean": 0.044108,
+        "median": 0.041716,
+        "min": 0.025171
+      },
+      "low_hand_motion_clip_count": 0,
+      "low_hand_motion_fraction": 0.0,
+      "low_hand_motion_threshold": 0.01,
+      "mean_intensity": {
+        "count": 25,
+        "max": 0.648876,
+        "mean": 0.47084,
+        "median": 0.481728,
+        "min": 0.319585
+      },
+      "per_region_frame_absdiff_mean": {
+        "full_frame_reference": {
+          "count": 25,
+          "max": 0.061361,
+          "mean": 0.038583,
+          "median": 0.036085,
+          "min": 0.021104
+        },
+        "head_context": {
+          "count": 25,
+          "max": 0.081867,
+          "mean": 0.039478,
+          "median": 0.034787,
+          "min": 0.012555
+        },
+        "upper_body_signing_space": {
+          "count": 25,
+          "max": 0.069623,
+          "mean": 0.044497,
+          "median": 0.04266,
+          "min": 0.023795
+        },
+        "viewer_left_hand_context": {
+          "count": 25,
+          "max": 0.091538,
+          "mean": 0.049484,
+          "median": 0.044182,
+          "min": 0.025595
+        },
+        "viewer_right_hand_context": {
+          "count": 25,
+          "max": 0.082053,
+          "mean": 0.038733,
+          "median": 0.036075,
+          "min": 0.016315
+        }
+      },
+      "total_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.068795,
+        "mean": 0.042155,
+        "median": 0.03938,
+        "min": 0.023774
+      }
+    },
+    "validation:home": {
+      "clip_count": 25,
+      "hand_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.078986,
+        "mean": 0.041596,
+        "median": 0.038353,
+        "min": 0.019347
+      },
+      "low_hand_motion_clip_count": 0,
+      "low_hand_motion_fraction": 0.0,
+      "low_hand_motion_threshold": 0.01,
+      "mean_intensity": {
+        "count": 25,
+        "max": 0.660824,
+        "mean": 0.523647,
+        "median": 0.5078,
+        "min": 0.321716
+      },
+      "per_region_frame_absdiff_mean": {
+        "full_frame_reference": {
+          "count": 25,
+          "max": 0.070811,
+          "mean": 0.03418,
+          "median": 0.031882,
+          "min": 0.014962
+        },
+        "head_context": {
+          "count": 25,
+          "max": 0.069662,
+          "mean": 0.028444,
+          "median": 0.023453,
+          "min": 0.011133
+        },
+        "upper_body_signing_space": {
+          "count": 25,
+          "max": 0.076401,
+          "mean": 0.039852,
+          "median": 0.036391,
+          "min": 0.019475
+        },
+        "viewer_left_hand_context": {
+          "count": 25,
+          "max": 0.096731,
+          "mean": 0.050247,
+          "median": 0.039992,
+          "min": 0.027695
+        },
+        "viewer_right_hand_context": {
+          "count": 25,
+          "max": 0.069465,
+          "mean": 0.032946,
+          "median": 0.02666,
+          "min": 0.010474
+        }
+      },
+      "total_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.073634,
+        "mean": 0.037134,
+        "median": 0.033944,
+        "min": 0.016892
+      }
+    },
+    "validation:morning": {
+      "clip_count": 25,
+      "hand_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.132076,
+        "mean": 0.051361,
+        "median": 0.044462,
+        "min": 0.021468
+      },
+      "low_hand_motion_clip_count": 0,
+      "low_hand_motion_fraction": 0.0,
+      "low_hand_motion_threshold": 0.01,
+      "mean_intensity": {
+        "count": 25,
+        "max": 0.618551,
+        "mean": 0.495695,
+        "median": 0.479463,
+        "min": 0.314741
+      },
+      "per_region_frame_absdiff_mean": {
+        "full_frame_reference": {
+          "count": 25,
+          "max": 0.1157,
+          "mean": 0.045772,
+          "median": 0.039422,
+          "min": 0.016975
+        },
+        "head_context": {
+          "count": 25,
+          "max": 0.113265,
+          "mean": 0.043524,
+          "median": 0.036466,
+          "min": 0.012456
+        },
+        "upper_body_signing_space": {
+          "count": 25,
+          "max": 0.128771,
+          "mean": 0.050986,
+          "median": 0.043369,
+          "min": 0.021697
+        },
+        "viewer_left_hand_context": {
+          "count": 25,
+          "max": 0.124712,
+          "mean": 0.060544,
+          "median": 0.050793,
+          "min": 0.030553
+        },
+        "viewer_right_hand_context": {
+          "count": 25,
+          "max": 0.13944,
+          "mean": 0.042179,
+          "median": 0.033981,
+          "min": 0.009736
+        }
+      },
+      "total_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.122759,
+        "mean": 0.048601,
+        "median": 0.041946,
+        "min": 0.018813
+      }
+    },
+    "validation:pen": {
+      "clip_count": 25,
+      "hand_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.07019,
+        "mean": 0.038096,
+        "median": 0.035013,
+        "min": 0.020133
+      },
+      "low_hand_motion_clip_count": 0,
+      "low_hand_motion_fraction": 0.0,
+      "low_hand_motion_threshold": 0.01,
+      "mean_intensity": {
+        "count": 25,
+        "max": 0.646886,
+        "mean": 0.513842,
+        "median": 0.501612,
+        "min": 0.264033
+      },
+      "per_region_frame_absdiff_mean": {
+        "full_frame_reference": {
+          "count": 25,
+          "max": 0.066964,
+          "mean": 0.032647,
+          "median": 0.030053,
+          "min": 0.015599
+        },
+        "head_context": {
+          "count": 25,
+          "max": 0.072494,
+          "mean": 0.025575,
+          "median": 0.025183,
+          "min": 0.008537
+        },
+        "upper_body_signing_space": {
+          "count": 25,
+          "max": 0.070359,
+          "mean": 0.036365,
+          "median": 0.034251,
+          "min": 0.01995
+        },
+        "viewer_left_hand_context": {
+          "count": 25,
+          "max": 0.07319,
+          "mean": 0.044326,
+          "median": 0.043869,
+          "min": 0.024704
+        },
+        "viewer_right_hand_context": {
+          "count": 25,
+          "max": 0.084239,
+          "mean": 0.031868,
+          "median": 0.024411,
+          "min": 0.012946
+        }
+      },
+      "total_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.070039,
+        "mean": 0.034156,
+        "median": 0.032267,
+        "min": 0.018233
+      }
+    },
+    "validation:thank_you": {
+      "clip_count": 25,
+      "hand_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.125054,
+        "mean": 0.047817,
+        "median": 0.043694,
+        "min": 0.015924
+      },
+      "low_hand_motion_clip_count": 0,
+      "low_hand_motion_fraction": 0.0,
+      "low_hand_motion_threshold": 0.01,
+      "mean_intensity": {
+        "count": 25,
+        "max": 0.660182,
+        "mean": 0.523326,
+        "median": 0.506847,
+        "min": 0.317674
+      },
+      "per_region_frame_absdiff_mean": {
+        "full_frame_reference": {
+          "count": 25,
+          "max": 0.107799,
+          "mean": 0.040549,
+          "median": 0.034436,
+          "min": 0.012505
+        },
+        "head_context": {
+          "count": 25,
+          "max": 0.14101,
+          "mean": 0.034764,
+          "median": 0.026573,
+          "min": 0.006397
+        },
+        "upper_body_signing_space": {
+          "count": 25,
+          "max": 0.124625,
+          "mean": 0.047159,
+          "median": 0.040562,
+          "min": 0.015405
+        },
+        "viewer_left_hand_context": {
+          "count": 25,
+          "max": 0.138382,
+          "mean": 0.054395,
+          "median": 0.054543,
+          "min": 0.017214
+        },
+        "viewer_right_hand_context": {
+          "count": 25,
+          "max": 0.111726,
+          "mean": 0.041239,
+          "median": 0.034677,
+          "min": 0.011829
+        }
+      },
+      "total_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.112447,
+        "mean": 0.043621,
+        "median": 0.03795,
+        "min": 0.013231
+      }
+    },
+    "validation:who": {
+      "clip_count": 25,
+      "hand_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.078303,
+        "mean": 0.042452,
+        "median": 0.040938,
+        "min": 0.017111
+      },
+      "low_hand_motion_clip_count": 0,
+      "low_hand_motion_fraction": 0.0,
+      "low_hand_motion_threshold": 0.01,
+      "mean_intensity": {
+        "count": 25,
+        "max": 0.657426,
+        "mean": 0.489352,
+        "median": 0.480537,
+        "min": 0.317236
+      },
+      "per_region_frame_absdiff_mean": {
+        "full_frame_reference": {
+          "count": 25,
+          "max": 0.076516,
+          "mean": 0.036165,
+          "median": 0.036221,
+          "min": 0.013875
+        },
+        "head_context": {
+          "count": 25,
+          "max": 0.101914,
+          "mean": 0.031129,
+          "median": 0.025873,
+          "min": 0.009686
+        },
+        "upper_body_signing_space": {
+          "count": 25,
+          "max": 0.085543,
+          "mean": 0.042095,
+          "median": 0.040487,
+          "min": 0.017582
+        },
+        "viewer_left_hand_context": {
+          "count": 25,
+          "max": 0.084294,
+          "mean": 0.048796,
+          "median": 0.051843,
+          "min": 0.02344
+        },
+        "viewer_right_hand_context": {
+          "count": 25,
+          "max": 0.097777,
+          "mean": 0.036108,
+          "median": 0.037404,
+          "min": 0.009699
+        }
+      },
+      "total_frame_absdiff_mean": {
+        "count": 25,
+        "max": 0.084116,
+        "mean": 0.038859,
+        "median": 0.036793,
+        "min": 0.015073
+      }
+    }
+  },
+  "tracked_files_changed": [
+    "scripts/diagnose_popsign_fresh5_data_vocabulary_separability.py",
+    "docs/validation/return-to-form-popsign-fresh5-data-vocabulary-separability-v1.json",
+    "docs/session-logs/379-mission-3bw-popsign-fresh5-data-vocabulary-separability.md"
+  ],
+  "validation_commands": [
+    "git status --short --branch",
+    "git log -10 --oneline --decorate",
+    "node scripts/audit_loop_premise.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs --json",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "node scripts/audit_source_register.mjs",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-model-data-design-ablation-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-region-grid-local-smoke-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-region-grid-materialization-v1.json >/dev/null",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-materialization-local-smoke-v1.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py scripts/decode_raw_videos.py scripts/materialize_popsign_fresh5_region_grid.py scripts/run_popsign_fresh5_region_grid_tcn_tiny_overfit.py",
+    ".venv/bin/python scripts/diagnose_popsign_fresh5_data_vocabulary_separability.py --receipt docs/validation/return-to-form-popsign-fresh5-data-vocabulary-separability-v1.json --write-receipt",
+    "python3 -m json.tool docs/validation/return-to-form-popsign-fresh5-data-vocabulary-separability-v1.json >/dev/null"
+  ]
+}

@@ -1,0 +1,232 @@
+{
+  "schema_version": "asl-pilot-mission-3al-bounded-brev-training/v1",
+  "mission": "Mission 3AL - ASL Citizen bounded Brev training",
+  "created_at": "2026-05-27T06:03:57Z",
+  "status": "blocked_after_training",
+  "approval": {
+    "source": "GOAL.md and docs/model/return-to-form-asl-citizen-bounded-brev-training-goal-loop-prompt.md",
+    "scope": "one bounded remote ASL Citizen lesson-milestone training/evaluation pass on the existing Brev worker",
+    "max_training_runtime_seconds": 5400,
+    "max_evaluation_runtime_seconds": 1800,
+    "conservative_max_spend_usd": 5.0,
+    "hourly_price_usd": 1.488
+  },
+  "compute_receipt": {
+    "initial_brev_ls": {
+      "name": "asl-pilot-rawframe-001",
+      "id": "2hl1hytty",
+      "status": "RUNNING",
+      "build_status": "COMPLETED",
+      "shell_status": "READY",
+      "health_status": "HEALTHY",
+      "instance_type": "massedcompute_A100_sxm4_80G_DGX",
+      "instance_kind": "gpu",
+      "gpu": "A100"
+    },
+    "observed_price_source": "brev search --gpu-name A100 --json",
+    "observed_price_entry": {
+      "type": "massedcompute_A100_sxm4_80G_DGX",
+      "gpu_name": "A100",
+      "gpu_count": 1,
+      "vram_per_gpu_gb": 80,
+      "vcpus": 16,
+      "ram_gb": 160,
+      "price_per_hour": 1.488,
+      "provider": "shadeform"
+    },
+    "expected_signal": "Determine whether the approved tensor-backed 25-label ASL Citizen lesson milestone can fit beyond the local one-epoch smoke and produce held-out evidence.",
+    "kill_condition": "Kill if CUDA is unavailable, training falls back to CPU, loss becomes NaN, no epoch/progress output appears for 15 minutes, sync/preflight cannot verify required data, or timeout fires."
+  },
+  "local_preflight": {
+    "commands": [
+      {
+        "command": "git status --short --branch",
+        "status": "passed",
+        "summary": "## compound-plan-m0...origin/compound-plan-m0 [ahead 136]"
+      },
+      {
+        "command": "node scripts/audit_loop_premise.mjs --json",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_return_to_form_plan.mjs --json",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_source_register.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_deps.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+        "status": "passed"
+      },
+      {
+        "command": "bash -n scripts/brev_sync_repo.sh",
+        "status": "passed"
+      }
+    ]
+  },
+  "sync": {
+    "command": "bash scripts/brev_sync_repo.sh asl-pilot-rawframe-001",
+    "status": "passed",
+    "paths": [
+      "data/manifests",
+      "data/tensors",
+      "data/external/asl-citizen/raw",
+      "data/external/cira-negative-challenge-videos/raw",
+      "data/external/wikimedia-commons-negative-challenge-videos/raw"
+    ]
+  },
+  "remote_readiness": {
+    "torch_probe": {
+      "command": "brev exec asl-pilot-rawframe-001 \"cd /home/shadeform/asl-pilot && ./.venv/bin/python - <<'PY' ... PY\"",
+      "status": "passed",
+      "torch": "2.12.0+cu130",
+      "cuda": true,
+      "device_count": 1,
+      "device": "NVIDIA A100-SXM4-80GB"
+    },
+    "training_dry_run": {
+      "command": "brev exec asl-pilot-rawframe-001 \"cd /home/shadeform/asl-pilot && ./.venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/rawframe-milestone/train.json --validation-manifest data/manifests/lesson/rawframe-milestone/validation.json --test-manifest data/manifests/lesson/rawframe-milestone/test.json --output-dir artifacts/rawframe-lesson-milestone --model-id asl-pilot-asl-citizen-lesson-brev-full-v1 --architecture motion_2d_temporal_cnn --lesson-milestone --check-files --epochs 1 --batch-size 16 --frame-count 12 --image-size 96 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --num-workers 2 --dry-run\"",
+      "status": "passed",
+      "train_clips": 300,
+      "validation_clips": 94,
+      "test_clips": 100,
+      "label_count": 25,
+      "pretrained_components": []
+    }
+  },
+  "training": {
+    "command": "brev exec asl-pilot-rawframe-001 \"cd /home/shadeform/asl-pilot && timeout 5400s ./.venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/rawframe-milestone/train.json --validation-manifest data/manifests/lesson/rawframe-milestone/validation.json --test-manifest data/manifests/lesson/rawframe-milestone/test.json --output-dir artifacts/rawframe-lesson-milestone --model-id asl-pilot-asl-citizen-lesson-brev-full-v1 --architecture motion_2d_temporal_cnn --lesson-milestone --check-files --epochs 40 --batch-size 16 --frame-count 12 --image-size 96 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --num-workers 2\"",
+    "status": "completed",
+    "device": "cuda",
+    "model_id": "asl-pilot-asl-citizen-lesson-brev-full-v1",
+    "epochs_completed": 40,
+    "train_examples": 300,
+    "train_batches_per_epoch": 19,
+    "validation_examples": 94,
+    "validation_batches_per_epoch": 6,
+    "final_epoch": {
+      "epoch": 40,
+      "train_accuracy": 0.9966666666666667,
+      "train_loss": 0.02694639136393865,
+      "validation_accuracy": 0.1595744680851064,
+      "validation_loss": 3.781704598284782
+    },
+    "checkpoint_selection": {
+      "policy": "best_validation",
+      "selected_epoch": 36,
+      "selected_validation_accuracy": 0.20212765957446807,
+      "selected_validation_loss": 3.805174568866162
+    },
+    "pretrained_components": [],
+    "promotion_status": "not_promoted"
+  },
+  "evaluation": {
+    "command": "brev exec asl-pilot-rawframe-001 \"cd /home/shadeform/asl-pilot && timeout 1800s ./.venv/bin/python scripts/evaluate_rawframe_model.py --lesson-milestone --checkpoint artifacts/rawframe-lesson-milestone/model_state.pt --training-provenance artifacts/rawframe-lesson-milestone/training-provenance.json --train-manifest data/manifests/lesson/rawframe-milestone/train.json --validation-manifest data/manifests/lesson/rawframe-milestone/validation.json --test-manifest data/manifests/lesson/rawframe-milestone/test.json --challenge-manifest data/manifests/negative-challenge.json --output-report artifacts/rawframe-lesson-milestone/validation-report.json --calibrated-provenance artifacts/rawframe-lesson-milestone/calibrated-provenance.json --prediction-sidecar artifacts/rawframe-lesson-milestone/prediction-sidecar.json --batch-size 16 --num-workers 2\"",
+    "status": "blocked",
+    "blocker": "data/manifests/negative-challenge.json: negative challenge manifest needs at least 5 clips for each required type; missing/underfilled: casual_non_asl_gesture, counting, fingerspelling_like_motion, hand_clap, hands_cropped_out, idle_hands, mouth_touch, partial_sign, thumbs_up, waving, wrong_location, wrong_palm_orientation",
+    "actual_challenge_type_counts": {
+      "empty_camera": 5,
+      "low_light": 5,
+      "no_hands_visible": 5,
+      "non_target_asl_sign": 5,
+      "off_center": 5
+    },
+    "required_minimum_per_type": 5,
+    "required_types_from_evaluator": [
+      "casual_non_asl_gesture",
+      "counting",
+      "empty_camera",
+      "fingerspelling_like_motion",
+      "hand_clap",
+      "hands_cropped_out",
+      "idle_hands",
+      "low_light",
+      "mouth_touch",
+      "no_hands_visible",
+      "non_target_asl_sign",
+      "off_center",
+      "partial_sign",
+      "thumbs_up",
+      "waving",
+      "wrong_location",
+      "wrong_palm_orientation"
+    ],
+    "validation_report_written": false,
+    "test_metrics_available": false,
+    "negative_challenge_metrics_available": false
+  },
+  "artifact_copyback": {
+    "command": "rsync -avz asl-pilot-rawframe-001:/home/shadeform/asl-pilot/artifacts/rawframe-lesson-milestone/ artifacts/rawframe-lesson-milestone/",
+    "status": "passed",
+    "artifacts": [
+      {
+        "path": "artifacts/rawframe-lesson-milestone/training-provenance.json",
+        "sha256": "14f890c3620b92f74fa7a75cc152e80d0c93bb31446a9b1564f7677ff37afd83",
+        "tracked": true
+      },
+      {
+        "path": "artifacts/rawframe-lesson-milestone/model_state.pt",
+        "sha256": "a4e746895c76f02c7b135e707adc0563b372bd445336309fedbfbae03a9a9c31",
+        "tracked": false,
+        "gitignore": ".gitignore:52"
+      }
+    ]
+  },
+  "teardown": {
+    "remote_process_check": {
+      "command": "brev exec asl-pilot-rawframe-001 \"ps -eo pid,etime,pcpu,pmem,args | egrep 'python|torch|train|screen|tmux' | grep -v egrep || true\"",
+      "status": "passed",
+      "active_training_process_found": false,
+      "matches": [
+        "/usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers",
+        "/home/shadeform/.venv/bin/python3 /home/shadeform/.venv/bin/jupyter-lab --ip=0.0.0.0 --no-browser --NotebookApp.token= --NotebookApp.password= --ServerApp.allow_remote_access=True",
+        "grep -E python|torch|train|screen|tmux"
+      ]
+    },
+    "stop_attempts": [
+      {
+        "command": "brev stop asl-pilot-rawframe-001",
+        "status": "failed",
+        "error": "Brev CLI reported logged out and prompted for login; non-interactive EOF."
+      },
+      {
+        "command": "brev stop 2hl1hytty",
+        "status": "failed",
+        "error": "Brev CLI reported logged out and prompted for login; non-interactive EOF."
+      },
+      {
+        "command": "brev stop --all",
+        "status": "failed",
+        "error": "Brev CLI reported logged out and prompted for login; non-interactive EOF."
+      }
+    ],
+    "post_run_brev_ls": {
+      "command": "brev ls --json",
+      "status": "failed",
+      "error": "Brev CLI reported logged out and prompted for login; non-interactive EOF."
+    },
+    "final_provider_state": "unknown_after_cli_auth_expired; initial state was RUNNING and stop could not be authenticated",
+    "delete_or_reset_attempted": false
+  },
+  "boundaries": {
+    "no_pretrained_components": true,
+    "no_source_approval_shortcut": true,
+    "no_unreviewed_media_import": true,
+    "no_generated_pseudo_labels": true,
+    "no_onnx_export": true,
+    "no_model_card_promotion": true,
+    "no_threshold_promotion": true,
+    "no_browser_activation": true,
+    "no_final_readiness_claim": true,
+    "no_duplicate_worker_created": true,
+    "no_worker_delete_or_reset": true,
+    "no_push": true
+  },
+  "next_action": "Restore Brev CLI auth/provider stop control and decide whether to authorize a negative-challenge manifest coverage repair/evaluation retry; do not run another remote training job from this evidence."
+}

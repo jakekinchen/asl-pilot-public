@@ -1,0 +1,55 @@
+{
+  "$schema_version": "asl-pilot-active-sign-modules/v1",
+  "$comment": "Example active-module declaration for the rawframe lane. The pre-task-026 version of this file referenced Stage A vestige labels (more, play, want, need, come, sorry, car, open) that no longer exist in web/src/lib/vocabulary.ts; those references were removed under task-005. Until the rawframe model is trained, every module here is a CANDIDATE only — the source-of-truth for what is actually 'active' is docs/model/active-vocabulary-claim.json, whose activeLabels[] must stay empty while modelVersion == 'rawframe-not-trained'. After mission 3 produces a trained model, scripts/promote_trained_model_card.mjs writes the promoted module's labels into active-vocabulary-claim.json (this file remains an example seed for other modules that might be promoted later).",
+  "generated_at": "2026-05-24",
+  "lane": "rawframe",
+  "modelVersion": "rawframe-not-trained",
+  "modules": [
+    {
+      "id": "smoke_10",
+      "status": "candidate",
+      "labels": [
+        "hello",
+        "bye",
+        "thank_you",
+        "please",
+        "yes",
+        "no",
+        "mom",
+        "dad",
+        "book",
+        "happy"
+      ],
+      "purpose": "first 10-sign smoke module, all labels present in web/src/lib/vocabulary.ts and seeded with structured hint metadata in web/src/lib/sign-hint-metadata.json",
+      "claim": "candidate only — not active until docs/model/active-vocabulary-claim.json lists these labels under activeLabels[] (which happens only after Brev training + signer-disjoint metrics + threshold calibration)"
+    },
+    {
+      "id": "core_20",
+      "status": "candidate",
+      "labels": [
+        "hello",
+        "bye",
+        "thank_you",
+        "please",
+        "yes",
+        "no",
+        "mom",
+        "dad",
+        "book",
+        "happy",
+        "water",
+        "milk",
+        "go",
+        "stop",
+        "finish",
+        "help",
+        "read",
+        "school",
+        "where",
+        "who"
+      ],
+      "purpose": "candidate 20-sign expansion, all labels present in current vocabulary",
+      "claim": "candidate only — gated on smoke_10 passing first per the downscope ladder in ARCHITECTURE.md#arch-downscope-ladder"
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "schema_version": "asl-pilot-m3jb-trainanalog-proposal-probe/v1",
+  "receipt_id": "return-to-form-m3jb-trainanalog-proposal-probe-v1",
+  "mission": "M3JB - Train-analog proposal-head probe",
+  "status": "rejected_validation_selected_no_improvement_not_gate_passing",
+  "checked_at": "2026-06-02T03:33:42Z",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "side_worktree": "/Users/kelly/Developer/asl-pilot-annotator",
+  "runtime_boundary": {
+    "local_training_run": true,
+    "checkpoint_written": true,
+    "browser_exported": false,
+    "detector0_promoted": false,
+    "mediapipe_runtime_dependency_allowed": false,
+    "raw_learner_video_uploaded": false,
+    "brev_used": false,
+    "sign_model_run": false
+  },
+  "artifacts": {
+    "detector_trainer_code": {
+      "path": "tools/detector0-annotator/train_detector_grid_hands2.py",
+      "side_worktree_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/train_detector_grid_hands2.py",
+      "sha256": "76073aef6d88846cd6a3a2e8b1aeee50261e8ef4331de27c87ce81cdfa15f00c",
+      "purpose": "Side-worktree detector trainer with split-guarded hard-target manifest oversampling support."
+    },
+    "side_probe_receipt": {
+      "path": "tools/detector0-annotator/output/m3jb-hands2-trainanalog-os4-e8-lr1e4-v1.json",
+      "side_worktree_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-hands2-trainanalog-os4-e8-lr1e4-v1.json",
+      "sha256": "ed875327ad374cf005aee13b109a57ffd35091e56cb4c549b0bf339dccda2186"
+    },
+    "side_probe_weights": {
+      "path": "tools/detector0-annotator/output/m3jb-hands2-trainanalog-os4-e8-lr1e4-v1.pt",
+      "side_worktree_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-hands2-trainanalog-os4-e8-lr1e4-v1.pt",
+      "sha256": "cb347d05211a9d37aa4ad3328d15faada33a29792b12fd3af898c38e397eec1d",
+      "purpose": "Weights emitted by the rejected local probe; not promoted to browser runtime."
+    },
+    "side_probe_render": {
+      "path": "tools/detector0-annotator/output/m3jb-hands2-trainanalog-os4-e8-lr1e4-v1.png",
+      "side_worktree_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-hands2-trainanalog-os4-e8-lr1e4-v1.png",
+      "sha256": "879d7b82670c2daaeafa1c97da94dd67b992fee0889a6f5d9fbba48054f19d7d",
+      "purpose": "Diagnostic render from the rejected local probe."
+    },
+    "side_probe_failure_render": {
+      "path": "tools/detector0-annotator/output/m3jb-hands2-trainanalog-os4-e8-lr1e4-v1-failures.png",
+      "side_worktree_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-hands2-trainanalog-os4-e8-lr1e4-v1-failures.png",
+      "sha256": "a56c8fcceda28a400221eef8a9b9189a2935145843d92e76c3ee8f282f9099f5",
+      "purpose": "Diagnostic failure contact sheet from the rejected local probe."
+    },
+    "canonical_m3jb_audit": {
+      "path": "docs/validation/return-to-form-m3jb-hierarchical-hand-state-tracker-v1.json",
+      "status": "refreshed_fail_closed_not_gate_passing"
+    }
+  },
+  "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_detector_grid_hands2.py --data tools/detector0-annotator/.cache/autolabel-big --real-data tools/detector0-annotator/.cache/autolabel-big --old-weights tools/detector0-annotator/output/detector0-grid-big2.pt --init-weights tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.pt --epochs 8 --batch 128 --lr 1e-4 --device mps --augment 1 --oversample-hard-geometry 1 --hard-target-manifest tools/detector0-annotator/output/m3jb-hand-candidate-no-leak-analogs-top40-nms050-v1.json --oversample-hard-targets 40 --decode-nms-iou 0.5 --coverage-iou 0.3 --render tools/detector0-annotator/output/m3jb-hands2-trainanalog-os4-e8-lr1e4-v1.png --failure-render tools/detector0-annotator/output/m3jb-hands2-trainanalog-os4-e8-lr1e4-v1-failures.png --out tools/detector0-annotator/output/m3jb-hands2-trainanalog-os4-e8-lr1e4-v1.json",
+  "params": {
+    "data": "tools/detector0-annotator/.cache/autolabel-big",
+    "real_data": "tools/detector0-annotator/.cache/autolabel-big",
+    "old_weights": "tools/detector0-annotator/output/detector0-grid-big2.pt",
+    "init_weights": "tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.pt",
+    "epochs": 8,
+    "batch": 128,
+    "lr": 0.0001,
+    "device": "mps",
+    "augment": 1,
+    "oversample_hard_geometry": 1,
+    "hard_target_manifest": "tools/detector0-annotator/output/m3jb-hand-candidate-no-leak-analogs-top40-nms050-v1.json",
+    "oversample_hard_targets": 40,
+    "decode_nms_iou": 0.5,
+    "coverage_iou": 0.3
+  },
+  "hard_target_manifest": {
+    "schema_version": "asl-pilot-hand-candidate-repair-targets/v1",
+    "allowed_split": "train",
+    "selected_indices": [
+      2343
+    ],
+    "selected_count": 1,
+    "rejected_count": 5,
+    "rejected_validation_indices": [
+      6823,
+      8246,
+      8629,
+      8637,
+      8769
+    ],
+    "target_counts_by_split": {
+      "train": 1,
+      "validation": 5
+    },
+    "target_counts_by_kind": {
+      "near_miss": 6
+    }
+  },
+  "training_observation": {
+    "warm_start_initial_val_loss": 0.236852,
+    "epoch0_val_loss": 0.284,
+    "epoch7_val_loss": 0.252,
+    "best_val_loss": 0.236852,
+    "validation_selected_checkpoint": "warm_start",
+    "improved_over_warm_start": false
+  },
+  "metrics": {
+    "validation": {
+      "obj_loss": 0.031469251960515976,
+      "box_l1": 0.001160271349363029,
+      "iou_loss": 0.19958148896694183,
+      "loss": 0.23685209453105927
+    },
+    "test": {
+      "obj_loss": 0.030073923990130424,
+      "box_l1": 0.0007555857882834971,
+      "iou_loss": 0.18342305719852448,
+      "loss": 0.21727490425109863
+    },
+    "real_twohand_new": {
+      "n_real_twohand": 84,
+      "coverage": 0.9642857142857143,
+      "distinct_assigned_coverage": 0.42857142857142855,
+      "collapse_rate": 0,
+      "coverage_failure_count": 3,
+      "distinct_assignment_failure_count": 48
+    }
+  },
+  "selection": {
+    "selected_for_promotion": false,
+    "selected_as_current_detector": false,
+    "gate_status": "failed_open",
+    "reason": "The one train-split near-miss oversampled 40x did not improve validation loss over the warm-start and did not improve real two-hand distinct assignment. The emitted weights are rejected evidence only."
+  },
+  "commands_run": [
+    "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_detector_grid_hands2.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_detector_grid_hands2.py --self-test",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_detector_grid_hands2.py --data tools/detector0-annotator/.cache/autolabel-big --real-data tools/detector0-annotator/.cache/autolabel-big --old-weights tools/detector0-annotator/output/detector0-grid-big2.pt --init-weights tools/detector0-annotator/output/m3ja-hands2-hardgeom-os4-e40-lr5e4-cont-nms050.pt --epochs 8 --batch 128 --lr 1e-4 --device mps --augment 1 --oversample-hard-geometry 1 --hard-target-manifest tools/detector0-annotator/output/m3jb-hand-candidate-no-leak-analogs-top40-nms050-v1.json --oversample-hard-targets 40 --decode-nms-iou 0.5 --coverage-iou 0.3 --render tools/detector0-annotator/output/m3jb-hands2-trainanalog-os4-e8-lr1e4-v1.png --failure-render tools/detector0-annotator/output/m3jb-hands2-trainanalog-os4-e8-lr1e4-v1-failures.png --out tools/detector0-annotator/output/m3jb-hands2-trainanalog-os4-e8-lr1e4-v1.json",
+    "node scripts/audit_m3jb_hand_state_tracker.mjs --write-receipt --json"
+  ],
+  "commands_intentionally_not_run": [
+    "No browser export or browser artifact promotion.",
+    "No detector0 promotion.",
+    "No Brev lifecycle, remote sync, or paid compute.",
+    "No raw learner video upload.",
+    "No MediaPipe runtime dependency.",
+    "No sign/language model continuation."
+  ],
+  "next_action": "continue_m3jb_more_no_leak_real_hard_labels_or_broader_proposal_head_repair_no_brev"
+}

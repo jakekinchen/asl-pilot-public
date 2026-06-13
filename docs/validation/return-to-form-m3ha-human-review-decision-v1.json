@@ -1,0 +1,93 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3ha-human-review-decision/v1",
+  "status": "completed",
+  "generated_at": "2026-05-29T08:54:00-05:00",
+  "mission": "M3HA - human model-strategy review after M3GZ",
+  "reviewer": "Codex thread acting on explicit user instruction to perform the human review",
+  "review_trigger": {
+    "observer_stop_commit": "13d6795 observer: STOP - m3gz human model strategy review",
+    "user_instruction": "okay well if it needs human review to just look at the numbers and results and assess, then you do that for me"
+  },
+  "evidence_read": {
+    "m3gr_train_fit_only": true,
+    "m3gu_receipt": "docs/validation/return-to-form-m3gu-reduced4-local-training-smoke-no-brev-v1.json",
+    "m3gy_receipt": "docs/validation/return-to-form-m3gy-reduced4-diagnostic-eval-rerun-no-training-no-brev-v1.json",
+    "m3gz_receipt": "docs/validation/return-to-form-m3gz-reduced4-logit-collapse-triage-no-training-no-brev-v1.json",
+    "m3gz_strategy_response": "artifacts/research/observer-668-m3gz-reduced4-logit-strategy/response.md",
+    "validation_top1_accuracy": 0.26666666666666666,
+    "validation_macro_f1": 0.11111111111111112,
+    "test_top1_accuracy": 0.25,
+    "test_macro_f1": 0.1678321678321678,
+    "validation_predicted_counts": {
+      "sad": 14,
+      "uncle": 1
+    },
+    "test_predicted_counts": {
+      "sad": 9,
+      "uncle": 7
+    },
+    "validation_zero_recall_classes": [
+      "hello",
+      "uncle",
+      "white"
+    ],
+    "test_zero_recall_classes": [
+      "hello",
+      "white"
+    ],
+    "validation_entropy_mean": 1.3836971282958985,
+    "test_entropy_mean": 1.383610151708126,
+    "four_class_max_entropy_ln4": 1.3862943611198906,
+    "validation_logit_margin_mean": 0.04215083544452985,
+    "test_logit_margin_mean": 0.05906312935985625
+  },
+  "assessment": {
+    "recognizer_lane_status": "stop_for_deadline_path",
+    "interpretation": "The reduced4 result is negative evidence for the current no-pretrained raw-frame/region-grid route. Outputs are weak and near-uniform, predictions collapse to sad/uncle, and hello/white are not predicted in validation/test. This is not a threshold-only issue and not a missing-sidecar-field issue.",
+    "what_it_does_not_support": [
+      "browser recognition activation",
+      "model-card promotion",
+      "active-label promotion",
+      "ASL correctness grading",
+      "product-ready recognition",
+      "another autonomous fitting run",
+      "Brev or GPU spend"
+    ],
+    "top2_logit_label_metadata_gap": "Future sidecar metadata cleanup only; not a model-quality repair."
+  },
+  "decision": {
+    "selected_next_action": "redirect_to_deadline_fail_closed_demo_finish_no_recognition",
+    "active_next_prompt": "docs/model/return-to-form-m3ha-human-reviewed-fail-closed-demo-finish-goal-loop-prompt.md",
+    "recognition_claim_boundary": "Browser recognition remains disabled/fail-closed. M3GQ-M3GZ artifacts remain diagnostic only.",
+    "product_direction": "Finish the strongest honest fail-closed ASL learning demo under deadline pressure."
+  },
+  "authorized_next_work": [
+    "local product and claim-surface audits",
+    "typecheck and lint if available",
+    "at most one bounded fail-closed product or claim-hygiene fix",
+    "tracked M3HA product/demo receipt and numbered session log"
+  ],
+  "blocked_work": [
+    "training or fitting",
+    "evaluator rerun or ignored ML output regeneration",
+    "Brev lifecycle, remote, sync, copy, exec, or spend",
+    "source/media import",
+    "source-register rights mutation",
+    "manifest, tensor, vocabulary, or packet mutation",
+    "export or promotion",
+    "browser recognition activation",
+    "final-gate weakening",
+    "recognition, ASL-correctness, trainability, product-readiness, or final-readiness claim expansion",
+    "pretrained detector, landmark, backbone, embedding, teacher, or feature shortcut"
+  ],
+  "claim_surface_state": {
+    "web_public_model_model_card_status": "not_trained",
+    "web_public_model_detector0_card_status": "not_trained",
+    "active_labels": [],
+    "fail_closed": true
+  },
+  "brev_state": {
+    "read_only_evidence": "observer 668 recorded asl-pilot-m3eh-l40s-001 / 3d58wpy9o as STOPPED / COMPLETED / NOT READY / HEALTHY",
+    "authorized_for_next_work": false
+  }
+}

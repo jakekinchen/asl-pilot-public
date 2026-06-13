@@ -1,0 +1,56 @@
+{
+  "schema_version": "asl-pilot-phantom-gate-nearlive-eval/v1",
+  "mission": "M3JB phantom-hand detection gate (HAND_DET_MIN_SCORE=1.5) — near-live 40-clip held-out re-eval of the gated all-scratch /practice pipeline",
+  "generated_at_note": "2026-06-11 local; gate committed+pushed in asl-pilot-web 8f14d0bd (web-avatar). Compares against the run10 deploy receipt baseline.",
+  "change_under_test": {
+    "what": "hands2 detector candidates below raw objectness 1.5 no longer become hand slots (web/src/lib/simcc-pipeline.ts HAND_DET_MIN_SCORE); empty slots (zero feature halves) are fed instead",
+    "why": "pick gate was score>0, so hand-less frames yielded phantom top-2 hands (~1.4 objectness on synthetic no-hands frames) whose garbage SimCC landmarks contaminated the 90-dim feature and the overlay",
+    "threshold_evidence": "10 held-out PopSign clips, 294 detection frames: real-hand TOP-det score p5=0.75 p10=1.60 p50=4.50; second-det p50=2.01; 26/320 frames already had zero detections (empty slots in-distribution)",
+    "phantom_kill_proof": "fake-camera (no hands) browser smoke: pre-gate phantom pair scored 1.43/1.41 and produced flailing skeletons; post-gate both slots empty (presence 0.000/0.000), candidates still visible pre-gate in SimccFrameDebug"
+  },
+  "metrics_gated_vs_run10_receipt_baseline": {
+    "true_accept": {
+      "gated": "33/40 (0.825)",
+      "baseline": "33/40 (0.825)",
+      "delta": "0"
+    },
+    "wrong_prompt_accept": {
+      "gated": "13/280 (0.0464)",
+      "baseline": "0.061",
+      "delta": "-0.015 (improved)"
+    },
+    "top1": {
+      "gated": "26/40",
+      "baseline": "23/40",
+      "delta": "+3 (improved)"
+    },
+    "top5": {
+      "gated": "34/40",
+      "baseline": "35/40",
+      "delta": "-1"
+    },
+    "determinism_rerun": "OK (5/5 match)",
+    "per_word_true_accept": {
+      "bad": "2/5",
+      "frog": "4/5",
+      "grandpa": "3/5",
+      "happy": "5/5",
+      "hello": "4/5",
+      "man": "5/5",
+      "please": "5/5",
+      "table": "5/5"
+    }
+  },
+  "verdict": "PASS - gate kept: true-accept unchanged, wrong-prompt accept improved 6.1%->4.6%, top-1 improved 23->26. Phantom-hand contamination on hand-less frames eliminated.",
+  "raw_eval": "harness web/scripts/simcc-heldout-nearlive-eval.mjs (asl-pilot-web) over /Users/kelly/Developer/asl-demo-test-clips/heldout-popsign-test, BASE http://localhost:3200, raw output archived at /tmp/eval-gated-1.5.json at run time",
+  "boundaries": {
+    "no_training": true,
+    "no_brev": true,
+    "no_model_card_change": true,
+    "no_promotion": true,
+    "demo_only_framing_unchanged": true
+  },
+  "anchors": [
+    "ARCHITECTURE.md#arch-no-pretrained"
+  ]
+}

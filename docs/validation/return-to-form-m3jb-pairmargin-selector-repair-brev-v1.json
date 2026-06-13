@@ -1,0 +1,191 @@
+{
+  "schema_version": "asl-pilot-m3jb-pairmargin-selector-repair-brev/v1",
+  "status": "pairmargin_selector_repair_completed_fail_closed_not_gate_passing",
+  "checked_at": "2026-06-02T06:05:00Z",
+  "mission": "M3JB - Hierarchical hand-state tracker",
+  "purpose": "Add a targeted pair-margin selector loss after the uncapped pair-rank Brev failure audit showed low-target, quality-false-positive, same-slot, too-small, and hard-negative pairs still winning over oracle-compatible pairs.",
+  "code": {
+    "path": "tools/detector0-annotator/train_hand_pair_ranker.py",
+    "sha256": "52eb749a2a7ac1c339bfe5f7676c0ef8d00dac419292711d8c9e5686b7eb0f41",
+    "summary": "Added candidate_pair_margin_loss plus CLI, checkpoint, receipt, and self-test coverage for candidate_head_pair_margin_weight, candidate_head_pair_margin, and candidate_head_pair_negative_threshold.",
+    "repair_hypothesis": "When an oracle-compatible pair exists, explicitly force its final pair-selection score above low-target pairs that currently win through false-positive quality or same-slot scoring."
+  },
+  "local_validation": {
+    "commands": [
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_hand_pair_ranker.py",
+        "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+        "exit_status": 0,
+        "summary": "syntax compile passed"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --self-test",
+        "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+        "exit_status": 0,
+        "summary": "self-test passed, including the new pair-margin loss"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --train-candidate-head --train-subproposal-candidates --topk 40 --subproposal-source-topk 4 --subproposal-max-topk 16 --max-train-rows 32 --epochs 1 --batch-groups 16 --select-by-validation --eval-every 1 --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --candidate-feature-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --device mps --landmark-device mps --ranker-device cpu --candidate-head-pair-rank-weight 1.0 --candidate-head-pair-temperature 0.05 --candidate-head-pair-margin-weight 1.0 --candidate-head-pair-margin 1.0 --candidate-head-pair-negative-threshold 0.3 --box-quality-target-weight 0.5 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 1.0 --hard-negative-bce-weight 3.0 --candidate-head-quality-mse-weight 0.5 --candidate-head-slot-ce-weight 0.2 --candidate-head-slot-score-weight 0.5 --candidate-head-overlap-penalty 3.0 --out tools/detector0-annotator/output/m3jb-hand-candidate-head-pairmargin-croppose-top40-src4-aug16-train32-e1-smoke-v1.json",
+        "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+        "exit_status": 0,
+        "summary": "tiny local MPS smoke passed; diagnostic only, not gate evidence"
+      }
+    ],
+    "smoke_receipt": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-candidate-head-pairmargin-croppose-top40-src4-aug16-train32-e1-smoke-v1.json",
+      "sha256": "8e3e68b89f9d1c040788b5c6cfd522a4a05863141b0fa776abc0ee4b0358848a"
+    },
+    "smoke_weights": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-candidate-head-pairmargin-croppose-top40-src4-aug16-train32-e1-smoke-v1.pt",
+      "sha256": "e98d8f2d3f87182ae411689a0b552a1353f95e4d6208177e89741946b6a8a9d1"
+    },
+    "smoke_metrics": {
+      "validation_selected": {
+        "epoch": 0,
+        "selection_score": 0.5748604465709729,
+        "coverage": 0.46850079744816586,
+        "distinct_assigned_coverage": 0.45773524720893144,
+        "collapse_rate": 0.0
+      },
+      "real_twohand_selected": {
+        "coverage": 0.5833333333333334,
+        "distinct_assigned_coverage": 0.30952380952380953,
+        "collapse_rate": 0.0,
+        "n": 84
+      },
+      "real_twohand_oracle": {
+        "coverage": 0.9880952380952381,
+        "distinct_assigned_coverage": 0.9880952380952381,
+        "collapse_rate": 0.0,
+        "n": 84
+      }
+    }
+  },
+  "brev_full_scope_run": {
+    "worker": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "instance_type": "l40s-48gb.1x",
+      "safety_probe": {
+        "result": "passed_after_initial_ssh_wait",
+        "gpu": "NVIDIA L40S",
+        "memory_total_mib": 46068,
+        "memory_used_mib_before_run": 1,
+        "torch": "2.12.0+cu126",
+        "cuda_available": true,
+        "cuda_device_count": 1,
+        "cuda_device_name": "NVIDIA L40S",
+        "active_training_process_before_run": false
+      },
+      "final_state": {
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY"
+      }
+    },
+    "remote_validation": {
+      "script_sha256": "52eb749a2a7ac1c339bfe5f7676c0ef8d00dac419292711d8c9e5686b7eb0f41",
+      "commands": [
+        "sha256sum tools/detector0-annotator/train_hand_pair_ranker.py",
+        "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile tools/detector0-annotator/train_hand_pair_ranker.py",
+        "PYTHONDONTWRITEBYTECODE=1 /home/ubuntu/asl-pilot/.venv/bin/python train_hand_pair_ranker.py --self-test"
+      ],
+      "result": "passed"
+    },
+    "command": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd \\$HOME/asl-pilot && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --train-candidate-head --train-subproposal-candidates --topk 40 --subproposal-source-topk 8 --subproposal-max-topk 24 --max-train-rows 0 --epochs 36 --batch-groups 512 --select-by-validation --eval-every 3 --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --candidate-feature-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features --landmark-weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --device cuda --landmark-device cuda --ranker-device cuda --candidate-head-pair-rank-weight 1.0 --candidate-head-pair-temperature 0.05 --candidate-head-pair-margin-weight 1.0 --candidate-head-pair-margin 1.0 --candidate-head-pair-negative-threshold 0.3 --box-quality-target-weight 0.5 --slot-margin-target-weight 0.1 --hard-negative-target-penalty 1.0 --hard-negative-bce-weight 3.0 --candidate-head-quality-mse-weight 0.5 --candidate-head-slot-ce-weight 0.2 --candidate-head-slot-score-weight 0.5 --candidate-head-overlap-penalty 3.0 --out tools/detector0-annotator/output/m3jb-hand-candidate-head-pairmargin-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.json\"",
+    "critical_scope_guard": "--max-train-rows 0; the run used all 2535 train groups and the n2535 fulltrain candidate/feature caches.",
+    "artifacts": {
+      "receipt": {
+        "path": "tools/detector0-annotator/output/m3jb-hand-candidate-head-pairmargin-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.json",
+        "sha256": "2168d83751aa8e1dff86fd5ef46b1e2b20e5f8c7354cd1078ba4e5ff66e0b260"
+      },
+      "weights": {
+        "path": "tools/detector0-annotator/output/m3jb-hand-candidate-head-pairmargin-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.pt",
+        "sha256": "592836743fa10bce88162e227eaaeba6e4b045cf2fe75dfef22be5a9818c39ad"
+      }
+    },
+    "metrics": {
+      "train_groups": 2535,
+      "train_candidates": 60840,
+      "train_positive_candidates": 41589,
+      "validation_selected": {
+        "epoch": 2,
+        "selection_score": 0.7693381180223285,
+        "coverage": 0.6371610845295056,
+        "distinct_assigned_coverage": 0.618421052631579,
+        "collapse_rate": 0.008373205741626795
+      },
+      "test_selected": {
+        "n": 3217,
+        "coverage": 0.6378613615169413,
+        "distinct_assigned_coverage": 0.6232514765309294,
+        "collapse_rate": 0.008082064034815045
+      },
+      "real_twohand_selected": {
+        "n": 84,
+        "coverage": 0.9047619047619048,
+        "distinct_assigned_coverage": 0.4642857142857143,
+        "collapse_rate": 0.047619047619047616,
+        "coverage_failure_count": 8
+      },
+      "real_twohand_oracle": {
+        "n": 84,
+        "coverage": 0.9880952380952381,
+        "distinct_assigned_coverage": 0.9880952380952381,
+        "collapse_rate": 0.0,
+        "coverage_failure_count": 1
+      },
+      "comparison_to_pairrank_full_scope": {
+        "coverage_delta": 0.011904761904761862,
+        "distinct_assigned_coverage_delta": 0.0,
+        "collapse_rate_delta": -0.011904761904761904
+      }
+    }
+  },
+  "failure_audit": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_hand_pair_ranker.py --candidate-selection-audit-only --candidate-head-receipt tools/detector0-annotator/output/m3jb-hand-candidate-head-pairmargin-croppose-top40-src8-aug24-fulltrain-e36-brev-v1.json --candidate-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-ranker-candidates --candidate-feature-cache-dir tools/detector0-annotator/.cache/m3jb-subproposal-candidate-features --ranker-device cpu --out tools/detector0-annotator/output/m3jb-hand-candidate-selection-failure-audit-pairmargin-croppose-top40-src8-aug24-fulltrain-e36-v1.json --candidate-selection-audit-render tools/detector0-annotator/output/m3jb-hand-candidate-selection-failure-audit-pairmargin-croppose-top40-src8-aug24-fulltrain-e36-v1.png",
+    "failure_count": 47,
+    "selected_pass_count": 37,
+    "oracle_pass_selected_fail_count": 46,
+    "oracle_fail_count": 1,
+    "mean_oracle_gap_on_failures": 0.36023747714910104,
+    "top_tags": {
+      "selected_low_target_candidate": 46,
+      "quality_false_positive": 33,
+      "same_gt_slot_selected": 26,
+      "selected_subbox_too_small": 25,
+      "selected_hard_negative_candidate": 18,
+      "selected_pair_overlap_high": 12
+    },
+    "receipt": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-candidate-selection-failure-audit-pairmargin-croppose-top40-src8-aug24-fulltrain-e36-v1.json",
+      "sha256": "f433b44849afbd5c4e5945c8510ec28d03e5fc93123480e1277de6eb7823b48a"
+    },
+    "contact_sheet": {
+      "path": "tools/detector0-annotator/output/m3jb-hand-candidate-selection-failure-audit-pairmargin-croppose-top40-src8-aug24-fulltrain-e36-v1.png",
+      "sha256": "8d07af243473768e21fa8503cf8850f8b60eeda2dbb12334c48ff7a25faff371"
+    }
+  },
+  "runtime_boundary": {
+    "local_smoke_training_run": true,
+    "full_scope_training_run": true,
+    "checkpoint_written": true,
+    "browser_exported": false,
+    "model_card_promoted": false,
+    "mediapipe_runtime_dependency": false,
+    "raw_learner_video_uploaded": false,
+    "brev_lifecycle_used": true,
+    "all_observed_brev_workers_stopped": true
+  },
+  "selection": {
+    "gate_status": "not_gate_passing_pairmargin_rejected",
+    "required_distinct_assigned_coverage": 0.98,
+    "real_twohand_selected_distinct_assigned_coverage": 0.4642857142857143,
+    "real_twohand_selected_coverage": 0.9047619047619048,
+    "real_twohand_selected_collapse_rate": 0.047619047619047616,
+    "real_twohand_oracle_distinct_assigned_coverage": 0.9880952380952381,
+    "reason": "The pair-margin repair slightly improved coverage and collapse but did not improve real two-hand distinct assignment. The candidate-head selector still fails on the same low-target and false-positive selection modes, so this repair is rejected and remains fail-closed."
+  },
+  "next_action": "continue_m3jb_uncapped_direct_pair_scorer_after_candidate_head_margin_rejection"
+}

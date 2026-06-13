@@ -1,0 +1,209 @@
+{
+  "schema_version": "asl-pilot-mission-3at-tcn-multistream-contract-scaffold/v1",
+  "mission": "Mission 3AT - TCN/multistream contract scaffold",
+  "created_at": "2026-05-27T09:30:52Z",
+  "active_prompt": "docs/model/return-to-form-tcn-multistream-contract-scaffold-goal-loop-prompt.md",
+  "status": "completed_input_contract_scaffold",
+  "changed_files": [
+    {
+      "path": "scripts/train_rawframe_model.py",
+      "sha256": "16e27fb6167e66e2feddf352a934083c26374c2e7ec7bc41338720e17ed04249",
+      "changes": [
+        "added --require-input-contract dry-run/check-files guard",
+        "added explicit rgb_frames_fallback and rgb_regions_grid_v1 input-contract names",
+        "added tensor-contract audit report in dry-run plan output",
+        "preserved default loader behavior when the new guard is omitted"
+      ]
+    }
+  ],
+  "boundaries": {
+    "training_run": false,
+    "brev_checked": false,
+    "brev_check_reason": "M3AT prompt says not to check Brev unless the selected next action requires remote worker state; this slice stayed local/no-spend.",
+    "paid_compute": false,
+    "source_import": false,
+    "generated_labels": false,
+    "detector_or_landmark_revival": false,
+    "onnx_export": false,
+    "model_card_or_browser_claim_change": false,
+    "final_gate_change": false,
+    "push": false
+  },
+  "input_contract_scaffold": {
+    "new_flag": "--require-input-contract",
+    "mode": "no_training_dry_run_check_files_only",
+    "allowed_contracts": [
+      "rgb_regions_grid_v1",
+      "rgb_frames_fallback"
+    ],
+    "invocation_rules": [
+      "--require-input-contract requires --dry-run",
+      "--require-input-contract requires --check-files",
+      "when omitted, existing loader and training behavior are unchanged"
+    ],
+    "observed_contract_classification": {
+      "rgb_regions_grid_v1": "loader consumes rgb_regions and records derived_input_name=rgb_regions_grid_v1",
+      "rgb_frames_fallback": "loader consumes rgb_frames and fallback_to_rgb_frames is true"
+    },
+    "fail_closed_behavior": "If any checked tensor does not match the requested contract, validation exits before training with observed counts and first mismatches."
+  },
+  "high_signal_asl_citizen_fallback_proof": {
+    "command": ".venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-module/train.json --validation-manifest data/manifests/lesson/high-signal-module/validation.json --test-manifest data/manifests/lesson/high-signal-module/test.json --output-dir artifacts/rawframe-high-signal-module --model-id asl-pilot-asl-citizen-high-signal-input-contract-audit-v1 --architecture motion_2d_temporal_cnn --check-files --frame-count 12 --image-size 96 --reduced-real-data-module --dry-run --require-input-contract rgb_frames_fallback",
+    "exit_code": 0,
+    "training_status": "dry_run_only",
+    "required_contract": "rgb_frames_fallback",
+    "total_clip_count": 139,
+    "total_observed_counts": {
+      "rgb_frames_fallback": 139
+    },
+    "split_observed_counts": {
+      "train": {
+        "rgb_frames_fallback": 84
+      },
+      "validation": {
+        "rgb_frames_fallback": 27
+      },
+      "test": {
+        "rgb_frames_fallback": 28
+      }
+    },
+    "example": {
+      "split": "train",
+      "clip_id": "asl-citizen-train-white-10848457531453715-white",
+      "label_id": "white",
+      "tensor_path": "data/tensors/asl-citizen-lesson-milestone/train/asl-citizen-train-white-10848457531453715-white.pt",
+      "payload_keys": [
+        "rgb_frames"
+      ],
+      "rgb_regions_present": false,
+      "rgb_frames_shape": [
+        12,
+        96,
+        96,
+        3
+      ],
+      "training_loader": {
+        "consumed_key": "rgb_frames",
+        "derived_input_name": null,
+        "fallback_to_rgb_frames": true
+      }
+    }
+  },
+  "required_region_grid_fail_closed_proof": {
+    "command": ".venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-module/train.json --validation-manifest data/manifests/lesson/high-signal-module/validation.json --test-manifest data/manifests/lesson/high-signal-module/test.json --output-dir artifacts/rawframe-high-signal-module --model-id asl-pilot-asl-citizen-high-signal-input-contract-audit-v1 --architecture motion_2d_temporal_cnn --check-files --frame-count 12 --image-size 96 --reduced-real-data-module --dry-run --require-input-contract rgb_regions_grid_v1",
+    "exit_code": 2,
+    "stderr_excerpt": "Manifest validation failed: required input contract rgb_regions_grid_v1 not satisfied; observed counts {\"rgb_frames_fallback\": 139}; first mismatches: data/manifests/lesson/high-signal-module/train.json: clips[0] requires rgb_regions_grid_v1 but observed rgb_frames_fallback ..."
+  },
+  "no_training_guard_proof": {
+    "command": ".venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-module/train.json --validation-manifest data/manifests/lesson/high-signal-module/validation.json --test-manifest data/manifests/lesson/high-signal-module/test.json --output-dir output/m3aq-reduced-module-local-smoke --model-id asl-pilot-asl-citizen-high-signal-input-contract-audit-v1 --architecture motion_2d_temporal_cnn --check-files --frame-count 12 --image-size 96 --reduced-real-data-training-smoke --require-input-contract rgb_frames_fallback",
+    "exit_code": 2,
+    "stderr": "Manifest validation failed: --require-input-contract is a no-training input-contract audit and requires --dry-run"
+  },
+  "baseline_without_guard_proof": {
+    "command": ".venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-module/train.json --validation-manifest data/manifests/lesson/high-signal-module/validation.json --test-manifest data/manifests/lesson/high-signal-module/test.json --output-dir artifacts/rawframe-high-signal-module --model-id asl-pilot-asl-citizen-high-signal-contract-baseline-v1 --architecture motion_2d_temporal_cnn --check-files --frame-count 12 --image-size 96 --reduced-real-data-module --dry-run",
+    "exit_code": 0,
+    "result": "existing reduced-real-data dry-run still passes when --require-input-contract is omitted"
+  },
+  "retained_region_grid_proof": {
+    "receipt": {
+      "path": "docs/validation/return-to-form-tier0-tensor-contract.json",
+      "sha256": "0f2ea12cf9a6517bafb67876ba4b0e4951ce821b61b27a740d45f6d1e36b3cd3"
+    },
+    "fixed_crop_config": {
+      "path": "docs/model/return-to-form-fixed-crop-config.json",
+      "sha256": "dbc735dad34fa9df1174a40374037976f9c88d789012634b2b22743ae0802b29"
+    },
+    "example": {
+      "clip_id": "popsign-v1-test-please-000058",
+      "source_tensor_key": "rgb_regions",
+      "derived_input": "rgb_regions_grid_v1",
+      "consumed_key": "rgb_regions",
+      "rgb_regions_shape": [
+        16,
+        5,
+        96,
+        96,
+        3
+      ],
+      "prepared_shape": [
+        16,
+        3,
+        96,
+        96
+      ],
+      "tensor_sha256": "6d98d02ed2b57d1381db852ecda59e45db6fe0e44099b0ee047f63211bed22b4"
+    },
+    "finality": "retained_region_grid_contract_evidence_not_current_asl_citizen_tensor_materialization"
+  },
+  "true_tcn_decision": "not_added_yet",
+  "true_tcn_decision_reason": "This slice closed the input-contract ambiguity first; adding a TCN before selected tensors can satisfy the intended region-grid/multistream contract would risk re-testing full-frame fallback.",
+  "exactly_one_next_action": "materialize_high_signal_region_grid_tensors",
+  "next_action_rationale": "The new guard proves the selected ASL Citizen high-signal tensors lack rgb_regions_grid_v1. The next local/no-spend slice should materialize or explicitly block high-signal region-grid tensors before any TCN scaffold, capped smoke, Brev run, or promotion path.",
+  "validation_commands": [
+    {
+      "command": "git status --short --branch",
+      "exit_code": 0,
+      "result": "## compound-plan-m0...origin/compound-plan-m0 [ahead 169]"
+    },
+    {
+      "command": "git log -10 --oneline --decorate",
+      "exit_code": 0,
+      "head": "49f5d9a (HEAD -> compound-plan-m0) goal: activate tcn multistream scaffold"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_code": 0,
+      "result": "No banned pretrained-CV dependencies or source imports found."
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "exit_code": 0,
+      "result": "passed"
+    },
+    {
+      "command": ".venv/bin/python scripts/train_rawframe_model.py ... --reduced-real-data-module --dry-run --require-input-contract rgb_frames_fallback",
+      "exit_code": 0,
+      "result": "all 139 selected high-signal clips observed rgb_frames_fallback"
+    },
+    {
+      "command": ".venv/bin/python scripts/train_rawframe_model.py ... --reduced-real-data-module --dry-run --require-input-contract rgb_regions_grid_v1",
+      "exit_code": 2,
+      "result": "failed before training with observed rgb_frames_fallback count 139"
+    },
+    {
+      "command": ".venv/bin/python scripts/train_rawframe_model.py ... --reduced-real-data-training-smoke --require-input-contract rgb_frames_fallback",
+      "exit_code": 2,
+      "result": "failed because --require-input-contract requires --dry-run"
+    },
+    {
+      "command": ".venv/bin/python scripts/train_rawframe_model.py ... --reduced-real-data-module --dry-run",
+      "exit_code": 0,
+      "result": "baseline without new guard still passes"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-tcn-multistream-contract-scaffold-v1.json",
+      "exit_code": 0,
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0,
+      "result": "passed"
+    }
+  ]
+}

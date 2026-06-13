@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "mission": "M3EO",
+  "status": "completed_bounded_unblock_preflight_with_remote_checkout_env_blocker",
+  "generated_at": "2026-05-28T17:35:11Z",
+  "generated_by": "codex-executor",
+  "active_prompt": {
+    "path": "docs/model/return-to-form-m3eo-overnight-detector0-brev-unblock-goal-loop-prompt.md",
+    "sha256": "5f25d3fa9cb6758dace0e41531c98a6ccf04128d51692e1d871bfbd289369d07"
+  },
+  "goal": {
+    "path": "GOAL.md",
+    "sha256": "f8f23c96e017e9a966accb1e9d733a4224e27336c86ee0aece31f96961152c6d"
+  },
+  "slice_scope": {
+    "completed": [
+      "verified current audit and claim surfaces stayed fail-closed",
+      "reconciled M3EN Detector 0 blocker with expanded/union Detector 0 lineage",
+      "performed exactly one bounded Brev preflight on the approved existing worker",
+      "stopped and verified the Brev worker after preflight"
+    ],
+    "not_performed": [
+      "no training",
+      "no export",
+      "no source import",
+      "no raw learner video upload",
+      "no dataset sync or copy",
+      "no worker creation",
+      "no worker delete or reset",
+      "no final-gate changes",
+      "no product promotion"
+    ]
+  },
+  "human_approval_envelope": {
+    "approval_source": "GOAL.md and active M3EO prompt",
+    "brev_spend_authorized_for_this_slice": true,
+    "worker_name": "asl-pilot-m3eh-l40s-001",
+    "max_runtime_minutes": 20,
+    "max_expected_spend_usd": 3,
+    "remote_training_authorized": false,
+    "duplicate_worker_creation_authorized": false,
+    "worker_delete_or_reset_authorized": false
+  },
+  "commands_run": [
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3en-detector0-source-region-receipts-v1.json",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m json.tool data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json",
+      "result": "passed"
+    },
+    {
+      "command": "brev ls --json",
+      "result": "passed",
+      "purpose": "pre-start worker verification"
+    },
+    {
+      "command": "brev start asl-pilot-m3eh-l40s-001",
+      "result": "passed"
+    },
+    {
+      "command": "brev exec asl-pilot-m3eh-l40s-001 \"pwd; nvidia-smi; test -x /home/shadeform/asl-pilot/.venv/bin/python && /home/shadeform/asl-pilot/.venv/bin/python - <<'PY' ... PY\"",
+      "result": "failed_expected_path_probe",
+      "exit_code": 1
+    },
+    {
+      "command": "brev stop asl-pilot-m3eh-l40s-001",
+      "result": "passed"
+    },
+    {
+      "command": "brev ls --json",
+      "result": "passed",
+      "purpose": "post-stop worker verification"
+    }
+  ],
+  "claim_surfaces": {
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "expected_state": "not_trained/fail_closed"
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "expected_state": "empty_or_non_promoted"
+    },
+    "claim_status": "no promoted recognizer, detector, browser activation, or final readiness claim changed"
+  },
+  "brev_preflight": {
+    "worker": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "instance_type": "l40s-48gb.1x",
+      "instance_kind": "gpu",
+      "gpu": "L40S"
+    },
+    "pre_start_status": {
+      "status": "STOPPED",
+      "build_status": "COMPLETED",
+      "shell_status": "NOT READY",
+      "health_status": "HEALTHY"
+    },
+    "start": {
+      "started_at_utc": "2026-05-28T17:30:42Z",
+      "result": "passed",
+      "observed_output_summary": "Brev reported the instance ready and printed the approved worker name."
+    },
+    "exec_probe": {
+      "result": "partial_preflight_failed_expected_repo_venv_probe",
+      "exit_code": 1,
+      "observed_initial_ssh_timeout": true,
+      "ssh_eventually_connected": true,
+      "remote_pwd": "/home/ubuntu",
+      "nvidia_smi": {
+        "observed": true,
+        "timestamp_utc": "2026-05-28T17:33:05Z",
+        "gpu_name": "NVIDIA L40S",
+        "driver_version": "565.57.01",
+        "cuda_version": "12.7",
+        "memory_total_mib": 46068,
+        "memory_used_mib": 1,
+        "gpu_utilization_percent": 0,
+        "running_gpu_processes": 0
+      },
+      "torch_cuda_probe": {
+        "attempted": false,
+        "reason": "The approved command gated the Python probe behind test -x /home/shadeform/asl-pilot/.venv/bin/python, and that path was not executable."
+      },
+      "checkout_or_env_interpretation": "The approved remote command proved the expected /home/shadeform/asl-pilot virtualenv path is absent or non-executable in the running worker shell context; no sync, copy, install, or training was performed."
+    },
+    "teardown": {
+      "stop_command_result": "passed",
+      "post_stop_status": {
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY"
+      },
+      "worker_verified_stopped": true
+    }
+  },
+  "detector0_lineage_reconciliation": {
+    "m3en_blocker_receipt": {
+      "path": "docs/validation/return-to-form-m3en-detector0-source-region-receipts-v1.json",
+      "sha256": "03285d427a73bfa7d3c1f68efed3524fec3cc4de51197aa56f151f8b25a95f43",
+      "status": "completed_read_only_evidence_packet",
+      "classification": "current M3EN objectness framing is not supportable because target presence is equivalent to the table label and lacks class-invariant present/absent contrast"
+    },
+    "current_packet": {
+      "path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "sha256": "6d7079caf7daf7f6675b4c2340b0cb5bc89c90a514103504edba87f4241bb29d",
+      "status": "expanded_packet_ready_for_detector0_smoke",
+      "row_count": 32,
+      "selected_labels": [
+        "please",
+        "table",
+        "dad",
+        "grandpa",
+        "hat"
+      ],
+      "split_counts": {
+        "train": 11,
+        "validation": 11,
+        "test": 10
+      },
+      "table_two_hand_union_or_contact_region_positive_counts_by_split": {
+        "train": 7,
+        "validation": 7,
+        "test": 6
+      },
+      "table_two_hand_union_or_contact_region_absent_non_table_count": 12
+    },
+    "union_packet_resolution": {
+      "path": "docs/validation/return-to-form-tier0-detector0-two-hand-union-margin-packet-mutation-v1.json",
+      "sha256": "691365969fefa35a524d7ba007a2b22bff50be76805e4bff2962e9352d17b52b",
+      "status": "training_smoke_selected",
+      "present_counts_by_split": {
+        "train": 7,
+        "validation": 7,
+        "test": 6
+      },
+      "interpretation": "The later margin packet resolves the earlier one-row union/contact mutation issue and establishes enough target-specific table union/contact support for diagnostic local work only."
+    },
+    "median_baseline_diagnostic": {
+      "path": "docs/validation/return-to-form-tier0-detector0-union-target-median-baseline-diagnostic-v1.json",
+      "sha256": "8cfee1e56bcf84dd6f3a13db7770c326d1a2e4b188d444bc8a23dd767a827181",
+      "classification": "median_box_baseline_reproduced_training_path_reformulation_required",
+      "minimum_future_detector0_bar": "beat train-derived median constant-box MAE on train before any crop-normalization ablation or recognizer training"
+    },
+    "architecture_microprobe": {
+      "path": "docs/validation/return-to-form-tier0-detector0-union-target-architecture-microprobe-v1.json",
+      "sha256": "371be041d80fe3f70b65c6bc16b3a5112fa472df486cdd5b3a83a78e3f752dc4",
+      "classification": "train_median_baseline_beaten_heldout_behavior_check_design_next",
+      "train_presence_accuracy": 1.0,
+      "train_present_box_mae": 0.02091207727789879,
+      "train_present_box_mean_iou": 0.7846036553382874
+    },
+    "heldout_behavior_check": {
+      "path": "docs/validation/return-to-form-tier0-detector0-union-target-heldout-behavior-check-v1.json",
+      "sha256": "7816f5fc69ffabceb63ffa0eb30e26202b36c6a156f464084e0b1c93e5890e87",
+      "classification": "heldout_presence_and_box_generalization_failure",
+      "validation_presence_accuracy": 0.27272728085517883,
+      "test_presence_accuracy": 0.4000000059604645,
+      "validation_present_box_mean_iou": 0.43689242005348206,
+      "test_present_box_mean_iou": 0.38463327288627625
+    },
+    "target_decision": {
+      "independent_hand_objectness": "not_supportable_now",
+      "general_objectness": "not_supportable_now",
+      "fixed_region_accounting": "diagnostic_accounting_only_not_runtime_detector_or_product_authority",
+      "two_hand_union_or_contact": "current_packet_supports_target_specific_diagnostic_work_only",
+      "selected_detector0_target_path": "two_hand_union_or_contact",
+      "selected_detector0_target_path_boundaries": [
+        "not a class-invariant objectness claim",
+        "not an independent-hand detector claim",
+        "not a browser or product activation claim",
+        "held-out behavior remains failing and must be treated as design/remediation evidence"
+      ]
+    }
+  },
+  "next_action": "continue_brev_sync_preflight_no_training",
+  "next_action_reason": "The Detector 0 target path is two-hand-union/contact diagnostic work only, but this slice's approved Brev preflight also proved the expected remote repo virtualenv path was absent or non-executable. The active prompt directs the next bounded compute action to sync-preflight only when the remote command proves the checkout/env is missing; no remote training is authorized.",
+  "final_gates": {
+    "changed": false,
+    "promotion_status": "blocked_fail_closed",
+    "reason": "No trained model, detector export, browser activation, or promoted vocabulary was produced."
+  }
+}

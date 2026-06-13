@@ -1,0 +1,725 @@
+{
+  "boundaries": {
+    "brev_spend": false,
+    "brev_stop": false,
+    "brev_sync": false,
+    "brev_training": false,
+    "broad_run_redirect": false,
+    "classifier_microprobe_or_smoke": false,
+    "controlled_clip_heldout_evaluation": false,
+    "crop_normalization_ablation": false,
+    "device_scope": "local CPU/MPS only",
+    "duplicate_brev_worker": false,
+    "final_gate_weakening": false,
+    "final_readiness_claim": false,
+    "local_detector0_smoke_jobs_run": 1,
+    "model_card_promotion": false,
+    "onnx_export": false,
+    "push": false,
+    "recognizer_training": false,
+    "source_approval": false,
+    "unapproved_media_import": false
+  },
+  "brev_no_spend_boundary": {
+    "checked": true,
+    "command": "brev ls --json",
+    "compute_used": false,
+    "manual_stop_command": "brev stop asl-pilot-rawframe-001",
+    "manual_stop_command_run": false,
+    "remote_training_used": false,
+    "returncode": 0,
+    "status": {
+      "workspaces": [
+        {
+          "build_status": "COMPLETED",
+          "gpu": "A100",
+          "health_status": "HEALTHY",
+          "id": "2hl1hytty",
+          "instance_kind": "gpu",
+          "instance_type": "massedcompute_A100_sxm4_80G_DGX",
+          "name": "asl-pilot-rawframe-001",
+          "shell_status": "READY",
+          "status": "RUNNING"
+        }
+      ]
+    },
+    "sync_or_training_used": false
+  },
+  "checked_at": "2026-05-26T00:04:51Z",
+  "command": "/Users/kelly/Developer/asl-pilot/.venv/bin/python scripts/run_return_to_form_tier0_detector0_training_smoke.py --device cpu",
+  "configuration": {
+    "batching": "full train split in one local batch",
+    "early_stop_loss": 0.0125,
+    "epochs_ran": 400,
+    "feature_source": "rgb_regions full_frame_reference at each packet row frame_index",
+    "feature_spatial_size": 32,
+    "hidden_dim": 128,
+    "learning_rate": 0.003,
+    "loss": "BCEWithLogits presence loss plus L1 normalized xyxy box loss for present targets",
+    "max_epochs": 400,
+    "optimizer": "AdamW(weight_decay=0.0)",
+    "target_ids": [
+      "left_or_first_hand",
+      "right_or_second_hand",
+      "head_or_face",
+      "upper_body_or_signing_space"
+    ]
+  },
+  "final_promotion_blocker_separation": {
+    "final_gate_weakening": false,
+    "final_promotion_negative_challenge_blocker": "unchanged and separate from this local Detector 0 smoke",
+    "final_readiness_claim": false,
+    "hard_negative_far_assessed": false,
+    "model_card_promotion": false,
+    "no_zero_accepted_true_class_assessed": false,
+    "onnx_export": false,
+    "threshold_selected": false
+  },
+  "local_device": "cpu",
+  "mission": "M3AE-P Detector 0 local training smoke",
+  "model": {
+    "description": "Random-init MLP over one downsampled full-frame reference image per packet row; predicts target presence plus normalized xyxy boxes.",
+    "model_id": "detector0_full_frame_mlp_v1_local_smoke",
+    "parameter_count": 395924,
+    "pretrained_components": [],
+    "random_initialization": true,
+    "uses_pretrained_detector_or_landmark": false
+  },
+  "next_action": {
+    "description": "Local Detector 0 smoke proved packet loading, target encoding, scratch loss, and metrics are usable enough to design the crop-normalization comparison.",
+    "id": "crop_normalization_ablation_design"
+  },
+  "no_pretrained_provenance": {
+    "allowed_source_ids": [
+      "popsign-v1-original-videos"
+    ],
+    "generated_pseudo_labels": false,
+    "label_expansion": false,
+    "pretrained_backbones_or_embeddings": false,
+    "pretrained_detector_outputs": false,
+    "pretrained_landmarks": false,
+    "source_expansion": false,
+    "unapproved_media_import": false
+  },
+  "output": {
+    "model_artifact_saved": false,
+    "path": "docs/validation/return-to-form-tier0-detector0-training-smoke-v1.json",
+    "reason_model_artifact_not_saved": "local smoke records metrics only; no export, promotion, or final model artifact is authorized"
+  },
+  "packet_evidence": {
+    "label_counts_by_split": {
+      "test": {
+        "dad": 1,
+        "grandpa": 1,
+        "hat": 1,
+        "please": 1,
+        "table": 1
+      },
+      "train": {
+        "dad": 1,
+        "grandpa": 1,
+        "hat": 1,
+        "please": 1,
+        "table": 1
+      },
+      "validation": {
+        "dad": 1,
+        "grandpa": 1,
+        "hat": 1,
+        "please": 1,
+        "table": 1
+      }
+    },
+    "packet": {
+      "path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "sha256": "ecbd0a53d46cdcc302cbc6c2cb5bb2c7f2049abda0e24328fe82c68118c48f34"
+    },
+    "rows_by_split": {
+      "test": [
+        {
+          "clip_id": "popsign-v1-test-please-000058",
+          "frame_index": 10,
+          "label_id": "please",
+          "review_status": "manual_verified",
+          "row_id": "det0-v0-test-please-000058-f010",
+          "signer_identity_hash": "e0940122312d361abda8019f5084ffd16eacdeaba32c7bb78ed08a50549015b2",
+          "source_record_id": "popsign_v1_0/game/test/please/gtsignstudy4a.8031-please-2023_01_24_20_40_04.129-0.mp4",
+          "tensor_path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-please-000058-regions.pt",
+          "tensor_sha256": "6d98d02ed2b57d1381db852ecda59e45db6fe0e44099b0ee047f63211bed22b4"
+        },
+        {
+          "clip_id": "popsign-v1-test-table-000286",
+          "frame_index": 5,
+          "label_id": "table",
+          "review_status": "manual_verified",
+          "row_id": "det0-v0-test-table-000286-f005",
+          "signer_identity_hash": "e0940122312d361abda8019f5084ffd16eacdeaba32c7bb78ed08a50549015b2",
+          "source_record_id": "popsign_v1_0/game/test/table/gtsignstudy4a.8031-table-2023_01_25_13_50_32.495-0.mp4",
+          "tensor_path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-table-000286-regions.pt",
+          "tensor_sha256": "e3bd3678a5b728cfa219254f6dad1047479e89f30a522a09405b456e2b3f2d70"
+        },
+        {
+          "clip_id": "popsign-v1-test-dad-000628",
+          "frame_index": 5,
+          "label_id": "dad",
+          "review_status": "manual_corrected",
+          "row_id": "det0-v0-test-dad-000628-f005",
+          "signer_identity_hash": "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25",
+          "source_record_id": "popsign_v1_0/game/test/dad/gtsignstudy4a.8032-dad-2023_01_25_17_19_45.298-0.mp4",
+          "tensor_path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-dad-000628-regions.pt",
+          "tensor_sha256": "17491b3e34bc79e10f3625184c3db96df4141b96f8ef8ab085d508504fb5d72c"
+        },
+        {
+          "clip_id": "popsign-v1-test-grandpa-000723",
+          "frame_index": 5,
+          "label_id": "grandpa",
+          "review_status": "manual_corrected",
+          "row_id": "det0-v0-test-grandpa-000723-f005",
+          "signer_identity_hash": "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25",
+          "source_record_id": "popsign_v1_0/game/test/grandpa/gtsignstudy4a.8032-grandpa-2023_01_25_18_36_33.732-0.mp4",
+          "tensor_path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-grandpa-000723-regions.pt",
+          "tensor_sha256": "962a3d0de57d621fd5746b44a932a04c206c10d1aab04c4c95f7d7d8ed969c9d"
+        },
+        {
+          "clip_id": "popsign-v1-test-hat-001503",
+          "frame_index": 10,
+          "label_id": "hat",
+          "review_status": "manual_corrected",
+          "row_id": "det0-v0-test-hat-001503-f010",
+          "signer_identity_hash": "dea2b45d14f9aa79f926bb30c35ac5280848249c9268afedb27088d019cb2e25",
+          "source_record_id": "popsign_v1_0/game/test/hat/gtsignstudy4a.8032-hat-2023_01_25_21_11_53.095-1.mp4",
+          "tensor_path": "data/tensors/return-to-form-tier0/test/popsign-v1-test-hat-001503-regions.pt",
+          "tensor_sha256": "016e8dd4b2047864738fe8596ee7b34cc355b10eef5c7aebfd1f81e3059ff4ca"
+        }
+      ],
+      "train": [
+        {
+          "clip_id": "popsign-v1-train-please-000076",
+          "frame_index": 10,
+          "label_id": "please",
+          "review_status": "manual_verified",
+          "row_id": "det0-v0-train-please-000076-f010",
+          "signer_identity_hash": "7c01a9b7c2b20c7f1bb084d66ac6e7a2967d08a093077b9497d55131a1cd67bc",
+          "source_record_id": "popsign_v1_0/game/train/please/4a.7003-please-2022_12_16_20_37_37.252-0.mp4",
+          "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-please-000076-regions.pt",
+          "tensor_sha256": "32dadc44d38225766957f2804cc9f9f15b6033ca9da77259fe1ded5b32185fa3"
+        },
+        {
+          "clip_id": "popsign-v1-train-table-000376",
+          "frame_index": 10,
+          "label_id": "table",
+          "review_status": "manual_corrected",
+          "row_id": "det0-v0-train-table-000376-f010",
+          "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+          "source_record_id": "popsign_v1_0/game/train/table/4a.6001-table-2022_12_16_00_17_47.002-0.mp4",
+          "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-table-000376-regions.pt",
+          "tensor_sha256": "22a4a8b0db326286320be86e0caf526d8dbec3761d8bb431d556224230c41035"
+        },
+        {
+          "clip_id": "popsign-v1-train-dad-000826",
+          "frame_index": 10,
+          "label_id": "dad",
+          "review_status": "manual_verified",
+          "row_id": "det0-v0-train-dad-000826-f010",
+          "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+          "source_record_id": "popsign_v1_0/game/train/dad/4a.6001-dad-2022_12_16_00_25_40.042-0.mp4",
+          "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-dad-000826-regions.pt",
+          "tensor_sha256": "b2bbf8085a902b2ad929bbac86bfd4d49150b7c1d569c7e56a8893bb633bee06"
+        },
+        {
+          "clip_id": "popsign-v1-train-grandpa-000951",
+          "frame_index": 10,
+          "label_id": "grandpa",
+          "review_status": "manual_corrected",
+          "row_id": "det0-v0-train-grandpa-000951-f010",
+          "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+          "source_record_id": "popsign_v1_0/game/train/grandpa/4a.6001-grandpa-2023_01_04_22_16_58.202-0.mp4",
+          "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-grandpa-000951-regions.pt",
+          "tensor_sha256": "4e02571b24d5d0f2377271ae1df0e780a261f1355201fd9dabf743b7fc4f282d"
+        },
+        {
+          "clip_id": "popsign-v1-train-hat-001976",
+          "frame_index": 10,
+          "label_id": "hat",
+          "review_status": "manual_corrected",
+          "row_id": "det0-v0-train-hat-001976-f010",
+          "signer_identity_hash": "55f7d45ae59832f68d3d7e4f662e10e8219b26e4b4a50cb36235d90e4b7823d0",
+          "source_record_id": "popsign_v1_0/game/train/hat/4a.6001-hat-2022_12_16_00_17_27.405-0.mp4",
+          "tensor_path": "data/tensors/return-to-form-tier0/train/popsign-v1-train-hat-001976-regions.pt",
+          "tensor_sha256": "66baceb8014d3315900727244ae85562f8cf4f676231e795dcd1e438edc1f5ba"
+        }
+      ],
+      "validation": [
+        {
+          "clip_id": "popsign-v1-validation-please-000076",
+          "frame_index": 5,
+          "label_id": "please",
+          "review_status": "manual_verified",
+          "row_id": "det0-v0-validation-please-000076-f005",
+          "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+          "source_record_id": "popsign_v1_0/game/val/please/4a.7002-please-2022_12_20_01_33_08.888-0.mp4",
+          "tensor_path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-please-000076-regions.pt",
+          "tensor_sha256": "ea4635add669b880f187be26baa8f3ef992e208e44f1366c35d3a1ea83e72a6d"
+        },
+        {
+          "clip_id": "popsign-v1-validation-table-000376",
+          "frame_index": 5,
+          "label_id": "table",
+          "review_status": "manual_verified",
+          "row_id": "det0-v0-validation-table-000376-f005",
+          "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+          "source_record_id": "popsign_v1_0/game/val/table/4a.7002-table-2022_12_19_22_52_30.498-0.mp4",
+          "tensor_path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-table-000376-regions.pt",
+          "tensor_sha256": "0333582a01338a88bc818d7f45aa2f669d8acfed6c6876fa860d9ab8c01d50d7"
+        },
+        {
+          "clip_id": "popsign-v1-validation-dad-000826",
+          "frame_index": 5,
+          "label_id": "dad",
+          "review_status": "manual_corrected",
+          "row_id": "det0-v0-validation-dad-000826-f005",
+          "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+          "source_record_id": "popsign_v1_0/game/val/dad/4a.7002-dad-2022_12_22_01_53_46.646-0.mp4",
+          "tensor_path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-dad-000826-regions.pt",
+          "tensor_sha256": "0b9ba18bf30df4e7a9cc3a0bf38bb0903e9f4fb475325d5ff5163ff27c2262eb"
+        },
+        {
+          "clip_id": "popsign-v1-validation-grandpa-000952",
+          "frame_index": 5,
+          "label_id": "grandpa",
+          "review_status": "manual_corrected",
+          "row_id": "det0-v0-validation-grandpa-000952-f005",
+          "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+          "source_record_id": "popsign_v1_0/game/val/grandpa/4a.7002-grandpa-2022_12_19_23_35_52.624-0.mp4",
+          "tensor_path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-grandpa-000952-regions.pt",
+          "tensor_sha256": "255450344b20fcff77980fdc4edf6b3709e001671b968f7f66f97648d77208d1"
+        },
+        {
+          "clip_id": "popsign-v1-validation-hat-001976",
+          "frame_index": 5,
+          "label_id": "hat",
+          "review_status": "manual_corrected",
+          "row_id": "det0-v0-validation-hat-001976-f005",
+          "signer_identity_hash": "93953b2725a6d07358ef12ab3ddd30da54874ffd8fecc45f0dfaf6bc1ffd4e22",
+          "source_record_id": "popsign_v1_0/game/val/hat/4a.7002-hat-2022_12_18_23_10_52.579-0.mp4",
+          "tensor_path": "data/tensors/return-to-form-tier0/validation/popsign-v1-validation-hat-001976-regions.pt",
+          "tensor_sha256": "522a52b729fca85053f46bea1e0c68029405820cfdeff6180d6396901a4f46ff"
+        }
+      ]
+    },
+    "source_ids": [
+      "popsign-v1-original-videos"
+    ],
+    "split_counts": {
+      "test": 5,
+      "train": 5,
+      "validation": 5
+    },
+    "target_ids": [
+      "left_or_first_hand",
+      "right_or_second_hand",
+      "head_or_face",
+      "upper_body_or_signing_space"
+    ],
+    "tensor_hashes_checked": 15
+  },
+  "readiness_classification": {
+    "classification": "ready_for_crop_normalization_ablation_design",
+    "detector0_local_smoke_path": {
+      "actual": {
+        "loss_drop_fraction_from_initial_to_best": 0.8651164575255627,
+        "train_presence_accuracy": 1.0,
+        "train_present_box_mae": 0.13724473118782043,
+        "train_present_box_mean_iou": 0.4801202416419983
+      },
+      "criteria": {
+        "loss_drop_fraction_from_initial_to_best_min": 0.75,
+        "train_presence_accuracy": "1.0",
+        "train_present_box_mae_max": 0.15
+      },
+      "status": "passed"
+    },
+    "not_a_product_readiness_claim": true
+  },
+  "schema_version": "asl-pilot-return-to-form-tier0-detector0-training-smoke/v1",
+  "seed": 141421,
+  "selected_labels": [
+    "dad",
+    "grandpa",
+    "hat",
+    "please",
+    "table"
+  ],
+  "source_artifacts": {
+    "crop_config": {
+      "path": "docs/model/return-to-form-fixed-crop-config.json",
+      "sha256": "dbc735dad34fa9df1174a40374037976f9c88d789012634b2b22743ae0802b29"
+    },
+    "decode_dataloader": {
+      "path": "docs/validation/return-to-form-tier0-decode-dataloader.json",
+      "sha256": "d64c0b46500075d94207ef2197a6f6d8f1570cf548da8b08ca16dc520ba386c2"
+    },
+    "m3ae_l_bootstrap": {
+      "path": "docs/validation/return-to-form-tier0-detector0-crop-normalization-bootstrap.json",
+      "sha256": "bd17e32bc7d4adbd195d1a26173740163e314a54577a9d9245a38dce752331e5"
+    },
+    "m3ae_m_packet_review": {
+      "path": "docs/validation/return-to-form-tier0-detector0-annotation-packet-v0-review.md",
+      "sha256": "49dcfd36dae0d9c1de8a01cc745bb59deef2ede44ad0f5ebf19532484ee5eb8a"
+    },
+    "m3ae_n_review": {
+      "path": "docs/validation/return-to-form-tier0-detector0-annotation-review-v1.md",
+      "sha256": "c61aa7f480d54dba28c2064ab1f282d10103fb987424c6381d9150bd62984fe3"
+    },
+    "m3ae_o_followup": {
+      "path": "docs/validation/return-to-form-tier0-detector0-annotation-followup-v1.md",
+      "sha256": "89b8df6ff95ec62acbaf521c3cb8c7e7b6d43ce07983718ee045f7efbb4ea048"
+    },
+    "pre_training_gates": {
+      "path": "docs/validation/return-to-form-tier0-gates.json",
+      "sha256": "2cc000d3f90e9be236cf64768530bf9786fc61fe6605c774b9c1e8ab123d9d97"
+    },
+    "source_coverage": {
+      "path": "docs/research/return-to-form-tier0-source-coverage.json",
+      "sha256": "1ff7da89a51e62f9efbeb08cf6361784e160ed862ac579f9e40db332fa576378"
+    },
+    "source_register": {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    "tensor_contract": {
+      "path": "docs/validation/return-to-form-tier0-tensor-contract.json",
+      "sha256": "0f2ea12cf9a6517bafb67876ba4b0e4951ce821b61b27a740d45f6d1e36b3cd3"
+    },
+    "test_manifest": {
+      "path": "data/manifests/return-to-form-tier0/test.json",
+      "sha256": "b0c771b612ebb52beb375a98b4180ccd465aa642312a8c6c29d7ff225febd8ed"
+    },
+    "train_manifest": {
+      "path": "data/manifests/return-to-form-tier0/train.json",
+      "sha256": "03ae563a5f2ef0d5b868f6c80f50acb64ae642e782cd541faa5c022d4d0af1de"
+    },
+    "validation_manifest": {
+      "path": "data/manifests/return-to-form-tier0/validation.json",
+      "sha256": "23da15a80ce2eee1dab1a7e64c08e2aefcf5d7dd48263677fdc49d1efb0ad808"
+    }
+  },
+  "split_counts": {
+    "test": 5,
+    "train": 5,
+    "validation": 5
+  },
+  "status": "action_selected",
+  "training": {
+    "history": [
+      {
+        "epoch": 0,
+        "train_box_loss": 0.2815709710121155,
+        "train_presence_accuracy": 0.5,
+        "train_presence_loss": 0.6971334218978882,
+        "train_present_box_mae": 0.2815709710121155,
+        "train_total_loss": 0.9787043929100037
+      },
+      {
+        "epoch": 1,
+        "train_box_loss": 0.28681278228759766,
+        "train_presence_accuracy": 0.6499999761581421,
+        "train_presence_loss": 0.6076246500015259,
+        "train_present_box_mae": 0.28681278228759766,
+        "train_total_loss": 0.8944374322891235
+      },
+      {
+        "epoch": 2,
+        "train_box_loss": 0.23482245206832886,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 0.06670284271240234,
+        "train_present_box_mae": 0.23482245206832886,
+        "train_total_loss": 0.3015252947807312
+      },
+      {
+        "epoch": 3,
+        "train_box_loss": 0.20765851438045502,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 0.006842365954071283,
+        "train_present_box_mae": 0.20765851438045502,
+        "train_total_loss": 0.21450087428092957
+      },
+      {
+        "epoch": 4,
+        "train_box_loss": 0.1904568374156952,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 0.000926900771446526,
+        "train_present_box_mae": 0.1904568374156952,
+        "train_total_loss": 0.1913837343454361
+      },
+      {
+        "epoch": 5,
+        "train_box_loss": 0.19046235084533691,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 0.0001439901243429631,
+        "train_present_box_mae": 0.19046235084533691,
+        "train_total_loss": 0.19060634076595306
+      },
+      {
+        "epoch": 25,
+        "train_box_loss": 0.22357822954654694,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 1.4814364476478659e-05,
+        "train_present_box_mae": 0.22357822954654694,
+        "train_total_loss": 0.22359304130077362
+      },
+      {
+        "epoch": 50,
+        "train_box_loss": 0.21529217064380646,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 3.294547568089001e-08,
+        "train_present_box_mae": 0.21529217064380646,
+        "train_total_loss": 0.21529220044612885
+      },
+      {
+        "epoch": 75,
+        "train_box_loss": 0.2186322659254074,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 3.5389919883499488e-09,
+        "train_present_box_mae": 0.2186322659254074,
+        "train_total_loss": 0.2186322659254074
+      },
+      {
+        "epoch": 100,
+        "train_box_loss": 0.22346952557563782,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 1.2443001073947357e-09,
+        "train_present_box_mae": 0.22346952557563782,
+        "train_total_loss": 0.22346952557563782
+      },
+      {
+        "epoch": 125,
+        "train_box_loss": 0.21275821328163147,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 1.5117519458485162e-09,
+        "train_present_box_mae": 0.21275821328163147,
+        "train_total_loss": 0.21275821328163147
+      },
+      {
+        "epoch": 150,
+        "train_box_loss": 0.21616172790527344,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 4.424219213206015e-09,
+        "train_present_box_mae": 0.21616172790527344,
+        "train_total_loss": 0.21616172790527344
+      },
+      {
+        "epoch": 175,
+        "train_box_loss": 0.2138463854789734,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 4.392993524504618e-09,
+        "train_present_box_mae": 0.2138463854789734,
+        "train_total_loss": 0.2138463854789734
+      },
+      {
+        "epoch": 200,
+        "train_box_loss": 0.21136948466300964,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 7.493831333249545e-09,
+        "train_present_box_mae": 0.21136948466300964,
+        "train_total_loss": 0.21136949956417084
+      },
+      {
+        "epoch": 225,
+        "train_box_loss": 0.20888656377792358,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 7.974978899483176e-09,
+        "train_present_box_mae": 0.20888656377792358,
+        "train_total_loss": 0.20888657867908478
+      },
+      {
+        "epoch": 250,
+        "train_box_loss": 0.20764821767807007,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 9.813859946916637e-09,
+        "train_present_box_mae": 0.20764821767807007,
+        "train_total_loss": 0.20764823257923126
+      },
+      {
+        "epoch": 275,
+        "train_box_loss": 0.19769206643104553,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 8.219966929345901e-09,
+        "train_present_box_mae": 0.19769206643104553,
+        "train_total_loss": 0.19769208133220673
+      },
+      {
+        "epoch": 300,
+        "train_box_loss": 0.19265425205230713,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 6.035089317180109e-09,
+        "train_present_box_mae": 0.19265425205230713,
+        "train_total_loss": 0.19265425205230713
+      },
+      {
+        "epoch": 325,
+        "train_box_loss": 0.18852807581424713,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 6.122228057847678e-08,
+        "train_present_box_mae": 0.18852807581424713,
+        "train_total_loss": 0.1885281354188919
+      },
+      {
+        "epoch": 350,
+        "train_box_loss": 0.17890071868896484,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 2.013725406868616e-06,
+        "train_present_box_mae": 0.17890071868896484,
+        "train_total_loss": 0.178902730345726
+      },
+      {
+        "epoch": 375,
+        "train_box_loss": 0.1454930156469345,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 0.00011985572200501338,
+        "train_present_box_mae": 0.1454930156469345,
+        "train_total_loss": 0.14561286568641663
+      },
+      {
+        "epoch": 400,
+        "train_box_loss": 0.13724473118782043,
+        "train_presence_accuracy": 1.0,
+        "train_presence_loss": 0.0002456644142512232,
+        "train_present_box_mae": 0.13724473118782043,
+        "train_total_loss": 0.1374903917312622
+      }
+    ],
+    "loss_movement": {
+      "best_train_loss": 0.13201111555099487,
+      "final_minus_initial": -0.8412140011787415,
+      "final_train_loss": 0.1374903917312622,
+      "initial_train_loss": 0.9787043929100037,
+      "loss_drop_fraction_from_initial_to_best": 0.8651164575255627
+    },
+    "metrics": {
+      "test": {
+        "loss": {
+          "box": 0.2644217014312744,
+          "presence": 1.0339994430541992,
+          "total": 1.2984211444854736
+        },
+        "per_target": [
+          {
+            "box_mae_if_present": 0.30246084928512573,
+            "mean_iou_if_present": 0.15802529454231262,
+            "presence_accuracy": 1.0,
+            "present_support": 5,
+            "target_id": "left_or_first_hand"
+          },
+          {
+            "box_mae_if_present": 0.34410613775253296,
+            "mean_iou_if_present": 0.0,
+            "presence_accuracy": 0.800000011920929,
+            "present_support": 1,
+            "target_id": "right_or_second_hand"
+          },
+          {
+            "box_mae_if_present": 0.3528672754764557,
+            "mean_iou_if_present": 0.0,
+            "presence_accuracy": 1.0,
+            "present_support": 5,
+            "target_id": "head_or_face"
+          },
+          {
+            "box_mae_if_present": 0.12199999392032623,
+            "mean_iou_if_present": 0.550800085067749,
+            "presence_accuracy": 1.0,
+            "present_support": 5,
+            "target_id": "upper_body_or_signing_space"
+          }
+        ],
+        "presence_accuracy": 0.949999988079071,
+        "present_box_mae": 0.2644217014312744,
+        "present_box_mean_iou": 0.2215079367160797,
+        "sample_count": 5
+      },
+      "train": {
+        "loss": {
+          "box": 0.13724473118782043,
+          "presence": 0.0002456644142512232,
+          "total": 0.1374903917312622
+        },
+        "per_target": [
+          {
+            "box_mae_if_present": 0.15256640315055847,
+            "mean_iou_if_present": 0.4370504319667816,
+            "presence_accuracy": 1.0,
+            "present_support": 5,
+            "target_id": "left_or_first_hand"
+          },
+          {
+            "box_mae_if_present": 0.26931095123291016,
+            "mean_iou_if_present": 0.0,
+            "presence_accuracy": 1.0,
+            "present_support": 1,
+            "target_id": "right_or_second_hand"
+          },
+          {
+            "box_mae_if_present": 0.16350263357162476,
+            "mean_iou_if_present": 0.3946479260921478,
+            "presence_accuracy": 1.0,
+            "present_support": 5,
+            "target_id": "head_or_face"
+          },
+          {
+            "box_mae_if_present": 0.0692519098520279,
+            "mean_iou_if_present": 0.7046865224838257,
+            "presence_accuracy": 1.0,
+            "present_support": 5,
+            "target_id": "upper_body_or_signing_space"
+          }
+        ],
+        "presence_accuracy": 1.0,
+        "present_box_mae": 0.13724473118782043,
+        "present_box_mean_iou": 0.4801202416419983,
+        "sample_count": 5
+      },
+      "validation": {
+        "loss": {
+          "box": 0.24442532658576965,
+          "presence": 1.2556686401367188,
+          "total": 1.500093936920166
+        },
+        "per_target": [
+          {
+            "box_mae_if_present": 0.30927398800849915,
+            "mean_iou_if_present": 0.14585134387016296,
+            "presence_accuracy": 1.0,
+            "present_support": 5,
+            "target_id": "left_or_first_hand"
+          },
+          {
+            "box_mae_if_present": 0.4366647005081177,
+            "mean_iou_if_present": 0.0,
+            "presence_accuracy": 0.20000000298023224,
+            "present_support": 1,
+            "target_id": "right_or_second_hand"
+          },
+          {
+            "box_mae_if_present": 0.26555415987968445,
+            "mean_iou_if_present": 0.17536525428295135,
+            "presence_accuracy": 1.0,
+            "present_support": 5,
+            "target_id": "head_or_face"
+          },
+          {
+            "box_mae_if_present": 0.11999998986721039,
+            "mean_iou_if_present": 0.5580000877380371,
+            "presence_accuracy": 1.0,
+            "present_support": 5,
+            "target_id": "upper_body_or_signing_space"
+          }
+        ],
+        "presence_accuracy": 0.800000011920929,
+        "present_box_mae": 0.24442532658576965,
+        "present_box_mean_iou": 0.27475520968437195,
+        "sample_count": 5
+      }
+    }
+  }
+}

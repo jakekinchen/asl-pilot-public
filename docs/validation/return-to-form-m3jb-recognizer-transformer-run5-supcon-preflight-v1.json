@@ -1,0 +1,265 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-run5-supcon-preflight/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_run5_supcon_aux_loss_preflight_no_brev",
+  "recorded_at_utc": "2026-06-04T02:41:44Z",
+  "head_before_slice": "f472ba2 record(m3jb): select recognizer run5 supcon preflight",
+  "status": "completed_supcon_preflight_no_brev_no_training",
+  "inputs": {
+    "run4_research_tuning_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run4-research-tuning-v1.json",
+    "run4_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run4-t32-brev-v1.json",
+    "zero_weight_dryrun_receipt": "docs/validation/m3jb-recognizer-run5-supcon-preflight-zero-weight-dryrun-v1.json",
+    "weighted_dryrun_receipt": "docs/validation/m3jb-recognizer-run5-supcon-preflight-weight005-dryrun-v1.json",
+    "student_data": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1",
+    "teacher_data": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/.cache/handcrop-lm2",
+    "teacher_checkpoint": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/recognizer-v1.pt"
+  },
+  "side_worktree": {
+    "path": "/Users/kelly/Developer/asl-pilot-annotator",
+    "commit": "896d5fb feat(recognizer): add supcon auxiliary preflight",
+    "preexisting_unrelated_dirty_worktree": true,
+    "scoped_files_clean_after_side_commit": true,
+    "scoped_files": [
+      "tools/detector0-annotator/seq_transformer.py",
+      "tools/detector0-annotator/train_recognizer_distill.py",
+      "tools/detector0-annotator/test_recognizer_distill_diagnostics.py"
+    ],
+    "sha256": {
+      "seq_transformer_py": "040a3f7546af1ddc20f145c76cdec54853f12922eb315bd27c11f55aac4387c1",
+      "train_recognizer_distill_py": "c91559e7a68f350a0a79fb703c408e452564861d61ab80b39ba4b40b87c66961",
+      "test_recognizer_distill_diagnostics_py": "a5eeb74be2a00461a534be959a2530440d407264ab0eaddcf45d3b107833548a"
+    }
+  },
+  "implementation": {
+    "student_arch": "transformer",
+    "flags_added": [
+      "--supcon-weight",
+      "--supcon-temperature"
+    ],
+    "flag_defaults": {
+      "supcon_weight": 0.0,
+      "supcon_temperature": 0.1
+    },
+    "transformer_embedding_exposure": "SeqTransformer.forward keeps the default logits-only return path and returns (logits, normalized_cls_embedding) only when return_embedding=True.",
+    "runtime_inference_changed": false,
+    "supcon_loss": {
+      "scope": "training-only auxiliary loss",
+      "positive_definition": "same hard label inside the batch, excluding self",
+      "anchor_policy": "anchors with no same-label positive are skipped",
+      "zero_loss_policy": "zero is returned only when no positive anchors exist",
+      "weight_zero_preserves_ce_kd": true
+    }
+  },
+  "zero_weight_dryrun": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 PYTORCH_ENABLE_MPS_FALLBACK=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_recognizer_distill.py --student-data tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1 --teacher-data tools/detector0-annotator/.cache/handcrop-lm2 --teacher-checkpoint tools/detector0-annotator/output/recognizer-v1.pt --student-arch transformer --seq-len 32 --device mps --epochs 240 --batch 128 --lr 5e-4 --lr-scheduler cosine --warmup-steps 500 --min-lr 5e-5 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --supcon-weight 0.0 --supcon-temperature 0.10 --seed 1337 --diagnostics --dry-run-forward --no-save-model --out /Users/kelly/Developer/asl-pilot/docs/validation/m3jb-recognizer-run5-supcon-preflight-zero-weight-dryrun-v1.json",
+    "receipt_sha256": "3ec952029ecca111ac40393572e35cd2f5333f73dc678a17c5bb1613b3cb9649",
+    "training_mode": "dry_run_forward",
+    "student_cache": {
+      "clips": 10335,
+      "train_clips": 7011,
+      "monitor_clips": 955,
+      "test_clips": 2369,
+      "classes": 95,
+      "sequence_length": 32,
+      "feature_dim": 90
+    },
+    "dry_run_forward": {
+      "batch_size": 128,
+      "logits_shape": [
+        128,
+        95
+      ],
+      "loss": 7.84514,
+      "base_loss": 7.84514,
+      "ce_teacher": 4.593309,
+      "kd": 26.669558,
+      "ce_plain": 4.581603,
+      "supcon_enabled": false,
+      "optimizer_steps": 0,
+      "expected_optimizer_steps": 0,
+      "planned_optimizer_steps": 13200,
+      "weights": null,
+      "no_save_model": true
+    },
+    "ce_kd_preservation": {
+      "base_loss_equals_total_loss": true,
+      "weighted_dryrun_base_loss_matches_zero_weight_base_loss": true
+    }
+  },
+  "weighted_supcon_dryrun": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 PYTORCH_ENABLE_MPS_FALLBACK=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_recognizer_distill.py --student-data tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1 --teacher-data tools/detector0-annotator/.cache/handcrop-lm2 --teacher-checkpoint tools/detector0-annotator/output/recognizer-v1.pt --student-arch transformer --seq-len 32 --device mps --epochs 240 --batch 128 --lr 5e-4 --lr-scheduler cosine --warmup-steps 500 --min-lr 5e-5 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --supcon-weight 0.05 --supcon-temperature 0.10 --seed 1337 --diagnostics --dry-run-forward --no-save-model --out /Users/kelly/Developer/asl-pilot/docs/validation/m3jb-recognizer-run5-supcon-preflight-weight005-dryrun-v1.json",
+    "receipt_sha256": "0eb50af18f992907379c13a950e9e43e27fca8c06d5d14f2116dd6587cb88df0",
+    "training_mode": "dry_run_forward",
+    "student_cache": {
+      "clips": 10335,
+      "train_clips": 7011,
+      "monitor_clips": 955,
+      "test_clips": 2369,
+      "classes": 95,
+      "sequence_length": 32,
+      "feature_dim": 90
+    },
+    "dry_run_forward": {
+      "batch_size": 128,
+      "logits_shape": [
+        128,
+        95
+      ],
+      "total_loss": 8.091041,
+      "base_loss": 7.84514,
+      "ce_teacher": 4.593309,
+      "kd": 26.669558,
+      "ce_plain": 4.581603,
+      "supcon": {
+        "enabled": true,
+        "weight": 0.05,
+        "temperature": 0.1,
+        "loss": 4.918027,
+        "weighted_loss": 0.245901,
+        "positive_anchors": 89,
+        "skipped_anchors": 39,
+        "positive_pairs": 200,
+        "embedding_dim": 256,
+        "embedding_norm_mean": 1.0
+      },
+      "optimizer_steps": 0,
+      "expected_optimizer_steps": 0,
+      "planned_optimizer_steps": 13200,
+      "weights": null,
+      "no_save_model": true
+    }
+  },
+  "local_validation": {
+    "commands": [
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/train_recognizer_distill.py tools/detector0-annotator/seq_transformer.py tools/detector0-annotator/test_recognizer_distill_diagnostics.py",
+        "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+        "result": "passed"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/seq_transformer.py",
+        "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+        "result": "passed"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/test_recognizer_distill_diagnostics.py",
+        "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+        "result": "passed"
+      },
+      {
+        "command": "python3 -m json.tool docs/validation/m3jb-recognizer-run5-supcon-preflight-zero-weight-dryrun-v1.json >/dev/null && python3 -m json.tool docs/validation/m3jb-recognizer-run5-supcon-preflight-weight005-dryrun-v1.json >/dev/null",
+        "cwd": "/Users/kelly/Developer/asl-pilot",
+        "result": "passed"
+      },
+      {
+        "command": "git diff --check -- tools/detector0-annotator/train_recognizer_distill.py tools/detector0-annotator/seq_transformer.py tools/detector0-annotator/test_recognizer_distill_diagnostics.py",
+        "cwd": "/Users/kelly/Developer/asl-pilot-annotator",
+        "result": "passed"
+      }
+    ],
+    "checkpoint_absence_checks": [
+      {
+        "path": "docs/validation/m3jb-recognizer-run5-supcon-preflight-zero-weight-dryrun-v1.pt",
+        "exists": false
+      },
+      {
+        "path": "docs/validation/m3jb-recognizer-run5-supcon-preflight-weight005-dryrun-v1.pt",
+        "exists": false
+      }
+    ]
+  },
+  "brev_visibility": {
+    "command": "brev ls --json",
+    "read_only": true,
+    "workspaces": {
+      "asl-pilot-m3jb-pairrank-l40s-001": {
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY",
+        "gpu": "L40S"
+      },
+      "asl-pilot-m3eh-l40s-001": {
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "gpu": "L40S"
+      }
+    }
+  },
+  "boundaries": {
+    "brev_used": false,
+    "brev_lifecycle_or_exec": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "push": false
+  },
+  "run5_recipe_if_preflight_passes": {
+    "token": "m3jb_recognizer_transformer_run5_supcon_fulltrain_brev_ok",
+    "student_arch": "transformer",
+    "device": "cuda",
+    "sequence_length": 32,
+    "student_data": "tools/detector0-annotator/.cache/recog-seq-w64-t32-merged-v1",
+    "teacher_data": "tools/detector0-annotator/.cache/handcrop-lm2",
+    "teacher_checkpoint": "tools/detector0-annotator/output/recognizer-v1.pt",
+    "full_data_no_limit_flags": true,
+    "epochs": 240,
+    "batch": 128,
+    "lr": 0.0005,
+    "lr_scheduler": "cosine",
+    "warmup_steps": 500,
+    "min_lr": 0.00005,
+    "d_model": 256,
+    "n_layers": 6,
+    "n_heads": 8,
+    "dropout": 0.0,
+    "alpha": 0.55,
+    "temperature": 3.0,
+    "jitter_std": 0.02,
+    "frame_drop": 0.1,
+    "supcon_weight": 0.05,
+    "supcon_temperature": 0.1,
+    "seed": 1337,
+    "expected_optimizer_steps": 13200,
+    "side_worktree_commit_to_sync": "896d5fb feat(recognizer): add supcon auxiliary preflight",
+    "required_prelaunch_checks": [
+      "read-only brev ls --json",
+      "healthy existing NVIDIA worker",
+      "SSH/CUDA/process preflight",
+      "sync and hash-verify side worktree commit 896d5fb scoped recognizer files",
+      "CUDA dry-run-forward with logits [128,95], finite CE/KD/SupCon components, positive anchors, optimizer steps 0, expected dry-run steps 0, planned paid steps 13200, and no checkpoint"
+    ],
+    "kill_conditions": [
+      "wrong cache counts, class count, sequence length, feature dimension, logits shape, scheduler trace, or optimizer-step envelope",
+      "NaN/Inf CE, KD, SupCon, or total loss",
+      "optimizer/backward/checkpoint during dry-run",
+      "SupCon loss remains exactly 0.0 across multiple logged training batches",
+      "monitor top-1 remains below 0.10 through epoch 20, below 0.25 through epoch 80, or below 0.33 through epoch 160",
+      "actual optimizer steps diverge from expected 13200"
+    ],
+    "promotion_policy": "Fail closed unless verification recall@FAR10 reaches >= 0.85; no browser/runtime promotion otherwise."
+  },
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_run5_supcon_fulltrain_brev_ok",
+    "description": "Use the recorded recognizer campaign Brev approval only after read-only visibility plus SSH/CUDA/process preflight on a healthy existing NVIDIA worker; sync side commit 896d5fb, run the full T=32 run5 SupCon CUDA recipe, copy back JSON/PT/log evidence, stop the worker, and reject fail-closed unless recall@FAR10 reaches >= 0.85."
+  },
+  "commands_intentionally_not_run": [
+    "brev start",
+    "brev exec",
+    "brev sync",
+    "remote training",
+    "local training",
+    "optimizer/backward step",
+    "checkpoint export",
+    "browser/runtime promotion",
+    "git push"
+  ]
+}

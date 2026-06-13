@@ -1,0 +1,418 @@
+{
+  "schema_version": "asl-pilot-resumed-brev-tcn-microexperiment/v1",
+  "status": "blocked_before_training",
+  "mission": "M3DM",
+  "active_prompt": "docs/model/return-to-form-resumed-brev-tcn-microexperiment-goal-loop-prompt.md",
+  "generated_at": "2026-05-28T09:05:26Z",
+  "generated_by": "codex_executor",
+  "local_head": {
+    "commit": "7d36f33",
+    "subject": "goal: resume bounded brev tcn microexperiment",
+    "branch": "compound-plan-m0",
+    "status_before_receipt": "clean",
+    "ahead_of_origin_before_receipt": 106
+  },
+  "authorization": {
+    "brev_spend_authorized": true,
+    "approval_sources": [
+      "GOAL.md Mission 3DM current task",
+      "active M3DM prompt",
+      "latest user instruction in this Codex thread"
+    ],
+    "compute_envelope": {
+      "workspace": "asl-pilot-rawframe-001",
+      "workspace_id": "2hl1hytty",
+      "gpu": "NVIDIA A100-SXM4-80GB",
+      "max_runtime_seconds": 2700,
+      "max_runtime_minutes": 45,
+      "max_spend_usd": 20,
+      "kill_conditions": [
+        "timeout",
+        "CPU-only training",
+        "CUDA unavailable",
+        "duplicate training process",
+        "no metric output after startup"
+      ]
+    },
+    "training_command_run": false,
+    "training_command_not_run_reason": "Remote dry-run input-contract check failed before the authorized timed training command.",
+    "worker_stop_command_run": false,
+    "worker_stop_reason": "No training artifact copyback occurred; this executor slice stopped at a recorded source/prompt contract blocker and did not perform observer-only teardown."
+  },
+  "local_validation": {
+    "commands": [
+      {
+        "command": "git status --short --branch",
+        "exit_code": 0,
+        "status": "passed"
+      },
+      {
+        "command": "git log -10 --oneline --decorate",
+        "exit_code": 0,
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_loop_premise.mjs --json",
+        "exit_code": 0,
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_return_to_form_plan.mjs --json",
+        "exit_code": 0,
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_deps.mjs",
+        "exit_code": 0,
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+        "exit_code": 0,
+        "status": "passed"
+      },
+      {
+        "command": "node scripts/audit_source_register.mjs",
+        "exit_code": 0,
+        "status": "passed"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+        "exit_code": 0,
+        "status": "passed"
+      },
+      {
+        "command": "python3 -m json.tool docs/validation/return-to-form-overnight-brev-readiness-v1.json >/dev/null",
+        "exit_code": 0,
+        "status": "passed"
+      },
+      {
+        "command": "python3 -m json.tool docs/validation/return-to-form-overnight-cuda-smoke-v1.json >/dev/null",
+        "exit_code": 0,
+        "status": "passed"
+      },
+      {
+        "command": "python3 -m json.tool docs/validation/return-to-form-region-grid-tcn-local-smoke-v1.json >/dev/null",
+        "exit_code": 0,
+        "status": "passed"
+      },
+      {
+        "command": "python3 -m json.tool docs/validation/return-to-form-region-grid-tcn-tiny-overfit-v1.json >/dev/null",
+        "exit_code": 0,
+        "status": "passed"
+      }
+    ],
+    "scoped_file_hashes_before_receipt": {
+      "GOAL.md": "dd38b7b1ad2da00d8aba1a223ba6642c414a77fb2af831032d1739343513a4d1",
+      "docs/model/return-to-form-resumed-brev-tcn-microexperiment-goal-loop-prompt.md": "bd2a94b477c43404c6a9e9c296dab96d05d907132ca4a8b5c87bdab405ba4918",
+      "scripts/train_rawframe_model.py": "20eeaabdd57bae8647586f9a9ee19119194c753fdec95d4d7acf19f1dd4122fc",
+      "scripts/evaluate_rawframe_model.py": "997442ccd9b52380336bf826bbd81e91261eeb1669a683d9b5eee141491a6c4c",
+      "docs/validation/return-to-form-region-grid-tcn-local-smoke-v1.json": "07497e1a9b205b671c7ea85183778aac1167cb8f8f0eb34b5126f15ca2e1467b",
+      "docs/validation/return-to-form-region-grid-tcn-tiny-overfit-v1.json": "18f8ddddd98b87ac3af8050f696468a49aa89c27ab2d924d8a706345ddc974fc",
+      "docs/validation/return-to-form-overnight-cuda-smoke-v1.json": "a556bc00a1c6d9c11cbd1c61bb0f9d1760dd9f8ff58e6045a5a90b279c388",
+      "output/m3ah-tier0-cuda-full-split-recognizer/training-provenance.json": "292e0dfbd7fc1bb633b236470db4a9e93da09c271a615bfc220b20f1de01da3d",
+      "output/m3ah-tier0-cuda-full-split-recognizer/validation-report.json": "c80b0e55bf30ae4df2211faacd95b14e25823d39b72a7ed3c66754fb93e16b35"
+    }
+  },
+  "brev_state": {
+    "initial_workspace_listing": {
+      "command": "brev ls --json",
+      "exit_code": 0,
+      "workspace": {
+        "name": "asl-pilot-rawframe-001",
+        "id": "2hl1hytty",
+        "status": "RUNNING",
+        "build_status": "COMPLETED",
+        "shell_status": "READY",
+        "health_status": "HEALTHY",
+        "instance_type": "massedcompute_A100_sxm4_80G_DGX",
+        "instance_kind": "gpu",
+        "gpu": "A100"
+      }
+    },
+    "pre_sync_remote_probe": {
+      "command": "brev exec asl-pilot-rawframe-001 \"cd /home/shadeform/asl-pilot && git rev-parse --short HEAD && git status --short && ...\"",
+      "exit_code": 128,
+      "status": "git_not_available_in_synced_remote_tree",
+      "important_output": [
+        "fatal: not a git repository (or any of the parent directories): .git",
+        "NVIDIA A100-SXM4-80GB, 81920 MiB, 0 MiB, 0 %",
+        "process list showed networkd-dispatcher, jupyter-lab, and grep; no training process"
+      ],
+      "classification": "non_blocking_for_training_readiness_because_scripts_brev_sync_repo_sh_excludes_git_metadata_by_design"
+    },
+    "sync": {
+      "command": "bash scripts/brev_sync_repo.sh asl-pilot-rawframe-001",
+      "exit_code": 0,
+      "status": "passed",
+      "notes": [
+        "The active prompt showed bash scripts/brev_sync_repo.sh, but the script requires an instance argument, so the existing authorized workspace name was supplied.",
+        "The sync helper excludes .git, local virtualenvs, output, artifacts, and other generated files.",
+        "The sync helper synced the repo plus the data allowlist and ended with brev_sync_repo: done."
+      ]
+    },
+    "post_sync_remote_readiness": {
+      "command": "brev exec asl-pilot-rawframe-001 \"cd /home/shadeform/asl-pilot && pwd && test -f GOAL.md && test -f scripts/train_rawframe_model.py && test -f data/manifests/lesson/high-signal-region-grid/train.json && /home/shadeform/asl-pilot/.venv/bin/python - <<'PY' ... PY nvidia-smi ... ps ...\"",
+      "exit_code": 0,
+      "status": "passed",
+      "project_root": "/home/shadeform/asl-pilot",
+      "torch_version": "2.12.0+cu130",
+      "cuda_available": true,
+      "cuda_device": "NVIDIA A100-SXM4-80GB",
+      "nvidia_smi": "NVIDIA A100-SXM4-80GB, 81920 MiB, 0 MiB, 0 %",
+      "processes": [
+        "/usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers",
+        "/home/shadeform/.venv/bin/python3 /home/shadeform/.venv/bin/jupyter-lab --ip=0.0.0.0 --no-browser --NotebookApp.token= --NotebookApp.password= --ServerApp.allow_remote_access=True",
+        "grep -E python|torch|train|screen|tmux|jupyter"
+      ],
+      "duplicate_training_process_found": false
+    },
+    "remote_output_dir_before_dry_run": {
+      "command": "brev exec asl-pilot-rawframe-001 \"cd /home/shadeform/asl-pilot && if [ -e output/m3dm-high-signal-region-grid-tcn-brev ]; then find output/m3dm-high-signal-region-grid-tcn-brev -maxdepth 2 -type f | sort; else echo 'output/m3dm-high-signal-region-grid-tcn-brev: absent'; fi\"",
+      "exit_code": 0,
+      "status": "absent",
+      "output": "output/m3dm-high-signal-region-grid-tcn-brev: absent"
+    },
+    "post_failure_remote_process_check": {
+      "command": "brev exec asl-pilot-rawframe-001 \"nvidia-smi --query-gpu=name,memory.total,memory.used,utilization.gpu --format=csv,noheader && ps -eo pid,etime,pcpu,pmem,args | egrep 'python|torch|train|screen|tmux|jupyter' | grep -v egrep || true\"",
+      "exit_code": 0,
+      "status": "passed",
+      "nvidia_smi": "NVIDIA A100-SXM4-80GB, 81920 MiB, 0 MiB, 0 %",
+      "duplicate_training_process_found": false
+    }
+  },
+  "remote_commands": {
+    "dry_run_input_contract": {
+      "command": "brev exec asl-pilot-rawframe-001 \"cd /home/shadeform/asl-pilot && /home/shadeform/asl-pilot/.venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3dm-high-signal-region-grid-tcn-brev --model-id m3dm-high-signal-region-grid-tcn-brev --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1\"",
+      "exit_code": 2,
+      "status": "failed_before_training",
+      "important_stderr": [
+        "Manifest validation failed: region-grid TCN training smoke requires --output-dir output/m3aw-region-grid-tcn-local-smoke"
+      ],
+      "notes": [
+        "The command also printed transient Brev SSH retry text before returning the manifest validation failure.",
+        "No model training, evaluation, or copyback command was run after this failed dry-run."
+      ]
+    },
+    "bounded_training": {
+      "command": "brev exec asl-pilot-rawframe-001 \"cd /home/shadeform/asl-pilot && timeout 2700 /home/shadeform/asl-pilot/.venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3dm-high-signal-region-grid-tcn-brev --model-id m3dm-high-signal-region-grid-tcn-brev --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke\"",
+      "status": "not_run",
+      "reason": "Acceptance criteria require the dry-run input-contract check to pass before training."
+    },
+    "evaluation": {
+      "command": "brev exec asl-pilot-rawframe-001 \"cd /home/shadeform/asl-pilot && /home/shadeform/asl-pilot/.venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint output/m3dm-high-signal-region-grid-tcn-brev/model_state.pt --training-provenance output/m3dm-high-signal-region-grid-tcn-brev/training-provenance.json --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-report output/m3dm-high-signal-region-grid-tcn-brev/validation-report.json --calibrated-provenance output/m3dm-high-signal-region-grid-tcn-brev/calibrated-provenance.json --prediction-sidecar output/m3dm-high-signal-region-grid-tcn-brev/prediction-sidecar.json --batch-size 8 --num-workers 2 --region-grid-tcn-training-smoke\"",
+      "status": "not_run",
+      "reason": "No checkpoint or training provenance exists because training was not run."
+    },
+    "copyback": {
+      "command": "brev copy asl-pilot-rawframe-001:/home/shadeform/asl-pilot/output/m3dm-high-signal-region-grid-tcn-brev output/",
+      "status": "not_run",
+      "reason": "No remote output directory or artifacts were produced."
+    }
+  },
+  "blocker": {
+    "kind": "source_prompt_contract_mismatch",
+    "summary": "The active M3DM prompt asks for a full-split Brev run while still using --region-grid-tcn-training-smoke, but the current training script hard-gates that mode to the older M3AW capped local-smoke contract.",
+    "source_evidence": [
+      {
+        "path": "scripts/train_rawframe_model.py",
+        "line": 133,
+        "fact": "REGION_GRID_TCN_TRAINING_SMOKE_OUTPUT_DIR is output/m3aw-region-grid-tcn-local-smoke."
+      },
+      {
+        "path": "scripts/train_rawframe_model.py",
+        "lines": "2604-2675",
+        "fact": "region_grid_tcn_training_smoke requires true_temporal_convnet_region_grid, exact high-signal manifests, output/m3aw-region-grid-tcn-local-smoke, --check-files, frame_count 16, image_size 96, capped epochs and batch size, --max-train-batches, --max-validation-batches, --num-workers 0, and --training-augmentation none."
+      }
+    ],
+    "prompt_command_conflicts": [
+      {
+        "field": "--output-dir",
+        "prompt_value": "output/m3dm-high-signal-region-grid-tcn-brev",
+        "script_guard_requires": "output/m3aw-region-grid-tcn-local-smoke"
+      },
+      {
+        "field": "--num-workers",
+        "prompt_value": "2",
+        "script_guard_requires": "0"
+      },
+      {
+        "field": "--training-augmentation",
+        "prompt_value": "mild",
+        "script_guard_requires": "none"
+      },
+      {
+        "field": "--max-train-batches",
+        "prompt_value": "omitted for full split",
+        "script_guard_requires": "present and capped"
+      },
+      {
+        "field": "--max-validation-batches",
+        "prompt_value": "omitted for full split",
+        "script_guard_requires": "present and capped"
+      }
+    ],
+    "classification": "The blocker occurs before paid training work and should not be bypassed by rerunning the same command."
+  },
+  "result_metrics": {
+    "m3dm_training_history": null,
+    "m3dm_selected_epoch": null,
+    "m3dm_validation_metrics": null,
+    "m3dm_test_metrics": null,
+    "no_artifact_reason": "dry-run failed before training"
+  },
+  "comparison": {
+    "m3aw_region_grid_tcn_local_smoke": {
+      "receipt": "docs/validation/return-to-form-region-grid-tcn-local-smoke-v1.json",
+      "status": "completed_smoke_target_failed",
+      "device": "mps",
+      "epochs": 2,
+      "batch_size": 4,
+      "num_workers": 0,
+      "max_train_batches": 12,
+      "max_validation_batches": 8,
+      "epoch_1": {
+        "train_loss": 2.2257297535737357,
+        "train_accuracy": 0.08333333333333333,
+        "validation_accuracy": 0.14814814814814814
+      },
+      "epoch_2": {
+        "train_loss": 2.102002183596293,
+        "train_accuracy": 0.020833333333333332,
+        "validation_accuracy": 0.037037037037037035
+      },
+      "movement": {
+        "train_loss_delta_epoch2_minus_epoch1": -0.1237275699774425,
+        "train_accuracy_delta_epoch2_minus_epoch1": -0.0625,
+        "validation_accuracy_delta_epoch2_minus_epoch1": -0.1111111111111111
+      },
+      "evaluation": {
+        "validation_top1_accuracy": 0.037037037037037035,
+        "validation_macro_f1": 0.015037593984962407,
+        "test_top1_accuracy": 0.17857142857142858,
+        "test_macro_f1": 0.09166666666666666,
+        "selected_threshold": 0.23,
+        "test_false_pass_rate_at_selected_threshold": 0.03571428571428571
+      }
+    },
+    "m3ax_region_grid_tcn_tiny_overfit": {
+      "receipt": "docs/validation/return-to-form-region-grid-tcn-tiny-overfit-v1.json",
+      "status": "tiny_subset_memorized",
+      "final_eval_metrics": {
+        "accuracy": 1.0,
+        "correct": 7,
+        "examples": 7,
+        "loss": 0.0000017881354779092362,
+        "zero_recall_labels": []
+      },
+      "interpretation": "The path can memorize a deterministic tiny subset, so the M3DM blocker is command/source contract state, not evidence that the model cannot execute."
+    },
+    "m3ah_tier0_cuda_motion_cnn_smoke": {
+      "training_provenance": "output/m3ah-tier0-cuda-full-split-recognizer/training-provenance.json",
+      "validation_report": "output/m3ah-tier0-cuda-full-split-recognizer/validation-report.json",
+      "architecture": "motion_2d_temporal_cnn",
+      "training_status": "completed",
+      "history": [
+        {
+          "epoch": 1,
+          "train_accuracy": 0.248,
+          "validation_accuracy": 0.2
+        },
+        {
+          "epoch": 2,
+          "train_accuracy": 0.48,
+          "validation_accuracy": 0.2
+        },
+        {
+          "epoch": 3,
+          "train_accuracy": 0.648,
+          "validation_accuracy": 0.184
+        },
+        {
+          "epoch": 4,
+          "train_accuracy": 0.664,
+          "validation_accuracy": 0.304
+        },
+        {
+          "epoch": 5,
+          "train_accuracy": 0.752,
+          "validation_accuracy": 0.376
+        },
+        {
+          "epoch": 6,
+          "train_accuracy": 0.848,
+          "validation_accuracy": 0.368
+        },
+        {
+          "epoch": 7,
+          "train_accuracy": 0.816,
+          "validation_accuracy": 0.368
+        },
+        {
+          "epoch": 8,
+          "train_accuracy": 0.904,
+          "validation_accuracy": 0.296
+        }
+      ],
+      "validation": {
+        "top1_accuracy": 0.376,
+        "macro_f1": 0.3698995884278546
+      },
+      "test": {
+        "top1_accuracy": 0.47368421052631576,
+        "macro_f1": 0.4625908858166922
+      },
+      "threshold_calibration": {
+        "selected_threshold": 0.74,
+        "selected_metrics": {
+          "accepted_accuracy": 0.26666666666666666,
+          "correct_pass_rate": 0.032,
+          "coverage": 0.12,
+          "false_accept_rate": 0.7333333333333333,
+          "false_pass_rate": 0.088,
+          "threshold": 0.74
+        }
+      },
+      "pass_status": {
+        "confidence_threshold": true,
+        "false_pass_rate": false,
+        "macro_f1": false,
+        "negative_challenge_false_pass_rate": true,
+        "top1_accuracy": false
+      }
+    }
+  },
+  "pretrained_components": [],
+  "random_initialization_proof": {
+    "m3dm": "not_available_because_training_did_not_run",
+    "retained_prior_evidence": [
+      "M3AW and M3AH provenance files remain the comparison evidence; no M3DM checkpoint or provenance was created."
+    ]
+  },
+  "boundaries": {
+    "no_pretrained_dependency_added": true,
+    "no_broad_label_training": true,
+    "no_duplicate_brev_worker": true,
+    "no_worker_delete_or_reset": true,
+    "no_model_card_promotion": true,
+    "no_onnx_export": true,
+    "no_browser_trained_activation": true,
+    "no_threshold_promotion": true,
+    "no_final_readiness_claim": true,
+    "no_positive_asl_correctness_claim": true,
+    "no_raw_learner_video_upload": true,
+    "no_source_import": true,
+    "no_source_register_change": true,
+    "no_manifest_mutation": true,
+    "no_tensor_mutation": true,
+    "no_vocabulary_expansion": true,
+    "no_push": true
+  },
+  "changed_files": [
+    "docs/validation/return-to-form-resumed-brev-tcn-microexperiment-v1.json",
+    "docs/session-logs/466-mission-3dm-resumed-brev-tcn-microexperiment.md"
+  ],
+  "conclusion": "M3DM produced useful bounded evidence by validating the existing worker, syncing the repo/data allowlist, proving CUDA readiness, and catching a dry-run command contract mismatch before paid training. The active prompt's M3DM full-split command is incompatible with the current M3AW-specific --region-grid-tcn-training-smoke source guard, so no training, evaluation, copyback, promotion, export, browser activation, or final claim was performed.",
+  "exactly_one_next_action": "stop_for_human_cost_or_scope_decision",
+  "next_action_rationale": "Continuing requires a human-approved scope decision: either authorize a source/prompt contract change for an M3DM full-split TCN mode, or issue a new prompt that uses the existing M3AW smoke guard. Rerunning the same Brev command would fail the same dry-run guard and spending more training time without that decision is not justified."
+}

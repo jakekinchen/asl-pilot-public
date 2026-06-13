@@ -1,0 +1,252 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-run8-ovr-bce-w001-preflight/v1",
+  "status": "completed_run8_ovr_bce_w001_preflight_no_brev_no_training",
+  "recorded_at_utc": "2026-06-04T07:45:14Z",
+  "mission": "M3JB - Hierarchical hand-state tracker",
+  "slice": "m3jb_recognizer_transformer_run8_ovr_bce_w001_preflight_no_brev",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "head_before_slice": "03e2b27a",
+  "side_worktree": {
+    "path": "/Users/kelly/Developer/asl-pilot-annotator",
+    "branch": "annotator-tool",
+    "commit": "bfd1e7831ba549e3305f73737669cd68b0c6624c",
+    "commit_short": "bfd1e783",
+    "preexisting_unrelated_dirty_worktree": true,
+    "scoped_files_clean": true,
+    "scoped_files": [
+      "tools/detector0-annotator/train_recognizer_distill.py",
+      "tools/detector0-annotator/test_recognizer_distill_diagnostics.py",
+      "tools/detector0-annotator/seq_transformer.py",
+      "tools/detector0-annotator/verification.py",
+      "tools/detector0-annotator/test_verification.py"
+    ],
+    "sha256": {
+      "train_recognizer_distill_py": "62a1c272497b581341852afc7dbbeb26b67fc8885d9d36ba27c543ea957ae8f4",
+      "test_recognizer_distill_diagnostics_py": "73bd4f8a63a8428d471af12081887801b612feceb3e33816629ad1c09249535f",
+      "seq_transformer_py": "040a3f7546af1ddc20f145c76cdec54853f12922eb315bd27c11f55aac4387c1",
+      "verification_py": "f66bae99a461d866f2127ad2a118f92ee2a1d7c7feb08ca58562ce59b087be9c",
+      "test_verification_py": "600648965e8d33a6250265ce781712d583d6af2b1258af569f99c329684a99bc"
+    }
+  },
+  "inputs": {
+    "run7_discrepancy_resolution_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run7-test-recall-reproduction-discrepancy-audit-v1.json",
+    "run7_ovr_bce_weight003_preflight_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-run7-ovr-bce-hardneg-preflight-v1.json",
+    "run8_dryrun_receipt": "docs/validation/m3jb-recognizer-run8-ovr-bce-w001-preflight-dryrun-v1.json",
+    "run8_dryrun_receipt_sha256": "ba425068fef9d5df2a782deb37f9180f4c5af3c6b1aa1189defa085a87d1ae44",
+    "t32_cache_rows_sha256": "4dc3f61018a0faf7dccdc7f3653075650683b741bf7d6f7ebde2be878dd9eb9f"
+  },
+  "local_preflight": {
+    "accepted_command": "timeout 900 env PYTHONDONTWRITEBYTECODE=1 PYTORCH_ENABLE_MPS_FALLBACK=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python train_recognizer_distill.py --student-data .cache/recog-seq-w64-t32-merged-v1 --teacher-data .cache/handcrop-lm2 --teacher-checkpoint output/recognizer-v1.pt --student-arch transformer --seq-len 32 --device mps --epochs 240 --batch 128 --lr 5e-4 --lr-scheduler cosine --warmup-steps 500 --min-lr 5e-5 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --supcon-weight 0.0 --supcon-temperature 0.10 --ovr-bce-weight 0.01 --ovr-bce-hard-k 8 --ovr-bce-negative-source batch-labels --ovr-bce-include-positive --seed 1337 --diagnostics --eval-verification --eval-verification-every 1 --checkpoint-metric monitor_verification_recall_far10 --save-best-checkpoint --dry-run-forward --no-save-model --out /Users/kelly/Developer/asl-pilot/docs/validation/m3jb-recognizer-run8-ovr-bce-w001-preflight-dryrun-v1.json",
+    "cwd": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator",
+    "status": "passed",
+    "device": "mps",
+    "student_cache": {
+      "data_dir": ".cache/recog-seq-w64-t32-merged-v1",
+      "clips": 10335,
+      "classes": 95,
+      "sequence_length": 32,
+      "tensor_sequence_length": 32,
+      "feature_dim": 90,
+      "split_counts": {
+        "train": 5591,
+        "validation": 2375,
+        "test": 2369
+      }
+    },
+    "split_counts_after_monitor_split": {
+      "train_clips": 7011,
+      "monitor_clips": 955,
+      "test_clips": 2369
+    },
+    "teacher_coverage": {
+      "teacher_covered_train": 2681,
+      "teacher_covered_total": 4560
+    },
+    "dry_run_forward": {
+      "batch_size": 128,
+      "logits_shape": [
+        128,
+        95
+      ],
+      "total_loss": 7.86083,
+      "base_loss": 7.84514,
+      "ce_teacher": 4.593309,
+      "kd": 26.669558,
+      "ce_plain": 4.581603,
+      "ovr_bce": {
+        "enabled": true,
+        "weight": 0.01,
+        "hard_k": 8,
+        "hard_k_effective": 8,
+        "negative_source": "batch-labels",
+        "include_positive": true,
+        "examples_seen": 128,
+        "examples_with_negatives": 128,
+        "examples_with_negatives_rate": 1.0,
+        "selected_negative_count": 1024,
+        "selected_negative_matches_true_label": 0,
+        "distinct_target_negative_pairs": 714,
+        "positive_loss": 0.705372,
+        "negative_loss": 0.863652,
+        "loss": 1.569024,
+        "weighted_loss": 0.01569,
+        "uses_test_mined_pairs_for_training": false,
+        "top_activated_pairs": [
+          {
+            "target_label": "dog",
+            "negative_label": "apple",
+            "max_logit": 0.558798
+          },
+          {
+            "target_label": "why",
+            "negative_label": "give",
+            "max_logit": 0.552046
+          },
+          {
+            "target_label": "read",
+            "negative_label": "give",
+            "max_logit": 0.551607
+          }
+        ]
+      },
+      "optimizer_constructed": false,
+      "backward_called": false,
+      "optimizer_steps": 0,
+      "expected_optimizer_steps": 0,
+      "planned_optimizer_steps": 13200,
+      "weights": null,
+      "no_save_model": true,
+      "monitor_verification_recall_far10": 0.103407,
+      "monitor_verification_classes_evaluable": 95
+    },
+    "checkpoint_selection": {
+      "metric_name": "monitor_verification_recall_far10",
+      "save_best_checkpoint": true,
+      "eval_verification": true,
+      "eval_verification_every": 1,
+      "best_epoch": null,
+      "best_score": null,
+      "checkpoint_written": false,
+      "metric_available_in_dry_run": true,
+      "monitor_verification_recall_far10": 0.10340660106016,
+      "monitor_verification_classes_evaluable": 95
+    }
+  },
+  "preliminary_local_retries": [
+    {
+      "status": "failed_as_expected_wrong_default_cache",
+      "summary": "The first dry-run command omitted --student-data and failed before training because the trainer default cache is still T=20 while --seq-len 32 was required.",
+      "error": "expected sequence length 32 but loaded T 20",
+      "training_run": false,
+      "checkpoint_written": false
+    },
+    {
+      "status": "failed_wrong_relative_cache_path",
+      "summary": "The second dry-run used .cache/recog-seq-w64-t32-merged-v1 from the side repo root; that path exists under tools/detector0-annotator, so rows.json was not found.",
+      "training_run": false,
+      "checkpoint_written": false
+    },
+    {
+      "status": "superseded_noncanonical_cpu_dryrun",
+      "summary": "A repo-root CPU dry-run with the repo-relative cache path passed but used a different command shape and is not the accepted preflight receipt.",
+      "output": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-run8-ovr-bce-w001-preflight-dryrun-v1.json",
+      "training_run": false,
+      "checkpoint_written": false
+    }
+  ],
+  "comparison_against_run7_weight003_preflight": {
+    "run7_weight": 0.03,
+    "run8_weight": 0.01,
+    "base_loss_unchanged": true,
+    "base_loss": 7.84514,
+    "ovr_bce_loss_unchanged": true,
+    "ovr_bce_loss": 1.569024,
+    "run7_weighted_loss": 0.047071,
+    "run8_weighted_loss": 0.01569,
+    "weighted_loss_ratio": 0.333333,
+    "run7_total_loss": 7.89221,
+    "run8_total_loss": 7.86083,
+    "negative_selection_same_batch_seed": true,
+    "selected_negative_count": 1024,
+    "selected_negative_matches_true_label": 0,
+    "uses_test_mined_pairs_for_training": false
+  },
+  "brev_visibility": {
+    "command": "brev ls --json",
+    "mode": "read_only",
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3jb-pairrank-l40s-001",
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY",
+        "gpu": "L40S"
+      },
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "gpu": "L40S"
+      }
+    ],
+    "lifecycle_command_run": false,
+    "remote_exec_run": false
+  },
+  "future_run8_envelope": {
+    "next_action": "m3jb_recognizer_transformer_run8_ovr_bce_w001_fulltrain_brev_ok",
+    "approval_scope": "Use the recorded recognizer campaign Brev approval only for this bounded fulltrain envelope, after read-only visibility plus SSH/CUDA/process preflight on an existing healthy NVIDIA worker.",
+    "command_not_run_this_slice": "timeout 21600s brev exec asl-pilot-m3eh-l40s-001 \"cd /home/ubuntu/asl-pilot && timeout 20000 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/detector0-annotator/train_recognizer_distill.py --student-arch transformer --seq-len 32 --device cuda --epochs 240 --batch 128 --d-model 256 --n-layers 6 --n-heads 8 --dropout 0.0 --lr 5e-4 --lr-scheduler cosine --warmup-steps 500 --min-lr 5e-5 --alpha 0.55 --temperature 3.0 --jitter-std 0.02 --frame-drop 0.10 --eval-verification --eval-verification-every 1 --checkpoint-metric monitor_verification_recall_far10 --save-best-checkpoint --ovr-bce-weight 0.01 --ovr-bce-hard-k 8 --ovr-bce-negative-source batch-labels --ovr-bce-include-positive --out tools/detector0-annotator/output/m3jb-recognizer-transformer-run8-ovr-bce-w001-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-ovrbce001-brev-v1.json\"",
+    "required_preflight": [
+      "fresh read-only brev ls --json",
+      "existing NVIDIA worker must be HEALTHY and SSH/CUDA/process preflight must pass",
+      "verify no active recognizer or landmark training process before launch",
+      "sync/hash-verify side commit bfd1e783 plus current recognizer files, T32 cache, teacher cache, and teacher checkpoint",
+      "remote CUDA dry-run must load 10335 clips, 95 classes, T=32, logits [128,95], OVR-BCE weight 0.01, selected_negative_matches_true_label 0, uses_test_mined_pairs_for_training false, optimizer steps 0, and no checkpoint"
+    ],
+    "kill_conditions": [
+      "wrong cache hash, clip count, class count, split count, or sequence length",
+      "any --limit-* flag in the fulltrain command",
+      "no CUDA or active conflicting training process",
+      "NaN or non-finite loss/metric",
+      "OVR-BCE selects true labels as negatives or uses held-out/test-mined pairs for training",
+      "checkpoint-selection metric unavailable or final receipt missing monitor_verification_recall_far10",
+      "artifact copyback/hash verification fails"
+    ],
+    "teardown": [
+      "copy back JSON, PT, log, and dry-run artifacts before stopping when possible",
+      "stop the worker after copyback or crash evidence collection",
+      "verify final STOPPED / NOT READY state; if stop by name fails, try id and then --all",
+      "do not delete, reset, or create Brev infrastructure without explicit human approval"
+    ],
+    "fail_closed_gate": {
+      "primary_metric": "test_verification_recall_at_far10",
+      "required_to_promote": 0.85,
+      "running_best_to_beat": {
+        "run": "run6",
+        "test_verification_recall_at_far10": 0.8038559556786704
+      }
+    }
+  },
+  "boundaries": {
+    "brev_used": false,
+    "brev_spend": false,
+    "brev_lifecycle_command_run": false,
+    "remote_exec_run": false,
+    "training_run": false,
+    "optimizer_backward_or_step": false,
+    "checkpoint_written": false,
+    "runtime_export": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "pushed": false
+  },
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_run8_ovr_bce_w001_fulltrain_brev_ok",
+    "description": "Run the bounded full-scope CUDA run8 recipe only after fresh read-only Brev visibility plus SSH/CUDA/process preflight on an existing healthy NVIDIA worker; use OVR-BCE weight 0.01 with the run6/run7 T32 verification-selection recipe, copy back JSON/PT/log evidence, stop the worker, and reject fail-closed unless held-out verification recall@FAR10 reaches >= 0.85 and beats run6."
+  }
+}

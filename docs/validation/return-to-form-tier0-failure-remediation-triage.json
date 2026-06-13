@@ -1,0 +1,381 @@
+{
+  "schema_version": "asl-pilot-return-to-form-tier0-failure-remediation-triage/v1",
+  "generated_at": "2026-05-25T21:28:01Z",
+  "mission": "M3AE-H",
+  "status": "action_selected",
+  "selected_labels": [
+    "please",
+    "table",
+    "dad",
+    "grandpa",
+    "hat"
+  ],
+  "inputs": {
+    "source_register": {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    "source_coverage": {
+      "path": "docs/research/return-to-form-tier0-source-coverage.json",
+      "sha256": "1ff7da89a51e62f9efbeb08cf6361784e160ed862ac579f9e40db332fa576378"
+    },
+    "fixed_crop_config": {
+      "path": "docs/model/return-to-form-fixed-crop-config.json",
+      "sha256": "dbc735dad34fa9df1174a40374037976f9c88d789012634b2b22743ae0802b29"
+    },
+    "pre_training_gates": {
+      "path": "docs/validation/return-to-form-tier0-gates.json",
+      "sha256": "2cc000d3f90e9be236cf64768530bf9786fc61fe6605c774b9c1e8ab123d9d97"
+    },
+    "decode_dataloader": {
+      "path": "docs/validation/return-to-form-tier0-decode-dataloader.json",
+      "sha256": "d64c0b46500075d94207ef2197a6f6d8f1570cf548da8b08ca16dc520ba386c2"
+    },
+    "m3ae_learnability": {
+      "path": "docs/validation/return-to-form-tier0-learnability-smoke.json",
+      "sha256": "f712b68a330420dc3a608b6e385e4153b019dd706af51bef825ac0254857bf75"
+    },
+    "m3ae_r_diagnostic": {
+      "path": "docs/validation/return-to-form-tier0-remediation-diagnostic.json",
+      "sha256": "7d0375c77aeea0448cf9e4209065e876e6ef60e04b374428b40177aea2d4e722"
+    },
+    "m3ae_f_tensor_contract": {
+      "path": "docs/validation/return-to-form-tier0-tensor-contract.json",
+      "sha256": "0f2ea12cf9a6517bafb67876ba4b0e4951ce821b61b27a740d45f6d1e36b3cd3"
+    },
+    "m3ae_g_rerun": {
+      "path": "docs/validation/return-to-form-tier0-learnability-smoke-rerun.json",
+      "sha256": "917fa9b5beb0415dc593e8e44bbdd9c2656659fff52251fe3c364464106bf6a1"
+    },
+    "train_manifest": {
+      "path": "data/manifests/return-to-form-tier0/train.json",
+      "sha256": "03ae563a5f2ef0d5b868f6c80f50acb64ae642e782cd541faa5c022d4d0af1de"
+    },
+    "validation_manifest": {
+      "path": "data/manifests/return-to-form-tier0/validation.json",
+      "sha256": "23da15a80ce2eee1dab1a7e64c08e2aefcf5d7dd48263677fdc49d1efb0ad808"
+    },
+    "test_manifest": {
+      "path": "data/manifests/return-to-form-tier0/test.json",
+      "sha256": "b0c771b612ebb52beb375a98b4180ccd465aa642312a8c6c29d7ff225febd8ed"
+    }
+  },
+  "precheck_status": {
+    "plan_audit": "passed",
+    "loop_premise_audit": "passed",
+    "source_register_audit": "passed",
+    "no_pretrained_deps": "passed",
+    "no_pretrained_artifact_json": "passed",
+    "json_inputs": "passed",
+    "decode_dataloader": {
+      "status": "passed",
+      "tensor_count": 345,
+      "missing_file_count": 0,
+      "batch_shapes": {
+        "train": [
+          4,
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "validation": [
+          4,
+          16,
+          5,
+          96,
+          96,
+          3
+        ],
+        "test": [
+          4,
+          16,
+          5,
+          96,
+          96,
+          3
+        ]
+      }
+    },
+    "tensor_contract_audit": {
+      "status": "passed",
+      "sample_count": 45,
+      "consumed_tensor_keys": [
+        "rgb_regions"
+      ],
+      "derived_inputs": [
+        "rgb_regions_grid_v1"
+      ],
+      "fallback_to_rgb_frames_count": 0
+    },
+    "brev_worker": {
+      "name": "asl-pilot-rawframe-001",
+      "status": "RUNNING",
+      "build_status": "COMPLETED",
+      "shell_status": "READY",
+      "health_status": "HEALTHY",
+      "instance_type": "massedcompute_A100_sxm4_80G_DGX",
+      "gpu": "A100",
+      "manual_stop_command_recorded_not_run": "brev stop asl-pilot-rawframe-001"
+    }
+  },
+  "failure_pattern": {
+    "m3ae_before_tensor_contract_fix": {
+      "input_contract": "RawFrameClipDataset consumed rgb_frames compatibility tensors.",
+      "train_top1": 0.376,
+      "train_macro_recall": 0.376,
+      "validation_top1": 0.256,
+      "validation_macro_recall": 0.256,
+      "test_top1": 0.24210526315789474,
+      "test_macro_recall": 0.24210526315789474,
+      "zero_train_recall_labels": [
+        "dad",
+        "grandpa"
+      ]
+    },
+    "m3ae_g_after_tensor_contract_fix": {
+      "input_contract": "RawFrameClipDataset consumed rgb_regions via rgb_regions_grid_v1 with no rgb_frames fallback.",
+      "train_top1": 0.312,
+      "train_macro_recall": 0.312,
+      "validation_top1": 0.224,
+      "validation_macro_recall": 0.22400000000000003,
+      "test_top1": 0.2,
+      "test_macro_recall": 0.2,
+      "loss_drop_initial_to_best_train": 0.15598254720957377,
+      "zero_train_recall_labels": [
+        "dad",
+        "grandpa"
+      ],
+      "zero_validation_recall_labels": [
+        "dad",
+        "grandpa",
+        "table"
+      ]
+    },
+    "prediction_collapse": {
+      "summary": "Predictions remain concentrated on please and hat rather than fitting all five train labels.",
+      "train_top_confusions": [
+        {
+          "actual": "dad",
+          "predicted": "please",
+          "count": 15
+        },
+        {
+          "actual": "grandpa",
+          "predicted": "please",
+          "count": 13
+        },
+        {
+          "actual": "grandpa",
+          "predicted": "hat",
+          "count": 12
+        },
+        {
+          "actual": "table",
+          "predicted": "hat",
+          "count": 12
+        },
+        {
+          "actual": "table",
+          "predicted": "please",
+          "count": 12
+        }
+      ],
+      "validation_top_confusions": [
+        {
+          "actual": "grandpa",
+          "predicted": "please",
+          "count": 18
+        },
+        {
+          "actual": "table",
+          "predicted": "please",
+          "count": 18
+        },
+        {
+          "actual": "dad",
+          "predicted": "please",
+          "count": 17
+        },
+        {
+          "actual": "hat",
+          "predicted": "please",
+          "count": 17
+        }
+      ]
+    }
+  },
+  "contact_sheet_observations": {
+    "inspection_method": "Manual visual review of the retained PNG contact sheets in docs/validation/return-to-form-tier0-remediation-contact-sheets.",
+    "contact_sheet_dimensions_px": {
+      "dad": [
+        682,
+        1228
+      ],
+      "grandpa": [
+        682,
+        1228
+      ],
+      "hat": [
+        682,
+        1228
+      ],
+      "please": [
+        682,
+        1228
+      ],
+      "table": [
+        682,
+        1228
+      ]
+    },
+    "contact_sheet_hashes": {
+      "dad": "b8ae585edc4b0f0d9f458ae330e8ff78c8c03fee335b406be963bb11e721756f",
+      "grandpa": "ed9357735920c90d97ecdae8093538dc144242137056a19004ad703d6928e804",
+      "hat": "a3f36abb634fc659bdde27822cb5e8da801c922c18cf9589b6f6070f4fec9e0e",
+      "please": "4fe601c9a7772c97bc09f1bba87c3cbe63594f39a878fd906b2f8f5862fdab73",
+      "table": "f223eb2c92c85418c999c85d0c664d35241e0b4a24f31b8af3bb37c19426169e"
+    },
+    "by_label": [
+      {
+        "label_id": "dad",
+        "observation": "Head, face, and forehead-contact motion are visible across sampled train, validation, and test rows. Some fast hand motion is blurred, but no systematic head or hand crop cut-off is visible in the retained sheet."
+      },
+      {
+        "label_id": "grandpa",
+        "observation": "Head and forehead-area motion are visible across sampled rows. Several samples include hats/caps and signer variation, but the retained sheet does not show a concrete fixed-crop truncation pattern."
+      },
+      {
+        "label_id": "hat",
+        "observation": "Head/top-of-head and hand-to-head motion are visible. A few frames place the hand near the upper image edge, but the sign is still visible and not systematically cropped out in the sampled sheet."
+      },
+      {
+        "label_id": "please",
+        "observation": "Chest and hand motion are visible in sampled rows. This label retains the strongest recall and does not show a crop-specific blocker."
+      },
+      {
+        "label_id": "table",
+        "observation": "Chest-level horizontal hand motion is visible in sampled rows. Validation recall drops to zero after the corrected-input rerun, but the retained sheet does not show systematic hand truncation."
+      }
+    ],
+    "limitation": "The retained M3AE-R contact sheets were generated while diagnosing the pre-fix rgb_frames compatibility slice. They are useful for checking obvious source/crop visibility, but they do not by themselves visualize the final rgb_regions_grid_v1 tensor layout consumed by M3AE-G."
+  },
+  "fixed_crop_and_region_assessment": {
+    "config_regions": [
+      "viewer_left_hand_context",
+      "viewer_right_hand_context",
+      "upper_body_signing_space",
+      "head_context",
+      "full_frame_reference"
+    ],
+    "crop_config_observation": "The fixed-crop config includes dedicated left-hand, right-hand, upper-body, head, and full-frame regions. It explicitly anticipated that dad, grandpa, and hat could expose head-region confusion.",
+    "concrete_crop_failure_found": false,
+    "region_adapter_risk": {
+      "risk": "rgb_regions_grid_v1 tiles five 96x96 crops into a 192x288 RGB grid, then prepare_frames resizes the whole grid to 96x96 for the compact 3D model.",
+      "effect": "Each original crop is effectively compressed inside the final 96x96 image, and the compact model sees region tiles as a single ordinary RGB image rather than as named regions or separate branches.",
+      "classification": "model/architecture input-adapter bottleneck rather than a proven fixed-crop coordinate failure"
+    }
+  },
+  "tensor_contract_assessment": {
+    "active_first_failure": false,
+    "status": "closed_for_this_triage",
+    "evidence": {
+      "contract_status": "passed",
+      "sample_count": 45,
+      "consumed_tensor_keys": [
+        "rgb_regions"
+      ],
+      "derived_inputs": [
+        "rgb_regions_grid_v1"
+      ],
+      "fallback_to_rgb_frames_count": 0,
+      "dataloader_batch_frames_shape": [
+        4,
+        16,
+        3,
+        96,
+        96
+      ]
+    }
+  },
+  "model_architecture_and_training_config_assessment": {
+    "architecture": "compact_3d_cnn_spatiotemporal",
+    "frame_count": 16,
+    "image_size": 96,
+    "epochs": 8,
+    "batch_size": 8,
+    "optimizer": "adamw",
+    "learning_rate": 0.001,
+    "weight_decay": 0.01,
+    "training_augmentation": "none",
+    "checkpoint_selection": "best_validation",
+    "max_train_batches": 8,
+    "max_validation_batches": 8,
+    "train_examples_per_epoch_seen_by_cap": 64,
+    "train_examples_total": 125,
+    "validation_examples_per_epoch_seen_by_cap": 64,
+    "validation_examples_total": 125,
+    "observations": [
+      "The failed rerun is a smoke budget, not a capacity proof: max_train_batches=8 exposes only 64 of 125 train examples per epoch.",
+      "The compact 3D model applies strided spatial/temporal convolutions and global adaptive pooling to an ordinary 96x96 RGB input.",
+      "The current corrected-input adapter loses explicit region identity after tiling and global resizing.",
+      "No augmentation was used, and the checkpoint was selected by capped validation accuracy rather than by terminal train fit."
+    ],
+    "plausible_bottleneck": "The current smoke combines an aggressive region-grid downsample, compact global-pooled architecture, capped train batches, no augmentation, and best-validation checkpointing; this is now more plausible than a gross tensor or source/crop visibility failure."
+  },
+  "label_and_split_assessment": {
+    "source_id": "popsign-v1-original-videos",
+    "clip_counts": {
+      "train_per_label": 25,
+      "validation_per_label": 25,
+      "test_per_label": 19
+    },
+    "signer_counts": {
+      "train": {
+        "dad": 18,
+        "grandpa": 16,
+        "hat": 14,
+        "please": 16,
+        "table": 16
+      },
+      "validation": {
+        "dad": 8,
+        "grandpa": 8,
+        "hat": 8,
+        "please": 8,
+        "table": 8
+      },
+      "test": {
+        "dad": 6,
+        "grandpa": 6,
+        "hat": 6,
+        "please": 6,
+        "table": 6
+      }
+    },
+    "assessment": "Signer/source split generalization may still matter, but the immediate blocker is not held-out generalization because the model also fails train sanity on the five-label train set."
+  },
+  "blocker_classification": {
+    "selected_blocker": "model_architecture_microprobe",
+    "confidence": "medium",
+    "why_not_crop_region_remediation": "Manual contact-sheet review did not find a concrete systematic crop cut-off or missing head/hand region in the sampled evidence.",
+    "why_not_label_or_split_remediation": "The selected labels have usable clip and signer counts, and train recall still fails, so split/held-out generalization is not the first blocker.",
+    "why_not_handboxnet_ablation_planning": "No crop-quality-bounded failure was proven that would justify making HandBoxNet active.",
+    "why_not_stop_reduced_claim": "There is still a bounded, no-new-source, no-label-expansion diagnostic that can isolate whether the compact model/input adapter/budget can fit the existing train set."
+  },
+  "next_action": {
+    "id": "model_architecture_microprobe",
+    "description": "Run a bounded no-label-expansion microprobe that isolates the train-fit bottleneck: keep the same Tier 0 manifests and approved PopSign tensors, no new media or source approvals, and compare a minimally changed input/model/training configuration against the current compact rgb_regions_grid_v1 smoke before any label expansion."
+  },
+  "non_actions": [
+    "No training was run in this triage slice.",
+    "No labels were expanded.",
+    "No controlled clip-heldout checkpoint was evaluated.",
+    "No source was approved and no media was imported.",
+    "No ONNX export or model-card promotion was performed.",
+    "No final-promotion gate was weakened.",
+    "No Brev worker was created or stopped.",
+    "No push was performed."
+  ]
+}

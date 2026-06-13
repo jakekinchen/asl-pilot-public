@@ -1,0 +1,255 @@
+{
+ "schema_version": "asl-pilot-m3jb-recognizer-run6-monitor-selection-stability-preflight/v1",
+ "status": "completed_fail_closed_artifact_insufficient_for_selector_test_transfer",
+ "diagnostic_kind": "run6_monitor_selection_stability_preflight",
+ "runs": {
+  "run6": {
+   "artifact": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run6-t32-verifselect-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.json",
+   "artifact_sha256": "7e77ebdd847827ebbf36df6b20c4f19ede5789df96dbf81fb144b19ec6cb5ae9",
+   "reported_test": {
+    "test_top1": 0.287,
+    "test_top5": 0.6399,
+    "verification_recall_at_far10": 0.8039
+   },
+   "checkpoint_selection": {
+    "metric_name": "monitor_verification_recall_far10",
+    "save_best_checkpoint": true,
+    "eval_verification": true,
+    "eval_verification_every": 1,
+    "best_epoch": 14,
+    "best_score": 0.8169265323599687,
+    "checkpoint_written": true
+   },
+   "monitor_history": {
+    "rows": 240,
+    "best_epoch": 14,
+    "best_monitor_verification_recall_far10": 0.8169,
+    "final_epoch": 239,
+    "final_monitor_verification_recall_far10": 0.7835,
+    "selected_minus_final_monitor_verification_recall_far10": 0.033399999999999985,
+    "top10_by_monitor_verification": [
+     {
+      "epoch": 14,
+      "monitor_verification_recall_far10": 0.8169,
+      "monitor_top1": 0.3047,
+      "monitor_top5": 0.6534,
+      "loss": 3.4453,
+      "lr_first": 0.0004994946,
+      "lr_last": 0.0004992733
+     },
+     {
+      "epoch": 31,
+      "monitor_verification_recall_far10": 0.8075,
+      "monitor_top1": 0.3393,
+      "monitor_top5": 0.6712,
+      "loss": 0.5109,
+      "lr_first": 0.0004900616,
+      "lr_last": 0.0004891591
+     },
+     {
+      "epoch": 22,
+      "monitor_verification_recall_far10": 0.8053,
+      "monitor_top1": 0.3267,
+      "monitor_top5": 0.6503,
+      "loss": 1.0787,
+      "lr_first": 0.0004965289,
+      "lr_last": 0.0004959833
+     },
+     {
+      "epoch": 29,
+      "monitor_verification_recall_far10": 0.8041,
+      "monitor_top1": 0.3455,
+      "monitor_top5": 0.6545,
+      "loss": 0.5842,
+      "lr_first": 0.0004917813,
+      "lr_last": 0.0004909571
+     },
+     {
+      "epoch": 27,
+      "monitor_verification_recall_far10": 0.8039,
+      "monitor_top1": 0.3298,
+      "monitor_top5": 0.6597,
+      "loss": 0.71,
+      "lr_first": 0.0004933405,
+      "lr_last": 0.0004925952
+     },
+     {
+      "epoch": 36,
+      "monitor_verification_recall_far10": 0.8035,
+      "monitor_top1": 0.3654,
+      "monitor_top5": 0.6545,
+      "loss": 0.4575,
+      "lr_first": 0.0004850689,
+      "lr_last": 0.0004839736
+     },
+     {
+      "epoch": 13,
+      "monitor_verification_recall_far10": 0.8033,
+      "monitor_top1": 0.3026,
+      "monitor_top5": 0.6346,
+      "loss": 3.8632,
+      "lr_first": 0.0004996789,
+      "lr_last": 0.0004994983
+     },
+     {
+      "epoch": 28,
+      "monitor_verification_recall_far10": 0.8019,
+      "monitor_top1": 0.3623,
+      "monitor_top5": 0.6649,
+      "loss": 0.6549,
+      "lr_first": 0.000492581,
+      "lr_last": 0.0004917962
+     },
+     {
+      "epoch": 40,
+      "monitor_verification_recall_far10": 0.8018,
+      "monitor_top1": 0.3476,
+      "monitor_top5": 0.645,
+      "loss": 0.3903,
+      "lr_first": 0.0004803738,
+      "lr_last": 0.0004791278
+     },
+     {
+      "epoch": 37,
+      "monitor_verification_recall_far10": 0.8007,
+      "monitor_top1": 0.3487,
+      "monitor_top5": 0.6429,
+      "loss": 0.4541,
+      "lr_first": 0.0004839529,
+      "lr_last": 0.0004828196
+     }
+    ]
+   },
+   "current_checkpoint_selection_reconstructed": true,
+   "artifact_inventory": {
+    "selected_checkpoint_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run6-t32-verifselect-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.pt",
+    "selected_checkpoint_exists": true,
+    "selected_checkpoint_sha256": "889fd3220960c8a6fd33bd9b44c34bb47a356588498a060386db04f1b7767ba3",
+    "alternate_epoch_checkpoint_count": 0,
+    "alternate_epoch_checkpoint_paths": [],
+    "per_epoch_logits_count": 0,
+    "per_epoch_logits_paths": [],
+    "checkpoint_epoch_map": {}
+   },
+   "selector_policy": {
+    "epsilon": 0.005,
+    "window": 5,
+    "selectors": [
+     "argmax_monitor_verification",
+     "earliest_within_0_005_of_best_monitor_verification",
+     "latest_within_0_005_of_best_monitor_verification",
+     "trailing_mean_5_monitor_verification",
+     "trailing_median_5_monitor_verification"
+    ]
+   },
+   "selector_test_transfer": {
+    "candidates": [
+     {
+      "selector": "argmax_monitor_verification",
+      "epoch": 14,
+      "monitor_verification_recall_far10": 0.8169,
+      "selector_score": 0.8169,
+      "window_start_epoch": null,
+      "window_end_epoch": null,
+      "window_size": null,
+      "checkpoint_available": true,
+      "checkpoint_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run6-t32-verifselect-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.pt",
+      "test_transfer_status": "reported_for_selected_checkpoint",
+      "test_verification_recall_at_far10": 0.8039,
+      "test_evaluation_available": true
+     },
+     {
+      "selector": "earliest_within_0_005_of_best_monitor_verification",
+      "epoch": 14,
+      "monitor_verification_recall_far10": 0.8169,
+      "selector_score": 0.8169,
+      "window_start_epoch": null,
+      "window_end_epoch": null,
+      "window_size": null,
+      "checkpoint_available": true,
+      "checkpoint_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run6-t32-verifselect-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.pt",
+      "test_transfer_status": "reported_for_selected_checkpoint",
+      "test_verification_recall_at_far10": 0.8039,
+      "test_evaluation_available": true
+     },
+     {
+      "selector": "latest_within_0_005_of_best_monitor_verification",
+      "epoch": 14,
+      "monitor_verification_recall_far10": 0.8169,
+      "selector_score": 0.8169,
+      "window_start_epoch": null,
+      "window_end_epoch": null,
+      "window_size": null,
+      "checkpoint_available": true,
+      "checkpoint_path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run6-t32-verifselect-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.pt",
+      "test_transfer_status": "reported_for_selected_checkpoint",
+      "test_verification_recall_at_far10": 0.8039,
+      "test_evaluation_available": true
+     },
+     {
+      "selector": "trailing_mean_5_monitor_verification",
+      "epoch": 31,
+      "monitor_verification_recall_far10": 0.8075,
+      "selector_score": 0.8003,
+      "window_start_epoch": 27,
+      "window_end_epoch": 31,
+      "window_size": 5,
+      "checkpoint_available": false,
+      "checkpoint_path": null,
+      "test_transfer_status": "blocked_missing_candidate_checkpoint_or_logits",
+      "test_verification_recall_at_far10": null,
+      "test_evaluation_available": false
+     },
+     {
+      "selector": "trailing_median_5_monitor_verification",
+      "epoch": 31,
+      "monitor_verification_recall_far10": 0.8075,
+      "selector_score": 0.8039,
+      "window_start_epoch": 27,
+      "window_end_epoch": 31,
+      "window_size": 5,
+      "checkpoint_available": false,
+      "checkpoint_path": null,
+      "test_transfer_status": "blocked_missing_candidate_checkpoint_or_logits",
+      "test_verification_recall_at_far10": null,
+      "test_evaluation_available": false
+     }
+    ],
+    "unique_candidate_epochs": [
+     14,
+     31
+    ],
+    "alternate_selector_epochs": [
+     31
+    ],
+    "all_candidates_test_evaluable": false,
+    "blocked_candidate_epochs": [
+     31,
+     31
+    ]
+   }
+  }
+ },
+ "decision": {
+  "monitor_only_stability_preflight_completed": true,
+  "current_checkpoint_selection_reconstructed": true,
+  "robust_selector_test_transfer_evaluable": false,
+  "paid_recipe_selected": false,
+  "future_paid_recipe_ready": false,
+  "reason": "run6 scalar monitor history can reconstruct the selected checkpoint, but alternate monitor-only selectors cannot be scored on held-out test without retained candidate checkpoints or per-epoch logits",
+  "next_action": "m3jb_recognizer_transformer_candidate_checkpoint_retention_preflight_no_brev"
+ },
+ "boundaries": {
+  "brev_used": false,
+  "brev_lifecycle_or_exec": false,
+  "remote_mutation": false,
+  "training_run": false,
+  "optimizer_or_backward_step": false,
+  "checkpoint_written": false,
+  "runtime_export": false,
+  "browser_promotion": false,
+  "raw_learner_video_upload": false,
+  "pretrained_runtime_dependency_added": false,
+  "final_gate_changed": false
+ }
+}

@@ -1,0 +1,839 @@
+{
+  "schema_version": "asl-pilot-detector0-first-party-negative-capture-packet-plan/v1",
+  "plan_id": "return-to-form-detector0-first-party-negative-capture-packet-plan-v1",
+  "future_packet_id": "return-to-form-detector0-first-party-negative-capture-packet-v1",
+  "mission": "M3IL - Detector 0 first-party negative capture packet plan no Brev",
+  "created_at": "2026-05-30T05:07:05Z",
+  "status": "planned_slots_only_no_capture_no_authoritative_rows_not_training_ready",
+  "purpose": "Turn the M3IK first-party negative capture contract into future planned slot, consent, provenance, privacy, review, split, and integration requirements without capturing media or creating authoritative rows.",
+  "current_commit": "4c20c8e observer: CONTINUE - m3ik to m3il packet plan",
+  "active_prompt": "docs/model/return-to-form-m3il-detector0-first-party-negative-capture-packet-plan-no-brev-goal-loop-prompt.md",
+  "source_artifacts": {
+    "GOAL.md": {
+      "sha256": "d727170f8a675e991533db2ea5d7fba949640533d57a391aeee3a1ec33cad561",
+      "role": "active mission pointer"
+    },
+    "docs/model/return-to-form-m3il-detector0-first-party-negative-capture-packet-plan-no-brev-goal-loop-prompt.md": {
+      "sha256": "307827f053dd1c93a584b395cde85e5ac7ecd95f9b5b4d0dedb9eb689fce3157",
+      "role": "M3IL active prompt"
+    },
+    "docs/model/return-to-form-plan.md": {
+      "sha256": "e37d86d10e66fecae57b2d6e54806265a536ab207de16f324865fa65846dd97d",
+      "role": "return-to-form tactical overlay"
+    },
+    "docs/model/return-to-form-detector0-first-party-negative-capture-contract-v1.json": {
+      "sha256": "b3286ebfa70ced0131b825d177c22e986438e23e7abb4602aa65874b9eb37306",
+      "role": "M3IK first-party negative capture contract"
+    },
+    "docs/validation/return-to-form-m3ik-detector0-first-party-negative-capture-contract-no-brev-v1.json": {
+      "sha256": "7838116267b23dbaeb74aeb05bb01b05fcf08ddbc1d5b05b5c4d39990d3c4808",
+      "role": "M3IK receipt"
+    },
+    "docs/session-logs/796-mission-3ik-detector0-first-party-negative-capture-contract-no-brev.md": {
+      "sha256": "8bf672e116fe10820b14522bbcc2b5033103b2d4d987eb77dbac19e1a8fe7fde",
+      "role": "M3IK executor session log"
+    },
+    "scripts/evaluate_detector0_negative_metrics.mjs": {
+      "sha256": "a38267ea6df05a4f42d62ec8ab3a132562abb8ddf5a25f825e0db50f6c24a506",
+      "role": "M3IJ future Detector 0 negative evaluation harness"
+    },
+    "docs/validation/return-to-form-m3ij-detector0-negative-evaluation-harness-no-brev-v1.json": {
+      "sha256": "11bfc02e2bfbc4958d03d5785a80bf02e714f0d6e83a370ec611a2d68dd00594",
+      "role": "M3IJ harness receipt"
+    },
+    "docs/model/return-to-form-detector0-negative-evaluation-metric-contract-v1.json": {
+      "sha256": "efb3d10620b150bca65d1aa09180a5d4b8dc7b6f7e38fa120702d3e73945e9dc",
+      "role": "M3II negative evaluation metric contract"
+    },
+    "data/annotations/detector0/return-to-form-detector0-hard-negative-validation-manifest-v1.json": {
+      "sha256": "55483e2494dd807fb648e20d4fb713002614a372527e56bfc7a50d74fea3b89d",
+      "role": "M3IH external validation-only negative manifest"
+    },
+    "data/annotations/detector0/return-to-form-detector0-combined-training-packet-v1.json": {
+      "sha256": "59214b75e0f416ce8527e560a947c2201442d86ded2a80bcd0f4b62e418254e2",
+      "role": "M3ID positive packet"
+    },
+    "docs/model/dataset-source-register.json": {
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+      "role": "source authority register"
+    },
+    "docs/privacy/dataset-consent-form.md": {
+      "sha256": "c1832291070b351fd3bbedf3ee1e099ce55f027b659823b8eefff23cc51e1995",
+      "role": "first-party dataset consent form"
+    },
+    "docs/model/negative-challenge-manifest-schema.md": {
+      "sha256": "85a0b65f20f16a8ed48675a4dc97308b812b6148ea2e971f30d7c25ef963afc1",
+      "role": "negative challenge manifest schema guidance"
+    },
+    "web/public/model/detector0-card.json": {
+      "sha256": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "role": "fail-closed Detector 0 claim surface"
+    },
+    "web/public/model/browser-model-bundle.json": {
+      "sha256": "edf324076c07875da57fd9a29aa7f4c491434cebd3af4ddc4dab5f5f573a63e9",
+      "role": "fail-closed browser bundle claim surface"
+    },
+    "web/public/model/model-card.json": {
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "role": "fail-closed model card"
+    },
+    "docs/model/active-vocabulary-claim.json": {
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "role": "fail-closed vocabulary claim surface"
+    }
+  },
+  "plan_scope": {
+    "planning_only": true,
+    "creates_raw_media": false,
+    "references_actual_raw_media": false,
+    "creates_authoritative_rows": false,
+    "authors_labels": false,
+    "generates_tensors": false,
+    "runs_training": false,
+    "runs_real_evaluation": false,
+    "starts_brev_or_remote_compute": false,
+    "changes_claim_surfaces": false
+  },
+  "source_and_consent_dependency": {
+    "source_id": "first-party-browser-consent-capture",
+    "dataset_source_mode": "first_party_consent_capture",
+    "source_register_path": "docs/model/dataset-source-register.json",
+    "source_register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8",
+    "source_register_decision_id": "first_party_consent_required_v1",
+    "source_license_review_status": "approved_after_clip_level_consent",
+    "allowed_for_model_training_after_clip_level_consent": true,
+    "allowed_for_validation_after_clip_level_consent": true,
+    "allowed_for_pilot_submission_after_clip_level_consent": true,
+    "consent_form_path": "docs/privacy/dataset-consent-form.md",
+    "consent_form_sha256": "c1832291070b351fd3bbedf3ee1e099ce55f027b659823b8eefff23cc51e1995",
+    "consent_version": "asl-pilot-dataset-consent-v1",
+    "current_human_approval_for_capture": false,
+    "future_capture_requires_explicit_human_approval": true
+  },
+  "planned_capture_categories": [
+    {
+      "category_id": "empty_camera_no_person_no_hands",
+      "future_manifest_challenge_type": "empty_camera",
+      "minimum_total_slots": 5,
+      "minimum_by_split": {
+        "train": 3,
+        "validation": 1,
+        "test": 1
+      },
+      "capture_condition_requirement": {
+        "captureEnvironment": "negative_challenge",
+        "emptyCameraConfirmed": true,
+        "noHandsVisibleConfirmed": false,
+        "lowLightConfirmed": false,
+        "offCenterConfirmed": false,
+        "hardNegativeConditionConfirmed": false,
+        "expectedRejectOutcomeConfirmed": true
+      }
+    },
+    {
+      "category_id": "normal_environment_no_hands_visible",
+      "future_manifest_challenge_type": "no_hands_visible",
+      "minimum_total_slots": 5,
+      "minimum_by_split": {
+        "train": 3,
+        "validation": 1,
+        "test": 1
+      },
+      "capture_condition_requirement": {
+        "captureEnvironment": "negative_challenge",
+        "emptyCameraConfirmed": false,
+        "noHandsVisibleConfirmed": true,
+        "lowLightConfirmed": false,
+        "offCenterConfirmed": false,
+        "hardNegativeConditionConfirmed": false,
+        "expectedRejectOutcomeConfirmed": true
+      }
+    },
+    {
+      "category_id": "low_light_no_hands_visible",
+      "future_manifest_challenge_type": "low_light",
+      "minimum_total_slots": 5,
+      "minimum_by_split": {
+        "train": 3,
+        "validation": 1,
+        "test": 1
+      },
+      "capture_condition_requirement": {
+        "captureEnvironment": "negative_challenge",
+        "emptyCameraConfirmed": false,
+        "noHandsVisibleConfirmed": true,
+        "lowLightConfirmed": true,
+        "offCenterConfirmed": false,
+        "hardNegativeConditionConfirmed": true,
+        "expectedRejectOutcomeConfirmed": true
+      }
+    },
+    {
+      "category_id": "off_center_no_hands_visible",
+      "future_manifest_challenge_type": "off_center",
+      "minimum_total_slots": 5,
+      "minimum_by_split": {
+        "train": 3,
+        "validation": 1,
+        "test": 1
+      },
+      "capture_condition_requirement": {
+        "captureEnvironment": "negative_challenge",
+        "emptyCameraConfirmed": false,
+        "noHandsVisibleConfirmed": true,
+        "lowLightConfirmed": false,
+        "offCenterConfirmed": true,
+        "hardNegativeConditionConfirmed": true,
+        "expectedRejectOutcomeConfirmed": true
+      }
+    }
+  ],
+  "planned_counts": {
+    "total_planned_slots": 20,
+    "authoritative_rows_created_by_this_plan": 0,
+    "raw_clips_created_by_this_plan": 0,
+    "labels_authored_by_this_plan": 0,
+    "minimum_rows_by_split_before_future_merge": {
+      "train": 12,
+      "validation": 4,
+      "test": 4
+    },
+    "minimum_rows_per_category_total": 5,
+    "minimum_rows_per_category_by_split": {
+      "train": 3,
+      "validation": 1,
+      "test": 1
+    }
+  },
+  "local_storage_and_privacy_plan": {
+    "normal_practice_raw_video_upload_allowed": false,
+    "normal_practice_raw_video_persistence_allowed": false,
+    "durable_capture_authorized_by_this_plan": false,
+    "future_capture_mode_required": "explicit_dataset_collection_session_only",
+    "actual_raw_media_paths_referenced": [],
+    "path_template_for_later_approved_capture": "data/dataset/clips/first-party-negative-capture/{slot_id}.webm",
+    "path_template_status": "template_only_no_file_created_no_existing_file_referenced",
+    "local_metadata_template": "data/dataset/metadata/first-party-negative-capture/{slot_id}.json",
+    "access_boundary": "Local operator/developer workspace only unless a later signed permission explicitly expands access.",
+    "withdrawal_before_training": "Future materialization must remove signer account records, consent records, signer registry records, clip metadata, and local raw clip files.",
+    "withdrawal_after_training": "Future materialization must remove raw clips and collection metadata; derived artifacts may remain only if the signer acknowledged derived-artifact retention before collection.",
+    "raw_clip_hash_requirement": "Every future raw clip must be SHA-256 pinned before any row can become authoritative."
+  },
+  "planned_slots": [
+    {
+      "slot_id": "det0-first-party-negative-plan-empty-camera-train-001",
+      "status": "planned_not_captured",
+      "split": "train",
+      "capture_category_id": "empty_camera_no_person_no_hands",
+      "future_manifest_challenge_type": "empty_camera",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    },
+    {
+      "slot_id": "det0-first-party-negative-plan-empty-camera-train-002",
+      "status": "planned_not_captured",
+      "split": "train",
+      "capture_category_id": "empty_camera_no_person_no_hands",
+      "future_manifest_challenge_type": "empty_camera",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    },
+    {
+      "slot_id": "det0-first-party-negative-plan-empty-camera-train-003",
+      "status": "planned_not_captured",
+      "split": "train",
+      "capture_category_id": "empty_camera_no_person_no_hands",
+      "future_manifest_challenge_type": "empty_camera",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    },
+    {
+      "slot_id": "det0-first-party-negative-plan-empty-camera-validation-001",
+      "status": "planned_not_captured",
+      "split": "validation",
+      "capture_category_id": "empty_camera_no_person_no_hands",
+      "future_manifest_challenge_type": "empty_camera",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    },
+    {
+      "slot_id": "det0-first-party-negative-plan-empty-camera-test-001",
+      "status": "planned_not_captured",
+      "split": "test",
+      "capture_category_id": "empty_camera_no_person_no_hands",
+      "future_manifest_challenge_type": "empty_camera",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    },
+    {
+      "slot_id": "det0-first-party-negative-plan-no-hands-visible-train-001",
+      "status": "planned_not_captured",
+      "split": "train",
+      "capture_category_id": "normal_environment_no_hands_visible",
+      "future_manifest_challenge_type": "no_hands_visible",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    },
+    {
+      "slot_id": "det0-first-party-negative-plan-no-hands-visible-train-002",
+      "status": "planned_not_captured",
+      "split": "train",
+      "capture_category_id": "normal_environment_no_hands_visible",
+      "future_manifest_challenge_type": "no_hands_visible",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    },
+    {
+      "slot_id": "det0-first-party-negative-plan-no-hands-visible-train-003",
+      "status": "planned_not_captured",
+      "split": "train",
+      "capture_category_id": "normal_environment_no_hands_visible",
+      "future_manifest_challenge_type": "no_hands_visible",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    },
+    {
+      "slot_id": "det0-first-party-negative-plan-no-hands-visible-validation-001",
+      "status": "planned_not_captured",
+      "split": "validation",
+      "capture_category_id": "normal_environment_no_hands_visible",
+      "future_manifest_challenge_type": "no_hands_visible",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    },
+    {
+      "slot_id": "det0-first-party-negative-plan-no-hands-visible-test-001",
+      "status": "planned_not_captured",
+      "split": "test",
+      "capture_category_id": "normal_environment_no_hands_visible",
+      "future_manifest_challenge_type": "no_hands_visible",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    },
+    {
+      "slot_id": "det0-first-party-negative-plan-low-light-train-001",
+      "status": "planned_not_captured",
+      "split": "train",
+      "capture_category_id": "low_light_no_hands_visible",
+      "future_manifest_challenge_type": "low_light",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    },
+    {
+      "slot_id": "det0-first-party-negative-plan-low-light-train-002",
+      "status": "planned_not_captured",
+      "split": "train",
+      "capture_category_id": "low_light_no_hands_visible",
+      "future_manifest_challenge_type": "low_light",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    },
+    {
+      "slot_id": "det0-first-party-negative-plan-low-light-train-003",
+      "status": "planned_not_captured",
+      "split": "train",
+      "capture_category_id": "low_light_no_hands_visible",
+      "future_manifest_challenge_type": "low_light",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    },
+    {
+      "slot_id": "det0-first-party-negative-plan-low-light-validation-001",
+      "status": "planned_not_captured",
+      "split": "validation",
+      "capture_category_id": "low_light_no_hands_visible",
+      "future_manifest_challenge_type": "low_light",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    },
+    {
+      "slot_id": "det0-first-party-negative-plan-low-light-test-001",
+      "status": "planned_not_captured",
+      "split": "test",
+      "capture_category_id": "low_light_no_hands_visible",
+      "future_manifest_challenge_type": "low_light",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    },
+    {
+      "slot_id": "det0-first-party-negative-plan-off-center-train-001",
+      "status": "planned_not_captured",
+      "split": "train",
+      "capture_category_id": "off_center_no_hands_visible",
+      "future_manifest_challenge_type": "off_center",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    },
+    {
+      "slot_id": "det0-first-party-negative-plan-off-center-train-002",
+      "status": "planned_not_captured",
+      "split": "train",
+      "capture_category_id": "off_center_no_hands_visible",
+      "future_manifest_challenge_type": "off_center",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    },
+    {
+      "slot_id": "det0-first-party-negative-plan-off-center-train-003",
+      "status": "planned_not_captured",
+      "split": "train",
+      "capture_category_id": "off_center_no_hands_visible",
+      "future_manifest_challenge_type": "off_center",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    },
+    {
+      "slot_id": "det0-first-party-negative-plan-off-center-validation-001",
+      "status": "planned_not_captured",
+      "split": "validation",
+      "capture_category_id": "off_center_no_hands_visible",
+      "future_manifest_challenge_type": "off_center",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    },
+    {
+      "slot_id": "det0-first-party-negative-plan-off-center-test-001",
+      "status": "planned_not_captured",
+      "split": "test",
+      "capture_category_id": "off_center_no_hands_visible",
+      "future_manifest_challenge_type": "off_center",
+      "future_required_fields": {
+        "consent_record_id": null,
+        "consent_version": "asl-pilot-dataset-consent-v1",
+        "signed_consent_evidence_path": null,
+        "signed_consent_evidence_sha256": null,
+        "signer_alias": null,
+        "signer_identity_hash": null,
+        "raw_clip_local_path": null,
+        "raw_clip_sha256": null,
+        "capture_condition_evidence": null,
+        "absence_label_review_receipt": null,
+        "no_pretrained_no_generated_label_attestation": null,
+        "review_status": null,
+        "reviewer": null,
+        "reviewed_at": null,
+        "split_signer_disjoint_proof": null,
+        "withdrawal_acknowledgement": null
+      }
+    }
+  ],
+  "slot_authority_rules": {
+    "all_slots_are_non_authoritative": true,
+    "slot_status_required_until_future_materialization": "planned_not_captured",
+    "authoritative_row_status_allowed_in_this_file": false,
+    "raw_clip_hashes_allowed_in_this_file": false,
+    "future_row_may_be_authoritative_only_if": [
+      "a later active prompt explicitly authorizes first-party dataset capture",
+      "human approval for the bounded capture session is recorded",
+      "clip-level consent evidence matches consent version and signer identity",
+      "raw clip path and SHA-256 hash are recorded after approved local capture",
+      "operator capture-condition evidence matches the category requirement",
+      "reviewer confirms no learned hand target is visible",
+      "absence label receipt is human/project reviewed and not generated",
+      "pretrained detector, landmark, feature, backbone, teacher, generated, and pseudo-label evidence are absent",
+      "split assignment preserves signer-disjoint policy",
+      "withdrawal handling is acknowledged"
+    ]
+  },
+  "review_and_fail_closed_rules": {
+    "block_slot_if": [
+      "consent evidence is missing, stale, unsigned, or mismatched",
+      "signer alias or signer identity hash is missing",
+      "raw clip SHA-256 is missing",
+      "actual raw clip path points outside the local storage boundary",
+      "hands are visible in a strict no-hand slot",
+      "capture condition evidence is ambiguous or contradicts the planned category",
+      "review status is not approved_first_party_no_hand_negative_for_detector0",
+      "review uses pretrained detector, landmark, feature, backbone, teacher, generated, or pseudo-label output",
+      "split assignment violates signer-disjoint policy",
+      "withdrawal handling is not acknowledged"
+    ],
+    "ambiguous_or_visible_hand_disposition": "blocked_not_training_capable_and_not_authoritative",
+    "unconsented_or_withdrawn_disposition": "delete_or_quarantine_local_clip_and_block_metadata_from_training",
+    "claim_surface_rule": "Claim surfaces remain fail-closed until a future scratch Detector 0 artifact passes evaluation and promotion receipts."
+  },
+  "training_capable_vs_validation_only_separation": {
+    "future_first_party_training_capable_negative_source": {
+      "source_id": "first-party-browser-consent-capture",
+      "allowed_for_training_after_all_future_requirements_pass": true,
+      "may_be_merged_into_future_detector0_training_packet": true,
+      "created_by_this_plan": false
+    },
+    "existing_m3ih_validation_only_negative_manifest": {
+      "path": "data/annotations/detector0/return-to-form-detector0-hard-negative-validation-manifest-v1.json",
+      "sha256": "55483e2494dd807fb648e20d4fb713002614a372527e56bfc7a50d74fea3b89d",
+      "rows": 25,
+      "strict_no_hand_rows": 20,
+      "allowed_for_training": false,
+      "allowed_for_validation": true,
+      "role": "external validation-only false-trigger and context challenge evidence"
+    },
+    "hard_rule": "This plan does not reclassify M3IH external rows for training and does not let future first-party rows inherit authority from M3IH validation-only rows."
+  },
+  "m3ii_m3ij_integration_notes": {
+    "m3ii_metric_contract": {
+      "path": "docs/model/return-to-form-detector0-negative-evaluation-metric-contract-v1.json",
+      "current_scope": "49 positive rows plus 25 M3IH validation-only negative rows",
+      "future_required_update": "A later metric/evaluation contract must explicitly add any materialized first-party training-capable negative rows and preserve M3IH validation-only semantics."
+    },
+    "m3ij_harness": {
+      "path": "scripts/evaluate_detector0_negative_metrics.mjs",
+      "current_scope": "validates future prediction artifacts against M3II row sources",
+      "future_required_update": "The harness or prediction artifact schema must be extended only after first-party negative rows are materialized with source hashes and row ids."
+    },
+    "non_target_asl_sign_policy": "M3IH non_target_asl_sign rows remain context rows and are not part of the strict no-hand slot plan."
+  },
+  "readiness_after_plan": {
+    "first_party_negative_capture_packet_plan_written": true,
+    "first_party_negative_rows_available": false,
+    "ready_for_capture": false,
+    "ready_for_training": false,
+    "ready_for_real_evaluation": false,
+    "ready_for_export_or_promotion": false,
+    "ready_for_browser_activation": false,
+    "ready_for_final_gate_or_claim_expansion": false
+  },
+  "forbidden_action_proof": {
+    "no_raw_learner_video_capture_or_upload": true,
+    "no_brev_lifecycle": true,
+    "no_remote_commands": true,
+    "no_paid_compute_started": true,
+    "no_source_or_media_import": true,
+    "no_source_authority_addition": true,
+    "no_authoritative_manifest_or_packet_row_creation": true,
+    "no_label_authoring": true,
+    "no_generated_labels_or_pseudo_labels": true,
+    "no_pretrained_outputs_used": true,
+    "no_tensor_generation_or_mutation": true,
+    "no_detector0_training": true,
+    "no_real_evaluation_run": true,
+    "no_trained_detector_invocation": true,
+    "no_export_or_promotion": true,
+    "no_browser_activation": true,
+    "no_final_gate_change": true,
+    "no_claim_expansion": true
+  },
+  "blockers_before_any_capture": [
+    {
+      "blocker": "explicit_human_capture_approval_absent",
+      "details": "This plan does not authorize durable raw learner video capture. A later prompt and supervising-human approval must bound any capture session."
+    },
+    {
+      "blocker": "first_party_negative_rows_absent",
+      "details": "No consented first-party no-hand media, raw clip hashes, signed consent receipts, absence labels, decoded tensors, or reviewed packet rows exist."
+    },
+    {
+      "blocker": "future_materialization_and_review_required",
+      "details": "Planned slots must be materialized and reviewed in a later approved slice before any training-capable row exists."
+    },
+    {
+      "blocker": "metric_and_harness_extension_future_work",
+      "details": "M3II/M3IJ currently cover the positive packet and M3IH validation-only negatives; they must be explicitly updated before first-party negatives are included in real evaluation."
+    }
+  ],
+  "exactly_one_next_action": "continue_m3im_detector0_first_party_negative_capture_packet_review_no_brev"
+}

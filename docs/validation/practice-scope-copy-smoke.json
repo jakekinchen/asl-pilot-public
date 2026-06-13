@@ -1,0 +1,100 @@
+{
+  "schema_version": "asl-pilot-practice-scope-copy-smoke/v1",
+  "status": "passed",
+  "checked_at": "2026-05-28T08:42:44.711Z",
+  "generated_by": {
+    "script": {
+      "path": "scripts/run_practice_scope_copy_smoke.mjs",
+      "sha256": "937a6bb2cde566134a979d09dbcac0ca2524712a261720e78e3ffa3705f46ffa"
+    },
+    "command": [
+      "node",
+      "scripts/run_practice_scope_copy_smoke.mjs",
+      "--write"
+    ]
+  },
+  "server": {
+    "mode": "next_start",
+    "app_url": "http://127.0.0.1:49242",
+    "build_id_sha256": "f72de8dfe33c01c520d4d7339e095eb06e8845076c0630e1f8fa4d679edc83cc",
+    "command": "ASL_PILOT_AUTH_PROVIDER=local ASL_PILOT_STORE_PATH=/var/folders/hm/6gd6d81d5wbfmk6j51dx894c0000gn/T/asl-pilot-scope-copy-smoke-O9Pf8b/store.json ENABLE_DATASET_COLLECTION=false NEXT_PUBLIC_ENABLE_DATASET_COLLECTION=false npm --prefix web run start -- --hostname 127.0.0.1 --port 49242",
+    "isolated_store": {
+      "env_var": "ASL_PILOT_STORE_PATH",
+      "path": "/var/folders/hm/6gd6d81d5wbfmk6j51dx894c0000gn/T/asl-pilot-scope-copy-smoke-O9Pf8b/store.json",
+      "existed_after_smoke": true,
+      "removed_after_run": true
+    },
+    "stdout_tail": [
+      "> web@0.1.0 start",
+      "> next start --hostname 127.0.0.1 --port 49242",
+      "▲ Next.js 16.2.6",
+      "- Local:         http://127.0.0.1:49242",
+      "- Network:       http://127.0.0.1:49242",
+      "✓ Ready in 71ms"
+    ],
+    "stderr_tail": []
+  },
+  "boundary": {
+    "not_model_evidence": true,
+    "not_training_evidence": true,
+    "verifies_copy_only": true,
+    "canonical_store_mutated": false
+  },
+  "app_url": "http://127.0.0.1:49242",
+  "smoke_user_email_domain": "example.test",
+  "practice_excerpt": [
+    "ASL Pilot",
+    "STUDIO · SCOPE COPY SMOKE",
+    "ATTEMPTED 0",
+    "SAVED 0",
+    "CATALOG 100",
+    "LEARN-ONLY SESSION",
+    "LESSON",
+    "VALIDATION",
+    "LOG OUT",
+    "PROMPT",
+    "100 PROMPT CATALOG",
+    "VOCABULARY",
+    "Hello",
+    "Bye",
+    "Thank you",
+    "Please",
+    "Yes",
+    "No",
+    "Like",
+    "Not",
+    "Have",
+    "Can",
+    "Go",
+    "Book",
+    "Pen",
+    "Pencil",
+    "Read",
+    "Table"
+  ],
+  "checks": [
+    {
+      "id": "auth_prompt_catalog_boundary",
+      "label": "Unauthenticated screen describes the broad prompt set as a catalog, not CV support",
+      "status": "passed",
+      "evidence": {
+        "has_prompt_catalog": true,
+        "has_curated_prompts": false
+      },
+      "blockers": []
+    },
+    {
+      "id": "practice_prompt_catalog_boundary",
+      "label": "Authenticated practice screen keeps prompt catalog separate from checker support",
+      "status": "passed",
+      "evidence": {
+        "has_prompt_catalog": true,
+        "has_practice_ledger": true,
+        "has_not_trained_copy": true,
+        "has_old_ready_overclaim": false
+      },
+      "blockers": []
+    }
+  ],
+  "blockers": []
+}

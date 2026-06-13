@@ -1,0 +1,218 @@
+{
+  "schema_version": 1,
+  "mission": "M3ES",
+  "status": "completed_local_contract_fix_no_remote",
+  "generated_at": "2026-05-28T18:49:37Z",
+  "generated_by": "codex-executor",
+  "active_prompt": {
+    "path": "docs/model/return-to-form-m3es-local-tcn-output-dir-contract-diagnosis-goal-loop-prompt.md",
+    "sha256": "a21347c8ce46c84b45a16b2e999de9c04cadbef380439a31f48ee8a89adf10cd"
+  },
+  "goal": {
+    "path": "GOAL.md",
+    "sha256": "5236ff6b9e232bbe571c76ef8adb409fe82112eca8c239e8e3482dc605acc2e7"
+  },
+  "m3er_failure_classification": {
+    "source_receipt": "docs/validation/return-to-form-m3er-bounded-brev-tcn-training-smoke-v1.json",
+    "classification": "pre_training_output_dir_contract_mismatch",
+    "rejected_output_dir": "output/m3er-high-signal-region-grid-tcn-brev",
+    "failure": "scripts/train_rawframe_model.py accepted only output/m3aw-region-grid-tcn-local-smoke, output/m3dm-high-signal-region-grid-tcn-brev, output/m3dq-high-signal-region-grid-tcn-brev, and output/m3eh-high-signal-region-grid-tcn-brev for --region-grid-tcn-training-smoke.",
+    "pre_fix_local_reproduction": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/train_rawframe_model.py ... --output-dir output/m3er-high-signal-region-grid-tcn-brev --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1",
+      "result": "failed",
+      "exit_code": 2,
+      "stderr": "Manifest validation failed: region-grid TCN training smoke requires --output-dir output/m3aw-region-grid-tcn-local-smoke or one of output/m3dm-high-signal-region-grid-tcn-brev, output/m3dq-high-signal-region-grid-tcn-brev, output/m3eh-high-signal-region-grid-tcn-brev"
+    }
+  },
+  "local_contract_decision": {
+    "decision": "add_explicit_m3er_full_split_brev_smoke_output_dir",
+    "rationale": "M3ER is a distinct retained-worker smoke attempt after M3EQ recovery and M3ER pre-training blocker evidence. Reusing M3EH's output directory would conflate two separate remote attempts and artifact namespaces. The source policy now accepts M3ER as another full-split Brev-smoke namespace while keeping M3AW as the only capped local branch.",
+    "source_policy_changes": [
+      "added REGION_GRID_TCN_M3ER_BREV_SMOKE_OUTPUT_DIR for output/m3er-high-signal-region-grid-tcn-brev",
+      "included M3ER in REGION_GRID_TCN_FULL_SPLIT_BREV_SMOKE_OUTPUT_DIRS",
+      "updated output-dir error wording to list the M3ER namespace",
+      "updated full-split bound/contract wording from M3DM/M3DQ/M3EH to M3DM/M3DQ/M3EH/M3ER"
+    ],
+    "m3aw_capped_branch_unchanged": true,
+    "m3dm_m3dq_m3eh_full_split_policy_preserved": true
+  },
+  "changed_files": [
+    "scripts/train_rawframe_model.py",
+    "docs/validation/return-to-form-m3es-local-tcn-output-dir-contract-diagnosis-v1.json",
+    "docs/session-logs/538-mission-3es-local-tcn-output-dir-contract-diagnosis.md"
+  ],
+  "local_checks": [
+    {
+      "command": "git status --short --branch",
+      "result": "passed",
+      "output": "## compound-plan-m0...origin/compound-plan-m0 [ahead 189]"
+    },
+    {
+      "command": "git log -10 --oneline --decorate",
+      "result": "passed",
+      "head": "a33a04b (HEAD -> compound-plan-m0) observer: CONTINUE - m3er local output-dir contract handoff"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "result": "passed",
+      "active_prompt": "docs/model/return-to-form-m3es-local-tcn-output-dir-contract-diagnosis-goal-loop-prompt.md"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "result": "passed",
+      "register_sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3er-bounded-brev-tcn-training-smoke-v1.json >/dev/null",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "result": "passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    }
+  ],
+  "brev_read_only_provider_state": {
+    "command": "brev ls --json",
+    "result": "passed",
+    "worker_count": 1,
+    "worker": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "status": "STOPPED",
+      "build_status": "COMPLETED",
+      "shell_status": "NOT READY",
+      "health_status": "HEALTHY",
+      "instance_type": "l40s-48gb.1x",
+      "instance_kind": "gpu",
+      "gpu": "L40S"
+    },
+    "default_off_verified": true,
+    "stop_action_needed": false
+  },
+  "fail_closed_claim_surfaces": {
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "status": "not_trained"
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "activeLabels": []
+    },
+    "claim_status": "fail_closed_unchanged"
+  },
+  "dry_run_common_evidence": {
+    "training_status": "dry_run_only",
+    "evidence_mode": "region_grid_tcn_training_smoke",
+    "pretrained_components": [],
+    "input_contract_status": "passed",
+    "manifest_clip_counts": {
+      "train": 84,
+      "validation": 27,
+      "test": 28
+    },
+    "manifest_hashes": {
+      "train": "101455329ae04ad06a2c3fd4ca26a29c04ae945bb7925bee373cf3229594fc3d",
+      "validation": "16a4a64a8fd48a1384c4cfd2e01dddcaa45fb3b1f0588af9ec66f96668cc3a53",
+      "test": "5a315d49438242febb410287c4ff235ae8cd269a5aba5c3cf550950bae0359f8"
+    },
+    "training_performed": false,
+    "checkpoint_written": false,
+    "output_dir_created_by_dry_runs": false
+  },
+  "m3aw_dry_run_compatibility": {
+    "result": "passed",
+    "model_id": "m3aw-region-grid-tcn-local-smoke",
+    "output_dir": "output/m3aw-region-grid-tcn-local-smoke",
+    "bounded_policy": "capped local dry-run remains limited to epochs=1, batch_size=2, max_train_batches=1, max_validation_batches=1, num_workers=0, training_augmentation=none, checkpoint_selection=final"
+  },
+  "m3dm_dry_run_compatibility": {
+    "result": "passed",
+    "model_id": "m3dm-high-signal-region-grid-tcn-brev",
+    "output_dir": "output/m3dm-high-signal-region-grid-tcn-brev",
+    "bounded_policy": "full-split Brev-smoke dry-run with epochs=12, batch_size=8, num_workers=2, training_augmentation=mild, checkpoint_selection=best_validation"
+  },
+  "m3dq_dry_run_compatibility": {
+    "result": "passed",
+    "model_id": "m3dq-high-signal-region-grid-tcn-brev",
+    "output_dir": "output/m3dq-high-signal-region-grid-tcn-brev",
+    "bounded_policy": "full-split Brev-smoke dry-run with epochs=12, batch_size=8, num_workers=2, training_augmentation=mild, checkpoint_selection=best_validation"
+  },
+  "m3eh_dry_run_compatibility": {
+    "result": "passed",
+    "model_id": "m3eh-high-signal-region-grid-tcn-brev",
+    "output_dir": "output/m3eh-high-signal-region-grid-tcn-brev",
+    "bounded_policy": "full-split Brev-smoke dry-run with epochs=12, batch_size=8, num_workers=2, training_augmentation=mild, checkpoint_selection=best_validation"
+  },
+  "selected_m3er_follow_on_dry_run": {
+    "result": "passed",
+    "model_id": "m3er-high-signal-region-grid-tcn-brev",
+    "output_dir": "output/m3er-high-signal-region-grid-tcn-brev",
+    "bounded_policy": "full-split Brev-smoke dry-run with epochs=12, batch_size=8, num_workers=2, training_augmentation=mild, checkpoint_selection=best_validation",
+    "remaining_local_blocker": null
+  },
+  "pretrained_components": [],
+  "negative_authorizations": [
+    "no Brev start",
+    "no Brev exec",
+    "no Brev sync",
+    "no Brev copy",
+    "no remote dry-run",
+    "no remote training",
+    "no fitting",
+    "no backward pass",
+    "no optimizer step",
+    "no epoch training",
+    "no checkpoint creation",
+    "no evaluation from checkpoint",
+    "no copyback",
+    "no export",
+    "no promotion",
+    "no browser activation",
+    "no final-readiness claim",
+    "no positive ASL-correctness claim",
+    "no broad 75/80/95-label work",
+    "no pretrained detector/landmark/backbone/embedding dependency",
+    "no pseudo-labels or generated labels",
+    "no source import",
+    "no source-register approval change",
+    "no manifest mutation",
+    "no tensor mutation",
+    "no vocabulary expansion",
+    "no model-card promotion",
+    "no threshold promotion",
+    "no final-gate weakening",
+    "no raw learner-video upload",
+    "no push",
+    "no amend",
+    "no no-verify",
+    "no duplicate worker",
+    "no worker delete",
+    "no worker reset"
+  ],
+  "next_action": "continue_bounded_brev_tcn_training_smoke_after_m3es_contract_fix",
+  "next_action_reason": "The local M3ER output-dir contract is repaired, M3AW/M3DM/M3DQ/M3EH compatibility dry-runs still pass, the intended M3ER local dry-run passes, fail-closed claim surfaces remain unchanged, and the retained Brev worker is stopped."
+}

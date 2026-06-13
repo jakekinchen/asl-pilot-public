@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "mission": "M3EP",
+  "status": "blocked_provider_health_before_remote_shell_inspection",
+  "generated_at": "2026-05-28T17:54:00Z",
+  "generated_by": "codex-executor",
+  "active_prompt": {
+    "path": "docs/model/return-to-form-m3ep-brev-sync-preflight-no-training-goal-loop-prompt.md",
+    "sha256": "f1ae366ff5e7fc5cd12f98ffdd6018e971d7a1eac3b33229ea37a1f8739ad326"
+  },
+  "goal": {
+    "path": "GOAL.md",
+    "sha256": "fb032fdcd41324155aa1fdc7c8c3a1f8618a86cb0ad2df22e72aabfbf2e0c12f"
+  },
+  "starting_evidence": {
+    "m3eo_receipt": {
+      "path": "docs/validation/return-to-form-m3eo-overnight-detector0-brev-unblock-v1.json",
+      "sha256": "b0c8ec665891b684d34a0e3d005d4c2346f3a9764abe8d742bf26c9aa5edc43e"
+    },
+    "m3eo_selected_next_action": "continue_brev_sync_preflight_no_training"
+  },
+  "compute_envelope": {
+    "approval_source": "GOAL.md and active M3EP prompt",
+    "status": "authorized_for_brev_sync_preflight_no_training",
+    "worker_name": "asl-pilot-m3eh-l40s-001",
+    "expected_worker_id": "3d58wpy9o",
+    "expected_type": "l40s-48gb.1x",
+    "max_wall_time_after_start_minutes": 20,
+    "max_expected_spend_usd": 3,
+    "timed_training_commands": 0,
+    "new_workers": 0,
+    "package_install_commands": 0
+  },
+  "local_checks": [
+    {
+      "command": "git status --short --branch",
+      "result": "passed",
+      "summary": "clean worktree before edits; branch ahead of origin"
+    },
+    {
+      "command": "git log -10 --oneline --decorate",
+      "result": "passed",
+      "head": "2e938a6 observer: CONTINUE - m3eo brev sync preflight handoff"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3eo-overnight-detector0-brev-unblock-v1.json",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json",
+      "result": "passed"
+    },
+    {
+      "command": "bash -n scripts/brev_sync_repo.sh",
+      "result": "passed"
+    }
+  ],
+  "claim_surfaces": {
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "status": "not_trained"
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "activeLabels": []
+    },
+    "claim_status": "fail_closed_unchanged"
+  },
+  "brev_worker": {
+    "pre_start_ls": {
+      "command": "brev ls --json",
+      "worker_count": 1,
+      "worker": {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      },
+      "safe_to_start": true
+    },
+    "start": {
+      "command": "brev start asl-pilot-m3eh-l40s-001",
+      "started_at_utc": "2026-05-28T17:48:33Z",
+      "result": "passed",
+      "observed_output_summary": "Brev reported the instance ready and printed the approved worker name."
+    },
+    "remote_inspection_attempt": {
+      "command": "brev exec asl-pilot-m3eh-l40s-001 '<bounded path/file/env/GPU/process inspection command>'",
+      "result": "did_not_reach_remote_shell",
+      "observed_initial_ssh_timeout": true,
+      "observed_wait_state": "waiting for SSH connection to be available",
+      "intermediate_ls": {
+        "status": "UNHEALTHY",
+        "build_status": "COMPLETED",
+        "shell_status": "READY",
+        "health_status": "UNHEALTHY"
+      },
+      "local_cleanup": {
+        "reason": "The Brev CLI exec process kept waiting for SSH after the worker became unhealthy and after stop was requested.",
+        "commands": [
+          "ps -axo pid=,ppid=,pgid=,command= | rg 'brev exec asl-pilot-m3eh-l40s-001|waiting for SSH|M3EP_REMOTE_INSPECTION'",
+          "kill -TERM 30600"
+        ],
+        "scope": "terminated the local stuck brev exec process only"
+      }
+    },
+    "remote_path_inspection": {
+      "status": "not_completed",
+      "blocker": "Brev SSH never reached the remote shell before worker health became UNHEALTHY.",
+      "home": null,
+      "pwd": null,
+      "whoami": null,
+      "candidate_paths": {
+        "/home/ubuntu/asl-pilot": {
+          "exists": "unknown",
+          "venv_python_executable": "unknown"
+        },
+        "/home/shadeform/asl-pilot": {
+          "exists": "unknown",
+          "venv_python_executable": "unknown"
+        }
+      }
+    },
+    "remote_process_and_gpu_inspection": {
+      "status": "not_completed",
+      "blocker": "No remote shell output was produced by the inspection command.",
+      "nvidia_smi": "unknown",
+      "running_gpu_or_training_processes": "unknown"
+    },
+    "sync_decision": {
+      "decision": "not_run",
+      "helper_command": "bash scripts/brev_sync_repo.sh asl-pilot-m3eh-l40s-001",
+      "reason": "The worker entered UNHEALTHY state and SSH inspection never reached a shell, so running the sync helper was not safe inside this slice."
+    },
+    "file_freshness_evidence": {
+      "status": "remote_unavailable",
+      "local_hashes_recorded": true,
+      "remote_m3eo_receipt_present": "unknown",
+      "remote_m3ep_prompt_present": "unknown",
+      "remote_hashes": {}
+    },
+    "python_cuda_probe": {
+      "status": "not_run",
+      "reason": "No candidate remote checkout or Python path could be inspected because SSH did not reach the remote shell."
+    },
+    "teardown": {
+      "commands": [
+        "brev stop asl-pilot-m3eh-l40s-001",
+        "brev stop asl-pilot-m3eh-l40s-001",
+        "brev ls --json"
+      ],
+      "first_stop_result": "passed",
+      "second_stop_result": "passed",
+      "post_stop_status": {
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY"
+      },
+      "worker_verified_stopped": true,
+      "verified_stopped_at_utc": "2026-05-28T17:53:53Z"
+    }
+  },
+  "negative_authorizations": [
+    "no recognizer training/fitting/evaluation rerun",
+    "no Detector 0 training",
+    "no architecture search or hyperparameter sweep",
+    "no package installation",
+    "no dependency-file mutation",
+    "no source/media download",
+    "no source-register mutation",
+    "no manifest/tensor/vocabulary/packet mutation",
+    "no label expansion",
+    "no generated labels or pseudo-labels",
+    "no raw learner video upload",
+    "no pretrained detector/landmark/backbone/embedding/feature extractor",
+    "no export",
+    "no model-card promotion",
+    "no active-label promotion",
+    "no browser recognition activation",
+    "no product-runtime mutation",
+    "no final-readiness claim",
+    "no duplicate worker",
+    "no worker delete/reset",
+    "no push",
+    "no amend",
+    "no no-verify"
+  ],
+  "changed_files": [
+    "docs/validation/return-to-form-m3ep-brev-sync-preflight-no-training-v1.json",
+    "docs/session-logs/530-mission-3ep-brev-sync-preflight-no-training.md"
+  ],
+  "next_action": "stop_for_provider_or_budget_blocker",
+  "next_action_reason": "The existing approved worker started but Brev reported health_status UNHEALTHY, the bounded inspection command never reached the remote shell, and sync/Python/CUDA probing could not be performed safely. The worker is verified STOPPED; further provider recovery or a new bounded compute approval decision is required before another Brev attempt."
+}

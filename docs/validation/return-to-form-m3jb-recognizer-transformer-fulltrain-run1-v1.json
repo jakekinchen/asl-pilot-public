@@ -1,0 +1,187 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-fulltrain-run/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_fulltrain_brev_run1",
+  "recorded_at_utc": "2026-06-03T18:51:38Z",
+  "head_before_slice": "ef7e7e3 record(m3jb): sync recognizer transformer preflight",
+  "approval": {
+    "source_files": [
+      "GOAL.md",
+      "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md"
+    ],
+    "user_quote_recorded_in_both_files": "we have infinite Brev compute, don't artificially handicap yourself if more compute would help",
+    "applies_to": "recognizer transformer distill campaign full-scope CUDA training",
+    "old_landmark_cap_applies": false
+  },
+  "worker": {
+    "name": "asl-pilot-m3eh-l40s-001",
+    "id": "3d58wpy9o",
+    "gpu": "L40S",
+    "preflight_state": {
+      "status": "RUNNING",
+      "shell_status": "READY",
+      "health_status": "HEALTHY",
+      "active_training_process_found": false,
+      "hash_verified_from_session_912": true
+    },
+    "cuda": {
+      "gpu": "NVIDIA L40S",
+      "vram": "46068 MiB",
+      "torch": "2.12.0+cu126"
+    }
+  },
+  "command": {
+    "working_dir": "/home/ubuntu/asl-pilot/tools/detector0-annotator",
+    "argv": [
+      "train_recognizer_distill.py",
+      "--student-arch",
+      "transformer",
+      "--device",
+      "cuda",
+      "--epochs",
+      "160",
+      "--batch",
+      "256",
+      "--lr",
+      "1e-3",
+      "--d-model",
+      "256",
+      "--n-layers",
+      "6",
+      "--n-heads",
+      "8",
+      "--dropout",
+      "0.2",
+      "--alpha",
+      "0.55",
+      "--temperature",
+      "3.0",
+      "--jitter-std",
+      "0.02",
+      "--frame-drop",
+      "0.10",
+      "--seed",
+      "0",
+      "--out",
+      "output/recognizer-transformer-d256-l6-h8-e160-lr1e3-b256-brev-v1.json"
+    ],
+    "limit_flags_used": false,
+    "timeout_outer_seconds": 43200,
+    "timeout_remote_seconds": 40000
+  },
+  "data": {
+    "student_data": "/home/ubuntu/asl-pilot/tools/detector0-annotator/.cache/recog-seq-w64-merged",
+    "teacher_data": "/home/ubuntu/asl-pilot/tools/detector0-annotator/.cache/handcrop-lm2",
+    "teacher_checkpoint": "/home/ubuntu/asl-pilot/tools/detector0-annotator/output/recognizer-v1.pt",
+    "student_clips": 10335,
+    "train_clips": 7011,
+    "monitor_clips": 955,
+    "test_clips": 2369,
+    "classes": 95,
+    "sequence_length": 20,
+    "feature_dim": 90,
+    "teacher_clean_clips": 4560,
+    "teacher_overlap": 4560,
+    "teacher_covered_train": 2668
+  },
+  "baseline_to_beat": {
+    "artifact": "output/recognizer-distill.json",
+    "student_arch": "gru",
+    "test_top1": 0.232,
+    "test_top5": 0.567,
+    "verification_recall_at_far10_approx": 0.7
+  },
+  "result": {
+    "status": "completed_rejected_below_baseline_fail_closed",
+    "student_arch": "transformer",
+    "epochs": 160,
+    "test_top1": 0.008,
+    "test_top5": 0.0502,
+    "verification_recall_at_far10": 0.1124,
+    "chance": 0.0105,
+    "delta_vs_baseline": {
+      "test_top1": -0.224,
+      "test_top5": -0.5168,
+      "verification_recall_at_far10_approx": -0.5876
+    },
+    "monitor": {
+      "best_monitor_top1": 0.0188,
+      "best_monitor_top5": 0.0974,
+      "first_epoch_loss": 8.5832,
+      "last_epoch_loss": 8.5474,
+      "pattern": "loss barely declined and monitor accuracy collapsed near chance for all 160 epochs"
+    },
+    "gate_decision": {
+      "clears_verification_recall_085": false,
+      "beats_gru_baseline": false,
+      "promote_to_browser": false,
+      "consecutive_research_guided_no_improvement_runs": 1,
+      "campaign_stop_condition_met": false
+    }
+  },
+  "artifacts": {
+    "remote": {
+      "receipt": {
+        "path": "/home/ubuntu/asl-pilot/tools/detector0-annotator/output/recognizer-transformer-d256-l6-h8-e160-lr1e3-b256-brev-v1.json",
+        "size": "16K",
+        "sha256": "1d9905fe5b1ba8b26d500f6c2d4e942b6675fffbed3be09b5ae22e6941f8a300"
+      },
+      "weights": {
+        "path": "/home/ubuntu/asl-pilot/tools/detector0-annotator/output/recognizer-transformer-d256-l6-h8-e160-lr1e3-b256-brev-v1.pt",
+        "size": "19M",
+        "sha256": "c01b2d4c29a270e575cff54a7aa01595a9115642f7d1b2ca5683e08755fc9a7a"
+      }
+    },
+    "local_copy": {
+      "receipt": {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/recognizer-transformer-d256-l6-h8-e160-lr1e3-b256-brev-v1.json",
+        "sha256": "1d9905fe5b1ba8b26d500f6c2d4e942b6675fffbed3be09b5ae22e6941f8a300",
+        "json_tool_passed": true
+      },
+      "weights": {
+        "path": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/recognizer-transformer-d256-l6-h8-e160-lr1e3-b256-brev-v1.pt",
+        "sha256": "c01b2d4c29a270e575cff54a7aa01595a9115642f7d1b2ca5683e08755fc9a7a"
+      }
+    }
+  },
+  "teardown": {
+    "commands_attempted": [
+      "brev stop asl-pilot-m3eh-l40s-001",
+      "brev stop 3d58wpy9o",
+      "brev stop --all"
+    ],
+    "delete_or_reset_attempted": false,
+    "final_brev_ls": {
+      "asl-pilot-m3jb-pairrank-l40s-001": {
+        "id": "h15cj91es",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "UNHEALTHY"
+      },
+      "asl-pilot-m3eh-l40s-001": {
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY"
+      }
+    },
+    "status": "stopped_verified",
+    "note": "All non-destructive stop paths in the runbook were attempted. Final Brev visibility reports the worker STOPPED with shell NOT READY."
+  },
+  "boundaries": {
+    "full_scope_training_run": true,
+    "optimizer_or_backward_step": true,
+    "checkpoint_written": true,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false,
+    "second_training_run_launched": false,
+    "pushed_to_remote": false
+  },
+  "next_action": {
+    "token": "m3jb_recognizer_transformer_research_guided_tuning_after_run1_no_brev",
+    "description": "Do a research-guided metric triage/tuning pass before any second recognizer Brev run. The first Transformer full run collapsed below the GRU baseline."
+  }
+}

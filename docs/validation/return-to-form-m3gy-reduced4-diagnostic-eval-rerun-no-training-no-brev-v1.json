@@ -1,0 +1,260 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3gy-reduced4-diagnostic-eval-rerun-no-training-no-brev/v1",
+  "mission": "Mission 3GY - reduced4 diagnostic eval rerun no training no Brev",
+  "status": "completed_with_diagnostic_limitations",
+  "generated_at": "2026-05-29T13:25:00Z",
+  "current_commit_before_slice_commit": "7b69211 observer: CONTINUE - m3gx m3gy diagnostic eval handoff",
+  "active_prompt": "docs/model/return-to-form-m3gy-reduced4-diagnostic-eval-rerun-no-training-no-brev-goal-loop-prompt.md",
+  "files_changed": [
+    "scripts/evaluate_rawframe_model.py",
+    "docs/validation/return-to-form-m3gy-reduced4-diagnostic-eval-rerun-no-training-no-brev-v1.json",
+    "docs/session-logs/665-mission-3gy-reduced4-diagnostic-eval-rerun-no-training-no-brev.md"
+  ],
+  "recovery_context": {
+    "reason": "The recovery executor was interrupted while replacing stale draft receipt/log files after producing the M3GY ignored outputs.",
+    "supervisor_action": "Completed the same scoped receipt/log recovery from live hashes and output JSON so the pair can resume from a clean committed tree.",
+    "stale_draft_replaced": true
+  },
+  "implementation_repair": {
+    "needed": true,
+    "reason": "The reduced4 evaluator guard accepted only the historical M3GU output namespace and rejected the explicit M3GY diagnostic namespace.",
+    "change": "Added output/m3gy-reduced4-diagnostic-eval-rerun-no-brev as an allowed reduced4 diagnostic output directory while preserving no-overwrite protection for output/m3gu-reduced4-local-training-smoke.",
+    "scope": "evaluator output-namespace guard only",
+    "not_a_model_change": true
+  },
+  "evaluator_rerun": {
+    "attempted": true,
+    "exit_status": 0,
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint output/m3gu-reduced4-local-training-smoke/model_state.pt --training-provenance output/m3gu-reduced4-local-training-smoke/training-provenance.json --train-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json --output-report output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/validation-report.json --calibrated-provenance output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/calibrated-provenance.json --prediction-sidecar output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/prediction-sidecar.json --batch-size 4 --num-workers 0 --m3gu-reduced4-training-smoke",
+    "stdout_summary": {
+      "status": "m3gu_reduced4_training_smoke_completed",
+      "passes_targets": false,
+      "selected_threshold": 1.0,
+      "validation_top1_accuracy": 0.26666666666666666,
+      "validation_macro_f1": 0.11111111111111112,
+      "test_top1_accuracy": 0.25,
+      "test_macro_f1": 0.1678321678321678,
+      "test_false_pass_rate": 0.0,
+      "negative_challenge_false_pass_rate": null,
+      "calibrated_provenance": null
+    },
+    "interpretation": "The rerun produced target-failure diagnostic evidence only. It does not justify export, promotion, browser activation, claim expansion, or another training-style attempt."
+  },
+  "ignored_outputs": {
+    "output_namespace": "output/m3gy-reduced4-diagnostic-eval-rerun-no-brev",
+    "ignored_by_git": true,
+    "files": {
+      "validation_report": {
+        "path": "output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/validation-report.json",
+        "sha256": "e77b4dafe54b5f99c5276b7c3449eab9030df44a2cd83765a932034332d19a0c",
+        "json_valid": true
+      },
+      "prediction_sidecar": {
+        "path": "output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/prediction-sidecar.json",
+        "sha256": "44332448f2d63e98849766e3484ff05a305f8f714b96c1079cf74a82fe367bc7",
+        "json_valid": true
+      },
+      "calibrated_provenance": {
+        "path": "output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/calibrated-provenance.json",
+        "exists": false,
+        "interpretation": "The evaluator stdout reported calibrated_provenance null for this diagnostic smoke."
+      }
+    }
+  },
+  "m3gu_outputs_preserved": {
+    "before": {
+      "output/m3gu-reduced4-local-training-smoke/model_state.pt": "af22dcba4ee8cdd5b304c9a25054bd5d7555c860820da9c04e88a275d8306519",
+      "output/m3gu-reduced4-local-training-smoke/training-provenance.json": "66115e1eebe5e245c8a4bd8bf5d03b36a7ebe711378a4b48b6ac657077108079",
+      "output/m3gu-reduced4-local-training-smoke/validation-report.json": "1312d7c5f5d50446579ea3dc8d7921bcf4372c272346401bf2f7c44dfa3fc426",
+      "output/m3gu-reduced4-local-training-smoke/prediction-sidecar.json": "4077df1b70862de7dcc57c14c171fa0dfaa0995c7b3a2bf745f616768724f1e6"
+    },
+    "after": {
+      "output/m3gu-reduced4-local-training-smoke/model_state.pt": "af22dcba4ee8cdd5b304c9a25054bd5d7555c860820da9c04e88a275d8306519",
+      "output/m3gu-reduced4-local-training-smoke/training-provenance.json": "66115e1eebe5e245c8a4bd8bf5d03b36a7ebe711378a4b48b6ac657077108079",
+      "output/m3gu-reduced4-local-training-smoke/validation-report.json": "1312d7c5f5d50446579ea3dc8d7921bcf4372c272346401bf2f7c44dfa3fc426",
+      "output/m3gu-reduced4-local-training-smoke/prediction-sidecar.json": "4077df1b70862de7dcc57c14c171fa0dfaa0995c7b3a2bf745f616768724f1e6"
+    },
+    "unchanged": true
+  },
+  "sidecar_contract_proof": {
+    "schema_version": "asl-pilot-rawframe-prediction-sidecar/v2",
+    "contract_version": "asl-pilot-rawframe-prediction-sidecar-contract/v2",
+    "selected_threshold": 1.0,
+    "validation_examples": 15,
+    "test_examples": 16,
+    "required_example_fields": [
+      "logits_by_label",
+      "predicted_label_logit",
+      "true_label_logit",
+      "top2_logit",
+      "top2_logit_label",
+      "logit_margin"
+    ],
+    "all_validation_examples_have_required_fields": true,
+    "all_test_examples_have_required_fields": true,
+    "metadata_limitation": {
+      "top2_logit_label_present_in_examples": true,
+      "top2_logit_label_listed_in_score_fields": false,
+      "interpretation": "The examples carry the field needed for M3GY triage, but future metadata should be tightened before any further artifact promotion or compute route."
+    }
+  },
+  "diagnostic_summary": {
+    "validation": {
+      "examples": 15,
+      "top1_accuracy": 0.26666666666666666,
+      "macro_f1": 0.11111111111111112,
+      "predicted_counts": {
+        "sad": 14,
+        "uncle": 1
+      },
+      "true_label_counts": {
+        "hello": 4,
+        "sad": 4,
+        "uncle": 3,
+        "white": 4
+      },
+      "zero_recall_classes": [
+        "hello",
+        "uncle",
+        "white"
+      ],
+      "logit_margin_min": 0.002886515110731125,
+      "logit_margin_max": 0.12223242782056332,
+      "logit_margin_mean": 0.04215083544452985,
+      "probability_margin_mean": 0.011235280831654867,
+      "entropy_min": 1.382690191268921,
+      "entropy_max": 1.3840487003326416,
+      "entropy_mean": 1.3836971282958985
+    },
+    "test": {
+      "examples": 16,
+      "top1_accuracy": 0.25,
+      "macro_f1": 0.1678321678321678,
+      "predicted_counts": {
+        "sad": 9,
+        "uncle": 7
+      },
+      "true_label_counts": {
+        "hello": 4,
+        "sad": 4,
+        "uncle": 4,
+        "white": 4
+      },
+      "zero_recall_classes": [
+        "hello",
+        "white"
+      ],
+      "logit_margin_min": 0.007421184331178665,
+      "logit_margin_max": 0.1454046331346035,
+      "logit_margin_mean": 0.05906312935985625,
+      "probability_margin_mean": 0.015735961496829987,
+      "entropy_min": 1.3821208477020264,
+      "entropy_max": 1.384007215499878,
+      "entropy_mean": 1.383610151708126
+    },
+    "interpretation": "The rerun reproduces the M3GU accuracy failure while proving the raw-logit sidecar fields exist in validation/test examples. Logit margins are small and entropy is near the four-class maximum, pointing to weak class separation plus collapse to sad/uncle."
+  },
+  "claim_surface_proof": {
+    "changed_claim_or_model_files": false,
+    "hashes": {
+      "docs/model/active-vocabulary-claim.json": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546",
+      "web/public/model/model-card.json": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a",
+      "web/public/model/detector0-card.json": "78334b170f90a98fc5b29133b819ff0401b8c05250c5ccf4b4f1fb1d89044929",
+      "web/public/model/claim-matrix.json": "5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf",
+      "docs/validation/final-claim-matrix.json": "5fa11a03458260b4b582f38caa7a27c1ce32b99eae78a76c658961eafa68badf",
+      "docs/model/dataset-source-register.json": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    "interpretation": "Claim surfaces remain fail-closed and unpromoted."
+  },
+  "brev_read_only_default_off_state": {
+    "command": "brev ls --json",
+    "lifecycle_remote_sync_copy_exec_or_spend_commands_run": false,
+    "workspace": {
+      "name": "asl-pilot-m3eh-l40s-001",
+      "id": "3d58wpy9o",
+      "status": "STOPPED",
+      "build_status": "COMPLETED",
+      "shell_status": "NOT READY",
+      "health_status": "HEALTHY",
+      "instance_type": "l40s-48gb.1x",
+      "instance_kind": "gpu",
+      "gpu": "L40S"
+    }
+  },
+  "forbidden_action_proof": {
+    "training_or_fitting": false,
+    "micro_overfit": false,
+    "brev_lifecycle_remote_sync_copy_exec_or_spend": false,
+    "m3gu_output_overwrite": false,
+    "raw_media_inspection": false,
+    "source_media_import": false,
+    "source_register_rights_mutation": false,
+    "manifest_tensor_vocabulary_mutation": false,
+    "export_or_promotion": false,
+    "browser_activation": false,
+    "final_gate_change": false,
+    "claim_expansion": false,
+    "pretrained_shortcut": false
+  },
+  "commands_run": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/evaluate_rawframe_model.py",
+      "exit_status": 0
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint output/m3gu-reduced4-local-training-smoke/model_state.pt --training-provenance output/m3gu-reduced4-local-training-smoke/training-provenance.json --train-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid-reduced4-m3gq/test.json --output-report output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/validation-report.json --calibrated-provenance output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/calibrated-provenance.json --prediction-sidecar output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/prediction-sidecar.json --batch-size 4 --num-workers 0 --m3gu-reduced4-training-smoke",
+      "exit_status": 0
+    },
+    {
+      "command": "python3 -m json.tool output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/validation-report.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": "python3 -m json.tool output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/prediction-sidecar.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": "python3 -m json.tool output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/calibrated-provenance.json >/dev/null",
+      "exit_status": 1,
+      "summary": "expected missing diagnostic nuance; calibrated_provenance.json was not produced"
+    },
+    {
+      "command": "shasum -a 256 output/m3gu-reduced4-local-training-smoke/model_state.pt output/m3gu-reduced4-local-training-smoke/training-provenance.json output/m3gu-reduced4-local-training-smoke/validation-report.json output/m3gu-reduced4-local-training-smoke/prediction-sidecar.json output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/validation-report.json output/m3gy-reduced4-diagnostic-eval-rerun-no-brev/prediction-sidecar.json scripts/evaluate_rawframe_model.py docs/model/active-vocabulary-claim.json web/public/model/model-card.json web/public/model/detector0-card.json web/public/model/claim-matrix.json docs/validation/final-claim-matrix.json docs/model/dataset-source-register.json",
+      "exit_status": 0
+    },
+    {
+      "command": "git diff --check",
+      "exit_status": 0
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3gy-reduced4-diagnostic-eval-rerun-no-training-no-brev-v1.json >/dev/null",
+      "exit_status": 0
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_status": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_status": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "exit_status": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_status": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_status": 0,
+      "status": "passed"
+    }
+  ],
+  "selected_next_action": "continue_m3gz_reduced4_logit_collapse_triage_no_training_no_brev"
+}

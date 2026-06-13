@@ -1,0 +1,243 @@
+{
+  "schema_version": "asl-pilot-codex-training-quality-recovery/v1",
+  "status": "data_remediation_required_not_training_data",
+  "checked_at": "2026-05-25T16:27:08.740Z",
+  "generated_by": {
+    "tool": "node",
+    "command": [
+      "node",
+      "--input-type=module",
+      "<inline quality recovery diagnostic generator>"
+    ]
+  },
+  "decision_boundary": {
+    "launches_training": false,
+    "changes_model_artifacts": false,
+    "changes_manifests": false,
+    "approves_new_source": false,
+    "final_model_evidence": false
+  },
+  "training_runs": [
+    {
+      "name": "brev_compact3d_e5_probe",
+      "artifact_role": "training_probe_without_smoke_evaluation",
+      "provenance": {
+        "path": "artifacts/rawframe-model-diagnostics/brev-compact3d-e5-20260525T140937Z/training-provenance.json",
+        "sha256": "db33a7ec34d3f8d683d7a37cda41d5f2fc45dcda535169cfb87687b725e47209"
+      },
+      "architecture": "compact_3d_cnn_spatiotemporal",
+      "epoch_count": 5,
+      "selected_epoch": 5,
+      "selected_validation_accuracy": 0.00968421052631579,
+      "selected_validation_loss": 4.571083792033948,
+      "final_epoch": {
+        "epoch": 5,
+        "train_accuracy": 0.010105263157894737,
+        "validation_accuracy": 0.00968421052631579,
+        "train_loss": 4.559604295027883,
+        "validation_loss": 4.571083792033948
+      }
+    },
+    {
+      "name": "brev_motion2d_e35_probe",
+      "artifact_role": "candidate_with_smoke_evaluation",
+      "provenance": {
+        "path": "artifacts/rawframe-model-diagnostics/brev-motion2d-e35-20260525T141812Z/training-provenance.json",
+        "sha256": "0d049c8a4c4d69354dad05a236dbf2166f5c16827aaa23487c8aef908b95b9e7"
+      },
+      "architecture": "motion_2d_temporal_cnn",
+      "epoch_count": 35,
+      "selected_epoch": 23,
+      "selected_validation_accuracy": 0.0648421052631579,
+      "selected_validation_loss": 5.031855272995799,
+      "final_epoch": {
+        "epoch": 35,
+        "train_accuracy": 0.9953684210526316,
+        "validation_accuracy": 0.05726315789473684,
+        "train_loss": 0.5959890157047071,
+        "validation_loss": 4.964131758037366
+      },
+      "smoke_validation_report": {
+        "path": "artifacts/rawframe-model-diagnostics/brev-motion2d-e35-20260525T141812Z/validation-report-smoke-nochallenge.json",
+        "sha256": "19159edf526942e45cbf0f8aa36c2d437f6715423720b68436a8588b55af082b"
+      },
+      "report_status": "smoke_only",
+      "validation": {
+        "examples": 2375,
+        "top1_accuracy": 0.0648421052631579,
+        "macro_f1": 0.05609322022468618
+      },
+      "test": {
+        "examples": 1805,
+        "top1_accuracy": 0.0781163434903047,
+        "macro_f1": 0.0715502321693068
+      },
+      "pass_status": {
+        "confidence_threshold": true,
+        "false_pass_rate": false,
+        "macro_f1": false,
+        "negative_challenge_false_pass_rate": true,
+        "top1_accuracy": false
+      },
+      "selected_threshold": 0.46,
+      "selected_threshold_metrics": {
+        "accepted_accuracy": 0.14285714285714285,
+        "correct_pass_rate": 0.016421052631578947,
+        "coverage": 0.11494736842105263,
+        "false_accept_rate": 0.8571428571428571,
+        "false_pass_rate": 0.09852631578947368,
+        "threshold": 0.46
+      }
+    },
+    {
+      "name": "brev_clipnorm3d_e50_candidate",
+      "artifact_role": "candidate_with_smoke_evaluation",
+      "provenance": {
+        "path": "artifacts/rawframe-model/training-provenance.json",
+        "sha256": "b82eb9eb5b7fcb5b5e9ce1f43de38e7de0a8e06b0c165c7e018a44476a77c6cb"
+      },
+      "architecture": "compact_3d_cnn_spatiotemporal_clip_norm",
+      "epoch_count": 50,
+      "selected_epoch": 33,
+      "selected_validation_accuracy": 0.06989473684210526,
+      "selected_validation_loss": 4.425772977126272,
+      "final_epoch": {
+        "epoch": 50,
+        "train_accuracy": 0.9103157894736842,
+        "validation_accuracy": 0.06273684210526316,
+        "train_loss": 1.3771402509588944,
+        "validation_loss": 4.89836054239775
+      },
+      "smoke_validation_report": {
+        "path": "artifacts/rawframe-model/validation-report-smoke-nochallenge.json",
+        "sha256": "b8fe9b75eebc2528406dc70fffd04dc2ec2c7ab32837cb55d29dbf2545da94ca"
+      },
+      "report_status": "smoke_only",
+      "validation": {
+        "examples": 2375,
+        "top1_accuracy": 0.06989473684210526,
+        "macro_f1": 0.06234419828999084
+      },
+      "test": {
+        "examples": 1805,
+        "top1_accuracy": 0.06814404432132964,
+        "macro_f1": 0.05540080788433053
+      },
+      "pass_status": {
+        "confidence_threshold": true,
+        "false_pass_rate": false,
+        "macro_f1": false,
+        "negative_challenge_false_pass_rate": true,
+        "top1_accuracy": false
+      },
+      "selected_threshold": 0.23,
+      "selected_threshold_metrics": {
+        "accepted_accuracy": 0.15357142857142858,
+        "correct_pass_rate": 0.018105263157894735,
+        "coverage": 0.11789473684210526,
+        "false_accept_rate": 0.8464285714285714,
+        "false_pass_rate": 0.09978947368421053,
+        "threshold": 0.23
+      }
+    }
+  ],
+  "failure_analysis": {
+    "file": {
+      "path": "docs/validation/rawframe-model-failure-analysis.json",
+      "sha256": "f9e5e97f3bc1f0d8cfc52bcbccd8f43ae1bb1a873da7c3895477c2322064ed8e"
+    },
+    "status": "candidate_failed_analyzed",
+    "report_status": "smoke_only",
+    "failed_targets": [
+      "false_pass_rate",
+      "macro_f1",
+      "top1_accuracy"
+    ],
+    "final_train_minus_selected_validation_accuracy": 0.840421052631579,
+    "validation_zero_recall_labels": 34,
+    "test_zero_recall_labels": 50
+  },
+  "split_shift_diagnostic": {
+    "file": {
+      "path": "docs/validation/rawframe-split-shift-diagnostic.json",
+      "sha256": "319198f3d7d0a9b40df04d5da496b195c038ab07d56ab32460a423e403ea7482"
+    },
+    "status": "split_shift_diagnostic_ready_not_training_data",
+    "sample_count": 1710,
+    "mean_nearest_own_split_rate": 0.4719298245614035,
+    "validation_nearest_train_label_centroid_accuracy": 0.008771929824561403,
+    "test_nearest_train_label_centroid_accuracy": 0.015789473684210527,
+    "signals": [
+      "low_level_train_label_centroids_do_not_generalize_to_heldout_splits"
+    ]
+  },
+  "tensor_visual_diagnostic": {
+    "file": {
+      "path": "docs/validation/rawframe-tensor-visual-diagnostic.json",
+      "sha256": "28f2de84468c2281f5f72e41455b43e84a66c406a71a3832101732d69c6b5003"
+    },
+    "status": "passed_no_gross_tensor_issue",
+    "blocker_count": 0,
+    "warning_count": 0,
+    "sample_count": 72,
+    "label_count": 12,
+    "contact_sheet_count": 12
+  },
+  "classification": {
+    "likely_failure_mode": "split_source_signer_generalization_failure_with_training_memorization",
+    "less_likely_failure_mode": "gross_tensor_corruption_or_blank_frame_pipeline",
+    "rationale": [
+      "The two longer runs memorize train split while validation/test stay near chance.",
+      "The tensor visual diagnostic passed with no blockers or warnings across 72 sampled clips.",
+      "The split-shift diagnostic shows train label centroids do not generalize to validation/test low-level RGB features.",
+      "The refreshed smoke failure analysis shows 34 validation zero-recall labels and 50 test zero-recall labels."
+    ]
+  },
+  "remediation_outputs": {
+    "plan": {
+      "file": {
+        "path": "docs/validation/rawframe-data-remediation-plan.json",
+        "sha256": "7cad882b21e240736ab4cf7b596c8fa6e1c49bd5e0e783da826c00c67b83a30a"
+      },
+      "status": "remediation_plan_ready_not_training_data",
+      "priority_labels": 80,
+      "zero_recall_on_validation_and_test": 25,
+      "blockers": [
+        "First-party collection store is absent: data/asl-pilot-store.json",
+        "NVIDIA is not ready for source-register review; metadata audit is not metadata_review_ready_not_approved"
+      ]
+    },
+    "collection_queue": {
+      "file": {
+        "path": "docs/validation/rawframe-remediation-collection-queue.json",
+        "sha256": "20eb00f76192073fa18c4350b2ce00be04fd4b402e20f5aa2b8a56864e4d7f0d"
+      },
+      "status": "queue_ready_not_training_data",
+      "assignment_count": 1585,
+      "vocabulary_assignment_count": 1500,
+      "negative_challenge_assignment_count": 85,
+      "label_count": 100,
+      "priority_label_count": 80,
+      "blockers": [
+        "First-party collection store is absent: data/asl-pilot-store.json",
+        "NVIDIA is not ready for source-register review; metadata audit is not metadata_review_ready_not_approved"
+      ]
+    },
+    "queue_audit": {
+      "file": {
+        "path": "docs/validation/rawframe-remediation-collection-queue-audit.json",
+        "sha256": "84ccfd4eca7971392d6587e2823637176636d2952aafcabaabce68f95962b482"
+      },
+      "status": "passed_nonfinal_queue_audit",
+      "findings": []
+    }
+  },
+  "next_action": {
+    "route": "collect_or_approve_more_data_before_training",
+    "training_action": "do_not_launch_more_blind_training_from_current_manifests",
+    "first_queue_artifact": "docs/validation/rawframe-remediation-collection-queue.json",
+    "external_source_action": "metadata/source-register review required before NVIDIA or other online import",
+    "brev_worker_policy": "keep asl-pilot-rawframe-001 running unless the human stops it",
+    "manual_stop_command": "brev stop asl-pilot-rawframe-001"
+  }
+}

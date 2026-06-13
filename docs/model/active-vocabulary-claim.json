@@ -1,0 +1,10 @@
+{
+  "$schema_version": "asl-pilot-active-vocabulary-claim/v1",
+  "$comment": "Source-of-truth declaration of which vocabulary labels the promoted recognition lane is currently authorised to pass/fail. Per ARCHITECTURE.md#arch-active-module the UI must NOT ask the model to pass/fail a sign outside this claim's activeLabels[]. While modelVersion == 'rawframe-not-trained' (post Stage A vestige removal, pre first Brev training round), activeLabels and evidenceArtifacts MUST remain empty arrays — meaning the entire vocabulary defaults to content_only and no camera-driven recognition is gated as 'passed'. This file is consumed by the downstream vocabulary provenance audit (scripts/audit_downstream_vocabulary_provenance.mjs) and is the source-of-truth that scripts/promote_trained_model_card.mjs updates once a trained model artifact, signer-disjoint metrics, and a calibrated threshold set exist.",
+  "generated_at": "2026-05-24",
+  "modelVersion": "rawframe-not-trained",
+  "lane": "rawframe",
+  "activeLabels": [],
+  "evidenceArtifacts": [],
+  "claim_disclaimer": "No labels are currently active for recognition. The rawframe lane has no trained model; the model card at web/public/model/model-card.json is 'not_trained'. All 100 content vocabulary items default to content_only and cannot produce a passed=true result from the recognizer. activeLabels[] and evidenceArtifacts[] will be populated by scripts/promote_trained_model_card.mjs only after: (1) first-party clips are collected via the runbook at docs/runbooks/first-party-collection.md (mission 3), (2) a Brev training round produces signer-disjoint passing metrics for at least the 10-sign smoke active module, and (3) the negative-challenge / hard-negative validation gates in docs/strategy-confidence-audit.md pass. Promotion never happens by hand-editing this file."
+}

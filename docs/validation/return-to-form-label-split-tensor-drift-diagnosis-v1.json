@@ -1,0 +1,1025 @@
+{
+  "schema_version": "asl-pilot-return-to-form-label-split-tensor-drift-diagnosis/v1",
+  "mission": "Mission 3BQ - label/split/tensor drift diagnosis",
+  "generated_at": "2026-05-27T17:43:57Z",
+  "generated_by": "codex_executor",
+  "status": "completed_no_training",
+  "active_prompt": "docs/model/return-to-form-label-split-tensor-drift-diagnosis-goal-loop-prompt.md",
+  "source_of_truth": [
+    "GOAL.md",
+    "docs/model/return-to-form-label-split-tensor-drift-diagnosis-goal-loop-prompt.md",
+    "artifacts/research/observer-364-post-roi-strategy-api-response.md",
+    "docs/validation/return-to-form-asl-citizen-manual-coarse-roi-packet-v1.json",
+    "docs/validation/return-to-form-asl-citizen-high-signal-crop-roi-contract-v1.json",
+    "docs/validation/return-to-form-dataset-training-root-cause-v1.json",
+    "docs/validation/return-to-form-vocab-crop-separability-diagnosis-v1.json",
+    "docs/validation/return-to-form-vocab-subset-contract-v1.json",
+    "docs/validation/return-to-form-data-quality-contract-v1.json",
+    "data/manifests/lesson/high-signal-region-grid/train.json",
+    "data/manifests/lesson/high-signal-region-grid/validation.json",
+    "data/manifests/lesson/high-signal-region-grid/test.json",
+    "data/tensors/asl-citizen-high-signal-region-grid/",
+    "output/m3aw-region-grid-tcn-local-smoke/training-provenance.json"
+  ],
+  "scope": {
+    "labels": [
+      "table",
+      "please",
+      "black",
+      "hello",
+      "uncle",
+      "white",
+      "sad"
+    ],
+    "splits": [
+      "train",
+      "validation",
+      "test"
+    ],
+    "artifact_policy": "existing local artifacts only",
+    "no_new_review_or_labels": true
+  },
+  "guardrails": {
+    "brev_commands_run": false,
+    "training_or_fitting_run": false,
+    "optimizer_or_backward_pass_run": false,
+    "source_import_or_source_register_change": false,
+    "manifest_tensor_or_crop_config_mutation": false,
+    "pseudo_labels_generated": false,
+    "pretrained_cv_or_landmark_dependency_added": false,
+    "browser_activation_or_model_card_promotion": false,
+    "final_gate_change": false,
+    "asl_correctness_claims_made": false,
+    "push_performed": false,
+    "non_promotion_statement": "This receipt is diagnosis evidence only. It is not a model promotion, readiness claim, ASL correctness claim, browser activation, export, or final gate change."
+  },
+  "commands_run": [
+    "git status --short --branch",
+    "git log -10 --oneline --decorate",
+    "node scripts/audit_loop_premise.mjs --json",
+    "node scripts/audit_return_to_form_plan.mjs --json",
+    "node scripts/audit_no_pretrained_deps.mjs",
+    "node scripts/audit_no_pretrained_artifact_json.mjs",
+    "python3 -m json.tool docs/validation/return-to-form-asl-citizen-manual-coarse-roi-packet-v1.json >/dev/null",
+    "find .. -name AGENTS.md -print",
+    "jq 'keys' docs/validation/return-to-form-asl-citizen-manual-coarse-roi-packet-v1.json",
+    "jq 'keys' docs/validation/return-to-form-asl-citizen-high-signal-crop-roi-contract-v1.json",
+    "jq 'keys' docs/validation/return-to-form-dataset-training-root-cause-v1.json",
+    "jq 'keys' docs/validation/return-to-form-vocab-crop-separability-diagnosis-v1.json",
+    "jq 'keys' docs/validation/return-to-form-vocab-subset-contract-v1.json",
+    "jq 'keys' docs/validation/return-to-form-data-quality-contract-v1.json",
+    "jq '.clips[0]' data/manifests/lesson/high-signal-region-grid/train.json",
+    "jq '.per_label_subset_decisions' docs/validation/return-to-form-vocab-subset-contract-v1.json",
+    "jq '.label_level_rollup, .retained_subset_decision' docs/validation/return-to-form-asl-citizen-manual-coarse-roi-packet-v1.json",
+    "jq '.per_label_crop_roi_decisions, .retained_subset_decision, .coarse_roi_packet_or_crop_config_decision' docs/validation/return-to-form-asl-citizen-high-signal-crop-roi-contract-v1.json",
+    "jq '.root_cause_matrix, .exact_repair_needed_before_training_is_justified, .smallest_supported_next_training_attempt' docs/validation/return-to-form-dataset-training-root-cause-v1.json",
+    "jq '.contract_conclusions, .minimum_gates_before_future_training, .candidate_subset' docs/validation/return-to-form-vocab-subset-contract-v1.json",
+    "jq '.contract_conclusions, .minimum_gates_before_future_training, .candidate_subset' docs/validation/return-to-form-data-quality-contract-v1.json",
+    "sed -n '3548,3770p' scripts/train_rawframe_model.py",
+    "jq '.labels, .input_contract_evidence' output/m3aw-region-grid-tcn-local-smoke/training-provenance.json",
+    "./.venv/bin/python - <<'PY' # read-only manifest/tensor drift summarizer"
+  ],
+  "class_mapping_summary": {
+    "manifest_label_list_by_split": {
+      "train": [
+        "table",
+        "please",
+        "black",
+        "hello",
+        "uncle",
+        "white",
+        "sad"
+      ],
+      "validation": [
+        "table",
+        "please",
+        "black",
+        "hello",
+        "uncle",
+        "white",
+        "sad"
+      ],
+      "test": [
+        "table",
+        "please",
+        "black",
+        "hello",
+        "uncle",
+        "white",
+        "sad"
+      ]
+    },
+    "training_label_to_index": {
+      "black": 0,
+      "hello": 1,
+      "please": 2,
+      "sad": 3,
+      "table": 4,
+      "uncle": 5,
+      "white": 6
+    },
+    "class_index_evidence": [
+      "scripts/train_rawframe_model.py sorts manifests[0].label_ids and persists label_to_index into model_state.pt and training-provenance.json.",
+      "output/m3aw-region-grid-tcn-local-smoke/training-provenance.json records labels {black:0, hello:1, please:2, sad:3, table:4, uncle:5, white:6}.",
+      "The manifest label list is consistent across train/validation/test but is not the M3AW class-index source."
+    ],
+    "mapping_diagnosis": "No class-index defect was found. The manifest metadata order differs from the training class index, but the training/eval path uses one persisted lexicographic label_to_index mapping across splits."
+  },
+  "per_label_diagnosis": {
+    "table": {
+      "label_mapping_check": {
+        "canonical_gloss": "TABLE",
+        "label_id": "table",
+        "display_text": "Table",
+        "manifest_label_positions": {
+          "train": 0,
+          "validation": 0,
+          "test": 0
+        },
+        "class_index": {
+          "training_label_index": 4,
+          "source": "output/m3aw-region-grid-tcn-local-smoke/training-provenance.json"
+        },
+        "train_validation_test_consistency": "label_id=table, source_gloss=TABLE, source_sign_slug=table in all three splits",
+        "case_alias_whitespace_duplicate_risks": {
+          "status": "none_found",
+          "details": "Lowercase label_id, uppercase source_gloss, and lowercase source_sign_slug are internally consistent; no alias, whitespace, or duplicate label risk found in scoped manifests."
+        },
+        "status": "cleared"
+      },
+      "split_support_check": {
+        "counts": {
+          "train": {
+            "clips": 12,
+            "signers": 11
+          },
+          "validation": {
+            "clips": 4,
+            "signers": 4
+          },
+          "test": {
+            "clips": 4,
+            "signers": 4
+          }
+        },
+        "heldout_rows_have_train_support": true,
+        "signer_overlap": {
+          "train_validation": [],
+          "train_test": [],
+          "validation_test": []
+        },
+        "source_domain_metadata": {
+          "source_category": "asl_citizen_official_zip_range_selected_raw_video",
+          "camera_metadata_present": false,
+          "session_metadata_present": false
+        },
+        "domain_shift_evidence": {
+          "validation": {
+            "same_label_closer_than_nearest_other_train_label": false,
+            "drift_ratio_same_to_nearest_other": 1.234,
+            "nearest_other_train_label": "hello"
+          },
+          "test": {
+            "same_label_closer_than_nearest_other_train_label": true,
+            "drift_ratio_same_to_nearest_other": 0.942,
+            "nearest_other_train_label": "please"
+          }
+        },
+        "prior_prediction_gate": {
+          "validation_zero_recall": true,
+          "test_zero_recall": true,
+          "validation_never_predicted": true,
+          "test_never_predicted": true
+        },
+        "status": "drift_suspect"
+      },
+      "tensor_stat_check": {
+        "five_region_tensor_availability": {
+          "train": "12/12",
+          "validation": "4/4",
+          "test": "4/4"
+        },
+        "shape_consistency": {
+          "shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "all_scoped_tensors_match": true
+        },
+        "frame_count_duration_summary": {
+          "frame_count_values": [
+            16
+          ],
+          "duration_seconds_values": [
+            1.333
+          ]
+        },
+        "missing_zero_invalid_region_rate_summary": {
+          "missing_tensor_count": 0,
+          "invalid_tensor_count": 0,
+          "zero_clip_region_rate_all_splits": 0,
+          "zero_frame_region_rate_all_splits": 0
+        },
+        "crop_stat_drift_vs_train": {
+          "validation": "drift_suspect",
+          "test": "cleared"
+        },
+        "status": "drift_suspect"
+      },
+      "local_evidence_quality_check": {
+        "viewability_and_framing": "M3BP reviewed validation:table and found viewable local evidence plus coarse ROI inclusion clear.",
+        "articulation_visibility": "No outside-crop blocker found in M3BP coarse ROI review.",
+        "low_signal_indicators": [],
+        "asl_correctness_claim": "not assessed",
+        "pseudo_labels_generated": false,
+        "status": "cleared"
+      },
+      "label_level_diagnosis": "vocabulary_not_training_worthy",
+      "training_worthy_now": false,
+      "diagnosis_rationale": "Mapping and tensors clear, but table was never predicted on validation or test, has zero recall on both held-out splits, and still has validation crop-stat drift after ROI clearance."
+    },
+    "please": {
+      "label_mapping_check": {
+        "canonical_gloss": "PLEASE",
+        "label_id": "please",
+        "display_text": "Please",
+        "manifest_label_positions": {
+          "train": 1,
+          "validation": 1,
+          "test": 1
+        },
+        "class_index": {
+          "training_label_index": 2,
+          "source": "output/m3aw-region-grid-tcn-local-smoke/training-provenance.json"
+        },
+        "train_validation_test_consistency": "label_id=please, source_gloss=PLEASE, source_sign_slug=please in all three splits",
+        "case_alias_whitespace_duplicate_risks": {
+          "status": "none_found",
+          "details": "No alias, whitespace, case, or duplicate-label risk found in scoped manifests."
+        },
+        "status": "cleared"
+      },
+      "split_support_check": {
+        "counts": {
+          "train": {
+            "clips": 12,
+            "signers": 12
+          },
+          "validation": {
+            "clips": 4,
+            "signers": 4
+          },
+          "test": {
+            "clips": 4,
+            "signers": 4
+          }
+        },
+        "heldout_rows_have_train_support": true,
+        "signer_overlap": {
+          "train_validation": [],
+          "train_test": [],
+          "validation_test": []
+        },
+        "source_domain_metadata": {
+          "source_category": "asl_citizen_official_zip_range_selected_raw_video",
+          "camera_metadata_present": false,
+          "session_metadata_present": false
+        },
+        "domain_shift_evidence": {
+          "validation": {
+            "same_label_closer_than_nearest_other_train_label": false,
+            "drift_ratio_same_to_nearest_other": 1.021,
+            "nearest_other_train_label": "sad"
+          },
+          "test": {
+            "same_label_closer_than_nearest_other_train_label": false,
+            "drift_ratio_same_to_nearest_other": 1.796,
+            "nearest_other_train_label": "uncle"
+          }
+        },
+        "prior_prediction_gate": {
+          "validation_zero_recall": true,
+          "test_zero_recall": true,
+          "validation_never_predicted": true,
+          "test_never_predicted": true
+        },
+        "status": "drift_suspect"
+      },
+      "tensor_stat_check": {
+        "five_region_tensor_availability": {
+          "train": "12/12",
+          "validation": "4/4",
+          "test": "4/4"
+        },
+        "shape_consistency": {
+          "shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "all_scoped_tensors_match": true
+        },
+        "frame_count_duration_summary": {
+          "frame_count_values": [
+            16
+          ],
+          "duration_seconds_values": [
+            1.333
+          ]
+        },
+        "missing_zero_invalid_region_rate_summary": {
+          "missing_tensor_count": 0,
+          "invalid_tensor_count": 0,
+          "zero_clip_region_rate_all_splits": 0,
+          "zero_frame_region_rate_all_splits": 0
+        },
+        "crop_stat_drift_vs_train": {
+          "validation": "drift_suspect",
+          "test": "drift_suspect"
+        },
+        "status": "drift_suspect"
+      },
+      "local_evidence_quality_check": {
+        "viewability_and_framing": "M3BP reviewed validation:please and test:please and found viewable local evidence plus coarse ROI inclusion clear.",
+        "articulation_visibility": "No outside-crop blocker found in M3BP coarse ROI review.",
+        "low_signal_indicators": [
+          "highest_dark_fraction",
+          "lowest_hand_context_motion"
+        ],
+        "asl_correctness_claim": "not assessed",
+        "pseudo_labels_generated": false,
+        "status": "quality_suspect"
+      },
+      "label_level_diagnosis": "source_quality_suspect",
+      "training_worthy_now": false,
+      "diagnosis_rationale": "Please has train support and valid tensors, but both held-out splits drift toward other train-label centroids, both splits are zero-recall/never-predicted, and local low-signal examples include high darkness and low hand-context motion."
+    },
+    "black": {
+      "label_mapping_check": {
+        "canonical_gloss": "BLACK",
+        "label_id": "black",
+        "display_text": "Black",
+        "manifest_label_positions": {
+          "train": 2,
+          "validation": 2,
+          "test": 2
+        },
+        "class_index": {
+          "training_label_index": 0,
+          "source": "output/m3aw-region-grid-tcn-local-smoke/training-provenance.json"
+        },
+        "train_validation_test_consistency": "label_id=black, source_gloss=BLACK, source_sign_slug=black in all three splits",
+        "case_alias_whitespace_duplicate_risks": {
+          "status": "none_found",
+          "details": "No alias, whitespace, case, or duplicate-label risk found in scoped manifests."
+        },
+        "status": "cleared"
+      },
+      "split_support_check": {
+        "counts": {
+          "train": {
+            "clips": 12,
+            "signers": 12
+          },
+          "validation": {
+            "clips": 4,
+            "signers": 4
+          },
+          "test": {
+            "clips": 4,
+            "signers": 4
+          }
+        },
+        "heldout_rows_have_train_support": true,
+        "signer_overlap": {
+          "train_validation": [],
+          "train_test": [],
+          "validation_test": []
+        },
+        "source_domain_metadata": {
+          "source_category": "asl_citizen_official_zip_range_selected_raw_video",
+          "camera_metadata_present": false,
+          "session_metadata_present": false
+        },
+        "domain_shift_evidence": {
+          "validation": {
+            "same_label_closer_than_nearest_other_train_label": true,
+            "drift_ratio_same_to_nearest_other": 0.774,
+            "nearest_other_train_label": "sad"
+          },
+          "test": {
+            "same_label_closer_than_nearest_other_train_label": false,
+            "drift_ratio_same_to_nearest_other": 1.023,
+            "nearest_other_train_label": "uncle"
+          }
+        },
+        "prior_prediction_gate": {
+          "validation_zero_recall": true,
+          "test_zero_recall": false,
+          "validation_never_predicted": false,
+          "test_never_predicted": false
+        },
+        "status": "drift_suspect"
+      },
+      "tensor_stat_check": {
+        "five_region_tensor_availability": {
+          "train": "12/12",
+          "validation": "4/4",
+          "test": "4/4"
+        },
+        "shape_consistency": {
+          "shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "all_scoped_tensors_match": true
+        },
+        "frame_count_duration_summary": {
+          "frame_count_values": [
+            16
+          ],
+          "duration_seconds_values": [
+            1.333
+          ]
+        },
+        "missing_zero_invalid_region_rate_summary": {
+          "missing_tensor_count": 0,
+          "invalid_tensor_count": 0,
+          "zero_clip_region_rate_all_splits": 0,
+          "zero_frame_region_rate_all_splits": 0
+        },
+        "crop_stat_drift_vs_train": {
+          "validation": "cleared",
+          "test": "drift_suspect"
+        },
+        "status": "drift_suspect"
+      },
+      "local_evidence_quality_check": {
+        "viewability_and_framing": "M3BP reviewed test:black and found viewable local evidence plus coarse ROI inclusion clear.",
+        "articulation_visibility": "No outside-crop blocker found in M3BP coarse ROI review.",
+        "low_signal_indicators": [
+          "highest_dark_fraction"
+        ],
+        "asl_correctness_claim": "not assessed",
+        "pseudo_labels_generated": false,
+        "status": "quality_suspect"
+      },
+      "label_level_diagnosis": "split_domain_drift_suspect",
+      "training_worthy_now": false,
+      "diagnosis_rationale": "Black has some held-out prediction signal, but validation zero recall and test crop-stat drift remain after ROI clearance. The immediate failure is split/domain drift, not mapping or tensor invalidity."
+    },
+    "hello": {
+      "label_mapping_check": {
+        "canonical_gloss": "HELLO",
+        "label_id": "hello",
+        "display_text": "Hello",
+        "manifest_label_positions": {
+          "train": 3,
+          "validation": 3,
+          "test": 3
+        },
+        "class_index": {
+          "training_label_index": 1,
+          "source": "output/m3aw-region-grid-tcn-local-smoke/training-provenance.json"
+        },
+        "train_validation_test_consistency": "label_id=hello, source_gloss=HELLO, source_sign_slug=hello in all three splits",
+        "case_alias_whitespace_duplicate_risks": {
+          "status": "none_found",
+          "details": "No alias, whitespace, case, or duplicate-label risk found in scoped manifests."
+        },
+        "status": "cleared"
+      },
+      "split_support_check": {
+        "counts": {
+          "train": {
+            "clips": 12,
+            "signers": 12
+          },
+          "validation": {
+            "clips": 4,
+            "signers": 4
+          },
+          "test": {
+            "clips": 4,
+            "signers": 4
+          }
+        },
+        "heldout_rows_have_train_support": true,
+        "signer_overlap": {
+          "train_validation": [],
+          "train_test": [],
+          "validation_test": []
+        },
+        "source_domain_metadata": {
+          "source_category": "asl_citizen_official_zip_range_selected_raw_video",
+          "camera_metadata_present": false,
+          "session_metadata_present": false
+        },
+        "domain_shift_evidence": {
+          "validation": {
+            "same_label_closer_than_nearest_other_train_label": false,
+            "drift_ratio_same_to_nearest_other": 1.705,
+            "nearest_other_train_label": "black"
+          },
+          "test": {
+            "same_label_closer_than_nearest_other_train_label": false,
+            "drift_ratio_same_to_nearest_other": 1.36,
+            "nearest_other_train_label": "black"
+          }
+        },
+        "prior_prediction_gate": {
+          "validation_zero_recall": false,
+          "test_zero_recall": false,
+          "validation_never_predicted": false,
+          "test_never_predicted": false
+        },
+        "status": "drift_suspect"
+      },
+      "tensor_stat_check": {
+        "five_region_tensor_availability": {
+          "train": "12/12",
+          "validation": "4/4",
+          "test": "4/4"
+        },
+        "shape_consistency": {
+          "shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "all_scoped_tensors_match": true
+        },
+        "frame_count_duration_summary": {
+          "frame_count_values": [
+            16
+          ],
+          "duration_seconds_values": [
+            1.333
+          ]
+        },
+        "missing_zero_invalid_region_rate_summary": {
+          "missing_tensor_count": 0,
+          "invalid_tensor_count": 0,
+          "zero_clip_region_rate_all_splits": 0,
+          "zero_frame_region_rate_all_splits": 0
+        },
+        "crop_stat_drift_vs_train": {
+          "validation": "drift_suspect",
+          "test": "drift_suspect"
+        },
+        "status": "drift_suspect"
+      },
+      "local_evidence_quality_check": {
+        "viewability_and_framing": "M3BP reviewed validation:hello and test:hello and found viewable local evidence plus coarse ROI inclusion clear.",
+        "articulation_visibility": "No outside-crop blocker found in M3BP coarse ROI review.",
+        "low_signal_indicators": [
+          "highest_dark_fraction",
+          "lowest_hand_context_motion"
+        ],
+        "asl_correctness_claim": "not assessed",
+        "pseudo_labels_generated": false,
+        "status": "quality_suspect"
+      },
+      "label_level_diagnosis": "candidate_for_model_data_design_ablation",
+      "training_worthy_now": false,
+      "diagnosis_rationale": "Hello is the only scoped label with no prior zero-recall or never-predicted held-out gate, and M3BP cleared both reviewed ROI rows. It is still not a retained training label because it is alone, both held-out splits remain crop-stat drift suspects, and low-signal examples remain unresolved."
+    },
+    "uncle": {
+      "label_mapping_check": {
+        "canonical_gloss": "UNCLE",
+        "label_id": "uncle",
+        "display_text": "Uncle",
+        "manifest_label_positions": {
+          "train": 4,
+          "validation": 4,
+          "test": 4
+        },
+        "class_index": {
+          "training_label_index": 5,
+          "source": "output/m3aw-region-grid-tcn-local-smoke/training-provenance.json"
+        },
+        "train_validation_test_consistency": "label_id=uncle, source_gloss=UNCLE, source_sign_slug=uncle in all three splits",
+        "case_alias_whitespace_duplicate_risks": {
+          "status": "none_found",
+          "details": "No alias, whitespace, case, or duplicate-label risk found in scoped manifests."
+        },
+        "status": "cleared"
+      },
+      "split_support_check": {
+        "counts": {
+          "train": {
+            "clips": 12,
+            "signers": 10
+          },
+          "validation": {
+            "clips": 3,
+            "signers": 3
+          },
+          "test": {
+            "clips": 4,
+            "signers": 4
+          }
+        },
+        "heldout_rows_have_train_support": true,
+        "signer_overlap": {
+          "train_validation": [],
+          "train_test": [],
+          "validation_test": []
+        },
+        "source_domain_metadata": {
+          "source_category": "asl_citizen_official_zip_range_selected_raw_video",
+          "camera_metadata_present": false,
+          "session_metadata_present": false
+        },
+        "domain_shift_evidence": {
+          "validation": {
+            "same_label_closer_than_nearest_other_train_label": true,
+            "drift_ratio_same_to_nearest_other": 0.957,
+            "nearest_other_train_label": "white"
+          },
+          "test": {
+            "same_label_closer_than_nearest_other_train_label": false,
+            "drift_ratio_same_to_nearest_other": 1.038,
+            "nearest_other_train_label": "black"
+          }
+        },
+        "prior_prediction_gate": {
+          "validation_zero_recall": true,
+          "test_zero_recall": true,
+          "validation_never_predicted": false,
+          "test_never_predicted": false
+        },
+        "status": "insufficient_support"
+      },
+      "tensor_stat_check": {
+        "five_region_tensor_availability": {
+          "train": "12/12",
+          "validation": "3/3",
+          "test": "4/4"
+        },
+        "shape_consistency": {
+          "shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "all_scoped_tensors_match": true
+        },
+        "frame_count_duration_summary": {
+          "frame_count_values": [
+            16
+          ],
+          "duration_seconds_values": [
+            1.333
+          ]
+        },
+        "missing_zero_invalid_region_rate_summary": {
+          "missing_tensor_count": 0,
+          "invalid_tensor_count": 0,
+          "zero_clip_region_rate_all_splits": 0,
+          "zero_frame_region_rate_all_splits": 0
+        },
+        "crop_stat_drift_vs_train": {
+          "validation": "cleared",
+          "test": "drift_suspect"
+        },
+        "status": "drift_suspect"
+      },
+      "local_evidence_quality_check": {
+        "viewability_and_framing": "M3BP reviewed test:uncle and found viewable local evidence plus coarse ROI inclusion clear.",
+        "articulation_visibility": "No outside-crop blocker found in M3BP coarse ROI review.",
+        "low_signal_indicators": [
+          "highest_dark_fraction",
+          "lowest_hand_context_motion"
+        ],
+        "asl_correctness_claim": "not assessed",
+        "pseudo_labels_generated": false,
+        "status": "quality_suspect"
+      },
+      "label_level_diagnosis": "insufficient_training_support",
+      "training_worthy_now": false,
+      "diagnosis_rationale": "Uncle has only three validation clips/signers, zero recall on both held-out splits, test crop-stat drift, and low-signal examples. Existing artifacts identify repair need but do not supply an artifact-only repair."
+    },
+    "white": {
+      "label_mapping_check": {
+        "canonical_gloss": "WHITE",
+        "label_id": "white",
+        "display_text": "White",
+        "manifest_label_positions": {
+          "train": 5,
+          "validation": 5,
+          "test": 5
+        },
+        "class_index": {
+          "training_label_index": 6,
+          "source": "output/m3aw-region-grid-tcn-local-smoke/training-provenance.json"
+        },
+        "train_validation_test_consistency": "label_id=white, source_gloss=WHITE, source_sign_slug=white in all three splits",
+        "case_alias_whitespace_duplicate_risks": {
+          "status": "none_found",
+          "details": "No alias, whitespace, case, or duplicate-label risk found in scoped manifests."
+        },
+        "status": "cleared"
+      },
+      "split_support_check": {
+        "counts": {
+          "train": {
+            "clips": 12,
+            "signers": 11
+          },
+          "validation": {
+            "clips": 4,
+            "signers": 3
+          },
+          "test": {
+            "clips": 4,
+            "signers": 4
+          }
+        },
+        "heldout_rows_have_train_support": true,
+        "signer_overlap": {
+          "train_validation": [],
+          "train_test": [],
+          "validation_test": []
+        },
+        "source_domain_metadata": {
+          "source_category": "asl_citizen_official_zip_range_selected_raw_video",
+          "camera_metadata_present": false,
+          "session_metadata_present": false
+        },
+        "domain_shift_evidence": {
+          "validation": {
+            "same_label_closer_than_nearest_other_train_label": false,
+            "drift_ratio_same_to_nearest_other": 1.27,
+            "nearest_other_train_label": "uncle"
+          },
+          "test": {
+            "same_label_closer_than_nearest_other_train_label": true,
+            "drift_ratio_same_to_nearest_other": 0.972,
+            "nearest_other_train_label": "black"
+          }
+        },
+        "prior_prediction_gate": {
+          "validation_zero_recall": true,
+          "test_zero_recall": true,
+          "validation_never_predicted": true,
+          "test_never_predicted": true
+        },
+        "status": "drift_suspect"
+      },
+      "tensor_stat_check": {
+        "five_region_tensor_availability": {
+          "train": "12/12",
+          "validation": "4/4",
+          "test": "4/4"
+        },
+        "shape_consistency": {
+          "shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "all_scoped_tensors_match": true
+        },
+        "frame_count_duration_summary": {
+          "frame_count_values": [
+            16
+          ],
+          "duration_seconds_values": [
+            1.333
+          ]
+        },
+        "missing_zero_invalid_region_rate_summary": {
+          "missing_tensor_count": 0,
+          "invalid_tensor_count": 0,
+          "zero_clip_region_rate_all_splits": 0,
+          "zero_frame_region_rate_all_splits": 0
+        },
+        "crop_stat_drift_vs_train": {
+          "validation": "drift_suspect",
+          "test": "cleared"
+        },
+        "status": "drift_suspect"
+      },
+      "local_evidence_quality_check": {
+        "viewability_and_framing": "M3BP reviewed validation:white and found viewable local evidence plus coarse ROI inclusion clear.",
+        "articulation_visibility": "No outside-crop blocker found in M3BP coarse ROI review.",
+        "low_signal_indicators": [
+          "highest_dark_fraction",
+          "lowest_hand_context_motion"
+        ],
+        "asl_correctness_claim": "not assessed",
+        "pseudo_labels_generated": false,
+        "status": "quality_suspect"
+      },
+      "label_level_diagnosis": "source_quality_suspect",
+      "training_worthy_now": false,
+      "diagnosis_rationale": "White remains zero-recall/never-predicted on both held-out splits, validation drifts toward uncle, and local quality evidence includes dark and low-motion examples."
+    },
+    "sad": {
+      "label_mapping_check": {
+        "canonical_gloss": "SAD",
+        "label_id": "sad",
+        "display_text": "Sad",
+        "manifest_label_positions": {
+          "train": 6,
+          "validation": 6,
+          "test": 6
+        },
+        "class_index": {
+          "training_label_index": 3,
+          "source": "output/m3aw-region-grid-tcn-local-smoke/training-provenance.json"
+        },
+        "train_validation_test_consistency": "label_id=sad, source_gloss=SAD, source_sign_slug=sad in all three splits",
+        "case_alias_whitespace_duplicate_risks": {
+          "status": "none_found",
+          "details": "No alias, whitespace, case, or duplicate-label risk found in scoped manifests."
+        },
+        "status": "cleared"
+      },
+      "split_support_check": {
+        "counts": {
+          "train": {
+            "clips": 12,
+            "signers": 12
+          },
+          "validation": {
+            "clips": 4,
+            "signers": 4
+          },
+          "test": {
+            "clips": 4,
+            "signers": 4
+          }
+        },
+        "heldout_rows_have_train_support": true,
+        "signer_overlap": {
+          "train_validation": [],
+          "train_test": [],
+          "validation_test": []
+        },
+        "source_domain_metadata": {
+          "source_category": "asl_citizen_official_zip_range_selected_raw_video",
+          "camera_metadata_present": false,
+          "session_metadata_present": false
+        },
+        "domain_shift_evidence": {
+          "validation": {
+            "same_label_closer_than_nearest_other_train_label": false,
+            "drift_ratio_same_to_nearest_other": 1.335,
+            "nearest_other_train_label": "black"
+          },
+          "test": {
+            "same_label_closer_than_nearest_other_train_label": false,
+            "drift_ratio_same_to_nearest_other": 1.079,
+            "nearest_other_train_label": "uncle"
+          }
+        },
+        "prior_prediction_gate": {
+          "validation_zero_recall": true,
+          "test_zero_recall": true,
+          "validation_never_predicted": true,
+          "test_never_predicted": true
+        },
+        "status": "drift_suspect"
+      },
+      "tensor_stat_check": {
+        "five_region_tensor_availability": {
+          "train": "12/12",
+          "validation": "4/4",
+          "test": "4/4"
+        },
+        "shape_consistency": {
+          "shape": [
+            16,
+            5,
+            96,
+            96,
+            3
+          ],
+          "all_scoped_tensors_match": true
+        },
+        "frame_count_duration_summary": {
+          "frame_count_values": [
+            16
+          ],
+          "duration_seconds_values": [
+            1.333
+          ]
+        },
+        "missing_zero_invalid_region_rate_summary": {
+          "missing_tensor_count": 0,
+          "invalid_tensor_count": 0,
+          "zero_clip_region_rate_all_splits": 0,
+          "zero_frame_region_rate_all_splits": 0
+        },
+        "crop_stat_drift_vs_train": {
+          "validation": "drift_suspect",
+          "test": "drift_suspect"
+        },
+        "status": "drift_suspect"
+      },
+      "local_evidence_quality_check": {
+        "viewability_and_framing": "M3BP reviewed validation:sad and test:sad and found viewable local evidence plus coarse ROI inclusion clear.",
+        "articulation_visibility": "No outside-crop blocker found in M3BP coarse ROI review.",
+        "low_signal_indicators": [
+          "highest_dark_fraction",
+          "lowest_hand_context_motion"
+        ],
+        "asl_correctness_claim": "not assessed",
+        "pseudo_labels_generated": false,
+        "status": "quality_suspect"
+      },
+      "label_level_diagnosis": "source_quality_suspect",
+      "training_worthy_now": false,
+      "diagnosis_rationale": "Sad remains zero-recall/never-predicted on both held-out splits, both held-out splits drift toward other train-label centroids, and local quality evidence includes dark and low-motion examples."
+    }
+  },
+  "retained_label_decision": {
+    "training_worthy_retained_labels": [],
+    "candidate_labels_not_training_worthy": [
+      "hello"
+    ],
+    "at_least_two_training_worthy_labels_gate_met": false,
+    "reason": "No scoped label clears the combined mapping, split/domain, tensor/stat, local-quality, and prior held-out gates into a training-worthy retained label. Hello is the only non-zero-recall ROI-cleared candidate, but a one-label candidate cannot support training and still has crop-stat drift plus low-signal quality indicators."
+  },
+  "minimum_gates_before_future_training": [
+    {
+      "gate": "at_least_two_training_worthy_labels",
+      "status": "failed_current_receipt",
+      "requirement": "At least two labels must clear mapping, split/domain, tensor/stat, local evidence-quality, and prior held-out gates before any local or Brev training receipt."
+    },
+    {
+      "gate": "mapping_and_class_index_contract",
+      "status": "passed_current_receipt",
+      "requirement": "A future receipt must continue to bind one class-index mapping across train/validation/test and model outputs."
+    },
+    {
+      "gate": "split_domain_drift_resolution",
+      "status": "failed_current_receipt",
+      "requirement": "Held-out rows must not be closer to another label's train centroid without an explicit repair/drop/reselection decision."
+    },
+    {
+      "gate": "source_quality_or_low_signal_resolution",
+      "status": "failed_current_receipt",
+      "requirement": "Labels with high-darkness or low-motion local quality indicators must be repaired, dropped, or replaced before a training receipt."
+    },
+    {
+      "gate": "tensor_validity_and_roi_inclusion",
+      "status": "partial_current_receipt",
+      "requirement": "Tensor shape/availability and coarse ROI inclusion are currently clear, but crop-stat drift remains unresolved for every scoped label."
+    },
+    {
+      "gate": "no_pretrained_no_pseudo_no_promotion_audits",
+      "status": "passed_current_receipt",
+      "requirement": "No pretrained CV/sign/landmark path, pseudo-label path, browser activation, model-card promotion, or final gate weakening may occur before a separate validated promotion lane."
+    },
+    {
+      "gate": "bounded_compute_receipt_before_brev",
+      "status": "blocked_until_training_worthy_subset",
+      "requirement": "Future paid compute requires worker state, listed price, command, max runtime, max spend, kill condition, expected signal, artifact copyback, teardown/default-off verification, duplicate-worker avoidance, and current human approval."
+    }
+  ],
+  "brev_assessment": {
+    "useful_now": false,
+    "reason": "M3BQ produced no at-least-two retained training-worthy labels. Brev training would be another blind retry and is outside this no-spend diagnosis mission.",
+    "brev_commands_run": false,
+    "missing_before_remote_execution": [
+      "nonempty at-least-two retained label subset",
+      "current Brev worker state and listed price",
+      "exact future command",
+      "max runtime",
+      "max spend",
+      "kill condition",
+      "expected metric signal",
+      "artifact copyback path",
+      "cleanup/default-off verification",
+      "duplicate worker avoidance",
+      "current human approval in GOAL.md and the active prompt"
+    ]
+  },
+  "blockers": [
+    "Training remains unsupported because the retained label list is empty and the at-least-two gate failed.",
+    "Current scoped labels are blocked by split/stat drift, source-quality suspicion, insufficient held-out support, or prior zero-recall/never-predicted gates rather than by class-index mapping or tensor availability."
+  ],
+  "files_changed": [
+    "docs/validation/return-to-form-label-split-tensor-drift-diagnosis-v1.json",
+    "docs/session-logs/365-mission-3bq-label-split-tensor-drift-diagnosis.md"
+  ],
+  "exactly_one_next_action": "prepare_vocab_reselection_packet_from_existing_local_artifacts",
+  "next_action_rationale": "Mapping and tensor validity are cleared, but the current seven-label ASL Citizen high-signal set still cannot produce at least two training-worthy labels from existing evidence. The next useful no-spend slice is to inspect already-approved local artifacts for a better vocabulary subset rather than train, mutate crops, import sources, or use Brev."
+}

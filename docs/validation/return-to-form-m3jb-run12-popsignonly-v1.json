@@ -1,0 +1,177 @@
+{
+  "schema_version": "asl-pilot-recognizer-popsignonly-summary/v1",
+  "mission": "M3JB run12 PopSign-only recognizer — rights-clean retrain (drop ASL-Citizen train data) measured against run10 on the byte-identical 100%-PopSign test set",
+  "generated_by": "PopSign-only retrain executor (local filter + cheap dry-run gate + already-authorized Brev L40S worker)",
+  "generated_at_note": "2026-06-10 local; no git push, no deploy, no model-card/promotion/swap change. Reviewer decides whether to swap run12 in.",
+  "scope_decision": {
+    "chosen": "(A) PopSign-only RECOGNIZER",
+    "what_A_is": "Retrain run10's EXACT recipe on only the PopSign rows of cache-simccw48 (drop the 3216 ASL-Citizen train clips). Keep all 95 classes via the 2375 uniform PopSign train clips + val. No re-extraction; the SimCC landmark student is unchanged.",
+    "what_B_is": "(B) FULLY PopSign-only: also retrain the SimCC landmark student on PopSign-only teacher labels, re-extract the recognizer feature cache, then retrain the recognizer. Much more work.",
+    "rationale": "Per LESSONS.md#84 (gate expensive downstream on a cheap upstream threshold): (A) is the high-value, cheap, no-re-extraction step that directly measures the accuracy cost of removing AC training data — the open question the run10 trust audit left as an estimate only. (A) was gated on a free local rows-filter + a cheap dry-run-forward load check before any Brev spend. (B) is only worth attempting if (A) clears and a truly-clean student is required — see ac_cleanliness_analysis.recommendation.",
+    "did_B": false,
+    "B_flagged_as_remaining_step": true
+  },
+
+  "data_filter_proof": {
+    "source_cache": "/Users/kelly/ws1-recog-extract-ws/cache-simccw48/rows.json",
+    "filtered_cache": "/Users/kelly/ws1-recog-extract-ws/cache-simccw48-popsignonly/rows.json",
+    "filter_script": "/Users/kelly/ws1-recog-extract-ws/filter_popsignonly.py",
+    "filtered_cache_sha256": "794a9003f3d3c60d45506db8d838b9d022b88b93624fbfd0776cb24466f7f933",
+    "source_rule": "PopSign <=> clip_id contains '4a.' (PopSign / GT-Sign-Study signer token 4a.NNNN). ASL Citizen <=> NOT PopSign (numeric '<digits>-WORD' clip ids). This rule exactly reproduces the run10 trust audit's AC/PopSign accounting.",
+    "rule_cross_check_vs_trust_audit": {
+      "popsign_train_clips": 2375,
+      "aslcitizen_train_clips": 3216,
+      "popsign_pct_train": 42.5,
+      "aslcitizen_pct_train": 57.5,
+      "matches_trust_audit": true
+    },
+    "filter": {
+      "train_rows": "keep PopSign only (drop 3216 AC clips / 102501 AC frame-rows)",
+      "validation_rows": "keep all (already 100% PopSign, 2375 clips)",
+      "test_rows": "keep all (already 100% PopSign, 2369 clips) -> test set is BYTE-IDENTICAL to run10"
+    },
+    "counts": {
+      "src_frame_rows": 330309,
+      "kept_frame_rows": 227808,
+      "dropped_frame_rows": 102501,
+      "src_clips_total": 10335,
+      "kept_clips_total": 7119,
+      "dropped_clips_total": 3216,
+      "kept_split_source_clip_counts": {"train/popsign": 2375, "validation/popsign": 2375, "test/popsign": 2369},
+      "popsign_train_clips": 2375,
+      "popsign_train_clips_per_class": "uniform 25 (min=median=max=25)",
+      "total_classes": 95,
+      "classes_in_popsignonly_train": 95,
+      "classes_lost": []
+    },
+    "gate_class_coverage": "PASS — all 95 classes present in PopSign-only train; zero classes lost."
+  },
+
+  "dry_run_gate": {
+    "purpose": "cheap upstream load check before any Brev spend (LESSONS.md#84)",
+    "local_cpu": {"clips": 7119, "train": 4180, "monitor": 570, "test": 2369, "classes": 95, "T": 32, "feat": 90, "logits_shape": [128, 95], "loss": 10.460485, "finite": true, "verdict": "PASS"},
+    "remote_cuda": {"clips": 7119, "train": 4180, "monitor": 570, "test": 2369, "classes": 95, "T": 32, "feat": 90, "logits_shape": [128, 95], "loss": 10.4605, "finite": true, "verdict": "PASS"},
+    "gate": "classes==95 AND T==32 AND feat==90 AND finite -> PASS on both local CPU and remote CUDA (deterministic, identical)."
+  },
+
+  "recipe": {
+    "note": "EXACT run10 command; only --student-data (popsignonly cache) and --out (run12 names) changed. No --limit-*. seed 0.",
+    "trainer": "tools/detector0-annotator/train_recognizer_distill.py",
+    "trainer_sha256": "47c8c9ca16696f998b8b2d99ef4e30e44bb54561083766eb264803e92da7e921",
+    "support_hashes_verified_remote_eq_local_at_annotator_HEAD_73fd7cd3": {
+      "train_recognizer.py": "aae3064ea92da87af721d30d9f3b0ef395c18ba551fda4be4fda50e5b4c38116",
+      "seq_transformer.py": "040a3f7546af1ddc20f145c76cdec54853f12922eb315bd27c11f55aac4387c1",
+      "verification.py": "f66bae99a461d866f2127ad2a118f92ee2a1d7c7feb08ca58562ce59b087be9c"
+    },
+    "student_arch": "transformer",
+    "d_model": 256, "n_layers": 6, "n_heads": 8, "dropout": 0.0,
+    "epochs": 240, "batch": 128,
+    "lr_scheduler": {"name": "cosine", "base_lr": 0.0005, "warmup_steps": 500, "min_lr": 5e-05},
+    "alpha": 0.55, "temperature": 3.0, "jitter_std": 0.02, "frame_drop": 0.1,
+    "supcon_enabled": false, "ovr_bce_enabled": false,
+    "teacher": "checkpoint:output/recognizer-v1.pt", "teacher_data": ".cache/handcrop-lm2",
+    "checkpoint_metric": "monitor_verification_recall_far10",
+    "candidate_retention": {"enabled": true, "epsilon": 0.005, "window": 5, "retained_checkpoint_count": 55},
+    "seed": 0, "device": "cuda",
+    "split_mechanics": {
+      "note": "PopSign-only shrinks the train+val pool from 7966 (run10) to 4750. split_student(seed=0,batch=128) carves 12% as monitor.",
+      "run12_train_clips": 4180, "run12_monitor_clips": 570, "run12_test_clips": 2369,
+      "run10_train_clips": 7011, "run10_monitor_clips": 955, "run10_test_clips": 2369,
+      "steps_per_epoch": 33, "optimizer_steps": 7920
+    }
+  },
+
+  "metrics": {
+    "test_set": "2369 PopSign held-out-signer clips, byte-identical to run10 -> delta is purely the cost of dropping AC training data",
+    "run12_popsignonly": {
+      "test_recall_at_far10": 0.8848,
+      "test_top1": 0.4597,
+      "test_top5": 0.7526,
+      "classes": 95,
+      "classes_evaluable": 95,
+      "classes_ge_0_85": 64,
+      "best_monitor_epoch": 165,
+      "best_monitor_verification_recall_far10": 0.928717,
+      "chance": 0.0105,
+      "worst_classes": [["bad", 0.6], ["brother", 0.6], ["open", 0.6], ["person", 0.6], ["mom", 0.64], ["airplane", 0.68], ["cat", 0.72], ["why", 0.72]]
+    },
+    "run10_popsign_plus_ac_reference": {
+      "test_recall_at_far10": 0.9209,
+      "test_top1": 0.5428,
+      "test_top5": 0.8261,
+      "classes_ge_0_85": 76,
+      "best_monitor_epoch": 214,
+      "best_monitor_verification_recall_far10": 0.9429
+    },
+    "delta_run12_minus_run10": {
+      "recall_at_far10": -0.0361,
+      "top1": -0.0831,
+      "top5": -0.0735,
+      "classes_ge_0_85": -12
+    },
+    "gate_0_85": {
+      "run12_recall_at_far10": 0.8848,
+      "threshold": 0.85,
+      "verdict": "PASS",
+      "margin": 0.0348
+    },
+    "independent_local_rescore": {
+      "method": "Loaded run12 monitor-selected best .pt into SeqTransformer(256/6/8), reran split_student(seed=0,batch=128) on the filtered cache, softmax forward on the 2369 test indices, fed to verification.recall_at_far_details.",
+      "recall_at_far10": 0.884809,
+      "top1": 0.459688,
+      "top5": 0.752638,
+      "abs_diff_recall_at_far10_vs_receipt": 8.9e-06,
+      "verdict": "PASS — receipt reproduced from weights+cache (abs diff < 1e-5)."
+    }
+  },
+
+  "ac_cleanliness_analysis": {
+    "claim_under_test": "Is run12 truly distributable without the ASL-Citizen (Microsoft Research, noncommercial) redistribution constraint?",
+    "recognizer_weights": {
+      "trained_on": "PopSign-only labels + PopSign-only landmark-feature sequences (AC train rows dropped)",
+      "sees_ac_sign_labels": false,
+      "sees_ac_landmark_sequences_in_loss": false,
+      "verdict": "The run12 recognizer HEAD/WEIGHTS are PopSign-only — no AC sign labels and no AC sequences enter training, monitor selection, or any reported metric."
+    },
+    "landmark_student_caveat": {
+      "student": "/Users/kelly/ws1-handlabel-ws/train-w48-v1/ws1-hand-simcc-student-w48-v1-best.pt (the SimCC w48 student that PRODUCED the 90-dim features)",
+      "student_predicts": "hand landmark COORDINATES only (SimCC bins); never reads sign/word labels; teacher is RTMPose-Hand (keypoints, no sign labels)",
+      "student_train_composition": {
+        "source": "/Users/kelly/ws1-handlabel-ws/labels-v1/teacher-labels-v1-merged.jsonl",
+        "train_clips": 3854,
+        "train_clips_popsign": 2359,
+        "train_clips_ac": 1495,
+        "train_clips_ac_pct": 38.8,
+        "train_hands_ac": 8749,
+        "train_hands_popsign": 13622
+      },
+      "implication": "run12's INPUT FEATURES are computed by a landmark student whose own training set is 38.8% ASL-Citizen frames. So although the run12 recognizer never touches AC sign data, the shipped SimCC student ONNX is AC-INFLUENCED at the geometry level (it learned hand-coordinate prediction partly from AC frames).",
+      "honest_reading_of_the_AC_constraint": "ASL Citizen's noncommercial license constrains the DATA and models DERIVED FROM the data. The student is a model derived (in part) from AC frames, even though it only outputs geometry, not labels. A strict reading therefore says: run12 RECOGNIZER weights are PopSign-only and clean, but the END-TO-END shipped pipeline (student ONNX + recognizer) still contains an AC-derived component. A conservative 'truly distributable, zero AC derivation anywhere in the shipped graph' claim is NOT yet met by (A) alone."
+    },
+    "recommendation": {
+      "run12_recognizer_alone_clean": true,
+      "end_to_end_pipeline_clean": false,
+      "what_A_bought": "Quantified the cost of dropping AC recognizer-training data: only -3.6 recall@FAR10 points (0.9209 -> 0.8848), still clearing the 0.85 gate with +0.035 margin. AC training data was buying ~3.6 recall points / ~8 top-1 points, not class coverage (all 95 classes survive).",
+      "remaining_step_for_truly_clean_B": "To claim zero AC derivation anywhere in the shipped graph, retrain the SimCC w48 student on PopSign-only teacher labels (drop the 1495 AC student-train clips), re-extract cache-simccw48 with the PopSign-only student, then retrain the recognizer (re-run this exact run12 recipe on the new cache). Flagged as the remaining step; not attempted here.",
+      "swap_in_recommendation": "run12 is a strong rights-cleaner for the RECOGNIZER weights at a small accuracy cost and is worth swapping in IF the product's distributability concern is the recognizer weights (the 57.5%-AC artifact the trust audit flagged). If the concern is the full shipped graph, pair run12 with a PopSign-only student (B) before claiming AC-free. Either way, deployment must use monitor/val-fit accept thresholds, not test-fit, per the run10 trust audit check_5. Reviewer decides; no swap/promotion performed here."
+    }
+  },
+
+  "artifacts": {
+    "filtered_cache_local": "/Users/kelly/ws1-recog-extract-ws/cache-simccw48-popsignonly/rows.json (sha256 794a9003...)",
+    "annotator_receipt": "tools/detector0-annotator/output/m3jb-recognizer-transformer-run12-popsignonly-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.json",
+    "annotator_receipt_sha256": "54f92b99c166e735ac2c1579f30a5972dda25c4a6d6569228faa2b2b18bc57d8",
+    "weights": "tools/detector0-annotator/output/m3jb-recognizer-transformer-run12-popsignonly-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.pt",
+    "weights_sha256": "b237d5953d77a99e79a76873b7805a90c7793881dec5c524d06b5f55414d9001",
+    "train_log": "tools/detector0-annotator/output/run12-popsignonly-train.log",
+    "train_log_sha256": "749788ca410540397b19c4806a04c5749228452816b49d55d97b61f3b11a954f",
+    "candidate_checkpoints": "tools/detector0-annotator/output/m3jb-recognizer-transformer-run12-popsignonly-*candidate*.pt (55 retained; all verified vs run12-candidates.sha256, copyback OK 55/55)"
+  },
+
+  "boundaries": {
+    "brev": "Started/stopped the existing already-authorized retained worker asl-pilot-m3eh-l40s-001 / 3d58wpy9o (L40S) only; no infra create/delete/reset; worker CONFIRMED STOPPED after copyback.",
+    "no_push": true, "no_deploy": true, "no_model_card_change": true, "no_promotion": true, "no_swap": true,
+    "leave_to_reviewer": "Whether to swap run12 in for rights-cleanliness given the -3.6 recall@FAR10 delta, and whether to commission (B) for an AC-free end-to-end graph."
+  },
+  "anchors": ["ARCHITECTURE.md#arch-no-pretrained", "ARCHITECTURE.md#arch-gpu-execution"]
+}

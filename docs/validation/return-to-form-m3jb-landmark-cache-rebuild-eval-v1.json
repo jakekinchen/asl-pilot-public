@@ -1,0 +1,448 @@
+{
+  "schema_version": "asl-pilot-m3jb-landmark-cache-rebuild-eval/v1",
+  "receipt_id": "return-to-form-m3jb-landmark-cache-rebuild-eval-v1",
+  "mission": "M3JB - Hierarchical hand-state tracker",
+  "active_directive": "m3jb_batch_finish_crop_review_then_retrain_landmark_student_and_remeasure_pck_brev_ok",
+  "status": "passed_eval_only_not_gate_passing",
+  "checked_at": "2026-06-02T23:34:29.713Z",
+  "source_policy": {
+    "outcome_ledger": {
+      "path": "docs/validation/return-to-form-m3jb-clearer-source-review-outcomes-v1.json",
+      "sha256": "18c4d69351b59c146461032c9aa2cdc0de679e179d2a3a277f01355a8be6c9be",
+      "summary": {
+        "selected_rows": 64,
+        "train_rows": 32,
+        "test_rows": 32,
+        "pending_review": 0,
+        "cache_safe_replacements": 0,
+        "explicit_exclusions": 64,
+        "needs_additional_source_context": 0,
+        "cache_rebuild_allowed": 0
+      }
+    },
+    "exclusion_adapter": {
+      "path": "tools/detector0-annotator/output/m3jb-clearer-source-ledger-exclusions-v1/rows.json",
+      "sha256": "6992efbd9a1cbd0eb2b3cc7e836d1b5cbc9917fc9530fb10270447184bc1019b",
+      "summary": {
+        "selected_rows": 64,
+        "explicit_exclusions": 64,
+        "train_rows": 32,
+        "test_rows": 32,
+        "source_cache_counts": {
+          "tools/detector0-annotator/.cache/handcrop-ac": 26,
+          "tools/detector0-annotator/.cache/handcrop-lm2": 38
+        }
+      }
+    }
+  },
+  "cache_rebuild": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .labelvenv/bin/python tools/detector0-annotator/build_perhand_hires_cache.py --source tools/detector0-annotator/.cache/handcrop-lm2 --source tools/detector0-annotator/.cache/handcrop-ac --out tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1 --crop-px 128 --context 0.35 --min-side 0.10 --exclude-relabel-source tools/detector0-annotator/output/m3jb-clearer-source-ledger-exclusions-v1",
+    "workdir": "/Users/kelly/Developer/asl-pilot-annotator",
+    "cache_dir": "tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1",
+    "source_dirs": [
+      "tools/detector0-annotator/.cache/handcrop-lm2",
+      "tools/detector0-annotator/.cache/handcrop-ac"
+    ],
+    "crop_px": 128,
+    "context": 0.35,
+    "min_side": 0.1,
+    "excluded_relabel_sources": [
+      "tools/detector0-annotator/output/m3jb-clearer-source-ledger-exclusions-v1"
+    ],
+    "summary": {
+      "rows_before": 30184,
+      "rows_after": 30120,
+      "excluded_source_hands": 64,
+      "hands_excluded_by_relabel": 64,
+      "splits": {
+        "train": 22202,
+        "validation": 3545,
+        "test": 4373
+      },
+      "source_cache_counts": {
+        "tools/detector0-annotator/.cache/handcrop-ac": 18438,
+        "tools/detector0-annotator/.cache/handcrop-lm2": 11682
+      },
+      "stats": {
+        "source_rows_scanned": 65806,
+        "hands_seen": 30184,
+        "hands_kept": 30120,
+        "hands_skipped": 0,
+        "hands_excluded_by_relabel": 64
+      }
+    },
+    "artifacts": {
+      "rows_json": {
+        "path": "tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1/rows.json",
+        "bytes": 46013366,
+        "sha256": "693f2dfb2b740d5a0ec763ccc9b65a8521ef40607587f26e41421ebb4551a173"
+      },
+      "splits_json": {
+        "path": "tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1/splits.json",
+        "bytes": 284432,
+        "sha256": "f8afb677179cdbf3fc11392c95ee0aede6c09d27cd86a336720d7eabb17f1d0f"
+      },
+      "frames_npy": {
+        "path": "tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1/frames.npy",
+        "bytes": 1480458368
+      },
+      "kpts_npy": {
+        "path": "tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1/kpts.npy",
+        "bytes": 5060288
+      }
+    }
+  },
+  "eval_only_measurement": {
+    "checkpoint": {
+      "weights": "tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt",
+      "pretrained_runtime_dependency": false,
+      "browser_promoted": false
+    },
+    "baseline": {
+      "pck_010_receipt": "tools/detector0-annotator/output/m3ja-perhand-rows-sourcepreserved-c35-replacestrict-v1-currentbest-eval-pck010-report.json",
+      "pck_005_receipt": "tools/detector0-annotator/output/m3ja-perhand-rows-merged-c35-currentbest-eval-pck005.json",
+      "pck_010": {
+        "data": "tools/detector0-annotator/.cache/m3ja-perhand-rows-sourcepreserved-c35-replacestrict-v1",
+        "weights": "tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt",
+        "pck_threshold": 0.1,
+        "test": {
+          "samples": 4405,
+          "points": 92505,
+          "visible_points": 87567,
+          "PCK": 0.6587,
+          "visible_PCK": 0.6935,
+          "mean_kp_err": 0.1074,
+          "visible_mean_kp_err": 0.0922,
+          "per_keypoint_PCK": [
+            0.6767,
+            0.6804,
+            0.6981,
+            0.6647,
+            0.58,
+            0.7383,
+            0.6758,
+            0.6497,
+            0.5451,
+            0.7789,
+            0.7342,
+            0.6922,
+            0.568,
+            0.7494,
+            0.7101,
+            0.6806,
+            0.5846,
+            0.6835,
+            0.6272,
+            0.5939,
+            0.5224
+          ]
+        },
+        "validation": {
+          "samples": 3545,
+          "points": 74445,
+          "visible_points": 70438,
+          "PCK": 0.6603,
+          "visible_PCK": 0.6952,
+          "mean_kp_err": 0.1042,
+          "visible_mean_kp_err": 0.091,
+          "per_keypoint_PCK": [
+            0.6908,
+            0.6962,
+            0.7123,
+            0.6793,
+            0.5898,
+            0.7495,
+            0.6674,
+            0.6401,
+            0.5487,
+            0.7952,
+            0.7227,
+            0.6798,
+            0.5766,
+            0.7656,
+            0.6948,
+            0.6643,
+            0.5876,
+            0.6722,
+            0.6051,
+            0.5944,
+            0.5331
+          ]
+        }
+      },
+      "pck_005": {
+        "data": "tools/detector0-annotator/.cache/m3ja-perhand-rows-merged-c35",
+        "weights": "tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt",
+        "pck_threshold": 0.05,
+        "test": {
+          "samples": 4405,
+          "points": 92505,
+          "visible_points": 87567,
+          "PCK": 0.3696,
+          "visible_PCK": 0.3903,
+          "mean_kp_err": 0.1074,
+          "visible_mean_kp_err": 0.0922,
+          "per_keypoint_PCK": [
+            0.3541,
+            0.3562,
+            0.3712,
+            0.3814,
+            0.3094,
+            0.4406,
+            0.3768,
+            0.3569,
+            0.2792,
+            0.5008,
+            0.4309,
+            0.3821,
+            0.286,
+            0.4608,
+            0.4064,
+            0.3977,
+            0.2958,
+            0.4114,
+            0.3539,
+            0.3383,
+            0.2708
+          ]
+        },
+        "validation": {
+          "samples": 3545,
+          "points": 74445,
+          "visible_points": 70438,
+          "PCK": 0.363,
+          "visible_PCK": 0.3837,
+          "mean_kp_err": 0.1042,
+          "visible_mean_kp_err": 0.091,
+          "per_keypoint_PCK": [
+            0.4093,
+            0.3865,
+            0.3701,
+            0.3932,
+            0.3126,
+            0.4217,
+            0.3433,
+            0.3413,
+            0.2618,
+            0.4804,
+            0.3997,
+            0.3819,
+            0.2872,
+            0.4415,
+            0.3684,
+            0.3647,
+            0.303,
+            0.3969,
+            0.3224,
+            0.3402,
+            0.2973
+          ]
+        }
+      }
+    },
+    "rebuilt_cache": {
+      "pck_010_receipt": "tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-currentbest-eval-pck010.json",
+      "pck_005_receipt": "tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-currentbest-eval-pck005.json",
+      "pck_010": {
+        "data": "tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1",
+        "weights": "tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt",
+        "pck_threshold": 0.1,
+        "test": {
+          "samples": 4373,
+          "points": 91833,
+          "visible_points": 87231,
+          "PCK": 0.6633,
+          "visible_PCK": 0.6959,
+          "mean_kp_err": 0.105,
+          "visible_mean_kp_err": 0.0912,
+          "per_keypoint_PCK": [
+            0.6812,
+            0.6847,
+            0.7025,
+            0.6691,
+            0.5836,
+            0.7432,
+            0.6808,
+            0.6545,
+            0.5491,
+            0.7839,
+            0.7395,
+            0.6972,
+            0.5721,
+            0.7546,
+            0.7153,
+            0.6856,
+            0.5888,
+            0.6883,
+            0.6318,
+            0.5982,
+            0.5262
+          ]
+        },
+        "validation": {
+          "samples": 3545,
+          "points": 74445,
+          "visible_points": 70438,
+          "PCK": 0.6603,
+          "visible_PCK": 0.6952,
+          "mean_kp_err": 0.1042,
+          "visible_mean_kp_err": 0.091,
+          "per_keypoint_PCK": [
+            0.6908,
+            0.6962,
+            0.7123,
+            0.6793,
+            0.5898,
+            0.7495,
+            0.6674,
+            0.6401,
+            0.5487,
+            0.7952,
+            0.7227,
+            0.6798,
+            0.5766,
+            0.7656,
+            0.6948,
+            0.6643,
+            0.5876,
+            0.6722,
+            0.6051,
+            0.5944,
+            0.5331
+          ]
+        }
+      },
+      "pck_005": {
+        "data": "tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1",
+        "weights": "tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt",
+        "pck_threshold": 0.05,
+        "test": {
+          "samples": 4373,
+          "points": 91833,
+          "visible_points": 87231,
+          "PCK": 0.3722,
+          "visible_PCK": 0.3917,
+          "mean_kp_err": 0.105,
+          "visible_mean_kp_err": 0.0912,
+          "per_keypoint_PCK": [
+            0.3565,
+            0.3588,
+            0.3737,
+            0.3842,
+            0.3112,
+            0.4439,
+            0.3796,
+            0.3595,
+            0.2813,
+            0.5042,
+            0.434,
+            0.3849,
+            0.2881,
+            0.464,
+            0.4093,
+            0.4006,
+            0.298,
+            0.4141,
+            0.3565,
+            0.3407,
+            0.2728
+          ]
+        },
+        "validation": {
+          "samples": 3545,
+          "points": 74445,
+          "visible_points": 70438,
+          "PCK": 0.363,
+          "visible_PCK": 0.3837,
+          "mean_kp_err": 0.1042,
+          "visible_mean_kp_err": 0.091,
+          "per_keypoint_PCK": [
+            0.4093,
+            0.3865,
+            0.3701,
+            0.3932,
+            0.3126,
+            0.4217,
+            0.3433,
+            0.3413,
+            0.2618,
+            0.4804,
+            0.3997,
+            0.3819,
+            0.2872,
+            0.4415,
+            0.3684,
+            0.3647,
+            0.303,
+            0.3969,
+            0.3224,
+            0.3402,
+            0.2973
+          ]
+        }
+      }
+    },
+    "deltas": {
+      "test_pck_010": 0.0046,
+      "test_visible_pck_010": 0.0024,
+      "test_pck_005": 0.0026,
+      "test_visible_pck_005": 0.0014,
+      "test_samples": -32,
+      "validation_pck_010": 0,
+      "validation_pck_005": 0
+    },
+    "gate_status": {
+      "pck_010_gate": "failed_open",
+      "pck_010_required": 0.9,
+      "pck_005_gate": "failed_open",
+      "pck_005_required": 0.75
+    }
+  },
+  "commands": [
+    {
+      "command": "node - <<'NODE' ... generate tools/detector0-annotator/output/m3jb-clearer-source-ledger-exclusions-v1/rows.json",
+      "workdir": "/Users/kelly/Developer/asl-pilot",
+      "status": "passed",
+      "output_summary": "wrote 64 exclusion adapter rows"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .labelvenv/bin/python tools/detector0-annotator/build_perhand_hires_cache.py --source tools/detector0-annotator/.cache/handcrop-lm2 --source tools/detector0-annotator/.cache/handcrop-ac --out tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1 --crop-px 128 --context 0.35 --min-side 0.10 --exclude-relabel-source tools/detector0-annotator/output/m3jb-clearer-source-ledger-exclusions-v1",
+      "workdir": "/Users/kelly/Developer/asl-pilot-annotator",
+      "status": "passed",
+      "output_summary": "wrote 30120 per-hand crops from 65806 source rows; excluded 64 source hands"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .labelvenv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --eval-only ... --pck 0.10",
+      "workdir": "/Users/kelly/Developer/asl-pilot-annotator",
+      "status": "failed_expected_wrong_venv",
+      "output_summary": "ModuleNotFoundError: No module named torch; no eval receipt was written"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --eval-only --data tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1 --weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --out tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-currentbest-eval-pck010.json --pck 0.10 --device mps --eval-batch 256",
+      "workdir": "/Users/kelly/Developer/asl-pilot-annotator",
+      "status": "passed",
+      "output_summary": "test PCK@0.10 0.6633; visible 0.6959"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/train_perhand_landmarks_heatmap.py --eval-only --data tools/detector0-annotator/.cache/m3jb-perhand-rows-ledger-excluded-c35-v1 --weights tools/detector0-annotator/output/m3ja-perhand-hires-w64-qualityfilter-lr5e5-e25.pt --out tools/detector0-annotator/output/m3jb-perhand-ledgerexcluded-c35-currentbest-eval-pck005.json --pck 0.05 --device mps --eval-batch 256",
+      "workdir": "/Users/kelly/Developer/asl-pilot-annotator",
+      "status": "passed",
+      "output_summary": "test PCK@0.05 0.3722; visible 0.3917"
+    }
+  ],
+  "runtime_boundary": {
+    "local_only": true,
+    "brev_used": false,
+    "training_run": false,
+    "optimizer_or_backward": false,
+    "checkpoint_written": false,
+    "browser_runtime_dependency_added": false,
+    "browser_artifact_promoted": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "offline_teacher_labels_only": true
+  },
+  "interpretation": "Ledger exclusions produce a small eval-only improvement on the current scratch per-hand checkpoint, mostly by removing 32 known bad diagnostic-test crops. This is not product-grade and does not replace the required full scratch landmark retrain on the rebuilt cache.",
+  "claim_boundary": "This receipt proves a local cache rebuild plus eval-only PCK measurement on an existing scratch checkpoint. It does not claim trained-model improvement, landmark gate passage, browser mapping, tracking stability, browser parity, or runtime promotion.",
+  "next_action": "retrain_scratch_landmark_student_on_rebuilt_cache_and_remeasure_pck_with_explicit_brev_spend_approval"
+}

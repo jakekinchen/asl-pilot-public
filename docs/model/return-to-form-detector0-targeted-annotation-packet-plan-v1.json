@@ -1,0 +1,502 @@
+{
+  "schema_version": "asl-pilot-detector0-targeted-annotation-packet-plan/v1",
+  "plan_id": "return-to-form-detector0-targeted-annotation-packet-plan-v1",
+  "mission": "M3HM",
+  "status": "planned_not_authored_current_data_not_ready_for_full_detector0_training_evaluation",
+  "created_at": "2026-05-29T17:23:26Z",
+  "head_at_creation": "5d66b4a97efa2188665f571ddff6447b0d67f0ec",
+  "active_prompt": "docs/model/return-to-form-m3hm-detector0-targeted-annotation-packet-plan-no-brev-goal-loop-prompt.md",
+  "purpose": "Turn the M3HL Detector 0 manifest/label contract into a reviewable future annotation-packet authoring plan without mutating data, labels, manifests, tensors, model cards, runtime code, final gates, or claim surfaces.",
+  "source_contract": {
+    "path": "docs/model/return-to-form-detector0-manifest-label-training-evaluation-contract-v1.json",
+    "status": "contract_repaired_current_data_not_ready_for_full_detector0_training_evaluation",
+    "sha256_at_m3hl": "cd70aa2bc8568e50b3e5e3b53758bd595dbf480a1b24a5655a23c872f6d57b71",
+    "mapped_here": true
+  },
+  "current_candidate_rows_vs_readiness": {
+    "tier0_clip_manifests": {
+      "dataset_id": "return-to-form-tier0",
+      "source_ids": [
+        "popsign-v1-original-videos"
+      ],
+      "row_counts": {
+        "train": 125,
+        "validation": 125,
+        "test": 95,
+        "total": 345
+      },
+      "label_counts": {
+        "train": {
+          "dad": 25,
+          "grandpa": 25,
+          "hat": 25,
+          "please": 25,
+          "table": 25
+        },
+        "validation": {
+          "dad": 25,
+          "grandpa": 25,
+          "hat": 25,
+          "please": 25,
+          "table": 25
+        },
+        "test": {
+          "dad": 19,
+          "grandpa": 19,
+          "hat": 19,
+          "please": 19,
+          "table": 19
+        }
+      },
+      "readiness_boundary": "These are approved PopSign raw-video/tensor clip rows. They are not frame-level or temporal Detector 0 annotation rows."
+    },
+    "current_annotation_packet": {
+      "path": "data/annotations/detector0/return-to-form-tier0-localization-packet-v0.json",
+      "row_count": 32,
+      "split_counts": {
+        "train": 11,
+        "validation": 11,
+        "test": 10
+      },
+      "label_counts": {
+        "please": 3,
+        "table": 20,
+        "dad": 3,
+        "grandpa": 3,
+        "hat": 3
+      },
+      "review_status_counts": {
+        "manual_verified": 6,
+        "manual_corrected": 26
+      },
+      "target_presence_counts": {
+        "left_or_first_hand": {
+          "present": 32,
+          "absent": 0
+        },
+        "right_or_second_hand": {
+          "present": 20,
+          "absent": 12
+        },
+        "head_or_face": {
+          "present": 32,
+          "absent": 0
+        },
+        "upper_body_or_signing_space": {
+          "present": 32,
+          "absent": 0
+        },
+        "table_two_hand_union_or_contact_region": {
+          "present": 20,
+          "absent": 12
+        }
+      },
+      "readiness_boundary": "Useful existing manual context rows remain sparse single-frame candidate evidence. They do not satisfy split coverage, temporal, hard-negative, held-out IoU, false no-hand, false trigger, or browser-latency prerequisites for full Detector 0 training/evaluation."
+    },
+    "negative_challenge_manifest": {
+      "path": "data/manifests/negative-challenge.json",
+      "row_count": 25,
+      "challenge_type_counts": {
+        "empty_camera": 5,
+        "low_light": 5,
+        "no_hands_visible": 5,
+        "non_target_asl_sign": 5,
+        "off_center": 5
+      },
+      "source_ids": [
+        "asl-citizen-school-assignment-raw-videos",
+        "cira-satellite-library-negative-challenge-videos",
+        "wikimedia-commons-negative-challenge-videos"
+      ],
+      "readiness_boundary": "Validation-only reject evidence exists, but it is not a Detector 0 box/no-hand training manifest and must not be silently promoted into training rows without source approval."
+    },
+    "full_packet_ready_now": false
+  },
+  "target_schema_policy": {
+    "preserve_current_detector0_card_targets": true,
+    "promoted_target_ids": [
+      "left_or_first_hand",
+      "right_or_second_hand",
+      "head_or_face",
+      "upper_body_or_signing_space"
+    ],
+    "coordinate_space": "normalized_full_frame_top_left_xyxy",
+    "required_target_fields": [
+      "presence",
+      "center_xy_norm",
+      "box_xyxy_norm",
+      "visibility_confidence",
+      "occlusion_flag",
+      "truncation_flag"
+    ],
+    "schema_change_policy": "This plan does not change the Detector 0 target schema. Any change to promoted target ids, coordinate space, target fields, or target authority requires a later human approval or ESCALATE route."
+  },
+  "auxiliary_table_target_policy": {
+    "target_id": "table_two_hand_union_or_contact_region",
+    "scope": "auxiliary_table_contact_or_diagnostic_only",
+    "current_support": {
+      "present_total": 20,
+      "present_by_split": {
+        "train": 7,
+        "validation": 7,
+        "test": 6
+      },
+      "absent_non_table_total": 12
+    },
+    "allowed_future_use": "May remain as table-scoped auxiliary accounting when each row clearly marks it outside the promoted Detector 0 card target list.",
+    "not_allowed_future_use": "Must not substitute for right_or_second_hand, left_or_first_hand, or full Detector 0 readiness, and must not create product/runtime authority."
+  },
+  "target_by_target_planned_coverage": {
+    "left_or_first_hand": {
+      "current_candidate_rows": "present in 32/32 packet rows; train 11, validation 11, test 10; positive support across dad, grandpa, hat, please, and table",
+      "future_packet_requirements": [
+        "positive frame rows by train, validation, and test split across every selected Tier 0 label",
+        "explicit absent rows only when human review confirms no visible left_or_first_hand rather than a missing annotation",
+        "occlusion, truncation, and low-visibility bookkeeping for face/head contact and edge cases",
+        "temporal sequence rows that show center and box stability across multiple frames",
+        "held-out validation/test IoU rows at 0.30 and 0.50 with target-specific false no-hand accounting"
+      ],
+      "known_gap": "The current packet has no hard-negative/no-hand rows and too few held-out IoU/temporal rows for a high-recall detector claim."
+    },
+    "right_or_second_hand": {
+      "current_candidate_rows": "present in 20/32 packet rows; train 7, validation 7, test 6; positive support is table-only; please, dad, grandpa, and hat currently record absent rows",
+      "future_packet_requirements": [
+        "table positive rows remain split-balanced, but table-only support must be labeled as insufficient for a general second-hand detector",
+        "absent/not-applicable semantics for non-table labels must be explicit and separated from missing annotations",
+        "human review must decide whether selected labels need additional true two-hand examples or whether absence is an expected label property",
+        "occluded, truncated, and low-visibility second-hand cases must be counted separately",
+        "held-out validation/test IoU rows at 0.30 and 0.50 plus false no-hand and false trigger accounting"
+      ],
+      "known_gap": "Right-hand support remains table-only unless a later reviewed authoring slice adds non-table positives or records an approved target-policy decision."
+    },
+    "head_or_face": {
+      "current_candidate_rows": "present in 32/32 packet rows; train 11, validation 11, test 10; auxiliary context support across all selected labels",
+      "future_packet_requirements": [
+        "keep the target role as auxiliary context, not ASL correctness authority",
+        "positive/absent, occlusion, and truncation accounting by split",
+        "source, signer, clip, frame, annotator, reviewer, and source-rights provenance on every row",
+        "held-out validation/test IoU rows if Detector 0 emits this target",
+        "claim-surface proof that head_or_face cannot enable recognition pass/fail by itself"
+      ],
+      "known_gap": "The current candidate rows do not establish held-out IoU behavior or target-specific fail-closed browser behavior."
+    },
+    "upper_body_or_signing_space": {
+      "current_candidate_rows": "present in 32/32 packet rows; train 11, validation 11, test 10; auxiliary signing-space support across all selected labels",
+      "future_packet_requirements": [
+        "record exact semantics for upper body versus signing space before authoring more rows",
+        "positive/absent, occlusion, truncation, and low-visibility accounting by split",
+        "temporal sequence rows for signing-space stability, jitter, and missing-frame behavior",
+        "held-out validation/test IoU rows if Detector 0 emits this target",
+        "fail-closed browser proof until a promoted scratch-trained Detector 0 artifact exists"
+      ],
+      "known_gap": "The current candidate rows do not prove temporal stability, held-out IoU, or browser-latency behavior."
+    }
+  },
+  "planned_row_types_by_split": {
+    "train": {
+      "allowed_sources": [
+        "popsign-v1-original-videos",
+        "first-party-browser-consent-capture after clip-level consent and source review"
+      ],
+      "row_types": [
+        {
+          "type": "positive_target_frame_row",
+          "purpose": "scratch Detector 0 supervised training candidates for promoted target ids",
+          "requirements": [
+            "source allowed_for_model_training=true",
+            "manual or explicitly source-approved annotation source",
+            "reviewed target boxes for each visible promoted target"
+          ]
+        },
+        {
+          "type": "explicit_absent_or_not_applicable_row",
+          "purpose": "separate true target absence from missing annotation, especially for right_or_second_hand on non-table labels",
+          "requirements": [
+            "presence=false for the target",
+            "absence_reason recorded as true_absent, not_applicable_by_label_review, out_of_frame, occluded_beyond_review, or unusable_frame",
+            "reviewer attestation that the row is not merely incomplete"
+          ]
+        },
+        {
+          "type": "temporal_sequence_row",
+          "purpose": "train stability over adjacent frames after frame-level rows are reviewed",
+          "requirements": [
+            "frame_index_range or timestamp_sec_range",
+            "per-frame target boxes or explicit interpolation policy reviewed by a human",
+            "no generated pseudo-labels or pretrained tracking"
+          ]
+        },
+        {
+          "type": "training_approved_hard_negative_or_no_hand_row",
+          "purpose": "future false-trigger reduction only when source rights allow model training",
+          "requirements": [
+            "source allowed_for_model_training=true",
+            "all promoted target ids explicitly presence=false",
+            "challenge_type recorded",
+            "must not use validation-only negative-challenge rows unless a later source-review receipt approves training use"
+          ]
+        }
+      ],
+      "planned_gap": "The existing mixed negative-challenge manifest is validation-only; training hard negatives require first-party consented rows or another source approved for training."
+    },
+    "validation": {
+      "allowed_sources": [
+        "popsign-v1-original-videos",
+        "online-negative-challenge-mixed-wikimedia-cira-v1 exact files for validation-only rows"
+      ],
+      "row_types": [
+        "positive_target_frame_row",
+        "explicit_absent_or_not_applicable_row",
+        "hard_negative_no_hand_row",
+        "empty_camera_row",
+        "low_light_row",
+        "off_center_row",
+        "non_target_signing_row",
+        "temporal_sequence_row",
+        "held_out_iou_row_0_30",
+        "held_out_iou_row_0_50"
+      ],
+      "requirements": [
+        "threshold and gate selection must use validation rows only",
+        "negative-challenge exact-file rows remain validation-only unless a later rights receipt changes scope",
+        "false no-hand and false trigger metrics are recorded by target and challenge type"
+      ]
+    },
+    "test": {
+      "allowed_sources": [
+        "popsign-v1-original-videos",
+        "online-negative-challenge-mixed-wikimedia-cira-v1 exact files for held-out validation/pilot evidence only when kept out of training"
+      ],
+      "row_types": [
+        "held_out_positive_target_frame_row",
+        "held_out_absent_or_not_applicable_row",
+        "held_out_hard_negative_no_hand_row",
+        "held_out_empty_camera_row",
+        "held_out_low_light_row",
+        "held_out_off_center_row",
+        "held_out_non_target_signing_row",
+        "held_out_temporal_sequence_row",
+        "held_out_iou_row_0_30",
+        "held_out_iou_row_0_50"
+      ],
+      "requirements": [
+        "test rows must not tune thresholds",
+        "test rows must preserve signer/source/clip separation from train and validation",
+        "held-out IoU, false no-hand, and false trigger accounting must be reported separately from validation threshold selection"
+      ]
+    }
+  },
+  "minimum_future_row_fields": [
+    "row_id",
+    "row_kind",
+    "split",
+    "clip_id",
+    "label_id or challenge_type",
+    "source_id",
+    "source_split",
+    "source_record_id",
+    "source_video_sha256",
+    "signer_identity_hash",
+    "frame_index or frame_index_range",
+    "timestamp_sec or timestamp_sec_range",
+    "frame_tensor_path or frame_sequence_tensor_path",
+    "frame_tensor_sha256 or frame_sequence_tensor_sha256",
+    "annotation_source",
+    "label_source",
+    "annotator or label_author",
+    "reviewer",
+    "reviewed_at",
+    "review_status",
+    "source_license_decision",
+    "source_license_review_status",
+    "allowed_label_annotation_scope",
+    "pretrained_or_generated_label_use=false",
+    "targets",
+    "no_pretrained_attestation"
+  ],
+  "minimum_target_fields": [
+    "presence",
+    "center_xy_norm",
+    "box_xyxy_norm",
+    "visibility_confidence",
+    "occlusion_flag",
+    "truncation_flag",
+    "absence_reason when presence=false",
+    "target_applicability when a target is label- or challenge-not-applicable"
+  ],
+  "source_rights_checks": {
+    "raw_video_only_separation": "Raw-video approval does not approve source-provided pose, landmark, embedding, detector, feature-cache, crop, pseudo-label, or generated-label artifacts.",
+    "popsign_v1_original_videos": {
+      "source_id": "popsign-v1-original-videos",
+      "current_decision": "approved_cc_by_4_raw_video_with_attribution",
+      "allowed_for_model_training": true,
+      "allowed_for_validation": true,
+      "allowed_for_pilot_submission": true,
+      "allowed_for_future_packet": "raw video/frame/tensor rows and project-authored manual boxes/regions with attribution and provenance",
+      "not_allowed_for_future_packet": "preview videos or source-provided derived pose, landmark, embedding, detector, feature, generated-label, or pretrained artifacts"
+    },
+    "first_party_browser_consent_capture": {
+      "source_id": "first-party-browser-consent-capture",
+      "allowed_for_future_packet": "only after signer registry, clip-level consent, consent form version/hash, raw clip hash, and label review approval are recorded"
+    },
+    "online_negative_challenge_mixed": {
+      "source_id": "online-negative-challenge-mixed-wikimedia-cira-v1",
+      "current_decision": "approved_validation_only_mixed_external_raw_video_with_attribution",
+      "allowed_for_model_training": false,
+      "allowed_for_validation": true,
+      "allowed_for_future_packet": "validation/test reject-only Detector 0 rows with exact-file provenance and explicit source_license_decision",
+      "not_allowed_for_future_packet": "training hard negatives or general source-family reuse without a later source-review receipt"
+    },
+    "per_row_required_checks": [
+      "source_id exists in docs/model/dataset-source-register.json",
+      "source_license_decision and source_license_review_status are copied into the row",
+      "allowed_label_annotation_scope matches the exact derivative type used by the row",
+      "annotation_source is human-authored or explicitly source-approved for the exact source",
+      "pretrained_or_generated_label_use is false",
+      "reviewer verifies that no MediaPipe, OpenPose, YOLO, SAM, DINO, CLIP, RTMPose, from_pretrained, pretrained=True, pretrained feature cache, or generated pseudo-label supplied the target"
+    ]
+  },
+  "review_steps_for_future_authoring": [
+    "Select candidate clips or exact negative-challenge rows from tracked manifests without importing new media.",
+    "Before drawing or accepting each row, verify source_id, split, signer hash, source record id, source license decision, and allowed use.",
+    "Author human boxes/regions in normalized full-frame top-left xyxy coordinates, or attach only explicitly source-approved labels for the exact derivative type.",
+    "For every absent target, record absence_reason and target_applicability so absence cannot be confused with missing annotation.",
+    "Perform independent reviewer pass that either accepts, corrects, rejects, or marks insufficient_visual_evidence for each row.",
+    "Summarize split counts, target present/absent counts, occlusion/truncation counts, temporal counts, hard-negative counts, and held-out IoU rows before any training/evaluation route is considered.",
+    "Run existing source-register, no-pretrained, Detector 0 manifest contract, strict-gate, JSON, and diff checks; do not create a parallel audit system."
+  ],
+  "metric_prerequisite_mapping": {
+    "hard_negative_no_hand_empty_low_light_rows": {
+      "planned_coverage": [
+        "validation/test no-hand rows with every promoted target presence=false",
+        "validation/test empty-camera rows",
+        "validation/test low-light rows with expected no-trigger or degraded-confidence behavior",
+        "validation/test off-center rows",
+        "validation/test non-target signing rows",
+        "future training hard negatives only from sources approved for model training"
+      ],
+      "gap": "Current negative-challenge rows are not Detector 0 box/no-hand rows and are not approved for training."
+    },
+    "temporal_rows": {
+      "planned_coverage": [
+        "multi-frame rows for hand-visible PopSign examples in all splits",
+        "per-frame or reviewed sequence target boxes",
+        "jitter, missing-frame, low-confidence, and occlusion accounting"
+      ],
+      "gap": "Current packet is sparse single-frame evidence."
+    },
+    "iou_evaluation_rows": {
+      "planned_coverage": [
+        "held-out validation rows for IoU 0.30 and 0.50 threshold selection/reporting",
+        "held-out test rows for final accounting after threshold selection",
+        "target-specific true positive, false positive, false negative, and true negative counts"
+      ],
+      "intended_thresholds_from_m3hl": {
+        "in_domain_hand_visible_recall_at_iou_0_30": ">=0.98",
+        "in_domain_hand_visible_recall_at_iou_0_50": ">=0.90"
+      },
+      "gap": "No current held-out IoU report meets these Detector 0 requirements."
+    },
+    "false_no_hand_accounting": {
+      "planned_coverage": [
+        "false no-hand counts for all hand-visible target rows",
+        "target-specific false no-hand counts for left_or_first_hand and right_or_second_hand",
+        "separate absent/not-applicable rows from false negatives"
+      ],
+      "gap": "Current strict-gate diagnostic recall is 0.0575 at the 5 percent validation-frame FPR threshold, so it is diagnostic-only and not a readiness signal."
+    },
+    "false_trigger_accounting": {
+      "planned_coverage": [
+        "false hand/box triggers by empty_camera, low_light, no_hands_visible, off_center, and non_target_asl_sign challenge type",
+        "threshold provenance tied to validation rows only",
+        "test rows held back from tuning"
+      ],
+      "gap": "Current negative challenge is recognizer/reject evidence, not Detector 0 false-trigger box accounting."
+    },
+    "browser_latency": {
+      "planned_coverage": [
+        "deferred until a scratch-trained browser Detector 0 artifact exists",
+        "record load time, per-frame latencyMs, and rawFramePersisted=false in the browser path",
+        "keep detector0-card research_only until promotion evidence exists"
+      ],
+      "gap": "No promoted browser Detector 0 artifact exists."
+    }
+  },
+  "claim_surface_requirements": {
+    "must_remain_fail_closed": {
+      "web/public/model/detector0-card.json": {
+        "status": "not_trained",
+        "promotion_state": "research_only",
+        "browser_artifact": null
+      },
+      "web/public/model/browser-model-bundle.json": {
+        "recognition_enabled": false,
+        "detector0_tracking_enabled": false,
+        "box_driven_avatar_enabled": false
+      },
+      "web/public/model/model-card.json": {
+        "status": "not_trained"
+      },
+      "docs/model/active-vocabulary-claim.json": {
+        "activeLabels": []
+      }
+    },
+    "plan_does_not_grant": [
+      "Detector 0 training readiness",
+      "Detector 0 product authority",
+      "browser recognition authority",
+      "ASL correctness scoring",
+      "avatar pass/fail authority",
+      "model readiness",
+      "export",
+      "promotion",
+      "final gate change"
+    ]
+  },
+  "unresolved_decisions_requiring_later_review": [
+    {
+      "decision": "Whether right_or_second_hand should remain table-positive and absent/not-applicable for the other selected Tier 0 labels, or whether additional two-hand positive labels/clips must be added before training.",
+      "route": "human_review_or_ESCALATE_before_schema_or_target_policy_change"
+    },
+    {
+      "decision": "Whether upper_body_or_signing_space should be authored as upper-body context, signing-space envelope, or both with explicit sub-policy.",
+      "route": "human_review_before_expanding authoring scope"
+    },
+    {
+      "decision": "Whether training hard negatives should come from new first-party consented clips or another source-rights-reviewed training-approved negative source.",
+      "route": "source_or_label_review_before_training_rows"
+    },
+    {
+      "decision": "Whether the future packet authoring slice should cover a sampled subset or every Tier 0 clip before compute is considered.",
+      "route": "observer_or_human_scope_decision_before_brev_or_training"
+    }
+  ],
+  "forbidden_actions_preserved": {
+    "brev_lifecycle_or_remote_command": false,
+    "paid_compute_started": false,
+    "detector0_training_or_evaluation": false,
+    "recognizer_training_or_evaluation": false,
+    "source_or_media_import": false,
+    "raw_learner_media_inspection": false,
+    "manifest_mutation": false,
+    "annotation_mutation": false,
+    "label_mutation": false,
+    "tensor_mutation": false,
+    "vocabulary_mutation": false,
+    "model_card_mutation": false,
+    "runtime_code_change": false,
+    "final_gate_change": false,
+    "target_schema_mutation": false,
+    "export_or_promotion": false,
+    "browser_recognition_activation": false,
+    "pretrained_detector_landmark_backbone_or_feature_use": false,
+    "generated_pseudo_label_use": false
+  },
+  "decision": {
+    "current_packet_ready_for_full_scratch_detector0_training_evaluation": false,
+    "current_packet_ready_for_browser_detector0_promotion": false,
+    "target_schema_preserved": true,
+    "future_annotation_packet_authoring_allowed_without_brev": true,
+    "exactly_one_next_action": "continue_m3hn_detector0_targeted_annotation_packet_authoring_no_brev"
+  }
+}

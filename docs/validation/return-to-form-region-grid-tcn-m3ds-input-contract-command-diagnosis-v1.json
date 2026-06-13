@@ -1,0 +1,194 @@
+{
+  "schema_version": "asl-pilot-region-grid-tcn-m3ds-input-contract-command-diagnosis/v1",
+  "status": "completed_prompt_command_contract_repair",
+  "mission": "M3DT",
+  "active_prompt": "docs/model/return-to-form-region-grid-tcn-m3ds-input-contract-command-diagnosis-goal-loop-prompt.md",
+  "generated_at": "2026-05-28T11:09:10Z",
+  "generated_by": "codex_executor",
+  "local_head_before_slice": {
+    "commit": "0d58002",
+    "subject": "observer: REDIRECT - m3ds input-contract command",
+    "branch": "compound-plan-m0",
+    "ahead_of_origin": 123
+  },
+  "m3ds_failure_classification": {
+    "source": "docs/validation/return-to-form-region-grid-tcn-m3dq-brev-smoke-approved-v1.json",
+    "classification": "prompt_contract_failure_require_input_contract_without_dry_run",
+    "exact_rejected_option": "--require-input-contract rgb_regions_grid_v1",
+    "exact_failure": "Manifest validation failed: --require-input-contract is a no-training input-contract audit and requires --dry-run",
+    "timed_command_limit_consumed": true,
+    "remote_dry_run_status": "passed"
+  },
+  "source_prompt_policy_decision": {
+    "decision": "prompt_only_command_repair",
+    "source_policy_correct": true,
+    "source_change_required": false,
+    "rationale": "The source explicitly defines --require-input-contract as a no-training audit guard requiring --dry-run and --check-files. M3DS already proved the high-signal region-grid manifests carry rgb_regions_grid_v1 in the remote dry-run, so the future timed training command should omit --require-input-contract rather than widening source semantics.",
+    "follow_on_prompt_created": "docs/model/return-to-form-region-grid-tcn-m3dq-brev-smoke-after-input-contract-fix-goal-loop-prompt.md"
+  },
+  "changed_files": [
+    "docs/model/return-to-form-region-grid-tcn-m3dq-brev-smoke-after-input-contract-fix-goal-loop-prompt.md",
+    "docs/validation/return-to-form-region-grid-tcn-m3ds-input-contract-command-diagnosis-v1.json",
+    "docs/session-logs/480-mission-3dt-region-grid-tcn-m3ds-input-contract-command-diagnosis.md"
+  ],
+  "local_checks": [
+    {
+      "command": "git status --short --branch",
+      "exit_code": 0,
+      "status": "passed",
+      "summary": "## compound-plan-m0...origin/compound-plan-m0 [ahead 123]"
+    },
+    {
+      "command": "git log -10 --oneline",
+      "exit_code": 0,
+      "status": "passed",
+      "head": "0d58002 observer: REDIRECT - m3ds input-contract command"
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-region-grid-tcn-m3dq-brev-smoke-approved-v1.json >/dev/null",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-region-grid-tcn-m3dq-output-guard-fix-v1.json >/dev/null",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-region-grid-tcn-brev-smoke-after-5d-fix-v1.json >/dev/null",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "exit_code": 0,
+      "status": "passed"
+    }
+  ],
+  "code_inspection_evidence": [
+    {
+      "path": "scripts/train_rawframe_model.py",
+      "line": 445,
+      "evidence": "The parser defines --require-input-contract."
+    },
+    {
+      "path": "scripts/train_rawframe_model.py",
+      "line": 448,
+      "evidence": "The help text says this is a no-training audit guard and requires --dry-run and --check-files."
+    },
+    {
+      "path": "scripts/train_rawframe_model.py",
+      "line": 2418,
+      "evidence": "validate_training_invocation raises if args.require_input_contract is set without args.dry_run."
+    },
+    {
+      "path": "scripts/train_rawframe_model.py",
+      "line": 2420,
+      "evidence": "validate_training_invocation also requires --check-files for input-contract auditing."
+    },
+    {
+      "path": "scripts/train_rawframe_model.py",
+      "line": 4386,
+      "evidence": "validate_required_input_contracts only runs when args.require_input_contract is present, before print_plan and before dry-run exit/training dispatch."
+    },
+    {
+      "path": "scripts/train_rawframe_model.py",
+      "line": 4404,
+      "evidence": "The script exits after print_plan when args.dry_run is true; otherwise it continues to run_training."
+    }
+  ],
+  "corrected_command_contract": {
+    "dry_run_contract": {
+      "status": "unchanged",
+      "reason": "The dry-run is the intended no-training input-contract audit surface.",
+      "command": "brev exec asl-pilot-rawframe-001 \"cd /home/shadeform/asl-pilot && /home/shadeform/asl-pilot/.venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3dq-high-signal-region-grid-tcn-brev --model-id m3dq-high-signal-region-grid-tcn-brev --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke --dry-run --require-input-contract rgb_regions_grid_v1\""
+    },
+    "timed_training_contract": {
+      "status": "corrected",
+      "removed_option": "--require-input-contract rgb_regions_grid_v1",
+      "reason": "The input-contract audit has already been proven by the dry-run; training should use the same manifests/output/policy but not pass a dry-run-only audit flag.",
+      "command": "brev exec asl-pilot-rawframe-001 \"cd /home/shadeform/asl-pilot && timeout 3600 /home/shadeform/asl-pilot/.venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-region-grid/train.json --validation-manifest data/manifests/lesson/high-signal-region-grid/validation.json --test-manifest data/manifests/lesson/high-signal-region-grid/test.json --output-dir output/m3dq-high-signal-region-grid-tcn-brev --model-id m3dq-high-signal-region-grid-tcn-brev --architecture true_temporal_convnet_region_grid --check-files --frame-count 16 --image-size 96 --num-workers 2 --epochs 12 --batch-size 8 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --region-grid-tcn-training-smoke\""
+    }
+  },
+  "brev_state": {
+    "inspected": false,
+    "reason_not_checked": "Mission 3DT is local/no-spend and no current Brev state was needed to diagnose the prompt/source command contract.",
+    "brev_exec_run": false,
+    "brev_sync_run": false,
+    "brev_copy_run": false,
+    "brev_start_run": false,
+    "brev_stop_or_lifecycle_run": false,
+    "remote_dry_run_run": false,
+    "remote_training_run": false
+  },
+  "pretrained_components": [],
+  "negative_authorizations": {
+    "no_brev_exec_sync_copy_lifecycle": true,
+    "no_remote_dry_run": true,
+    "no_remote_training": true,
+    "no_fitting_backward_optimizer_or_epoch_training": true,
+    "no_checkpoint_creation": true,
+    "no_evaluation": true,
+    "no_copyback": true,
+    "no_export": true,
+    "no_promotion": true,
+    "no_browser_activation": true,
+    "no_final_readiness_claim": true,
+    "no_positive_asl_correctness_claim": true,
+    "no_broad_label_work": true,
+    "no_pretrained_detector_landmark_backbone_embedding_pseudolabel_or_generated_label_dependency": true,
+    "no_source_import": true,
+    "no_source_register_approval_change": true,
+    "no_manifest_mutation": true,
+    "no_tensor_mutation": true,
+    "no_vocabulary_expansion": true,
+    "no_model_card_promotion": true,
+    "no_threshold_promotion": true,
+    "no_final_gate_weakening": true,
+    "no_raw_learner_video_upload": true,
+    "no_push": true,
+    "no_amend": true,
+    "no_no_verify": true,
+    "no_duplicate_worker": true,
+    "no_worker_delete_or_reset": true,
+    "no_unapproved_media_import": true
+  },
+  "commands_not_run": [
+    "brev exec",
+    "bash scripts/brev_sync_repo.sh",
+    "brev copy",
+    "brev start",
+    "brev stop",
+    "brev stop --all",
+    "remote dry-run",
+    "remote training",
+    "fitting/training/evaluation/copyback/export/promotion"
+  ],
+  "conclusion": "The local source policy is correct: --require-input-contract is a no-training dry-run/check-files audit. The future M3DQ dry-run should keep --dry-run --require-input-contract rgb_regions_grid_v1, and the future timed training command should remove --require-input-contract after the dry-run proves the contract. A candidate follow-on Brev prompt was created as a durable artifact but not activated.",
+  "exactly_one_next_action": "request_brev_smoke_approval_after_m3ds_input_contract_fix"
+}

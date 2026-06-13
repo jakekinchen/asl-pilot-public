@@ -1,0 +1,300 @@
+{
+  "schema_version": "asl-pilot-validation-receipt/v1",
+  "receipt_id": "return-to-form-asl-citizen-reduced-module-local-training-smoke-v1",
+  "created_at": "2026-05-27T07:47:50Z",
+  "mission": "M3AQ - ASL Citizen reduced module local training smoke",
+  "status": "completed",
+  "active_prompt": "docs/model/return-to-form-asl-citizen-reduced-module-local-training-smoke-goal-loop-prompt.md",
+  "source_receipts": [
+    {
+      "path": "docs/validation/return-to-form-asl-citizen-high-signal-module-selection-v1.json",
+      "sha256": "42f30aa69b1682906ff1bca86341639b44b4dbba0d5b71a593debef7f695ba5c"
+    },
+    {
+      "path": "docs/validation/return-to-form-asl-citizen-high-signal-module-manifest-gates-v1.json",
+      "sha256": "abab6da42390999f8de862b671a37385ce69759565ebba232f570cf8e0fb4482"
+    },
+    {
+      "path": "docs/validation/return-to-form-asl-citizen-reduced-real-data-contract-v1.json",
+      "sha256": "93e08c4d75323b02ceed14e44d2dd0cabc20758c2b443d959d2b2bc3c03e53d9"
+    }
+  ],
+  "implemented_contracts": {
+    "training_flag": "--reduced-real-data-training-smoke",
+    "evaluation_flag": "--reduced-real-data-training-smoke",
+    "evidence_mode": "reduced_real_data_training_smoke",
+    "distinct_from": [
+      "--allow-small-label-set",
+      "--reduced-real-data-module",
+      "--lesson-milestone",
+      "final evidence"
+    ],
+    "bounded_training": {
+      "max_epochs": 3,
+      "max_batch_size": 8,
+      "required_num_workers": 0,
+      "required_output_dir": "output/m3aq-reduced-module-local-smoke",
+      "requires_check_files": true,
+      "rejects_capped_batch_smoke_options": true
+    }
+  },
+  "commands": [
+    {
+      "name": "loop premise audit",
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "exit_code": 0,
+      "result": "passed"
+    },
+    {
+      "name": "return-to-form plan audit",
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "exit_code": 0,
+      "result": "passed"
+    },
+    {
+      "name": "local torch device check",
+      "command": ".venv/bin/python - <<'PY'\nimport torch\nprint(torch.__version__)\nprint(torch.cuda.is_available())\nprint(torch.backends.mps.is_available())\nPY",
+      "exit_code": 0,
+      "result": {
+        "torch": "2.12.0",
+        "cuda_available": false,
+        "mps_available": true
+      }
+    },
+    {
+      "name": "compile scripts",
+      "command": "python3 -m py_compile scripts/train_rawframe_model.py scripts/evaluate_rawframe_model.py",
+      "exit_code": 0,
+      "result": "passed"
+    },
+    {
+      "name": "reduced module training smoke dry-run",
+      "command": ".venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-module/train.json --validation-manifest data/manifests/lesson/high-signal-module/validation.json --test-manifest data/manifests/lesson/high-signal-module/test.json --output-dir output/m3aq-reduced-module-local-smoke --model-id asl-pilot-asl-citizen-high-signal-local-smoke-v1 --architecture motion_2d_temporal_cnn --check-files --epochs 3 --batch-size 8 --frame-count 12 --image-size 96 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --num-workers 0 --reduced-real-data-training-smoke --dry-run",
+      "exit_code": 0,
+      "result": {
+        "training_status": "dry_run_only",
+        "evidence_mode": "reduced_real_data_training_smoke",
+        "label_count": 7,
+        "split_clip_counts": {
+          "train": 84,
+          "validation": 27,
+          "test": 28
+        }
+      }
+    },
+    {
+      "name": "bounded local MPS training smoke",
+      "command": ".venv/bin/python scripts/train_rawframe_model.py --train-manifest data/manifests/lesson/high-signal-module/train.json --validation-manifest data/manifests/lesson/high-signal-module/validation.json --test-manifest data/manifests/lesson/high-signal-module/test.json --output-dir output/m3aq-reduced-module-local-smoke --model-id asl-pilot-asl-citizen-high-signal-local-smoke-v1 --architecture motion_2d_temporal_cnn --check-files --epochs 3 --batch-size 8 --frame-count 12 --image-size 96 --learning-rate 0.001 --training-augmentation mild --checkpoint-selection best_validation --num-workers 0 --reduced-real-data-training-smoke",
+      "exit_code": 0,
+      "result": {
+        "training_status": "completed",
+        "device": "mps",
+        "model_artifact": "output/m3aq-reduced-module-local-smoke/model_state.pt",
+        "training_provenance": "output/m3aq-reduced-module-local-smoke/training-provenance.json"
+      }
+    },
+    {
+      "name": "reduced module validation/test evaluation",
+      "command": ".venv/bin/python scripts/evaluate_rawframe_model.py --checkpoint output/m3aq-reduced-module-local-smoke/model_state.pt --training-provenance output/m3aq-reduced-module-local-smoke/training-provenance.json --train-manifest data/manifests/lesson/high-signal-module/train.json --validation-manifest data/manifests/lesson/high-signal-module/validation.json --test-manifest data/manifests/lesson/high-signal-module/test.json --output-report output/m3aq-reduced-module-local-smoke/validation-report.json --calibrated-provenance output/m3aq-reduced-module-local-smoke/calibrated-provenance.json --prediction-sidecar output/m3aq-reduced-module-local-smoke/prediction-sidecar.json --batch-size 8 --num-workers 0 --reduced-real-data-training-smoke",
+      "exit_code": 0,
+      "result": {
+        "status": "reduced_real_data_training_smoke_completed",
+        "passes_targets": false,
+        "selected_threshold": 0.67,
+        "test_top1_accuracy": 0.21428571428571427,
+        "test_macro_f1": 0.12558869701726846,
+        "test_false_pass_rate": 0.03571428571428571,
+        "negative_challenge_false_pass_rate": null,
+        "calibrated_provenance": null
+      }
+    }
+  ],
+  "environment": {
+    "python": "3.14.5",
+    "torch": "2.12.0",
+    "device": "mps",
+    "cuda_available": false,
+    "mps_available": true,
+    "local_ml_environment": {
+      "path": "docs/validation/local-ml-environment.json",
+      "sha256": "1760c0cc50f652102094e98fe3b4e6aa2a41774118f5626b29b866afc6e05b90"
+    }
+  },
+  "manifests": [
+    {
+      "split": "train",
+      "path": "data/manifests/lesson/high-signal-module/train.json",
+      "sha256": "f1aff5267c4c7cd3f6cec08d0e34f573529260106c97987e16c887745d419258",
+      "clip_count": 84,
+      "label_count": 7,
+      "min_clips_per_label_per_split": 3
+    },
+    {
+      "split": "validation",
+      "path": "data/manifests/lesson/high-signal-module/validation.json",
+      "sha256": "a92bd0cd8a4e0bdc4009ac6bf6b61f899dab420b2f8bb91aaefdc0691f934b4c",
+      "clip_count": 27,
+      "label_count": 7,
+      "min_clips_per_label_per_split": 3
+    },
+    {
+      "split": "test",
+      "path": "data/manifests/lesson/high-signal-module/test.json",
+      "sha256": "e6acd70e8ebe7302ca31b1616959e607c74a854b302281dde3a47e7d7f725284",
+      "clip_count": 28,
+      "label_count": 7,
+      "min_clips_per_label_per_split": 3
+    }
+  ],
+  "labels": [
+    "table",
+    "please",
+    "black",
+    "hello",
+    "uncle",
+    "white",
+    "sad"
+  ],
+  "source_and_rights_evidence": {
+    "source_id": "asl-citizen-school-assignment-raw-videos",
+    "dataset_source_mode": "approved_external_raw_video_source",
+    "source_register": {
+      "path": "docs/model/dataset-source-register.json",
+      "sha256": "b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8"
+    },
+    "source_review": {
+      "path": "docs/research/asl-citizen-academic-source-review.md",
+      "sha256": "f8295c8f498cc5ed3925b833ec51aa7799c4365118f69f0a57993ea27a538d94"
+    },
+    "vocabulary_review": {
+      "path": "docs/validation/return-to-form-asl-citizen-high-signal-module-vocabulary-review-evidence-v1.json",
+      "sha256": "68859b4d764f734d41841884ef7e7a1d449942c87a11820949f49c1fdd5d2dc3"
+    }
+  },
+  "training_result": {
+    "artifact_path": "output/m3aq-reduced-module-local-smoke/model_state.pt",
+    "artifact_sha256": "dd0975533e6075ae1306ae8f404c91528dbb748b27c3c69b923393789c111018",
+    "artifact_ignored_by_git": true,
+    "artifact_ignore_reason": ".gitignore contains output/; binary checkpoints and per-example sidecars are not tracked evidence artifacts.",
+    "training_provenance": {
+      "path": "output/m3aq-reduced-module-local-smoke/training-provenance.json",
+      "sha256": "02736700cd0dd2c8b0326745558d50e112af734ac550005318d9181453eb4580"
+    },
+    "architecture": "motion_2d_temporal_cnn",
+    "hyperparameters": {
+      "epochs": 3,
+      "batch_size": 8,
+      "frame_count": 12,
+      "image_size": 96,
+      "learning_rate": 0.001,
+      "training_augmentation": "mild",
+      "checkpoint_selection": "best_validation",
+      "num_workers": 0,
+      "max_train_batches": null,
+      "max_validation_batches": null
+    },
+    "history": [
+      {
+        "epoch": 1,
+        "train_accuracy": 0.19047619047619047,
+        "train_loss": 1.9798149154299782,
+        "validation_accuracy": 0.14814814814814814,
+        "validation_loss": 1.9868694676293268
+      },
+      {
+        "epoch": 2,
+        "train_accuracy": 0.3333333333333333,
+        "train_loss": 1.691128787540254,
+        "validation_accuracy": 0.2222222222222222,
+        "validation_loss": 2.014229977572406
+      },
+      {
+        "epoch": 3,
+        "train_accuracy": 0.4642857142857143,
+        "train_loss": 1.3518256800515311,
+        "validation_accuracy": 0.25925925925925924,
+        "validation_loss": 2.2884716016274913
+      }
+    ],
+    "selected_checkpoint": {
+      "policy": "best_validation",
+      "selected_epoch": 3,
+      "selected_validation_accuracy": 0.25925925925925924,
+      "selected_validation_loss": 2.2884716016274913
+    }
+  },
+  "evaluation_result": {
+    "report": {
+      "path": "output/m3aq-reduced-module-local-smoke/validation-report.json",
+      "sha256": "7d5585b637a22f8dcf6db57ec4ba23eb698dfd21b0abaec005259624f3cd05e2"
+    },
+    "prediction_sidecar": {
+      "path": "output/m3aq-reduced-module-local-smoke/prediction-sidecar.json",
+      "sha256": "c39d0eca8146b9328f5b10d033ac6e8314891c2481da0b148d6a78c2b254878b"
+    },
+    "status": "reduced_real_data_training_smoke_completed",
+    "finality": "reduced_real_data_training_smoke_not_final_or_lesson_evidence",
+    "validation_top1_accuracy": 0.25925925925925924,
+    "validation_macro_f1": 0.19480519480519481,
+    "test_top1_accuracy": 0.21428571428571427,
+    "test_macro_f1": 0.12558869701726846,
+    "selected_threshold": 0.67,
+    "test_false_pass_rate": 0.03571428571428571,
+    "negative_challenge_false_pass_rate": null,
+    "passes_final_targets": false,
+    "calibrated_provenance_written": false,
+    "reason_no_calibrated_provenance": "Reduced real-data training smoke is not threshold-promotion evidence and did not pass final target gates."
+  },
+  "no_pretrained_evidence": {
+    "initialization": "random",
+    "pretrained_components": [],
+    "initial_model_state_digest": {
+      "algorithm": "canonical_state_dict_sha256_v1",
+      "parameter_count": 1131410,
+      "sha256": "af5e2dd23df96089b97379c07672778e6a2de547b43d1ebda12c5c02f6c3c5b4"
+    },
+    "final_model_state_digest": {
+      "algorithm": "canonical_state_dict_sha256_v1",
+      "parameter_count": 1131410,
+      "sha256": "bdcc23860e73eeaa3ff77d9b9a4940e651f8dbfeea1e26c7b0ee3ff677dc83fa"
+    },
+    "decode_provenance_verification": {
+      "required": true,
+      "status": "passed"
+    }
+  },
+  "brev_state": {
+    "checked": false,
+    "reason": "M3AQ hard boundary prohibited Brev sync/exec/training/spend/stop spam; current prompt recorded Brev CLI EOF auth blocker, so no Brev command was run."
+  },
+  "boundaries_observed": {
+    "brev_spend": false,
+    "brev_command": false,
+    "detector0_training": false,
+    "source_import": false,
+    "pseudo_label_generation": false,
+    "pretrained_component": false,
+    "onnx_export": false,
+    "model_card_promotion": false,
+    "threshold_promotion": false,
+    "browser_activation": false,
+    "final_readiness_claim": false,
+    "push": false
+  },
+  "source_files": [
+    {
+      "path": "scripts/train_rawframe_model.py",
+      "sha256": "62b5cb71a2e5621d22200d4e186cfa9d0989866df6ebeaa5d193c916c0abc953"
+    },
+    {
+      "path": "scripts/evaluate_rawframe_model.py",
+      "sha256": "46709128a8da33dbbc483a36f6abf2255aceadde37e204f632cde7fe9a4e1f34"
+    }
+  ],
+  "known_limitations": [
+    "Seven-label reduced-module metrics are not final 75-100-label evidence.",
+    "No negative-challenge manifest was evaluated in M3AQ.",
+    "The checkpoint is an ignored local smoke artifact under output/ and is not a promoted model artifact."
+  ],
+  "next_action": "stop_for_reduced_module_training_smoke_review"
+}

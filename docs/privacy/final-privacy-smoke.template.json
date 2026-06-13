@@ -1,0 +1,62 @@
+{
+  "schema_version": "asl-pilot-final-privacy-smoke/v1",
+  "status": "passed",
+  "tested_at": "YYYY-MM-DDTHH:mm:ss.sssZ",
+  "app_url": "http://127.0.0.1:3025",
+  "normal_practice_findings": {
+    "raw_video_uploads_observed": false,
+    "raw_frame_uploads_observed": false,
+    "image_or_blob_payloads_observed": false,
+    "analytics_or_session_replay_observed": false
+  },
+  "commands": [
+    "node scripts/audit_no_raw_video_upload.mjs",
+    "GET http://127.0.0.1:3025",
+    "POST http://127.0.0.1:3025/api/attempts with raw frame payload",
+    "POST http://127.0.0.1:3025/api/dataset/clips",
+    "GET http://127.0.0.1:3025/api/dataset/coverage"
+  ],
+  "evidence": {
+    "static_audit": {
+      "ok": true,
+      "stdout": "",
+      "stderr": ""
+    },
+    "live_http": {
+      "app_reachable": true,
+      "root_page_status": 200,
+      "root_content_type": "text/html; charset=utf-8",
+      "attempt_raw_payload_post_status": 400,
+      "attempt_raw_payload_error_mentions_raw_camera": true,
+      "normal_practice_raw_payload_rejected": true,
+      "dataset_clip_post_status": 403,
+      "dataset_coverage_get_status": 403,
+      "dataset_collection_default_disabled": true,
+      "root_inspection": {
+        "blocked_analytics_or_replay_hosts": [],
+        "script_srcs": [],
+        "analytics_or_session_replay_observed": false
+      }
+    },
+    "source_files": [
+      {
+        "path": "web/src/app/api/attempts/route.ts",
+        "sha256": "replace-with-current-sha256"
+      },
+      {
+        "path": "web/src/app/api/dataset/clips/route.ts",
+        "sha256": "replace-with-current-sha256"
+      },
+      {
+        "path": "web/src/app/api/dataset/coverage/route.ts",
+        "sha256": "replace-with-current-sha256"
+      },
+      {
+        "path": "web/src/components/PracticeApp.tsx",
+        "sha256": "replace-with-current-sha256"
+      }
+    ]
+  },
+  "evidence_notes": "Live HTTP check verifies the normal practice attempt route rejects raw camera payloads, verifies the default-disabled dataset collection routes, and scans rendered root HTML for common analytics/session-replay hosts. Static audit scans normal practice network/API code for raw media payloads.",
+  "blockers": []
+}

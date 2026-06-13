@@ -1,0 +1,63 @@
+{
+  "_note": "CANDIDATE source-register entries for human review, matching docs/model/dataset-source-register.json schema (asl-pilot-dataset-source-register/v1). NOT yet applied to the live register. License fields marked UNVERIFIED must be confirmed from primary sources before redistributing any derived labels/crops. Produced from 2026-05-29 fact-checked source-discovery research.",
+  "schema_version": "asl-pilot-dataset-source-register/v1",
+  "proposed_changes": [
+    {
+      "change_type": "amend_existing_decision",
+      "source_id": "popsign-v1-original-videos",
+      "rationale": "Project owner approved (2026-05-29) using offline-derived labels of any method as training/eval supervision, provided no pretrained model runs at browser inference. This supersedes the raw-video-only clause for derived LABELS only.",
+      "proposed_decision_id": "approved_popsign_v1_derived_offline_labels_2026_05_29",
+      "proposed_allowed_use_summary": "PopSign ASL v1.0 game-category videos approved for raw-frame training, signer-disjoint validation/test, and pilot submission with CC BY 4.0 attribution. OFFLINE-derived region boxes / pose / landmark labels (e.g. MediaPipe Holistic, RTMPose) ARE permitted as training/evaluation supervision for scratch-trained project models. NO pretrained detector/landmark/backbone/embedding model may run in the browser runtime or be shipped as a promoted artifact; only the project's own from-scratch model runs at inference.",
+      "unchanged": {
+        "license_review_status": "approved_cc_by_4_raw_video_with_attribution",
+        "allowed_for_model_training": true,
+        "allowed_for_validation": true,
+        "allowed_for_pilot_submission": true
+      },
+      "redistribution_note": "CC BY 4.0 permits redistribution with attribution; derived label files are OK to keep/share with attribution."
+    },
+    {
+      "change_type": "review_existing_status",
+      "source_id": "asl-citizen",
+      "rationale": "Already a registered source_id; research confirms HIGH domain fit (84k webcam ASL videos, 52 signers). Confirm current allowed_for_model_training/validation and apply the same offline-derived-labels permission.",
+      "license_review_status_observed": "Microsoft Research custom license: non-commercial research use OK; PROHIBITS redistributing the data or modifications; mandates destroying personal data after research.",
+      "redistribution_note": "Local training/eval fine; do NOT publish ASL Citizen frames or derived crops. Keep derived labels local.",
+      "primary_source_url": "https://www.microsoft.com/en-us/research/project/asl-citizen/"
+    },
+    {
+      "change_type": "add_candidate",
+      "source_id": "coco-wholebody",
+      "display_name": "COCO-WholeBody whole-body keypoints + face/hand boxes",
+      "source_kind": "public_reference_dataset",
+      "allowed_for_model_training": "PENDING_LICENSE_VERIFICATION",
+      "allowed_for_validation": "PENDING_LICENSE_VERIFICATION",
+      "allowed_for_pilot_submission": false,
+      "license_review_status": "UNVERIFIED_cc_by_claim_refuted_must_verify",
+      "primary_source_url": "https://github.com/jin-s13/COCO-WholeBody",
+      "review_required_before_allowing": true,
+      "intended_use": "Generic SEED/pretrain stage only (third-person, medium-low domain fit). Uniquely ships face_box + lefthand_box + righthand_box + body keypoints -> all 4 target boxes derivable from one set. Annotations sit atop COCO images (CC BY 4.0 images, separate Flickr image rights); WholeBody annotation license NOT confirmed by research and MUST be verified from primary source before redistributing derived artifacts.",
+      "label_source": "human (COCO annotators)",
+      "domain_fit": "medium-low"
+    },
+    {
+      "change_type": "add_candidate",
+      "source_id": "halpe-fullbody",
+      "display_name": "Halpe Full-Body 136-keypoint dataset",
+      "source_kind": "public_reference_dataset",
+      "allowed_for_model_training": "PENDING_LICENSE_VERIFICATION",
+      "allowed_for_validation": "PENDING_LICENSE_VERIFICATION",
+      "allowed_for_pilot_submission": false,
+      "license_review_status": "UNVERIFIED_must_verify",
+      "primary_source_url": "https://github.com/Fang-Haoshu/Halpe-FullBody",
+      "review_required_before_allowing": true,
+      "intended_use": "Generic SEED alternative/complement to COCO-WholeBody. 136 keypoints (26 body + 68 face + 21 L-hand + 21 R-hand); ships only a single person box, so head/face and hand boxes must be DERIVED from per-region keypoint clusters. License not established in research; verify before use.",
+      "label_source": "human",
+      "domain_fit": "medium-low"
+    }
+  ],
+  "deprioritized": {
+    "wider-face": "CC BY-NC-ND (NoDerivatives) — cannot redistribute derived crops; single region; LOW domain fit.",
+    "oxford-hand / coco-hand / tv-hand / egohands": "LOW domain fit (movies/pedestrians/egocentric), single region, licenses mostly unverified. Optional hand-box augmentation only.",
+    "wlasl / ms-asl": "Already-known in-domain ASL video but ship only one coarse person box (auto YOLOv3/SSD); use for signer diversity / person-box seed, not the 4 regions."
+  }
+}

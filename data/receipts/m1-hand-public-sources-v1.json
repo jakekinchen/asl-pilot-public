@@ -1,0 +1,249 @@
+{
+  "schema_version": "asl-pilot-m1-hand-public-sources/v1",
+  "created_at": "2026-05-31",
+  "worktree": "/Users/kelly/Developer/asl-pilot-annotator",
+  "active_plan": "research/BUILD-PLAN-landmark-pose-stack.md",
+  "scope": "Milestone M1 hand source/license receipt gate before any dataset download or training",
+  "status": "source_receipts_written_downloads_not_started",
+  "claim_boundary": [
+    "This receipt authorizes local academic/research training preparation only.",
+    "It does not authorize public weight distribution, raw dataset redistribution, GPU training, Brev spend, or model promotion.",
+    "No pretrained CV/sign/landmark/model outputs are approved as supervision for the promoted lane."
+  ],
+  "local_storage_policy": {
+    "external_root": "data/external/",
+    "gitignore_updated": true,
+    "ignored_paths": [
+      "data/external/freihand/",
+      "data/external/rhd/",
+      "data/external/coco2017/",
+      "data/external/coco-wholebody/"
+    ],
+    "do_not_commit": [
+      "raw images",
+      "download archives",
+      "extracted annotations",
+      "crops",
+      "processed tensors",
+      "dataset caches"
+    ]
+  },
+  "datasets": [
+    {
+      "source_id": "frei_hand",
+      "name": "FreiHAND Dataset v2",
+      "planned_use": "Primary real 21-keypoint hand landmark supervision for HandLandmarkNetV2.",
+      "source_kind": "real hand dataset",
+      "primary_page_url": "https://lmb.informatik.uni-freiburg.de/resources/datasets/FreihandDataset.en.html",
+      "project_page_url": "https://lmb.informatik.uni-freiburg.de/projects/freihand/",
+      "local_root": "data/external/freihand/",
+      "license_gate": "local_training_only",
+      "distribution_gate": "distribution_pending",
+      "use_terms_summary": "The Freiburg page states the dataset is for research purposes only, has no warranty, prohibits commercial use, and requires citing the FreiHAND paper when used.",
+      "commercial_use": "prohibited_by_source_terms",
+      "public_weight_distribution": "blocked_pending_license_review_or_permission",
+      "download_artifacts": [
+        {
+          "role": "train",
+          "url": "https://lmb.informatik.uni-freiburg.de/data/freihand/FreiHAND_pub_v2.zip",
+          "expected_size_label": "3.7GB",
+          "content_length_bytes": 3881833583,
+          "last_modified": "Mon, 21 Oct 2019 16:12:03 GMT",
+          "etag": "\"e760146f-5956df1c048bb\"",
+          "published_checksum": null
+        },
+        {
+          "role": "evaluation_with_annotations",
+          "url": "https://lmb.informatik.uni-freiburg.de/data/freihand/FreiHAND_pub_v2_eval.zip",
+          "expected_size_label": "724MB",
+          "content_length_bytes": 758382230,
+          "last_modified": "Fri, 21 Jan 2022 06:48:32 GMT",
+          "etag": "\"2d33fe96-5d61201dd5e58\"",
+          "published_checksum": null
+        }
+      ],
+      "label_schema_from_source": {
+        "train_samples": 130240,
+        "eval_samples": 3960,
+        "image_size": "224x224",
+        "hand_keypoints": 21,
+        "has_3d_keypoints": true,
+        "has_intrinsics": true,
+        "has_hand_scale": true,
+        "has_segmentation_masks": true
+      },
+      "required_citation": {
+        "title": "FreiHAND: A Dataset for Markerless Capture of Hand Pose and Shape from Single RGB Images",
+        "authors": "Christian Zimmermann, Duygu Ceylan, Jimei Yang, Bryan Russell, Max Argus, Thomas Brox",
+        "venue": "IEEE International Conference on Computer Vision (ICCV)",
+        "year": 2019,
+        "url": "https://lmb.informatik.uni-freiburg.de/projects/freihand/"
+      }
+    },
+    {
+      "source_id": "rhd",
+      "name": "Rendered Handpose Dataset",
+      "planned_use": "Synthetic 21-keypoint hand landmark and depth supervision for HandLandmarkNetV2.",
+      "source_kind": "synthetic hand dataset",
+      "primary_page_url": "https://lmb.informatik.uni-freiburg.de/resources/datasets/RenderedHandposeDataset.en.html",
+      "project_page_url": "https://lmb.informatik.uni-freiburg.de/projects/hand3d/",
+      "local_root": "data/external/rhd/",
+      "license_gate": "local_training_only",
+      "distribution_gate": "distribution_pending",
+      "use_terms_summary": "The Freiburg page states the dataset is for research purposes only, has no warranty, prohibits commercial use, and requires citing the Zimmermann/Brox paper when used.",
+      "commercial_use": "prohibited_by_source_terms",
+      "public_weight_distribution": "blocked_pending_license_review_or_permission",
+      "download_artifacts": [
+        {
+          "role": "train_and_test",
+          "url": "https://lmb.informatik.uni-freiburg.de/data/RenderedHandpose/RHD_v1-1.zip",
+          "expected_size_label": "7.1GB",
+          "content_length_bytes": 7080690299,
+          "last_modified": "Fri, 13 Oct 2017 11:44:30 GMT",
+          "etag": "\"1a60ac27b-55b6c2e05b52e\"",
+          "published_checksum": null
+        }
+      ],
+      "label_schema_from_source": {
+        "train_samples": 41258,
+        "test_samples": 2728,
+        "image_size": "320x320",
+        "hand_keypoints": 21,
+        "has_uv_coordinates": true,
+        "has_world_xyz_coordinates": true,
+        "has_visibility": true,
+        "has_depth_maps": true,
+        "has_segmentation_masks": true,
+        "has_camera_intrinsics": true
+      },
+      "required_citation": {
+        "title": "Learning to Estimate 3D Hand Pose from Single RGB Images",
+        "authors": "Christian Zimmermann and Thomas Brox",
+        "institution": "arXiv:1705.01389",
+        "year": 2017,
+        "url": "https://lmb.informatik.uni-freiburg.de/projects/hand3d/"
+      }
+    },
+    {
+      "source_id": "coco_wholebody",
+      "name": "COCO-WholeBody V1.0 annotations over COCO 2017 images",
+      "planned_use": "In-the-wild COCO hand crops and left/right hand landmarks for HandLandmarkNetV2; later shared detector/body/face stack work.",
+      "source_kind": "whole-body keypoint annotations plus COCO image references",
+      "primary_repo_url": "https://github.com/jin-s13/COCO-WholeBody",
+      "raw_readme_url": "https://raw.githubusercontent.com/jin-s13/COCO-WholeBody/master/README.md",
+      "coco_download_page_url": "https://cocodataset.org/#download",
+      "coco_terms_url": "https://cocodataset.org/#termsofuse",
+      "local_roots": {
+        "wholebody_annotations": "data/external/coco-wholebody/",
+        "coco2017_images": "data/external/coco2017/"
+      },
+      "license_gate": "local_training_only",
+      "distribution_gate": "distribution_pending",
+      "annotation_terms_summary": "The COCO-WholeBody README states research/non-commercial use only, SenseTime Research ownership of annotations, a Creative Commons license link that currently points to BY-NC 4.0 legalcode, and commercial-use contact instructions.",
+      "image_terms_summary": "COCO states its annotations and website are CC BY 4.0, but COCO does not own image copyrights; COCO and COCO-WholeBody both route image use through Flickr terms and place responsibility on the user.",
+      "commercial_use": "blocked_for_coco_wholebody_annotations_without_contact_permission",
+      "public_weight_distribution": "blocked_pending_license_review_or_permission",
+      "annotation_artifacts": [
+        {
+          "role": "wholebody_train_annotations",
+          "url": "https://drive.google.com/file/d/1thErEToRbmM9uLNi1JXXfOsaS5VK2FXf/view?usp=sharing",
+          "alternate_url": "https://connecthkuhk-my.sharepoint.com/:u:/g/personal/js20_connect_hku_hk/EfE4vxMce2NNiEfJUySLTmwBS5Ay2rbp5-7sHxN6BoldFw?e=tKTLi2",
+          "expected_size_label": "not_published_on_primary_readme",
+          "content_length_bytes": null,
+          "published_checksum": null
+        },
+        {
+          "role": "wholebody_validation_annotations",
+          "url": "https://drive.google.com/file/d/1N6VgwKnj8DeyGXCvp1eYgNbRmw6jdfrb/view?usp=sharing",
+          "alternate_url": "https://connecthkuhk-my.sharepoint.com/:u:/g/personal/js20_connect_hku_hk/EQuxJ51ZSXVPv6EeGnLT65YBvkaVQLAMRYW6pnk6sobfPA?e=jjV2u4",
+          "expected_size_label": "not_published_on_primary_readme",
+          "content_length_bytes": null,
+          "published_checksum": null
+        }
+      ],
+      "coco2017_artifacts": [
+        {
+          "role": "train_images",
+          "url": "http://images.cocodataset.org/zips/train2017.zip",
+          "expected_size_label": "2017 Train images [118K/18GB]",
+          "content_length_bytes": 19336861798,
+          "last_modified": "Wed, 11 Jul 2018 05:02:03 GMT",
+          "etag": "\"62ff7d7fbcc7e0c0604cbb0f9047ce77-2306\"",
+          "published_checksum": null
+        },
+        {
+          "role": "validation_images",
+          "url": "http://images.cocodataset.org/zips/val2017.zip",
+          "expected_size_label": "2017 Val images [5K/1GB]",
+          "content_length_bytes": 815585330,
+          "last_modified": "Wed, 11 Jul 2018 05:08:47 GMT",
+          "etag": "\"d366be60d3dc737327160d62453e3973-98\"",
+          "published_checksum": null
+        },
+        {
+          "role": "train_validation_annotations",
+          "url": "http://images.cocodataset.org/annotations/annotations_trainval2017.zip",
+          "expected_size_label": "2017 Train/Val annotations [241MB]",
+          "content_length_bytes": 252907541,
+          "last_modified": "Tue, 10 Jul 2018 17:58:17 GMT",
+          "etag": "\"f4bbac642086de4f52a3fdda2de5fa2c\"",
+          "published_checksum": null
+        }
+      ],
+      "label_schema_from_source": {
+        "images": "COCO 2017 train/val split",
+        "wholebody_keypoints_per_person": 133,
+        "body_keypoints": 17,
+        "foot_keypoints": 6,
+        "face_keypoints": 68,
+        "hand_keypoints_total": 42,
+        "hand_keypoints_per_hand": 21,
+        "boxes": [
+          "person",
+          "face",
+          "left_hand",
+          "right_hand"
+        ]
+      },
+      "required_citation": {
+        "title": "Whole-Body Human Pose Estimation in the Wild",
+        "authors": "Sheng Jin, Lumin Xu, Jin Xu, Can Wang, Wentao Liu, Chen Qian, Wanli Ouyang, Ping Luo",
+        "venue": "European Conference on Computer Vision (ECCV)",
+        "year": 2020,
+        "url": "https://github.com/jin-s13/COCO-WholeBody"
+      }
+    }
+  ],
+  "source_checks_run": [
+    {
+      "command": "curl -Ls https://lmb.informatik.uni-freiburg.de/resources/datasets/FreihandDataset.en.html | rg -n \"Download|Terms|research|commercial|href|3\\\\.7|724\"",
+      "purpose": "Confirm FreiHAND source page terms and download links."
+    },
+    {
+      "command": "curl -Ls https://lmb.informatik.uni-freiburg.de/resources/datasets/RenderedHandposeDataset.en.html | rg -n \"Download|Terms|research|commercial|href|7\\\\.1|41258|2728\"",
+      "purpose": "Confirm RHD source page terms, sample counts, and download link."
+    },
+    {
+      "command": "curl -Ls https://raw.githubusercontent.com/jin-s13/COCO-WholeBody/master/README.md | rg -n \"COCO-WholeBody|Download|Images|Google Drive|OneDrive|Terms|research|non-commercial|Creative Commons|Flickr|133|hand|box\"",
+      "purpose": "Confirm COCO-WholeBody source, annotations, terms, and label schema."
+    },
+    {
+      "command": "curl -Ls https://raw.githubusercontent.com/cocodataset/cocodataset.github.io/master/dataset/download.htm | rg -n \"train2017|val2017|annotations_trainval2017|images.cocodataset.org|Terms|Flickr|creative\"",
+      "purpose": "Confirm COCO 2017 image and annotation download URLs and published sizes."
+    },
+    {
+      "command": "curl -Ls https://raw.githubusercontent.com/cocodataset/cocodataset.github.io/master/dataset/termsofuse.htm | sed -n '1,180p'",
+      "purpose": "Confirm COCO annotation and image terms."
+    },
+    {
+      "command": "curl -LsI <dataset archive urls> | rg -i 'HTTP/|content-length|last-modified|etag|content-type'",
+      "purpose": "Record current HTTP metadata for direct archive URLs where available."
+    }
+  ],
+  "commands_intentionally_not_run": [
+    "No dataset downloads were started in this receipt slice.",
+    "No trainer, optimizer, backward pass, GPU/CUDA, MPS, Brev, export, or promotion command was run.",
+    "No raw learner video or private data access was performed."
+  ],
+  "next_action": "Download the approved public source archives into ignored data/external/ paths, recording checksums after download and stopping if storage pressure approaches the 150GB target."
+}

@@ -1,0 +1,223 @@
+{
+  "schema_version": "asl-pilot-recognizer-trust-audit/v1",
+  "mission": "M3JB run10 trust audit — can we know 0.9209 recall@FAR10 / 0.5428 top1 is real without testing live?",
+  "generated_by": "trust auditor (adversarial, read-only)",
+  "audited_at_unix_note": "2026-06-10 local audit; no Brev, no git push, no deploy",
+  "subject": {
+    "run10_receipt": "/Users/kelly/Developer/asl-pilot-annotator/tools/detector0-annotator/output/m3jb-recognizer-transformer-run10-simccw48-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.json",
+    "run10_weights": "tools/detector0-annotator/output/m3jb-recognizer-transformer-run10-simccw48-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.pt",
+    "feature_cache": "/Users/kelly/ws1-recog-extract-ws/cache-simccw48/rows.json",
+    "simcc_student": "/Users/kelly/ws1-handlabel-ws/train-w48-v1/ws1-hand-simcc-student-w48-v1-best.pt",
+    "student_labels": "/Users/kelly/ws1-handlabel-ws/labels-v1/teacher-labels-v1-merged.jsonl",
+    "distill_teacher": "tools/detector0-annotator/output/recognizer-v1.pt",
+    "trainer": "tools/detector0-annotator/train_recognizer_distill.py",
+    "verification_code": "tools/detector0-annotator/verification.py",
+    "headline_numbers": {
+      "test_recall_at_far10": 0.9209,
+      "test_top1": 0.5428,
+      "test_top5": 0.8261,
+      "chance": 0.0105,
+      "classes": 95
+    }
+  },
+
+  "reproduction": {
+    "method": "Loaded run10 .pt (monitor-selected best, epoch 214) into SeqTransformer(d_model256,L6,H8), reran train_recognizer.load() on cache-simccw48, reproduced split_student(seed=0,batch=128), ran softmax forward on the test indices, fed to verification.recall_at_far_details.",
+    "repro_test_recall_at_far10": 0.9208642659279777,
+    "repro_test_top1": 0.5428450823132124,
+    "matches_receipt": true,
+    "verdict": "PASS",
+    "note": "Exact reproduction of both headline numbers from weights+cache validates the harness used for checks 4/5/6."
+  },
+
+  "check_1_split_integrity": {
+    "question": "Are train/monitor/test clip_ids disjoint, and is the split signer-disjoint, not just clip-disjoint?",
+    "method": "Grouped 330309 rows.json frame-rows into 10335 clips; verified no clip appears in >1 split; derived PopSign signer = '4a.NNNN' from clip_id; cross-checked signer sets across splits.",
+    "numbers": {
+      "clip_counts": {"train": 5591, "validation": 2375, "test": 2369, "total": 10335},
+      "clips_in_multiple_splits": 0,
+      "clip_overlap_train_test": 0,
+      "clip_overlap_train_val": 0,
+      "clip_overlap_val_test": 0,
+      "popsign_signers_per_split": {"train": 31, "validation": 8, "test": 8},
+      "popsign_signer_overlap_train_test": [],
+      "popsign_signer_overlap_val_test": [],
+      "popsign_signer_overlap_train_val": [],
+      "test_signers": ["4a.8031","4a.8032","4a.8033","4a.8035","4a.8036","4a.8037","4a.8038","4a.8039"],
+      "aslcitizen_clips_in_test": 0,
+      "aslcitizen_clips_in_validation": 0
+    },
+    "recognizer_internal_split_note": "split_student re-pools train+validation (5591+2375=7966), carves 12% (955) as monitor and 7011 as train; TEST (2369) is held out untouched. This is why the receipt shows train_clips=7011/monitor_clips=955. Monitor never draws from test.",
+    "verdict": "PASS",
+    "finding": "Splits are clip-disjoint AND PopSign-signer-disjoint on every pair. No signer appears in both train and test. ASL Citizen is entirely inside train; test and validation are 100% PopSign."
+  },
+
+  "check_2_landmark_source_leakage": {
+    "question": "Did the SimCC landmark student train on the same clips/signers that are in the recognizer's TEST split (landmark-quality optimism)?",
+    "method": "Parsed the SimCC student's own teacher-labels jsonl (6865 clips, with split + signer + source_record_id). Normalized clip_ids (CAN_2 vs 'CAN 2'). Joined student split vs recognizer split per clip and per PopSign signer.",
+    "numbers": {
+      "student_labeled_clips": 6865,
+      "student_clip_split_counts": {"train": 3854, "validation": 1276, "test": 1735},
+      "recognizer_test_clips": 2369,
+      "recognizer_test_clips_student_labeled": 1140,
+      "student_split_of_those_1140": {"test": 1140, "train": 0, "validation": 0},
+      "recognizer_test_clips_in_student_TRAIN": 0,
+      "recognizer_test_clips_not_in_student_label_file": 1229,
+      "recognizer_test_unlabeled_all_popsign": true,
+      "recognizer_test_unlabeled_landmark_source": "student INFERENCE on test-signer clips (student never trained on these signers)",
+      "student_train_popsign_signers": 31,
+      "recognizer_test_signers_in_student_train": [],
+      "recognizer_test_signers_in_student_validation": [],
+      "recognizer_test_signers_in_student_test": ["4a.8031","4a.8032","4a.8033","4a.8035","4a.8036","4a.8037","4a.8038","4a.8039"]
+    },
+    "student_receipt_self_report": {
+      "signer_overlap_test_train": 0,
+      "signer_overlap_test_validation": 0,
+      "train_signers": 65,
+      "test_signers": 19,
+      "validation_signers": 13,
+      "student_test_pck_0_10": 0.675916,
+      "student_train_pck_0_10": 0.742177,
+      "note": "All 8 recognizer-test signers fall in the student's TEST split; landmark quality on recognizer-test is the held-out student PCK ~0.676, not the optimistic train PCK ~0.742."
+    },
+    "label_leakage_reasoning_confirmed": {
+      "student_predicts": "hand landmark COORDINATES only (simcc_hand_student.py forward returns (simcc_x, simcc_y); loss = SimCC cross-entropy over coordinate bins)",
+      "student_reads_sign_labels": false,
+      "teacher_is": "RTMPose-Hand (keypoints, no sign labels)",
+      "sign_class_label_leakage_path": "none — the landmark stage never sees word/sign class labels",
+      "only_possible_leakage": "landmark-QUALITY optimism on seen signers, which is ruled out: 0 recognizer-test clips/signers were in student-train"
+    },
+    "verdict": "PASS",
+    "finding": "The recognizer-test landmark quality is INDEPENDENT of student training. Zero recognizer-test clips and zero recognizer-test signers appear in the student's training set; the two stages are signer-aligned. No landmark-quality optimism and no sign-class label leakage."
+  },
+
+  "check_3_distillation_teacher_leakage": {
+    "question": "Does the distill trainer compute/use the teacher (recognizer-v1.pt) on the TEST split during eval?",
+    "method": "Read train_recognizer_distill.py main + train_student + precompute_teacher_logits + verification_details.",
+    "findings": {
+      "teacher_logits_precomputed_over": "active = concatenate(tr, mon, te) — teacher IS run on test clips, BUT only to fill a logit buffer",
+      "training_loop_indices": "order = tr.copy() only; loss uses tlog[bi] indexed by TRAIN batch bi; test rows of teacher_logits are never selected during optimization",
+      "test_eval_path": "verification_details(model, ..., te) -> predict_probabilities runs the STUDENT model softmax only; recall_at_far_details takes student probs; teacher never involved in test metric",
+      "test_top1_path": "evaluate(model, ..., te) — student argmax only"
+    },
+    "verdict": "PASS",
+    "finding": "Test recall@FAR10 and test top-1 are the student's own argmax/softmax with zero teacher involvement. The teacher touches test clips only to populate an unused logit buffer; those rows never enter the loss or any reported metric."
+  },
+
+  "check_4_metric_definition_sanity": {
+    "question": "Is FAR10 threshold set on negatives, recall on positives, per class, mean over 95 classes; does the per_class array recompute the headline; is it non-trivial?",
+    "method": "Re-read verification.recall_at_far_details; recomputed mean over receipt per_class[].recall_at_far; checked chance and in-sample realized FAR.",
+    "numbers": {
+      "threshold_rule": "tau_w = quantile(neg_w, 1 - far) where neg_w = probs[y != w, w] (negative/other-class clips), far=0.10",
+      "recall_rule": "recall_w = mean(pos_w >= tau_w) where pos_w = probs[y == w, w] (true-w clips)",
+      "n_classes_evaluable": 95,
+      "mean_of_per_class_recall_at_far": 0.9208642659279777,
+      "receipt_mean_recall_at_far10": 0.9208642659279777,
+      "receipt_verification_recall_at_far10_rounded": 0.9209,
+      "exact_match": true,
+      "sum_positive_count_across_classes": 2369,
+      "positives_per_class_range": [19, 25],
+      "negatives_per_class_range": [2344, 2350],
+      "in_sample_realized_far_mean": 0.1002532782468116,
+      "chance": 0.0105,
+      "top1_over_chance_multiple": 51.6
+    },
+    "verdict": "PASS",
+    "finding": "Metric is correctly defined: per-class threshold on other-class negatives at the 0.90 quantile, recall on true positives, mean over all 95 classes. The headline 0.9209 is exactly the mean of the per_class array. Top-1 0.5428 is 51.6x chance — not trivially satisfiable."
+  },
+
+  "check_5_calibration_transfer": {
+    "question": "Are run10's accept thresholds fit on a SEPARATE split from where recall is reported? If fit and measured on the same test clips, quantify the honest operating point.",
+    "method": "Reproduced test+monitor probs. (a) In-sample: thresholds fit on test negatives, recall on test (receipt method). (b) Honest: thresholds fit on MONITOR negatives, applied to test; measured transferred recall and realized FAR.",
+    "numbers": {
+      "in_sample_test_thresholds": {"recall": 0.9209, "realized_far": 0.1003},
+      "honest_monitor_thresholds_to_test": {"recall": 0.9087, "realized_far": 0.0880},
+      "optimism_gap_recall": 0.0122,
+      "honest_realized_far_vs_target": "0.088 < 0.10 (transferred thresholds are slightly CONSERVATIVE — fewer false accepts than target)"
+    },
+    "verdict": "CAVEAT",
+    "finding": "The receipt's 0.9209 uses IN-SAMPLE thresholds (fit on the same test negatives where recall is measured) — this is optimistic. The honest operating point (thresholds fit on the held-out monitor split, applied to test) is 0.9087 recall at a realized FAR of 0.088. The optimism is only ~1.2 recall points, and the honest realized FAR is BELOW the 10% target, so the metric is not materially inflated. Deployable accept thresholds must be the monitor/val-fit per-class thresholds, NOT the test-fit ones."
+  },
+
+  "check_6_guardrail_negative_behavior": {
+    "question": "Does run10 reject non-target / wrong-word clips at the FAR10 thresholds? Is the wrong-prompt accept rate bounded ~<=10%?",
+    "method": "audit_guardrail_negative_fixtures.mjs in asl-pilot-web targets the RAWFRAME model (train_rawframe_model.py, signed-consent fixtures) and aborts on a missing rawframe vocabulary-review fixture; it does NOT evaluate run10. Substituted a direct cross-negative test: for every (test clip, wrong word) pair, accept iff student prob for the wrong word >= that word's FAR10 threshold.",
+    "numbers": {
+      "guardrail_audit_targets_run10": false,
+      "guardrail_audit_target": "rawframe-model consent/fixture lane",
+      "wrong_prompt_pairs_evaluated": 222686,
+      "honest_monitor_thresholds": {"accept_rate_micro": 0.0880, "accept_rate_macro_per_class": 0.0880, "accepts": 19589},
+      "in_sample_test_thresholds": {"accept_rate_micro": 0.1003, "accept_rate_macro_per_class": 0.1003, "accepts": 22325},
+      "bound_check": "both <= ~10% by construction"
+    },
+    "verdict": "PASS",
+    "finding": "When prompted the wrong word, run10 falsely accepts at most 8.8% of the time at deployable (monitor-fit) thresholds, 10.0% at in-sample thresholds. The FAR ceiling is the explicit guardrail and it holds. The rawframe guardrail fixture audit is not applicable to a landmark recognizer."
+  },
+
+  "check_7_promotion_path": {
+    "question": "Is the rawframe promotion gate applicable to run10? Is there any honest claim-matrix/model-card path? What is the AC vs PopSign split and PopSign-only feasibility?",
+    "a_what_the_promotion_machinery_is_for": {
+      "promote_trained_model_card.mjs": "Hardwired to the RAWFRAME lane: asl-pilot-rawframe-v0.onnx, artifacts/rawframe-model/{validation-report,calibrated-provenance}.json, requires signed consent_form (asl-pilot-dataset-consent-v1), first_party_consent_capture data mode, 17 negative-challenge types, and a 3D-CNN architecture-family allowlist.",
+      "model_card_json_current": {"model_id": "asl-pilot-rawframe-v0", "status": "not_trained", "architecture_family": "raw_frame_compact_3d_cnn"},
+      "claim_matrix_current": {"status": "no_active_claim_rawframe_not_trained", "active_cv_claim": null, "cv_supported_count": 0},
+      "audit_final_claim_matrix.mjs": "Currently PASSES; hard-blocks any non-rawframe claim — 'active_cv_claim must be null until a trained rawframe model card is promoted; no Stage A / academic-benchmark claim is permitted' and 'Browser raw RGB/webcam lane must remain not_trained'.",
+      "prior_product_decision": "M3DI/M3DJ explicitly PARKED the recognition track and redirected to a fail-closed NON-recognition learning MVP (browser_recognition_enabled: false, active_labels: []). Forbidden claim scope includes 'live recognition, automatic grading, trained labels, ASL correctness evaluation'."
+    },
+    "b_applicability_to_run10": {
+      "run10_is": "a from-scratch landmark-SEQUENCE transformer recognizer trained on PopSign + ASL Citizen RESEARCH video (offline RTMPose->SimCC landmark pipeline), evaluated on PopSign held-out signers",
+      "rawframe_gate_applies": false,
+      "reasons": [
+        "run10 is not a raw-RGB 3D-CNN; architecture family is not in the rawframe allowlist",
+        "training data is PopSign/ASL-Citizen research video, NOT first-party consent-captured webcam data — there is no signed consent_form / first_party_consent_capture evidence and there cannot be",
+        "no rawframe ONNX, validation-report.json, or calibrated-provenance.json exists for run10",
+        "the claim-matrix audit hard-fails any active CV claim that is not the promoted rawframe model"
+      ],
+      "honest_claim_matrix_or_model_card_path_for_run10": "NONE in the existing machinery. Recording run10 as an active CV claim would (1) require falsely asserting a rawframe / first-party-consented-data claim, and (2) fail audit_final_claim_matrix.mjs. The only truthful surfaces today are: (i) keep claim-matrix/model-card unchanged (active_cv_claim: null), and (ii) record run10 strictly as a research/ML-evidence validation receipt under docs/validation/ (like this file), NOT as a product CV claim."
+    },
+    "c_asl_citizen_redistribution": {
+      "license": "ASL Citizen noncommercial school-assignment license (Microsoft Research)",
+      "constraint": "AC-derived weights should not be distributed publicly without Microsoft permission; PopSign-only avoids this",
+      "run10_train_mix": {"popsign_clips": 2375, "popsign_pct": 42.5, "aslcitizen_clips": 3216, "aslcitizen_pct": 57.5},
+      "run10_validation_mix": {"popsign_pct": 100.0, "aslcitizen_pct": 0.0},
+      "run10_test_mix": {"popsign_pct": 100.0, "aslcitizen_pct": 0.0},
+      "implication": "run10's WEIGHTS are AC-derived (57.5% of training volume is AC) -> public distribution of run10 weights carries the AC noncommercial constraint and needs Microsoft permission. The reported metric is computed on a 100%-PopSign test set.",
+      "popsign_only_retrain_feasibility": {
+        "classes_with_popsign_train_coverage": 95,
+        "classes_lost_if_popsign_only": 0,
+        "popsign_train_clips_per_class": "uniform 25 (min=median=max=25, total 2375)",
+        "aslcitizen_train_clips_per_class": "0..123 (median 31, total 3216); 5 classes have no AC train",
+        "test_set_unchanged": true,
+        "estimate": "A PopSign-only retrain keeps all 95 classes and the identical 100%-PopSign test set, but drops 57.5% of training volume (AC mainly adds per-class diversity/volume on top of uniform 25 PopSign clips). Expect a moderate accuracy/recall drop (AC removal cuts >half the training signal) but not class collapse. NOT retrained here — estimate only."
+      }
+    },
+    "verdict": "CAVEAT / NO-PROMOTION",
+    "recommendation": {
+      "do_not": [
+        "Do NOT run scripts/promote_trained_model_card.mjs for run10 (it is rawframe-only and would require false consent/first-party evidence).",
+        "Do NOT set active_cv_claim or flip the browser lane off not_trained (audit_final_claim_matrix.mjs would block it and it would be a false rawframe claim).",
+        "Do NOT publicly distribute run10's AC-derived weights without Microsoft permission."
+      ],
+      "correct_action": "No honest PRODUCT promotion exists yet. Record run10 only as a research/ML-evidence validation receipt under docs/validation/ (this file). If a recognition product claim is ever desired, the truthful options are: (a) train the actual rawframe first-party lane the promotion machinery is built for, or (b) define a NEW, separate claim-matrix lane for an offline-landmark-recognizer evaluated on research data (PopSign held-out signers) with explicit boundaries (research data, not first-party webcam; landmark sequence, not raw RGB; in-the-wild webcam performance UNVALIDATED) and a PopSign-only retrain for any distributable weights. Both require human approval and new audit support; neither is the existing rawframe gate.",
+      "if_shipping_as_demo_only": "Ship run10 ONLY behind a clearly-labeled non-production demo surface (e.g. /pilot or /practice prototype) with monitor-fit thresholds, an explicit 'research-data accuracy, webcam performance not validated' disclaimer, and AC-derived-weights kept non-public. Do not record it as a model-card/claim-matrix CV claim."
+    }
+  },
+
+  "deploy_trust_verdict": {
+    "trustworthy_enough_to_ship_run10_as_practice_feedback_demo": "conditional",
+    "summary": "The 0.9209 number is real and reproducible (exact reproduction from weights+cache), the split is clip- and PopSign-signer-disjoint, the landmark student and distill teacher introduce no leakage, and the FAR guardrail holds. It is trustworthy as a RESEARCH-DATA operating-point metric. It is NOT a validated in-the-wild webcam number and must not be promoted through the rawframe product gate.",
+    "single_most_important_caveat": "0.9209 is the IN-SAMPLE-threshold operating point on a 100%-PopSign, research-quality landmark TEST set drawn from held-out PopSign signers. The honest (held-out-threshold) recall is 0.909 at ~8.8% realized FAR; live webcam landmark quality is NOT what this test measures, and run10's weights are AC-derived (57.5% of training) so they carry the Microsoft noncommercial-redistribution constraint."
+  },
+
+  "promotion_recommendation": {
+    "action": "NO_PRODUCT_PROMOTION_record_research_receipt_only",
+    "rawframe_gate_applicable_to_run10": false,
+    "honest_claim_matrix_path_exists": false,
+    "ac_derived_weights_distributable_publicly": false,
+    "next_step_if_recognition_product_wanted": "human-approved NEW claim-matrix lane for offline-landmark research-data recognizer with explicit boundaries + PopSign-only retrain for distributable weights, OR train the first-party rawframe lane the existing machinery is built for",
+    "files_that_would_need_to_change_for_a_truthful_landmark_lane": [
+      "scripts/audit_final_claim_matrix.mjs (add a separate non-rawframe research-recognizer lane with its own boundaries; do NOT relax the rawframe active_cv_claim==null gate)",
+      "web/public/model/claim-matrix.json (new lane entry, not active_cv_claim)",
+      "a NEW promotion script (the existing promote_trained_model_card.mjs is rawframe-only and must not be reused)"
+    ]
+  }
+}

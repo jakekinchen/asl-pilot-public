@@ -1,0 +1,71 @@
+{
+  "schema_version": "asl-pilot-no-pretrained-lane-audit/v1",
+  "audit": "no-pretrained-lane",
+  "round": "001-task-026",
+  "generated_at": "2026-05-23T23:08:58.123Z",
+  "generated_by": {
+    "script": "scripts/build_no_pretrained_lane_audit.mjs",
+    "command": [
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/Users/kelly/Developer/asl-pilot-task-026/scripts/build_no_pretrained_lane_audit.mjs",
+      "--write"
+    ]
+  },
+  "deps_audit": {
+    "script": "scripts/audit_no_pretrained_deps.mjs",
+    "script_sha256": "58cb39688067acb314847b044d831a1ad3aee1bebcab722cb96ad4eb2b6dfe4f",
+    "passed": true,
+    "exit_status": 0,
+    "stdout_sha256": "c320aabdc72f2daf751c5ec27ca1e94d28e1d3afccf201b4789446bce687696b",
+    "stdout_preview": "No banned pretrained-CV dependencies or source imports found."
+  },
+  "artifact_json_audit": {
+    "script": "scripts/audit_no_pretrained_artifact_json.mjs",
+    "script_sha256": "c767e523a47488206dcb9efa69fbde491b15a1eea1a7cb2f822cef95ba78663e",
+    "passed": true,
+    "exit_status": 0,
+    "stdout_sha256": "a193f5ea45363c03cb1d69f7463db140de36b8e8c2bf2f5bd477943fb284ed2c"
+  },
+  "removed_vestige_summary": {
+    "round": "001",
+    "task": "task-026",
+    "brief": "docs/briefs/001-stage-a-vestige-removal.md",
+    "web_dependencies_dropped": [
+      "@mediapipe/tasks-vision@0.10.35"
+    ],
+    "web_runtime_assets_removed_tree": [
+      "web/public/models/mediapipe/"
+    ],
+    "web_verifier_jsons_removed_count": 12,
+    "web_source_dirs_removed": [
+      "web/src/asl/"
+    ],
+    "scripts_removed_count": 43,
+    "artifact_dirs_untracked": [
+      "artifacts/stage_a/",
+      "artifacts/stage_b/"
+    ],
+    "docs_vestige_files_removed_count": 305,
+    "docs_reframed_to_post_vestige_state": [
+      "docs/strategy-confidence-audit.md",
+      "docs/execution-plan.md",
+      "docs/acceptance-checklist.md",
+      "docs/no-pretrained-audit.md",
+      "docs/model/dataset-and-training-plan.md",
+      "docs/model/goal.md",
+      "docs/review/operator-handoff.md"
+    ],
+    "web_public_model_card_excised": [
+      "primary_relaxed_stage_a_lane",
+      "academic_benchmarks",
+      "failed_cv_expansions",
+      "metric_frontier_summary"
+    ],
+    "audit_no_pretrained_artifact_json_tightened": [
+      "extractor.name rejects mediapipe_*, openpose_*, posenet_*, bodypix_*, handpose_*, movenet_*, blazepose_*, yolo_*, ultralytics_*",
+      "extractor.tasks_vision_version and extractor.model_asset_sha256 rejected",
+      "Stage A boundary-disclosure whitelist removed",
+      "default scan roots narrowed to the promoted-lane claim chain"
+    ]
+  }
+}

@@ -1,0 +1,732 @@
+{
+  "schema_version": "asl-pilot-dataset-source-register/v1",
+  "updated_at": "2026-05-25T02:25:00.000Z",
+  "review_method": {
+    "reviewed_at": "2026-05-21T11:50:54.000Z",
+    "review_scope": "ASL pilot training, validation, browser inference, and pilot submission artifacts",
+    "default_public_dataset_policy": "blocked_without_external_rights_review",
+    "only_builtin_allowed_source_id": "first-party-browser-consent-capture",
+    "research_receipts": {
+      "path": "docs/research/dataset-source-research-receipts.json",
+      "sha256": "9cf6c7211b96eb5e8f06b6ccd3856424519cf2c5bd1edd05de43f8208731b42f",
+      "generated_by": "scripts/refresh_dataset_source_research.mjs",
+      "audited_by": "scripts/audit_dataset_source_research.mjs"
+    }
+  },
+  "sources": [
+    {
+      "source_id": "first-party-browser-consent-capture",
+      "display_name": "First-party consented browser recordings",
+      "source_kind": "first_party_collection",
+      "allowed_for_model_training": true,
+      "allowed_for_validation": true,
+      "allowed_for_pilot_submission": true,
+      "license_review_status": "approved_after_clip_level_consent",
+      "decision_id": "first_party_consent_required_v1",
+      "required_evidence": [
+        "dataset signer registry record",
+        "clip-level consent record",
+        "dataset consent form version and hash",
+        "raw clip SHA-256 hash",
+        "clip-level ASL label review approval"
+      ],
+      "source_evidence": [
+        {
+          "evidence_type": "first_party_consent_contract",
+          "path": "docs/privacy/dataset-consent-form.md",
+          "sha256": "c1832291070b351fd3bbedf3ee1e099ce55f027b659823b8eefff23cc51e1995",
+          "checked_at": "2026-05-20T00:00:00.000Z",
+          "summary": "Project consent form requires signer permission and clip-level local storage limits before clips can be used for model training.",
+          "supports_decision": true
+        }
+      ],
+      "restrictions": [
+        "raw clips stay in local project storage",
+        "raw clips are not redistributed without separate written permission",
+        "withdrawal removes raw clips and metadata before training; after training, derived artifacts may remain only if acknowledged"
+      ]
+    },
+    {
+      "source_id": "asl-citizen",
+      "display_name": "ASL Citizen",
+      "source_kind": "public_reference_dataset",
+      "allowed_for_model_training": false,
+      "allowed_for_validation": false,
+      "allowed_for_pilot_submission": false,
+      "license_review_status": "blocked_noncommercial_research_only",
+      "decision_id": "blocked_asl_citizen_2026_05_19",
+      "primary_source_url": "https://www.microsoft.com/en-us/research/project/asl-citizen/dataset-license/",
+      "review_required_before_allowing": true,
+      "source_evidence": [
+        {
+          "evidence_type": "license_terms",
+          "url": "https://www.microsoft.com/en-us/research/project/asl-citizen/dataset-license/",
+          "checked_at": "2026-05-20T00:00:00.000Z",
+          "summary": "Microsoft Research license limits the materials to non-commercial, non-revenue-generating research use and bars distribution of data or modifications.",
+          "supports_decision": true
+        }
+      ],
+      "restrictions": [
+        "materials are limited to non-commercial, non-revenue-generating research",
+        "data and modifications may not be distributed",
+        "personal data must remain under original consent limits"
+      ]
+    },
+    {
+      "source_id": "asl-citizen-school-assignment-raw-videos",
+      "display_name": "ASL Citizen raw videos - noncommercial school assignment",
+      "source_kind": "public_reference_dataset",
+      "allowed_for_model_training": true,
+      "allowed_for_validation": true,
+      "allowed_for_pilot_submission": true,
+      "license_review_status": "approved_noncommercial_school_assignment_raw_video_only",
+      "decision_id": "approved_asl_citizen_school_assignment_raw_videos_2026_05_21",
+      "primary_source_url": "https://www.microsoft.com/en-us/research/project/asl-citizen/",
+      "review_required_before_allowing": true,
+      "external_rights_review": {
+        "status": "approved_for_this_pilot",
+        "reviewed_at": "2026-05-21T16:55:00.000Z",
+        "reviewer_name": "ASL Pilot automated source-rights gate",
+        "reviewer_role": "machine-readable source, license, and provenance audit",
+        "is_project_operator": false,
+        "allowed_use_summary": "ASL Citizen is approved only for the user's clarified noncommercial school assignment as local raw-RGB training and validation data. Raw videos, modified videos, extracted frames, local mirrors, and substantial dataset excerpts must not be redistributed. No pretrained models, pose, landmark, or feature artifacts may enter the ASL Pilot recognition path.",
+        "decision_scope": {
+          "allowed_for_model_training": true,
+          "allowed_for_validation": true,
+          "allowed_for_pilot_submission": true
+        },
+        "review_receipt": {
+          "path": "docs/research/asl-citizen-academic-external-rights-review-receipt.json",
+          "sha256": "64a072f3d55822742b13018b66bdcbdf61803878cb533238083138b3a26a0f10"
+        },
+        "license_evidence_files": [
+          {
+            "path": "docs/research/asl-citizen-academic-source-review.md",
+            "sha256": "f8295c8f498cc5ed3925b833ec51aa7799c4365118f69f0a57993ea27a538d94"
+          },
+          {
+            "path": "docs/research/dataset-source-research-receipts.json",
+            "sha256": "9cf6c7211b96eb5e8f06b6ccd3856424519cf2c5bd1edd05de43f8208731b42f"
+          }
+        ]
+      },
+      "source_evidence": [
+        {
+          "evidence_type": "license_terms",
+          "url": "https://www.microsoft.com/en-us/research/project/asl-citizen/dataset-license/",
+          "checked_at": "2026-05-21T16:55:00.000Z",
+          "summary": "Microsoft Research license limits use to noncommercial, non-revenue-generating research and bars distribution of data or modifications.",
+          "supports_decision": true
+        },
+        {
+          "evidence_type": "approved_academic_source_review",
+          "path": "docs/research/asl-citizen-academic-source-review.md",
+          "sha256": "f8295c8f498cc5ed3925b833ec51aa7799c4365118f69f0a57993ea27a538d94",
+          "checked_at": "2026-05-21T16:55:00.000Z",
+          "summary": "Review approves ASL Citizen only for local noncommercial school-assignment raw-RGB training and validation.",
+          "supports_decision": true
+        }
+      ],
+      "restrictions": [
+        "approval is limited to this noncommercial school assignment",
+        "use only official ASL Citizen raw RGB videos",
+        "raw videos, modified videos, extracted frames, and local mirrors may not be redistributed",
+        "pretrained baselines, pose outputs, landmarks, feature caches, and derived CV artifacts are disallowed",
+        "personal-data-bearing local files must remain confidential and be destroyed when school research use is complete unless a fresh review authorizes retention"
+      ]
+    },
+    {
+      "source_id": "wlasl",
+      "display_name": "WLASL",
+      "source_kind": "public_reference_dataset",
+      "allowed_for_model_training": false,
+      "allowed_for_validation": false,
+      "allowed_for_pilot_submission": false,
+      "license_review_status": "blocked_academic_computational_only",
+      "decision_id": "blocked_wlasl_2026_05_19",
+      "primary_source_url": "https://github.com/dxli94/WLASL",
+      "review_required_before_allowing": true,
+      "source_evidence": [
+        {
+          "evidence_type": "license_terms",
+          "url": "https://github.com/dxli94/WLASL",
+          "checked_at": "2026-05-20T00:00:00.000Z",
+          "summary": "WLASL documentation limits the dataset to academic and computational use and states that commercial usage is not allowed.",
+          "supports_decision": true
+        },
+        {
+          "evidence_type": "pipeline_boundary",
+          "url": "https://raw.githubusercontent.com/dxli94/WLASL/master/README.md",
+          "checked_at": "2026-05-20T00:00:00.000Z",
+          "summary": "Repository assets are treated as research reference material only and cannot enter the no-external-CV-artifact recognition path.",
+          "supports_decision": true
+        }
+      ],
+      "restrictions": [
+        "README states academic and computational use only",
+        "README states no commercial usage is allowed",
+        "source videos and consent provenance are not controlled by this project"
+      ]
+    },
+    {
+      "source_id": "wlasl-school-assignment-raw-videos",
+      "display_name": "WLASL raw videos - noncommercial school assignment",
+      "source_kind": "public_reference_dataset",
+      "allowed_for_model_training": true,
+      "allowed_for_validation": true,
+      "allowed_for_pilot_submission": true,
+      "license_review_status": "approved_academic_computational_school_assignment_raw_video_only",
+      "decision_id": "approved_wlasl_school_assignment_raw_videos_2026_05_21",
+      "primary_source_url": "https://github.com/dxli94/WLASL",
+      "review_required_before_allowing": true,
+      "external_rights_review": {
+        "status": "approved_for_this_pilot",
+        "reviewed_at": "2026-05-21T16:55:00.000Z",
+        "reviewer_name": "ASL Pilot automated source-rights gate",
+        "reviewer_role": "machine-readable source, license, and provenance audit",
+        "is_project_operator": false,
+        "allowed_use_summary": "WLASL is approved only for the user's clarified noncommercial school assignment as local academic/computational raw-RGB training and validation data. Raw videos, modified videos, extracted frames, local mirrors, and substantial dataset excerpts must not be redistributed. No WLASL pretrained weights, pose/keypoint outputs, bounding-box crops, or feature artifacts may enter the ASL Pilot recognition path.",
+        "decision_scope": {
+          "allowed_for_model_training": true,
+          "allowed_for_validation": true,
+          "allowed_for_pilot_submission": true
+        },
+        "review_receipt": {
+          "path": "docs/research/wlasl-academic-external-rights-review-receipt.json",
+          "sha256": "a824bd133b1ebb0f5a9d14f5d6fa4e23955afe7942b207c0ff636a0239e5e9da"
+        },
+        "license_evidence_files": [
+          {
+            "path": "docs/research/wlasl-academic-source-review.md",
+            "sha256": "d7ce927936ad9bc926b450292d945fe95c242e90ae74af2ff63dc7d459c6155a"
+          },
+          {
+            "path": "docs/research/dataset-source-research-receipts.json",
+            "sha256": "9cf6c7211b96eb5e8f06b6ccd3856424519cf2c5bd1edd05de43f8208731b42f"
+          }
+        ]
+      },
+      "source_evidence": [
+        {
+          "evidence_type": "license_terms",
+          "url": "https://github.com/dxli94/WLASL",
+          "checked_at": "2026-05-21T16:55:00.000Z",
+          "summary": "WLASL documentation limits the dataset to academic and computational use and says commercial usage is not allowed.",
+          "supports_decision": true
+        },
+        {
+          "evidence_type": "approved_academic_source_review",
+          "path": "docs/research/wlasl-academic-source-review.md",
+          "sha256": "d7ce927936ad9bc926b450292d945fe95c242e90ae74af2ff63dc7d459c6155a",
+          "checked_at": "2026-05-21T16:55:00.000Z",
+          "summary": "Review approves WLASL only for local academic/noncommercial raw-RGB training and validation.",
+          "supports_decision": true
+        }
+      ],
+      "restrictions": [
+        "approval is limited to this noncommercial school assignment",
+        "use only original raw source clips referenced by WLASL metadata",
+        "raw videos, modified videos, extracted frames, and local mirrors may not be redistributed",
+        "pretrained weights, pose/keypoint outputs, bounding boxes as model inputs, crops, feature caches, and derived CV artifacts are disallowed",
+        "current URL availability must be probed before clip import"
+      ]
+    },
+    {
+      "source_id": "asl-lex",
+      "display_name": "ASL-LEX",
+      "source_kind": "public_reference_dataset",
+      "allowed_for_model_training": false,
+      "allowed_for_validation": false,
+      "allowed_for_pilot_submission": false,
+      "license_review_status": "blocked_video_permission_required",
+      "decision_id": "blocked_asl_lex_2026_05_19",
+      "primary_source_url": "https://asl-lex.org/download.html",
+      "review_required_before_allowing": true,
+      "source_evidence": [
+        {
+          "evidence_type": "license_terms",
+          "url": "https://asl-lex.org/download.html",
+          "checked_at": "2026-05-20T00:00:00.000Z",
+          "summary": "ASL-LEX licenses the database and visualization for non-commercial use but excludes sign reference videos and requires explicit permission for any other video use.",
+          "supports_decision": true
+        }
+      ],
+      "restrictions": [
+        "database and visualization are CC BY-NC 4.0",
+        "sign reference videos are excluded from that license",
+        "reference videos may not be saved, displayed, or otherwise used without explicit permission"
+      ]
+    },
+    {
+      "source_id": "popsign-v1-original-videos",
+      "display_name": "PopSign ASL v1.0 original game videos",
+      "source_kind": "public_reference_dataset",
+      "allowed_for_model_training": true,
+      "allowed_for_validation": true,
+      "allowed_for_pilot_submission": true,
+      "license_review_status": "approved_cc_by_4_raw_video_with_attribution",
+      "decision_id": "approved_popsign_v1_original_videos_2026_05_20",
+      "primary_source_url": "https://signdata.cc.gatech.edu/view/datasets/popsign_v1_0/",
+      "review_required_before_allowing": true,
+      "offline_derived_label_amendment": {
+        "decision_id": "approved_popsign_v1_offline_derived_labels_2026_05_30",
+        "authorized_by": "supervising user (human), 2026-05-30",
+        "basis": "CC BY 4.0 permits derivatives; this adds only offline label provenance, and the runtime uses only our scratch-trained model and is not a runtime dependency",
+        "scope": "offline-derived region/landmark/pose labels permitted as training and evaluation supervision; pretrained detector, landmark, embedding, or feature models remain disallowed in the browser runtime and in any promoted or exported artifact",
+        "decision_record": "DECISIONS.md offline-label policy decision record"
+      },
+      "external_rights_review": {
+        "status": "approved_for_this_pilot",
+        "reviewed_at": "2026-05-20T20:55:00.000Z",
+        "reviewer_name": "ASL Pilot automated source-rights gate",
+        "reviewer_role": "machine-readable source, license, and provenance audit",
+        "is_project_operator": false,
+        "allowed_use_summary": "PopSign ASL v1.0 original game-category video archives are approved for ASL Pilot raw-frame training, signer-disjoint validation/test, and pilot submission artifacts with CC BY 4.0 attribution. Per the 2026-05-30 human-authorized amendment (CC BY 4.0 permits derivatives), offline-derived region/landmark/pose labels are permitted as training and evaluation supervision; runtime uses only our scratch-trained model and is not a runtime dependency. Pretrained detector/landmark/embedding/feature models remain disallowed in the browser runtime and in any promoted or exported artifact.",
+        "decision_scope": {
+          "allowed_for_model_training": true,
+          "allowed_for_validation": true,
+          "allowed_for_pilot_submission": true
+        },
+        "review_receipt": {
+          "path": "docs/research/popsign-v1-external-rights-review-receipt.json",
+          "sha256": "f2c7bf3d6b543bfb5df92b6e1f6669bfe52d7bd7161b2c248b1b414cff843c60"
+        },
+        "license_evidence_files": [
+          {
+            "path": "docs/research/popsign-v1-source-audit.json",
+            "sha256": "b9fe6f6ed042bbff08b58a85cba50b445e606239489e7cbab6be81f326a02ab1"
+          },
+          {
+            "path": "docs/research/popsign-v1-source-review.md",
+            "sha256": "5eb108140617a563cd9bf1b269b549dcc24057acb6e89edc308e6938fd61d908"
+          }
+        ]
+      },
+      "source_evidence": [
+        {
+          "evidence_type": "source_license_and_provenance_audit",
+          "path": "docs/research/popsign-v1-source-audit.json",
+          "sha256": "b9fe6f6ed042bbff08b58a85cba50b445e606239489e7cbab6be81f326a02ab1",
+          "checked_at": "2026-05-20T20:55:00.000Z",
+          "summary": "Audit verifies CC BY 4.0 source terms, raw original video archive access, public-use consent/provenance signals, signer-disjoint split evidence, and 95/95 canonical vocabulary coverage.",
+          "supports_decision": true
+        },
+        {
+          "evidence_type": "approved_source_review",
+          "path": "docs/research/popsign-v1-source-review.md",
+          "sha256": "5eb108140617a563cd9bf1b269b549dcc24057acb6e89edc308e6938fd61d908",
+          "checked_at": "2026-05-20T20:55:00.000Z",
+          "summary": "Review approves only original PopSign v1 game video archives and rejects preview videos plus derived pose/landmark/feature artifacts.",
+          "supports_decision": true
+        }
+      ],
+      "restrictions": [
+        "must cite and attribute PopSign ASL v1.0 under CC BY 4.0",
+        "only original game-category raw video archives may be imported",
+        "preview videos are disallowed; offline-derived region/landmark/pose labels are permitted as training supervision (CC BY 4.0 derivative), but the runtime uses only our scratch-trained model and ships no pretrained detector, landmark, embedding, or feature model",
+        "source train, validation, and test split boundaries must be preserved",
+        "source signer identifiers must remain pseudonymous in ASL Pilot manifests"
+      ]
+    },
+    {
+      "source_id": "kaggle-or-static-asl",
+      "display_name": "Kaggle or static ASL datasets",
+      "source_kind": "external_dataset_family",
+      "allowed_for_model_training": false,
+      "allowed_for_validation": false,
+      "allowed_for_pilot_submission": false,
+      "license_review_status": "blocked_until_dataset_specific_review",
+      "decision_id": "blocked_kaggle_static_default_2026_05_19",
+      "review_required_before_allowing": true,
+      "source_evidence": [
+        {
+          "evidence_type": "policy_default",
+          "path": "docs/research/dataset-source-evidence.md",
+          "sha256": "5149d6c9efb654d091a4d92712bbdf9832986e57c913b6f0b5ee02ce62c834bb",
+          "checked_at": "2026-05-20T00:00:00.000Z",
+          "summary": "This is a family-level deny-by-default entry. A specific dataset must be added as its own source decision with rights review before any allowed use.",
+          "supports_decision": true
+        }
+      ],
+      "restrictions": [
+        "provenance varies by dataset",
+        "signer consent and redistribution rights are not assumed",
+        "static alphabet-style datasets do not satisfy isolated ASL vocabulary recognition requirements"
+      ]
+    },
+    {
+      "source_id": "online-negative-challenge-mixed-wikimedia-cira-v1",
+      "display_name": "Mixed Wikimedia/CIRA/ASL-Citizen negative challenge set",
+      "source_kind": "external_dataset_family",
+      "allowed_for_model_training": false,
+      "allowed_for_validation": true,
+      "allowed_for_pilot_submission": true,
+      "license_review_status": "approved_validation_only_mixed_external_raw_video_with_attribution",
+      "decision_id": "approved_mixed_online_negative_challenge_exact_files_2026_05_21",
+      "review_required_before_allowing": true,
+      "external_rights_review": {
+        "status": "approved_for_this_pilot",
+        "reviewed_at": "2026-05-21T00:06:00.000Z",
+        "reviewer_name": "ASL Pilot automated exact-file source-rights gate",
+        "reviewer_role": "machine-readable validation-only source, license, attribution, and provenance audit",
+        "is_project_operator": false,
+        "allowed_use_summary": "Mixed Wikimedia/CIRA/ASL-Citizen negative challenge set exact files are approved for ASL Pilot raw-video reject-only negative challenge validation and pilot evidence with retained per-file provenance and attribution. They are not approved for model training or as a general source-family approval.",
+        "decision_scope": {
+          "allowed_for_model_training": false,
+          "allowed_for_validation": true,
+          "allowed_for_pilot_submission": true
+        },
+        "review_receipt": {
+          "path": "docs/research/online-negative-challenge-mixed-external-rights-review-receipt.json",
+          "sha256": "653be7ee0986934a8b3c473a41841cc7e99bf2fda96dde349f2ca006295252cb"
+        },
+        "license_evidence_files": [
+          {
+            "path": "docs/research/online-negative-challenge-mixed-source-audit.json",
+            "sha256": "0f22d08fba044d5eba1bd452f24ca2034d9ed856a67be1cd9e7f3a05c4993949"
+          },
+          {
+            "path": "docs/research/online-negative-challenge-mixed-source-review.md",
+            "sha256": "47974c86c86d3fbe5f964d5417b0e7a83ecc3294cb35ba17c2cdce6c9b54adc8"
+          }
+        ]
+      },
+      "source_evidence": [
+        {
+          "evidence_type": "exact_file_source_audit",
+          "path": "docs/research/online-negative-challenge-mixed-source-audit.json",
+          "sha256": "0f22d08fba044d5eba1bd452f24ca2034d9ed856a67be1cd9e7f3a05c4993949",
+          "checked_at": "2026-05-21T00:06:00.000Z",
+          "summary": "Exact selected file audit verifies source URLs, local SHA-256 hashes, accepted license/credit metadata, and validation-only scope for the mixed online negative challenge set.",
+          "supports_decision": true
+        },
+        {
+          "evidence_type": "approved_exact_file_source_review",
+          "path": "docs/research/online-negative-challenge-mixed-source-review.md",
+          "sha256": "47974c86c86d3fbe5f964d5417b0e7a83ecc3294cb35ba17c2cdce6c9b54adc8",
+          "checked_at": "2026-05-21T00:06:00.000Z",
+          "summary": "Engineering source review approves only the exact selected mixed-source raw videos for reject-only validation and pilot evidence.",
+          "supports_decision": true
+        }
+      ],
+      "restrictions": [
+        "approved only for negative-challenge validation and pilot evidence, not model training",
+        "approval is exact-file scoped to the retained SHA-256 hashes",
+        "must retain file-level source page URL, original file URL, author, credit, license short name, MIME type, and source SHA-256",
+        "derived pose, landmark, embedding, detector, feature, or pretrained artifacts are disallowed"
+      ]
+    },
+    {
+      "source_id": "wikimedia-commons-negative-challenge-videos",
+      "display_name": "Wikimedia Commons",
+      "source_kind": "public_reference_dataset",
+      "allowed_for_model_training": false,
+      "allowed_for_validation": true,
+      "allowed_for_pilot_submission": true,
+      "license_review_status": "approved_validation_only_free_license_or_public_domain_with_attribution",
+      "decision_id": "approved_wikimedia_commons_negative_challenge_exact_files_2026_05_21",
+      "review_required_before_allowing": true,
+      "external_rights_review": {
+        "status": "approved_for_this_pilot",
+        "reviewed_at": "2026-05-21T00:06:00.000Z",
+        "reviewer_name": "ASL Pilot automated exact-file source-rights gate",
+        "reviewer_role": "machine-readable validation-only source, license, attribution, and provenance audit",
+        "is_project_operator": false,
+        "allowed_use_summary": "Wikimedia Commons exact files are approved for ASL Pilot raw-video reject-only negative challenge validation and pilot evidence with retained per-file provenance and attribution. They are not approved for model training or as a general source-family approval.",
+        "decision_scope": {
+          "allowed_for_model_training": false,
+          "allowed_for_validation": true,
+          "allowed_for_pilot_submission": true
+        },
+        "review_receipt": {
+          "path": "docs/research/wikimedia-commons-negative-challenge-external-rights-review-receipt.json",
+          "sha256": "fcb457e023d72c6cf4131a27734fd24ae6b877ac06506404c4face89c1094c55"
+        },
+        "license_evidence_files": [
+          {
+            "path": "docs/research/online-negative-challenge-mixed-source-audit.json",
+            "sha256": "0f22d08fba044d5eba1bd452f24ca2034d9ed856a67be1cd9e7f3a05c4993949"
+          },
+          {
+            "path": "docs/research/online-negative-challenge-mixed-source-review.md",
+            "sha256": "47974c86c86d3fbe5f964d5417b0e7a83ecc3294cb35ba17c2cdce6c9b54adc8"
+          }
+        ]
+      },
+      "source_evidence": [
+        {
+          "evidence_type": "exact_file_source_audit",
+          "path": "docs/research/online-negative-challenge-mixed-source-audit.json",
+          "sha256": "0f22d08fba044d5eba1bd452f24ca2034d9ed856a67be1cd9e7f3a05c4993949",
+          "checked_at": "2026-05-21T00:06:00.000Z",
+          "summary": "Exact selected file audit verifies source URLs, local SHA-256 hashes, accepted license/credit metadata, and validation-only scope for the mixed online negative challenge set.",
+          "supports_decision": true
+        },
+        {
+          "evidence_type": "approved_exact_file_source_review",
+          "path": "docs/research/online-negative-challenge-mixed-source-review.md",
+          "sha256": "47974c86c86d3fbe5f964d5417b0e7a83ecc3294cb35ba17c2cdce6c9b54adc8",
+          "checked_at": "2026-05-21T00:06:00.000Z",
+          "summary": "Engineering source review approves only the exact selected mixed-source raw videos for reject-only validation and pilot evidence.",
+          "supports_decision": true
+        },
+        {
+          "evidence_type": "upstream_reuse_guidance",
+          "url": "https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia/en",
+          "checked_at": "2026-05-21T00:06:00.000Z",
+          "summary": "Wikimedia Commons reuse guidance says each file's license or public-domain status governs reuse; selected files retain per-file license and attribution metadata.",
+          "supports_decision": true
+        }
+      ],
+      "restrictions": [
+        "approved only for negative-challenge validation and pilot evidence, not model training",
+        "approval is exact-file scoped to the retained SHA-256 hashes",
+        "must retain file-level source page URL, original file URL, author, credit, license short name, MIME type, and source SHA-256",
+        "derived pose, landmark, embedding, detector, feature, or pretrained artifacts are disallowed"
+      ],
+      "primary_source_url": "https://commons.wikimedia.org/"
+    },
+    {
+      "source_id": "cira-satellite-library-negative-challenge-videos",
+      "display_name": "CIRA Satellite Library",
+      "source_kind": "public_reference_dataset",
+      "allowed_for_model_training": false,
+      "allowed_for_validation": true,
+      "allowed_for_pilot_submission": true,
+      "license_review_status": "approved_validation_only_cira_noaa_credit_required",
+      "decision_id": "approved_cira_negative_challenge_exact_files_2026_05_21",
+      "review_required_before_allowing": true,
+      "external_rights_review": {
+        "status": "approved_for_this_pilot",
+        "reviewed_at": "2026-05-21T00:06:00.000Z",
+        "reviewer_name": "ASL Pilot automated exact-file source-rights gate",
+        "reviewer_role": "machine-readable validation-only source, license, attribution, and provenance audit",
+        "is_project_operator": false,
+        "allowed_use_summary": "CIRA Satellite Library exact files are approved for ASL Pilot raw-video reject-only negative challenge validation and pilot evidence with retained per-file provenance and attribution. They are not approved for model training or as a general source-family approval.",
+        "decision_scope": {
+          "allowed_for_model_training": false,
+          "allowed_for_validation": true,
+          "allowed_for_pilot_submission": true
+        },
+        "review_receipt": {
+          "path": "docs/research/cira-negative-challenge-external-rights-review-receipt.json",
+          "sha256": "3fbdbcddea5e0d280023c7ff7948cdc32c3509541eb93c05d0ea2c8b0e4595e2"
+        },
+        "license_evidence_files": [
+          {
+            "path": "docs/research/online-negative-challenge-mixed-source-audit.json",
+            "sha256": "0f22d08fba044d5eba1bd452f24ca2034d9ed856a67be1cd9e7f3a05c4993949"
+          },
+          {
+            "path": "docs/research/online-negative-challenge-mixed-source-review.md",
+            "sha256": "47974c86c86d3fbe5f964d5417b0e7a83ecc3294cb35ba17c2cdce6c9b54adc8"
+          }
+        ]
+      },
+      "source_evidence": [
+        {
+          "evidence_type": "exact_file_source_audit",
+          "path": "docs/research/online-negative-challenge-mixed-source-audit.json",
+          "sha256": "0f22d08fba044d5eba1bd452f24ca2034d9ed856a67be1cd9e7f3a05c4993949",
+          "checked_at": "2026-05-21T00:06:00.000Z",
+          "summary": "Exact selected file audit verifies source URLs, local SHA-256 hashes, accepted license/credit metadata, and validation-only scope for the mixed online negative challenge set.",
+          "supports_decision": true
+        },
+        {
+          "evidence_type": "approved_exact_file_source_review",
+          "path": "docs/research/online-negative-challenge-mixed-source-review.md",
+          "sha256": "47974c86c86d3fbe5f964d5417b0e7a83ecc3294cb35ba17c2cdce6c9b54adc8",
+          "checked_at": "2026-05-21T00:06:00.000Z",
+          "summary": "Engineering source review approves only the exact selected mixed-source raw videos for reject-only validation and pilot evidence.",
+          "supports_decision": true
+        },
+        {
+          "evidence_type": "upstream_credit_guidance",
+          "url": "https://satlib.cira.colostate.edu/credit-media/",
+          "checked_at": "2026-05-21T00:06:00.000Z",
+          "summary": "CIRA Satellite Library credit guidance requires satellite imagery credit; selected files retain CSU/CIRA and NOAA/NESDIS credit metadata.",
+          "supports_decision": true
+        }
+      ],
+      "restrictions": [
+        "approved only for negative-challenge validation and pilot evidence, not model training",
+        "approval is exact-file scoped to the retained SHA-256 hashes",
+        "must retain file-level source page URL, original file URL, author, credit, license short name, MIME type, and source SHA-256",
+        "derived pose, landmark, embedding, detector, feature, or pretrained artifacts are disallowed"
+      ],
+      "primary_source_url": "https://satlib.cira.colostate.edu/credit-media/"
+    },
+    {
+      "source_id": "internet-archive-negative-challenge-videos",
+      "display_name": "Internet Archive (Prelinger Archives) negative challenge videos",
+      "source_kind": "public_reference_dataset",
+      "allowed_for_model_training": false,
+      "allowed_for_validation": true,
+      "allowed_for_pilot_submission": true,
+      "license_review_status": "approved_validation_only_prelinger_public_domain_with_attribution",
+      "decision_id": "approved_internet_archive_negative_challenge_exact_files_2026_05_25",
+      "primary_source_url": "https://archive.org/details/prelinger",
+      "review_required_before_allowing": true,
+      "external_rights_review": {
+        "status": "approved_for_this_pilot",
+        "reviewed_at": "2026-05-25T02:25:00.000Z",
+        "reviewer_name": "ASL Pilot automated exact-file source-rights gate",
+        "reviewer_role": "machine-readable validation-only source, license, attribution, and provenance audit",
+        "is_project_operator": false,
+        "allowed_use_summary": "Internet Archive exact files from the Prelinger Archives collection are approved for ASL Pilot raw-video reject-only negative challenge validation and pilot evidence with retained per-file provenance and attribution. They are not approved for model training or as a general source-family approval. Approval is exact-file scoped to the 7 ia_identifier values listed in selected_files, each carrying a Creative Commons publicdomain licenseurl returned by the IA /metadata endpoint and a local SHA-256 whose locally computed MD5 matches the IA-supplied MD5.",
+        "decision_scope": {
+          "allowed_for_model_training": false,
+          "allowed_for_validation": true,
+          "allowed_for_pilot_submission": true
+        },
+        "review_receipt": {
+          "path": "docs/research/internet-archive-negative-challenge-external-rights-review-receipt.json",
+          "sha256": "19f7295a6dacf807f07312f1b8a9a933d12d2c47fd89b7d68544992f8121c034"
+        },
+        "license_evidence_files": [
+          {
+            "path": "docs/research/internet-archive-negative-challenge-source-review.md",
+            "sha256": "52ef191a5772067e46c0bd707b00c1d3cf91f5a4f49748f6f7e214ae6ca0f54f"
+          },
+          {
+            "path": "docs/research/internet-archive-negative-challenge-source-discovery.md",
+            "sha256": "d2764b9f6aa72c38d67d9ec00d606a4c74d0e1be64637958d5321052037b1e68"
+          }
+        ]
+      },
+      "source_evidence": [
+        {
+          "evidence_type": "exact_file_source_review",
+          "path": "docs/research/internet-archive-negative-challenge-source-review.md",
+          "sha256": "52ef191a5772067e46c0bd707b00c1d3cf91f5a4f49748f6f7e214ae6ca0f54f",
+          "checked_at": "2026-05-25T01:00:00.000Z",
+          "summary": "Per-item /metadata/<identifier> source review with licenseurl, contributor, raw-video derivative selection, and approval matrix for 7 approve_pending IA candidates covering hand_clap and hands_cropped_out.",
+          "supports_decision": true
+        },
+        {
+          "evidence_type": "source_family_discovery",
+          "path": "docs/research/internet-archive-negative-challenge-source-discovery.md",
+          "sha256": "d2764b9f6aa72c38d67d9ec00d606a4c74d0e1be64637958d5321052037b1e68",
+          "checked_at": "2026-05-25T00:30:00.000Z",
+          "summary": "Source-family triage and planning memo authorizing the Internet Archive Prelinger route under DECISIONS row #6 option (a-2) after Commons spare exhaustion.",
+          "supports_decision": true
+        },
+        {
+          "evidence_type": "upstream_collection_license_guidance",
+          "url": "https://archive.org/details/prelinger",
+          "checked_at": "2026-05-25T01:00:00.000Z",
+          "summary": "Internet Archive Prelinger Archives collection page documents the Public Domain Mark / CC publicdomain licenseurl convention used by the selected files; each selected file additionally carries an item-level licenseurl returned by /metadata.",
+          "supports_decision": true
+        }
+      ],
+      "restrictions": [
+        "approved only for negative-challenge validation and pilot evidence, not model training",
+        "approval is exact-file scoped to the 7 selected ia_identifier values with their IA-supplied MD5 and locally computed SHA-256",
+        "must retain file-level source page URL, original file URL, license URL, license short name, author, credit, IA-supplied MD5, and local SHA-256",
+        "derived pose, landmark, embedding, detector, feature, or pretrained artifacts are disallowed",
+        "manifest inclusion still requires contact-sheet / visual-observation evidence marking each candidate_id strong_visual_candidate before the clip enters data/manifests/negative-challenge.json",
+        "raw videos remain in data/external/internet-archive-negative-challenge-videos/raw/ and are not redistributed by this repo"
+      ],
+      "selected_files": [
+        {
+          "candidate_id": "internet-archive-hand-clap-01",
+          "challenge_type": "hand_clap",
+          "ia_identifier": "henry_wallace_speech",
+          "source_page_url": "https://archive.org/details/henry_wallace_speech",
+          "source_file_url": "https://archive.org/download/henry_wallace_speech/henry_wallace_speech.mp4",
+          "source_licenseurl": "http://creativecommons.org/licenses/publicdomain/",
+          "source_license_short_name": "Public domain",
+          "source_author": "William H. Pine",
+          "source_credit": "Henry Wallace Speech (1942); via Prelinger Archives, Internet Archive",
+          "source_provided_md5": "6e3f40a6de83e1e31e419a05f6c206ae",
+          "local_video_path": "data/external/internet-archive-negative-challenge-videos/raw/henry_wallace_speech.mp4",
+          "local_sha256": "b9893f09978636ed8b45464b6ac66b815627231b5290ca80d0fca29a77cde086"
+        },
+        {
+          "candidate_id": "internet-archive-hand-clap-02",
+          "challenge_type": "hand_clap",
+          "ia_identifier": "FreedomH1956",
+          "source_page_url": "https://archive.org/details/FreedomH1956",
+          "source_file_url": "https://archive.org/download/FreedomH1956/FreedomH1956.mp4",
+          "source_licenseurl": "http://creativecommons.org/licenses/publicdomain/",
+          "source_license_short_name": "Public domain",
+          "source_author": "Fairbanks (Jerry) Productions",
+          "source_credit": "Freedom Highway (Part I), 1956; sponsored by Greyhound Lines; via Prelinger Archives, Internet Archive",
+          "source_provided_md5": "27a8deebf36699c18b1c79138fef98a5",
+          "local_video_path": "data/external/internet-archive-negative-challenge-videos/raw/FreedomH1956.mp4",
+          "local_sha256": "6fe4401920b22b3d7edad58af267ffee0c425b5bb6d7f1dfbdf2345e773c0a89"
+        },
+        {
+          "candidate_id": "internet-archive-hands-cropped-out-01",
+          "challenge_type": "hands_cropped_out",
+          "ia_identifier": "DateWith1950",
+          "source_page_url": "https://archive.org/details/DateWith1950",
+          "source_file_url": "https://archive.org/download/DateWith1950/DateWith1950.mp4",
+          "source_licenseurl": "http://creativecommons.org/licenses/publicdomain/",
+          "source_license_short_name": "Public domain",
+          "source_author": "Simmel-Meservey",
+          "source_credit": "A Date With Your Family, 1950; via Prelinger Archives, Internet Archive",
+          "source_provided_md5": "82adfaa5f503c52df31bab3b4778150e",
+          "local_video_path": "data/external/internet-archive-negative-challenge-videos/raw/DateWith1950.mp4",
+          "local_sha256": "f71ac081289c7af571a0b288b206c9c32b3a45506a457f827a1ec38f00a05c44"
+        },
+        {
+          "candidate_id": "internet-archive-hands-cropped-out-02",
+          "challenge_type": "hands_cropped_out",
+          "ia_identifier": "DaysofOu1955",
+          "source_page_url": "https://archive.org/details/DaysofOu1955",
+          "source_file_url": "https://archive.org/download/DaysofOu1955/DaysofOu1955.mp4",
+          "source_licenseurl": "http://creativecommons.org/licenses/publicdomain/",
+          "source_license_short_name": "Public domain",
+          "source_author": "Dudley Pictures Corporation",
+          "source_credit": "Days of Our Years, 1955; sponsored by Union Pacific Railroad; via Prelinger Archives, Internet Archive",
+          "source_provided_md5": "3053681866a18cb83a19ce9afc8a35c4",
+          "local_video_path": "data/external/internet-archive-negative-challenge-videos/raw/DaysofOu1955.mp4",
+          "local_sha256": "788bb2b6a38bcbed727aefbe518f37c6520af283addc38b0fab0760c4dd292a5"
+        },
+        {
+          "candidate_id": "internet-archive-hands-cropped-out-03",
+          "challenge_type": "hands_cropped_out",
+          "ia_identifier": "DayCalle1955_2",
+          "source_page_url": "https://archive.org/details/DayCalle1955_2",
+          "source_file_url": "https://archive.org/download/DayCalle1955_2/DayCalle1955_2.mp4",
+          "source_licenseurl": "http://creativecommons.org/licenses/publicdomain/",
+          "source_license_short_name": "Public domain",
+          "source_author": "CBS Television Network",
+          "source_credit": "A Day Called X (Part II), ca. 1958; via Prelinger Archives, Internet Archive",
+          "source_provided_md5": "0a6c14a591ec4a8304106449fe74010a",
+          "local_video_path": "data/external/internet-archive-negative-challenge-videos/raw/DayCalle1955_2.mp4",
+          "local_sha256": "7c39b1c7d5f59612f3eac85c348277bb1e76299be08e8b62c9f55f344f6f0a54"
+        },
+        {
+          "candidate_id": "internet-archive-hands-cropped-out-04",
+          "challenge_type": "hands_cropped_out",
+          "ia_identifier": "Darkness1955",
+          "source_page_url": "https://archive.org/details/Darkness1955",
+          "source_file_url": "https://archive.org/download/Darkness1955/Darkness1955.mp4",
+          "source_licenseurl": "http://creativecommons.org/licenses/publicdomain/",
+          "source_license_short_name": "Public domain",
+          "source_author": "Pankan (Arnold)",
+          "source_credit": "Darkness Before the Dawn, ca. 1955; sponsored by Schermer (P.S.) & Co., Inc.; via Prelinger Archives, Internet Archive",
+          "source_provided_md5": "196886793021c23374b41700ba9bfe46",
+          "local_video_path": "data/external/internet-archive-negative-challenge-videos/raw/Darkness1955.mp4",
+          "local_sha256": "8f597f2ca924c3e3fb95ffa7e124cfc7cc0f4ad8a7f42a51f089136b17aa7cee"
+        },
+        {
+          "candidate_id": "internet-archive-hands-cropped-out-05",
+          "challenge_type": "hands_cropped_out",
+          "ia_identifier": "EskimosW1950",
+          "source_page_url": "https://archive.org/details/EskimosW1950",
+          "source_file_url": "https://archive.org/download/EskimosW1950/EskimosW1950.mp4",
+          "source_licenseurl": "http://creativecommons.org/licenses/publicdomain/",
+          "source_license_short_name": "Public domain",
+          "source_author": "Machetanz (Frederick and Sara)",
+          "source_credit": "Eskimos: Winter in Western Alaska, 1950; via Prelinger Archives, Internet Archive",
+          "source_provided_md5": "ec113ca6c152a7d3588eed9cf33aef8f",
+          "local_video_path": "data/external/internet-archive-negative-challenge-videos/raw/EskimosW1950.mp4",
+          "local_sha256": "344b911f40c45e667dcc02a230ee1cd7c7d4af6d6a5b6ad1099ebcdc5e7b93a3"
+        }
+      ]
+    }
+  ]
+}

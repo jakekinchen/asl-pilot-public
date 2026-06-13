@@ -1,0 +1,158 @@
+{
+  "schema_version": "asl-pilot-practice-camera-behavior-smoke/v1",
+  "status": "passed",
+  "tested_at": "2026-05-29T13:57:12.805Z",
+  "app_url": "http://127.0.0.1:63991",
+  "browser": {
+    "automation": "playwright",
+    "browser_name": "chromium",
+    "fake_media_device": true,
+    "permission_error_modes": [
+      "NotAllowedError",
+      "NotFoundError",
+      "unsupported mediaDevices"
+    ]
+  },
+  "checks": [
+    {
+      "id": "authenticated_practice_ui",
+      "label": "Authenticated practice UI shows prompt, camera state, controls, and empty progress",
+      "status": "passed",
+      "evidence": {
+        "prompt_visible": true,
+        "camera_idle_visible": true,
+        "start_camera_visible": true,
+        "next_prompt_visible": true,
+        "history_visible": true,
+        "empty_history_visible": true
+      },
+      "blockers": []
+    },
+    {
+      "id": "camera_success_attempt_result_and_progress",
+      "label": "Fake camera success path samples local frames, saves a fail-closed result, hint, and history",
+      "status": "passed",
+      "evidence": {
+        "camera_ready_text_visible": true,
+        "save_practice_action_visible": true,
+        "submit_attempt_action_visible": false,
+        "check_attempt_action_visible": false,
+        "result_visible": true,
+        "fail_closed_hint_visible": true,
+        "history_updated_visible": true
+      },
+      "blockers": []
+    },
+    {
+      "id": "next_prompt_action",
+      "label": "Next prompt action advances the learner to another ASL prompt",
+      "status": "passed",
+      "evidence": {
+        "previous_prompt_text": "Sign HELLO.",
+        "next_prompt_text_visible": "Sign BYE.",
+        "prompt_changed": true
+      },
+      "blockers": []
+    },
+    {
+      "id": "camera_denied",
+      "label": "Camera permission denial shows beginner-readable recovery copy",
+      "status": "passed",
+      "evidence": {
+        "expected_text_visible": "Camera permission was denied. Enable camera access to use the practice screen."
+      },
+      "blockers": []
+    },
+    {
+      "id": "camera_missing",
+      "label": "Missing camera device shows beginner-readable unavailable-copy",
+      "status": "passed",
+      "evidence": {
+        "expected_text_visible": "No camera was found on this device."
+      },
+      "blockers": []
+    },
+    {
+      "id": "camera_unsupported",
+      "label": "Unsupported browser camera API shows unsupported-copy without requesting media",
+      "status": "passed",
+      "evidence": {
+        "expected_text_visible": "This browser does not expose camera access for the practice screen."
+      },
+      "blockers": []
+    },
+    {
+      "id": "camera_generic_error",
+      "label": "Unexpected camera startup failure shows beginner-readable fallback copy",
+      "status": "passed",
+      "evidence": {
+        "expected_text_visible": "Camera could not start under the current browser/device settings."
+      },
+      "blockers": []
+    }
+  ],
+  "source_files": [
+    {
+      "path": "scripts/run_practice_camera_behavior_smoke.mjs",
+      "sha256": "17c8b1df1a45e72b4d9cc398de03f7b68513ae96a380e619759e255d48b26daa"
+    },
+    {
+      "path": "scripts/audit_practice_camera_behavior_smoke.mjs",
+      "sha256": "4c9ba28552fb955cb58a1230952379acc786470f8074aa398d7be2e8434d7b52"
+    },
+    {
+      "path": "web/src/components/PracticeApp.tsx",
+      "sha256": "c8672c59bedc350b744e03bccbf291d459135a8541e5034c828f01d4cb445c8f"
+    },
+    {
+      "path": "web/src/lib/client-model.ts",
+      "sha256": "0fa11430ed6cdd20076866b46c053178998a1052d761ae276b1307c58ab4ae27"
+    },
+    {
+      "path": "web/src/lib/server-store.ts",
+      "sha256": "5d5fea7e35f673cdbe55e85fe7808e526047f0c4f2d7c0132a96a8deb8aaac6a"
+    },
+    {
+      "path": "web/src/lib/vocabulary.ts",
+      "sha256": "65627ed252fa57da085883e2a188fc9779baaffc9a48d1fa0a8a3edbc0e65cf2"
+    },
+    {
+      "path": "web/public/model/model-card.json",
+      "sha256": "00328c469536d6230a3c43c521f8aad68dfc05ef21fc0c0ad4a92421b54f894a"
+    },
+    {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "sha256": "a8e269d0e79b50696c46bb728399acbf295c05c6ec962d6738c93f3a9bbc6546"
+    }
+  ],
+  "commands": [
+    "node scripts/run_practice_camera_behavior_smoke.mjs --write",
+    "GET http://127.0.0.1:63991",
+    "Playwright Chromium with --use-fake-device-for-media-stream and --use-fake-ui-for-media-stream"
+  ],
+  "blockers": [],
+  "evidence_notes": "Runtime smoke uses the real practice UI with an isolated temporary store. Fake media is used only to prove browser UI behavior; it is not model-training or ASL-recognition evidence.",
+  "server": {
+    "mode": "next_start",
+    "build_id_sha256": "7d182bfe72c86b581618f084d842c96f69c376c59a430d0d9fe095d7c5c36ac3",
+    "command": "ASL_PILOT_AUTH_PROVIDER=local ASL_PILOT_STORE_PATH=/var/folders/hm/6gd6d81d5wbfmk6j51dx894c0000gn/T/asl-pilot-camera-smoke-THD7Qx/store.json ENABLE_DATASET_COLLECTION=false NEXT_PUBLIC_ENABLE_DATASET_COLLECTION=false npm --prefix web run start -- --hostname 127.0.0.1 --port 63991",
+    "isolated_store": {
+      "env_var": "ASL_PILOT_STORE_PATH",
+      "path": "/var/folders/hm/6gd6d81d5wbfmk6j51dx894c0000gn/T/asl-pilot-camera-smoke-THD7Qx/store.json",
+      "existed_after_smoke": true,
+      "removed_after_run": true
+    },
+    "stdout_tail": [
+      "> web@0.1.0 start",
+      "> next start --hostname 127.0.0.1 --port 63991",
+      "",
+      "▲ Next.js 16.2.6",
+      "- Local:         http://127.0.0.1:63991",
+      "- Network:       http://127.0.0.1:63991",
+      "✓ Ready in 87ms"
+    ],
+    "stderr_tail": [
+      ""
+    ]
+  }
+}

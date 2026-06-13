@@ -1,0 +1,298 @@
+{
+  "schema_version": "asl-pilot-return-to-form-m3fv-composable-ml-strategy-no-spend/v1",
+  "mission": "M3FV - Composable ML strategy no spend",
+  "status": "completed_local_strategy_to_contract_artifact_no_spend_no_training",
+  "generated_at": "2026-05-29T03:38:28Z",
+  "current_commit": "cdc2bea supervisor: require concrete m3fv artifact",
+  "active_prompt": "docs/model/return-to-form-m3fv-composable-ml-strategy-no-spend-goal-loop-prompt.md",
+  "commands_run": [
+    {
+      "command": "sed -n '1,260p' GOAL.md",
+      "status": "passed",
+      "summary": "GOAL.md names Mission 3FV and the active M3FV prompt."
+    },
+    {
+      "command": "sed -n '1,260p' docs/model/return-to-form-m3fv-composable-ml-strategy-no-spend-goal-loop-prompt.md",
+      "status": "passed",
+      "summary": "Active prompt requires one local/no-spend/no-training strategy-to-experiment review plus one concrete tracked artifact."
+    },
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "## compound-plan-m0...origin/compound-plan-m0 [ahead 266] before M3FV edits."
+    },
+    {
+      "command": "git log -14 --oneline --decorate",
+      "status": "passed",
+      "summary": "HEAD was cdc2bea supervisor: require concrete m3fv artifact."
+    },
+    {
+      "command": "node scripts/audit_loop_premise.mjs --json",
+      "status": "passed",
+      "summary": "No loop premise blockers."
+    },
+    {
+      "command": "node scripts/audit_return_to_form_plan.mjs --json",
+      "status": "passed",
+      "summary": "GOAL.md points at M3FV; return-to-form plan checks passed."
+    },
+    {
+      "command": "node scripts/audit_source_register.mjs",
+      "status": "passed",
+      "summary": "Source register exists with source_count 12 and sha256 b02c73fce978b348166df54080541851612445ecd9d01e83bed0a9538620b8e8."
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_deps.mjs",
+      "status": "passed",
+      "summary": "No banned pretrained-CV dependencies or source imports found."
+    },
+    {
+      "command": "node scripts/audit_no_pretrained_artifact_json.mjs",
+      "status": "passed",
+      "summary": "No banned pretrained artifact JSON findings."
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/model-card.json >/dev/null",
+      "status": "passed",
+      "summary": "model-card JSON parsed."
+    },
+    {
+      "command": "python3 -m json.tool web/public/model/detector0-card.json >/dev/null",
+      "status": "passed",
+      "summary": "detector0-card JSON parsed."
+    },
+    {
+      "command": "python3 -m json.tool docs/model/active-vocabulary-claim.json >/dev/null",
+      "status": "passed",
+      "summary": "active-vocabulary claim JSON parsed."
+    },
+    {
+      "command": "brev ls --json",
+      "status": "passed",
+      "summary": "Retained L40S worker is STOPPED / COMPLETED / NOT READY / HEALTHY."
+    },
+    {
+      "command": "node scripts/audit_codex_pair_state.mjs --json",
+      "status": "warning",
+      "summary": "Pair audit warned about missing .codex executor/observer marker files; repo was clean, active prompt was M3FV, and a supervisor process was present."
+    },
+    {
+      "command": "python3 -m json.tool docs/model/return-to-form-m3fv-tiny2-tiny3-architecture-objective-sanity-contract-v1.json >/dev/null",
+      "status": "passed",
+      "summary": "M3FV contract artifact JSON parsed."
+    },
+    {
+      "command": "python3 -m json.tool docs/validation/return-to-form-m3fv-composable-ml-strategy-no-spend-v1.json >/dev/null",
+      "status": "passed",
+      "summary": "M3FV receipt JSON parsed."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "summary": "No whitespace errors after M3FV edits."
+    }
+  ],
+  "read_only_brev_default_off_state": {
+    "command": "brev ls --json",
+    "lifecycle_command_run": false,
+    "remote_command_run": false,
+    "spent_money_this_slice": false,
+    "workspaces": [
+      {
+        "name": "asl-pilot-m3eh-l40s-001",
+        "id": "3d58wpy9o",
+        "status": "STOPPED",
+        "build_status": "COMPLETED",
+        "shell_status": "NOT READY",
+        "health_status": "HEALTHY",
+        "instance_type": "l40s-48gb.1x",
+        "instance_kind": "gpu",
+        "gpu": "L40S"
+      }
+    ]
+  },
+  "claim_surface_status": {
+    "fail_closed": true,
+    "model_card": {
+      "path": "web/public/model/model-card.json",
+      "status": "not_trained",
+      "model_id": "asl-pilot-rawframe-v0"
+    },
+    "detector0_card": {
+      "path": "web/public/model/detector0-card.json",
+      "status": "not_trained",
+      "promotion_state": "research_only",
+      "browser_artifact": null,
+      "runtime_gates": {
+        "detector0_tracking": false,
+        "box_driven_avatar": false,
+        "recognition_pass_fail": false
+      }
+    },
+    "active_vocabulary_claim": {
+      "path": "docs/model/active-vocabulary-claim.json",
+      "modelVersion": "rawframe-not-trained",
+      "activeLabels": []
+    },
+    "claim_matrix": {
+      "path": "web/public/model/claim-matrix.json",
+      "status": "no_active_claim_rawframe_not_trained"
+    },
+    "final_claim_matrix": {
+      "path": "docs/validation/final-claim-matrix.json",
+      "status": "no_active_claim_rawframe_not_trained"
+    }
+  },
+  "m3fu_conclusion_and_strategy_resolution": {
+    "m3fu_receipt": "docs/validation/return-to-form-m3fu-dataset-training-root-cause-no-spend-v1.json",
+    "m3fu_leading_blocker": "no_single_local_repair_found",
+    "m3fu_dominant_hypothesis": "model_objective_or_architecture_blocker_with_crop_representation_as_secondary_hypothesis",
+    "how_m3fv_resolves_human_strategy_decision": "Continue ML investigation without broad recognizer retries by converting the M3FU stop into a concrete Tiny2/Tiny3 architecture/objective contract that a later local/no-spend executor can implement."
+  },
+  "composable_subproblem_decision_table": [
+    {
+      "route": "source/media",
+      "options_considered": [
+        "PopSign",
+        "ASL Citizen",
+        "SemLex/ASL-LEX",
+        "first-party"
+      ],
+      "finding": "PopSign and ASL Citizen have approved local routes, while SemLex/ASL-LEX is blocked or absent for training use and first-party expansion requires human collection/annotation.",
+      "selected": "ASL Citizen high-signal region-grid as the tiny contract evidence base",
+      "why": "It already has Tiny2/Tiny3 labels, signer-disjoint manifests, local tensors, and M3EK/M3EM evidence that isolates class collapse without starting a broad Fresh5/25/75/95-label run."
+    },
+    {
+      "route": "label",
+      "options_considered": [
+        "gloss",
+        "handshape",
+        "location",
+        "movement",
+        "NMM",
+        "boxes",
+        "landmarks",
+        "hard negatives"
+      ],
+      "finding": "Only gloss labels and existing region-grid tensors are locally ready without importing sources, mutating manifests, or introducing generated/pretrained label paths.",
+      "selected": "Tiny2 gloss labels table/hello with black reserved only after Tiny2 passes",
+      "why": "This keeps the proof deliberately separable and prevents label expansion from hiding the M3EM class-collapse failure."
+    },
+    {
+      "route": "input",
+      "options_considered": [
+        "fixed crops",
+        "detector crops",
+        "union/contact-region crops",
+        "full-frame context",
+        "motion-energy scalars"
+      ],
+      "finding": "Detector 0 and strict-gate crop evidence remain diagnostic only; M3EM already exposed collapse on rgb_regions_grid_v1.",
+      "selected": "Keep rgb_regions_grid_v1 for the next objective sanity contract",
+      "why": "Changing crop/input and architecture together would make the next failure hard to interpret. The next proof should first test whether the existing region-grid objective can produce non-collapsed held-out Tiny2 signal."
+    },
+    {
+      "route": "model/objective",
+      "options_considered": [
+        "tiny CNN",
+        "TCN",
+        "GRU",
+        "MLP sanity",
+        "frozen embeddings",
+        "auxiliary phonology heads",
+        "abstention"
+      ],
+      "finding": "Frozen embeddings and pretrained feature paths are forbidden; broad architecture search is out of scope. Existing from-scratch region-grid paths can be contracted into one local objective sanity proof.",
+      "selected": "architecture_objective_sanity",
+      "why": "The repeated failure mode is train fit with held-out collapse. The next useful artifact is a pass/fail contract that treats single-class held-out predictions as failure even when train accuracy passes."
+    },
+    {
+      "route": "evaluation",
+      "options_considered": [
+        "train sanity",
+        "signer-disjoint validation",
+        "hard-negative false accept",
+        "calibration"
+      ],
+      "finding": "Final calibration and hard-negative gates remain promotion blockers, but they cannot rescue a classifier with chance held-out Tiny2 behavior.",
+      "selected": "train sanity plus signer-disjoint held-out noncollapse gates",
+      "why": "This catches class-collapse false progress before any final-threshold or product-readiness path."
+    },
+    {
+      "route": "compute",
+      "options_considered": [
+        "local-only",
+        "future Brev micro-experiment"
+      ],
+      "finding": "Brev is stopped and M3FV max spend is $0. Prior paid runs proved the worker can run but did not produce promotable quality.",
+      "selected": "local-only contract; no future compute receipt in this slice",
+      "why": "A GPU receipt would be premature until a local Tiny2/Tiny3 objective proof is stated and accepted."
+    }
+  ],
+  "selected_artifact": {
+    "lane": "architecture_objective_sanity",
+    "paths": [
+      "docs/model/return-to-form-m3fv-tiny2-tiny3-architecture-objective-sanity-contract-v1.json"
+    ],
+    "status": "created",
+    "summary": "Contract-only Tiny2/Tiny3 architecture/objective sanity artifact with entry gates, candidate labels, future runner path, false-progress controls, pass/fail gates, and explicit non-authorizations."
+  },
+  "rejected_next_actions": [
+    {
+      "action": "continue_subtask_label_inventory_no_spend",
+      "reason": "M3EK already provides a useful Tiny2/Tiny3 source/label inventory; repeating it would be less useful than converting it into an objective contract."
+    },
+    {
+      "action": "continue_crop_target_schema_contract_no_spend",
+      "reason": "Crop representation is plausible, but changing input/crop now would obscure whether the current region-grid objective can avoid Tiny2 class collapse."
+    },
+    {
+      "action": "prepare_bounded_composable_brev_microexperiment_receipt_for_human_approval",
+      "reason": "M3FV is max spend $0, Brev is stopped, and a compute receipt is premature before the local objective proof is contracted."
+    },
+    {
+      "action": "continue_first_party_annotation_protocol_no_spend",
+      "reason": "First-party annotation may matter later, but the current local evidence can still define a smaller falsifiable architecture/objective proof."
+    },
+    {
+      "action": "stop_for_human_ml_strategy_choice",
+      "reason": "The latest human strategy choice already resolved M3FU STOP by directing continued ML work through a composable no-spend artifact."
+    }
+  ],
+  "selected_next_action": "continue_architecture_objective_sanity_contract_no_spend",
+  "why_selected_next_action_is_smallest_useful_next_move": "The new contract gives the next executor a concrete local no-spend Tiny2/Tiny3 proof to implement, with class-collapse failure conditions and without authorizing GPU spend, source mutation, broad training, export, promotion, or browser activation.",
+  "future_compute_receipt": {
+    "recommended_now": false,
+    "max_spend_usd_proposal": null,
+    "not_authorized_to_run": true,
+    "reason": "No Brev or local training run is authorized by M3FV; compute should wait until the contracted local proof is implemented and reviewed."
+  },
+  "forbidden_actions_statement": "No training, fitting, evaluator rerun, smoke rerun, checkpoint creation, Brev lifecycle/exec/sync/copy/stop/spend, remote command, source/media import, source-register edit, manifest/tensor/packet/vocabulary mutation, export, promotion, browser activation, model-card promotion, active-vocabulary promotion, push, final-gate change, Detector 0/browser/ASL correctness authority claim, trainability claim, or final-readiness claim occurred.",
+  "forbidden_actions_proof": {
+    "training_or_fitting": false,
+    "evaluator_rerun": false,
+    "smoke_rerun": false,
+    "checkpoint_creation": false,
+    "brev_lifecycle_exec_sync_copy_stop_or_spend": false,
+    "remote_command": false,
+    "source_register_edit": false,
+    "source_media_import": false,
+    "manifest_tensor_packet_vocabulary_mutation": false,
+    "export_or_promotion": false,
+    "model_card_or_active_vocabulary_promotion": false,
+    "browser_recognition_activation": false,
+    "runtime_detector0_authority_claim": false,
+    "final_gate_change": false,
+    "unsupported_correctness_or_readiness_claim": false,
+    "push": false,
+    "amend_or_no_verify": false
+  },
+  "pretrained_components": [],
+  "changed_files": [
+    "docs/model/return-to-form-m3fv-tiny2-tiny3-architecture-objective-sanity-contract-v1.json",
+    "docs/validation/return-to-form-m3fv-composable-ml-strategy-no-spend-v1.json",
+    "docs/session-logs/602-mission-3fv-composable-ml-strategy-no-spend.md"
+  ],
+  "exactly_one_next_action": "continue_architecture_objective_sanity_contract_no_spend",
+  "next_action": "continue_architecture_objective_sanity_contract_no_spend"
+}

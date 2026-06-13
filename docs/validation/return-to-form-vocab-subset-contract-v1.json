@@ -1,0 +1,1022 @@
+{
+  "active_prompt": "docs/model/return-to-form-vocab-subset-contract-goal-loop-prompt.md",
+  "blocked_actions_requiring_human_approval": [
+    "Brev login, worker inspection, worker lifecycle changes, or paid compute without a compute-receipt prompt",
+    "any training run, model fitting, optimizer/backward pass, checkpoint creation, or sweep",
+    "source import, source approval expansion, generated pseudo-labels, or manual annotation/data collection",
+    "manifest or tensor mutation",
+    "Detector 0 or landmark revival",
+    "ONNX export, model-card promotion, browser trained activation, final-readiness claim, or final-gate changes",
+    "product-runtime implementation changes",
+    "push"
+  ],
+  "candidate_subset": {
+    "excluded_labels": [
+      {
+        "decision": "hold",
+        "label_id": "table",
+        "why_excluded": "M3BA held this label before training, and M3BC preserves that hold because the held-out recognizer never predicted it on both splits or left crop/region drift unresolved."
+      },
+      {
+        "decision": "hold",
+        "label_id": "please",
+        "why_excluded": "M3BA held this label before training, and M3BC preserves that hold because the held-out recognizer never predicted it on both splits or left crop/region drift unresolved."
+      },
+      {
+        "decision": "defer",
+        "label_id": "black",
+        "why_excluded": "The label has some held-out prediction signal, but crop/region drift or targeted repair gates remain unresolved, so it is deferred rather than retained."
+      },
+      {
+        "decision": "defer",
+        "label_id": "hello",
+        "why_excluded": "The label has some held-out prediction signal, but crop/region drift or targeted repair gates remain unresolved, so it is deferred rather than retained."
+      },
+      {
+        "decision": "repair",
+        "label_id": "uncle",
+        "why_excluded": "The label has zero-recall failure on both held-out splits and remains repair-required before any subset can train on it."
+      },
+      {
+        "decision": "hold",
+        "label_id": "white",
+        "why_excluded": "M3BA held this label before training, and M3BC preserves that hold because the held-out recognizer never predicted it on both splits or left crop/region drift unresolved."
+      },
+      {
+        "decision": "hold",
+        "label_id": "sad",
+        "why_excluded": "M3BA held this label before training, and M3BC preserves that hold because the held-out recognizer never predicted it on both splits or left crop/region drift unresolved."
+      }
+    ],
+    "paid_microexperiment_supported_now": false,
+    "rationale": "No high-signal label clears the M3BA/M3BB gates yet; a training or paid Brev prompt would hide unresolved label/crop/data-quality failures.",
+    "retained_labels": [],
+    "smallest_honest_candidate_subset": [],
+    "status": "none_currently_training_ready",
+    "training_worthy_subset_identified": false
+  },
+  "commands": {
+    "contract_generation": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/audit_high_signal_vocab_subset_contract.py",
+      "--receipt",
+      "docs/validation/return-to-form-vocab-subset-contract-v1.json",
+      "--write-receipt"
+    ],
+    "json_validation": [
+      [
+        "python3",
+        "-m",
+        "json.tool",
+        "docs/validation/return-to-form-vocab-subset-contract-v1.json"
+      ]
+    ],
+    "required_audits": [
+      [
+        "node",
+        "scripts/audit_loop_premise.mjs",
+        "--json"
+      ],
+      [
+        "node",
+        "scripts/audit_return_to_form_plan.mjs",
+        "--json"
+      ],
+      [
+        "node",
+        "scripts/audit_no_pretrained_deps.mjs"
+      ],
+      [
+        "node",
+        "scripts/audit_no_pretrained_artifact_json.mjs"
+      ],
+      [
+        "python3",
+        "-m",
+        "py_compile",
+        "scripts/train_rawframe_model.py",
+        "scripts/evaluate_rawframe_model.py",
+        "scripts/compile_true_tcn_architecture.py",
+        "scripts/run_region_grid_tcn_tiny_overfit.py",
+        "scripts/diagnose_vocab_crop_separability.py",
+        "scripts/design_vocab_crop_remediation.py",
+        "scripts/audit_high_signal_split_signer_contract.py",
+        "scripts/audit_high_signal_crop_region_contract.py",
+        "scripts/audit_high_signal_vocab_subset_contract.py"
+      ],
+      [
+        "git",
+        "diff",
+        "--check"
+      ]
+    ]
+  },
+  "contract_conclusions": [
+    "No high-signal label currently clears all M3BA and M3BB gates for training.",
+    "M3AX tiny memorization remains useful input/model-path evidence but does not make any label held-out-ready.",
+    "A paid Brev micro-experiment is not supported until a nonempty retained subset exists and a compute receipt is active.",
+    "The browser model remains fail-closed and not_trained; this receipt is not promotion or readiness evidence.",
+    "The single next action is continue_no_training_data_quality_contract_scaffold."
+  ],
+  "exactly_one_next_action": "continue_no_training_data_quality_contract_scaffold",
+  "generated_at": "2026-05-27T12:44:50.907287+00:00",
+  "generated_by": {
+    "command": [
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python",
+      "scripts/audit_high_signal_vocab_subset_contract.py",
+      "--receipt",
+      "docs/validation/return-to-form-vocab-subset-contract-v1.json",
+      "--write-receipt"
+    ],
+    "script": {
+      "path": "scripts/audit_high_signal_vocab_subset_contract.py",
+      "sha256": "d0aab703f3d8562d6747b136735f4675f928279c51572c7e84dc7278374c2f73"
+    },
+    "tool": "scripts/audit_high_signal_vocab_subset_contract.py"
+  },
+  "guardrails": {
+    "brev_used": false,
+    "browser_or_final_claims_changed": false,
+    "external_media_imported": false,
+    "final_gates_changed": false,
+    "manifest_or_tensor_mutated": false,
+    "model_exported": false,
+    "model_promoted": false,
+    "non_promotion": "This vocabulary subset contract is not training, calibration, export, browser activation, final readiness, or evidence that the M3AW recognizer generalizes. The browser model remains not_trained/fail-closed.",
+    "paid_compute_used": false,
+    "pretrained_components": [],
+    "product_runtime_changed": false,
+    "pseudo_labels_generated": false
+  },
+  "input_artifacts": [
+    {
+      "path": "docs/validation/return-to-form-crop-region-contract-v1.json",
+      "sha256": "fdd802cf883f746c31e2e5505fc4827210b1b1ee30ea9f61ef677afc11dcacac"
+    },
+    {
+      "path": "docs/session-logs/334-mission-3bb-crop-region-contract.md",
+      "sha256": "031b49692e5b29b3e014767c7666152387299bbeae0559671a1501350c57f783"
+    },
+    {
+      "path": "docs/validation/return-to-form-split-signer-contract-v1.json",
+      "sha256": "b774eea643a23faee6958475b87117c8d09dfa96b0ce10becf99270808132c06"
+    },
+    {
+      "path": "docs/validation/return-to-form-vocab-crop-remediation-design-v1.json",
+      "sha256": "987502bbbcd42d941c1c70462acdb148044233199fcce2832dde54b9317aa844"
+    },
+    {
+      "path": "docs/validation/return-to-form-vocab-crop-separability-diagnosis-v1.json",
+      "sha256": "6b6f507a5285083fdc6bb7f56e0d419d8e92bc33f8fc4d061c0649c67642f793"
+    },
+    {
+      "path": "docs/validation/return-to-form-region-grid-tcn-local-smoke-v1.json",
+      "sha256": "07497e1a9b205b671c7ea85183778aac1167cb8f8f0eb34b5126f15ca2e1467b"
+    },
+    {
+      "path": "docs/validation/return-to-form-region-grid-tcn-tiny-overfit-v1.json",
+      "sha256": "18f8ddddd98b87ac3af8050f696468a49aa89c27ab2d924d8a706345ddc974fc"
+    },
+    {
+      "path": "output/m3aw-region-grid-tcn-local-smoke/validation-report.json",
+      "sha256": "4747f634acb32812ed3c3600cf84b0d32967ea48450f5218b292561b1c10e9e4"
+    },
+    {
+      "path": "output/m3aw-region-grid-tcn-local-smoke/prediction-sidecar.json",
+      "sha256": "4dfd629ea0e440574497c2488e72622b764b6beb244f83dcba3943a8bdaea12c"
+    },
+    {
+      "path": "data/manifests/lesson/high-signal-region-grid/train.json",
+      "sha256": "101455329ae04ad06a2c3fd4ca26a29c04ae945bb7925bee373cf3229594fc3d"
+    },
+    {
+      "path": "data/manifests/lesson/high-signal-region-grid/validation.json",
+      "sha256": "16a4a64a8fd48a1384c4cfd2e01dddcaa45fb3b1f0588af9ec66f96668cc3a53"
+    },
+    {
+      "path": "data/manifests/lesson/high-signal-region-grid/test.json",
+      "sha256": "5a315d49438242febb410287c4ff235ae8cd269a5aba5c3cf550950bae0359f8"
+    }
+  ],
+  "method": {
+    "brev_used": false,
+    "browser_or_final_claim_changed": false,
+    "description": "Loaded existing receipts, reports, sidecars, and manifests; summarized per-label support; combined M3BA/M3BB/M3AY failure states into deterministic vocabulary subset decisions.",
+    "manifest_or_tensor_mutated": false,
+    "model_loaded_or_checkpoint_created": false,
+    "optimizer_or_backward_used": false,
+    "product_runtime_changed": false,
+    "source_imported": false,
+    "training_or_fitting_performed": false
+  },
+  "minimum_gates_before_future_training": [
+    {
+      "gate": "candidate_subset_nonempty",
+      "requirement": "At least two labels should clear hold/repair/defer gates before any recognizer training prompt.",
+      "status": "failed_current_contract"
+    },
+    {
+      "gate": "held_label_repair_or_drop_policy",
+      "requirement": "A data-quality or label-repair contract must decide whether held labels remain held, are repaired from existing evidence, or are explicitly dropped from the next product/training scope.",
+      "status": "required_next"
+    },
+    {
+      "gate": "signer_disjoint_evaluation_language",
+      "requirement": "Any future subset must continue to label validation/test as signer-disjoint diagnostics, not promotion evidence.",
+      "status": "passed_current_contract"
+    },
+    {
+      "gate": "compute_receipt_before_brev",
+      "requirement": "Paid Brev work requires a nonempty training-worthy subset plus an active bounded compute-receipt prompt with worker, price, command, runtime, spend, kill-condition, and teardown details.",
+      "status": "blocked_until_training_worthy_subset"
+    }
+  ],
+  "mission": "M3BC",
+  "per_label_subset_decisions": [
+    {
+      "candidate_training_ready": false,
+      "decision": "hold",
+      "drift_failure_splits": [
+        "validation"
+      ],
+      "drop_recommended": false,
+      "label_id": "table",
+      "m3ba_decision": "hold_and_repair_before_next_training",
+      "m3bb_crop_region_status": "held_not_training_ready",
+      "prediction_facts": {
+        "test_never_predicted": true,
+        "test_predicted_count": 0,
+        "test_true_count": 4,
+        "test_zero_recall": true,
+        "validation_never_predicted": true,
+        "validation_predicted_count": 0,
+        "validation_true_count": 4,
+        "validation_zero_recall": true
+      },
+      "rationale": "M3BA held this label before training, and M3BC preserves that hold because the held-out recognizer never predicted it on both splits or left crop/region drift unresolved.",
+      "reasons": [
+        "never_predicted_validation",
+        "never_predicted_test",
+        "zero_recall_validation",
+        "zero_recall_test",
+        "crop_stat_drift_validation"
+      ]
+    },
+    {
+      "candidate_training_ready": false,
+      "decision": "hold",
+      "drift_failure_splits": [
+        "test",
+        "validation"
+      ],
+      "drop_recommended": false,
+      "label_id": "please",
+      "m3ba_decision": "hold_and_repair_before_next_training",
+      "m3bb_crop_region_status": "held_not_training_ready",
+      "prediction_facts": {
+        "test_never_predicted": true,
+        "test_predicted_count": 0,
+        "test_true_count": 4,
+        "test_zero_recall": true,
+        "validation_never_predicted": true,
+        "validation_predicted_count": 0,
+        "validation_true_count": 4,
+        "validation_zero_recall": true
+      },
+      "rationale": "M3BA held this label before training, and M3BC preserves that hold because the held-out recognizer never predicted it on both splits or left crop/region drift unresolved.",
+      "reasons": [
+        "never_predicted_validation",
+        "never_predicted_test",
+        "zero_recall_validation",
+        "zero_recall_test",
+        "crop_stat_drift_test_and_validation"
+      ]
+    },
+    {
+      "candidate_training_ready": false,
+      "decision": "defer",
+      "drift_failure_splits": [
+        "test"
+      ],
+      "drop_recommended": false,
+      "label_id": "black",
+      "m3ba_decision": "retain_with_targeted_repair_gate",
+      "m3bb_crop_region_status": "crop_region_gate_required_not_training_ready",
+      "prediction_facts": {
+        "test_never_predicted": false,
+        "test_predicted_count": 11,
+        "test_true_count": 4,
+        "test_zero_recall": false,
+        "validation_never_predicted": false,
+        "validation_predicted_count": 7,
+        "validation_true_count": 4,
+        "validation_zero_recall": true
+      },
+      "rationale": "The label has some held-out prediction signal, but crop/region drift or targeted repair gates remain unresolved, so it is deferred rather than retained.",
+      "reasons": [
+        "zero_recall_validation",
+        "crop_stat_drift_test"
+      ]
+    },
+    {
+      "candidate_training_ready": false,
+      "decision": "defer",
+      "drift_failure_splits": [
+        "test",
+        "validation"
+      ],
+      "drop_recommended": false,
+      "label_id": "hello",
+      "m3ba_decision": "retain_with_crop_region_gate",
+      "m3bb_crop_region_status": "crop_region_gate_required_not_training_ready",
+      "prediction_facts": {
+        "test_never_predicted": false,
+        "test_predicted_count": 12,
+        "test_true_count": 4,
+        "test_zero_recall": false,
+        "validation_never_predicted": false,
+        "validation_predicted_count": 15,
+        "validation_true_count": 4,
+        "validation_zero_recall": false
+      },
+      "rationale": "The label has some held-out prediction signal, but crop/region drift or targeted repair gates remain unresolved, so it is deferred rather than retained.",
+      "reasons": [
+        "crop_stat_drift_test_and_validation"
+      ]
+    },
+    {
+      "candidate_training_ready": false,
+      "decision": "repair",
+      "drift_failure_splits": [
+        "test"
+      ],
+      "drop_recommended": false,
+      "label_id": "uncle",
+      "m3ba_decision": "repair_before_next_training",
+      "m3bb_crop_region_status": "repair_required_not_training_ready",
+      "prediction_facts": {
+        "test_never_predicted": false,
+        "test_predicted_count": 5,
+        "test_true_count": 4,
+        "test_zero_recall": true,
+        "validation_never_predicted": false,
+        "validation_predicted_count": 5,
+        "validation_true_count": 3,
+        "validation_zero_recall": true
+      },
+      "rationale": "The label has zero-recall failure on both held-out splits and remains repair-required before any subset can train on it.",
+      "reasons": [
+        "zero_recall_validation",
+        "zero_recall_test",
+        "crop_stat_drift_test"
+      ]
+    },
+    {
+      "candidate_training_ready": false,
+      "decision": "hold",
+      "drift_failure_splits": [
+        "validation"
+      ],
+      "drop_recommended": false,
+      "label_id": "white",
+      "m3ba_decision": "hold_and_repair_before_next_training",
+      "m3bb_crop_region_status": "held_not_training_ready",
+      "prediction_facts": {
+        "test_never_predicted": true,
+        "test_predicted_count": 0,
+        "test_true_count": 4,
+        "test_zero_recall": true,
+        "validation_never_predicted": true,
+        "validation_predicted_count": 0,
+        "validation_true_count": 4,
+        "validation_zero_recall": true
+      },
+      "rationale": "M3BA held this label before training, and M3BC preserves that hold because the held-out recognizer never predicted it on both splits or left crop/region drift unresolved.",
+      "reasons": [
+        "never_predicted_validation",
+        "never_predicted_test",
+        "zero_recall_validation",
+        "zero_recall_test",
+        "crop_stat_drift_validation"
+      ]
+    },
+    {
+      "candidate_training_ready": false,
+      "decision": "hold",
+      "drift_failure_splits": [
+        "test",
+        "validation"
+      ],
+      "drop_recommended": false,
+      "label_id": "sad",
+      "m3ba_decision": "hold_and_repair_before_next_training",
+      "m3bb_crop_region_status": "held_not_training_ready",
+      "prediction_facts": {
+        "test_never_predicted": true,
+        "test_predicted_count": 0,
+        "test_true_count": 4,
+        "test_zero_recall": true,
+        "validation_never_predicted": true,
+        "validation_predicted_count": 0,
+        "validation_true_count": 4,
+        "validation_zero_recall": true
+      },
+      "rationale": "M3BA held this label before training, and M3BC preserves that hold because the held-out recognizer never predicted it on both splits or left crop/region drift unresolved.",
+      "reasons": [
+        "never_predicted_validation",
+        "never_predicted_test",
+        "zero_recall_validation",
+        "zero_recall_test",
+        "crop_stat_drift_test_and_validation"
+      ]
+    }
+  ],
+  "per_label_support": {
+    "black": {
+      "signer_disjoint_implications": {
+        "diagnostic_target": "signer_disjoint",
+        "train_test_overlap": [],
+        "train_validation_overlap": [],
+        "training_implication": "Any future training/evaluation claim for this label must be judged as signer-disjoint generalization, not signer-overlap memorization.",
+        "validation_test_overlap": []
+      },
+      "splits": {
+        "test": {
+          "clip_count": 4,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P17": 1,
+            "asl-citizen-participant-P22": 1,
+            "asl-citizen-participant-P49": 1,
+            "asl-citizen-participant-P6": 1
+          },
+          "signer_count": 4,
+          "signer_ids": [
+            "asl-citizen-participant-P17",
+            "asl-citizen-participant-P22",
+            "asl-citizen-participant-P49",
+            "asl-citizen-participant-P6"
+          ],
+          "source_record_count": 4
+        },
+        "train": {
+          "clip_count": 12,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P11": 1,
+            "asl-citizen-participant-P14": 1,
+            "asl-citizen-participant-P16": 1,
+            "asl-citizen-participant-P27": 1,
+            "asl-citizen-participant-P29": 1,
+            "asl-citizen-participant-P30": 1,
+            "asl-citizen-participant-P31": 1,
+            "asl-citizen-participant-P37": 1,
+            "asl-citizen-participant-P4": 1,
+            "asl-citizen-participant-P40": 1,
+            "asl-citizen-participant-P50": 1,
+            "asl-citizen-participant-P7": 1
+          },
+          "signer_count": 12,
+          "signer_ids": [
+            "asl-citizen-participant-P11",
+            "asl-citizen-participant-P14",
+            "asl-citizen-participant-P16",
+            "asl-citizen-participant-P27",
+            "asl-citizen-participant-P29",
+            "asl-citizen-participant-P30",
+            "asl-citizen-participant-P31",
+            "asl-citizen-participant-P37",
+            "asl-citizen-participant-P4",
+            "asl-citizen-participant-P40",
+            "asl-citizen-participant-P50",
+            "asl-citizen-participant-P7"
+          ],
+          "source_record_count": 12
+        },
+        "validation": {
+          "clip_count": 4,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P12": 1,
+            "asl-citizen-participant-P21": 1,
+            "asl-citizen-participant-P26": 1,
+            "asl-citizen-participant-P39": 1
+          },
+          "signer_count": 4,
+          "signer_ids": [
+            "asl-citizen-participant-P12",
+            "asl-citizen-participant-P21",
+            "asl-citizen-participant-P26",
+            "asl-citizen-participant-P39"
+          ],
+          "source_record_count": 4
+        }
+      }
+    },
+    "hello": {
+      "signer_disjoint_implications": {
+        "diagnostic_target": "signer_disjoint",
+        "train_test_overlap": [],
+        "train_validation_overlap": [],
+        "training_implication": "Any future training/evaluation claim for this label must be judged as signer-disjoint generalization, not signer-overlap memorization.",
+        "validation_test_overlap": []
+      },
+      "splits": {
+        "test": {
+          "clip_count": 4,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P17": 1,
+            "asl-citizen-participant-P22": 1,
+            "asl-citizen-participant-P49": 1,
+            "asl-citizen-participant-P6": 1
+          },
+          "signer_count": 4,
+          "signer_ids": [
+            "asl-citizen-participant-P17",
+            "asl-citizen-participant-P22",
+            "asl-citizen-participant-P49",
+            "asl-citizen-participant-P6"
+          ],
+          "source_record_count": 4
+        },
+        "train": {
+          "clip_count": 12,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P11": 1,
+            "asl-citizen-participant-P16": 1,
+            "asl-citizen-participant-P27": 1,
+            "asl-citizen-participant-P29": 1,
+            "asl-citizen-participant-P31": 1,
+            "asl-citizen-participant-P37": 1,
+            "asl-citizen-participant-P40": 1,
+            "asl-citizen-participant-P41": 1,
+            "asl-citizen-participant-P50": 1,
+            "asl-citizen-participant-P51": 1,
+            "asl-citizen-participant-P52": 1,
+            "asl-citizen-participant-P7": 1
+          },
+          "signer_count": 12,
+          "signer_ids": [
+            "asl-citizen-participant-P11",
+            "asl-citizen-participant-P16",
+            "asl-citizen-participant-P27",
+            "asl-citizen-participant-P29",
+            "asl-citizen-participant-P31",
+            "asl-citizen-participant-P37",
+            "asl-citizen-participant-P40",
+            "asl-citizen-participant-P41",
+            "asl-citizen-participant-P50",
+            "asl-citizen-participant-P51",
+            "asl-citizen-participant-P52",
+            "asl-citizen-participant-P7"
+          ],
+          "source_record_count": 12
+        },
+        "validation": {
+          "clip_count": 4,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P12": 1,
+            "asl-citizen-participant-P21": 1,
+            "asl-citizen-participant-P26": 1,
+            "asl-citizen-participant-P39": 1
+          },
+          "signer_count": 4,
+          "signer_ids": [
+            "asl-citizen-participant-P12",
+            "asl-citizen-participant-P21",
+            "asl-citizen-participant-P26",
+            "asl-citizen-participant-P39"
+          ],
+          "source_record_count": 4
+        }
+      }
+    },
+    "please": {
+      "signer_disjoint_implications": {
+        "diagnostic_target": "signer_disjoint",
+        "train_test_overlap": [],
+        "train_validation_overlap": [],
+        "training_implication": "Any future training/evaluation claim for this label must be judged as signer-disjoint generalization, not signer-overlap memorization.",
+        "validation_test_overlap": []
+      },
+      "splits": {
+        "test": {
+          "clip_count": 4,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P22": 1,
+            "asl-citizen-participant-P35": 1,
+            "asl-citizen-participant-P49": 1,
+            "asl-citizen-participant-P6": 1
+          },
+          "signer_count": 4,
+          "signer_ids": [
+            "asl-citizen-participant-P22",
+            "asl-citizen-participant-P35",
+            "asl-citizen-participant-P49",
+            "asl-citizen-participant-P6"
+          ],
+          "source_record_count": 4
+        },
+        "train": {
+          "clip_count": 12,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P14": 1,
+            "asl-citizen-participant-P16": 1,
+            "asl-citizen-participant-P27": 1,
+            "asl-citizen-participant-P30": 1,
+            "asl-citizen-participant-P31": 1,
+            "asl-citizen-participant-P33": 1,
+            "asl-citizen-participant-P37": 1,
+            "asl-citizen-participant-P40": 1,
+            "asl-citizen-participant-P50": 1,
+            "asl-citizen-participant-P51": 1,
+            "asl-citizen-participant-P52": 1,
+            "asl-citizen-participant-P7": 1
+          },
+          "signer_count": 12,
+          "signer_ids": [
+            "asl-citizen-participant-P14",
+            "asl-citizen-participant-P16",
+            "asl-citizen-participant-P27",
+            "asl-citizen-participant-P30",
+            "asl-citizen-participant-P31",
+            "asl-citizen-participant-P33",
+            "asl-citizen-participant-P37",
+            "asl-citizen-participant-P40",
+            "asl-citizen-participant-P50",
+            "asl-citizen-participant-P51",
+            "asl-citizen-participant-P52",
+            "asl-citizen-participant-P7"
+          ],
+          "source_record_count": 12
+        },
+        "validation": {
+          "clip_count": 4,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P12": 1,
+            "asl-citizen-participant-P21": 1,
+            "asl-citizen-participant-P26": 1,
+            "asl-citizen-participant-P39": 1
+          },
+          "signer_count": 4,
+          "signer_ids": [
+            "asl-citizen-participant-P12",
+            "asl-citizen-participant-P21",
+            "asl-citizen-participant-P26",
+            "asl-citizen-participant-P39"
+          ],
+          "source_record_count": 4
+        }
+      }
+    },
+    "sad": {
+      "signer_disjoint_implications": {
+        "diagnostic_target": "signer_disjoint",
+        "train_test_overlap": [],
+        "train_validation_overlap": [],
+        "training_implication": "Any future training/evaluation claim for this label must be judged as signer-disjoint generalization, not signer-overlap memorization.",
+        "validation_test_overlap": []
+      },
+      "splits": {
+        "test": {
+          "clip_count": 4,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P18": 1,
+            "asl-citizen-participant-P22": 1,
+            "asl-citizen-participant-P35": 1,
+            "asl-citizen-participant-P49": 1
+          },
+          "signer_count": 4,
+          "signer_ids": [
+            "asl-citizen-participant-P18",
+            "asl-citizen-participant-P22",
+            "asl-citizen-participant-P35",
+            "asl-citizen-participant-P49"
+          ],
+          "source_record_count": 4
+        },
+        "train": {
+          "clip_count": 12,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P11": 1,
+            "asl-citizen-participant-P16": 1,
+            "asl-citizen-participant-P27": 1,
+            "asl-citizen-participant-P29": 1,
+            "asl-citizen-participant-P30": 1,
+            "asl-citizen-participant-P31": 1,
+            "asl-citizen-participant-P37": 1,
+            "asl-citizen-participant-P4": 1,
+            "asl-citizen-participant-P40": 1,
+            "asl-citizen-participant-P50": 1,
+            "asl-citizen-participant-P51": 1,
+            "asl-citizen-participant-P52": 1
+          },
+          "signer_count": 12,
+          "signer_ids": [
+            "asl-citizen-participant-P11",
+            "asl-citizen-participant-P16",
+            "asl-citizen-participant-P27",
+            "asl-citizen-participant-P29",
+            "asl-citizen-participant-P30",
+            "asl-citizen-participant-P31",
+            "asl-citizen-participant-P37",
+            "asl-citizen-participant-P4",
+            "asl-citizen-participant-P40",
+            "asl-citizen-participant-P50",
+            "asl-citizen-participant-P51",
+            "asl-citizen-participant-P52"
+          ],
+          "source_record_count": 12
+        },
+        "validation": {
+          "clip_count": 4,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P12": 1,
+            "asl-citizen-participant-P21": 1,
+            "asl-citizen-participant-P26": 1,
+            "asl-citizen-participant-P39": 1
+          },
+          "signer_count": 4,
+          "signer_ids": [
+            "asl-citizen-participant-P12",
+            "asl-citizen-participant-P21",
+            "asl-citizen-participant-P26",
+            "asl-citizen-participant-P39"
+          ],
+          "source_record_count": 4
+        }
+      }
+    },
+    "table": {
+      "signer_disjoint_implications": {
+        "diagnostic_target": "signer_disjoint",
+        "train_test_overlap": [],
+        "train_validation_overlap": [],
+        "training_implication": "Any future training/evaluation claim for this label must be judged as signer-disjoint generalization, not signer-overlap memorization.",
+        "validation_test_overlap": []
+      },
+      "splits": {
+        "test": {
+          "clip_count": 4,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P17": 1,
+            "asl-citizen-participant-P22": 1,
+            "asl-citizen-participant-P49": 1,
+            "asl-citizen-participant-P6": 1
+          },
+          "signer_count": 4,
+          "signer_ids": [
+            "asl-citizen-participant-P17",
+            "asl-citizen-participant-P22",
+            "asl-citizen-participant-P49",
+            "asl-citizen-participant-P6"
+          ],
+          "source_record_count": 4
+        },
+        "train": {
+          "clip_count": 12,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P11": 1,
+            "asl-citizen-participant-P14": 1,
+            "asl-citizen-participant-P16": 1,
+            "asl-citizen-participant-P27": 2,
+            "asl-citizen-participant-P29": 1,
+            "asl-citizen-participant-P30": 1,
+            "asl-citizen-participant-P31": 1,
+            "asl-citizen-participant-P37": 1,
+            "asl-citizen-participant-P40": 1,
+            "asl-citizen-participant-P50": 1,
+            "asl-citizen-participant-P51": 1
+          },
+          "signer_count": 11,
+          "signer_ids": [
+            "asl-citizen-participant-P11",
+            "asl-citizen-participant-P14",
+            "asl-citizen-participant-P16",
+            "asl-citizen-participant-P27",
+            "asl-citizen-participant-P29",
+            "asl-citizen-participant-P30",
+            "asl-citizen-participant-P31",
+            "asl-citizen-participant-P37",
+            "asl-citizen-participant-P40",
+            "asl-citizen-participant-P50",
+            "asl-citizen-participant-P51"
+          ],
+          "source_record_count": 12
+        },
+        "validation": {
+          "clip_count": 4,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P12": 1,
+            "asl-citizen-participant-P21": 1,
+            "asl-citizen-participant-P26": 1,
+            "asl-citizen-participant-P39": 1
+          },
+          "signer_count": 4,
+          "signer_ids": [
+            "asl-citizen-participant-P12",
+            "asl-citizen-participant-P21",
+            "asl-citizen-participant-P26",
+            "asl-citizen-participant-P39"
+          ],
+          "source_record_count": 4
+        }
+      }
+    },
+    "uncle": {
+      "signer_disjoint_implications": {
+        "diagnostic_target": "signer_disjoint",
+        "train_test_overlap": [],
+        "train_validation_overlap": [],
+        "training_implication": "Any future training/evaluation claim for this label must be judged as signer-disjoint generalization, not signer-overlap memorization.",
+        "validation_test_overlap": []
+      },
+      "splits": {
+        "test": {
+          "clip_count": 4,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P22": 1,
+            "asl-citizen-participant-P48": 1,
+            "asl-citizen-participant-P49": 1,
+            "asl-citizen-participant-P6": 1
+          },
+          "signer_count": 4,
+          "signer_ids": [
+            "asl-citizen-participant-P22",
+            "asl-citizen-participant-P48",
+            "asl-citizen-participant-P49",
+            "asl-citizen-participant-P6"
+          ],
+          "source_record_count": 4
+        },
+        "train": {
+          "clip_count": 12,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P11": 1,
+            "asl-citizen-participant-P14": 1,
+            "asl-citizen-participant-P16": 1,
+            "asl-citizen-participant-P27": 1,
+            "asl-citizen-participant-P29": 2,
+            "asl-citizen-participant-P31": 1,
+            "asl-citizen-participant-P37": 1,
+            "asl-citizen-participant-P40": 2,
+            "asl-citizen-participant-P51": 1,
+            "asl-citizen-participant-P8": 1
+          },
+          "signer_count": 10,
+          "signer_ids": [
+            "asl-citizen-participant-P11",
+            "asl-citizen-participant-P14",
+            "asl-citizen-participant-P16",
+            "asl-citizen-participant-P27",
+            "asl-citizen-participant-P29",
+            "asl-citizen-participant-P31",
+            "asl-citizen-participant-P37",
+            "asl-citizen-participant-P40",
+            "asl-citizen-participant-P51",
+            "asl-citizen-participant-P8"
+          ],
+          "source_record_count": 12
+        },
+        "validation": {
+          "clip_count": 3,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P21": 1,
+            "asl-citizen-participant-P26": 1,
+            "asl-citizen-participant-P39": 1
+          },
+          "signer_count": 3,
+          "signer_ids": [
+            "asl-citizen-participant-P21",
+            "asl-citizen-participant-P26",
+            "asl-citizen-participant-P39"
+          ],
+          "source_record_count": 3
+        }
+      }
+    },
+    "white": {
+      "signer_disjoint_implications": {
+        "diagnostic_target": "signer_disjoint",
+        "train_test_overlap": [],
+        "train_validation_overlap": [],
+        "training_implication": "Any future training/evaluation claim for this label must be judged as signer-disjoint generalization, not signer-overlap memorization.",
+        "validation_test_overlap": []
+      },
+      "splits": {
+        "test": {
+          "clip_count": 4,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P17": 1,
+            "asl-citizen-participant-P22": 1,
+            "asl-citizen-participant-P49": 1,
+            "asl-citizen-participant-P6": 1
+          },
+          "signer_count": 4,
+          "signer_ids": [
+            "asl-citizen-participant-P17",
+            "asl-citizen-participant-P22",
+            "asl-citizen-participant-P49",
+            "asl-citizen-participant-P6"
+          ],
+          "source_record_count": 4
+        },
+        "train": {
+          "clip_count": 12,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P11": 1,
+            "asl-citizen-participant-P14": 1,
+            "asl-citizen-participant-P16": 1,
+            "asl-citizen-participant-P23": 1,
+            "asl-citizen-participant-P27": 1,
+            "asl-citizen-participant-P29": 1,
+            "asl-citizen-participant-P31": 2,
+            "asl-citizen-participant-P37": 1,
+            "asl-citizen-participant-P40": 1,
+            "asl-citizen-participant-P43": 1,
+            "asl-citizen-participant-P50": 1
+          },
+          "signer_count": 11,
+          "signer_ids": [
+            "asl-citizen-participant-P11",
+            "asl-citizen-participant-P14",
+            "asl-citizen-participant-P16",
+            "asl-citizen-participant-P23",
+            "asl-citizen-participant-P27",
+            "asl-citizen-participant-P29",
+            "asl-citizen-participant-P31",
+            "asl-citizen-participant-P37",
+            "asl-citizen-participant-P40",
+            "asl-citizen-participant-P43",
+            "asl-citizen-participant-P50"
+          ],
+          "source_record_count": 12
+        },
+        "validation": {
+          "clip_count": 4,
+          "signer_clip_counts": {
+            "asl-citizen-participant-P21": 1,
+            "asl-citizen-participant-P26": 2,
+            "asl-citizen-participant-P5": 1
+          },
+          "signer_count": 3,
+          "signer_ids": [
+            "asl-citizen-participant-P21",
+            "asl-citizen-participant-P26",
+            "asl-citizen-participant-P5"
+          ],
+          "source_record_count": 4
+        }
+      }
+    }
+  },
+  "prior_evidence": {
+    "m3aw": {
+      "prediction_sidecar_threshold": 0.23,
+      "receipt_status": "completed_smoke_target_failed",
+      "test_macro_f1": 0.09166666666666666,
+      "test_top1_accuracy": 0.17857142857142858,
+      "validation_macro_f1": 0.015037593984962407,
+      "validation_top1_accuracy": 0.037037037037037035
+    },
+    "m3ax": {
+      "receipt_status": "tiny_overfit_succeeded",
+      "tiny_subset_accuracy": 1.0,
+      "tiny_subset_zero_recall_labels": []
+    },
+    "m3ay": {
+      "receipt_status": "completed",
+      "test_labels_never_predicted": [
+        "please",
+        "sad",
+        "table",
+        "white"
+      ],
+      "validation_labels_never_predicted": [
+        "please",
+        "sad",
+        "table",
+        "white"
+      ]
+    },
+    "m3az": {
+      "receipt_status": "completed",
+      "selected_remediation_lane": "split_signer_contract"
+    },
+    "m3ba": {
+      "generalization_target": "signer_disjoint",
+      "receipt_status": "completed"
+    },
+    "m3bb": {
+      "receipt_status": "completed",
+      "selected_next_action": "continue_no_training_vocab_subset_contract_scaffold",
+      "training_worthy_subset_identified": false
+    }
+  },
+  "schema_version": "asl-pilot-vocab-subset-contract/v1",
+  "status": "completed",
+  "stop_conditions_requiring_human_approval": [
+    "Stop before any Brev login, worker inspection, worker lifecycle action, or paid compute unless a bounded compute-receipt prompt is active and human approval is current.",
+    "Stop before any training run, model fitting, optimizer/backward pass, checkpoint creation, sweep, export, browser activation, final-readiness claim, or final-gate change.",
+    "Stop before any source import, source-approval expansion, generated pseudo-labels, manual labels, manual data collection, manual annotation, or manifest/tensor mutation.",
+    "Stop before Detector 0, landmark, broad-label, product-runtime, or browser model changes.",
+    "Stop if a future data-quality or label-repair contract requires new source approval, manual review, or data changes from outside existing artifacts."
+  ]
+}

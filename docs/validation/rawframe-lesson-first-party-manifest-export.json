@@ -1,0 +1,96 @@
+{
+  "schema_version": "asl-pilot-rawframe-lesson-first-party-manifest-export/v1",
+  "status": "blocked_lesson_collection_not_export_ready",
+  "generated_at": "2026-05-21T16:30:04.172Z",
+  "generated_by": {
+    "tool": "node",
+    "command": [
+      "/opt/homebrew/Cellar/node/25.5.0/bin/node",
+      "/Users/kelly/Developer/asl-pilot/scripts/export_rawframe_lesson_first_party_manifests.mjs",
+      "--write"
+    ],
+    "script": {
+      "path": "scripts/export_rawframe_lesson_first_party_manifests.mjs",
+      "exists": true,
+      "sha256": "cb788b153b5b7fe833821084478c028c2dbdde3a005fcf0be599061913eb2d2c"
+    }
+  },
+  "final_model_evidence": false,
+  "decision_boundary": {
+    "changes_store": false,
+    "approves_source": false,
+    "final_model_evidence": false,
+    "writes_manifests_only_when_readiness_is_green": true
+  },
+  "inputs": {
+    "lesson_collection_packet": {
+      "path": "docs/validation/rawframe-lesson-collection-packet.json",
+      "exists": true,
+      "sha256": "3e542cafa951537586388ce343b57a7b3b7af2afcb954741440cd5f2881b41b7"
+    },
+    "lesson_collection_readiness": {
+      "path": "docs/validation/rawframe-lesson-collection-readiness.json",
+      "exists": true,
+      "sha256": "8e64cc746101e3cc8b288388dc1086a77c8ce492836f95c632212a6bcec4f7ab"
+    },
+    "store": {
+      "path": "data/asl-pilot-store.json",
+      "exists": false,
+      "sha256": null
+    }
+  },
+  "blockers": [
+    "lesson collection readiness is not export-ready: blocked_missing_first_party_store",
+    "data/asl-pilot-store.json is absent; no first-party browser-domain lesson clips have been collected",
+    "600 lesson packet assignment(s) still need approved first-party clips before lesson manifest export",
+    "data/asl-pilot-store.json is absent; no first-party lesson manifests can be exported"
+  ],
+  "required_ready_status": "ready_for_lesson_manifest_export",
+  "expected_assignments": {
+    "total": 600,
+    "by_role": {
+      "target": 375,
+      "near_confusable": 150,
+      "current_app_hard_negative": 75
+    },
+    "by_split": {
+      "train": 175,
+      "validation": 175,
+      "test": 175,
+      "negative_challenge": 75
+    },
+    "by_challenge_type": {
+      "casual_non_asl_gesture": 5,
+      "counting": 5,
+      "empty_camera": 5,
+      "fingerspelling_like_motion": 5,
+      "hands_cropped_out": 5,
+      "idle_hands": 5,
+      "low_light": 5,
+      "no_hands_visible": 5,
+      "non_target_asl_sign": 5,
+      "off_center": 5,
+      "partial_sign": 5,
+      "thumbs_up": 5,
+      "waving": 5,
+      "wrong_location": 5,
+      "wrong_palm_orientation": 5
+    },
+    "label_count": 35
+  },
+  "observed_assignments": {
+    "consented_assignment_count": 0,
+    "approved_assignment_count": 0,
+    "consented_by_role": {},
+    "approved_by_role": {},
+    "consented_by_split": {},
+    "approved_by_split": {},
+    "consented_by_challenge_type": {},
+    "approved_by_challenge_type": {},
+    "pending_review_assignment_count": 0,
+    "rejected_assignment_count": 0,
+    "unexpected_assignment_count": 0
+  },
+  "output_dir": "data/manifests/lesson/rawframe-milestone",
+  "manifest_export": null
+}

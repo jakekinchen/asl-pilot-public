@@ -1,0 +1,102 @@
+{
+  "schema_version": "asl-pilot-m3jb-recognizer-transformer-run6-monitor-selection-stability-preflight/v1",
+  "mission": "Mission 3JB - Hierarchical hand-state tracker",
+  "active_prompt": "docs/model/return-to-form-m3jb-hierarchical-hand-state-tracker-goal-loop-prompt.md",
+  "slice": "m3jb_recognizer_transformer_run6_monitor_selection_stability_preflight_no_brev",
+  "recorded_at_utc": "2026-06-04T09:45:51Z",
+  "head_before_slice": "68c81684b361 record(m3jb): research post ovr bce calibration",
+  "status": "completed_fail_closed_artifact_insufficient_for_selector_test_transfer",
+  "source_of_truth": {
+    "previous_research_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-post-ovr-bce-calibration-safe-research-v1.json",
+    "run6_fulltrain_receipt": "docs/validation/return-to-form-m3jb-recognizer-transformer-fulltrain-run6-verifselect-brev-v1.json",
+    "run6_fulltrain_receipt_sha256": "b22b628802247aec2ac008ca659b1eafe9e711258045a1cb1b081d57036286d6",
+    "active_next_action_before_slice": "m3jb_recognizer_transformer_run6_monitor_selection_stability_preflight_no_brev",
+    "side_worktree_commit": "4b9c9325602f"
+  },
+  "execution": {
+    "diagnostic_command": "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/diagnose_verification_margins.py --diagnostic-kind run6_monitor_selection_stability_preflight --artifact run6=tools/detector0-annotator/output/m3jb-recognizer-transformer-run6-t32-verifselect-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.json --out tools/detector0-annotator/output/m3jb-recognizer-run6-monitor-selection-stability-preflight-v1.json",
+    "diagnostic_kind": "run6_monitor_selection_stability_preflight",
+    "selector_epsilon": 0.005,
+    "selector_window": 5,
+    "brev_used": false,
+    "training_run": false,
+    "checkpoint_written": false
+  },
+  "detailed_receipt": {
+    "path": "docs/validation/m3jb-recognizer-run6-monitor-selection-stability-preflight-v1.json",
+    "sha256": "812136a438d4099374da8c7fb45109928e667de9d153dfaa9097af49f786ffae",
+    "schema_version": "asl-pilot-m3jb-recognizer-run6-monitor-selection-stability-preflight/v1",
+    "status": "completed_fail_closed_artifact_insufficient_for_selector_test_transfer"
+  },
+  "run6_result": {
+    "reported_test_top1": 0.287,
+    "reported_test_top5": 0.6399,
+    "reported_test_verification_recall_at_far10": 0.8039,
+    "monitor_history_rows": 240,
+    "best_monitor_epoch": 14,
+    "best_monitor_verification_recall_far10": 0.8169,
+    "final_epoch": 239,
+    "final_monitor_verification_recall_far10": 0.7835,
+    "selected_minus_final_monitor_verification_recall_far10": 0.0334,
+    "selected_checkpoint_exists": true,
+    "selected_checkpoint_sha256": "889fd3220960c8a6fd33bd9b44c34bb47a356588498a060386db04f1b7767ba3",
+    "alternate_epoch_checkpoint_count": 0,
+    "per_epoch_logits_count": 0
+  },
+  "selector_transfer_preflight": {
+    "current_checkpoint_selection_reconstructed": true,
+    "selectors_checked": [
+      "argmax_monitor_verification",
+      "earliest_within_0_005_of_best_monitor_verification",
+      "latest_within_0_005_of_best_monitor_verification",
+      "trailing_mean_5_monitor_verification",
+      "trailing_median_5_monitor_verification"
+    ],
+    "unique_candidate_epochs": [
+      14,
+      31
+    ],
+    "alternate_selector_epochs": [
+      31
+    ],
+    "blocked_candidate_epochs": [
+      31,
+      31
+    ],
+    "all_candidates_test_evaluable": false,
+    "artifact_insufficiency_reason": "Only the selected run6 checkpoint is retained. The scalar monitor history identifies epoch 31 as the best trailing-mean/trailing-median selector candidate, but no epoch-31 checkpoint or per-epoch logits exist to score held-out test transfer."
+  },
+  "decision": {
+    "monitor_only_stability_preflight_completed": true,
+    "robust_selector_test_transfer_evaluable": false,
+    "paid_recipe_selected": false,
+    "future_paid_recipe_ready": false,
+    "browser_or_runtime_promotion_allowed": false,
+    "next_action": {
+      "token": "m3jb_recognizer_transformer_candidate_checkpoint_retention_preflight_no_brev",
+      "reason": "Add or preflight retained candidate-checkpoint/logit support before any future paid recipe relies on robust monitor-only checkpoint selection."
+    }
+  },
+  "boundaries": {
+    "brev_used": false,
+    "brev_lifecycle_or_exec": false,
+    "remote_mutation": false,
+    "training_run": false,
+    "optimizer_or_backward_step": false,
+    "checkpoint_written": false,
+    "runtime_export": false,
+    "browser_promotion": false,
+    "raw_learner_video_upload": false,
+    "pretrained_runtime_dependency_added": false,
+    "final_gate_changed": false
+  },
+  "validation": {
+    "side_test_red_then_green": true,
+    "commands": [
+      "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/test_verification_tail_audit.py",
+      "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python -m py_compile tools/detector0-annotator/diagnose_verification_margins.py tools/detector0-annotator/test_verification_tail_audit.py",
+      "PYTHONDONTWRITEBYTECODE=1 /Users/kelly/Developer/asl-pilot/.venv/bin/python tools/detector0-annotator/diagnose_verification_margins.py --diagnostic-kind run6_monitor_selection_stability_preflight --artifact run6=tools/detector0-annotator/output/m3jb-recognizer-transformer-run6-t32-verifselect-fulltrain-e240-b128-lr5e4-warm500-cosine-min5e5-brev-v1.json --out tools/detector0-annotator/output/m3jb-recognizer-run6-monitor-selection-stability-preflight-v1.json",
+      "/Users/kelly/Developer/asl-pilot/.venv/bin/python -m json.tool docs/validation/m3jb-recognizer-run6-monitor-selection-stability-preflight-v1.json"
+    ]
+  }
+}
