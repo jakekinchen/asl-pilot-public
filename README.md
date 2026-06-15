@@ -99,9 +99,9 @@ production deploy receipt under `docs/validation/`.
 `-- data/               Local manifests and source metadata; raw source data is ignored
 ```
 
-The public GitHub release should be cut from a cleaned snapshot. It should not
-publish local `.env*` files, private keys, raw datasets, heavyweight training
-artifacts, or internal session logs.
+The public GitHub release is cut from a cleaned snapshot. It does not publish
+local `.env*` files, private keys, raw datasets, heavyweight training artifacts,
+or internal session logs.
 
 ## Run Locally
 
@@ -167,4 +167,3 @@ show the sign reference video, not the older text-only description card.
   parallel audit system.
 - Do not hand-edit `web/public/model/model-card.json`; use the promotion script
   after a qualified model is ready.
-
